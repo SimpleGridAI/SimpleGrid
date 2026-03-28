@@ -1,5 +1,11 @@
 User-agent: *
 Allow: /
-Disallow:
+Disallow: /react-backup/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
 
 Sitemap: https://simplegrid.ai/sitemap.xml
