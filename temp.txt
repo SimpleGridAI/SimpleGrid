@@ -1,0 +1,4 @@
+favion
+ld  + json
+og meta tags
+h1 h2 h3
