@@ -5,13 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page Not Found — SimpleGrid</title>
   <meta name="robots" content="noindex">
+  <meta name="description" content="Page not found — SimpleGrid. The page you're looking for doesn't exist. Return to SimpleGrid's AI-powered operations platform.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Page Not Found — SimpleGrid">
+  <meta property="og:description" content="Page not found — SimpleGrid. The page you're looking for doesn't exist. Return to SimpleGrid's AI-powered operations platform.">
+  <meta property="og:url" content="https://simplegrid.ai/404">
+  <meta property="og:site_name" content="SimpleGrid">
+  <meta property="og:image" content="images/og-image.png">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Page Not Found — SimpleGrid">
+  <meta name="twitter:description" content="Page not found — SimpleGrid. The page you're looking for doesn't exist. Return to SimpleGrid's AI-powered operations platform.">
+  <meta name="twitter:image" content="images/og-image.png">
+
   <link rel="icon" href="images/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="css/style.css" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 
@@ -20,12 +39,26 @@
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+  <main id="main-content">
   <div class="page-404">
     <div>
       <h1>404</h1>
       <p>This page doesn't exist.</p>
-      <a href="/">Back to SimpleGrid</a>
+      <a href="/" aria-label="Return to homepage">Back to SimpleGrid</a>
     </div>
   </div>
+  </main>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://simplegrid.ai/"},
+      {"@type": "ListItem", "position": 2, "name": "Page Not Found"}
+    ]
+  }
+  </script>
 </body>
 </html>

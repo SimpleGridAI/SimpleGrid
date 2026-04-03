@@ -4,14 +4,16 @@
 User-agent: *
 Allow: /
 Disallow: /react-backup/
+Disallow: /logos/
 
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /images/
 
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 1
 
 User-agent: Slurp
 Allow: /
@@ -38,6 +40,12 @@ User-agent: WhatsApp
 Allow: /
 
 User-agent: Applebot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: PinterestBot
 Allow: /
 
 Sitemap: https://simplegrid.ai/sitemap.xml

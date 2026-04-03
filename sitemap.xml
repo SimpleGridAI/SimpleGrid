@@ -5,46 +5,47 @@
   <url>
     <loc>https://simplegrid.ai/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://simplegrid.ai/"/>
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://simplegrid.ai/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://simplegrid.ai/"/>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://simplegrid.ai/images/og-image.png</image:loc>
       <image:title>SimpleGrid — AI-Powered Operations Platform for Physical Businesses</image:title>
-      <image:caption>SimpleGrid (Simple Grid AI) — the intelligent ERP alternative for factories, export houses, D2C brands, and warehouses</image:caption>
+      <image:caption>SimpleGrid (Simple Grid AI) — AI-powered operations platform for factories, export houses, D2C brands, and warehouses</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://simplegrid.ai/images/simplegrid-logo.svg</image:loc>
       <image:title>SimpleGrid Logo</image:title>
-      <image:caption>SimpleGrid (Simple Grid AI) company logo</image:caption>
+      <image:caption>SimpleGrid (Simple Grid AI) company logo — grid icon with text</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://simplegrid.ai/images/favicon-512x512.png</image:loc>
+      <image:title>SimpleGrid Icon</image:title>
+      <image:caption>SimpleGrid (Simple Grid) app icon — 3x3 grid</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://simplegrid.ai/hiring.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://simplegrid.ai/hiring.html"/>
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://simplegrid.ai/hiring.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://simplegrid.ai/hiring.html"/>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://simplegrid.ai/privacy.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://simplegrid.ai/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://simplegrid.ai/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://simplegrid.ai/privacy.html"/>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://simplegrid.ai/terms.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://simplegrid.ai/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://simplegrid.ai/terms.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://simplegrid.ai/terms.html"/>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
