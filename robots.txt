@@ -49,3 +49,4 @@ User-agent: PinterestBot
 Allow: /
 
 Sitemap: https://simplegrid.ai/sitemap.xml
+
