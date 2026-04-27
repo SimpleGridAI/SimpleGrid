@@ -429,7 +429,7 @@ function ProblemSection() {
           <div className="tag">THE PROBLEM</div>
           <h2 className="h2">Your enterprise runs differently from every other enterprise.</h2>
         </Reveal>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:20,marginTop:32}} ref={chatRef}>
+        <div className="problem-grid" style={{marginTop:32}} ref={chatRef}>
           {problems.map((p,i) => (
             <Reveal key={p.n} delay={i * 100}>
               <div style={{background:'#fff',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:24,height:'100%'}}>
@@ -438,7 +438,7 @@ function ProblemSection() {
                   <h3 style={{fontFamily:'var(--font-heading)',fontSize:17,fontWeight:700,color:'var(--fg1)',margin:0,letterSpacing:'-0.01em',lineHeight:1.3}}>{p.t}</h3>
                 </div>
                 <p style={{fontSize:13,color:'var(--fg2)',lineHeight:1.5,margin:'0 0 14px'}}>{p.b}</p>
-                <div style={{background:'var(--sg-off-white)',border:'1px solid var(--border)',borderRadius:'var(--radius-md)',padding:20,height:240,display:'flex',alignItems:'center',justifyContent:'center'}}>
+                <div className={'problem-visual' + (p.isChatDemo ? ' problem-visual-chat' : ' problem-visual-svg')}>
                   {p.isChatDemo ? (
                     <div style={{width:'100%',fontFamily:'var(--font-mono)',fontSize:14,lineHeight:1.8}}>
                       <div style={{color:'var(--fg3)',fontSize:11,marginBottom:10,fontFamily:'var(--font-body)',fontWeight:600,letterSpacing:'0.08em',textTransform:'uppercase'}}>Warehouse manager types:</div>
