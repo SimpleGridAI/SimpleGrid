@@ -42,7 +42,7 @@ function Footer() {
       <div className="container">
         <div className="footer-top">
           <div>
-            <img src="assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid" className="footer-logo" />
+            <img src="assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid" className="footer-logo" width="160" height="32" />
             <p className="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p>
 
             {/* Trusted partner badges */}
@@ -56,7 +56,7 @@ function Footer() {
                   padding: '8px 14px', borderRadius: 10, border: '1px solid var(--border)',
                   background: '#fff', textDecoration: 'none', height: 56, boxSizing: 'border-box',
                 }}>
-                  <img src="assets/nvidia-inception.png" alt="NVIDIA Inception Program" style={{ height: 38, width: 'auto', display: 'block' }} />
+                  <img src="assets/nvidia-inception.png" alt="NVIDIA Inception Program member" width="120" height="38" style={{ display: 'block' }} />
                 </a>
                 <a href="https://aws.amazon.com/startups/" target="_blank" rel="noopener" title="AWS Startups partner" style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10,

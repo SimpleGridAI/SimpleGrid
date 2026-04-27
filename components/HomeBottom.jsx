@@ -146,8 +146,8 @@ function ProofSection() {
         </Reveal>
         <div className="proof-grid">
           {[
-            { kind: 'image', img: 'url(assets/elite-factory.jpeg) center/cover', name: 'Elite Arts & Crafts', desc: 'Furniture exporter. 600–800 employees. ~1M sqft. Excel + group chats → live ERP.', stats: '64 tracked · 72 triggers · 21 days', quote: '"SimpleGrid feels like our system. My stores manager was comfortable on day one."', attr: '- Chirag, Founder', link: 'case-elite.html' },
-            { kind: 'apparel', name: 'Apex Apparel', desc: 'Apparel manufacturer · 80–100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.', stats: '34 tracked · 44 triggers · 12 days', quote: '"Working demo in 24 hours - 60–70% accurate. No vendor has ever done that."', attr: '- Founder, Apex Apparel (confidential)', link: 'case-apex.html' },
+            { kind: 'image', img: 'url(assets/elite-factory.jpeg) center/cover', name: 'Elite Arts & Crafts', desc: 'Furniture exporter. 600–800 employees. ~1M sqft. Excel + group chats → live ERP.', stats: '64 tracked · 72 triggers · 21 days', quote: '"SimpleGrid feels like our system. My stores manager was comfortable on day one."', attr: '- Chirag, Founder', link: 'case-elite.html', anchor: 'How Elite deployed in 21 days' },
+            { kind: 'apparel', name: 'Apex Apparel', desc: 'Apparel manufacturer · 80–100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.', stats: '34 tracked · 44 triggers · 12 days', quote: '"Working demo in 24 hours - 60–70% accurate. No vendor has ever done that."', attr: '- Founder, Apex Apparel (confidential)', link: 'case-apex.html', anchor: 'How Apex went live in 12 days' },
           ].map((c,i) => (
             <Reveal key={i} delay={i * 150}>
               <div className="proof-card" style={{height:'100%'}}>
@@ -167,7 +167,7 @@ function ProofSection() {
                   <p>{c.desc}</p>
                   <div className="proof-stats">{c.stats}</div>
                   <div className="proof-quote">{c.quote}<div className="proof-attr">{c.attr}</div></div>
-                  <a href={c.link} className="btn btn-ghost btn-sm" style={{paddingLeft:0}}>Full case study →</a>
+                  <a href={c.link} className="btn btn-ghost btn-sm" style={{paddingLeft:0}}>{c.anchor} →</a>
                 </div>
               </div>
             </Reveal>
@@ -340,7 +340,7 @@ function FinalCTA() {
         <Reveal>
           <h2 className="h2">Deploy in days. Decide in 30.</h2>
           <p className="sub">We build it at our cost. You run it with your team. Doesn't work? Walk away.</p>
-          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener" className="btn btn-lg btn-primary">Book a call - it's free</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener" className="btn btn-lg btn-primary">Book a call</a>
           <p className="note">No commitment. Migration included. Founder-led onboarding.</p>
         </Reveal>
       </div>

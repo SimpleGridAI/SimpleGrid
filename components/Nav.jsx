@@ -46,7 +46,7 @@ function Nav({ page = 'home', onLoginClick }) {
     <header className="nav">
       <div className="nav-inner">
         <a className="nav-logo" href="index.html">
-          <img src="assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid" />
+          <img src="assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid" width="160" height="32" />
         </a>
         <nav className="nav-links">
           {links.map(l => (

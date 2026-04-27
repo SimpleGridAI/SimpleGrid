@@ -1,11 +1,19 @@
 function RadialBurst() {
+  // Visual spec (strict):
+  //   - Background: radial gradient #D6E4FF (inner, bottom-center) → #FFFFFF (outer)
+  //   - 100 thin lines (1–1.5px) radiating from bottom-center in upper 180° arc
+  //   - All lines blue: lerp from #2956C4 (deep) to #4A7BF7 (SimpleGrid blue)
+  //   - Per-line opacity 30–80%, with shorter lines more opaque, longer more transparent
+  //   - Tip nodes 2–4px, #2956C4 at 60–90% opacity
+  //   - Animation: subtle "breathing" — opacity oscillates over a 4–8s period
+  //   - No particles, no fireworks, no orange/purple/yellow
+  //   - <5% CPU, requestAnimationFrame
   const canvasRef = React.useRef(null);
   React.useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    let animFrame, lines = [], particles = [], resizeTimeout;
-    let mouseX = -9999, mouseY = -9999;
+    let animFrame, resizeTimeout;
     const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
 
     const resize = () => {
@@ -17,153 +25,82 @@ function RadialBurst() {
       ctx.setTransform(dpr(), 0, 0, dpr(), 0, 0);
     };
     resize();
-    const onResize = () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(resize, 150); };
-    const onMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    };
-    const onLeave = () => { mouseX = -9999; mouseY = -9999; };
-    window.addEventListener('resize', onResize);
-    const parent = canvas.parentElement;
-    parent.addEventListener('mousemove', onMove);
-    parent.addEventListener('mouseleave', onLeave);
 
     const W = () => canvas.width / dpr();
     const H = () => canvas.height / dpr();
 
-    // ----- Radial rays -----
-    const spawnRay = (preExisting) => {
-      const a = -Math.PI + Math.random() * Math.PI;
-      const maxLen = 280 + Math.random() * 360;
-      const speed = 0.35 + Math.random() * 0.45;
-      const v = Math.random();
-      let hue, sat, light;
-      if (v < 0.12) { hue = 220; sat = 14; light = 38; }
-      else if (v < 0.25) { hue = 218; sat = 32; light = 60; }
-      else { hue = 215 + Math.random() * 18; sat = 60 + Math.random() * 18; light = 70 + Math.random() * 8; }
-      lines.push({
-        a,
-        len: preExisting ? Math.random() * maxLen : 0,
-        maxLen, speed, hue, sat, light,
-        life: preExisting ? 0.55 + Math.random() * 0.45 : 1,
-      });
+    // Build the static line set once (and re-seed on resize)
+    let lines = [];
+    const seed = () => {
+      lines = [];
+      const COUNT = 100;
+      for (let i = 0; i < COUNT; i++) {
+        // Angle in upper 180° arc: -π (left) to 0 (right), with -π/2 = straight up
+        const a = -Math.PI + Math.random() * Math.PI;
+        // Length: 40–90% of canvas height
+        const lenRatio = 0.4 + Math.random() * 0.5;
+        // tone 0 = deep blue #2956C4, 1 = SimpleGrid blue #4A7BF7
+        const tone = Math.random();
+        // shorter lines are more opaque (depth effect)
+        const baseAlpha = 0.8 - (lenRatio - 0.4) * 0.5 / 0.5 * 0.5; // ~0.3–0.8
+        // breathing phase + frequency (period 4–8s @ 60fps)
+        const phase = Math.random() * Math.PI * 2;
+        const period = 4 + Math.random() * 4; // seconds
+        const freq = (Math.PI * 2) / (period * 60);
+        const lw = 1 + Math.random() * 0.5;
+        const nodeSize = 2 + Math.random() * 2;
+        lines.push({ a, lenRatio, tone, baseAlpha, phase, freq, lw, nodeSize });
+      }
     };
+    seed();
 
-    // ----- Ambient floating particles (depth + life) -----
-    const spawnParticle = (preExisting) => {
-      const v = Math.random();
-      let hue, sat, light;
-      if (v < 0.18) { hue = 280 + Math.random() * 22; sat = 70; light = 70; }
-      else { hue = 210 + Math.random() * 22; sat = 70; light = 74; }
-      particles.push({
-        x: Math.random() * W(),
-        y: preExisting ? Math.random() * H() : H() + 20,
-        size: 0.6 + Math.random() * 2.0,
-        hue, sat, light,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: -(0.20 + Math.random() * 0.45),
-        age: preExisting ? Math.random() * 200 : 0,
-        maxAge: 320 + Math.random() * 280,
-      });
+    const onResize = () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { resize(); }, 150); };
+    window.addEventListener('resize', onResize);
+
+    // #2956C4 = (41, 86, 196), #4A7BF7 = (74, 123, 247)
+    const lineRGBA = (tone, alpha) => {
+      const r = Math.round(41 + (74 - 41) * tone);
+      const g = Math.round(86 + (123 - 86) * tone);
+      const b = Math.round(196 + (247 - 196) * tone);
+      return `rgba(${r},${g},${b},${alpha})`;
     };
-
-    for (let i = 0; i < 200; i++) spawnRay(true);
-    for (let i = 0; i < 90; i++) spawnParticle(true);
 
     let frame = 0;
     const draw = () => {
       const w = W(), h = H();
-      const cx = w / 2, cy = h + 6;
+      const cx = w / 2;
+      const cy = h + 4; // origin slightly off the bottom edge so the seed point is hidden
+      ctx.clearRect(0, 0, w, h);
 
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.030)';
-      ctx.fillRect(0, 0, w, h);
-      ctx.globalCompositeOperation = 'source-over';
-      frame++;
-
-      if (frame % 2 === 0 && Math.random() < 0.85) spawnRay(false);
-      if (frame % 4 === 0 && Math.random() < 0.7) spawnParticle(false);
-
-      // ----- Rays -----
       lines.forEach(l => {
-        if (l.len < l.maxLen) l.len = Math.min(l.len + l.speed, l.maxLen);
-        else l.life -= 0.0035;
-        const x = cx + Math.cos(l.a) * l.len;
-        const y = cy + Math.sin(l.a) * l.len;
-        const alpha = Math.max(0, l.life);
+        // Subtle breathing: 0.85–1.0 multiplier
+        const breath = 0.92 + 0.08 * Math.sin(frame * l.freq + l.phase);
+        const alpha = l.baseAlpha * breath;
+        const len = h * l.lenRatio;
+        const x = cx + Math.cos(l.a) * len;
+        const y = cy + Math.sin(l.a) * len;
+
+        // Line: gradient from origin (transparent) → tip (full color)
         const g = ctx.createLinearGradient(cx, cy, x, y);
-        g.addColorStop(0, `hsla(${l.hue}, ${l.sat}%, ${l.light}%, 0)`);
-        g.addColorStop(0.55, `hsla(${l.hue}, ${l.sat}%, ${l.light}%, ${0.10 * alpha})`);
-        g.addColorStop(1, `hsla(${l.hue}, ${l.sat}%, ${l.light}%, ${0.36 * alpha})`);
+        g.addColorStop(0, lineRGBA(l.tone, 0));
+        g.addColorStop(0.5, lineRGBA(l.tone, alpha * 0.45));
+        g.addColorStop(1, lineRGBA(l.tone, alpha));
         ctx.strokeStyle = g;
-        ctx.lineWidth = 0.6;
+        ctx.lineWidth = l.lw;
         ctx.beginPath();
         ctx.moveTo(cx, cy);
         ctx.lineTo(x, y);
         ctx.stroke();
-        if (l.len >= l.maxLen) {
-          // Halo
-          ctx.fillStyle = `hsla(${l.hue}, ${l.sat}%, ${l.light}%, ${alpha * 0.18})`;
-          ctx.beginPath();
-          ctx.arc(x, y, 3.6, 0, Math.PI * 2);
-          ctx.fill();
-          // Core
-          ctx.fillStyle = `hsla(${l.hue}, ${l.sat}%, ${l.light}%, ${alpha * 0.78})`;
-          ctx.beginPath();
-          ctx.arc(x, y, 1.3, 0, Math.PI * 2);
-          ctx.fill();
-        }
+
+        // Tip node: deep blue #2956C4 at 60–90% (driven by same breath)
+        const nodeAlpha = 0.6 + 0.3 * breath;
+        ctx.fillStyle = `rgba(41,86,196,${nodeAlpha})`;
+        ctx.beginPath();
+        ctx.arc(x, y, l.nodeSize, 0, Math.PI * 2);
+        ctx.fill();
       });
-      lines = lines.filter(l => l.life > 0);
-      if (lines.length > 420) lines = lines.slice(-420);
 
-      // ----- Ambient particles -----
-      particles.forEach(p => {
-        p.age++;
-        let lifeAlpha;
-        if (p.age < 60) lifeAlpha = p.age / 60;
-        else if (p.age > p.maxAge - 80) lifeAlpha = Math.max(0, (p.maxAge - p.age) / 80);
-        else lifeAlpha = 1;
-
-        // Mouse repulsion (gentle)
-        if (mouseX > -500) {
-          const dx = p.x - mouseX, dy = p.y - mouseY;
-          const distSq = dx*dx + dy*dy;
-          if (distSq < 16900 && distSq > 1) {
-            const dist = Math.sqrt(distSq);
-            const f = (130 - dist) / 130;
-            p.vx += (dx / dist) * f * 0.35;
-            p.vy += (dy / dist) * f * 0.35;
-          }
-        }
-
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vx *= 0.96;
-        p.vy = p.vy * 0.96 + (-(0.18 + Math.random() * 0.06)) * 0.05;
-
-        let edgeAlpha = 1;
-        if (p.y < 90) edgeAlpha = Math.max(0, p.y / 90);
-        if (p.x < 30) edgeAlpha *= Math.max(0, p.x / 30);
-        else if (p.x > w - 30) edgeAlpha *= Math.max(0, (w - p.x) / 30);
-
-        const a = lifeAlpha * edgeAlpha;
-        if (a > 0.01) {
-          // Halo
-          ctx.fillStyle = `hsla(${p.hue}, ${p.sat}%, ${p.light}%, ${a * 0.18})`;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size * 2.6, 0, Math.PI * 2);
-          ctx.fill();
-          // Core
-          ctx.fillStyle = `hsla(${p.hue}, ${p.sat}%, ${p.light}%, ${a * 0.72})`;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      });
-      particles = particles.filter(p => p.age < p.maxAge && p.y > -30);
-
+      frame++;
       animFrame = requestAnimationFrame(draw);
     };
     draw();
@@ -171,13 +108,30 @@ function RadialBurst() {
     return () => {
       cancelAnimationFrame(animFrame);
       window.removeEventListener('resize', onResize);
-      parent.removeEventListener('mousemove', onMove);
-      parent.removeEventListener('mouseleave', onLeave);
     };
   }, []);
-  const mask = 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.08) 25%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,1) 85%)';
+
+  // Fade burst at top so it stays subtly behind hero copy
+  const mask = 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 25%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,1) 80%)';
   return (
-    <canvas ref={canvasRef} style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',zIndex:0,maskImage:mask,WebkitMaskImage:mask}} />
+    <div style={{
+      position: 'absolute',
+      inset: 0,
+      pointerEvents: 'none',
+      zIndex: 0,
+      // Soft blue radial gradient: #D6E4FF at bottom-center → #FFFFFF outer
+      background: 'radial-gradient(ellipse 85% 65% at 50% 100%, #D6E4FF 0%, rgba(214,228,255,0.55) 35%, #FFFFFF 70%)',
+    }}>
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: 'absolute', inset: 0,
+          width: '100%', height: '100%',
+          maskImage: mask,
+          WebkitMaskImage: mask,
+        }}
+      />
+    </div>
   );
 }
 window.RadialBurst = RadialBurst;
