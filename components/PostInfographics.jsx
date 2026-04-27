@@ -684,8 +684,8 @@
       }
       return () => clearTimeout(t);
     }, [count, visible]);
-    const visible = layers.slice(0, count);
-    const totalPct = visible.reduce((s, l) => s + l.pct, 0);
+    const visibleLayers = layers.slice(0, count);
+    const totalPct = visibleLayers.reduce((s, l) => s + l.pct, 0);
     const sellingPrice = 100;
     const cost = totalPct;
     const margin = sellingPrice - cost;
