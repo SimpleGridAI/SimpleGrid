@@ -44,10 +44,10 @@ function CaseStudiesPage() {
         <div className="tag">CASE STUDIES</div>
         <h2 className="h2">Two we can talk about.</h2>
         <p className="section-lead">The deployments below are the two our partners have agreed to share publicly. We will add more case studies here as new partners come on board and give us permission to share. Real operations. Real data. Real floor staff using the system every day.</p>
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:24,marginTop:32}}>
+        <div className="case-list">
 
-          <a href="case-elite.html" className="proof-card" style={{textDecoration:'none',color:'inherit',transition:'all 160ms var(--ease-standard)'}}>
-            <div className="proof-photo" style={{height:220,background:'url(assets/elite-factory.jpeg) center/cover',position:'relative'}}>
+          <a href="case-elite.html" className="proof-card case-row" style={{textDecoration:'none',color:'inherit',transition:'all 160ms var(--ease-standard)'}}>
+            <div className="proof-photo case-row-photo" style={{background:'url(assets/elite-factory.jpeg) center/cover',position:'relative'}}>
               <span style={{
                 position:'absolute', top:10, left:10,
                 background:'rgba(0,0,0,0.65)', color:'#fff',
@@ -55,7 +55,7 @@ function CaseStudiesPage() {
                 padding:'4px 8px', borderRadius:4, backdropFilter:'blur(4px)',
               }}>● Actual shot</span>
             </div>
-            <div className="proof-body">
+            <div className="proof-body case-row-body">
               <div className="tag" style={{marginBottom:8}}>FURNITURE EXPORT</div>
               <h3 style={{fontFamily:'var(--font-heading)',fontSize:22,fontWeight:700,margin:'0 0 10px',letterSpacing:'-0.015em'}}>Elite Arts &amp; Crafts</h3>
               <p>600–800 employees. ~1M sqft. Multi-stage production. Deployed in 21 days.</p>
@@ -67,11 +67,11 @@ function CaseStudiesPage() {
             </div>
           </a>
 
-          <a href="case-apex.html" className="proof-card" style={{textDecoration:'none',color:'inherit',transition:'all 160ms var(--ease-standard)'}}>
-            <div className="proof-photo" style={{height:220, padding:0, overflow:'hidden'}}>
+          <a href="case-apex.html" className="proof-card case-row" style={{textDecoration:'none',color:'inherit',transition:'all 160ms var(--ease-standard)'}}>
+            <div className="proof-photo case-row-photo" style={{padding:0, overflow:'hidden'}}>
               <ApparelVisual />
             </div>
-            <div className="proof-body">
+            <div className="proof-body case-row-body">
               <div className="tag" style={{marginBottom:8}}>APPAREL CMT</div>
               <h3 style={{fontFamily:'var(--font-heading)',fontSize:22,fontWeight:700,margin:'0 0 10px',letterSpacing:'-0.015em'}}>Apex Apparel <span style={{fontSize:12,color:'var(--fg3)',fontWeight:400}}>(confidential)</span></h3>
               <p>80–100k shirts/month. 3 streams: CMT, own brand, fabric trading. 20+ job workers. 30+ inventory locations. Live in 12 days.</p>

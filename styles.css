@@ -392,6 +392,19 @@ img { max-width: 100%; display: block; }
 }
 @media (min-width: 769px) { .mobile-cta { display: none; } }
 
+/* ===== Case studies index: vertical stack of horizontal cards ===== */
+.case-list { display: flex; flex-direction: column; gap: 28px; margin-top: 32px; }
+.case-row { display: grid; grid-template-columns: 360px 1fr; align-items: stretch; }
+.case-row-photo { height: 100%; min-height: 280px; }
+.case-row-body { padding: 32px 36px; max-width: 720px; }
+
+@media (max-width: 768px) {
+  .case-list { gap: 20px; }
+  .case-row { grid-template-columns: 1fr; }
+  .case-row-photo { height: 220px; min-height: 0; }
+  .case-row-body { padding: 22px 22px; max-width: 100%; }
+}
+
 /* ===== Product/About page: Events Ledger live tail ===== */
 .ledger-headbar { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; }
 .ledger-cols, .ledger-row {
