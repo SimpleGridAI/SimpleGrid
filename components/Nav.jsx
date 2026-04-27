@@ -33,15 +33,13 @@ function Nav({ page = 'home', onLoginClick }) {
   ];
   const isResourceActive = page === 'cases' || page === 'blog';
 
-  // Single flat list for the mobile drawer
-  const mobileLinks = [
+  const mobileTopLinks = [
     { id: 'home', label: 'Home', href: 'index.html' },
     { id: 'product', label: 'Product', href: 'product.html' },
+  ];
+  const mobileResourceLinks = [
     { id: 'cases', label: 'Case studies', href: 'case-studies.html' },
     { id: 'blog', label: 'Blog', href: 'blog.html' },
-    { id: 'about', label: 'About', href: 'about.html' },
-    { id: 'hiring', label: 'Hiring', href: 'hiring.html' },
-    { id: 'build', label: 'Try the ERP Builder', href: 'build.html', highlight: true },
   ];
 
   return (
@@ -79,18 +77,6 @@ function Nav({ page = 'home', onLoginClick }) {
           </div>
         </nav>
         <div className="nav-right">
-          <a href="build.html" className="btn-build desktop-only" title="Beta product. Describe your business and get a working ERP draft in 2 minutes. Free, self-serve, no credit card.">
-            <span className="build-spark" aria-hidden="true">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l2.39 5.84L20 10l-5.61 2.16L12 18l-2.39-5.84L4 10l5.61-2.16L12 2z" fill="#fff"/>
-              </svg>
-            </span>
-            <span className="build-text">
-              <span className="build-main">Try the ERP Builder</span>
-              <span className="build-sub">2-min self-serve · free</span>
-            </span>
-            <span className="free-pill">BETA</span>
-          </a>
           <button className="btn btn-sm btn-secondary desktop-only" onClick={onLoginClick}>Log in</button>
           <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener" className="btn btn-sm btn-primary">Book a Call</a>
           <button
@@ -108,9 +94,17 @@ function Nav({ page = 'home', onLoginClick }) {
       {openMenu && (
         <div className="nav-mobile" onClick={(e) => { if (e.target === e.currentTarget) setOpenMenu(false); }}>
           <div className="nav-mobile-panel">
-            {mobileLinks.map(l => (
+            {mobileTopLinks.map(l => (
               <a key={l.id} href={l.href}
-                 className={'nav-mobile-link' + (page === l.id ? ' active' : '') + (l.highlight ? ' highlight' : '')}
+                 className={'nav-mobile-link' + (page === l.id ? ' active' : '')}
+                 onClick={() => setOpenMenu(false)}>
+                {l.label}
+              </a>
+            ))}
+            <div className="nav-mobile-section">Resources</div>
+            {mobileResourceLinks.map(l => (
+              <a key={l.id} href={l.href}
+                 className={'nav-mobile-link nav-mobile-sub' + (page === l.id ? ' active' : '')}
                  onClick={() => setOpenMenu(false)}>
                 {l.label}
               </a>

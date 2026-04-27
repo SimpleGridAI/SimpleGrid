@@ -34,6 +34,8 @@ img { max-width: 100%; display: block; }
 .nav-mobile-link:hover { background: var(--sg-off-white); border: none; }
 .nav-mobile-link.active { color: var(--sg-blue); background: var(--sg-blue-light); }
 .nav-mobile-link.highlight { color: var(--sg-blue); }
+.nav-mobile-section { padding: 14px 14px 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg3); }
+.nav-mobile-link.nav-mobile-sub { padding-left: 26px; font-size: 15px; }
 .nav-mobile-sep { height: 1px; background: var(--border); margin: 8px 4px; }
 
 /* ===== BUTTONS ===== */
