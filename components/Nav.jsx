@@ -1,7 +1,8 @@
 function Nav({ page = 'home', onLoginClick }) {
   const [openResources, setOpenResources] = React.useState(false);
+  const [openMenu, setOpenMenu] = React.useState(false);
   const resourcesRef = React.useRef(null);
-  
+
   React.useEffect(() => {
     const handler = (e) => {
       if (resourcesRef.current && !resourcesRef.current.contains(e.target)) setOpenResources(false);
@@ -9,6 +10,18 @@ function Nav({ page = 'home', onLoginClick }) {
     document.addEventListener('click', handler);
     return () => document.removeEventListener('click', handler);
   }, []);
+
+  // Close mobile menu on Escape and lock body scroll while open
+  React.useEffect(() => {
+    if (!openMenu) return;
+    const onKey = (e) => { if (e.key === 'Escape') setOpenMenu(false); };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [openMenu]);
 
   const links = [
     { id: 'home', label: 'Home', href: 'index.html' },
@@ -19,7 +32,18 @@ function Nav({ page = 'home', onLoginClick }) {
     { id: 'blog', label: 'Blog', href: 'blog.html', desc: 'Field notes on ERP and ops.' },
   ];
   const isResourceActive = page === 'cases' || page === 'blog';
-  
+
+  // Single flat list for the mobile drawer
+  const mobileLinks = [
+    { id: 'home', label: 'Home', href: 'index.html' },
+    { id: 'product', label: 'Product', href: 'product.html' },
+    { id: 'cases', label: 'Case studies', href: 'case-studies.html' },
+    { id: 'blog', label: 'Blog', href: 'blog.html' },
+    { id: 'about', label: 'About', href: 'about.html' },
+    { id: 'hiring', label: 'Hiring', href: 'hiring.html' },
+    { id: 'build', label: 'Try the ERP Builder', href: 'build.html', highlight: true },
+  ];
+
   return (
     <header className="nav">
       <div className="nav-inner">
@@ -69,8 +93,33 @@ function Nav({ page = 'home', onLoginClick }) {
           </a>
           <button className="btn btn-sm btn-secondary desktop-only" onClick={onLoginClick}>Log in</button>
           <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener" className="btn btn-sm btn-primary">Book a Call</a>
+          <button
+            type="button"
+            className={'nav-burger' + (openMenu ? ' is-open' : '')}
+            aria-label={openMenu ? 'Close menu' : 'Open menu'}
+            aria-expanded={openMenu}
+            onClick={() => setOpenMenu(o => !o)}
+          >
+            <span></span><span></span><span></span>
+          </button>
         </div>
       </div>
+
+      {openMenu && (
+        <div className="nav-mobile" onClick={(e) => { if (e.target === e.currentTarget) setOpenMenu(false); }}>
+          <div className="nav-mobile-panel">
+            {mobileLinks.map(l => (
+              <a key={l.id} href={l.href}
+                 className={'nav-mobile-link' + (page === l.id ? ' active' : '') + (l.highlight ? ' highlight' : '')}
+                 onClick={() => setOpenMenu(false)}>
+                {l.label}
+              </a>
+            ))}
+            <div className="nav-mobile-sep"></div>
+            <button type="button" className="nav-mobile-link" onClick={() => { setOpenMenu(false); onLoginClick && onLoginClick(); }}>Log in</button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

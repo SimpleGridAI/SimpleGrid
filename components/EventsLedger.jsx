@@ -71,7 +71,7 @@ function EventsLedger() {
             boxShadow: '0 30px 80px rgba(0,0,0,0.4)',
           }}>
             {/* header bar */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+            <div className="ledger-headbar">
               <div style={{ display: 'flex', gap: 6 }}>
                 <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#FF5F57' }}></span>
                 <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#FEBC2E' }}></span>
@@ -100,44 +100,29 @@ function EventsLedger() {
             </div>
 
             {/* column headers */}
-            <div style={{
-              display: 'grid', gridTemplateColumns: '110px 170px 170px 1fr 1fr 1fr',
-              gap: 16, padding: '10px 20px',
-              fontSize: 10, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.35)', borderBottom: '1px solid rgba(255,255,255,0.06)',
-            }}>
+            <div className="ledger-cols">
               <div>Time</div><div>Actor</div><div>Event</div><div>Entity</div><div>Transition</div><div>Downstream effect</div>
             </div>
 
             {/* rows */}
-            <div style={{ minHeight: 380 }}>
+            <div className="ledger-rows">
               {visible.map((e, i) => (
-                <div key={i} className="ledger-row" style={{
-                  display: 'grid', gridTemplateColumns: '110px 170px 170px 1fr 1fr 1fr',
-                  gap: 16, padding: '12px 20px',
-                  fontSize: 12, color: 'rgba(255,255,255,0.78)',
-                  borderBottom: '1px solid rgba(255,255,255,0.04)',
-                  fontFamily: 'var(--font-mono)',
-                  animation: 'sgLedgerIn 0.5s cubic-bezier(0.2,0.8,0.2,1) both',
-                }}>
-                  <div style={{ color: 'rgba(255,255,255,0.45)' }}>{e.t}</div>
-                  <div style={{ color: 'rgba(255,255,255,0.85)' }}>{e.actor}</div>
-                  <div style={{ color: verbColor(e.verb), fontWeight: 700, letterSpacing: '0.04em' }}>{e.verb}</div>
-                  <div style={{ color: '#fff' }}>{e.entity}</div>
-                  <div>
-                    <span style={{ color: 'rgba(255,255,255,0.5)' }}>{e.from}</span>
-                    <span style={{ color: 'rgba(255,255,255,0.3)', margin: '0 6px' }}>→</span>
-                    <span style={{ color: '#fff', background: 'rgba(255,255,255,0.07)', padding: '1px 6px', borderRadius: 3 }}>{e.to}</span>
+                <div key={i} className="ledger-row">
+                  <div className="lr-time">{e.t}</div>
+                  <div className="lr-actor">{e.actor}</div>
+                  <div className="lr-verb" style={{ color: verbColor(e.verb) }}>{e.verb}</div>
+                  <div className="lr-entity">{e.entity}</div>
+                  <div className="lr-transition">
+                    <span className="lr-from">{e.from}</span>
+                    <span className="lr-arrow">→</span>
+                    <span className="lr-to">{e.to}</span>
                   </div>
-                  <div style={{ color: 'rgba(255,255,255,0.6)' }}>{e.impact}</div>
+                  <div className="lr-impact">{e.impact}</div>
                 </div>
               ))}
             </div>
 
-            <div style={{
-              padding: '12px 20px', fontSize: 11, color: 'rgba(255,255,255,0.4)',
-              borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: 24, fontFamily: 'var(--font-mono)',
-            }}>
+            <div className="ledger-foot">
               <span>● append-only</span>
               <span>● cryptographically ordered</span>
               <span>● replayable to any point in time</span>
@@ -148,25 +133,16 @@ function EventsLedger() {
 
         {/* What this gives you - expanded benefits */}
         <Reveal>
-          <div style={{
-            marginTop: 56,
-            background: 'linear-gradient(135deg, rgba(74,123,247,0.08) 0%, rgba(124,58,237,0.06) 100%)',
-            border: '1px solid rgba(74,123,247,0.22)',
-            borderRadius: 16,
-            padding: '44px 40px',
-            textAlign: 'center',
-          }}>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.18em', color: 'var(--sg-blue)', marginBottom: 14 }}>WHAT THIS GIVES YOU</div>
-            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 38, fontWeight: 700, color: '#fff', margin: '0 0 14px', letterSpacing: '-0.02em', lineHeight: 1.12 }}>
-              Time travel for your business.
-            </h3>
-            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.78)', lineHeight: 1.6, maxWidth: 720, margin: '0 auto' }}>
+          <div className="ledger-callout">
+            <div className="ledger-callout-tag">WHAT THIS GIVES YOU</div>
+            <h3 className="ledger-callout-h">Time travel for your business.</h3>
+            <p className="ledger-callout-p">
               Pick any moment in your factory{'’'}s past - March 14th at 3:42 PM, last Tuesday morning, the day before that big dispatch - and see exactly what was true. Who approved what. Where the order was. What inventory you had. The system replays it for you, with the names and the timestamps still attached.
             </p>
           </div>
         </Reveal>
 
-        <div style={{ marginTop: 28, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
+        <div className="ledger-benefits">
           {[
             {
               icon: '⟳',
