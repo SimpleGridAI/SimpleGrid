@@ -43,13 +43,39 @@ function RadialBurst() {
         const tone = Math.random();
         // shorter lines are more opaque (depth effect)
         const baseAlpha = 0.8 - (lenRatio - 0.4) * 0.5 / 0.5 * 0.5; // ~0.3–0.8
-        // breathing phase + frequency (period 4–8s @ 60fps)
+
+        // Breathing oscillation: opacity sways over a 3–6s period
         const phase = Math.random() * Math.PI * 2;
-        const period = 4 + Math.random() * 4; // seconds
+        const period = 3 + Math.random() * 3;
         const freq = (Math.PI * 2) / (period * 60);
+
+        // Angle sway: gently rotate this line by ±0.04 rad (~2.3°) over 8–14s
+        const swayPhase = Math.random() * Math.PI * 2;
+        const swayPeriod = 8 + Math.random() * 6;
+        const swayFreq = (Math.PI * 2) / (swayPeriod * 60);
+        const swayAmp = 0.025 + Math.random() * 0.025; // 0.025–0.05 rad
+
+        // Length sway: lines also extend/contract by ±2% over a slow period
+        const lenPhase = Math.random() * Math.PI * 2;
+        const lenPeriod = 6 + Math.random() * 6;
+        const lenFreq = (Math.PI * 2) / (lenPeriod * 60);
+
+        // Twinkle: ~1 in 8 lines occasionally brightens its tip node
+        const twinkles = Math.random() < 0.12;
+        const twinklePhase = Math.random() * Math.PI * 2;
+        const twinklePeriod = 4 + Math.random() * 5;
+        const twinkleFreq = (Math.PI * 2) / (twinklePeriod * 60);
+
         const lw = 1 + Math.random() * 0.5;
         const nodeSize = 2 + Math.random() * 2;
-        lines.push({ a, lenRatio, tone, baseAlpha, phase, freq, lw, nodeSize });
+        lines.push({
+          a, lenRatio, tone, baseAlpha,
+          phase, freq,
+          swayPhase, swayFreq, swayAmp,
+          lenPhase, lenFreq,
+          twinkles, twinklePhase, twinkleFreq,
+          lw, nodeSize,
+        });
       }
     };
     seed();
@@ -73,12 +99,19 @@ function RadialBurst() {
       ctx.clearRect(0, 0, w, h);
 
       lines.forEach(l => {
-        // Subtle breathing: 0.85–1.0 multiplier
-        const breath = 0.92 + 0.08 * Math.sin(frame * l.freq + l.phase);
+        // Breathing on opacity (±15% — visible but soft)
+        const breath = 0.85 + 0.15 * Math.sin(frame * l.freq + l.phase);
         const alpha = l.baseAlpha * breath;
-        const len = h * l.lenRatio;
-        const x = cx + Math.cos(l.a) * len;
-        const y = cy + Math.sin(l.a) * len;
+
+        // Sway: angle drifts ±swayAmp over the sway period
+        const angleNow = l.a + l.swayAmp * Math.sin(frame * l.swayFreq + l.swayPhase);
+
+        // Length sway: ±2% length oscillation
+        const lenMul = 1 + 0.02 * Math.sin(frame * l.lenFreq + l.lenPhase);
+        const len = h * l.lenRatio * lenMul;
+
+        const x = cx + Math.cos(angleNow) * len;
+        const y = cy + Math.sin(angleNow) * len;
 
         // Line: gradient from origin (transparent) → tip (full color)
         const g = ctx.createLinearGradient(cx, cy, x, y);
@@ -92,11 +125,28 @@ function RadialBurst() {
         ctx.lineTo(x, y);
         ctx.stroke();
 
-        // Tip node: deep blue #2956C4 at 60–90% (driven by same breath)
-        const nodeAlpha = 0.6 + 0.3 * breath;
+        // Tip node base: 60–90% deep-blue, modulated by breath
+        let nodeAlpha = 0.6 + 0.3 * breath;
+        let nodeRadius = l.nodeSize;
+
+        // Twinkle: a small subset of nodes pulse brighter on a slow cycle
+        if (l.twinkles) {
+          const t = (Math.sin(frame * l.twinkleFreq + l.twinklePhase) + 1) * 0.5; // 0..1
+          const twinkleStrength = Math.pow(t, 3); // sharp peak, soft trough
+          nodeAlpha = Math.min(1, nodeAlpha + twinkleStrength * 0.4);
+          nodeRadius = l.nodeSize * (1 + twinkleStrength * 0.6);
+          // Faint halo for the twinkle peak
+          if (twinkleStrength > 0.3) {
+            ctx.fillStyle = `rgba(74,123,247,${twinkleStrength * 0.18})`;
+            ctx.beginPath();
+            ctx.arc(x, y, nodeRadius * 2.2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
         ctx.fillStyle = `rgba(41,86,196,${nodeAlpha})`;
         ctx.beginPath();
-        ctx.arc(x, y, l.nodeSize, 0, Math.PI * 2);
+        ctx.arc(x, y, nodeRadius, 0, Math.PI * 2);
         ctx.fill();
       });
 
