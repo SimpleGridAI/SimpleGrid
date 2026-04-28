@@ -33,12 +33,14 @@ function RadialBurst() {
     let lines = [];
     const seed = () => {
       lines = [];
-      const COUNT = 100;
+      const COUNT = 55;
       for (let i = 0; i < COUNT; i++) {
-        // Angle in upper 180° arc: -π (left) to 0 (right), with -π/2 = straight up
-        const a = -Math.PI + Math.random() * Math.PI;
-        // Length: 40–90% of canvas height
-        const lenRatio = 0.4 + Math.random() * 0.5;
+        // Diagonal cone: lines radiate from bottom-left up and to the right.
+        // Angle range -π/2 (straight up) to ~-0.05 (just above horizontal-right).
+        const a = -Math.PI / 2 + Math.random() * (Math.PI / 2 - 0.05);
+        // Length scales relative to the canvas diagonal so lines reach
+        // across the diagonal rather than stopping mid-canvas.
+        const lenRatio = 0.55 + Math.random() * 0.55; // 55%–110% of height
         // tone 0 = deep blue #2956C4, 1 = SimpleGrid blue #4A7BF7
         const tone = Math.random();
         // shorter lines are more opaque (depth effect)
@@ -94,8 +96,11 @@ function RadialBurst() {
     let frame = 0;
     const draw = () => {
       const w = W(), h = H();
-      const cx = w / 2;
-      const cy = h + 4; // origin slightly off the bottom edge so the seed point is hidden
+      // Origin at bottom-left corner so lines radiate diagonally up-and-right
+      const cx = -8;
+      const cy = h + 8;
+      // Reach: scale length relative to canvas diagonal so lines span the screen
+      const reach = Math.sqrt(w * w + h * h);
       ctx.clearRect(0, 0, w, h);
 
       lines.forEach(l => {
@@ -108,7 +113,7 @@ function RadialBurst() {
 
         // Length sway: ±2% length oscillation
         const lenMul = 1 + 0.02 * Math.sin(frame * l.lenFreq + l.lenPhase);
-        const len = h * l.lenRatio * lenMul;
+        const len = reach * l.lenRatio * lenMul;
 
         const x = cx + Math.cos(angleNow) * len;
         const y = cy + Math.sin(angleNow) * len;
@@ -161,16 +166,16 @@ function RadialBurst() {
     };
   }, []);
 
-  // Fade burst at top so it stays subtly behind hero copy
-  const mask = 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 25%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,1) 80%)';
+  // Diagonal fade so the burst stays subtly behind hero copy
+  const mask = 'linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 30%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,1) 90%)';
   return (
     <div style={{
       position: 'absolute',
       inset: 0,
       pointerEvents: 'none',
       zIndex: 0,
-      // Soft blue radial gradient: #D6E4FF at bottom-center → #FFFFFF outer
-      background: 'radial-gradient(ellipse 85% 65% at 50% 100%, #D6E4FF 0%, rgba(214,228,255,0.55) 35%, #FFFFFF 70%)',
+      // Soft blue glow now anchored at bottom-left to match the diagonal origin
+      background: 'radial-gradient(ellipse 95% 80% at 0% 100%, #D6E4FF 0%, rgba(214,228,255,0.55) 35%, #FFFFFF 70%)',
     }}>
       <canvas
         ref={canvasRef}
@@ -210,7 +215,10 @@ function FlowWaves() {
     const H = () => canvas.height / dpr();
 
     let t = 0;
-    const numLines = 80;
+    const numLines = 36;
+    // Diagonal flow: each line is a wave that drifts up-and-right across the canvas.
+    // Lines tilt slightly so the whole field reads diagonal, not horizontal.
+    const TILT = 0.18; // slope: ~10° tilt
 
     const draw = () => {
       const w = W(), h = H();
@@ -218,28 +226,33 @@ function FlowWaves() {
 
       for (let i = 0; i < numLines; i++) {
         const ratio = i / numLines;
-        const yBase = h * (0.05 + Math.pow(ratio, 0.85) * 1.05);
-        const amp = 22 + ratio * 70;
-        const freq = 0.0034 + ratio * 0.0014;
-        const phase = t * 0.0009 + i * 0.045;
+        // Spread base y from -15% to 105% so the diagonal field covers the section
+        const yBase = h * (-0.15 + ratio * 1.20);
+        const amp = 16 + ratio * 36;
+        const freq = 0.0032 + ratio * 0.0010;
+        const phase = t * 0.0015 + i * 0.060;
 
         ctx.beginPath();
-        for (let x = -24; x <= w + 24; x += 4) {
+        for (let x = -32; x <= w + 32; x += 5) {
           const wave1 = Math.sin(x * freq + phase) * amp;
-          const wave2 = Math.cos(x * freq * 0.55 - phase * 1.2 + i * 0.03) * amp * 0.45;
-          const y = yBase + wave1 + wave2;
-          if (x <= -20) ctx.moveTo(x, y);
+          const wave2 = Math.cos(x * freq * 0.55 - phase * 1.15 + i * 0.04) * amp * 0.4;
+          // Diagonal tilt — wave centerline rises as x increases
+          const y = yBase - x * TILT + wave1 + wave2;
+          if (x <= -28) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
 
-        const accent = (i + 3) % 13 === 0;
-        const hue = accent ? 295 + (i % 4) * 6 : 215 + (i % 6) * 3;
-        const sat = accent ? 65 : 55;
-        const light = accent ? 68 : 62;
-        const alpha = 0.10 + (1 - Math.abs(ratio - 0.55) * 1.4) * 0.18;
+        // All-blue palette — vary lightness only, no purple/magenta accents
+        const accent = (i + 2) % 9 === 0;
+        // hue 220 = SimpleGrid blue family
+        const hue = accent ? 224 : 218 + (i % 5) * 1.5;
+        const sat = accent ? 75 : 60;
+        const light = accent ? 52 : 64 + (i % 3) * 2;
+        const peak = 1 - Math.abs(ratio - 0.5) * 1.3;
+        const alpha = 0.10 + Math.max(0, peak) * 0.22;
 
-        ctx.strokeStyle = `hsla(${hue}, ${sat}%, ${light}%, ${Math.max(0.06, alpha)})`;
-        ctx.lineWidth = 0.6;
+        ctx.strokeStyle = `hsla(${hue}, ${sat}%, ${light}%, ${alpha})`;
+        ctx.lineWidth = accent ? 0.9 : 0.65;
         ctx.stroke();
       }
 
