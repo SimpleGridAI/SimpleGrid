@@ -17,7 +17,7 @@
     off: 'var(--sg-off-white)',
   };
 
-  // Reusable wrapper: .pi (post infographic) — see styles.css
+  // Reusable wrapper: .pi (post infographic) - see styles.css
   function Block({ tag, h, sub, children }) {
     return (
       <div className="pi-block">
@@ -355,7 +355,7 @@
     return [i, setI];
   }
 
-  // ===== Blog 2 — DDD: same word, different domains =====
+  // ===== Blog 2 - DDD: same word, different domains =====
   function DomainMorph() {
     const ctx = [
       { name:'Sales', color:'blue', entity:"Buyer's Order", fields:[
@@ -399,7 +399,7 @@
     );
   }
 
-  // ===== Blog 3 — Aggregates: root + members =====
+  // ===== Blog 3 - Aggregates: root + members =====
   function AggregateDemo() {
     const phases = [
       { label: 'Draft', root: 'idle', members: ['idle','idle','idle'], note: 'All members consistent. Nothing approved yet.' },
@@ -453,7 +453,7 @@
     );
   }
 
-  // ===== Blog 4 — Multi-tenant: shared platform, isolated DBs =====
+  // ===== Blog 4 - Multi-tenant: shared platform, isolated DBs =====
   function TenantDemo() {
     const clients = [
       { name: 'Apex Apparel', color: 'blue' },
@@ -490,7 +490,7 @@
     );
   }
 
-  // ===== Blog 5 — Customization in minutes =====
+  // ===== Blog 5 - Customization in minutes =====
   function RuleAddDemo() {
     const phases = [
       { label: 'Founder request received', t: '0s' },
@@ -550,7 +550,7 @@
     );
   }
 
-  // ===== Blog 6 — Module vs Domain (same request, two paths) =====
+  // ===== Blog 6 - Module vs Domain (same request, two paths) =====
   function ModuleVsDomainDemo() {
     const phases = ['request','m1','m2','m3','m4','done'];
     const [step] = useAutoCycle(phases.length, 1500);
@@ -609,7 +609,7 @@
     );
   }
 
-  // ===== Blog 8 — Form vs chat (live timer) =====
+  // ===== Blog 8 - Form vs chat (live timer) =====
   function FormVsChatDemo() {
     const [tick, setTick] = React.useState(0);
     const visible = usePageVisible();
@@ -663,7 +663,7 @@
     );
   }
 
-  // ===== Blog 9 — Cost stack builder =====
+  // ===== Blog 9 - Cost stack builder =====
   function CostStackDemo() {
     const layers = [
       { name: 'Wood (per component)',     pct: 46, color: 'blue' },
@@ -728,7 +728,7 @@
     );
   }
 
-  // ===== Blog 10 — "Would this work on the floor?" filter =====
+  // ===== Blog 10 - "Would this work on the floor?" filter =====
   function FloorFilterDemo() {
     const ideas = [
       { idea: 'Add a feature flag for new approval workflows', ans: 'no',  reason: 'Adds complexity to the floor staff. Skip.' },
@@ -759,7 +759,7 @@
     );
   }
 
-  // ===== Blog 11 — Mid-market squeeze =====
+  // ===== Blog 11 - Mid-market squeeze =====
   function MidMarketSqueeze() {
     const [pulse, setPulse] = React.useState(0);
     const visible = usePageVisible();
@@ -798,7 +798,7 @@
     );
   }
 
-  // ===== Blog 12 — Spreadsheet chaos =====
+  // ===== Blog 12 - Spreadsheet chaos =====
   function SpreadsheetChaos() {
     const tabs = ['Orders', 'Inventory', 'Production', 'AP', 'Vendors', 'QC', 'Dispatch', 'Payroll', 'Costing', 'Plan v2', 'Plan v3', 'Master', 'WIP', 'Ad-hoc', '#REF!'];
     const [phase, setPhase] = React.useState('chaos');
@@ -855,7 +855,7 @@
     );
   }
 
-  // ===== Blog 13 — Change-order counter =====
+  // ===== Blog 13 - Change-order counter =====
   function ChangeOrderCounter() {
     const events = [
       { yr: 'Year 1, Q1', label: 'New approval rule',          cost: 12000 },
@@ -911,7 +911,7 @@
     );
   }
 
-  // ===== Blog 14 — Phase compression =====
+  // ===== Blog 14 - Phase compression =====
   function PhaseCompress() {
     const phases = [
       { name: 'Requirements', oldW: 5,  neuD: 'hours' },
@@ -952,14 +952,14 @@
     );
   }
 
-  // ===== Blog 15 — ERP decay stages =====
+  // ===== Blog 15 - ERP decay stages =====
   function ERPDecayDemo() {
     const stages = [
       { n: 1, h: 'Workarounds begin',         color: 'gold',   detail: '5–10 manual processes outside the ERP' },
       { n: 2, h: 'Spreadsheets come back',    color: 'gold',   detail: 'ERP handles 70% · Excel handles 30%' },
       { n: 3, h: 'Change orders pile up',     color: 'red',    detail: '$65K, 12 weeks, conflicts with phase 1' },
       { n: 4, h: 'Trust erodes',              color: 'red',    detail: 'Founder calls the floor for real numbers' },
-      { n: 5, h: 'Replacement conversation',  color: 'red',    detail: '"With what?" — sunk cost lock-in' },
+      { n: 5, h: 'Replacement conversation',  color: 'red',    detail: '"With what?" - sunk cost lock-in' },
     ];
     const [active] = useAutoCycle(stages.length, 1900);
     return (
@@ -985,7 +985,7 @@
     );
   }
 
-  // ===== Blog 16 — Warehouse first (12 clicks vs 1 sentence) =====
+  // ===== Blog 16 - Warehouse first (12 clicks vs 1 sentence) =====
   function WarehouseClickDemo() {
     const [tick, setTick] = React.useState(0);
     const visible = usePageVisible();
@@ -1040,7 +1040,7 @@
     );
   }
 
-  // ===== Blog 17 — Best practices myth =====
+  // ===== Blog 17 - Best practices myth =====
   function BestPracticeStack() {
     const customs = [
       { name: 'Vendor consolidation by species', cost: 12000 },
@@ -1090,11 +1090,11 @@
   // ===== Blog-specific content =====
   const POST = {};
 
-  // 1 — Event Sourcing
+  // 1 - Event Sourcing
   POST[1] = {
     mid: (
       <>
-        <Block tag="Live demo · auto-replay" h="State vs. events, side by side" sub="Watch four real events fire on PO-122. Left: a traditional ERP overwrites the state — the old 300 is gone forever. Right: SimpleGrid appends every event, immutably.">
+        <Block tag="Live demo · auto-replay" h="State vs. events, side by side" sub="Watch four real events fire on PO-122. Left: a traditional ERP overwrites the state - the old 300 is gone forever. Right: SimpleGrid appends every event, immutably.">
           <EventLedger />
         </Block>
         <Block tag="What you get for free" h={null}>
@@ -1107,31 +1107,31 @@
         </Block>
       </>
     ),
-    end: <Bottom big="Append-only. Immutable. Permanent." p="Every action, every actor, every timestamp — stored forever. The audit trail is the architecture, not a feature you turn on." />,
+    end: <Bottom big="Append-only. Immutable. Permanent." p="Every action, every actor, every timestamp - stored forever. The audit trail is the architecture, not a feature you turn on." />,
   };
 
-  // 2 — Domain-Driven Design
+  // 2 - Domain-Driven Design
   POST[2] = {
     mid: (
-      <Block tag="Live demo · auto-cycling" h='"order" — same word, three different domains' sub="The same business term means a completely different entity in each bounded context. Watch the language morph.">
+      <Block tag="Live demo · auto-cycling" h='"order" - same word, three different domains' sub="The same business term means a completely different entity in each bounded context. Watch the language morph.">
         <DomainMorph />
       </Block>
     ),
-    end: <Bottom big="Your business speaks. The software listens." p="Domain-Driven Design models your operation in your language — not translated into someone else's modules." />,
+    end: <Bottom big="Your business speaks. The software listens." p="Domain-Driven Design models your operation in your language - not translated into someone else's modules." />,
   };
 
-  // 3 — Aggregates
+  // 3 - Aggregates
   POST[3] = {
     mid: (
       <>
-        <Block tag="Live demo · auto-cycling" h="The aggregate boundary, in motion" sub="Watch a Sales Order aggregate go through approval. The root and members move as one. Try to modify a member alone — the boundary rejects it.">
+        <Block tag="Live demo · auto-cycling" h="The aggregate boundary, in motion" sub="Watch a Sales Order aggregate go through approval. The root and members move as one. Try to modify a member alone - the boundary rejects it.">
           <AggregateDemo />
         </Block>
         <Block tag="The aggregate, in three rules" h={null}>
           <Cards cols={3} items={[
-            { cls: 'blue', kicker: 'Rule 1', h: 'Move as one', b: 'When the root changes state, all members move with it. Approve a Sales Order — every line item approves together.' },
+            { cls: 'blue', kicker: 'Rule 1', h: 'Move as one', b: 'When the root changes state, all members move with it. Approve a Sales Order - every line item approves together.' },
             { cls: 'purple', kicker: 'Rule 2', h: 'No orphans', b: 'A line item cannot exist without its order. The boundary prevents impossible states.' },
-            { cls: 'gold', kicker: 'Rule 3', h: "Reference, don't nest", b: 'Aggregates point at each other by ID. A Job Order references its Sales Order — independent lifecycles.' },
+            { cls: 'gold', kicker: 'Rule 3', h: "Reference, don't nest", b: 'Aggregates point at each other by ID. A Job Order references its Sales Order - independent lifecycles.' },
           ]} />
         </Block>
       </>
@@ -1139,11 +1139,11 @@
     end: <Bottom big="Consistent by design, not by accident." p="Every entity has a root, its members, and its rules. The structure prevents the bad states before they can happen." />,
   };
 
-  // 4 — Multi-tenant
+  // 4 - Multi-tenant
   POST[4] = {
     mid: (
       <>
-        <Block tag="Live demo · auto-cycling" h="Shared platform, isolated databases" sub="Each client has their own physical PostgreSQL database. The platform routes the active query to one — and only one. Watch which DB lights up.">
+        <Block tag="Live demo · auto-cycling" h="Shared platform, isolated databases" sub="Each client has their own physical PostgreSQL database. The platform routes the active query to one - and only one. Watch which DB lights up.">
           <TenantDemo />
         </Block>
         <Block tag="Three architectures, three trade-offs" h={null}>
@@ -1155,10 +1155,10 @@
         </Block>
       </>
     ),
-    end: <Bottom big="Your data is yours. Your rules are yours." p="No other client can see, touch, or affect your operation. Security is not a feature — it is the architecture." />,
+    end: <Bottom big="Your data is yours. Your rules are yours." p="No other client can see, touch, or affect your operation. Security is not a feature - it is the architecture." />,
   };
 
-  // 5 — Customization in minutes
+  // 5 - Customization in minutes
   POST[5] = {
     mid: (
       <Block tag="Live demo · 30 seconds" h="Watch a new business rule go live" sub="Founder request → open the rules table → add a row → engine reads it. The rule is enforced on the next dispatch over $5K. No deployment. No downtime.">
@@ -1168,7 +1168,7 @@
     end: <Bottom big="Change a rule in minutes. See every rule in one place." p="No developer needed. No deployment. No downtime. The Knowledge Level is your single source of truth." />,
   };
 
-  // 6 — Module vs Domain
+  // 6 - Module vs Domain
   POST[6] = {
     mid: (
       <Block tag="Live demo · same request, two paths" h='"Add QC approval before dispatch on items over $5,000"' sub="One business rule enters two architectures. Watch how the work plays out on each side, step by step.">
@@ -1178,14 +1178,14 @@
     end: <Bottom big="No modules. We model your domain." p="Your rules. Your language. Your operation. The platform generates itself from the way you actually work." />,
   };
 
-  // 7 — Claude chatbot
+  // 7 - Claude chatbot
   POST[7] = {
     mid: (
       <>
-        <Block tag="Live demo · auto-cycling" h="Watch a query flow, end to end" sub="Three real query types play in sequence — typing, routing to the right model tier, the tool call, the SQL it generates, the answer. Tap a dot to jump.">
+        <Block tag="Live demo · auto-cycling" h="Watch a query flow, end to end" sub="Three real query types play in sequence - typing, routing to the right model tier, the tool call, the SQL it generates, the answer. Tap a dot to jump.">
           <ChatDemo />
         </Block>
-        <Block tag="Architecture" h="Why we skipped RAG" sub="RAG searches text. Your operation is not text — it is structured data with rules.">
+        <Block tag="Architecture" h="Why we skipped RAG" sub="RAG searches text. Your operation is not text - it is structured data with rules.">
           <Cards cols={2} items={[
             { cls: 'red', kicker: 'RAG approach', h: 'Search text, hope', b: 'Embed documents into vectors. Retrieve fragments. The LLM guesses an answer from chunks. Works for wikis. Hallucinates inventory numbers.' },
             { cls: 'blue', kicker: 'Tool Use approach', h: 'Call functions, know', b: 'Claude selects from pre-built functions, passes typed parameters, runs a real SQL query against your isolated database. Real numbers. Real audit trail.' },
@@ -1196,27 +1196,27 @@
     end: <Bottom big='"How much 304 stainless do we have?" Real query. Real answer.' p="No vector search. No chunk retrieval. No hallucinated numbers. Tool Use against your live database." />,
   };
 
-  // 8 — Conversational UX
+  // 8 - Conversational UX
   POST[8] = {
     mid: (
-      <Block tag="Live demo · same receipt, two interfaces" h="Form clicks vs. one sentence" sub="Both capture the exact same data. Both write to the exact same database. Watch the timer — the floor decides which one survives.">
+      <Block tag="Live demo · same receipt, two interfaces" h="Form clicks vs. one sentence" sub="Both capture the exact same data. Both write to the exact same database. Watch the timer - the floor decides which one survives.">
         <FormVsChatDemo />
       </Block>
     ),
     end: <Bottom big="Same behavior. Better data. Real adoption." p="We do not train your team to use an ERP. We listen to what they already say." />,
   };
 
-  // 9 — Landed cost
+  // 9 - Landed cost
   POST[9] = {
     mid: (
-      <Block tag="Live demo · auto-replay" h="Watch the cost stack build, layer by layer" sub="Each cost layer is a separate event in SimpleGrid, tagged with the SKU. Watch them accumulate — and the margin reveal itself once the stack is complete.">
+      <Block tag="Live demo · auto-replay" h="Watch the cost stack build, layer by layer" sub="Each cost layer is a separate event in SimpleGrid, tagged with the SKU. Watch them accumulate - and the margin reveal itself once the stack is complete.">
         <CostStackDemo />
       </Block>
     ),
     end: <Bottom big="Real margin per SKU. Every product. Every order. Real time." p="Compare against the buyer's price and you have the answer most operations cannot give: which products make money, and which ones quietly do not." />,
   };
 
-  // 10 — Inside SimpleGrid (culture)
+  // 10 - Inside SimpleGrid (culture)
   POST[10] = {
     mid: (
       <>
@@ -1231,20 +1231,20 @@
         </Block>
       </>
     ),
-    end: <Bottom big="Built by operators, for operators." p="If you can model any factory, you can serve every factory. Not by building modules for each one — by building an engine that reads models." />,
+    end: <Bottom big="Built by operators, for operators." p="If you can model any factory, you can serve every factory. Not by building modules for each one - by building an engine that reads models." />,
   };
 
-  // 11 — Mid-market gap
+  // 11 - Mid-market gap
   POST[11] = {
     mid: (
-      <Block tag="Live demo · the squeeze" h="Three tiers — and the underserved middle" sub="Enterprise pushes down. Small business pushes up. The mid-market has nowhere to land. Watch the pressure pulse on each tier.">
+      <Block tag="Live demo · the squeeze" h="Three tiers - and the underserved middle" sub="Enterprise pushes down. Small business pushes up. The mid-market has nowhere to land. Watch the pressure pulse on each tier.">
         <MidMarketSqueeze />
       </Block>
     ),
     end: <Bottom big="Built for the mid-market. Not retrofitted from enterprise." p="Deploy in days. $0 to start. No modules. No consultants. No IT team required." />,
   };
 
-  // 12 — Spreadsheets
+  // 12 - Spreadsheets
   POST[12] = {
     mid: (
       <Block tag="Live demo · chaos → consolidation" h="The 15 spreadsheets that run your factory" sub="Watch the chaos. Then watch what happens when one live system takes over.">
@@ -1254,54 +1254,54 @@
     end: <Bottom big="The flexibility of a spreadsheet. The structure of a real system." p="Deploy in days. Change rules in minutes. Capture data the way your team already works. The spreadsheet era can end." />,
   };
 
-  // 13 — Vendor change orders
+  // 13 - Vendor change orders
   POST[13] = {
     mid: (
-      <Block tag="Live demo · the running tab" h="3 years of change orders, side by side" sub="Same number of changes. Same business needs. Watch the cost meter run for one architecture — and stay flat for the other.">
+      <Block tag="Live demo · the running tab" h="3 years of change orders, side by side" sub="Same number of changes. Same business needs. Watch the cost meter run for one architecture - and stay flat for the other.">
         <ChangeOrderCounter />
       </Block>
     ),
     end: <Bottom big="Zero change orders. Zero developer dependency. Zero annual surprise." p="Every business rule lives in a table. Add a row, change a cell, the system updates itself in real time." />,
   };
 
-  // 14 — AI changed deployment
+  // 14 - AI changed deployment
   POST[14] = {
     mid: (
-      <Block tag="Live demo · the compression" h="28–52 weeks → days" sub="Watch the deployment phases collapse. Same six phases — AI compresses the translation step in each one.">
+      <Block tag="Live demo · the compression" h="28–52 weeks → days" sub="Watch the deployment phases collapse. Same six phases - AI compresses the translation step in each one.">
         <PhaseCompress />
       </Block>
     ),
     end: <Bottom big="Working demo in 24 hours. Production-ready in 2 weeks." p="Deployment is no longer a project. It is a conversation. AI writes the configuration. The platform generates the system. The founder reviews. Iteration is continuous." />,
   };
 
-  // 15 — ERP cannot keep up
+  // 15 - ERP cannot keep up
   POST[15] = {
     mid: (
       <Block tag="Live demo · the decay" h="What happens when your business changes and your system doesn't" sub="Every mid-market ERP follows this five-stage path. Watch trust drop as the stages light up.">
         <ERPDecayDemo />
       </Block>
     ),
-    end: <Bottom big="An ERP that changes when the business changes." p="Same day. Same cost: zero. Not through change orders. Through configuration. The system stays alive in year five — because the rules live where the business does." />,
+    end: <Bottom big="An ERP that changes when the business changes." p="Same day. Same cost: zero. Not through change orders. Through configuration. The system stays alive in year five - because the rules live where the business does." />,
   };
 
-  // 16 — Warehouse manager first
+  // 16 - Warehouse manager first
   POST[16] = {
     mid: (
-      <Block tag="Live demo · 13 clicks vs. 1 sentence" h="The same receipt, two interfaces, real-time timer" sub="The dashboard your founder loves only works if the floor uses the system. Watch the click count on the left — and the timer.">
+      <Block tag="Live demo · 13 clicks vs. 1 sentence" h="The same receipt, two interfaces, real-time timer" sub="The dashboard your founder loves only works if the floor uses the system. Watch the click count on the left - and the timer.">
         <WarehouseClickDemo />
       </Block>
     ),
     end: <Bottom big="Build for the floor. The C-suite takes care of itself." p="One person using the system correctly at the point of action is worth more than an entire back-office team entering data retroactively." />,
   };
 
-  // 17 — Best practices myth
+  // 17 - Best practices myth
   POST[17] = {
     mid: (
-      <Block tag="Live demo · the customization stack" h='What "best practice" actually costs' sub='Each "departure from the default" lands as another customization on top of the generic template. Watch the stack — and the bill — grow.'>
+      <Block tag="Live demo · the customization stack" h='What "best practice" actually costs' sub='Each "departure from the default" lands as another customization on top of the generic template. Watch the stack - and the bill - grow.'>
         <BestPracticeStack />
       </Block>
     ),
-    end: <Bottom big="Your practices. Your language. Your rules." p='Modeled, not templated. SimpleGrid does not sell "best practices." We model the actual operation in front of us — and let yours stay yours.' />,
+    end: <Bottom big="Your practices. Your language. Your rules." p='Modeled, not templated. SimpleGrid does not sell "best practices." We model the actual operation in front of us - and let yours stay yours.' />,
   };
 
   window.PostInfographics = POST;

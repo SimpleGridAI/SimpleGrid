@@ -5,7 +5,7 @@ function RadialBurst({ theme = 'dark' }) {
   //   - All lines blue: lerp from #2956C4 (deep) to #4A7BF7 (SimpleGrid blue)
   //   - Per-line opacity 30–80%, with shorter lines more opaque, longer more transparent
   //   - Tip nodes 2–4px, #2956C4 at 60–90% opacity
-  //   - Animation: subtle "breathing" — opacity oscillates over a 4–8s period
+  //   - Animation: subtle "breathing" - opacity oscillates over a 4–8s period
   //   - No particles, no fireworks, no orange/purple/yellow
   //   - <5% CPU, requestAnimationFrame
   const canvasRef = React.useRef(null);
@@ -41,7 +41,7 @@ function RadialBurst({ theme = 'dark' }) {
         const lenRatio = 0.4 + Math.random() * 0.5;
         // tone 0 = deep blue #2956C4, 1 = SimpleGrid blue #4A7BF7
         const tone = Math.random();
-        // shorter lines are more opaque (depth effect) — bumped from 0.3–0.8
+        // shorter lines are more opaque (depth effect) - bumped from 0.3–0.8
         // to 0.45–0.95 so the burst reads as eye-catching, not whispery.
         const baseAlpha = 0.95 - (lenRatio - 0.4) * 0.5 / 0.5 * 0.5; // ~0.45–0.95
 
@@ -84,7 +84,7 @@ function RadialBurst({ theme = 'dark' }) {
     const onResize = () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { resize(); }, 150); };
     window.addEventListener('resize', onResize);
 
-    // Two palettes — picked at draw time so the burst recolors when theme flips.
+    // Two palettes - picked at draw time so the burst recolors when theme flips.
     // Dark: deep #3461D1 → medium-blue #6E97FF (saturated, both clearly blue)
     // Light: deep blue #2956C4 → SG blue #4A7BF7 (visible on white)
     const lineRGBA = (tone, alpha) => {
@@ -100,7 +100,7 @@ function RadialBurst({ theme = 'dark' }) {
       }
       return `rgba(${r},${g},${b},${alpha})`;
     };
-    // Tip-node base RGB switches on theme too — saturated SG blue on dark
+    // Tip-node base RGB switches on theme too - saturated SG blue on dark
     const nodeRGB = theme === 'light' ? '41,86,196' : '74,123,247';
     const haloRGB = theme === 'light' ? '74,123,247' : '110,151,255';
 
@@ -112,7 +112,7 @@ function RadialBurst({ theme = 'dark' }) {
       ctx.clearRect(0, 0, w, h);
 
       lines.forEach(l => {
-        // Breathing on opacity (±15% — visible but soft)
+        // Breathing on opacity (±15% - visible but soft)
         const breath = 0.85 + 0.15 * Math.sin(frame * l.freq + l.phase);
         const alpha = l.baseAlpha * breath;
 
@@ -138,7 +138,7 @@ function RadialBurst({ theme = 'dark' }) {
         ctx.lineTo(x, y);
         ctx.stroke();
 
-        // Tip node base: bright on dark — light blue/white, modulated by breath
+        // Tip node base: bright on dark - light blue/white, modulated by breath
         let nodeAlpha = 0.7 + 0.3 * breath;
         let nodeRadius = l.nodeSize;
 
@@ -246,13 +246,13 @@ function FlowWaves() {
         for (let x = -32; x <= w + 32; x += 5) {
           const wave1 = Math.sin(x * freq + phase) * amp;
           const wave2 = Math.cos(x * freq * 0.55 - phase * 1.15 + i * 0.04) * amp * 0.4;
-          // Diagonal tilt — wave centerline rises as x increases
+          // Diagonal tilt - wave centerline rises as x increases
           const y = yBase - x * TILT + wave1 + wave2;
           if (x <= -28) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
 
-        // All-blue palette — vary lightness only, no purple/magenta accents
+        // All-blue palette - vary lightness only, no purple/magenta accents
         const accent = (i + 2) % 9 === 0;
         // hue 220 = SimpleGrid blue family
         const hue = accent ? 224 : 218 + (i % 5) * 1.5;

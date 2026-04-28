@@ -3,7 +3,7 @@
 //
 // ONE-TIME ACTIVATION: the very first submission triggers FormSubmit to send a
 // confirmation email to SG_INVITE_TO with an activation link. Click that link
-// once — every submission after that lands in the inbox automatically.
+// once - every submission after that lands in the inbox automatically.
 const SG_INVITE_TO = 'hello@simplegrid.ai';
 const SG_FORM_ENDPOINT = 'https://formsubmit.co/ajax/' + SG_INVITE_TO;
 
@@ -65,7 +65,7 @@ function InviteModal({ onClose }) {
         <input type="hidden" name="_subject" value="New invite request - SimpleGrid" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_captcha" value="false" />
-        {/* honeypot — bots fill it, humans don't see it */}
+        {/* honeypot - bots fill it, humans don't see it */}
         <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
         <div className="field">

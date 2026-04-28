@@ -80,7 +80,7 @@ PAGE_TEMPLATE = """<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>{title} — SimpleGrid Blog</title>
+<title>{title} - SimpleGrid Blog</title>
 <meta name="description" content="{description}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="{canonical}">
@@ -156,7 +156,7 @@ def main():
     blogs = parse_blogs()
     blog_root = REPO / "blog"
 
-    # Remove old generated dirs (only the ones we've made — be careful)
+    # Remove old generated dirs (only the ones we've made - be careful)
     if blog_root.exists():
         for child in blog_root.iterdir():
             if child.is_dir() and (child / "index.html").exists():
@@ -171,7 +171,7 @@ def main():
         canonical = f"{SITE}/blog/{b['slug']}/"
         title_html = html_escape(b["title"])
         desc_html = html_escape(b["description"])
-        # JSON-LD inserted via .format — escape JSON-quotes
+        # JSON-LD inserted via .format - escape JSON-quotes
         title_json = b["title"].replace('"', '\\"')
         description_json = b["description"].replace('"', '\\"')
         date_field = (

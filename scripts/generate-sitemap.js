@@ -45,7 +45,7 @@ const entries = staticFiles.map(f => {
   return { url, lastmod: fileMtime(f), ...meta };
 });
 
-// 2) blog posts from data/blogs.js — parse out id + datePublished
+// 2) blog posts from data/blogs.js - parse out id + datePublished
 const blogsSrc = fs.readFileSync(path.join(REPO, 'data/blogs.js'), 'utf8');
 const blogsFallbackMtime = fileMtime('data/blogs.js');
 

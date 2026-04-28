@@ -58,7 +58,7 @@ def main() -> None:
             "priority": meta["priority"],
         })
 
-    # 2) blog posts — parse data/blogs.js for id, slug, datePublished
+    # 2) blog posts - parse data/blogs.js for id, slug, datePublished
     blogs_src = (REPO / "data/blogs.js").read_text(encoding="utf-8")
     blogs_fallback = file_mtime("data/blogs.js")
 

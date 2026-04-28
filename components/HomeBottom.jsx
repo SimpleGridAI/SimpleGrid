@@ -125,8 +125,8 @@ function FounderStory() {
             <div className="tag">BUILT BY OPERATORS</div>
             <blockquote>We built a $30M manufacturing business. Survived two ERP failures. Ended up on Google Sheets.</blockquote>
             <p className="body">SimpleGrid exists because we were the customer first. Multiple factories, 400-person workforce. We know what breaks when your system can't keep up.</p>
-            <p className="body">We lead every deployment personally. You deal with our team — not a sales team, not a chatbot.</p>
-            <p className="body">SimpleGrid is what came out of all that — built the way operators actually run a plant. The next two sections are how we think about it, and how it works in practice.</p>
+            <p className="body">We lead every deployment personally. You deal with our team - not a sales team, not a chatbot.</p>
+            <p className="body">SimpleGrid is what came out of all that - built the way operators actually run a plant. The next two sections are how we think about it, and how it works in practice.</p>
           </div>
         </Reveal>
       </div>
@@ -142,7 +142,7 @@ function ProofSection() {
         <Reveal>
           <div className="tag" style={{textAlign:'center'}}>CASE STUDIES</div>
           <h2 className="h2" style={{textAlign:'center'}}>Manufacturers running on SimpleGrid today.</h2>
-          <p className="lead" style={{maxWidth:920,margin:'0 auto 40px',textAlign:'center'}}>Two public deployments below. More running under MNDA — names on request.</p>
+          <p className="lead" style={{maxWidth:920,margin:'0 auto 40px',textAlign:'center'}}>Two public deployments below. More running under MNDA - names on request.</p>
         </Reveal>
         <div className="proof-grid">
           {[

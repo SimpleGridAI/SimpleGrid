@@ -1,6 +1,6 @@
-// PostMain.jsx — shared blog-post render. Loaded by both:
-//   /post.html              (legacy ?id=N URLs — redirects to slug URL)
-//   /blog/{slug}/index.html (canonical slug pages — sets window.__SG_BLOG_ID__)
+// PostMain.jsx - shared blog-post render. Loaded by both:
+//   /post.html              (legacy ?id=N URLs - redirects to slug URL)
+//   /blog/{slug}/index.html (canonical slug pages - sets window.__SG_BLOG_ID__)
 
 function parseBlogBody(body, title, images, blogId) {
   const hasRealImages = Array.isArray(images) && images.length > 0;
@@ -91,7 +91,7 @@ function BlogPost() {
   // but it stays consistent for legacy /post.html?id=N URLs that don't
   // immediately redirect (Google, share-bots that don't follow redirects).
   React.useEffect(() => {
-    document.title = blog.title + ' — SimpleGrid Blog';
+    document.title = blog.title + ' - SimpleGrid Blog';
     const desc = (blog.body || '').replace(/\s+/g, ' ').slice(0, 155).trim();
     const slugUrl = blog.slug ? ('https://simplegrid.ai/blog/' + blog.slug + '/') : ('https://simplegrid.ai/post.html?id=' + blog.id);
     const heroImg = (blog.images && blog.images[0] && blog.images[0].src)
