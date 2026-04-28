@@ -17,6 +17,7 @@ function Footer() {
       { l: 'Events ledger', href: 'product.html#ledger' },
       { l: 'Adoption', href: 'product.html#ability' },
       { l: 'Your process, enforced', href: 'product.html#rules' },
+      { l: 'Pricing', href: 'pricing.html' },
     ]},
     { h: 'Resources', links: [
       { l: 'Case studies', href: 'case-studies.html' },

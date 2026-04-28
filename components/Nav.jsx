@@ -26,6 +26,7 @@ function Nav({ page = 'home', onLoginClick }) {
   const links = [
     { id: 'home', label: 'Home', href: 'index.html' },
     { id: 'product', label: 'Product', href: 'product.html' },
+    { id: 'pricing', label: 'Pricing', href: 'pricing.html' },
   ];
   const resourceLinks = [
     { id: 'cases', label: 'Case studies', href: 'case-studies.html', desc: 'Real deployments. Real numbers.' },
@@ -36,6 +37,7 @@ function Nav({ page = 'home', onLoginClick }) {
   const mobileTopLinks = [
     { id: 'home', label: 'Home', href: 'index.html' },
     { id: 'product', label: 'Product', href: 'product.html' },
+    { id: 'pricing', label: 'Pricing', href: 'pricing.html' },
   ];
   const mobileResourceLinks = [
     { id: 'cases', label: 'Case studies', href: 'case-studies.html' },
