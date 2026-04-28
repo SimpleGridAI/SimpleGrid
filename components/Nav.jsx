@@ -57,9 +57,10 @@ function Nav({ page = 'home', onLoginClick }) {
           ))}
           <div ref={resourcesRef} style={{position:'relative',display:'inline-flex',alignItems:'center'}}>
             <button
+              type="button"
               onClick={(e) => { e.stopPropagation(); setOpenResources(o => !o); }}
               className={'nav-link' + (isResourceActive ? ' active' : '')}
-              style={{background:'none',cursor:'pointer',fontFamily:'inherit',fontSize:'inherit',display:'inline-flex',alignItems:'center',gap:4,color:'inherit',lineHeight:1.4}}
+              style={{background:'none',cursor:'pointer',display:'inline-flex',alignItems:'center',gap:4,color:'inherit'}}
             >
               Resources
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style={{transition:'transform 0.15s',transform:openResources?'rotate(180deg)':'none'}}>
