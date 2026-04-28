@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Page Not Found | SimpleGrid</title>
+<meta name="description" content="The page you were looking for is not on SimpleGrid. Head back to the homepage for AI-native manufacturing ERP that deploys in 7 days.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#4A7BF7">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/404.html">
+<link rel="icon" type="image/svg+xml" href="assets/simplegrid-logomark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="styles.css">
+
+<meta property="og:site_name" content="SimpleGrid">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://simplegrid.ai/404.html">
+<meta property="og:title" content="Page Not Found | SimpleGrid">
+<meta property="og:description" content="The page you were looking for is not on SimpleGrid.">
+<meta property="og:image" content="https://simplegrid.ai/assets/simplegrid-logo-horizontal.svg">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@simplegridai">
+<meta name="twitter:title" content="Page Not Found | SimpleGrid">
+<meta name="twitter:description" content="The page you were looking for is not on SimpleGrid.">
+<meta name="twitter:image" content="https://simplegrid.ai/assets/simplegrid-logo-horizontal.svg">
+
+<style>
+  .nf-wrap { min-height: calc(100vh - 64px - 200px); display: flex; align-items: center; justify-content: center; padding: 64px 24px; }
+  .nf-card { max-width: 640px; text-align: center; }
+  .nf-code { font-family: var(--font-heading); font-size: 96px; font-weight: 700; color: var(--sg-blue); letter-spacing: -0.04em; line-height: 1; margin: 0 0 8px; }
+  .nf-h { font-family: var(--font-heading); font-size: 32px; font-weight: 700; color: var(--fg1); letter-spacing: -0.02em; margin: 0 0 16px; }
+  .nf-p { font-size: 16px; color: var(--fg2); line-height: 1.6; margin: 0 0 32px; }
+  .nf-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .nf-links { margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; font-size: 14px; }
+  .nf-links a { color: var(--sg-blue); text-decoration: none; font-weight: 600; }
+  .nf-links a:hover { text-decoration: underline; }
+  @media (max-width: 600px) {
+    .nf-code { font-size: 72px; }
+    .nf-h { font-size: 24px; }
+  }
+</style>
+
+<script defer src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script defer src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script defer src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="components/Nav.jsx"></script>
+<script type="text/babel" src="components/LoginModal.jsx"></script>
+<script type="text/babel" src="components/Footer.jsx"></script>
+
+<script type="text/babel">
+function NotFoundPage() {
+  const [showLogin, setShowLogin] = React.useState(false);
+  return (<>
+    <Nav page="" onLoginClick={() => setShowLogin(true)} />
+    <main className="nf-wrap">
+      <div className="nf-card">
+        <div className="nf-code" aria-hidden="true">404</div>
+        <h1 className="nf-h">Page not found.</h1>
+        <p className="nf-p">The page you were looking for is not here. It may have moved, or the link may be wrong. Head back to the SimpleGrid homepage or try one of the links below.</p>
+        <div className="nf-cta">
+          <a href="index.html" className="btn btn-primary">SimpleGrid Home</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">Book a Call</a>
+        </div>
+        <div className="nf-links">
+          <a href="product.html" title="How SimpleGrid manufacturing ERP works">Product</a>
+          <a href="pricing.html" title="SimpleGrid manufacturing ERP pricing">Pricing</a>
+          <a href="case-studies.html" title="Manufacturing ERP case studies">Case studies</a>
+          <a href="blog.html" title="SimpleGrid blog for manufacturers">Blog</a>
+          <a href="about.html" title="About SimpleGrid">About</a>
+        </div>
+      </div>
+    </main>
+    <Footer />
+    {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
+  </>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<NotFoundPage />);
+</script>
+</body>
+</html>

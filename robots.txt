@@ -1,4 +1,17 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /auth
+Disallow: /login
+Disallow: /dashboard
+Disallow: /internal
+Disallow: /preview
+Disallow: /staging
+Disallow: /seo-audit/
+Disallow: /uploads/
+
+# Legacy query-string router redirects to /blog/{slug}/ which is canonical.
+Disallow: /post.html
 
 Sitemap: https://simplegrid.ai/sitemap.xml

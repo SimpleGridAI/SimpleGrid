@@ -40,7 +40,7 @@ function InviteModal({ onClose }) {
     return (
       <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
         <div className="modal" style={{ position: 'relative', textAlign: 'center' }}>
-          <button type="button" onClick={onClose} style={{ position: 'absolute', top: 14, right: 16, background: 'none', border: 'none', fontSize: 22, color: 'var(--fg3)', cursor: 'pointer', lineHeight: 1 }}>×</button>
+          <button type="button" aria-label="Close invite confirmation" onClick={onClose} style={{ position: 'absolute', top: 14, right: 16, background: 'none', border: 'none', fontSize: 22, color: 'var(--fg3)', cursor: 'pointer', lineHeight: 1 }}>×</button>
           <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(16,185,129,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '8px auto 18px' }}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="20 6 9 17 4 12"></polyline>
@@ -57,7 +57,7 @@ function InviteModal({ onClose }) {
   return (
     <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <form className="modal" onSubmit={submit} style={{ position: 'relative' }}>
-        <button type="button" onClick={onClose} style={{ position: 'absolute', top: 14, right: 16, background: 'none', border: 'none', fontSize: 22, color: 'var(--fg3)', cursor: 'pointer', lineHeight: 1 }}>×</button>
+        <button type="button" aria-label="Close invite request" onClick={onClose} style={{ position: 'absolute', top: 14, right: 16, background: 'none', border: 'none', fontSize: 22, color: 'var(--fg3)', cursor: 'pointer', lineHeight: 1 }}>×</button>
         <h2>Request an invite</h2>
         <p className="sub">A few partner slots open each cycle. Tell us about you.</p>
 
@@ -69,16 +69,16 @@ function InviteModal({ onClose }) {
         <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
         <div className="field">
-          <label>Your name</label>
-          <input type="text" name="name" placeholder="Mike" required autoFocus disabled={state === 'submitting'} />
+          <label htmlFor="invite-name">Your name</label>
+          <input id="invite-name" type="text" name="name" placeholder="Mike" required autoFocus disabled={state === 'submitting'} />
         </div>
         <div className="field">
-          <label>Organization</label>
-          <input type="text" name="organization" placeholder="Ridgeline Manufacturing" required disabled={state === 'submitting'} />
+          <label htmlFor="invite-org">Organization</label>
+          <input id="invite-org" type="text" name="organization" placeholder="Ridgeline Manufacturing" required disabled={state === 'submitting'} />
         </div>
         <div className="field">
-          <label>Work email</label>
-          <input type="email" name="email" placeholder="mike@ridgeline.com" required disabled={state === 'submitting'} />
+          <label htmlFor="invite-email">Work email</label>
+          <input id="invite-email" type="email" name="email" placeholder="mike@ridgeline.com" required disabled={state === 'submitting'} />
         </div>
 
         {state === 'error' && (

@@ -23,8 +23,8 @@ function LoginModal({ onClose, onSuccess, title = 'Log in to SimpleGrid', sub = 
   return (
     <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <form className="modal" style={{ position: 'relative' }} onSubmit={submit}>
-        <button type="button" className="close-btn" onClick={onClose} style={{position:'absolute',top:16,right:16,background:'none',border:'none',fontSize:20,color:'var(--fg3)',cursor:'pointer'}}>×</button>
-        <img src="assets/simplegrid-logomark.svg" alt="" style={{height:28,marginBottom:16}} />
+        <button type="button" className="close-btn" aria-label="Close login dialog" onClick={onClose} style={{position:'absolute',top:16,right:16,background:'none',border:'none',fontSize:20,color:'var(--fg3)',cursor:'pointer'}}>×</button>
+        <img src="assets/simplegrid-logomark.svg" alt="" aria-hidden="true" width="28" height="28" style={{height:28,marginBottom:16}} />
         <h2>{title}</h2>
         <p className="sub">{sub}</p>
 
@@ -73,22 +73,22 @@ function LoginModal({ onClose, onSuccess, title = 'Log in to SimpleGrid', sub = 
         </div>
         {tab === 'email' ? (
           <div className="field">
-            <label>Email address</label>
-            <input type="email" placeholder="you@company.com" required />
+            <label htmlFor="login-email">Email address</label>
+            <input id="login-email" type="email" placeholder="you@company.com" required />
           </div>
         ) : (
           <div className="field">
-            <label>Mobile number</label>
-            <input type="tel" placeholder="+91 98765 43210" required />
+            <label htmlFor="login-mobile">Mobile number</label>
+            <input id="login-mobile" type="tel" placeholder="+91 98765 43210" required />
           </div>
         )}
         <div className="field">
-          <label>Password</label>
-          <input type="password" placeholder="••••••••" required />
+          <label htmlFor="login-password">Password</label>
+          <input id="login-password" type="password" placeholder="••••••••" required />
         </div>
         <button type="submit" className="btn btn-primary" style={{width:'100%',justifyContent:'center',marginTop:4}}>Log in</button>
         <p style={{fontSize:13,color:'var(--fg3)',textAlign:'center',marginTop:14}}>
-          Don't have an account? <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener" style={{color:'var(--sg-blue)',border:'none'}}>Book a call</a> to get started.
+          Don't have an account? <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" style={{color:'var(--sg-blue)',border:'none'}}>Book a call</a> to get started.
         </p>
       </form>
     </div>

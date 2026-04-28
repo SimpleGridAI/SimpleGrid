@@ -80,24 +80,33 @@ PAGE_TEMPLATE = """<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>{title} - SimpleGrid Blog</title>
+<title>{title} | SimpleGrid Blog</title>
 <meta name="description" content="{description}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#4A7BF7">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="{canonical}">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 
 <!-- Open Graph -->
 <meta property="og:site_name" content="SimpleGrid">
 <meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
 <meta property="og:url" content="{canonical}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
 <meta property="og:image" content="{og_image}">
+<meta property="og:image:alt" content="{title} - SimpleGrid blog post">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@simplegridai">
+<meta name="twitter:creator" content="@simplegridai">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{description}">
 <meta name="twitter:image" content="{og_image}">
@@ -112,6 +121,8 @@ PAGE_TEMPLATE = """<!doctype html>
   "image": "{og_image}",
   "url": "{canonical}",
   "mainEntityOfPage": "{canonical}",
+  "inLanguage": "en",
+  "isPartOf": {{ "@id": "https://simplegrid.ai/blog.html#blog" }},
   "publisher": {{ "@id": "https://simplegrid.ai/#org" }},
   "author": {{ "@type": "Organization", "@id": "https://simplegrid.ai/#org" }}{date_field}
 }}
@@ -123,15 +134,15 @@ PAGE_TEMPLATE = """<!doctype html>
   "itemListElement": [
     {{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://simplegrid.ai/" }},
     {{ "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://simplegrid.ai/blog.html" }},
-    {{ "@type": "ListItem", "position": 3, "name": "{title_json}" }}
+    {{ "@type": "ListItem", "position": 3, "name": "{title_json}", "item": "{canonical}" }}
   ]
 }}
 </script>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="../../data/blogs.js"></script>
+<script defer src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script defer src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script defer src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script defer src="../../data/blogs.js"></script>
 <script>
   // Hint to PostMain which blog to render. Asset paths inside body
   // images are repo-relative ("assets/blog/foo.png"); since we sit two
