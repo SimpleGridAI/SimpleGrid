@@ -141,8 +141,8 @@ function ProofSection() {
       <div className="container">
         <Reveal>
           <div className="tag" style={{textAlign:'center'}}>CASE STUDIES</div>
-          <h2 className="h2" style={{textAlign:'center'}}>Two case studies we can share.</h2>
-          <p className="lead" style={{maxWidth:920,margin:'0 auto 40px',textAlign:'center'}}>The deployments below are the two our partners have agreed to talk about publicly. We will add more case studies here as new partners come on board and give us permission to share.</p>
+          <h2 className="h2" style={{textAlign:'center'}}>Manufacturers running on SimpleGrid today.</h2>
+          <p className="lead" style={{maxWidth:920,margin:'0 auto 40px',textAlign:'center'}}>Two public deployments below. More running under MNDA — names on request.</p>
         </Reveal>
         <div className="proof-grid">
           {[
