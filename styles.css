@@ -147,6 +147,11 @@ img { max-width: 100%; display: block; }
     linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
 }
+.hero.hero-light::before {
+  background-image:
+    linear-gradient(rgba(26,26,26,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,26,26,0.05) 1px, transparent 1px);
+}
 .section-blue::before { background-image: none; animation: none; }
 .section > .container,
 .section > .container-sm,
@@ -154,9 +159,28 @@ img { max-width: 100%; display: block; }
 
 /* ===== HERO v2 ===== */
 .hero { background: var(--sg-black); color: #fff; padding: 96px 0 80px; overflow: hidden; min-height: calc(100vh - 144px); display: flex; flex-direction: column; justify-content: center; }
+.hero.hero-light { background: #FCFCFD; color: var(--fg1); }
 .hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: center; }
 .hero-title { font-family: var(--font-heading); font-size: 56px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 22px; color: #fff; }
+.hero.hero-light .hero-title { color: var(--fg1); }
 .hero-sub { font-size: 17px; line-height: 1.6; color: rgba(255,255,255,0.72); max-width: 560px; margin: 0 0 32px; }
+.hero.hero-light .hero-sub { color: var(--fg2); }
+
+/* Hero theme toggle (top-right of hero) */
+.hero-theme-toggle {
+  position: absolute; top: 16px; right: 24px; z-index: 5;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.85);
+  padding: 6px 12px; border-radius: 999px;
+  font-family: var(--font-body); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  cursor: pointer; transition: all 200ms ease;
+}
+.hero-theme-toggle:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.3); }
+.hero.hero-light .hero-theme-toggle { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.10); color: var(--fg2); }
+.hero.hero-light .hero-theme-toggle:hover { background: rgba(0,0,0,0.07); border-color: rgba(0,0,0,0.18); }
+.hero-theme-toggle svg { width: 14px; height: 14px; }
 .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
 
 /* Hero proof strip */

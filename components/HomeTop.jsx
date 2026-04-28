@@ -1,4 +1,4 @@
-function RadialBurst() {
+function RadialBurst({ theme = 'dark' }) {
   // Visual spec (strict):
   //   - Background: radial gradient #D6E4FF (inner, bottom-center) → #FFFFFF (outer)
   //   - 100 thin lines (1–1.5px) radiating from bottom-center in upper 180° arc
@@ -83,14 +83,25 @@ function RadialBurst() {
     const onResize = () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { resize(); }, 150); };
     window.addEventListener('resize', onResize);
 
-    // Tuned for the dark hero — light end SG blue (#4A7BF7), bright end (#A8C5FF)
-    // Both stops are visible on the black hero.
+    // Two palettes — picked at draw time so the burst recolors when theme flips.
+    // Dark: SG blue #4A7BF7 → near-white #A8C5FF (visible on black)
+    // Light: deep blue #2956C4 → SG blue #4A7BF7 (visible on white)
     const lineRGBA = (tone, alpha) => {
-      const r = Math.round(74 + (168 - 74) * tone);
-      const g = Math.round(123 + (197 - 123) * tone);
-      const b = Math.round(247 + (255 - 247) * tone);
+      let r, g, b;
+      if (theme === 'light') {
+        r = Math.round(41 + (74 - 41) * tone);
+        g = Math.round(86 + (123 - 86) * tone);
+        b = Math.round(196 + (247 - 196) * tone);
+      } else {
+        r = Math.round(74 + (168 - 74) * tone);
+        g = Math.round(123 + (197 - 123) * tone);
+        b = Math.round(247 + (255 - 247) * tone);
+      }
       return `rgba(${r},${g},${b},${alpha})`;
     };
+    // Tip-node base RGB switches on theme too
+    const nodeRGB = theme === 'light' ? '41,86,196' : '168,197,255';
+    const haloRGB = theme === 'light' ? '74,123,247' : '168,197,255';
 
     let frame = 0;
     const draw = () => {
@@ -138,14 +149,14 @@ function RadialBurst() {
           nodeRadius = l.nodeSize * (1 + twinkleStrength * 0.7);
           // Soft halo for the twinkle peak
           if (twinkleStrength > 0.3) {
-            ctx.fillStyle = `rgba(168,197,255,${twinkleStrength * 0.22})`;
+            ctx.fillStyle = `rgba(${haloRGB},${twinkleStrength * 0.22})`;
             ctx.beginPath();
             ctx.arc(x, y, nodeRadius * 2.4, 0, Math.PI * 2);
             ctx.fill();
           }
         }
 
-        ctx.fillStyle = `rgba(168,197,255,${nodeAlpha})`;
+        ctx.fillStyle = `rgba(${nodeRGB},${nodeAlpha})`;
         ctx.beginPath();
         ctx.arc(x, y, nodeRadius, 0, Math.PI * 2);
         ctx.fill();
@@ -160,18 +171,20 @@ function RadialBurst() {
       cancelAnimationFrame(animFrame);
       window.removeEventListener('resize', onResize);
     };
-  }, []);
+  }, [theme]);
 
   // Fade burst toward the top so it stays subtly behind the hero copy.
   const mask = 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,1) 88%)';
+  const backdrop = theme === 'light'
+    ? 'radial-gradient(ellipse 85% 65% at 50% 100%, #D6E4FF 0%, rgba(214,228,255,0.55) 35%, #FFFFFF 70%)'
+    : 'radial-gradient(ellipse 80% 65% at 50% 100%, rgba(74,123,247,0.18) 0%, rgba(74,123,247,0.06) 35%, rgba(0,0,0,0) 70%)';
   return (
     <div style={{
       position: 'absolute',
       inset: 0,
       pointerEvents: 'none',
       zIndex: 0,
-      // Soft blue glow at the bottom that fades into the dark hero background
-      background: 'radial-gradient(ellipse 80% 65% at 50% 100%, rgba(74,123,247,0.18) 0%, rgba(74,123,247,0.06) 35%, rgba(0,0,0,0) 70%)',
+      background: backdrop,
     }}>
       <canvas
         ref={canvasRef}
@@ -271,6 +284,14 @@ window.FlowWaves = FlowWaves;
 function Hero() {
   const [count, setCount] = React.useState(547);
   const [showInvite, setShowInvite] = React.useState(false);
+  const [theme, setTheme] = React.useState(() => {
+    try { return localStorage.getItem('sg_hero_theme') || 'dark'; } catch { return 'dark'; }
+  });
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    try { localStorage.setItem('sg_hero_theme', next); } catch {}
+  };
   React.useEffect(() => {
     const target = 7, start = 547, duration = 2200, startTime = Date.now();
     const timer = setInterval(() => {
@@ -284,8 +305,31 @@ function Hero() {
 
   return (
     <>
-    <section className="hero">
-      <RadialBurst />
+    <section className={'hero' + (theme === 'light' ? ' hero-light' : '')}>
+      <button
+        type="button"
+        className="hero-theme-toggle"
+        onClick={toggleTheme}
+        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        {theme === 'dark' ? (
+          <>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+            Light
+          </>
+        ) : (
+          <>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            Dark
+          </>
+        )}
+      </button>
+      <RadialBurst theme={theme} />
       <div className="container">
         <div className="hero-inner">
           <div>
