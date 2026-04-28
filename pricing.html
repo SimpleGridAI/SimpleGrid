@@ -140,25 +140,8 @@ const TIERS = [
       'Everything in the trial, kept running',
       'Unlimited business rule changes',
       'No per-user fees',
-      'Standard integrations included (Gmail, Outlook, Tally, QuickBooks)',
+      'Standard integrations included (Gmail, Outlook, QuickBooks)',
       'Founder still answers your call',
-    ],
-    cta: 'Talk to sales',
-    ctaHref: 'https://cal.com/simplegrid-ai',
-    highlight: false,
-  },
-  {
-    name: 'Multi-factory',
-    sub: 'add new sites · same model',
-    price: 'Per site',
-    priceUnit: 'agreed up front',
-    accent: 'var(--sg-green)',
-    features: [
-      'Each new factory deploys in 7 days',
-      'Shared platform - no re-implementation',
-      'Cross-factory dashboards',
-      'Same pricing model - no surprise SOWs',
-      'No new contract per site',
     ],
     cta: 'Talk to sales',
     ctaHref: 'https://cal.com/simplegrid-ai',
@@ -215,9 +198,9 @@ function PricingPage() {
         <div className="tag">PLANS</div>
         <h2 className="h2" style={{marginBottom:8}}>$0 to start. 30 days to decide. Pay only if it works.</h2>
         <p className="lead" style={{maxWidth:960, marginBottom:36}}>
-          Three plans. No setup fees. No per-user fees. No change-order tax.
+          Two plans. No setup fees. No per-user fees. No change-order tax.
         </p>
-        <div className="tier-grid" style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:20}}>
+        <div className="tier-grid" style={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:20, maxWidth:880}}>
           {TIERS.map((t,i) => (
             <div key={i} style={{
               background:'#fff', border:'1px solid var(--border)',
@@ -234,7 +217,7 @@ function PricingPage() {
                 <div style={{fontFamily:'var(--font-heading)', fontSize:38, fontWeight:700, color:'var(--fg1)', letterSpacing:'-0.025em', lineHeight:1}}>{t.price}</div>
                 {t.priceUnit && <div style={{fontSize:12, color:'var(--fg3)', marginTop:6}}>{t.priceUnit}</div>}
               </div>
-              <ul style={{listStyle:'none', padding:0, margin:'4px 0 12px', display:'flex', flexDirection:'column', gap:8}}>
+              <ul style={{listStyle:'none', padding:0, margin:'4px 0 12px', display:'flex', flexDirection:'column', gap:8, flex:1}}>
                 {t.features.map((f, j) => (
                   <li key={j} style={{display:'flex', gap:10, fontSize:13.5, color:'var(--fg2)', lineHeight:1.5}}>
                     <span style={{color:t.accent, fontWeight:700, flexShrink:0}}>✓</span>
@@ -242,7 +225,7 @@ function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <a href={t.ctaHref} target="_blank" rel="noopener" className={'btn btn-sm ' + (t.highlight ? 'btn-primary' : 'btn-secondary')} style={{justifyContent:'center'}}>{t.cta}</a>
+              <a href={t.ctaHref} target="_blank" rel="noopener" className={'btn btn-sm ' + (t.highlight ? 'btn-primary' : 'btn-secondary')} style={{justifyContent:'center', marginTop:'auto'}}>{t.cta}</a>
             </div>
           ))}
         </div>
