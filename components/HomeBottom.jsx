@@ -173,6 +173,9 @@ function ProofSection() {
             </Reveal>
           ))}
         </div>
+        <div style={{textAlign:'center',marginTop:36}}>
+          <a href="case-studies.html" style={{fontSize:14,fontWeight:600,color:'var(--sg-blue)',textDecoration:'none'}}>See both deployments side by side →</a>
+        </div>
       </div>
     </section>
   );
@@ -340,7 +343,7 @@ function FinalCTA() {
         <Reveal>
           <h2 className="h2">Deploy in days. Decide in 30.</h2>
           <p className="sub">We build it at our cost. You run it with your team. Doesn't work? Walk away.</p>
-          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener" className="btn btn-lg btn-primary">Book a call</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a call</a>
           <p className="note">No commitment. Migration included. Founder-led onboarding.</p>
         </Reveal>
       </div>

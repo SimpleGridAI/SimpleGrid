@@ -9,6 +9,15 @@ function FIcon({ kind }) {
 }
 
 function Footer() {
+  // Honour the prefix the blog generator sets so internal links work from
+  // nested pages like /blog/{slug}/index.html.
+  const prefix = (typeof window !== 'undefined' && window.__SG_BLOG_ASSET_PREFIX__) || '';
+  const px = (href) => {
+    if (!prefix) return href;
+    if (/^(https?:|mailto:|tel:|#|\/)/i.test(href)) return href;
+    return prefix + href;
+  };
+
   const cols = [
     { h: 'Product', links: [
       { l: 'Meet Hank', href: 'product.html#hank' },
@@ -17,7 +26,6 @@ function Footer() {
       { l: 'Events ledger', href: 'product.html#ledger' },
       { l: 'Adoption', href: 'product.html#ability' },
       { l: 'Your process, enforced', href: 'product.html#rules' },
-      { l: 'Pricing', href: 'pricing.html' },
     ]},
     { h: 'Resources', links: [
       { l: 'Case studies', href: 'case-studies.html' },
@@ -25,6 +33,7 @@ function Footer() {
     ]},
     { h: 'Company', links: [
       { l: 'About', href: 'about.html' },
+      { l: 'Pricing', href: 'pricing.html' },
       { l: 'Architecture', href: 'about.html#architecture' },
       { l: 'Hiring', href: 'hiring.html' },
     ]},
@@ -39,11 +48,11 @@ function Footer() {
   ];
 
   return (
-    <footer className="footer">
+    <footer className="footer" role="contentinfo">
       <div className="container">
         <div className="footer-top">
           <div>
-            <img src="assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid" className="footer-logo" width="160" height="32" />
+            <img src={prefix + 'assets/simplegrid-logo-horizontal.svg'} alt="SimpleGrid - AI ERP for manufacturers logo" className="footer-logo" width="160" height="32" loading="lazy" />
             <p className="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p>
 
             {/* Trusted partner badges */}
@@ -52,14 +61,14 @@ function Footer() {
                 Trusted partners
               </div>
               <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
-                <a href="https://www.nvidia.com/en-us/startups/" target="_blank" rel="noopener" title="NVIDIA Inception Program member" style={{
+                <a href="https://www.nvidia.com/en-us/startups/" target="_blank" rel="noopener noreferrer" title="NVIDIA Inception Program member" style={{
                   display: 'inline-flex', alignItems: 'center',
                   padding: '8px 14px', borderRadius: 10, border: '1px solid var(--border)',
                   background: '#fff', textDecoration: 'none', height: 56, boxSizing: 'border-box',
                 }}>
-                  <img src="assets/nvidia-inception.png" alt="NVIDIA Inception Program member" width="120" height="38" style={{ display: 'block' }} />
+                  <img src={prefix + 'assets/nvidia-inception.png'} alt="NVIDIA Inception Program member badge" width="120" height="38" loading="lazy" style={{ display: 'block' }} />
                 </a>
-                <a href="https://aws.amazon.com/startups/" target="_blank" rel="noopener" title="AWS Startups partner" style={{
+                <a href="https://aws.amazon.com/startups/" target="_blank" rel="noopener noreferrer" title="AWS Startups partner" style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10,
                   padding: '8px 16px', borderRadius: 10, border: '1px solid var(--border)',
                   background: '#fff', textDecoration: 'none', height: 56, boxSizing: 'border-box',
@@ -80,7 +89,7 @@ function Footer() {
             {cols.map(c => (
               <div key={c.h}>
                 <div className="footer-h">{c.h}</div>
-                {c.links.map(x => <a key={x.l} href={x.href} className="footer-link">{x.l}</a>)}
+                {c.links.map(x => <a key={x.l} href={px(x.href)} className="footer-link">{x.l}</a>)}
               </div>
             ))}
             <div>
@@ -101,7 +110,7 @@ function Footer() {
         <div className="footer-bottom">
           <div>© 2026 Valaya AI Technologies Pvt. Ltd.</div>
           <div className="footer-legal">
-            <a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms</a>
+            <a href={px('privacy.html')}>Privacy Policy</a><a href={px('terms.html')}>Terms</a>
           </div>
         </div>
       </div>

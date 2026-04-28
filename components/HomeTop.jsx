@@ -349,6 +349,9 @@ function Hero() {
                   Request an Invite
                 </button>
               </div>
+              <div style={{marginTop:14}}>
+                <a href="product.html" style={{fontSize:13,color:'var(--sg-blue)',fontWeight:600,textDecoration:'none'}}>See how SimpleGrid models your factory →</a>
+              </div>
             </Reveal>
           </div>
           <Reveal delay={300}>

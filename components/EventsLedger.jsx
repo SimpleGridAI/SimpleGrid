@@ -287,6 +287,9 @@ function ArchitectureNew() {
             <p style={{ fontSize: 15, color: 'var(--fg2)', lineHeight: 1.7, margin: 0, fontStyle: 'italic' }}>
               "This is not AI. AI is the surface. Underneath is an architecture so unusual that even seasoned engineers ask us to draw it twice. Most ERPs are 1990s thinking dressed in 2020s UI. SimpleGrid is what an enterprise system looks like if you started today, with what we now know."
             </p>
+            <p style={{ fontSize: 14, color: 'var(--fg2)', lineHeight: 1.7, margin: '14px 0 0' }}>
+              <a href="about.html" style={{color:'var(--sg-blue)',fontWeight:600,textDecoration:'none'}}>Built by operators who ran a $30M factory</a> - not by software vendors who watched one from the outside.
+            </p>
           </div>
         </Reveal>
       </div>
@@ -393,6 +396,9 @@ function MotivationSection() {
             <HankChat />
           </div>
         </Reveal>
+        <div style={{textAlign:'center',marginTop:28}}>
+          <a href="case-studies.html" style={{fontSize:14,fontWeight:600,color:'var(--sg-blue)',textDecoration:'none'}}>See live customer deployments →</a>
+        </div>
       </div>
     </section>
   );
