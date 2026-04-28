@@ -83,11 +83,12 @@ function RadialBurst() {
     const onResize = () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { resize(); }, 150); };
     window.addEventListener('resize', onResize);
 
-    // #2956C4 = (41, 86, 196), #4A7BF7 = (74, 123, 247)
+    // Tuned for the dark hero — light end SG blue (#4A7BF7), bright end (#A8C5FF)
+    // Both stops are visible on the black hero.
     const lineRGBA = (tone, alpha) => {
-      const r = Math.round(41 + (74 - 41) * tone);
-      const g = Math.round(86 + (123 - 86) * tone);
-      const b = Math.round(196 + (247 - 196) * tone);
+      const r = Math.round(74 + (168 - 74) * tone);
+      const g = Math.round(123 + (197 - 123) * tone);
+      const b = Math.round(247 + (255 - 247) * tone);
       return `rgba(${r},${g},${b},${alpha})`;
     };
 
@@ -125,26 +126,26 @@ function RadialBurst() {
         ctx.lineTo(x, y);
         ctx.stroke();
 
-        // Tip node base: 60–90% deep-blue, modulated by breath
-        let nodeAlpha = 0.6 + 0.3 * breath;
+        // Tip node base: bright on dark — light blue/white, modulated by breath
+        let nodeAlpha = 0.7 + 0.3 * breath;
         let nodeRadius = l.nodeSize;
 
         // Twinkle: a small subset of nodes pulse brighter on a slow cycle
         if (l.twinkles) {
           const t = (Math.sin(frame * l.twinkleFreq + l.twinklePhase) + 1) * 0.5; // 0..1
           const twinkleStrength = Math.pow(t, 3); // sharp peak, soft trough
-          nodeAlpha = Math.min(1, nodeAlpha + twinkleStrength * 0.4);
-          nodeRadius = l.nodeSize * (1 + twinkleStrength * 0.6);
-          // Faint halo for the twinkle peak
+          nodeAlpha = Math.min(1, nodeAlpha + twinkleStrength * 0.3);
+          nodeRadius = l.nodeSize * (1 + twinkleStrength * 0.7);
+          // Soft halo for the twinkle peak
           if (twinkleStrength > 0.3) {
-            ctx.fillStyle = `rgba(74,123,247,${twinkleStrength * 0.18})`;
+            ctx.fillStyle = `rgba(168,197,255,${twinkleStrength * 0.22})`;
             ctx.beginPath();
-            ctx.arc(x, y, nodeRadius * 2.2, 0, Math.PI * 2);
+            ctx.arc(x, y, nodeRadius * 2.4, 0, Math.PI * 2);
             ctx.fill();
           }
         }
 
-        ctx.fillStyle = `rgba(41,86,196,${nodeAlpha})`;
+        ctx.fillStyle = `rgba(168,197,255,${nodeAlpha})`;
         ctx.beginPath();
         ctx.arc(x, y, nodeRadius, 0, Math.PI * 2);
         ctx.fill();
@@ -161,16 +162,16 @@ function RadialBurst() {
     };
   }, []);
 
-  // Fade burst at top so it stays subtly behind hero copy
-  const mask = 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 25%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,1) 80%)';
+  // Fade burst toward the top so it stays subtly behind the hero copy.
+  const mask = 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,1) 88%)';
   return (
     <div style={{
       position: 'absolute',
       inset: 0,
       pointerEvents: 'none',
       zIndex: 0,
-      // Soft blue radial gradient: #D6E4FF at bottom-center → #FFFFFF outer
-      background: 'radial-gradient(ellipse 85% 65% at 50% 100%, #D6E4FF 0%, rgba(214,228,255,0.55) 35%, #FFFFFF 70%)',
+      // Soft blue glow at the bottom that fades into the dark hero background
+      background: 'radial-gradient(ellipse 80% 65% at 50% 100%, rgba(74,123,247,0.18) 0%, rgba(74,123,247,0.06) 35%, rgba(0,0,0,0) 70%)',
     }}>
       <canvas
         ref={canvasRef}
