@@ -140,7 +140,7 @@ function BlogPost() {
     // populate via blog data once authoring dates are added to data/blogs.js)
     let ld = document.getElementById('post-jsonld');
     if (!ld) { ld = document.createElement('script'); ld.type = 'application/ld+json'; ld.id = 'post-jsonld'; document.head.appendChild(ld); }
-    ld.textContent = JSON.stringify({
+    const articleSchema = {
       '@context': 'https://schema.org',
       '@type': 'Article',
       'headline': blog.title,
@@ -149,8 +149,12 @@ function BlogPost() {
       'url': url,
       'mainEntityOfPage': url,
       'publisher': { '@id': 'https://simplegrid.ai/#org' },
-      'author': { '@type': 'Organization', '@id': 'https://simplegrid.ai/#org' }
-    });
+      'author': { '@type': 'Organization', '@id': 'https://simplegrid.ai/#org' },
+    };
+    if (blog.datePublished) articleSchema.datePublished = blog.datePublished;
+    articleSchema.dateModified = blog.dateModified || blog.datePublished || undefined;
+    if (!articleSchema.dateModified) delete articleSchema.dateModified;
+    ld.textContent = JSON.stringify(articleSchema);
 
     // BreadcrumbList JSON-LD
     let bc = document.getElementById('post-breadcrumb');
