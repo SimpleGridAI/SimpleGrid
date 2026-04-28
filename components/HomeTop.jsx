@@ -286,7 +286,7 @@ function Hero() {
   const [count, setCount] = React.useState(547);
   const [showInvite, setShowInvite] = React.useState(false);
   const [theme, setTheme] = React.useState(() => {
-    try { return localStorage.getItem('sg_hero_theme') || 'dark'; } catch { return 'dark'; }
+    try { return localStorage.getItem('sg_hero_theme') || 'light'; } catch { return 'light'; }
   });
   const toggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark';
@@ -521,7 +521,7 @@ function WhatWeDo() {
   return (
     <>
     <section className="section section-blue" style={{position:'relative',overflow:'hidden'}}>
-      <ParticleCloud />
+      <FlowWaves />
       <div className="container" style={{maxWidth:880,margin:'0 auto',padding:'0 32px',position:'relative',zIndex:2}}>
         <Reveal>
           <div style={{textAlign:'center'}}>

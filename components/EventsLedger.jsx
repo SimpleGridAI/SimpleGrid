@@ -299,25 +299,71 @@ window.ArchitectureNew = ArchitectureNew;
 
 function ProductHeroNew() {
   const [showInvite, setShowInvite] = React.useState(false);
+  const [theme, setTheme] = React.useState(() => {
+    try { return localStorage.getItem('sg_product_hero_theme') || 'light'; } catch { return 'light'; }
+  });
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    try { localStorage.setItem('sg_product_hero_theme', next); } catch {}
+  };
+  const isDark = theme === 'dark';
+
+  // Theme-driven colors
+  const bgClass = isDark ? 'section section-dark' : 'section';
+  const bgStyle = isDark
+    ? { paddingTop: 88, paddingBottom: 64, position: 'relative', overflow: 'hidden' }
+    : { paddingTop: 88, paddingBottom: 64, position: 'relative', overflow: 'hidden', background: '#FCFCFD' };
+  const overlayBg = isDark
+    ? 'radial-gradient(circle at 80% 20%, rgba(74,123,247,0.18), transparent 50%), radial-gradient(circle at 20% 80%, rgba(124,58,237,0.12), transparent 50%)'
+    : 'radial-gradient(circle at 80% 20%, rgba(74,123,247,0.10), transparent 50%), radial-gradient(circle at 20% 80%, rgba(124,58,237,0.06), transparent 50%)';
+  const tagColor = isDark ? 'rgba(255,255,255,0.5)' : 'var(--fg3)';
+  const h1Color = isDark ? '#fff' : 'var(--fg1)';
+  const leadColor = isDark ? 'rgba(255,255,255,0.78)' : 'var(--fg2)';
+  const noteColor = isDark ? 'rgba(255,255,255,0.5)' : 'var(--fg3)';
+
   return (
-    <section className="section section-dark" style={{ paddingTop: 88, paddingBottom: 64, position: 'relative', overflow: 'hidden' }}>
+    <section className={bgClass} style={bgStyle}>
+      <button
+        type="button"
+        className={'hero-theme-toggle' + (isDark ? '' : ' is-light')}
+        onClick={toggleTheme}
+        aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        {isDark ? (
+          <>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+            Light
+          </>
+        ) : (
+          <>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            Dark
+          </>
+        )}
+      </button>
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: 'radial-gradient(circle at 80% 20%, rgba(74,123,247,0.18), transparent 50%), radial-gradient(circle at 20% 80%, rgba(124,58,237,0.12), transparent 50%)',
+        backgroundImage: overlayBg,
       }}></div>
       <ParticleCloud showArcs={false} />
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        <div className="tag" style={{ color: 'rgba(255,255,255,0.5)' }}>THE PRODUCT</div>
-        <h1 className="h1" style={{ color: '#fff', maxWidth: 980, fontSize: 48, lineHeight: 1.1 }}>
+        <div className="tag" style={{ color: tagColor }}>THE PRODUCT</div>
+        <h1 className="h1" style={{ color: h1Color, maxWidth: 980, fontSize: 48, lineHeight: 1.1 }}>
           Stop running your factory on messaging apps and Excel sheets.
         </h1>
-        <p className="lead" style={{ color: 'rgba(255,255,255,0.78)', maxWidth: 760, marginTop: 18 }}>
+        <p className="lead" style={{ color: leadColor, maxWidth: 760, marginTop: 18 }}>
           You know how it goes. Fourteen Slack and Teams channels, six Excel spreadsheets, an approval stuck in someone's DMs, a dispatch nobody can confirm went out, and a buyer calling about an order you can't find. SimpleGrid is one system for all of it - built the way your team already works.
         </p>
         <div style={{ marginTop: 28, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-primary">Request an Invite →</button>
         </div>
-        <div style={{ marginTop: 36, display: 'flex', gap: 32, flexWrap: 'wrap', fontSize: 13, color: 'rgba(255,255,255,0.5)' }}>
+        <div style={{ marginTop: 36, display: 'flex', gap: 32, flexWrap: 'wrap', fontSize: 13, color: noteColor }}>
           <span>● 7-day deployment</span>
           <span>● No commitment</span>
           <span>● Founder runs your onboarding</span>
