@@ -41,8 +41,9 @@ function RadialBurst({ theme = 'dark' }) {
         const lenRatio = 0.4 + Math.random() * 0.5;
         // tone 0 = deep blue #2956C4, 1 = SimpleGrid blue #4A7BF7
         const tone = Math.random();
-        // shorter lines are more opaque (depth effect)
-        const baseAlpha = 0.8 - (lenRatio - 0.4) * 0.5 / 0.5 * 0.5; // ~0.3–0.8
+        // shorter lines are more opaque (depth effect) — bumped from 0.3–0.8
+        // to 0.45–0.95 so the burst reads as eye-catching, not whispery.
+        const baseAlpha = 0.95 - (lenRatio - 0.4) * 0.5 / 0.5 * 0.5; // ~0.45–0.95
 
         // Breathing oscillation: opacity sways over a 3–6s period
         const phase = Math.random() * Math.PI * 2;
@@ -84,7 +85,7 @@ function RadialBurst({ theme = 'dark' }) {
     window.addEventListener('resize', onResize);
 
     // Two palettes — picked at draw time so the burst recolors when theme flips.
-    // Dark: SG blue #4A7BF7 → near-white #A8C5FF (visible on black)
+    // Dark: deep #3461D1 → medium-blue #6E97FF (saturated, both clearly blue)
     // Light: deep blue #2956C4 → SG blue #4A7BF7 (visible on white)
     const lineRGBA = (tone, alpha) => {
       let r, g, b;
@@ -93,15 +94,15 @@ function RadialBurst({ theme = 'dark' }) {
         g = Math.round(86 + (123 - 86) * tone);
         b = Math.round(196 + (247 - 196) * tone);
       } else {
-        r = Math.round(74 + (168 - 74) * tone);
-        g = Math.round(123 + (197 - 123) * tone);
-        b = Math.round(247 + (255 - 247) * tone);
+        r = Math.round(52 + (110 - 52) * tone);
+        g = Math.round(97 + (151 - 97) * tone);
+        b = Math.round(209 + (255 - 209) * tone);
       }
       return `rgba(${r},${g},${b},${alpha})`;
     };
-    // Tip-node base RGB switches on theme too
-    const nodeRGB = theme === 'light' ? '41,86,196' : '168,197,255';
-    const haloRGB = theme === 'light' ? '74,123,247' : '168,197,255';
+    // Tip-node base RGB switches on theme too — saturated SG blue on dark
+    const nodeRGB = theme === 'light' ? '41,86,196' : '74,123,247';
+    const haloRGB = theme === 'light' ? '74,123,247' : '110,151,255';
 
     let frame = 0;
     const draw = () => {
