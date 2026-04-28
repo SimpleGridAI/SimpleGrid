@@ -1,4 +1,158 @@
 // Interactive elements and animations for the site
+
+// ===== ParticleCloud =====
+// Soft drifting dust-mote field. Strict palette: SG-blue / teal / dark blue / muted purple.
+// Dots cluster (gaussian) around section center, orbit in small ellipses, opacity pulses.
+// Reusable as section background. Sits behind content via pointer-events:none + zIndex 0.
+function ParticleCloud({ density, showArcs = true }) {
+  const canvasRef = React.useRef(null);
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animFrame, particles = [], arcs = [], resizeTimeout;
+    const dpr = () => Math.min(window.devicePixelRatio || 1, 2);
+
+    const resize = () => {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width * dpr();
+      canvas.height = rect.height * dpr();
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx.setTransform(dpr(), 0, 0, dpr(), 0, 0);
+    };
+    resize();
+
+    const W = () => canvas.width / dpr();
+    const H = () => canvas.height / dpr();
+
+    // Gaussian random via Box-Muller
+    const gauss = () => {
+      let u = 0, v = 0;
+      while (u === 0) u = Math.random();
+      while (v === 0) v = Math.random();
+      return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    };
+
+    const countForViewport = () => {
+      if (density === 'low') return 175;
+      if (density === 'high') return 600;
+      const w = W();
+      if (w >= 1024) return 500;
+      if (w >= 640) return 300;
+      return 175;
+    };
+
+    // Strict palette: 50% SG blue · 25% teal · 15% dark blue · 10% muted purple
+    const pickColor = () => {
+      const r = Math.random();
+      if (r < 0.50) return { rgb: '74,123,247',  alpha: 0.4 + Math.random() * 0.4 };
+      if (r < 0.75) return { rgb: '14,165,233',  alpha: 0.3 + Math.random() * 0.3 };
+      if (r < 0.90) return { rgb: '52,97,209',   alpha: 0.5 + Math.random() * 0.4 };
+      return            { rgb: '124,58,237',  alpha: 0.2 + Math.random() * 0.2 };
+    };
+
+    const seed = () => {
+      particles = [];
+      const w = W(), h = H();
+      const cx = w / 2, cy = h / 2;
+      const sigmaX = w * 0.32;
+      const sigmaY = h * 0.32;
+      const count = countForViewport();
+      for (let i = 0; i < count; i++) {
+        const gx = Math.max(-2.5, Math.min(2.5, gauss()));
+        const gy = Math.max(-2.5, Math.min(2.5, gauss()));
+        const homeX = cx + gx * sigmaX;
+        const homeY = cy + gy * sigmaY;
+        const radius = Math.random() < 0.10 ? (3 + Math.random()) : (1 + Math.random());
+        const color = pickColor();
+        const orbitPeriod = 8 + Math.random() * 12;
+        const orbitSpeed = (Math.PI * 2) / (orbitPeriod * 60);
+        const orbitRadius = 3 + Math.random() * 12;
+        const orbitPhase = Math.random() * Math.PI * 2;
+        const orbitAspect = 0.6 + Math.random() * 0.6;
+        const pulsePeriod = 4 + Math.random() * 4;
+        const pulseSpeed = (Math.PI * 2) / (pulsePeriod * 60);
+        const pulsePhase = Math.random() * Math.PI * 2;
+
+        particles.push({
+          homeX, homeY, radius,
+          rgb: color.rgb, baseAlpha: color.alpha,
+          orbitRadius, orbitSpeed, orbitPhase, orbitAspect,
+          pulseSpeed, pulsePhase,
+        });
+      }
+
+      arcs = [];
+      if (showArcs) {
+        const numArcs = 2 + Math.floor(Math.random() * 2);
+        for (let i = 0; i < numArcs; i++) {
+          const x1 = cx + (Math.random() - 0.5) * w * 0.75;
+          const y1 = cy + (Math.random() - 0.4) * h * 0.55;
+          const x2 = cx + (Math.random() - 0.5) * w * 0.75;
+          const y2 = cy + (Math.random() - 0.4) * h * 0.55;
+          const cpx = (x1 + x2) / 2 + (Math.random() - 0.5) * w * 0.35;
+          const cpy = Math.min(y1, y2) - h * (0.10 + Math.random() * 0.20);
+          arcs.push({ x1, y1, x2, y2, cpx, cpy, phase: Math.random() * Math.PI * 2 });
+        }
+      }
+    };
+    seed();
+
+    const onResize = () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { resize(); seed(); }, 200); };
+    window.addEventListener('resize', onResize);
+
+    let frame = 0;
+    const draw = () => {
+      const w = W(), h = H();
+      ctx.clearRect(0, 0, w, h);
+
+      arcs.forEach(arc => {
+        const alpha = 0.10 + 0.05 * Math.sin(frame * 0.003 + arc.phase);
+        ctx.strokeStyle = `rgba(74,123,247,${alpha})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(arc.x1, arc.y1);
+        ctx.quadraticCurveTo(arc.cpx, arc.cpy, arc.x2, arc.y2);
+        ctx.stroke();
+      });
+
+      particles.forEach(p => {
+        const orbitAngle = p.orbitPhase + frame * p.orbitSpeed;
+        const x = p.homeX + Math.cos(orbitAngle) * p.orbitRadius;
+        const y = p.homeY + Math.sin(orbitAngle) * p.orbitRadius * p.orbitAspect;
+        const pulse = 0.6 + 0.4 * (Math.sin(frame * p.pulseSpeed + p.pulsePhase) * 0.5 + 0.5);
+        const alpha = p.baseAlpha * pulse;
+        ctx.fillStyle = `rgba(${p.rgb},${alpha})`;
+        ctx.beginPath();
+        ctx.arc(x, y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      frame++;
+      animFrame = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(animFrame);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [density, showArcs]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'absolute', inset: 0,
+        width: '100%', height: '100%',
+        pointerEvents: 'none', zIndex: 0,
+      }}
+    />
+  );
+}
+window.ParticleCloud = ParticleCloud;
+
 // Scroll-triggered number counter
 function AnimatedNumber({ value, suffix = '', prefix = '', duration = 1500 }) {
   const ref = React.useRef(null);

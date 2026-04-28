@@ -521,7 +521,7 @@ function WhatWeDo() {
   return (
     <>
     <section className="section section-blue" style={{position:'relative',overflow:'hidden'}}>
-      <FlowWaves />
+      <ParticleCloud />
       <div className="container" style={{maxWidth:880,margin:'0 auto',padding:'0 32px',position:'relative',zIndex:2}}>
         <Reveal>
           <div style={{textAlign:'center'}}>

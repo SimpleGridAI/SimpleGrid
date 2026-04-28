@@ -305,7 +305,8 @@ function ProductHeroNew() {
         position: 'absolute', inset: 0,
         backgroundImage: 'radial-gradient(circle at 80% 20%, rgba(74,123,247,0.18), transparent 50%), radial-gradient(circle at 20% 80%, rgba(124,58,237,0.12), transparent 50%)',
       }}></div>
-      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+      <ParticleCloud showArcs={false} />
+      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <div className="tag" style={{ color: 'rgba(255,255,255,0.5)' }}>THE PRODUCT</div>
         <h1 className="h1" style={{ color: '#fff', maxWidth: 980, fontSize: 48, lineHeight: 1.1 }}>
           Stop running your factory on messaging apps and Excel sheets.
