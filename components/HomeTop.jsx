@@ -33,14 +33,12 @@ function RadialBurst() {
     let lines = [];
     const seed = () => {
       lines = [];
-      const COUNT = 55;
+      const COUNT = 100;
       for (let i = 0; i < COUNT; i++) {
-        // Diagonal cone: lines radiate from bottom-left up and to the right.
-        // Angle range -π/2 (straight up) to ~-0.05 (just above horizontal-right).
-        const a = -Math.PI / 2 + Math.random() * (Math.PI / 2 - 0.05);
-        // Length scales relative to the canvas diagonal so lines reach
-        // across the diagonal rather than stopping mid-canvas.
-        const lenRatio = 0.55 + Math.random() * 0.55; // 55%–110% of height
+        // Angle in upper 180° arc: -π (left) to 0 (right), with -π/2 = straight up
+        const a = -Math.PI + Math.random() * Math.PI;
+        // Length: 40–90% of canvas height
+        const lenRatio = 0.4 + Math.random() * 0.5;
         // tone 0 = deep blue #2956C4, 1 = SimpleGrid blue #4A7BF7
         const tone = Math.random();
         // shorter lines are more opaque (depth effect)
@@ -96,11 +94,8 @@ function RadialBurst() {
     let frame = 0;
     const draw = () => {
       const w = W(), h = H();
-      // Origin at bottom-left corner so lines radiate diagonally up-and-right
-      const cx = -8;
-      const cy = h + 8;
-      // Reach: scale length relative to canvas diagonal so lines span the screen
-      const reach = Math.sqrt(w * w + h * h);
+      const cx = w / 2;
+      const cy = h + 4; // origin slightly off the bottom edge so the seed point is hidden
       ctx.clearRect(0, 0, w, h);
 
       lines.forEach(l => {
@@ -113,7 +108,7 @@ function RadialBurst() {
 
         // Length sway: ±2% length oscillation
         const lenMul = 1 + 0.02 * Math.sin(frame * l.lenFreq + l.lenPhase);
-        const len = reach * l.lenRatio * lenMul;
+        const len = h * l.lenRatio * lenMul;
 
         const x = cx + Math.cos(angleNow) * len;
         const y = cy + Math.sin(angleNow) * len;
@@ -166,16 +161,16 @@ function RadialBurst() {
     };
   }, []);
 
-  // Diagonal fade so the burst stays subtly behind hero copy
-  const mask = 'linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 30%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,1) 90%)';
+  // Fade burst at top so it stays subtly behind hero copy
+  const mask = 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 25%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,1) 80%)';
   return (
     <div style={{
       position: 'absolute',
       inset: 0,
       pointerEvents: 'none',
       zIndex: 0,
-      // Soft blue glow now anchored at bottom-left to match the diagonal origin
-      background: 'radial-gradient(ellipse 95% 80% at 0% 100%, #D6E4FF 0%, rgba(214,228,255,0.55) 35%, #FFFFFF 70%)',
+      // Soft blue radial gradient: #D6E4FF at bottom-center → #FFFFFF outer
+      background: 'radial-gradient(ellipse 85% 65% at 50% 100%, #D6E4FF 0%, rgba(214,228,255,0.55) 35%, #FFFFFF 70%)',
     }}>
       <canvas
         ref={canvasRef}
