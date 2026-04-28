@@ -150,12 +150,12 @@ const TIERS = [
 ];
 
 const COMPARE = [
-  { metric: 'Deployment time',          us: '7 days',                 sap: '12–18 months', tally: 'weeks (basic) + months (custom)', erpnext: '6–12 months' },
-  { metric: 'Upfront cost',             us: '$0',                     sap: '$150K–$500K+', tally: '$5K–20K + customisation',         erpnext: 'Free + heavy implementation cost' },
-  { metric: 'Per-user fees',            us: 'No',                     sap: 'Yes',          tally: 'Yes (per concurrent user)',       erpnext: 'Hosting + support tiers' },
-  { metric: 'Change order fees',        us: 'No',                     sap: '$8K–20K each', tally: 'Per customisation',               erpnext: 'Per developer hour' },
-  { metric: 'Built for the factory floor', us: 'Yes',                 sap: 'Generic',      tally: 'Accounting-first',                erpnext: 'Generic' },
-  { metric: 'Walk-away clause',         us: '30 days, no clawback',   sap: 'Bound by SOW', tally: 'License paid',                    erpnext: 'Implementation paid' },
+  { metric: 'Deployment time',             us: '7 days',                sap: '12-18 months', netsuite: '6-12 months',                qbe: 'Days (accounting only)' },
+  { metric: 'Upfront cost',                us: '$0',                    sap: '$150K-$500K+', netsuite: '$25K-$100K implementation',  qbe: '$1.7K/yr/user + add-ons' },
+  { metric: 'Per-user fees',               us: 'No',                    sap: 'Yes',          netsuite: 'Yes (per seat)',             qbe: 'Yes (named user)' },
+  { metric: 'Change order fees',           us: 'No',                    sap: '$8K-$20K each', netsuite: '$200+/hr consultant',       qbe: 'Per add-on / SuiteApp' },
+  { metric: 'Built for the factory floor', us: 'Yes',                   sap: 'Generic',      netsuite: 'Generic',                    qbe: 'Accounting-first' },
+  { metric: 'Walk-away clause',            us: '30 days, no clawback',  sap: 'Bound by SOW', netsuite: 'Annual contract, no refund', qbe: 'Subscription locked' },
 ];
 
 const INCLUDED = [
@@ -200,7 +200,7 @@ function PricingPage() {
         <p className="lead" style={{maxWidth:960, marginBottom:36}}>
           Two plans. No setup fees. No per-user fees. No change-order tax.
         </p>
-        <div className="tier-grid" style={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:20, maxWidth:880}}>
+        <div className="tier-grid" style={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:20, maxWidth:880, margin:'0 auto'}}>
           {TIERS.map((t,i) => (
             <div key={i} style={{
               background:'#fff', border:'1px solid var(--border)',
@@ -295,8 +295,8 @@ function PricingPage() {
                 <th style={{background:'rgba(74,123,247,0.05)', color:'var(--sg-blue)'}}>Line item</th>
                 <th style={{background:'rgba(74,123,247,0.05)', color:'var(--sg-blue)'}}>SimpleGrid</th>
                 <th>SAP Business One</th>
-                <th>Tally + customisation</th>
-                <th>ERPNext / Odoo</th>
+                <th>NetSuite</th>
+                <th>QuickBooks Enterprise</th>
               </tr>
             </thead>
             <tbody>
@@ -305,8 +305,8 @@ function PricingPage() {
                   <td style={{fontWeight:600, color:'var(--fg1)'}}>{r.metric}</td>
                   <td style={{background:'rgba(74,123,247,0.04)', color:'var(--sg-blue)', fontWeight:600}}>{r.us}</td>
                   <td>{r.sap}</td>
-                  <td>{r.tally}</td>
-                  <td>{r.erpnext}</td>
+                  <td>{r.netsuite}</td>
+                  <td>{r.qbe}</td>
                 </tr>
               ))}
             </tbody>
