@@ -81,7 +81,7 @@ window.DemoVideo = DemoVideo;
 
 function CustomRules() {
   const scenarios = [
-    { t: 'Your approval chain has exceptions', body: 'POs above $10K need founder sign-off. But three trusted vendors get a higher limit for the planner. That\'s two rules in our system. Both enforced automatically. In other ERPs, that\'s a $20K change order and 6 weeks.' },
+    { t: 'Your approval chain has exceptions', body: 'POs above $10K need founder sign-off. But three trusted vendors get a higher limit for the planner. That\'s two rules in our system. Both enforced automatically. In other ERPs, that\'s a multi-week change order with consultant fees attached.' },
     { t: 'Your QC works differently per buyer', body: 'Retailer A requires 75% shelf life remaining. Retailer B is fine with 60%. Your system should know this. Ours does - one rule per buyer. The system blocks dispatch automatically if the product is too old for that buyer.' },
     { t: 'Your rework goes to the original contractor', body: 'QC fails 40 pieces. Your rule: original contractor redoes it at no cost. In our system, that\'s one rule. Rework auto-routes to the same contractor. Rate = $0. Done.' },
     { t: 'Your shipments have size limits', body: 'Your buyer\'s dock can only handle 40 CBM. Order is 55 CBM. Our system splits it into two shipments automatically, generates two packing lists, updates the order. One rule. No manual work.' },

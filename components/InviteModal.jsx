@@ -91,7 +91,7 @@ function InviteModal({ onClose }) {
           {state === 'submitting' ? 'Sending…' : 'Request an Invite →'}
         </button>
         <p style={{ fontSize: 11, color: 'var(--fg3)', textAlign: 'center', marginTop: 14, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600 }}>
-          We respond within 48 hours · Selected partners only
+          We respond within 48 hours · Select partners only
         </p>
       </form>
     </div>
