@@ -587,7 +587,7 @@ function ProductHeroNew() {
     className: 'hero-theme-toggle' + (isDark ? '' : ' is-light'),
     onClick: toggleTheme,
     "aria-label": isDark ? 'Switch to light mode' : 'Switch to dark mode'
-  }, isDark ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("svg", {
+  }, isDark ? /*#__PURE__*/React.createElement("svg", {
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
@@ -600,7 +600,7 @@ function ProductHeroNew() {
     r: "4"
   }), /*#__PURE__*/React.createElement("path", {
     d: "M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-  })), "Light") : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("svg", {
+  })) : /*#__PURE__*/React.createElement("svg", {
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
@@ -609,7 +609,7 @@ function ProductHeroNew() {
     strokeLinejoin: "round"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-  })), "Dark")), /*#__PURE__*/React.createElement("div", {
+  }))), /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'absolute',
       inset: 0,
