@@ -88,7 +88,7 @@ function LoginModal({ onClose, onSuccess, title = 'Log in to SimpleGrid', sub = 
         </div>
         <button type="submit" className="btn btn-primary" style={{width:'100%',justifyContent:'center',marginTop:4}}>Log in</button>
         <p style={{fontSize:13,color:'var(--fg3)',textAlign:'center',marginTop:14}}>
-          Don't have an account? <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { e.preventDefault(); if (typeof loadCal === 'function') loadCal(); if (typeof window.Cal === 'function') window.Cal('modal', { calLink: 'simplegrid-ai', config: { theme: 'light' } }); }} style={{color:'var(--sg-blue)',border:'none'}}>Book a call</a> to get started.
+          Don't have an account? <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} style={{color:'var(--sg-blue)',border:'none'}}>Book a call</a> to get started.
         </p>
       </form>
     </div>

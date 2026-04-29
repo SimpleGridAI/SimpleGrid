@@ -92,7 +92,7 @@ function Nav({ page = 'home', onLoginClick }) {
         </nav>
         <div className="nav-right">
           <button className="btn btn-sm btn-secondary desktop-only" onClick={onLoginClick}>Log in</button>
-          <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { e.preventDefault(); if (typeof loadCal === 'function') loadCal(); if (typeof window.Cal === 'function') window.Cal('modal', { calLink: 'simplegrid-ai', config: { theme: 'light' } }); }} className="btn btn-sm btn-primary" title="Book a SimpleGrid demo call">Book a Call</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} className="btn btn-sm btn-primary" title="Book a SimpleGrid demo call">Book a Call</a>
           <button
             type="button"
             className={'nav-burger' + (openMenu ? ' is-open' : '')}

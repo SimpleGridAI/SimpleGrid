@@ -543,7 +543,7 @@ function EliteCaseStudy() {
       <div className="case-bottom-line">
         <div className="big">64 things tracked. 72 automatic triggers. 21 days to deploy. $0 upfront.</div>
         <p>Before SimpleGrid, the founder knew the company made money. Now he knows which products make money, and which ones do not. Planning dropped from 20 hours to 2. Wastage dropped to negligible. Delivery improved 15%. And 30 floor staff who had rejected every previous ERP now use this one daily.</p>
-        <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { e.preventDefault(); if (typeof loadCal === 'function') loadCal(); if (typeof window.Cal === 'function') window.Cal('modal', { calLink: 'simplegrid-ai', config: { theme: 'light' } }); }} className="btn btn-primary" style={{marginTop:16}}>Book a call - See how we'd model your operations</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} className="btn btn-primary" style={{marginTop:16}}>Book a call - See how we'd model your operations</a>
         <div style={{marginTop:20,fontSize:14}}>
           <a href="case-apex.html" style={{color:'var(--sg-blue)',fontWeight:600,textDecoration:'none'}}>See an apparel manufacturer's deployment - live in 12 days →</a>
         </div>
@@ -564,7 +564,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<EliteCaseStudy />);
     if (calLoaded) return;
     calLoaded = true;
     (function(C,A,L){var p=function(a,ar){a.q.push(ar)};var d=C.document;C.Cal=C.Cal||function(){var cal=C.Cal;var ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement("script")).src=A;cal.loaded=true}if(ar[0]===L){var api=function(){p(api,arguments)};var namespace=ar[1];api.q=api.q||[];if(typeof namespace==="string"){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,["initNamespace",namespace])}else p(cal,ar);return}p(cal,ar)})(window,"https://app.cal.com/embed/embed.js","init");
-    Cal("init");
+    Cal("init", {origin:"https://cal.com"});
     Cal("ui", { theme: "light", styles: { branding: { brandColor: "#4A7BF7" } } });
   }
   ["scroll","mousemove","click","touchstart"].forEach(function(e){

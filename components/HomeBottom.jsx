@@ -345,7 +345,7 @@ function FinalCTA() {
         <Reveal>
           <h2 className="h2">Deploy in days. Decide in 30.</h2>
           <p className="sub">We build it at our cost. You run it with your team. Doesn't work? Walk away.</p>
-          <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { e.preventDefault(); if (typeof loadCal === 'function') loadCal(); if (typeof window.Cal === 'function') window.Cal('modal', { calLink: 'simplegrid-ai', config: { theme: 'light' } }); }} className="btn btn-lg btn-primary">Book a call</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} className="btn btn-lg btn-primary">Book a call</a>
           <p className="note">No commitment. Migration included. Founder-led onboarding.</p>
         </Reveal>
       </div>

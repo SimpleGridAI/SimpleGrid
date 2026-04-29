@@ -172,7 +172,7 @@ function BlogPost() {
         {/* CTA */}
         <div style={{ background: 'var(--sg-blue-light)', borderRadius: 'var(--radius-lg)', padding: '32px', marginTop: 40, textAlign: 'center' }}>
           <p style={{ fontFamily: 'var(--font-heading)', fontSize: 18, fontWeight: 700, color: 'var(--fg1)', margin: '0 0 12px' }}>See how this works for your operation.</p>
-          <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { e.preventDefault(); if (typeof loadCal === 'function') loadCal(); if (typeof window.Cal === 'function') window.Cal('modal', { calLink: 'simplegrid-ai', config: { theme: 'light' } }); }} className="btn btn-primary">Book a call</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} className="btn btn-primary">Book a call</a>
         </div>
 
         {/* Prev/Next */}
