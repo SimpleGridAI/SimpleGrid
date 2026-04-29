@@ -274,10 +274,10 @@ function Hero() {
         <div className="hero-inner">
           <div>
             <Reveal>
-              <h1 className="hero-title">You don't adapt to the system.<br/>The system adapts to you.</h1>
+              <h1 className="hero-title">AI-native ERP.<br/>For operators, not accountants.</h1>
             </Reveal>
             <Reveal delay={200}>
-              <p className="hero-sub">Your factory runs differently from every other factory. That's not a problem - it's what makes you competitive. We build a custom ERP around your exact process, at our expense, and have you live in days. You only pay once you decide it works.</p>
+              <p className="hero-sub">Your operation. We build the ERP around it. 30 days to earn its keep, or walk away.</p>
             </Reveal>
             <Reveal delay={400}>
               <div className="hero-cta">

@@ -296,11 +296,11 @@ function Hero() {
     className: "hero-inner"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("h1", {
     className: "hero-title"
-  }, "You don't adapt to the system.", /*#__PURE__*/React.createElement("br", null), "The system adapts to you.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "AI-native ERP.", /*#__PURE__*/React.createElement("br", null), "For operators, not accountants.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 200
   }, /*#__PURE__*/React.createElement("p", {
     className: "hero-sub"
-  }, "Your factory runs differently from every other factory. That's not a problem - it's what makes you competitive. We build a custom ERP around your exact process, at our expense, and have you live in days. You only pay once you decide it works.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Your operation. We build the ERP around it. 30 days to earn its keep, or walk away.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 400
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-cta"
