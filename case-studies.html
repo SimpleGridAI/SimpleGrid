@@ -155,7 +155,7 @@ function CaseStudiesPage() {
       <div className="container">
         <h2 className="h2">Your factory is different. That's exactly why SimpleGrid works.</h2>
         <p className="sub">The system adapts to you.</p>
-        <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { if (typeof window.Cal === 'function') e.preventDefault(); }} className="btn btn-lg btn-primary">Book a call - See how we'd model your operations</a>
+        <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { e.preventDefault(); if (typeof loadCal === 'function') loadCal(); if (typeof window.Cal === 'function') window.Cal('modal', { calLink: 'simplegrid-ai', config: { theme: 'light' } }); }} className="btn btn-lg btn-primary">Book a call - See how we'd model your operations</a>
       </div>
     </section>
     </main>

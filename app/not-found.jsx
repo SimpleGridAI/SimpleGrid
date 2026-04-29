@@ -9,7 +9,7 @@ function NotFoundPage() {
         <p className="nf-p">The page you were looking for is not here. It may have moved, or the link may be wrong. Head back to the SimpleGrid homepage or try one of the links below.</p>
         <div className="nf-cta">
           <a href="index.html" className="btn btn-primary">SimpleGrid Home</a>
-          <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { if (typeof window.Cal === 'function') e.preventDefault(); }} className="btn btn-secondary">Book a Call</a>
+          <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { e.preventDefault(); if (typeof loadCal === 'function') loadCal(); if (typeof window.Cal === 'function') window.Cal('modal', { calLink: 'simplegrid-ai', config: { theme: 'light' } }); }} className="btn btn-secondary">Book a Call</a>
         </div>
         <div className="nf-links">
           <a href="product.html" title="How SimpleGrid manufacturing ERP works">Product</a>

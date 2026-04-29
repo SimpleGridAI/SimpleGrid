@@ -102,7 +102,7 @@ function Footer() {
                    data-cal-link={isCal ? 'simplegrid-ai' : undefined}
                    data-cal-config={isCal ? '{"theme":"light"}' : undefined}
                    onMouseEnter={isCal ? (() => { if (typeof loadCal === 'function') loadCal(); }) : undefined}
-                   onClick={isCal ? ((e) => { if (typeof window.Cal === 'function') e.preventDefault(); }) : undefined}
+                   onClick={isCal ? ((e) => { e.preventDefault(); if (typeof loadCal === 'function') loadCal(); if (typeof window.Cal === 'function') window.Cal('modal', { calLink: 'simplegrid-ai', config: { theme: 'light' } }); }) : undefined}
                    className="footer-link"
                    style={{ display: 'flex', gap: 8, alignItems: x.isAddress ? 'flex-start' : 'center', whiteSpace: x.isAddress ? 'pre-line' : 'normal', lineHeight: x.isAddress ? 1.5 : undefined }}>
                   <FIcon kind={x.kind} />

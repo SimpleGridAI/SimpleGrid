@@ -252,7 +252,7 @@ function PricingPage() {
                  data-cal-link={t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? 'simplegrid-ai' : undefined}
                  data-cal-config={t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? '{"theme":"light"}' : undefined}
                  onMouseEnter={t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? (() => { if (typeof loadCal === 'function') loadCal(); }) : undefined}
-                 onClick={t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? ((e) => { if (typeof window.Cal === 'function') e.preventDefault(); }) : undefined}
+                 onClick={t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? ((e) => { e.preventDefault(); if (typeof loadCal === 'function') loadCal(); if (typeof window.Cal === 'function') window.Cal('modal', { calLink: 'simplegrid-ai', config: { theme: 'light' } }); }) : undefined}
                  target={t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? undefined : '_blank'}
                  rel={t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? undefined : 'noopener noreferrer'}
                  className={'btn btn-sm ' + (t.highlight ? 'btn-primary' : 'btn-secondary')} style={{justifyContent:'center', marginTop:'auto'}}>{t.cta}</a>
@@ -347,7 +347,7 @@ function PricingPage() {
       <div className="container">
         <h2 className="h2">$0 to start. 30 days to decide.</h2>
         <p className="sub">See your factory running on SimpleGrid before you spend a dollar.</p>
-        <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { if (typeof window.Cal === 'function') e.preventDefault(); }} className="btn btn-lg btn-primary">Book a Call</a>
+        <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { e.preventDefault(); if (typeof loadCal === 'function') loadCal(); if (typeof window.Cal === 'function') window.Cal('modal', { calLink: 'simplegrid-ai', config: { theme: 'light' } }); }} className="btn btn-lg btn-primary">Book a Call</a>
       </div>
     </section>
     </main>
