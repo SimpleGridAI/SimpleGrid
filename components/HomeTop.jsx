@@ -404,7 +404,7 @@ function ProblemSection() {
       n: '01', t: 'You pay before you ever see what works', b: 'Six figures, often before you see a working screen. Three possible systems come out. You only find out which one you got after the cheque clears.',
       footer: 'With SimpleGrid, you see and use it first. Then you pay.',
       visual: (
-        <svg viewBox="0 0 400 200" style={{width:'100%',height:'100%'}}>
+        <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}}>
           <defs>
             <radialGradient id="sgHoleCore" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#000" stopOpacity="1"/>
@@ -485,7 +485,7 @@ function ProblemSection() {
       n: '02', t: 'Your business evolves. Your ERP does not.', b: 'Every small change = 6-week consulting project.',
       footer: 'SimpleGrid bends to your process. Most systems lock you in mid-growth.',
       visual: (
-        <svg viewBox="0 0 400 200" style={{width:'100%',height:'100%'}}>
+        <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}}>
           <text x="20" y="50" fontSize="13" fill="var(--fg1)" fontWeight="600">Your business with a fluid ERP</text>
           <rect x="20" y="62" width="360" height="20" rx="10" fill="#E5E8ED"/>
           <rect x="20" y="62" width="360" height="20" rx="10" fill="#10B981" style={{transformOrigin:'20px 72px',animation:'sg-grow-b 3s ease-out infinite'}}/>
@@ -502,7 +502,7 @@ function ProblemSection() {
       n: '03', t: 'UI built for accountants, not operators', b: 'Seven tabs. Twelve fields. Nothing gets done.',
       footer: 'The ERP slows the floor, so teams go around it.',
       visual: (
-        <svg viewBox="0 0 400 200" style={{width:'100%',height:'100%'}}>
+        <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}}>
           <rect x="10" y="10" width="380" height="180" rx="6" fill="#fff" stroke="#E5E8ED" strokeWidth="1.5"/>
           {['Orders','Items','Stock','Vendor','QC','Tax','GL'].map((tab,i) => (
             <g key={i}>

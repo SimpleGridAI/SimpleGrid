@@ -566,8 +566,12 @@ img { max-width: 100%; display: block; }
 /* ===== Home page: Problem section grid + visual containers ===== */
 .problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .problem-visual { background: var(--sg-off-white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; display: flex; align-items: center; justify-content: center; }
-.problem-visual-svg { aspect-ratio: 2 / 1; padding: 16px; }
-.problem-visual-svg > svg { width: 100%; height: 100%; display: block; }
+.problem-visual-svg { padding: 16px; }
+/* Sizing the SVG by its own intrinsic ratio (height: auto) sidesteps an
+   iOS Safari bug where width:100%/height:100% on an SVG inside a parent
+   that uses CSS aspect-ratio inflates the SVG to its viewBox in pixel
+   units, blowing the card up to many viewport heights tall. */
+.problem-visual-svg > svg { width: 100%; height: auto; max-width: 100%; display: block; }
 .problem-visual-chat { min-height: 200px; padding: 22px; }
 
 @media (max-width: 768px) {
