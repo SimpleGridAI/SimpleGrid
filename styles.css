@@ -564,8 +564,13 @@ img { max-width: 100%; display: block; }
 }
 
 /* ===== Home page: Problem section grid + visual containers ===== */
-.problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-.problem-visual { background: var(--sg-off-white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; display: flex; align-items: center; justify-content: center; }
+/* minmax(0, 1fr) (not plain 1fr) lets tracks shrink below intrinsic
+   content width. Without it, an SVG's 400px viewBox becomes the track's
+   min-content size on iOS Safari and the grid blows past the viewport. */
+.problem-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.problem-grid > * { min-width: 0; }
+.problem-grid > * > * { min-width: 0; max-width: 100%; }
+.problem-visual { background: var(--sg-off-white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; display: flex; align-items: center; justify-content: center; min-width: 0; overflow: hidden; }
 .problem-visual-svg { padding: 16px; }
 /* Sizing the SVG by its own intrinsic ratio (height: auto) sidesteps an
    iOS Safari bug where width:100%/height:100% on an SVG inside a parent
@@ -573,9 +578,10 @@ img { max-width: 100%; display: block; }
    units, blowing the card up to many viewport heights tall. */
 .problem-visual-svg > svg { width: 100%; height: auto; max-width: 100%; display: block; }
 .problem-visual-chat { min-height: 200px; padding: 22px; }
+.problem-visual-chat > div { min-width: 0; max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
 
 @media (max-width: 768px) {
-  .problem-grid { grid-template-columns: 1fr; gap: 16px; }
+  .problem-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .problem-visual { padding: 14px; }
   .problem-visual-svg { padding: 12px; }
   .problem-visual-chat { min-height: 180px; padding: 18px; }
