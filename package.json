@@ -1,0 +1,19 @@
+{
+  "name": "simplegrid-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static SimpleGrid.ai marketing site. Run `npm run build` before pushing to deploy: it pre-transpiles all JSX so production stops shipping Babel-standalone (3 MB) on every page.",
+  "scripts": {
+    "build": "babel components/ --out-dir components/ --presets=@babel/preset-react --extensions .jsx --out-file-extension .js && babel app/ --out-dir app/ --presets=@babel/preset-react --extensions .jsx --out-file-extension .js && node scripts/swap-jsx-to-js-in-html.js",
+    "build:components": "babel components/ --out-dir components/ --presets=@babel/preset-react --extensions .jsx --out-file-extension .js",
+    "build:app": "babel app/ --out-dir app/ --presets=@babel/preset-react --extensions .jsx --out-file-extension .js",
+    "build:html": "node scripts/swap-jsx-to-js-in-html.js",
+    "blog:gen": "python3 scripts/generate-blog-pages.py",
+    "sitemap:gen": "python3 scripts/generate-sitemap.py"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.0",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.24.0"
+  }
+}

@@ -33,7 +33,9 @@ function RadialBurst({ theme = 'dark' }) {
     let lines = [];
     const seed = () => {
       lines = [];
-      const COUNT = 100;
+      // Slightly fewer rays on phones - same visual density on a smaller canvas,
+      // ~40% less per-frame canvas work.
+      const COUNT = (typeof window !== 'undefined' && window.innerWidth < 768) ? 60 : 100;
       for (let i = 0; i < COUNT; i++) {
         // Angle in upper 180° arc: -π (left) to 0 (right), with -π/2 = straight up
         const a = -Math.PI + Math.random() * Math.PI;
@@ -104,8 +106,24 @@ function RadialBurst({ theme = 'dark' }) {
     const nodeRGB = theme === 'light' ? '41,86,196' : '74,123,247';
     const haloRGB = theme === 'light' ? '74,123,247' : '110,151,255';
 
+    // Pause loop when canvas scrolls off-screen or the tab is hidden so we don't
+    // keep burning CPU drawing 100 lines/frame for nothing.
+    let isVisible = true;
+    let isTabActive = (typeof document !== 'undefined') ? !document.hidden : true;
+    const onVisibility = () => { isTabActive = !document.hidden; };
+    document.addEventListener('visibilitychange', onVisibility);
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    if (canvas) observer.observe(canvas);
+
     let frame = 0;
     const draw = () => {
+      if (!isVisible || !isTabActive) {
+        animFrame = requestAnimationFrame(draw);
+        return;
+      }
       const w = W(), h = H();
       const cx = w / 2;
       const cy = h + 4; // origin slightly off the bottom edge so the seed point is hidden
@@ -171,6 +189,8 @@ function RadialBurst({ theme = 'dark' }) {
     return () => {
       cancelAnimationFrame(animFrame);
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
+      observer.disconnect();
     };
   }, [theme]);
 
@@ -200,87 +220,6 @@ function RadialBurst({ theme = 'dark' }) {
   );
 }
 window.RadialBurst = RadialBurst;
-
-function FlowWaves() {
-  const canvasRef = React.useRef(null);
-  React.useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animFrame, resizeTimeout;
-    const dpr = () => window.devicePixelRatio || 1;
-    const resize = () => {
-      const rect = canvas.parentElement.getBoundingClientRect();
-      canvas.width = rect.width * dpr();
-      canvas.height = rect.height * dpr();
-      canvas.style.width = rect.width + 'px';
-      canvas.style.height = rect.height + 'px';
-      ctx.setTransform(dpr(), 0, 0, dpr(), 0, 0);
-    };
-    resize();
-    const onResize = () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(resize, 150); };
-    window.addEventListener('resize', onResize);
-
-    const W = () => canvas.width / dpr();
-    const H = () => canvas.height / dpr();
-
-    let t = 0;
-    const numLines = 36;
-    // Diagonal flow: each line is a wave that drifts up-and-right across the canvas.
-    // Lines tilt slightly so the whole field reads diagonal, not horizontal.
-    const TILT = 0.18; // slope: ~10° tilt
-
-    const draw = () => {
-      const w = W(), h = H();
-      ctx.clearRect(0, 0, w, h);
-
-      for (let i = 0; i < numLines; i++) {
-        const ratio = i / numLines;
-        // Spread base y from -15% to 105% so the diagonal field covers the section
-        const yBase = h * (-0.15 + ratio * 1.20);
-        const amp = 16 + ratio * 36;
-        const freq = 0.0032 + ratio * 0.0010;
-        const phase = t * 0.0015 + i * 0.060;
-
-        ctx.beginPath();
-        for (let x = -32; x <= w + 32; x += 5) {
-          const wave1 = Math.sin(x * freq + phase) * amp;
-          const wave2 = Math.cos(x * freq * 0.55 - phase * 1.15 + i * 0.04) * amp * 0.4;
-          // Diagonal tilt - wave centerline rises as x increases
-          const y = yBase - x * TILT + wave1 + wave2;
-          if (x <= -28) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-
-        // All-blue palette - vary lightness only, no purple/magenta accents
-        const accent = (i + 2) % 9 === 0;
-        // hue 220 = SimpleGrid blue family
-        const hue = accent ? 224 : 218 + (i % 5) * 1.5;
-        const sat = accent ? 75 : 60;
-        const light = accent ? 52 : 64 + (i % 3) * 2;
-        const peak = 1 - Math.abs(ratio - 0.5) * 1.3;
-        const alpha = 0.10 + Math.max(0, peak) * 0.22;
-
-        ctx.strokeStyle = `hsla(${hue}, ${sat}%, ${light}%, ${alpha})`;
-        ctx.lineWidth = accent ? 0.9 : 0.65;
-        ctx.stroke();
-      }
-
-      t++;
-      animFrame = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animFrame);
-      window.removeEventListener('resize', onResize);
-    };
-  }, []);
-  return (
-    <canvas ref={canvasRef} style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',zIndex:0}} />
-  );
-}
-window.FlowWaves = FlowWaves;
 
 function Hero() {
   const [count, setCount] = React.useState(547);
@@ -352,7 +291,7 @@ function Hero() {
             </Reveal>
           </div>
           <Reveal delay={300}>
-            <div style={{background:'rgba(255,255,255,0.7)',backdropFilter:'blur(6px)',WebkitBackdropFilter:'blur(6px)',border:'1px solid var(--border)',borderRadius:16,padding:32,textAlign:'center'}}>
+            <div className="hero-stat-box" style={{background:'rgba(255,255,255,0.7)',border:'1px solid var(--border)',borderRadius:16,padding:32,textAlign:'center'}}>
               <div style={{fontSize:10,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg3)',marginBottom:8}}>Average ERP deploy time</div>
               <div style={{fontFamily:'var(--font-heading)',fontSize:80,fontWeight:700,color:'var(--fg1)',lineHeight:1,letterSpacing:'-0.04em',position:'relative'}}>
                 <span>{count}</span>
@@ -624,8 +563,23 @@ function WhatWeDo() {
     if (ro) ro.observe(canvas);
     window.addEventListener('resize', resize);
 
+    // Pause when canvas scrolls off-screen or tab is hidden.
+    let isVisible = true;
+    let isTabActive = !document.hidden;
+    const onVisibility = () => { isTabActive = !document.hidden; };
+    document.addEventListener('visibilitychange', onVisibility);
+    const visObserver = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    visObserver.observe(canvas);
+
     function frame(now) {
       if (cancelled) return;
+      if (!isVisible || !isTabActive) {
+        raf = requestAnimationFrame(frame);
+        return;
+      }
       ctx.clearRect(0, 0, w, h);
       const cx = w / 2;
       const cy = h / 2;
@@ -670,6 +624,8 @@ function WhatWeDo() {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
       if (ro) ro.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
+      visObserver.disconnect();
     };
   }, []);
 

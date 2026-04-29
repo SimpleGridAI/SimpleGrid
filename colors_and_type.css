@@ -5,8 +5,9 @@
 
 /* -----  FONTS  ----- */
 /* Logo/brand: Geist (Google Fonts fallback). Headings + body: Calibri (system).
-   Code: Consolas (system). Geist loaded via Google Fonts - sub nearest match. */
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap');
+   Code: Consolas (system). Geist is loaded via <link> in every HTML <head>
+   (moved out of @import here so the font request can run in parallel with
+   the stylesheet download instead of being serialized behind it). */
 
 :root {
   /* ----- PRIMARY COLORS ----- */
