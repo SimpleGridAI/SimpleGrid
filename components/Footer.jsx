@@ -51,7 +51,7 @@ function Footer() {
       <div className="container">
         <div className="footer-top">
           <div>
-            <img src={prefix + 'assets/simplegrid-logo-horizontal.svg'} alt="SimpleGrid - AI ERP for manufacturers logo" className="footer-logo" width="160" height="32" loading="lazy" />
+            <img src={prefix + 'assets/simplegrid-logo-horizontal.svg'} alt="SimpleGrid - AI ERP for manufacturers logo" className="footer-logo" width="160" height="32" loading="lazy" decoding="async" />
             <p className="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p>
 
             {/* Trusted partner badges */}
@@ -65,7 +65,7 @@ function Footer() {
                   padding: '8px 14px', borderRadius: 10, border: '1px solid var(--border)',
                   background: '#fff', textDecoration: 'none', height: 56, boxSizing: 'border-box',
                 }}>
-                  <img src={prefix + 'assets/nvidia-inception.png'} alt="NVIDIA Inception Program member badge" width="120" height="38" loading="lazy" style={{ display: 'block' }} />
+                  <img src={prefix + 'assets/nvidia-inception.png'} alt="NVIDIA Inception Program member badge" width="120" height="38" loading="lazy" decoding="async" style={{ display: 'block' }} />
                 </a>
                 <a href="https://aws.amazon.com/startups/" target="_blank" rel="noopener noreferrer" title="AWS Startups partner" style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -93,16 +93,22 @@ function Footer() {
             ))}
             <div>
               <div className="footer-h">Get in touch</div>
-              {contact.map(x => (
+              {contact.map(x => {
+                const isCal = x.kind === 'calendar';
+                return (
                 <a key={x.l} href={x.href}
-                   target={x.external ? '_blank' : undefined}
-                   rel={x.external ? 'noopener' : undefined}
+                   target={x.external && !isCal ? '_blank' : undefined}
+                   rel={x.external && !isCal ? 'noopener noreferrer' : undefined}
+                   data-cal-link={isCal ? 'simplegrid-ai' : undefined}
+                   data-cal-config={isCal ? '{"theme":"light"}' : undefined}
+                   onMouseEnter={isCal ? (() => { if (typeof loadCal === 'function') loadCal(); }) : undefined}
+                   onClick={isCal ? ((e) => { if (typeof window.Cal === 'function') e.preventDefault(); }) : undefined}
                    className="footer-link"
                    style={{ display: 'flex', gap: 8, alignItems: x.isAddress ? 'flex-start' : 'center', whiteSpace: x.isAddress ? 'pre-line' : 'normal', lineHeight: x.isAddress ? 1.5 : undefined }}>
                   <FIcon kind={x.kind} />
                   <span>{x.l}</span>
-                </a>
-              ))}
+                </a>);
+              })}
             </div>
           </div>
         </div>

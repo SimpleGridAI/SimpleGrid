@@ -24,7 +24,7 @@ function LoginModal({ onClose, onSuccess, title = 'Log in to SimpleGrid', sub = 
     <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <form className="modal" style={{ position: 'relative' }} onSubmit={submit}>
         <button type="button" className="close-btn" aria-label="Close login dialog" onClick={onClose} style={{position:'absolute',top:16,right:16,background:'none',border:'none',fontSize:20,color:'var(--fg3)',cursor:'pointer'}}>×</button>
-        <img src="assets/simplegrid-logomark.svg" alt="" aria-hidden="true" width="28" height="28" style={{height:28,marginBottom:16}} />
+        <img src="assets/simplegrid-logomark.svg" alt="" aria-hidden="true" width="28" height="28" decoding="async" style={{height:28,marginBottom:16}} />
         <h2>{title}</h2>
         <p className="sub">{sub}</p>
 
@@ -88,7 +88,7 @@ function LoginModal({ onClose, onSuccess, title = 'Log in to SimpleGrid', sub = 
         </div>
         <button type="submit" className="btn btn-primary" style={{width:'100%',justifyContent:'center',marginTop:4}}>Log in</button>
         <p style={{fontSize:13,color:'var(--fg3)',textAlign:'center',marginTop:14}}>
-          Don't have an account? <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" style={{color:'var(--sg-blue)',border:'none'}}>Book a call</a> to get started.
+          Don't have an account? <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { if (typeof window.Cal === 'function') e.preventDefault(); }} style={{color:'var(--sg-blue)',border:'none'}}>Book a call</a> to get started.
         </p>
       </form>
     </div>

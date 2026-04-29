@@ -33,7 +33,7 @@ function parseBlogBody(body, title, images, blogId) {
       <figure key={'fig-' + idx} className="post-figure">
         <img src={img.src.startsWith('http') ? img.src : (window.__SG_BLOG_ASSET_PREFIX__ || '') + img.src}
              alt={img.alt || (title ? (title + ' - SimpleGrid blog illustration') : 'SimpleGrid blog illustration')}
-             loading="lazy" width="2808" height="1040"
+             loading="lazy" decoding="async" width="2808" height="1040"
              style={{ maxWidth: '100%', height: 'auto', display: 'block' }} />
         {img.alt && <figcaption>{img.alt}</figcaption>}
       </figure>
@@ -172,7 +172,7 @@ function BlogPost() {
         {/* CTA */}
         <div style={{ background: 'var(--sg-blue-light)', borderRadius: 'var(--radius-lg)', padding: '32px', marginTop: 40, textAlign: 'center' }}>
           <p style={{ fontFamily: 'var(--font-heading)', fontSize: 18, fontWeight: 700, color: 'var(--fg1)', margin: '0 0 12px' }}>See how this works for your operation.</p>
-          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book a call</a>
+          <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { if (typeof window.Cal === 'function') e.preventDefault(); }} className="btn btn-primary">Book a call</a>
         </div>
 
         {/* Prev/Next */}

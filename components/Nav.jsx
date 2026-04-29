@@ -57,7 +57,7 @@ function Nav({ page = 'home', onLoginClick }) {
     <header className="nav" role="banner">
       <div className="nav-inner">
         <a className="nav-logo" href={px('index.html')} aria-label="SimpleGrid home" title="SimpleGrid - AI ERP for manufacturers">
-          <img src={prefix + 'assets/simplegrid-logo-horizontal.svg'} alt="SimpleGrid - AI ERP for manufacturers logo" width="160" height="32" fetchpriority="high" />
+          <img src={prefix + 'assets/simplegrid-logo-horizontal.svg'} alt="SimpleGrid - AI ERP for manufacturers logo" width="160" height="32" fetchpriority="high" decoding="async" />
         </a>
         <nav className="nav-links" aria-label="Main navigation">
           {links.map(l => (
@@ -92,7 +92,7 @@ function Nav({ page = 'home', onLoginClick }) {
         </nav>
         <div className="nav-right">
           <button className="btn btn-sm btn-secondary desktop-only" onClick={onLoginClick}>Log in</button>
-          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-primary" title="Book a SimpleGrid demo call">Book a Call</a>
+          <a href="https://cal.com/simplegrid-ai" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} onClick={(e) => { if (typeof window.Cal === 'function') e.preventDefault(); }} className="btn btn-sm btn-primary" title="Book a SimpleGrid demo call">Book a Call</a>
           <button
             type="button"
             className={'nav-burger' + (openMenu ? ' is-open' : '')}
