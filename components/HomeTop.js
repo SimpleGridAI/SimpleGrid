@@ -231,10 +231,10 @@ function RadialBurst({
 window.RadialBurst = RadialBurst;
 function CycleHeadline() {
   const HEADLINES = [/*#__PURE__*/React.createElement(React.Fragment, {
-    key: "a"
-  }, "AI-native ERP", /*#__PURE__*/React.createElement("br", null), "For operators, not accountants"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "b"
   }, "You don't adapt to the system", /*#__PURE__*/React.createElement("br", null), "The system adapts to you"), /*#__PURE__*/React.createElement(React.Fragment, {
+    key: "a"
+  }, "AI-native ERP", /*#__PURE__*/React.createElement("br", null), "For operators, not accountants"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "c"
   }, "Your operation", /*#__PURE__*/React.createElement("br", null), "We build the ERP around it", /*#__PURE__*/React.createElement("br", null), "30 days to earn its keep, or walk away")];
   // Each tile fades smoothly; staggering them by (x+y)*delay gives a diagonal

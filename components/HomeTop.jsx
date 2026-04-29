@@ -223,8 +223,8 @@ window.RadialBurst = RadialBurst;
 
 function CycleHeadline() {
   const HEADLINES = [
-    <React.Fragment key="a">AI-native ERP<br/>For operators, not accountants</React.Fragment>,
     <React.Fragment key="b">You don't adapt to the system<br/>The system adapts to you</React.Fragment>,
+    <React.Fragment key="a">AI-native ERP<br/>For operators, not accountants</React.Fragment>,
     <React.Fragment key="c">Your operation<br/>We build the ERP around it<br/>30 days to earn its keep, or walk away</React.Fragment>,
   ];
   // Each tile fades smoothly; staggering them by (x+y)*delay gives a diagonal
