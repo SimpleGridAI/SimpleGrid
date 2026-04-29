@@ -120,6 +120,7 @@
 <div id="root"></div>
 <script type="text/babel" src="components/Nav.jsx"></script>
 <script type="text/babel" src="components/LoginModal.jsx"></script>
+<script type="text/babel" src="components/InviteModal.jsx"></script>
 <script type="text/babel" src="components/Footer.jsx"></script>
 <script type="text/babel">
 
@@ -145,7 +146,7 @@ const TIERS = [
     name: 'Operating',
     sub: 'after the trial · monthly subscription',
     price: 'Contact us',
-    priceUnit: 'for a quote',
+    priceUnit: 'Custom-quoted because every operation is different - but it\'s one number, included.',
     accent: 'var(--sg-purple)',
     features: [
       'One monthly subscription. That is the whole bill.',
@@ -179,6 +180,7 @@ const INCLUDED = [
 
 function PricingPage() {
   const [showLogin, setShowLogin] = React.useState(false);
+  const [showInvite, setShowInvite] = React.useState(false);
 
   return (<>
     <Nav page="pricing" onLoginClick={() => setShowLogin(true)} />
@@ -319,7 +321,7 @@ function PricingPage() {
     <section className="section section-dark final-cta">
       <div className="container">
         <h2 className="h2">$0 to start. 30 days to decide.</h2>
-        <p className="sub">See your factory running on SimpleGrid before you spend a rupee.</p>
+        <p className="sub">See your factory running on SimpleGrid before you spend a dollar.</p>
         <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a Call</a>
       </div>
     </section>
@@ -327,8 +329,9 @@ function PricingPage() {
 
     <Footer />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
+    {showInvite && <InviteModal onClose={() => setShowInvite(false)} />}
     <div className="mobile-cta">
-      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book a call</a>
+      <button type="button" onClick={() => setShowInvite(true)} className="btn btn-invite">Request an invite</button>
     </div>
 
     <style>{`

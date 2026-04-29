@@ -142,15 +142,17 @@ function ProofSection() {
         <Reveal>
           <div className="tag" style={{textAlign:'center'}}>CASE STUDIES</div>
           <h2 className="h2" style={{textAlign:'center'}}>Manufacturers running on SimpleGrid today.</h2>
-          <p className="lead" style={{maxWidth:920,margin:'0 auto 40px',textAlign:'center'}}>Two public deployments below. More running under MNDA - names on request.</p>
+          <p className="lead" style={{maxWidth:920,margin:'0 auto 40px',textAlign:'center'}}>Two public deployments below. More running confidentially - names available on request.</p>
         </Reveal>
         <div className="proof-grid">
           {[
-            { kind: 'image', img: 'url(assets/elite-factory.jpeg) center/cover', name: 'Elite Arts & Crafts', desc: 'Furniture exporter. 600–800 employees. ~1M sqft. Excel + group chats → live ERP.', stats: '64 tracked · 72 triggers · 21 days', quote: '"SimpleGrid feels like our system. My stores manager was comfortable on day one."', attr: '- Chirag, Founder', link: 'case-elite.html', anchor: 'How Elite deployed in 21 days' },
-            { kind: 'apparel', name: 'Apex Apparel', desc: 'Apparel manufacturer · 80–100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.', stats: '34 tracked · 44 triggers · 12 days', quote: '"Working demo in 24 hours - 60–70% accurate. No vendor has ever done that."', attr: '- Founder, Apex Apparel (confidential)', link: 'case-apex.html', anchor: 'How Apex went live in 12 days' },
+            { kind: 'image', img: 'url(assets/elite-factory.jpeg) center/cover', name: 'Elite Arts & Crafts', desc: 'Furniture exporter. 600–800 employees. ~1 million sq ft. Excel + group chats → live ERP.', stats: '64 tracked · 72 triggers · 21 days', quote: '"SimpleGrid feels like our system. My stores manager was comfortable on day one."', attr: '- Chirag, Founder', link: 'case-elite.html', anchor: 'How Elite deployed in 21 days' },
+            { kind: 'apparel', name: 'Apex Apparel', desc: 'Apparel manufacturer · 80–100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.', stats: '34 tracked · 44 triggers · 12 days', quote: '"Working demo in 24 hours - 60–70% accurate. No vendor we\'ve worked with has done that."', attr: '- Founder, Apex Apparel (confidential)', link: 'case-apex.html', anchor: 'How Apex went live in 12 days' },
           ].map((c,i) => (
             <Reveal key={i} delay={i * 150}>
-              <div className="proof-card" style={{height:'100%'}}>
+              <a href={c.link} className="proof-card" style={{height:'100%',display:'block',textDecoration:'none',color:'inherit',transition:'all 160ms var(--ease-standard)'}}
+                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.08)'; }}
+                 onMouseLeave={(e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}>
                 <div className="proof-img" style={c.kind === 'image' ? {background:c.img,height:220, position:'relative'} : {height:220, padding: 0, overflow: 'hidden'}}>
                   {c.kind === 'image' && (
                     <span style={{
@@ -167,9 +169,9 @@ function ProofSection() {
                   <p>{c.desc}</p>
                   <div className="proof-stats">{c.stats}</div>
                   <div className="proof-quote">{c.quote}<div className="proof-attr">{c.attr}</div></div>
-                  <a href={c.link} className="btn btn-ghost btn-sm" style={{paddingLeft:0}}>{c.anchor} →</a>
+                  <span className="btn btn-ghost btn-sm" style={{paddingLeft:0,color:'var(--sg-blue)',fontWeight:600,pointerEvents:'none'}}>{c.anchor} →</span>
                 </div>
-              </div>
+              </a>
             </Reveal>
           ))}
         </div>
@@ -225,7 +227,7 @@ function Integrations() {
         <Reveal>
           <div className="tag">INTEGRATIONS</div>
           <h2 className="h2">Works with what you already use.</h2>
-          <p className="lead">Connects to the tools your team relies on - and we build new integrations on request, as your stack changes.</p>
+          <p className="lead">Connects to the tools your team already uses. New integrations built on request.</p>
         </Reveal>
       </div>
       <Reveal delay={200}>
@@ -261,7 +263,7 @@ function DataSecurity() {
         <div className="sec-grid">
           {[
             { badge: 'ARCHITECTURE', color: 'var(--sg-purple)', t: 'Multi-tenant isolation', p: 'Every client gets their own database. Shared platform, completely separate data. Like an apartment building - shared infrastructure, your own lock, your own walls. No client can ever see another\'s data.' },
-            { badge: 'IN PROGRESS', color: 'var(--sg-blue)', t: 'SOC II compliance', p: 'Independent auditors verifying our security controls, data handling, and availability. Not just our word - third-party certification.' },
+            { badge: 'IN PROGRESS', color: 'var(--sg-blue)', t: 'SOC 2 compliance', p: 'Independent auditors verifying our security controls, data handling, and availability. Not just our word - third-party certification.' },
             { badge: 'IN PROGRESS', color: 'var(--sg-green)', t: 'GDPR compliance', p: 'Encrypted at rest and in transit. You control what\'s stored. Full export or deletion on request.' },
           ].map((s,i) => (
             <Reveal key={i} delay={i * 100}>

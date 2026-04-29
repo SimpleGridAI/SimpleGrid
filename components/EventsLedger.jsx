@@ -222,7 +222,7 @@ function ArchitectureNew() {
             Domain-Driven Design <span style={{ color: 'var(--fg3)', fontWeight: 400 }}>×</span> Event Sourcing.
           </h2>
           <p className="lead" style={{ maxWidth: 820 }}>
-            Most ERPs are CRUD apps wearing a suit - tables, forms, overwrites. SimpleGrid is built on two ideas the software industry has known for fifteen years but almost no business platform has dared to ship at the core: model the business as <strong>domains</strong>, and store change as <strong>events</strong>. The result is a system that bends to your business instead of the other way around.
+            Most ERPs are data-entry apps wearing a suit - tables, forms, overwrites. SimpleGrid is built on two ideas the software industry has known for fifteen years but almost no business platform has dared to ship at the core: model the business as <strong>domains</strong>, and store change as <strong>events</strong>. The result is a system that bends to your business instead of the other way around.
           </p>
         </Reveal>
 
@@ -286,6 +286,9 @@ function ArchitectureNew() {
           <div style={{ marginTop: 40, padding: '24px 0', borderTop: '1px solid var(--border)' }}>
             <p style={{ fontSize: 15, color: 'var(--fg2)', lineHeight: 1.7, margin: 0, fontStyle: 'italic' }}>
               "This is not AI. AI is the surface. Underneath is an architecture so unusual that even seasoned engineers ask us to draw it twice. Most ERPs are 1990s thinking dressed in 2020s UI. SimpleGrid is what an enterprise system looks like if you started today, with what we now know."
+            </p>
+            <p style={{ fontSize: 13, color: 'var(--fg3)', lineHeight: 1.5, margin: '6px 0 0', fontStyle: 'normal', fontWeight: 600 }}>
+              - Mukund Agarwal, Founder
             </p>
             <p style={{ fontSize: 14, color: 'var(--fg2)', lineHeight: 1.7, margin: '14px 0 0' }}>
               <a href="about.html" style={{color:'var(--sg-blue)',fontWeight:600,textDecoration:'none'}}>Built by operators who ran a $30M factory</a> - not by software vendors who watched one from the outside.
@@ -361,10 +364,10 @@ function ProductHeroNew() {
           Stop running your factory on messaging apps and Excel sheets.
         </h1>
         <p className="lead" style={{ color: leadColor, maxWidth: 760, marginTop: 18 }}>
-          You know how it goes. Fourteen Slack and Teams channels, six Excel spreadsheets, an approval stuck in someone's DMs, a dispatch nobody can confirm went out, and a buyer calling about an order you can't find. SimpleGrid is one system for all of it - built the way your team already works.
+          You know how it goes. Fourteen Slack channels. Six spreadsheets. An approval lost in DMs. A dispatch nobody can confirm. And a buyer on the phone asking where their order is. SimpleGrid is one system for all of it - built the way your team already works.
         </p>
         <div style={{ marginTop: 28, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-primary">Request an Invite →</button>
+          <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>Request an Invite →</button>
         </div>
         <div style={{ marginTop: 36, display: 'flex', gap: 32, flexWrap: 'wrap', fontSize: 13, color: noteColor }}>
           <span>● 7-day deployment</span>
@@ -387,7 +390,7 @@ function MotivationSection() {
           <div style={{ textAlign: 'center' }}>
             <div className="tag">PRODUCT FEATURE</div>
             <h2 className="h2 ink" style={{ maxWidth: 760, margin: '0 auto' }}>
-              Meet Hank - your AI chatbot for the shop floor.
+              Meet Hank - the AI assistant for your shop floor.
             </h2>
           </div>
         </Reveal>
@@ -793,13 +796,13 @@ function TriggerCTA() {
         <Reveal>
           <div className="tag" style={{ color: 'rgba(255,255,255,0.5)' }}>THE ONLY DECISION YOU NEED TO MAKE THIS WEEK</div>
           <h2 className="h2" style={{ color: '#fff', maxWidth: 880, margin: '0 auto' }}>
-            Spend 30 minutes with us. Run it for 30 days. Keep it if it works.
+            Spend 3 hours with us. Run it for 30 days. Keep it if it works.
           </h2>
           <p className="sub" style={{ color: 'rgba(255,255,255,0.75)', maxWidth: 720, margin: '18px auto 0' }}>
             We deploy at our cost. Your team uses it on real orders. If by day 30 you don{'\u2019'}t feel the difference, you walk away, and we{'\u2019'}ve still done the migration work.
           </p>
           <div style={{ marginTop: 28, display: 'flex', justifyContent: 'center' }}>
-            <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-primary">Request an Invite →</button>
+            <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>Request an Invite →</button>
           </div>
           <p className="note" style={{ color: 'rgba(255,255,255,0.5)', marginTop: 14 }}>Founder-led onboarding · Migration included · No commitment</p>
         </Reveal>
