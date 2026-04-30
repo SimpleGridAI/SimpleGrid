@@ -105,9 +105,6 @@ function PricingPage() {
                 ))}
               </ul>
               <a href={t.ctaHref}
-                 data-cal-link={t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? 'simplegrid-ai' : undefined}
-                 data-cal-config={t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? '{"theme":"light"}' : undefined}
-                 onMouseEnter={t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? (() => { if (typeof loadCal === 'function') loadCal(); }) : undefined}
                  target="_blank"
                  rel="noopener noreferrer"
                  className={'btn btn-sm ' + (t.highlight ? 'btn-primary' : 'btn-secondary')} style={{justifyContent:'center', marginTop:'auto'}}>{t.cta}</a>
@@ -202,7 +199,7 @@ function PricingPage() {
       <div className="container">
         <h2 className="h2">$0 to start. 30 days to decide.</h2>
         <p className="sub">See your factory running on SimpleGrid before you spend a dollar.</p>
-        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} className="btn btn-lg btn-primary">Book a Call</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a Call</a>
       </div>
     </section>
     </main>

@@ -93,21 +93,16 @@ function Footer() {
             ))}
             <div>
               <div className="footer-h">Get in touch</div>
-              {contact.map(x => {
-                const isCal = x.kind === 'calendar';
-                return (
+              {contact.map(x => (
                 <a key={x.l} href={x.href}
                    target={x.external ? '_blank' : undefined}
                    rel={x.external ? 'noopener noreferrer' : undefined}
-                   data-cal-link={isCal ? 'simplegrid-ai' : undefined}
-                   data-cal-config={isCal ? '{"theme":"light"}' : undefined}
-                   onMouseEnter={isCal ? (() => { if (typeof loadCal === 'function') loadCal(); }) : undefined}
                    className="footer-link"
                    style={{ display: 'flex', gap: 8, alignItems: x.isAddress ? 'flex-start' : 'center', whiteSpace: x.isAddress ? 'pre-line' : 'normal', lineHeight: x.isAddress ? 1.5 : undefined }}>
                   <FIcon kind={x.kind} />
                   <span>{x.l}</span>
-                </a>);
-              })}
+                </a>
+              ))}
             </div>
           </div>
         </div>

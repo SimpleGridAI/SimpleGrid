@@ -256,30 +256,22 @@ function Footer() {
     className: "footer-link"
   }, x.l)))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "footer-h"
-  }, "Get in touch"), contact.map(x => {
-    const isCal = x.kind === 'calendar';
-    return /*#__PURE__*/React.createElement("a", {
-      key: x.l,
-      href: x.href,
-      target: x.external ? '_blank' : undefined,
-      rel: x.external ? 'noopener noreferrer' : undefined,
-      "data-cal-link": isCal ? 'simplegrid-ai' : undefined,
-      "data-cal-config": isCal ? '{"theme":"light"}' : undefined,
-      onMouseEnter: isCal ? () => {
-        if (typeof loadCal === 'function') loadCal();
-      } : undefined,
-      className: "footer-link",
-      style: {
-        display: 'flex',
-        gap: 8,
-        alignItems: x.isAddress ? 'flex-start' : 'center',
-        whiteSpace: x.isAddress ? 'pre-line' : 'normal',
-        lineHeight: x.isAddress ? 1.5 : undefined
-      }
-    }, /*#__PURE__*/React.createElement(FIcon, {
-      kind: x.kind
-    }), /*#__PURE__*/React.createElement("span", null, x.l));
-  })))), /*#__PURE__*/React.createElement("div", {
+  }, "Get in touch"), contact.map(x => /*#__PURE__*/React.createElement("a", {
+    key: x.l,
+    href: x.href,
+    target: x.external ? '_blank' : undefined,
+    rel: x.external ? 'noopener noreferrer' : undefined,
+    className: "footer-link",
+    style: {
+      display: 'flex',
+      gap: 8,
+      alignItems: x.isAddress ? 'flex-start' : 'center',
+      whiteSpace: x.isAddress ? 'pre-line' : 'normal',
+      lineHeight: x.isAddress ? 1.5 : undefined
+    }
+  }, /*#__PURE__*/React.createElement(FIcon, {
+    kind: x.kind
+  }), /*#__PURE__*/React.createElement("span", null, x.l)))))), /*#__PURE__*/React.createElement("div", {
     className: "footer-bottom"
   }, /*#__PURE__*/React.createElement("div", null, "\xA9 2026 Valaya AI Technologies Pvt. Ltd."), /*#__PURE__*/React.createElement("div", {
     className: "footer-legal"

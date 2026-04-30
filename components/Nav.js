@@ -196,11 +196,6 @@ function Nav({
     href: "https://cal.com/simplegrid-ai",
     target: "_blank",
     rel: "noopener noreferrer",
-    "data-cal-link": "simplegrid-ai",
-    "data-cal-config": "{\"theme\":\"light\"}",
-    onMouseEnter: () => {
-      if (typeof loadCal === 'function') loadCal();
-    },
     className: "btn btn-sm btn-primary",
     title: "Book a SimpleGrid demo call"
   }, "Book a Call"), /*#__PURE__*/React.createElement("button", {

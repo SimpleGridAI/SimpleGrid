@@ -23,11 +23,6 @@ function NotFoundPage() {
     href: "https://cal.com/simplegrid-ai",
     target: "_blank",
     rel: "noopener noreferrer",
-    "data-cal-link": "simplegrid-ai",
-    "data-cal-config": "{\"theme\":\"light\"}",
-    onMouseEnter: () => {
-      if (typeof loadCal === 'function') loadCal();
-    },
     className: "btn btn-secondary"
   }, "Book a Call")), /*#__PURE__*/React.createElement("div", {
     className: "nf-links"

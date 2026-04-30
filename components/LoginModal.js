@@ -188,11 +188,6 @@ function LoginModal({
     href: "https://cal.com/simplegrid-ai",
     target: "_blank",
     rel: "noopener noreferrer",
-    "data-cal-link": "simplegrid-ai",
-    "data-cal-config": "{\"theme\":\"light\"}",
-    onMouseEnter: () => {
-      if (typeof loadCal === 'function') loadCal();
-    },
     style: {
       color: 'var(--sg-blue)',
       border: 'none'

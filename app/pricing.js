@@ -192,11 +192,6 @@ function PricingPage() {
     }
   }, "\u2713"), /*#__PURE__*/React.createElement("span", null, f)))), /*#__PURE__*/React.createElement("a", {
     href: t.ctaHref,
-    "data-cal-link": t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? 'simplegrid-ai' : undefined,
-    "data-cal-config": t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? '{"theme":"light"}' : undefined,
-    onMouseEnter: t.ctaHref.indexOf('cal.com/simplegrid-ai') > -1 ? () => {
-      if (typeof loadCal === 'function') loadCal();
-    } : undefined,
     target: "_blank",
     rel: "noopener noreferrer",
     className: 'btn btn-sm ' + (t.highlight ? 'btn-primary' : 'btn-secondary'),
@@ -376,11 +371,6 @@ function PricingPage() {
     href: "https://cal.com/simplegrid-ai",
     target: "_blank",
     rel: "noopener noreferrer",
-    "data-cal-link": "simplegrid-ai",
-    "data-cal-config": "{\"theme\":\"light\"}",
-    onMouseEnter: () => {
-      if (typeof loadCal === 'function') loadCal();
-    },
     className: "btn btn-lg btn-primary"
   }, "Book a Call")))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)

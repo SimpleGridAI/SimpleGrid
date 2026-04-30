@@ -56,7 +56,7 @@ function CaseStudiesPage() {
       <div className="container">
         <h2 className="h2">Your factory is different. That's exactly why SimpleGrid works.</h2>
         <p className="sub">The system adapts to you.</p>
-        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cal-link="simplegrid-ai" data-cal-config='{"theme":"light"}' onMouseEnter={() => { if (typeof loadCal === 'function') loadCal(); }} className="btn btn-lg btn-primary">Book a call - See how we'd model your operations</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a call - See how we'd model your operations</a>
       </div>
     </section>
     </main>
