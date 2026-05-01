@@ -36,9 +36,11 @@ def main():
     # Each post object starts with `"id": N,` then `"title": "...",`
     # Replace title for each id.
     for blog_id, new_title in NEW_TITLES.items():
-        # Match the id then the next title field, regardless of intervening whitespace.
+        # Match the id then the next title field, regardless of intervening
+        # whitespace. The title pattern handles escaped quotes (\") so we
+        # don't truncate at the first inner quote.
         pattern = re.compile(
-            r'("id":\s*' + str(blog_id) + r',\s*\n\s*"title":\s*)"[^"]*"',
+            r'("id":\s*' + str(blog_id) + r',\s*\n\s*"title":\s*)"((?:\\.|[^"\\])*)"',
             re.MULTILINE,
         )
         new_value = r'\1"' + new_title.replace('"', r'\"') + '"'
