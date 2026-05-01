@@ -218,10 +218,10 @@ function ArchitectureNew() {
       <div className="container">
         <Reveal>
           <div className="tag" style={{ color: 'var(--sg-purple)' }}>UNDER THE HOOD</div>
-          <h2 className="h2 ink" style={{ maxWidth: 900, color: 'var(--fg1)' }}>
-            SG Schema <span style={{ color: 'var(--fg3)', fontWeight: 400 }}>×</span> Event Sourcing.
+          <h2 className="h2 ink" style={{ color: 'var(--fg1)' }}>
+            SG Schema <span style={{ color: 'var(--fg3)', fontWeight: 400 }}>×</span> SG Engine <span style={{ color: 'var(--fg3)', fontWeight: 400 }}>×</span> Event Sourcing.
           </h2>
-          <p className="lead" style={{ maxWidth: 820 }}>
+          <p className="lead" style={{ maxWidth: 'none' }}>
             Most ERPs are data-entry apps wearing a suit - tables, forms, overwrites. SimpleGrid is built on two ideas no other business platform ships at the core: an <strong>SG Schema</strong> that captures one factory's complete operational blueprint, and an <strong>event-sourced</strong> ledger that stores every change. SG Engine reads the SG Schema and runs your factory from it. The result is a system that bends to your business instead of the other way around.
           </p>
         </Reveal>

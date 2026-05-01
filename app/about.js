@@ -32,14 +32,11 @@ function AboutPage() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag"
   }, "ABOUT US"), /*#__PURE__*/React.createElement("h1", {
-    className: "h2 ink",
-    style: {
-      maxWidth: 880
-    }
+    className: "h2 ink"
   }, "An ERP built by operators, for operators."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
-      maxWidth: 760
+      maxWidth: 'none'
     }
   }, "SimpleGrid was not designed in a boardroom. It was designed on a shop floor that was already running on Excel and group chats - and not working. We built the system we wished we had."))), /*#__PURE__*/React.createElement(FounderStory, null), /*#__PURE__*/React.createElement(ArchitectureNew, null), /*#__PURE__*/React.createElement(ProductionFlow, null), /*#__PURE__*/React.createElement("section", {
     className: "section section-dark final-cta"

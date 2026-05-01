@@ -121,7 +121,7 @@ function FounderStory() {
     <section className="section section-alt" id="founder">
       <div className="container">
         <Reveal>
-          <div className="founder-text" style={{maxWidth:780}}>
+          <div className="founder-text">
             <div className="tag">BUILT BY OPERATORS</div>
             <blockquote>We built a $30M manufacturing business. Survived two ERP failures. Ended up on Google Sheets.</blockquote>
             <p className="body">SimpleGrid exists because we were the customer first. Multiple factories, 400-person workforce. We know what breaks when your system can't keep up.</p>

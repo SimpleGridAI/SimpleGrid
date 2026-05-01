@@ -23,8 +23,8 @@ function AboutPage() {
     <section className="section" style={{paddingBottom:24}}>
       <div className="container">
         <div className="tag">ABOUT US</div>
-        <h1 className="h2 ink" style={{maxWidth:880}}>An ERP built by operators, for operators.</h1>
-        <p className="lead" style={{maxWidth:760}}>
+        <h1 className="h2 ink">An ERP built by operators, for operators.</h1>
+        <p className="lead" style={{maxWidth:'none'}}>
           SimpleGrid was not designed in a boardroom. It was designed on a shop floor that was already running on Excel and group chats - and not working. We built the system we wished we had.
         </p>
       </div>

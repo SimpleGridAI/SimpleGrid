@@ -382,10 +382,7 @@ function FounderStory() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
-    className: "founder-text",
-    style: {
-      maxWidth: 780
-    }
+    className: "founder-text"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag"
   }, "BUILT BY OPERATORS"), /*#__PURE__*/React.createElement("blockquote", null, "We built a $30M manufacturing business. Survived two ERP failures. Ended up on Google Sheets."), /*#__PURE__*/React.createElement("p", {
