@@ -8,6 +8,8 @@ img { max-width: 100%; display: block; }
 
 /* Screen-reader-only: visible to crawlers + assistive tech, hidden visually. */
 .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
+.skip-link { position: absolute; top: 0; left: 0; padding: 12px 20px; background: var(--sg-blue, #4A7BF7); color: #fff; font-weight: 600; text-decoration: none; z-index: 10000; transform: translateY(-100%); transition: transform 120ms ease; }
+.skip-link:focus { transform: translateY(0); outline: 2px solid #fff; outline-offset: 2px; }
 
 /* ===== NAV ===== */
 .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.97); border-bottom: 1px solid var(--border); }
@@ -303,6 +305,7 @@ img { max-width: 100%; display: block; }
 /* ===== FOUNDER v2 ===== */
 .founder-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: center; }
 .founder-photo { border-radius: var(--radius-lg); aspect-ratio: 4/5; object-fit: cover; background: var(--sg-off-white); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--fg3); font-size: 13px; }
+.founder-text { max-width: 960px; }
 .founder-text blockquote { margin: 0; font-family: var(--font-heading); font-size: 22px; font-weight: 600; color: var(--fg1); line-height: 1.35; letter-spacing: -0.015em; }
 .founder-text .body { font-size: 15px; color: var(--fg2); line-height: 1.65; margin: 16px 0; }
 .founder-text .attr { font-size: 14px; color: var(--fg3); }

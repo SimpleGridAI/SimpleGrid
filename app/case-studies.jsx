@@ -2,7 +2,7 @@ function CaseStudiesPage() {
   const [showLogin, setShowLogin] = React.useState(false);
   return (<>
     <Nav page="cases" onLoginClick={() => setShowLogin(true)} />
-    <main>
+    <main id="main">
     <section className="section" style={{paddingBottom:48}}>
       <div className="container">
         <div className="tag">CASE STUDIES</div>

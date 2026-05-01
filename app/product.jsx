@@ -18,7 +18,7 @@ function ProductPage() {
   }, []);
   return (<>
     <Nav page="product" onLoginClick={() => setShowLogin(true)} />
-    <main>
+    <main id="main">
       {/* HOOK - set the stage */}
       <ProductHeroNew />
 

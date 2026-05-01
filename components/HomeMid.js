@@ -287,7 +287,7 @@ function CustomRules() {
   }, "Every factory has rules that only the people inside it understand."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
-      maxWidth: 'none'
+      maxWidth: 960
     }
   }, "Approval chains. Vendor exceptions. QC gates that differ per buyer. These rules live in your head, in messaging apps, in notebooks. In our system, they live in configuration - and the system enforces them automatically.")), /*#__PURE__*/React.createElement("div", {
     className: "scenario-grid"

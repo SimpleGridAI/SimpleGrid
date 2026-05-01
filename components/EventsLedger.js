@@ -374,7 +374,7 @@ function ArchitectureNew() {
   }, "\xD7"), " Event Sourcing."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
-      maxWidth: 'none'
+      maxWidth: 960
     }
   }, "Most ERPs are data-entry apps wearing a suit - tables, forms, overwrites. SimpleGrid is built on two ideas no other business platform ships at the core: an ", /*#__PURE__*/React.createElement("strong", null, "SG Schema"), " that captures one factory's complete operational blueprint, and an ", /*#__PURE__*/React.createElement("strong", null, "event-sourced"), " ledger that stores every change. SG Engine reads the SG Schema and runs your factory from it. The result is a system that bends to your business instead of the other way around.")), /*#__PURE__*/React.createElement("div", {
     className: "arch-ddd-grid"

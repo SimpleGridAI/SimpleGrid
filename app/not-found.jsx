@@ -2,7 +2,7 @@ function NotFoundPage() {
   const [showLogin, setShowLogin] = React.useState(false);
   return (<>
     <Nav page="" onLoginClick={() => setShowLogin(true)} />
-    <main className="nf-wrap">
+    <main id="main" className="nf-wrap">
       <div className="nf-card">
         <div className="nf-code" aria-hidden="true">404</div>
         <h1 className="nf-h">Page not found.</h1>

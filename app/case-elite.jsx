@@ -228,7 +228,7 @@ function EliteCaseStudy() {
   const [showLogin, setShowLogin] = React.useState(false);
   return (<>
     <Nav page="cases" onLoginClick={() => setShowLogin(true)} />
-    <main>
+    <main id="main">
 
     <section className="case-hero">
       <div className="container">

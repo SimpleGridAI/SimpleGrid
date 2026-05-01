@@ -3,7 +3,7 @@ function NotFoundPage() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
     page: "",
     onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", {
+  }), /*#__PURE__*/React.createElement("main", { id: "main",
     className: "nf-wrap"
   }, /*#__PURE__*/React.createElement("div", {
     className: "nf-card"

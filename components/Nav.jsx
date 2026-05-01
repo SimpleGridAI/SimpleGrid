@@ -54,6 +54,8 @@ function Nav({ page = 'home', onLoginClick }) {
   ];
 
   return (
+    <>
+    <a href="#main" className="skip-link">Skip to main content</a>
     <header className="nav" role="banner">
       <div className="nav-inner">
         <a className="nav-logo" href={px('index.html')} aria-label="SimpleGrid home" title="SimpleGrid - AI ERP for manufacturers">
@@ -129,6 +131,7 @@ function Nav({ page = 'home', onLoginClick }) {
         </div>
       )}
     </header>
+    </>
   );
 }
 window.Nav = Nav;

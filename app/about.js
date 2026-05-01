@@ -22,7 +22,7 @@ function AboutPage() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
     page: "about",
     onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement("section", {
+  }), /*#__PURE__*/React.createElement("main", { id: "main" }, /*#__PURE__*/React.createElement("section", {
     className: "section",
     style: {
       paddingBottom: 24
@@ -36,7 +36,7 @@ function AboutPage() {
   }, "An ERP built by operators, for operators."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
-      maxWidth: 'none'
+      maxWidth: 960
     }
   }, "SimpleGrid was not designed in a boardroom. It was designed on a shop floor that was already running on Excel and group chats - and not working. We built the system we wished we had."))), /*#__PURE__*/React.createElement(FounderStory, null), /*#__PURE__*/React.createElement(ArchitectureNew, null), /*#__PURE__*/React.createElement(ProductionFlow, null), /*#__PURE__*/React.createElement("section", {
     className: "section section-dark final-cta"

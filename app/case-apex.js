@@ -394,7 +394,7 @@ function ApexCaseStudy() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
     page: "cases",
     onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement("section", {
+  }), /*#__PURE__*/React.createElement("main", { id: "main" }, /*#__PURE__*/React.createElement("section", {
     className: "case-hero"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"

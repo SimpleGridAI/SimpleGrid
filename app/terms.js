@@ -2,7 +2,7 @@ function TermsPage() {
   const [showLogin, setShowLogin] = React.useState(false);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
     onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", {
+  }), /*#__PURE__*/React.createElement("main", { id: "main",
     className: "legal-page"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag"

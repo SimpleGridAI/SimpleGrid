@@ -2,7 +2,7 @@ function TermsPage() {
   const [showLogin, setShowLogin] = React.useState(false);
   return (<>
     <Nav onLoginClick={() => setShowLogin(true)} />
-    <main className="legal-page">
+    <main id="main" className="legal-page">
       <div className="tag">LEGAL</div>
       <h1 className="h1" style={{margin:'4px 0 8px'}}>Terms of Service</h1>
       <div className="legal-meta">Effective Date: March 3, 2026 · Operated by Valaya AI Technologies Pvt. Ltd.</div>

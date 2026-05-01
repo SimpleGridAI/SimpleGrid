@@ -92,7 +92,7 @@ function CustomRules() {
         <Reveal>
           <div className="tag">YOUR PROCESS, ENFORCED</div>
           <h2 className="h2">Every factory has rules that only the people inside it understand.</h2>
-          <p className="lead" style={{maxWidth:'none'}}>Approval chains. Vendor exceptions. QC gates that differ per buyer. These rules live in your head, in messaging apps, in notebooks. In our system, they live in configuration - and the system enforces them automatically.</p>
+          <p className="lead" style={{maxWidth: 960}}>Approval chains. Vendor exceptions. QC gates that differ per buyer. These rules live in your head, in messaging apps, in notebooks. In our system, they live in configuration - and the system enforces them automatically.</p>
         </Reveal>
         <div className="scenario-grid">
           {scenarios.map((s,i) => (

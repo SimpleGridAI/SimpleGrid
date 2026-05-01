@@ -3,7 +3,7 @@ function App() {
   const [showInvite, setShowInvite] = React.useState(false);
   return (<>
     <Nav page="home" onLoginClick={() => setShowLogin(true)} />
-    <main>
+    <main id="main">
       <Hero />
       <ProblemSection />
       <WhatWeDo />

@@ -244,7 +244,7 @@ function HiringPage() {
 
   return (<>
     <Nav page="hiring" onLoginClick={() => setShowLogin(true)} />
-    <main>
+    <main id="main">
     <HiringHero />
     <WhyThis />
 

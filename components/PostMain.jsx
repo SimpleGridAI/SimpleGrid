@@ -48,7 +48,8 @@ function parseBlogBody(body, title, images, blogId) {
       <figure key={'fig-' + idx} className="post-figure">
         <img src={img.src.startsWith('http') ? img.src : (window.__SG_BLOG_ASSET_PREFIX__ || '') + img.src}
              alt={img.alt || (title ? (title + ' - SimpleGrid blog illustration') : 'SimpleGrid blog illustration')}
-             loading="lazy" decoding="async" width="2808" height="1040"
+             loading="lazy" decoding="async"
+             width={img.w || 2808} height={img.h || 1040}
              style={{ maxWidth: '100%', height: 'auto', display: 'block' }} />
         {img.alt && <figcaption>{img.alt}</figcaption>}
       </figure>

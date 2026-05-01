@@ -861,7 +861,7 @@ function BlogPage() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
     page: "blog",
     onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", null, /*#__PURE__*/React.createElement("section", {
+  }), /*#__PURE__*/React.createElement("main", { id: "main" }, /*#__PURE__*/React.createElement("section", {
     className: "section",
     style: {
       paddingBottom: 48

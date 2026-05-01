@@ -166,7 +166,7 @@ function BlogPage() {
 
   return (<>
     <Nav page="blog" onLoginClick={() => setShowLogin(true)} />
-    <main>
+    <main id="main">
     <section className="section" style={{paddingBottom:48}}>
       <div className="container">
         <div className="tag">BLOG</div>

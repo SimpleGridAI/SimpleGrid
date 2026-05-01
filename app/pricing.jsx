@@ -58,7 +58,7 @@ function PricingPage() {
 
   return (<>
     <Nav page="pricing" onLoginClick={() => setShowLogin(true)} />
-    <main>
+    <main id="main">
 
     {/* HERO */}
     <section className="section" style={{paddingBottom:32}}>

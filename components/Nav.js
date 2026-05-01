@@ -84,7 +84,10 @@ function Nav({
     href: 'blog.html',
     title: 'SimpleGrid blog'
   }];
-  return /*#__PURE__*/React.createElement("header", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("a", {
+    href: "#main",
+    className: "skip-link"
+  }, "Skip to main content"), /*#__PURE__*/React.createElement("header", {
     className: "nav",
     role: "banner"
   }, /*#__PURE__*/React.createElement("div", {
@@ -235,6 +238,6 @@ function Nav({
       setOpenMenu(false);
       onLoginClick && onLoginClick();
     }
-  }, "Log in"))));
+  }, "Log in")))));
 }
 window.Nav = Nav;
