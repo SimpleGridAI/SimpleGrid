@@ -12,11 +12,11 @@
   <url><loc>https://simplegrid.ai/product.html</loc><lastmod>2026-04-28</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://simplegrid.ai/terms.html</loc><lastmod>2026-04-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://simplegrid.ai/blog/event-sourcing-why-simplegrid-stores-everything-that-ever-happened/</loc><lastmod>2026-02-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://simplegrid.ai/blog/domain-driven-design-and-erp-why-your-software-should-speak-your-language/</loc><lastmod>2026-02-14</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://simplegrid.ai/blog/aggregates-in-ddd-the-building-blocks-of-a-factory-erp/</loc><lastmod>2026-02-18</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://simplegrid.ai/blog/gridspec-why-your-erp-should-speak-your-language/</loc><lastmod>2026-02-14</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://simplegrid.ai/blog/entity-roots-the-building-blocks-of-a-gridspec-erp/</loc><lastmod>2026-02-18</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/multi-tenant-architecture-how-simplegrid-runs-100-clients-on-one-platform/</loc><lastmod>2026-02-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/how-simplegrid-makes-erp-customization-take-minutes-not-months/</loc><lastmod>2026-02-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://simplegrid.ai/blog/module-based-erp-vs-domain-driven-erp-two-architectures-two-outcomes/</loc><lastmod>2026-03-02</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://simplegrid.ai/blog/module-based-erp-vs-gridspec-erp-two-architectures-two-outcomes/</loc><lastmod>2026-03-02</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/how-we-built-an-erp-chatbot-with-claude-no-rag-and-full-context/</loc><lastmod>2026-03-06</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point/</loc><lastmod>2026-03-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/how-to-calculate-true-landed-cost-per-sku-and-why-most-manufacturers-cannot/</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>

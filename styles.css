@@ -572,7 +572,7 @@ img { max-width: 100%; display: block; }
   .ledger-benefits { grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
 }
 
-/* ===== About page: Architecture (DDD × Event Sourcing) ===== */
+/* ===== About page: Architecture (GridSpec × Event Sourcing) ===== */
 .arch-ddd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
 .arch-outcome-box { margin-top: 40px; padding: 32px; background: var(--sg-off-white); border: 1px solid var(--border); border-radius: 12px; }
 .arch-outcome-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
@@ -835,7 +835,7 @@ img { max-width: 100%; display: block; }
 .pi-dom-rule-green  { background: rgba(16,185,129,0.08); color: var(--sg-green); }
 .pi-dom-rule-tag { font-weight: 700; letter-spacing: 0.1em; margin-right: 6px; font-size: 10px; }
 
-/* ===== Blog 3: Aggregate ===== */
+/* ===== Blog 3: Entity group ===== */
 .pi-agg { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin: 16px 0 0; }
 .pi-agg-stage { position: relative; height: 280px; background: var(--sg-off-white); border-radius: 10px; overflow: hidden; }
 .pi-agg-svg { position: absolute; inset: 0; width: 100%; height: 100%; }

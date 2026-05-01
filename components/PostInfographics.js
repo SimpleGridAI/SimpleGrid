@@ -415,7 +415,7 @@
     return [i, setI];
   }
 
-  // ===== Blog 2 - DDD: same word, different domains =====
+  // ===== Blog 2 - GridSpec: same word, different operational boundaries =====
   function DomainMorph() {
     const ctx = [{
       name: 'Sales',
@@ -483,7 +483,7 @@
       type: "button",
       onClick: () => setI(j),
       className: 'pi-dom-tab pi-dom-' + cc.color + (i === j ? ' active' : '')
-    }, cc.name, " context"))), /*#__PURE__*/React.createElement("div", {
+    }, cc.name, " boundary"))), /*#__PURE__*/React.createElement("div", {
       className: "pi-dom-stage"
     }, /*#__PURE__*/React.createElement("div", {
       className: "pi-dom-word"
@@ -513,7 +513,7 @@
     }, "RULE"), " ", c.rule)));
   }
 
-  // ===== Blog 3 - Aggregates: root + members =====
+  // ===== Blog 3 - Entity groups: root + members =====
   function AggregateDemo() {
     const phases = [{
       label: 'Draft',
@@ -529,7 +529,7 @@
       label: 'Approved',
       root: 'green',
       members: ['green', 'green', 'green'],
-      note: 'All line items moved with the root. The aggregate is consistent.'
+      note: 'All line items moved with the root. The entity group is consistent.'
     }, {
       label: 'Try to modify line 2 alone',
       root: 'green',
@@ -565,7 +565,7 @@
       fill: "var(--sg-blue)",
       fontWeight: "700",
       letterSpacing: "2"
-    }, "AGGREGATE BOUNDARY"), [[145, 90], [295, 90], [145, 180]].map(([x, y], j) => /*#__PURE__*/React.createElement("line", {
+    }, "ENTITY BOUNDARY"), [[145, 90], [295, 90], [145, 180]].map(([x, y], j) => /*#__PURE__*/React.createElement("line", {
       key: j,
       x1: "220",
       y1: "130",
@@ -833,7 +833,7 @@
       className: "pi-mvd-col pi-mvd-col-good"
     }, /*#__PURE__*/React.createElement("div", {
       className: "pi-mvd-col-h"
-    }, "Domain-driven (SimpleGrid)"), /*#__PURE__*/React.createElement("div", {
+    }, "GridSpec (SimpleGrid)"), /*#__PURE__*/React.createElement("div", {
       className: "pi-mvd-steps"
     }, domainSteps.map((s, i) => /*#__PURE__*/React.createElement("div", {
       key: i,
@@ -1505,27 +1505,27 @@
     })
   };
 
-  // 2 - Domain-Driven Design
+  // 2 - GridSpec
   POST[2] = {
     mid: /*#__PURE__*/React.createElement(Block, {
       tag: "Live demo \xB7 auto-cycling",
-      h: "\"order\" - same word, three different domains",
-      sub: "The same business term means a completely different entity in each bounded context. Watch the language morph."
+      h: "\"order\" - same word, three different operational boundaries",
+      sub: "The same business term means a completely different entity in each operational boundary. Watch the language morph."
     }, /*#__PURE__*/React.createElement(DomainMorph, null)),
     end: /*#__PURE__*/React.createElement(Bottom, {
       big: "Your business speaks. The software listens.",
-      p: "Domain-Driven Design models your operation in your language - not translated into someone else's modules."
+      p: "GridSpec captures your operation in your language - not translated into someone else's modules."
     })
   };
 
-  // 3 - Aggregates
+  // 3 - Entity roots
   POST[3] = {
     mid: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Block, {
       tag: "Live demo \xB7 auto-cycling",
-      h: "The aggregate boundary, in motion",
-      sub: "Watch a Sales Order aggregate go through approval. The root and members move as one. Try to modify a member alone - the boundary rejects it."
+      h: "The entity boundary, in motion",
+      sub: "Watch a Sales Order entity group go through approval. The root and members move as one. Try to modify a member alone - the boundary rejects it."
     }, /*#__PURE__*/React.createElement(AggregateDemo, null)), /*#__PURE__*/React.createElement(Block, {
-      tag: "The aggregate, in three rules",
+      tag: "The entity group, in three rules",
       h: null
     }, /*#__PURE__*/React.createElement(Cards, {
       cols: 3,
@@ -1543,7 +1543,7 @@
         cls: 'gold',
         kicker: 'Rule 3',
         h: "Reference, don't nest",
-        b: 'Aggregates point at each other by ID. A Job Order references its Sales Order - independent lifecycles.'
+        b: 'Entity groups point at each other by ID. A Job Order references its Sales Order - independent lifecycles.'
       }]
     }))),
     end: /*#__PURE__*/React.createElement(Bottom, {

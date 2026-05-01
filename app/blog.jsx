@@ -13,7 +13,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     {[30,70,110,150].map((x,i)=>(<g key={i}><circle cx={x} cy="55" r={i===3?6:4} fill={i===3?s.accent:s.fg}/><text x={x} y="78" fontSize="7" fill={s.sub} textAnchor="middle" fontFamily="monospace">E{i+1}</text></g>))}
     <text x="100" y="30" fontSize="10" fill={s.fg} textAnchor="middle" fontWeight="600" fontFamily="monospace">Append only</text>
   </svg>);
-  // 2 Domain-driven design - business speaks, software listens
+  // 2 GridSpec - business speaks, software listens
   if (id === 2) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <rect x="20" y="35" width="70" height="40" rx="4" fill="none" stroke={s.fg} strokeWidth="1.5"/>
     <text x="55" y="59" fontSize="9" fill={s.fg} textAnchor="middle" fontWeight="600">Business</text>
@@ -22,7 +22,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <rect x="130" y="35" width="55" height="40" rx="4" fill={s.accent} opacity="0.15"/>
     <text x="157" y="59" fontSize="9" fill={s.accent} textAnchor="middle" fontWeight="600">Model</text>
   </svg>);
-  // 3 Aggregates - cluster with a root
+  // 3 Entity roots - cluster with a root
   if (id === 3) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <circle cx="100" cy="55" r="38" fill="none" stroke={s.sub} strokeWidth="1" strokeDasharray="3 3"/>
     <circle cx="100" cy="55" r="12" fill={s.accent}/>
@@ -45,12 +45,12 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <rect x="30" y="52" width="140" height="12" fill={s.accent} opacity="0.25"/>
     <text x="100" y="100" fontSize="8" fill={s.sub} textAnchor="middle" fontFamily="monospace">rules table</text>
   </svg>);
-  // 6 Module vs domain - stacked boxes vs organic shape
+  // 6 Module vs GridSpec - stacked boxes vs organic shape
   if (id === 6) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     {[0,1,2].map(i=>(<rect key={i} x="25" y={25+i*18} width="60" height="14" rx="2" fill="none" stroke={s.sub} strokeWidth="1.2"/>))}
     <text x="55" y="92" fontSize="7" fill={s.sub} textAnchor="middle">modules</text>
     <path d="M115 30 Q160 25 170 55 Q175 85 135 85 Q105 82 115 55 Z" fill="none" stroke={s.accent} strokeWidth="1.5"/>
-    <text x="143" y="92" fontSize="7" fill={s.accent} textAnchor="middle" fontWeight="600">domain</text>
+    <text x="143" y="92" fontSize="7" fill={s.accent} textAnchor="middle" fontWeight="600">GridSpec</text>
   </svg>);
   // 7 AI chatbot with Claude - speech bubble + cursor
   if (id === 7) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>

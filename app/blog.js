@@ -64,7 +64,7 @@ function BlogGraphic({
     fontWeight: "600",
     fontFamily: "monospace"
   }, "Append only"));
-  // 2 Domain-driven design - business speaks, software listens
+  // 2 GridSpec - business speaks, software listens
   if (id === 2) return /*#__PURE__*/React.createElement("svg", {
     viewBox: "0 0 200 110",
     style: {
@@ -118,7 +118,7 @@ function BlogGraphic({
     textAnchor: "middle",
     fontWeight: "600"
   }, "Model"));
-  // 3 Aggregates - cluster with a root
+  // 3 Entity roots - cluster with a root
   if (id === 3) return /*#__PURE__*/React.createElement("svg", {
     viewBox: "0 0 200 110",
     style: {
@@ -273,7 +273,7 @@ function BlogGraphic({
     textAnchor: "middle",
     fontFamily: "monospace"
   }, "rules table"));
-  // 6 Module vs domain - stacked boxes vs organic shape
+  // 6 Module vs GridSpec - stacked boxes vs organic shape
   if (id === 6) return /*#__PURE__*/React.createElement("svg", {
     viewBox: "0 0 200 110",
     style: {
@@ -308,7 +308,7 @@ function BlogGraphic({
     fill: s.accent,
     textAnchor: "middle",
     fontWeight: "600"
-  }, "domain"));
+  }, "GridSpec"));
   // 7 AI chatbot with Claude - speech bubble + cursor
   if (id === 7) return /*#__PURE__*/React.createElement("svg", {
     viewBox: "0 0 200 110",

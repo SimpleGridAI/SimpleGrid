@@ -355,7 +355,7 @@
     return [i, setI];
   }
 
-  // ===== Blog 2 - DDD: same word, different domains =====
+  // ===== Blog 2 - GridSpec: same word, different operational boundaries =====
   function DomainMorph() {
     const ctx = [
       { name:'Sales', color:'blue', entity:"Buyer's Order", fields:[
@@ -375,7 +375,7 @@
         <div className="pi-dom-tabs">
           {ctx.map((cc, j) => (
             <button key={j} type="button" onClick={() => setI(j)} className={'pi-dom-tab pi-dom-' + cc.color + (i === j ? ' active' : '')}>
-              {cc.name} context
+              {cc.name} boundary
             </button>
           ))}
         </div>
@@ -399,12 +399,12 @@
     );
   }
 
-  // ===== Blog 3 - Aggregates: root + members =====
+  // ===== Blog 3 - Entity groups: root + members =====
   function AggregateDemo() {
     const phases = [
       { label: 'Draft', root: 'idle', members: ['idle','idle','idle'], note: 'All members consistent. Nothing approved yet.' },
       { label: 'Approving root…', root: 'pulse', members: ['idle','idle','idle'], note: 'Approve action fires on the root.' },
-      { label: 'Approved', root: 'green', members: ['green','green','green'], note: 'All line items moved with the root. The aggregate is consistent.' },
+      { label: 'Approved', root: 'green', members: ['green','green','green'], note: 'All line items moved with the root. The entity group is consistent.' },
       { label: 'Try to modify line 2 alone', root: 'green', members: ['green','reject','green'], note: 'Members can only be changed through the root. The boundary prevents impossible states.' },
     ];
     const [i] = useAutoCycle(phases.length, 2400);
@@ -415,12 +415,12 @@
         <div className="pi-agg-stage">
           <svg viewBox="0 0 440 260" preserveAspectRatio="none" className="pi-agg-svg">
             <ellipse cx="220" cy="135" rx="155" ry="100" fill="none" stroke="rgba(74,123,247,0.35)" strokeWidth="1.5" strokeDasharray="5 4" vectorEffect="non-scaling-stroke"/>
-            <text x="220" y="36" textAnchor="middle" fontSize="9" fill="var(--sg-blue)" fontWeight="700" letterSpacing="2">AGGREGATE BOUNDARY</text>
+            <text x="220" y="36" textAnchor="middle" fontSize="9" fill="var(--sg-blue)" fontWeight="700" letterSpacing="2">ENTITY BOUNDARY</text>
             {/* lines from root center to member centers (positions match DOM cards) */}
             {[[145,90],[295,90],[145,180]].map(([x,y],j)=>(
               <line key={j} x1="220" y1="130" x2={x} y2={y} stroke="rgba(0,0,0,0.18)" strokeWidth="1.5" vectorEffect="non-scaling-stroke"/>
             ))}
-            {/* reference line to external aggregate */}
+            {/* reference line to external entity group */}
             <line x1="320" y1="180" x2="395" y2="180" stroke="var(--fg3)" strokeWidth="1" strokeDasharray="3 3" vectorEffect="non-scaling-stroke"/>
             <text x="395" y="174" fontSize="9" fill="var(--fg3)" fontWeight="700" textAnchor="end">JO-1187</text>
             <text x="395" y="188" fontSize="8" fill="var(--fg3)" textAnchor="end">reference, not nested</text>
@@ -590,7 +590,7 @@
             <div className="pi-mvd-result pi-mvd-result-bad">$15,000 · 4 weeks</div>
           </div>
           <div className="pi-mvd-col pi-mvd-col-good">
-            <div className="pi-mvd-col-h">Domain-driven (SimpleGrid)</div>
+            <div className="pi-mvd-col-h">GridSpec (SimpleGrid)</div>
             <div className="pi-mvd-steps">
               {domainSteps.map((s, i) => (
                 <div key={i} className={'pi-mvd-step' + (visible(s.p) ? ' show' : '')}>
@@ -1110,28 +1110,28 @@
     end: <Bottom big="Append-only. Immutable. Permanent." p="Every action, every actor, every timestamp - stored forever. The audit trail is the architecture, not a feature you turn on." />,
   };
 
-  // 2 - Domain-Driven Design
+  // 2 - GridSpec
   POST[2] = {
     mid: (
-      <Block tag="Live demo · auto-cycling" h='"order" - same word, three different domains' sub="The same business term means a completely different entity in each bounded context. Watch the language morph.">
+      <Block tag="Live demo · auto-cycling" h='"order" - same word, three different operational boundaries' sub="The same business term means a completely different entity in each operational boundary. Watch the language morph.">
         <DomainMorph />
       </Block>
     ),
-    end: <Bottom big="Your business speaks. The software listens." p="Domain-Driven Design models your operation in your language - not translated into someone else's modules." />,
+    end: <Bottom big="Your business speaks. The software listens." p="GridSpec captures your operation in your language - not translated into someone else's modules." />,
   };
 
-  // 3 - Aggregates
+  // 3 - Entity roots
   POST[3] = {
     mid: (
       <>
-        <Block tag="Live demo · auto-cycling" h="The aggregate boundary, in motion" sub="Watch a Sales Order aggregate go through approval. The root and members move as one. Try to modify a member alone - the boundary rejects it.">
+        <Block tag="Live demo · auto-cycling" h="The entity boundary, in motion" sub="Watch a Sales Order entity group go through approval. The root and members move as one. Try to modify a member alone - the boundary rejects it.">
           <AggregateDemo />
         </Block>
-        <Block tag="The aggregate, in three rules" h={null}>
+        <Block tag="The entity group, in three rules" h={null}>
           <Cards cols={3} items={[
             { cls: 'blue', kicker: 'Rule 1', h: 'Move as one', b: 'When the root changes state, all members move with it. Approve a Sales Order - every line item approves together.' },
             { cls: 'purple', kicker: 'Rule 2', h: 'No orphans', b: 'A line item cannot exist without its order. The boundary prevents impossible states.' },
-            { cls: 'gold', kicker: 'Rule 3', h: "Reference, don't nest", b: 'Aggregates point at each other by ID. A Job Order references its Sales Order - independent lifecycles.' },
+            { cls: 'gold', kicker: 'Rule 3', h: "Reference, don't nest", b: 'Entity groups point at each other by ID. A Job Order references its Sales Order - independent lifecycles.' },
           ]} />
         </Block>
       </>

@@ -1,4 +1,4 @@
-// Events Ledger - flagship section. Domain-Driven Design + Event Sourcing.
+// Events Ledger - flagship section. GridSpec + Event Sourcing.
 // Animated streaming feed + the architecture behind it.
 
 function EventsLedger() {
@@ -211,7 +211,7 @@ function EventsLedger() {
 }
 window.EventsLedger = EventsLedger;
 
-// ----- Architecture explainer (DDD + Event Sourcing) -----
+// ----- Architecture explainer (GridSpec + Event Sourcing) -----
 function ArchitectureNew() {
   return (
     <section className="section" id="architecture" style={{ background: '#fff' }}>
@@ -219,10 +219,10 @@ function ArchitectureNew() {
         <Reveal>
           <div className="tag" style={{ color: 'var(--sg-purple)' }}>UNDER THE HOOD</div>
           <h2 className="h2 ink" style={{ maxWidth: 900, color: 'var(--fg1)' }}>
-            Domain-Driven Design <span style={{ color: 'var(--fg3)', fontWeight: 400 }}>×</span> Event Sourcing.
+            GridSpec <span style={{ color: 'var(--fg3)', fontWeight: 400 }}>×</span> Event Sourcing.
           </h2>
           <p className="lead" style={{ maxWidth: 820 }}>
-            Most ERPs are data-entry apps wearing a suit - tables, forms, overwrites. SimpleGrid is built on two ideas the software industry has known for fifteen years but almost no business platform has dared to ship at the core: model the business as <strong>domains</strong>, and store change as <strong>events</strong>. The result is a system that bends to your business instead of the other way around.
+            Most ERPs are data-entry apps wearing a suit - tables, forms, overwrites. SimpleGrid is built on two ideas no other business platform ships at the core: a <strong>GridSpec</strong> that captures one factory's complete operational blueprint, and an <strong>event-sourced</strong> ledger that stores every change. GridCore reads the GridSpec and runs your factory from it. The result is a system that bends to your business instead of the other way around.
           </p>
         </Reveal>
 
@@ -232,7 +232,7 @@ function ArchitectureNew() {
               border: '1px solid var(--border)', borderRadius: 12, padding: 32, height: '100%',
               borderLeft: '4px solid var(--sg-purple)',
             }}>
-              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.16em', color: 'var(--sg-purple)', marginBottom: 8 }}>DOMAIN-DRIVEN DESIGN</div>
+              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.16em', color: 'var(--sg-purple)', marginBottom: 8 }}>GRIDSPEC</div>
               <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 22, fontWeight: 700, margin: '0 0 14px', color: 'var(--fg1)', letterSpacing: '-0.015em' }}>
                 Your business has a language. The system speaks it.
               </h3>
@@ -240,7 +240,7 @@ function ArchitectureNew() {
                 A "Job Order" in your factory is not the same thing as a "Work Order" in someone else's. A "rejection" in fabric is different from a "rejection" in plywood. Generic ERPs flatten that - every customer fits the same forms.
               </p>
               <p style={{ fontSize: 14, color: 'var(--fg2)', lineHeight: 1.7, margin: 0 }}>
-                We build a model of <em>your</em> domain - your entities, your transitions, your rules - and the platform generates a system around it. The vocabulary on every screen is yours, because the model underneath is yours.
+                Your GridSpec captures <em>your</em> entities, your states, your transitions, your invariants, your chain reactions. AI writes it, the operator validates it, GridCore runs it. The vocabulary on every screen is yours, because the spec underneath is yours.
               </p>
             </div>
           </Reveal>
