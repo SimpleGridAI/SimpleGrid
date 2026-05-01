@@ -355,7 +355,7 @@
     return [i, setI];
   }
 
-  // ===== Blog 2 - GridSpec: same word, different operational boundaries =====
+  // ===== Blog 2 - SG Schema: same word, different operational boundaries =====
   function DomainMorph() {
     const ctx = [
       { name:'Sales', color:'blue', entity:"Buyer's Order", fields:[
@@ -590,7 +590,7 @@
             <div className="pi-mvd-result pi-mvd-result-bad">$15,000 · 4 weeks</div>
           </div>
           <div className="pi-mvd-col pi-mvd-col-good">
-            <div className="pi-mvd-col-h">GridSpec (SimpleGrid)</div>
+            <div className="pi-mvd-col-h">SG Schema (SimpleGrid)</div>
             <div className="pi-mvd-steps">
               {domainSteps.map((s, i) => (
                 <div key={i} className={'pi-mvd-step' + (visible(s.p) ? ' show' : '')}>
@@ -1110,14 +1110,14 @@
     end: <Bottom big="Append-only. Immutable. Permanent." p="Every action, every actor, every timestamp - stored forever. The audit trail is the architecture, not a feature you turn on." />,
   };
 
-  // 2 - GridSpec
+  // 2 - SG Schema
   POST[2] = {
     mid: (
       <Block tag="Live demo · auto-cycling" h='"order" - same word, three different operational boundaries' sub="The same business term means a completely different entity in each operational boundary. Watch the language morph.">
         <DomainMorph />
       </Block>
     ),
-    end: <Bottom big="Your business speaks. The software listens." p="GridSpec captures your operation in your language - not translated into someone else's modules." />,
+    end: <Bottom big="Your business speaks. The software listens." p="SG Schema captures your operation in your language - not translated into someone else's modules." />,
   };
 
   // 3 - Entity roots

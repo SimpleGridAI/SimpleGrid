@@ -572,7 +572,7 @@ img { max-width: 100%; display: block; }
   .ledger-benefits { grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
 }
 
-/* ===== About page: Architecture (GridSpec × Event Sourcing) ===== */
+/* ===== About page: Architecture (SG Schema × Event Sourcing) ===== */
 .arch-ddd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
 .arch-outcome-box { margin-top: 40px; padding: 32px; background: var(--sg-off-white); border: 1px solid var(--border); border-radius: 12px; }
 .arch-outcome-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }

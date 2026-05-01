@@ -1,4 +1,4 @@
-// Events Ledger - flagship section. GridSpec + Event Sourcing.
+// Events Ledger - flagship section. SG Schema + Event Sourcing.
 // Animated streaming feed + the architecture behind it.
 
 function EventsLedger() {
@@ -341,7 +341,7 @@ function EventsLedger() {
 }
 window.EventsLedger = EventsLedger;
 
-// ----- Architecture explainer (GridSpec + Event Sourcing) -----
+// ----- Architecture explainer (SG Schema + Event Sourcing) -----
 function ArchitectureNew() {
   return /*#__PURE__*/React.createElement("section", {
     className: "section",
@@ -362,7 +362,7 @@ function ArchitectureNew() {
       maxWidth: 900,
       color: 'var(--fg1)'
     }
-  }, "GridSpec ", /*#__PURE__*/React.createElement("span", {
+  }, "SG Schema ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: 'var(--fg3)',
       fontWeight: 400
@@ -372,7 +372,7 @@ function ArchitectureNew() {
     style: {
       maxWidth: 820
     }
-  }, "Most ERPs are data-entry apps wearing a suit - tables, forms, overwrites. SimpleGrid is built on two ideas no other business platform ships at the core: a ", /*#__PURE__*/React.createElement("strong", null, "GridSpec"), " that captures one factory's complete operational blueprint, and an ", /*#__PURE__*/React.createElement("strong", null, "event-sourced"), " ledger that stores every change. GridCore reads the GridSpec and runs your factory from it. The result is a system that bends to your business instead of the other way around.")), /*#__PURE__*/React.createElement("div", {
+  }, "Most ERPs are data-entry apps wearing a suit - tables, forms, overwrites. SimpleGrid is built on two ideas no other business platform ships at the core: a ", /*#__PURE__*/React.createElement("strong", null, "SG Schema"), " that captures one factory's complete operational blueprint, and an ", /*#__PURE__*/React.createElement("strong", null, "event-sourced"), " ledger that stores every change. SG Engine reads the SG Schema and runs your factory from it. The result is a system that bends to your business instead of the other way around.")), /*#__PURE__*/React.createElement("div", {
     className: "arch-ddd-grid"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
     className: "arch-ddd-card",
@@ -391,7 +391,7 @@ function ArchitectureNew() {
       color: 'var(--sg-purple)',
       marginBottom: 8
     }
-  }, "GRIDSPEC"), /*#__PURE__*/React.createElement("h3", {
+  }, "SG SCHEMA"), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontFamily: 'var(--font-heading)',
       fontSize: 22,
@@ -414,7 +414,7 @@ function ArchitectureNew() {
       lineHeight: 1.7,
       margin: 0
     }
-  }, "Your GridSpec captures ", /*#__PURE__*/React.createElement("em", null, "your"), " entities, your states, your transitions, your invariants, your chain reactions. AI writes it, the operator validates it, GridCore runs it. The vocabulary on every screen is yours, because the spec underneath is yours."))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Your SG Schema captures ", /*#__PURE__*/React.createElement("em", null, "your"), " entities, your states, your transitions, your invariants, your chain reactions. AI writes it, the operator validates it, SG Engine runs it. The vocabulary on every screen is yours, because the spec underneath is yours."))), /*#__PURE__*/React.createElement(Reveal, {
     delay: 100
   }, /*#__PURE__*/React.createElement("div", {
     style: {

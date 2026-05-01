@@ -415,7 +415,7 @@
     return [i, setI];
   }
 
-  // ===== Blog 2 - GridSpec: same word, different operational boundaries =====
+  // ===== Blog 2 - SG Schema: same word, different operational boundaries =====
   function DomainMorph() {
     const ctx = [{
       name: 'Sales',
@@ -833,7 +833,7 @@
       className: "pi-mvd-col pi-mvd-col-good"
     }, /*#__PURE__*/React.createElement("div", {
       className: "pi-mvd-col-h"
-    }, "GridSpec (SimpleGrid)"), /*#__PURE__*/React.createElement("div", {
+    }, "SG Schema (SimpleGrid)"), /*#__PURE__*/React.createElement("div", {
       className: "pi-mvd-steps"
     }, domainSteps.map((s, i) => /*#__PURE__*/React.createElement("div", {
       key: i,
@@ -1505,7 +1505,7 @@
     })
   };
 
-  // 2 - GridSpec
+  // 2 - SG Schema
   POST[2] = {
     mid: /*#__PURE__*/React.createElement(Block, {
       tag: "Live demo \xB7 auto-cycling",
@@ -1514,7 +1514,7 @@
     }, /*#__PURE__*/React.createElement(DomainMorph, null)),
     end: /*#__PURE__*/React.createElement(Bottom, {
       big: "Your business speaks. The software listens.",
-      p: "GridSpec captures your operation in your language - not translated into someone else's modules."
+      p: "SG Schema captures your operation in your language - not translated into someone else's modules."
     })
   };
 
