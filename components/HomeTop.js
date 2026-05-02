@@ -274,23 +274,16 @@ function CycleHeadline() {
       clearTimeout(swap);
     };
   }, []);
+  // Headline rotation disabled — show only the primary (first) headline.
   return /*#__PURE__*/React.createElement("div", {
-    className: 'hero-title-stage hero-title-' + phase
+    className: "hero-title-stage hero-title-reveal"
   }, /*#__PURE__*/React.createElement("h1", {
     className: "hero-title"
-  }, HEADLINES[i]), /*#__PURE__*/React.createElement("div", {
-    className: "hero-title-tiles",
-    "aria-hidden": "true"
-  }, TILES.map(t => /*#__PURE__*/React.createElement("span", {
-    key: t.idx,
-    className: "hero-title-tile",
-    style: {
-      transitionDelay: t.delay + 'ms'
-    }
-  }))));
+  }, HEADLINES[0]));
 }
 function Hero() {
   const [count, setCount] = React.useState(547);
+  const [cost, setCost] = React.useState(150000);
   const [showInvite, setShowInvite] = React.useState(false);
   const [theme, setTheme] = React.useState(() => {
     try {
@@ -307,14 +300,13 @@ function Hero() {
     } catch {}
   };
   React.useEffect(() => {
-    const target = 7,
-      start = 547,
-      duration = 2200,
-      startTime = Date.now();
+    const startTime = Date.now(),
+      duration = 900;
     const timer = setInterval(() => {
       const progress = Math.min((Date.now() - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(start - (start - target) * eased));
+      setCount(Math.round(547 - (547 - 7) * eased));
+      setCost(Math.round(150000 - 150000 * eased));
       if (progress >= 1) clearInterval(timer);
     }, 16);
     return () => clearInterval(timer);
@@ -395,13 +387,14 @@ function Hero() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 10,
+      fontSize: 12,
+      fontWeight: 700,
       textTransform: 'uppercase',
       letterSpacing: '0.16em',
-      color: 'var(--fg3)',
-      marginBottom: 8
+      color: 'var(--fg2)',
+      marginBottom: 10
     }
-  }, "Average ERP deploy time"), /*#__PURE__*/React.createElement("div", {
+  }, "Average Deployment Time"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: 'var(--font-heading)',
       fontSize: 80,
@@ -419,64 +412,39 @@ function Hero() {
       fontWeight: 500,
       letterSpacing: 'normal'
     }
-  }, "days")), /*#__PURE__*/React.createElement("div", {
+  }, "Days")), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 13,
-      color: 'var(--fg2)',
-      marginTop: 8
-    }
-  }, "Industry average: 547 days. ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: 'var(--sg-blue)',
-      fontWeight: 700
-    }
-  }, "SimpleGrid: 7"), "."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      color: 'var(--fg3)',
-      marginTop: 6,
-      fontStyle: 'italic',
-      lineHeight: 1.4
-    }
-  }, "Source: Panorama Consulting 2024 ERP Report - 18-month median for mid-market."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr 1fr',
-      gap: 1,
-      marginTop: 28,
-      background: 'var(--border)',
-      borderRadius: 10,
-      overflow: 'hidden'
-    }
-  }, [{
-    n: '$0',
-    l: 'Cost to start'
-  }, {
-    n: '30',
-    l: 'Day free trial'
-  }, {
-    n: '2',
-    l: 'Industries deployed'
-  }].map((s, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      background: '#FFFFFF',
-      padding: '16px 12px'
+      marginTop: 32,
+      paddingTop: 28,
+      borderTop: '1px solid var(--border)'
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      fontFamily: 'var(--font-heading)',
-      fontSize: 22,
+      fontSize: 12,
       fontWeight: 700,
-      color: 'var(--fg1)'
+      textTransform: 'uppercase',
+      letterSpacing: '0.16em',
+      color: 'var(--fg2)',
+      marginBottom: 10
     }
-  }, s.n), /*#__PURE__*/React.createElement("div", {
+  }, "Implementation Cost"), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 10,
-      color: 'var(--fg3)',
-      marginTop: 2
+      fontFamily: 'var(--font-heading)',
+      fontSize: 80,
+      fontWeight: 700,
+      color: 'var(--sg-blue)',
+      lineHeight: 1,
+      letterSpacing: '-0.04em',
+      position: 'relative'
     }
-  }, s.l))))))))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
+  }, "$", cost.toLocaleString()), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      color: 'var(--fg2)',
+      marginTop: 14,
+      lineHeight: 1.5
+    }
+  }, "Pricing kicks in after 1 month of usage."))))))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)
   }));
 }

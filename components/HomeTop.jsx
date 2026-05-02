@@ -253,18 +253,17 @@ function CycleHeadline() {
     }, HOLD + TRANSITION);
     return () => { clearInterval(tick); clearTimeout(swap); };
   }, []);
+  // Headline rotation disabled — show only the primary (first) headline.
   return (
-    <div className={'hero-title-stage hero-title-' + phase}>
-      <h1 className="hero-title">{HEADLINES[i]}</h1>
-      <div className="hero-title-tiles" aria-hidden="true">
-        {TILES.map(t => <span key={t.idx} className="hero-title-tile" style={{ transitionDelay: t.delay + 'ms' }} />)}
-      </div>
+    <div className="hero-title-stage hero-title-reveal">
+      <h1 className="hero-title">{HEADLINES[0]}</h1>
     </div>
   );
 }
 
 function Hero() {
   const [count, setCount] = React.useState(547);
+  const [cost, setCost] = React.useState(150000);
   const [showInvite, setShowInvite] = React.useState(false);
   const [theme, setTheme] = React.useState(() => {
     try { return localStorage.getItem('sg_hero_theme') || 'light'; } catch { return 'light'; }
@@ -275,11 +274,12 @@ function Hero() {
     try { localStorage.setItem('sg_hero_theme', next); } catch {}
   };
   React.useEffect(() => {
-    const target = 7, start = 547, duration = 2200, startTime = Date.now();
+    const startTime = Date.now(), duration = 900;
     const timer = setInterval(() => {
       const progress = Math.min((Date.now() - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(start - (start - target) * eased));
+      setCount(Math.round(547 - (547 - 7) * eased));
+      setCost(Math.round(150000 - 150000 * eased));
       if (progress >= 1) clearInterval(timer);
     }, 16);
     return () => clearInterval(timer);
@@ -328,20 +328,17 @@ function Hero() {
           </div>
           <Reveal delay={300}>
             <div className="hero-stat-box" style={{background:'rgba(255,255,255,0.7)',border:'1px solid var(--border)',borderRadius:16,padding:32,textAlign:'center'}}>
-              <div style={{fontSize:10,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg3)',marginBottom:8}}>Average ERP deploy time</div>
+              <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg2)',marginBottom:10}}>Average Deployment Time</div>
               <div style={{fontFamily:'var(--font-heading)',fontSize:80,fontWeight:700,color:'var(--fg1)',lineHeight:1,letterSpacing:'-0.04em',position:'relative'}}>
                 <span>{count}</span>
-                <span style={{fontSize:24,color:'var(--fg3)',marginLeft:14,fontWeight:500,letterSpacing:'normal'}}>days</span>
+                <span style={{fontSize:24,color:'var(--fg3)',marginLeft:14,fontWeight:500,letterSpacing:'normal'}}>Days</span>
               </div>
-              <div style={{fontSize:13,color:'var(--fg2)',marginTop:8}}>Industry average: 547 days. <span style={{color:'var(--sg-blue)',fontWeight:700}}>SimpleGrid: 7</span>.</div>
-              <div style={{fontSize:10,color:'var(--fg3)',marginTop:6,fontStyle:'italic',lineHeight:1.4}}>Source: Panorama Consulting 2024 ERP Report - 18-month median for mid-market.</div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:1,marginTop:28,background:'var(--border)',borderRadius:10,overflow:'hidden'}}>
-                {[{n:'$0',l:'Cost to start'},{n:'30',l:'Day free trial'},{n:'2',l:'Industries deployed'}].map((s,i) => (
-                  <div key={i} style={{background:'#FFFFFF',padding:'16px 12px'}}>
-                    <div style={{fontFamily:'var(--font-heading)',fontSize:22,fontWeight:700,color:'var(--fg1)'}}>{s.n}</div>
-                    <div style={{fontSize:10,color:'var(--fg3)',marginTop:2}}>{s.l}</div>
-                  </div>
-                ))}
+              <div style={{marginTop:32,paddingTop:28,borderTop:'1px solid var(--border)'}}>
+                <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg2)',marginBottom:10}}>Implementation Cost</div>
+                <div style={{fontFamily:'var(--font-heading)',fontSize:80,fontWeight:700,color:'var(--sg-blue)',lineHeight:1,letterSpacing:'-0.04em',position:'relative'}}>
+                  ${cost.toLocaleString()}
+                </div>
+                <div style={{fontSize:14,color:'var(--fg2)',marginTop:14,lineHeight:1.5}}>Pricing kicks in after 1 month of usage.</div>
               </div>
             </div>
           </Reveal>
