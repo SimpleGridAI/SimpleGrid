@@ -301,7 +301,7 @@ function Hero() {
   };
   React.useEffect(() => {
     const startTime = Date.now(),
-      duration = 900;
+      duration = 300;
     const timer = setInterval(() => {
       const progress = Math.min((Date.now() - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);

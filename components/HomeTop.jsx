@@ -274,7 +274,7 @@ function Hero() {
     try { localStorage.setItem('sg_hero_theme', next); } catch {}
   };
   React.useEffect(() => {
-    const startTime = Date.now(), duration = 900;
+    const startTime = Date.now(), duration = 300;
     const timer = setInterval(() => {
       const progress = Math.min((Date.now() - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
