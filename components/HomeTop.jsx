@@ -224,7 +224,7 @@ window.RadialBurst = RadialBurst;
 function CycleHeadline() {
   const HEADLINES = [
     // First (server-rendered) headline is the primary value prop.
-    <React.Fragment key="e">Enterprise-grade ERP,<br/>But built around your workflow</React.Fragment>,
+    <React.Fragment key="e">Enterprise-grade ERP<br/>But built around your workflow</React.Fragment>,
     <React.Fragment key="d">AI Native ERP for manufacturer</React.Fragment>,
     <React.Fragment key="b">You don't adapt to the system<br/>The system adapts to you</React.Fragment>,
     <React.Fragment key="a">AI-native ERP<br/>For operators, not accountants</React.Fragment>,
