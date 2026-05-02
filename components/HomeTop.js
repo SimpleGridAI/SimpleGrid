@@ -232,7 +232,7 @@ window.RadialBurst = RadialBurst;
 function CycleHeadline() {
   const HEADLINES = [/*#__PURE__*/React.createElement(React.Fragment, {
     key: "e"
-  }, "Enterprise-grade ERP", /*#__PURE__*/React.createElement("br", null), "But built around your workflow"), /*#__PURE__*/React.createElement(React.Fragment, {
+  }, "Enterprise-grade ERP,", /*#__PURE__*/React.createElement("br", null), "But built around your workflow"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "d"
   }, "AI Native ERP for manufacturer"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "b"
