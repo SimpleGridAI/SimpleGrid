@@ -231,8 +231,10 @@ function RadialBurst({
 window.RadialBurst = RadialBurst;
 function CycleHeadline() {
   const HEADLINES = [/*#__PURE__*/React.createElement(React.Fragment, {
+    key: "e"
+  }, "Enterprise-grade ERP", /*#__PURE__*/React.createElement("br", null), "But built around your workflow"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "d"
-  }, "AI ERP for manufacturers", /*#__PURE__*/React.createElement("br", null), "Live in 7 days"), /*#__PURE__*/React.createElement(React.Fragment, {
+  }, "AI Native ERP for manufacturer"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "b"
   }, "You don't adapt to the system", /*#__PURE__*/React.createElement("br", null), "The system adapts to you"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "a"
@@ -353,10 +355,6 @@ function Hero() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-inner"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement(CycleHeadline, null)), /*#__PURE__*/React.createElement(Reveal, {
-    delay: 200
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "hero-sub"
-  }, "Your factory runs differently from every other factory. That's not a problem - it's what makes you competitive. We build a custom ERP around your exact process, at our expense, and have you live in days. You only pay once you decide it works.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 400
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-cta"

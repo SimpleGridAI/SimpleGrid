@@ -223,9 +223,9 @@ window.RadialBurst = RadialBurst;
 
 function CycleHeadline() {
   const HEADLINES = [
-    // First (server-rendered) headline aligns with the <title> tag's primary
-    // keywords ("AI ERP for manufacturers, live in 7 days") for SEO.
-    <React.Fragment key="d">AI ERP for manufacturers<br/>Live in 7 days</React.Fragment>,
+    // First (server-rendered) headline is the primary value prop.
+    <React.Fragment key="e">Enterprise-grade ERP<br/>But built around your workflow</React.Fragment>,
+    <React.Fragment key="d">AI Native ERP for manufacturer</React.Fragment>,
     <React.Fragment key="b">You don't adapt to the system<br/>The system adapts to you</React.Fragment>,
     <React.Fragment key="a">AI-native ERP<br/>For operators, not accountants</React.Fragment>,
     <React.Fragment key="c">Your operation<br/>We build the ERP around it<br/>30 days to earn its keep, or walk away</React.Fragment>,
@@ -311,9 +311,6 @@ function Hero() {
           <div>
             <Reveal>
               <CycleHeadline />
-            </Reveal>
-            <Reveal delay={200}>
-              <p className="hero-sub">Your factory runs differently from every other factory. That's not a problem - it's what makes you competitive. We build a custom ERP around your exact process, at our expense, and have you live in days. You only pay once you decide it works.</p>
             </Reveal>
             <Reveal delay={400}>
               <div className="hero-cta">
