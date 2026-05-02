@@ -355,6 +355,10 @@ function Hero() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-inner"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement(CycleHeadline, null)), /*#__PURE__*/React.createElement(Reveal, {
+    delay: 200
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "hero-sub"
+  }, "Your operations runs differently from everyone. That's not a problem - it's what makes you competitive. We build a custom ERP around your exact process.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 400
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-cta"

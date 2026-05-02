@@ -312,6 +312,9 @@ function Hero() {
             <Reveal>
               <CycleHeadline />
             </Reveal>
+            <Reveal delay={200}>
+              <p className="hero-sub">Your operations runs differently from everyone. That's not a problem - it's what makes you competitive. We build a custom ERP around your exact process.</p>
+            </Reveal>
             <Reveal delay={400}>
               <div className="hero-cta">
                 <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{boxShadow:'0 0 0 0 rgba(74,123,247,0.45), 0 6px 20px rgba(74,123,247,0.18)',animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>
