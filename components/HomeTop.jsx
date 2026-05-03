@@ -223,9 +223,8 @@ window.RadialBurst = RadialBurst;
 
 function CycleHeadline() {
   const HEADLINES = [
-    // First (server-rendered) headline is the primary value prop.
+    // index 0 is the primary; held longer than the others.
     <React.Fragment key="e">Enterprise-grade ERP<br/>But built around your workflow</React.Fragment>,
-    <React.Fragment key="d">AI Native ERP for manufacturer</React.Fragment>,
     <React.Fragment key="b">You don't adapt to the system<br/>The system adapts to you</React.Fragment>,
     <React.Fragment key="a">AI-native ERP<br/>For operators, not accountants</React.Fragment>,
     <React.Fragment key="c">Your operation<br/>We build the ERP around it<br/>30 days to earn its keep, or walk away</React.Fragment>,
@@ -237,26 +236,26 @@ function CycleHeadline() {
     const x = idx % TX, y = Math.floor(idx / TX);
     return { idx, delay: (x + y) * 70 };
   }), []);
-  const HOLD = 4500;          // headline fully visible
-  const TRANSITION = 1300;    // tile sweep duration (longest delay + per-tile fade)
+  // Primary (index 0) holds 10s; the rest hold 3s each.
+  const holdFor = (idx) => idx === 0 ? 10000 : 3000;
+  const TRANSITION = 1300;    // tile sweep duration
   const [i, setI] = React.useState(0);
   const [phase, setPhase] = React.useState('reveal'); // 'reveal' = tiles transparent (text visible), 'cover' = tiles opaque (text hidden)
   React.useEffect(() => {
     if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let swap;
-    const tick = setInterval(() => {
-      setPhase('cover');
-      swap = setTimeout(() => {
-        setI(x => (x + 1) % HEADLINES.length);
-        setPhase('reveal');
-      }, TRANSITION);
-    }, HOLD + TRANSITION);
-    return () => { clearInterval(tick); clearTimeout(swap); };
-  }, []);
-  // Headline rotation disabled — show only the primary (first) headline.
+    const cover = setTimeout(() => setPhase('cover'), holdFor(i));
+    const swap = setTimeout(() => {
+      setI(x => (x + 1) % HEADLINES.length);
+      setPhase('reveal');
+    }, holdFor(i) + TRANSITION);
+    return () => { clearTimeout(cover); clearTimeout(swap); };
+  }, [i]);
   return (
-    <div className="hero-title-stage hero-title-reveal">
-      <h1 className="hero-title">{HEADLINES[0]}</h1>
+    <div className={'hero-title-stage hero-title-' + phase}>
+      <h1 className="hero-title">{HEADLINES[i]}</h1>
+      <div className="hero-title-tiles" aria-hidden="true">
+        {TILES.map(t => <span key={t.idx} className="hero-title-tile" style={{ transitionDelay: t.delay + 'ms' }} />)}
+      </div>
     </div>
   );
 }

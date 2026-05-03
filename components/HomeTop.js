@@ -233,16 +233,12 @@ function CycleHeadline() {
   const HEADLINES = [/*#__PURE__*/React.createElement(React.Fragment, {
     key: "e"
   }, "Enterprise-grade ERP", /*#__PURE__*/React.createElement("br", null), "But built around your workflow"), /*#__PURE__*/React.createElement(React.Fragment, {
-    key: "d"
-  }, "AI Native ERP for manufacturer"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "b"
   }, "You don't adapt to the system", /*#__PURE__*/React.createElement("br", null), "The system adapts to you"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "a"
   }, "AI-native ERP", /*#__PURE__*/React.createElement("br", null), "For operators, not accountants"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "c"
   }, "Your operation", /*#__PURE__*/React.createElement("br", null), "We build the ERP around it", /*#__PURE__*/React.createElement("br", null), "30 days to earn its keep, or walk away")];
-  // Each tile fades smoothly; staggering them by (x+y)*delay gives a diagonal
-  // sweep that visually "breaks" the headline into checkboxes and reassembles.
   const TX = 8,
     TY = 3;
   const TILES = React.useMemo(() => Array.from({
@@ -255,31 +251,37 @@ function CycleHeadline() {
       delay: (x + y) * 70
     };
   }), []);
-  const HOLD = 4500; // headline fully visible
-  const TRANSITION = 1300; // tile sweep duration (longest delay + per-tile fade)
+  // Primary (index 0) holds 10s; the rest hold 3s each.
+  const holdFor = idx => idx === 0 ? 10000 : 3000;
+  const TRANSITION = 1300;
   const [i, setI] = React.useState(0);
-  const [phase, setPhase] = React.useState('reveal'); // 'reveal' = tiles transparent (text visible), 'cover' = tiles opaque (text hidden)
+  const [phase, setPhase] = React.useState('reveal');
   React.useEffect(() => {
     if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let swap;
-    const tick = setInterval(() => {
-      setPhase('cover');
-      swap = setTimeout(() => {
-        setI(x => (x + 1) % HEADLINES.length);
-        setPhase('reveal');
-      }, TRANSITION);
-    }, HOLD + TRANSITION);
+    const cover = setTimeout(() => setPhase('cover'), holdFor(i));
+    const swap = setTimeout(() => {
+      setI(x => (x + 1) % HEADLINES.length);
+      setPhase('reveal');
+    }, holdFor(i) + TRANSITION);
     return () => {
-      clearInterval(tick);
+      clearTimeout(cover);
       clearTimeout(swap);
     };
-  }, []);
-  // Headline rotation disabled — show only the primary (first) headline.
+  }, [i]);
   return /*#__PURE__*/React.createElement("div", {
-    className: "hero-title-stage hero-title-reveal"
+    className: 'hero-title-stage hero-title-' + phase
   }, /*#__PURE__*/React.createElement("h1", {
     className: "hero-title"
-  }, HEADLINES[0]));
+  }, HEADLINES[i]), /*#__PURE__*/React.createElement("div", {
+    className: "hero-title-tiles",
+    "aria-hidden": "true"
+  }, TILES.map(t => /*#__PURE__*/React.createElement("span", {
+    key: t.idx,
+    className: "hero-title-tile",
+    style: {
+      transitionDelay: t.delay + 'ms'
+    }
+  }))));
 }
 function Hero() {
   const count = 7;
