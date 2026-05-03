@@ -5,6 +5,7 @@ function App() {
     <Nav page="home" onLoginClick={() => setShowLogin(true)} />
     <main id="main">
       <Hero />
+      <IntegrationsBar />
       <ProblemSection />
       <WhatWeDo />
       <HowItWorks />

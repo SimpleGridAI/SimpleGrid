@@ -339,6 +339,50 @@ function Hero() {
 }
 window.Hero = Hero;
 
+// Slim "Integrates with" bar shown between the hero and the problem
+// section. Text-only logo wall — every integration is one short label.
+function IntegrationsBar() {
+  const items = [
+    'WhatsApp', 'Slack', 'Gmail', 'Excel', 'Google Sheets',
+    'QuickBooks', 'Tally', 'Shopify', 'Amazon', 'ShipStation',
+  ];
+  return (
+    <section style={{
+      borderTop: '1px solid var(--border)',
+      borderBottom: '1px solid var(--border)',
+      background: 'var(--sg-off-white)',
+      padding: '18px 0',
+    }}>
+      <div className="container" style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '14px 28px',
+      }}>
+        <span style={{
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: '0.18em',
+          textTransform: 'uppercase',
+          color: 'var(--fg3)',
+          marginRight: 6,
+        }}>Integrates with</span>
+        {items.map((it, i) => (
+          <span key={i} style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 14,
+            fontWeight: 600,
+            color: 'var(--fg2)',
+            letterSpacing: '-0.01em',
+          }}>{it}</span>
+        ))}
+      </div>
+    </section>
+  );
+}
+window.IntegrationsBar = IntegrationsBar;
+
 function ProblemSection() {
   const [activeChatStep, setActiveChatStep] = React.useState(0);
   const chatRef = React.useRef(null);
