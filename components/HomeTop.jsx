@@ -226,8 +226,8 @@ function CycleHeadline() {
     // index 0 is the primary; held longer than the others.
     <React.Fragment key="e">Enterprise-grade ERP<br/>But built around your workflow</React.Fragment>,
     <React.Fragment key="b">You don't adapt to the system<br/>The system adapts to you</React.Fragment>,
-    <React.Fragment key="a">AI-native ERP<br/>For operators, not accountants</React.Fragment>,
     <React.Fragment key="c">Your operation<br/>We build the ERP around it<br/>30 days to earn its keep, or walk away</React.Fragment>,
+    <React.Fragment key="a">AI-native ERP<br/>For operators, not accountants</React.Fragment>,
   ];
   // Each tile fades smoothly; staggering them by (x+y)*delay gives a diagonal
   // sweep that visually "breaks" the headline into checkboxes and reassembles.

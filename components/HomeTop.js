@@ -235,10 +235,10 @@ function CycleHeadline() {
   }, "Enterprise-grade ERP", /*#__PURE__*/React.createElement("br", null), "But built around your workflow"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "b"
   }, "You don't adapt to the system", /*#__PURE__*/React.createElement("br", null), "The system adapts to you"), /*#__PURE__*/React.createElement(React.Fragment, {
-    key: "a"
-  }, "AI-native ERP", /*#__PURE__*/React.createElement("br", null), "For operators, not accountants"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "c"
-  }, "Your operation", /*#__PURE__*/React.createElement("br", null), "We build the ERP around it", /*#__PURE__*/React.createElement("br", null), "30 days to earn its keep, or walk away")];
+  }, "Your operation", /*#__PURE__*/React.createElement("br", null), "We build the ERP around it", /*#__PURE__*/React.createElement("br", null), "30 days to earn its keep, or walk away"), /*#__PURE__*/React.createElement(React.Fragment, {
+    key: "a"
+  }, "AI-native ERP", /*#__PURE__*/React.createElement("br", null), "For operators, not accountants")];
   const TX = 8,
     TY = 3;
   const TILES = React.useMemo(() => Array.from({
