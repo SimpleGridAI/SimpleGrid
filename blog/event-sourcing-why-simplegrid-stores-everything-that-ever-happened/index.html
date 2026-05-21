@@ -69,7 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
 
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
@@ -85,18 +84,113 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 1;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>Event Sourcing: Why SimpleGrid Stores Every Action Forever</h1>
+    <div class="post-meta">
+      <span>Product Deep-Dive</span>
+      <span>6 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Most ERPs store the current state of your business. SimpleGrid stores everything that ever happened. That is not a minor technical difference. It is the reason we can deploy in days, change rules without breaking anything, and give you an audit trail that does not need to be "turned on."</p>
+    <p>The concept is called event sourcing. Here is how it works, in factory terms.</p>
+    <h2>The traditional approach: storing state</h2>
+    <p>In a typical ERP, your Purchase Order PO-122 is a row in a database. That row says: Vendor = Midwest Supply. Quantity Ordered = 500. Quantity Received = 300. Status = Partially Received.</p>
+    <p>When the warehouse manager receives another 100 units, the system updates the row: Quantity Received = 400. The old value (300) is gone. Overwritten. If you want to know what happened between 300 and 400, when it happened, who did it, you need an audit log. A separate system that somebody remembered to turn on.</p>
+    <p>Most audit logs are incomplete. Some ERPs do not log everything. Some log timestamps but not actors. Some do not log field-level changes. You end up reconstructing history from fragments, or from the warehouse manager's memory.</p>
+    <h2>The event sourcing approach: storing everything</h2>
+    <p>In SimpleGrid, PO-122 does not have a "quantity received" field that gets updated. Instead, the system stores every event that happened to PO-122:</p>
+    <div style="font-family:var(--font-mono);font-size:13px;color:var(--fg2);padding:4px 0;line-height:1.6">Event 1: PO-122 created. Vendor: Midwest Supply. Qty: 500. Actor: Sarah. Time: Jan 15, 10:30 AM.</div>
+    <div style="font-family:var(--font-mono);font-size:13px;color:var(--fg2);padding:4px 0;line-height:1.6">Event 2: PO-122 approved. Actor: James (founder). Time: Jan 16, 2:15 PM.</div>
+    <div style="font-family:var(--font-mono);font-size:13px;color:var(--fg2);padding:4px 0;line-height:1.6">Event 3: PO-122 received 300 units. Actor: Mike (warehouse). Time: Jan 25, 9:00 AM.</div>
+    <div style="font-family:var(--font-mono);font-size:13px;color:var(--fg2);padding:4px 0;line-height:1.6">Event 4: PO-122 received 100 units. Actor: Mike (warehouse). Time: Feb 2, 11:00 AM.</div>
+    <p>The current state, "400 received out of 500 ordered," is calculated by reading the events. Not stored directly. Calculated.</p>
+    <p>This might seem like a small distinction. It changes everything.</p>
+
+    <figure class="post-figure">
+      <img src="../../assets/blog/event_sourcing_landscape_2.png"
+           alt="Traditional ERP overwrites the record on every change. SimpleGrid keeps every event - permanent, forever."
+           loading="lazy" decoding="async" width="2808" height="1040"
+           style="max-width:100%;height:auto;display:block">
+      <figcaption>Traditional ERP overwrites the record on every change. SimpleGrid keeps every event - permanent, forever.</figcaption>
+    </figure>
+
+    <h2>What you get for free</h2>
+    <p>Complete audit trail. Not a log that someone turned on. The events ARE the data. Every action, every actor, every timestamp. Immutable. Append-only. Can never be deleted or modified. If a regulator asks "who received what, when, and how much?" the answer is the event ledger itself.</p>
+    <p>Time travel. Want to know what your inventory looked like on February 1st? Read the events up to that date. Calculate the state at that point. No separate snapshot needed. No "as-of" reports that someone has to build. The ledger contains the complete history by definition.</p>
+    <p>Reconciliation is eliminated. In a traditional ERP, the warehouse says 400 received, the vendor says 500 delivered, and someone spends 2 hours reconciling. In event sourcing, every receipt is a distinct event with a timestamp, a quantity, and an actor. There is nothing to reconcile. There is only what happened.</p>
+    <p>Dashboards can be rebuilt. Your "revenue by month" dashboard is not stored separately. It is a projection, a view calculated from the event ledger. If the calculation was wrong, fix the formula and reproject. The underlying events have not changed. The source data is always intact.</p>
+    <h2>How this works on the factory floor</h2>
+    <p>The warehouse manager types: "Received 200 sheets of 16-gauge steel from Midwest Supply."</p>
+    <p>Here is what happens in milliseconds:</p>
+
+    <div id="root-infographic-mid"></div>
+
+    <p style="padding-left:8px"><strong>1.</strong> System looks up the open PO from Midwest Supply for 16-gauge steel.</p>
+    <p style="padding-left:8px"><strong>2.</strong> Checks the current state: PO is in state "Ordered." Transition "receive" exists.</p>
+    <p style="padding-left:8px"><strong>3.</strong> Permission check: does this user have the warehouse role? Yes.</p>
+    <p style="padding-left:8px"><strong>4.</strong> Rule check: 200 is less than or equal to ordered quantity? Yes.</p>
+    <p style="padding-left:8px"><strong>5.</strong> State update: PO moves to "Partially Received."</p>
+
+    <figure class="post-figure">
+      <img src="../../assets/blog/event_sourcing_landscape_1.png"
+           alt="One sentence typed by Mike at the warehouse. Seven things happen in milliseconds: find PO, check state, permissions, rule check, state updated, event written, triggers fire."
+           loading="lazy" decoding="async" width="2808" height="1040"
+           style="max-width:100%;height:auto;display:block">
+      <figcaption>One sentence typed by Mike at the warehouse. Seven things happen in milliseconds: find PO, check state, permissions, rule check, state updated, event written, triggers fire.</figcaption>
+    </figure>
+
+    <p style="padding-left:8px"><strong>6.</strong> Event written: { type: PartialReceive, entity: PO-4521, qty: 200, actor: warehouse_mgr, timestamp: now }</p>
+    <p style="padding-left:8px"><strong>7.</strong> Downstream triggers fire: inventory increases by 200. Running rate recalculates. Journal entry auto-generated.</p>
+    <p>The warehouse manager sees: "200 sheets received."</p>
+    <p>Seven steps. All from one event. All in milliseconds. And that event, step 6, is permanent. It will exist in the ledger forever. It can never be modified. It is the source of truth.</p>
+    <h2>Why this makes fast deployment possible</h2>
+    <p>Traditional ERPs need months because every piece of business logic is application code. Change the logic, redeploy the application.</p>
+    <p>In an event-sourced, configuration-driven system, the logic lives in tables. The engine reads the rules, processes events, and writes to the ledger. The rules can change without touching the engine. The engine is built once and shared by every client. The full picture: each client runs from their own <a href="/blog/sg-schema-why-your-erp-should-speak-your-language/">SG Schema</a>, the operational blueprint our AI writes during onboarding.</p>
+    <p>When we deploy for a new client, we are not building an application. We are writing the <a href="/blog/sg-schema-why-your-erp-should-speak-your-language/">SG Schema</a> that describes their business. The engine already exists. The ledger structure already exists. The projection layer already exists. We are configuring, not coding.</p>
+    <p>That is why it takes days instead of 18 months.</p>
+    <h2>The real-world test</h2>
+    <p>Next time you use your current system, try to answer this question: "Show me every action that happened to Purchase Order 122, in order, with who did it and when."</p>
+    <p>If the answer is complete, timestamped, and immutable, your system stores events.</p>
+    <p>If the answer is partial, reconstructed from audit logs, or requires a report that someone has to run, your system stores state. And you are missing data every day.</p>
+    <p>SimpleGrid is built on event sourcing. Every action, every actor, every timestamp. Immutable. Permanent. No audit trail to "turn on." It is the architecture.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <span></span>
+      <a class="post-pager-link post-pager-next" href="/blog/sg-schema-why-your-erp-should-speak-your-language/">SG Schema: Why Your ERP Should Speak Your Language →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

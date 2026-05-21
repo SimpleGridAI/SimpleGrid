@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,78 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 17;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>The Myth of ERP Best Practices</h1>
+    <div class="post-meta">
+      <span>Industry Critique</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Every ERP sales pitch includes the same phrase: "Our system is built on industry best practices."</p>
+    <p>Translated: "We talked to 50 manufacturers, averaged their processes, and built a system for the average. Your business is not the average. But we will charge you to make it fit."</p>
+    <h2>What "best practices" actually means</h2>
+    <p>In ERP terms, "best practices" means predefined workflows. The procurement "best practice" is: create requisition, convert to PO, send to vendor, receive goods, three-way match (PO, receipt, invoice), pay.</p>
+    <p>That is a fine default. But here is what happens when your procurement does not work that way:</p>
+    <p>Your furniture manufacturer consolidates purchase orders per wood species across multiple jobs. That is not in the "best practice." Customization.</p>
+    <p>Your apparel operation buys from brand-nominated suppliers where the brand specifies the vendor, not you. That is not in the "best practice." Customization.</p>
+    <p>Your distributor accepts partial offers from suppliers, declines the rest, and re-ranks the offer pool by recency. That is not in the "best practice." Customization.</p>
+    <p>Each customization is a departure from the default. Each departure costs money and time. And after 10 departures, you are no longer running the "best practice" system. You are running a patchwork of customizations on top of a default that never fit you.</p>
+    <h2>The problem with averaging</h2>
+    <p>"Best practices" are averages. They describe how a generic business of a certain type operates. But no business is generic.</p>
+    <p>A furniture manufacturer with 600 employees, 20+ components per SKU, component-level wood tracking in cubic feet, and assembly-level SKU tracking has a fundamentally different operation than a metal stamping shop with 200 employees, 50 dies, and unit-level batch tracking.</p>
+    <p>Both are "mid-market discrete manufacturers." Both would be sold the same ERP modules. Both would spend $100K+ making those modules match their actual operation.</p>
+    <div id="root-infographic-mid"></div>
+    <p>The average does not help either of them. The average helps the vendor, because it reduces development cost. Build once, sell to everyone, charge for customization. That is the business model.</p>
+    <p>What your business actually needs</p>
+    <p>Not best practices. YOUR practices.</p>
+    <p>Your approval chain. Your receiving logic. Your production stages. Your QC gates. Your contractor settlement formula. Your vendor consolidation rules. Your size system. Your dispatch constraints.</p>
+    <p>These are not "customizations." They are the business. (<a href="/blog/module-based-erp-vs-sg-schema-erp-two-architectures-two-outcomes/">Module-based vs SG Schema architecture, in detail</a> The ERP's job is to model them, not to override them with a generic default.</p>
+    <p>When an ERP vendor says "that is not how our system works," what they are really saying is: "we built for the average, and you are not the average."</p>
+    <p>96% of manufacturers need customization. That is not 96% of manufacturers being difficult. That is 96% of manufacturers having businesses that do not match the vendor's template.</p>
+    <h2>A different approach</h2>
+    <p>Instead of starting with pre-built workflows and modifying them, start with the business itself. Write the SG Schema. Define the entities that exist, the states they live in, the rules that govern them, the chain reactions that fire when something happens.</p>
+    <p>The output is a complete operational blueprint of YOUR business, not a configured version of someone else's template.</p>
+    <p>SG Engine reads the SG Schema and generates the application: forms, workflows, validations, dashboards, APIs. No "best practice" to depart from. No customization budget. No gap between what the system does and what the business needs.</p>
+    <p>Your practices. Your language. Your rules. Specified, not templated.</p>
+    <p>SimpleGrid does not sell "best practices." We write your SG Schema. Your rules. Your language. Your process.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/">← Your Warehouse Manager Should Be Your ERP's First …</a>
+      <span></span>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

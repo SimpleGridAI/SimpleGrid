@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,84 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 2;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>SG Schema: Why Your ERP Should Speak Your Language</h1>
+    <div class="post-meta">
+      <span>Product Deep-Dive</span>
+      <span>6 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Every ERP vendor claims their software "fits your business." Then they hand you 14 modules with predefined workflows and tell you to configure them. If your business does not fit the modules, you buy customization. If the customization does not fit either, you buy consulting. If the consulting runs out of time, you go back to spreadsheets.</p>
+    <p>There is a different approach. It starts with a question that most ERP vendors never ask: how does your business actually work?</p>
+    <h2>What is an SG Schema?</h2>
+    <p>An SG Schema is the complete operational blueprint of a single factory. It is machine-readable. It captures every entity, every state, every transition, every invariant, every chain reaction, every approval rule, every role permission. It is not documentation. It is the executable contract that SG Engine reads to generate a complete ERP. The runtime is <a href="/blog/event-sourcing-why-simplegrid-stores-everything-that-ever-happened/">event-sourced</a>, so every action your team takes is permanent.</p>
+    <p>There is no SG Schema catalog. There is no "furniture SG Schema" or "apparel SG Schema." Each one is built from scratch, in conversation with the founder, in the founder's language. AI generates it. The operator validates it. SG Engine runs it.</p>
+    <p>The first step is not picking modules. It is understanding the operation. What are the real things your business tracks? What states can they live in? What rules must hold? What happens when one thing changes and it affects five other things?</p>
+    <p>For a furniture manufacturer, the operation includes Sales Orders, Job Orders, Vendor Purchase Orders, Material Receipts, Stage Movements, Quality Checks, Contractor Settlements, Dispatch Records. Each of these is a real thing the business creates, tracks, and acts on.</p>
+    <p>For an apparel contract manufacturer, the operation is completely different. Work Orders with ephemeral SKUs, Fabric Inward records, Cutting Tickets, Job Worker Assignments, LR-tracked Logistics Events, Trim Issuances, Size-wise Breakdowns.</p>
+    <p>Same industry category. Completely different operations. A module-based ERP treats them identically. SG Engine treats them as the unique operations they are, because each one runs from a different SG Schema.</p>
+    <h2>How SimpleGrid builds your SG Schema</h2>
+    <p>When we onboard a new client, we do not open a feature catalog. We sit with the founder or the operations head for 2 to 3 hours and map the operation.</p>
+    <p>We ask: What are the things you track? (These become entities.) What states can each thing be in? (These become state machines.) What rules must always be true? (These become invariants - enforced through <a href="/blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/">entity roots</a> that prevent impossible states by structure.) What happens automatically when something changes? (These become chain reactions - events that trigger downstream effects across the operation.)</p>
+    <p>The output is not a requirements document. It is an SG Schema - a single machine-readable specification that SG Engine reads and turns into a live ERP.</p>
+    <h2>Operational boundaries: why one size never fits all</h2>
+    <figure class="post-figure">
+      <img src="../../assets/blog/blog2_sg_schema_same_word_different_operations.png" alt="Same word, different operations. A furniture exporter's SG Schema (Sales Order, Job Order, Vendor PO, Stage Movement, Component, Contractor Settlement) vs an apparel CMT manufacturer's (Work Order, Cutting Ticket, Job Worker Assignment, Trim Issuance, LR Logistics Event, Size-wise Breakdown). One engine, two operations." loading="lazy" decoding="async" width="2808" height="1040" style="max-width:100%;height:auto;display:block">
+      <figcaption>Same word, different operations. A furniture exporter's SG Schema (Sales Order, Job Order, Vendor PO, Stage Movement, Component, Contractor Settlement) vs an apparel CMT manufacturer's (Work Order, Cutting Ticket, Job Worker Assignment, Trim Issuance, LR Logistics Event, Size-wise Breakdown). One engine, two operations.</figcaption>
+    </figure>
+    <div id="root-infographic-mid"></div>
+    <p>An SG Schema is not one flat list of entities. It is divided into operational boundaries - sections where terms and rules have consistent meaning.</p>
+    <p>In a furniture manufacturer:</p>
+    <p>- The Sales boundary cares about buyer, price, delivery date, SKU.</p>
+    <p>- The Production boundary cares about components, wood species, machining stages, contractor assignments.</p>
+    <p>- The Stores boundary cares about inventory levels, cubic footage, vendor receipts.</p>
+    <p>The word "order" means something different in each boundary. In Sales, it is a buyer's purchase order. In Production, it is a job order for the floor. In Stores, it is a purchase order to a timber vendor.</p>
+    <p>Module-based ERPs flatten all of these into one "Order" module with sub-types. An SG Schema keeps them separate, each with its own rules, its own states, and its own language. They communicate through events, not shared database tables.</p>
+    <p>This is why SG Engine can run a furniture exporter and an apparel contract manufacturer on the same platform. The engine does not contain "furniture logic" or "apparel logic." It contains nothing but the ability to read an SG Schema and execute it. Each client's SG Schema is unique.</p>
+    <h2>Why this matters for your factory</h2>
+    <p>If your business has rules that only you understand, a conventional ERP will force you to translate those rules into its language. That translation is where things break.</p>
+    <p>Your planner says: "We consolidate wood purchase orders per species across all active jobs." The ERP vendor says: "That is a custom procurement workflow. We will scope a change order."</p>
+    <p>In an SG Schema-driven system, that rule is part of the spec. It is expressed in your language, not the vendor's. When the rule changes (and it will), the SG Schema changes. Not the application code.</p>
+    <p>The business speaks. The software listens.</p>
+    <p>SimpleGrid runs on SG Schema and SG Engine. Your operation modeled in your language, not translated into someone else's modules.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/event-sourcing-why-simplegrid-stores-everything-that-ever-happened/">← Event Sourcing: Why SimpleGrid Stores Every Action…</a>
+      <a class="post-pager-link post-pager-next" href="/blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/">Entity Roots: Building Blocks of an SG Schema ERP →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

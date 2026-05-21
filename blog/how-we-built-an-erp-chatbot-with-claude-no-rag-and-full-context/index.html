@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,95 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 7;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>Building an ERP Chatbot With Claude, No RAG</h1>
+    <div class="post-meta">
+      <span>Build in Public</span>
+      <span>6 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Every AI chatbot demo looks the same. Someone types a question. The system searches a document store. RAG (Retrieval-Augmented Generation) pulls relevant chunks. The LLM generates an answer from those chunks.</p>
+    <p>We looked at this approach for SimpleGrid and decided it was fundamentally wrong for our use case.</p>
+    <p>Here is why we skipped RAG, what we built instead, and why it works better.</p>
+    <h2>Why RAG is wrong for structured operational data</h2>
+    <p>RAG solves a specific problem: giving an LLM access to information it was not trained on. You take your documents, break them into chunks, embed them into vectors, and retrieve the most relevant chunks when a user asks a question.</p>
+    <p>This works beautifully for unstructured content. Internal wikis. Policy documents. Knowledge bases. If someone asks "What is our return policy?" and the answer lives in a PDF somewhere, RAG finds it.</p>
+    <p>But SimpleGrid's data is not unstructured. It is highly structured. It lives in PostgreSQL tables with defined schemas, typed fields, relational integrity, and state machines. Your inventory is not a paragraph in a document. It is a number in a column, tied to a specific entity, at a specific point in its lifecycle.</p>
+    <p>When your warehouse manager asks "How much 304 stainless do we have in stock?" the answer is not in a chunk of text. It is the result of a SQL query against the inventory projection table. RAG would try to find a text fragment that mentions stainless steel inventory. It might hallucinate a number. It might pull from a month-old report. It would almost certainly be wrong.</p>
+    <h2>What we built instead: Tool Use</h2>
+    <p>Claude, the AI model we use, supports a feature called Tool Use (also called Function Calling). Instead of searching for text, the model selects from a set of pre-built functions, decides which one to call, and passes the right parameters.</p>
+    <p>Here is what happens when someone types "How much 304 stainless do we have in stock?"</p>
+    <p style="padding-left:8px"><strong>1.</strong> The message hits Claude with a system prompt that includes the client's SG Schema, including what types of things exist, what fields they have, and what queries are available.</p>
+    <p style="padding-left:8px"><strong>2.</strong> Claude does not search for text. It recognizes this is an inventory query. It selects the `get_inventory` function. It passes parameters: material_type = "304 stainless".</p>
+    <p style="padding-left:8px"><strong>3.</strong> The backend receives the function call, executes a parameterized SQL query against the client's isolated database, and returns the result.</p>
+    <p style="padding-left:8px"><strong>4.</strong> Claude receives the structured result (quantity: 2,400 sheets, location: Warehouse B, last updated: 2 hours ago) and formats it as a natural language response.</p>
+    <p>The user sees: "You have 2,400 sheets of 304 stainless in Warehouse B. Last updated 2 hours ago."</p>
+    <p>No vector search. No chunk retrieval. No hallucinated numbers. A real query against real data, with a real answer.</p>
+    <p>How context works without RAG</p>
+    <h2>The question is always: how does Claude know what functions to call?</h2>
+    <p>The answer is the Knowledge Level. Every SimpleGrid client has a configuration that describes their business. What types of things exist. What fields each type has. What queries are available. What write operations are permitted.</p>
+    <p>When a user starts a session, Claude receives the relevant slice of that client's Knowledge Level as context. Not the entire database. Just the schema: what exists, what can be queried, what can be written.</p>
+    <div id="root-infographic-mid"></div>
+    <p>This is far more efficient than RAG. Instead of searching through thousands of document chunks for maybe-relevant context, Claude has a precise, structured map of the client's operation. It knows exactly what functions exist and what parameters they expect.</p>
+    <h2>How write operations work</h2>
+    <p>Read queries are straightforward. Write operations are where it gets interesting.</p>
+    <p>When the <a href="/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/">warehouse manager</a> types "Received 200 sheets of 16-gauge steel from Midwest Supply," Claude needs to:</p>
+    <p style="padding-left:8px"><strong>1.</strong> Identify this as a write operation (material receipt).</p>
+    <p style="padding-left:8px"><strong>2.</strong> Find the matching PO (open PO from Midwest Supply for 16-gauge steel).</p>
+    <p style="padding-left:8px"><strong>3.</strong> Generate a structured form: { entity: PO-4521, action: receive, quantity: 200 }.</p>
+    <p style="padding-left:8px"><strong>4.</strong> Present the form to the user for confirmation.</p>
+    <p style="padding-left:8px"><strong>5.</strong> On confirmation, SG Engine processes the action: checks rules, validates permissions, writes the event, fires triggers.</p>
+    <p>Claude does not write directly to the database. It fills in a structured form. The user confirms. The SG Engine handles the rest, including all the rule checking and event writing.</p>
+    <p>This is the critical safety layer. The AI suggests. The human confirms. The engine enforces.</p>
+    <p>Model routing</p>
+    <p>Not every interaction needs the same level of AI capability. We use three tiers:</p>
+    <p>Fast tier (Haiku): Simple status checks, quick lookups, intent classification. "What is the status of PO-4521?" Haiku handles this in under a second.</p>
+    <p>Standard tier (Sonnet): Complex queries, analytical questions, multi-step reasoning. "Which vendor has the highest rejection rate this quarter?" Sonnet handles the query construction and result interpretation.</p>
+    <p>Heavy tier (Opus): Multi-variable planning, cross-entity analysis, capacity optimization. "Based on current orders and inventory, what should we procure this week?" Opus handles the reasoning.</p>
+    <p>The classifier (Haiku) reads the input and routes to the appropriate tier. Most interactions hit the fast tier. Cost stays low. Response time stays fast.</p>
+    <h2>Why this matters for adoption</h2>
+    <p>The end result is a chatbot that feels like talking to the sharpest person on the floor. Not because it is searching documents. Because it has a precise map of your operation and direct access to your live data through well-defined functions.</p>
+    <p>The warehouse manager does not need to learn an interface. He types what happened. The system understands, executes, and confirms. The behavior is identical to sending a WhatsApp message - the same behavior your team <a href="/blog/why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point/">already uses 50 times a day</a>, except now the data goes into the system instead of a chat that nobody reads.</p>
+    <p>That is the adoption unlock. Not a better interface. The same behavior, connected to a real system.</p>
+    <p>SimpleGrid's AI chatbot uses Claude's Tool Use, not RAG. Structured queries against live data. No hallucinated numbers. No stale documents. Real answers from your real operation.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/module-based-erp-vs-sg-schema-erp-two-architectures-two-outcomes/">← Module-Based ERP vs. SG Schema ERP</a>
+      <a class="post-pager-link post-pager-next" href="/blog/why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point/">Why Conversational UX Does Not Change Behavior →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

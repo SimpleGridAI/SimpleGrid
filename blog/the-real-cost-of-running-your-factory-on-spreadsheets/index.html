@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,70 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 12;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>The Real Cost of Running Your Factory on Spreadsheets</h1>
+    <div class="post-meta">
+      <span>Operator Insights</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Nobody plans to run a $10M manufacturing operation on spreadsheets. It just happens. You start with one sheet for orders. Then one for inventory. Then one for production. Then one for vendor payments. Before you know it, you have 15 interconnected files that only one person fully understands, and that person is your planner.</p>
+    <p>Spreadsheets are the most powerful ad-hoc tool ever built. They are also the most expensive way to run a factory at scale. Not because of the software cost. Because of what they cost you in time, accuracy, and decisions you cannot make.</p>
+    <h2>The hidden costs</h2>
+    <p>The planner bottleneck. Your most critical operational role has become "the person who understands the spreadsheet." When the planner is on leave, decisions slow down. When two people update the same file, rows conflict. When the planner quits, institutional knowledge walks out the door.</p>
+    <p>In one manufacturing operation we deployed for, the planner's Excel-based planning system had over 40 tabs with conditional formatting rules that nobody else could interpret. The planner spent 2 hours every morning updating it before any actual planning work began. That is 500 hours per year of a senior person's time, just maintaining the system.</p>
+    <p>Late data, wrong decisions. Your storekeeper receives 300 units at 9 AM. He writes it in a register. Someone in the back office enters it into the spreadsheet at 2 PM. By then, the planner has already made decisions based on stale inventory data. The production schedule was set at 10 AM using numbers from yesterday. Five phone calls could have corrected this. Nobody made them because everyone assumed the spreadsheet was current.</p>
+    <p>Reconciliation as a full-time job. Every month, someone sits down and reconciles: what the stores says it received against what the vendor says it delivered. What production says it produced against what QC says it inspected. What dispatch says it shipped against what the buyer says it received.</p>
+    <p>Each reconciliation exists because two people recorded the same event in two different spreadsheets at two different times. The numbers never match perfectly. Resolving the discrepancies takes days.</p>
+    <p>The $200,000 gap nobody caught. In one furniture manufacturing operation, 600 pieces entering a production stage and 580 coming out was considered normal. "Breakage" and "wastage." Nobody could quantify it precisely because stage-level tracking did not exist. Over 4 years, those gaps added up to nearly $200,000 in unaccounted material and finished goods. Not theft. Just no system to catch the variance when it happened.</p>
+    <div id="root-infographic-mid"></div>
+    <p>Decisions you cannot make. The most expensive cost is the one you never see: decisions you cannot make because the data does not exist in a usable form.</p>
+    <p>Which SKUs are profitable and which are quietly losing money? Which vendor has the highest rejection rate? Which production stage is the bottleneck? Which contractor is consistently late? Which customer orders cost more to produce than they pay?</p>
+    <p>The data to answer these questions exists, scattered across dozens of spreadsheets. Assembling it takes a full-time analyst. So nobody does it. And the factory keeps producing everything at the same priority, hoping the profitable items cover for the ones that are not.</p>
+    <p>Why spreadsheets persist</p>
+    <p>The honest answer: because every ERP they have tried was worse.</p>
+    <p><a href="/blog/what-happens-when-your-erp-cannot-keep-up-with-your-business/">An ERP that takes 12 months to deploy</a>, costs $300K, and requires the floor staff to navigate complex menus is not an upgrade from a spreadsheet. It is a trade: one set of problems for another. At least with the spreadsheet, you can change things instantly.</p>
+    <p>Spreadsheets win on flexibility and speed of change. They lose on consistency, auditability, multi-user collaboration, and real-time visibility. The question is not "spreadsheets or ERP." The question is: "Can an ERP match the flexibility of a spreadsheet while adding the consistency, rules, and visibility that spreadsheets cannot provide?"</p>
+    <p>If the answer is yes, and the deployment takes days instead of months, and the cost is zero until you are sure it works, the spreadsheet era can end.</p>
+    <p>SimpleGrid deploys in days. Changes rules in minutes. Captures data the way your team already works. The flexibility of a spreadsheet, with the structure of a real system.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/why-mid-market-manufacturers-are-the-most-underserved-businesses-in-enterprise-software/">← Why Mid-Market Manufacturers Are Underserved</a>
+      <a class="post-pager-link post-pager-next" href="/blog/why-your-erp-vendor-charges-you-for-every-change-and-how-to-stop-paying/">Why Your ERP Vendor Charges You for Every Change →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

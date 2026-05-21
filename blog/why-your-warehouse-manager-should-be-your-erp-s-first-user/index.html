@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,76 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 16;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>Your Warehouse Manager Should Be Your ERP's First User</h1>
+    <div class="post-meta">
+      <span>Operator Insights</span>
+      <span>4 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Every ERP demo starts with the executive dashboard. The founder sees charts, graphs, KPIs. It looks great. The founder signs.</p>
+    <p>Then the system reaches the warehouse. And it dies.</p>
+    <h2>The adoption chain</h2>
+    <p>An ERP's value flows upward: floor data becomes supervisory reports becomes executive dashboards. But data entry flows downward: the executive buys the system, IT implements it, and the warehouse manager is told to use it.</p>
+    <p>The warehouse manager did not choose this system. Was not consulted. Was handed a login and a training manual. And now needs to navigate Procurement &gt; Purchase Orders &gt; Select PO &gt; Click Receive &gt; Enter Quantity &gt; Select Unit &gt; Confirm &gt; Print GRN for every single material receipt. 12 times a day.</p>
+    <p>The warehouse manager stands in a dusty warehouse with a ringing phone, a truck at the dock, and 20 minutes before the next delivery arrives. He is not going to learn a multi-step form interface. He is going to write it in his notebook and let someone else enter it later.</p>
+    <p>When that happens, the executive dashboard shows numbers that are 4 hours stale. The founder notices. Stops trusting the dashboard. The ERP dies quietly.</p>
+    <h2>Build for the floor first</h2>
+    <p>The fix is not better training. It is not simpler menus. It is designing the system for the warehouse manager FIRST, and letting the executive dashboard emerge from the data the warehouse manager enters.</p>
+    <p>What the warehouse manager actually needs: type what happened, the way you would send a text message, and move on.</p>
+    <p>"Got 200 sheets of steel from Midwest Supply."</p>
+    <p>"Issued 50 units of hardware kit to Job 47."</p>
+    <div id="root-infographic-mid"></div>
+    <p>"300 pieces back from finishing, 12 rejected."</p>
+    <p>Each input takes 10 seconds. (<a href="/blog/why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point/">Why conversational UX captures the behavior that already exists</a> No navigation. No dropdowns. No clicking through screens. The system identifies the matching records, validates the quantities, updates inventory, fires triggers, and confirms.</p>
+    <p>The warehouse manager's behavior does not change. He is still sending a message about what happened. The difference is that the message now goes into the system instead of a WhatsApp thread.</p>
+    <h2>The cascade</h2>
+    <p>When the warehouse manager enters data at the point of action, everything downstream improves.</p>
+    <p>The inventory numbers are real-time. The planner makes decisions based on current stock, not yesterday's stock. The production schedule reflects actual material availability. The founder's dashboard shows numbers that are minutes old, not hours old.</p>
+    <p>One person using the system correctly at the point of action is worth more than an entire back-office team entering data retroactively. Because the warehouse manager was there when it happened. The back-office team was not.</p>
+    <h2>The design principle</h2>
+    <p>Before you buy an ERP, ask the vendor to show you the warehouse manager's interface. Not the executive dashboard. Not the planner's view. The screen that your warehouse manager, your QC inspector, and your floor supervisor will use. Every day. On their phone. Standing up.</p>
+    <p>If the interface requires more than 15 seconds per entry, your adoption rate will be low, your data quality will be poor, and your dashboards will be fiction.</p>
+    <p>Build for the floor. The C-suite takes care of itself.</p>
+    <p>SimpleGrid is designed for the warehouse manager first. Type what happened. Get a confirmation. 10 seconds per entry. The rest builds itself.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/what-happens-when-your-erp-cannot-keep-up-with-your-business/">← When Your ERP Cannot Keep Up With Your Business</a>
+      <a class="post-pager-link post-pager-next" href="/blog/the-myth-of-erp-best-practices-your-operation-is-not-generic/">The Myth of ERP Best Practices →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

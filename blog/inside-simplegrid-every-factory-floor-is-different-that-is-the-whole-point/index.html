@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,84 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 10;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>Inside SimpleGrid: Every Factory Is Different</h1>
+    <div class="post-meta">
+      <span>Culture</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Most ERP companies start with software and look for customers who fit. We started with factories and built software that fits them.</p>
+    <p>That is not a tagline. It is how every decision at SimpleGrid gets made.</p>
+    <p>The lens</p>
+    <p>Every conversation at SimpleGrid runs through one filter: "Would this work on the floor?"</p>
+    <p>Not "is this technically elegant." Not "does this match the product roadmap." Not "will this scale to 10,000 clients." The question is always: will the warehouse manager in a 400-person furniture factory actually use this? Will the job worker coordinator managing 20 locations across Bangalore actually trust this? Will the founder running three business streams actually see what they need to see?</p>
+    <p>If the answer is no, we do not build it. No matter how good it looks in a demo.</p>
+    <h2>Why every factory is different</h2>
+    <p>We have deployed for a furniture exporter where 550 SKUs each have 20+ components, each component requiring different wood species cut to different dimensions. The storekeeper issues material at the component level in cubic feet. The tracking shifts to SKU level at assembly. Contractors are paid per piece per stage, and settlements require reconciling issued quantities minus rejected quantities across multiple jobs.</p>
+    <p>We have deployed for an apparel operation where production is 100% job work across 20+ facilities, fabric and trims are issued per work order, ephemeral SKUs are generated per order and archived on completion, and three separate business streams share the same job worker network while keeping brand data structurally isolated.</p>
+    <p>Same platform. Completely different schemas. Completely different rules. Completely different user workflows.</p>
+    <p>If we had built a "furniture module" after the first deployment and tried to force the apparel client into it, we would have failed. Just like every other ERP vendor fails when they try to standardize what is inherently non-standard.</p>
+    <h2>How we think about deployment</h2>
+    <p>We do not treat deployment as a configuration exercise. We treat it as writing an SG Schema - a complete operational blueprint of how this one factory actually runs.</p>
+    <p>Day one is a conversation, not a questionnaire. We sit with the founder or the operations head and ask them to describe how their business actually works. Not how it should work. Not how the textbook says it should work. How it actually works, including the exceptions, the workarounds, the rules that only the planner knows about.</p>
+    <p>We write things down in their language. If they call it a "cutting ticket," we call it a cutting ticket. If they call it a "style," we call it a style. We do not rename things to fit our data model. Our data model adopts their language.</p>
+    <p>Then AI writes <a href="/blog/sg-schema-why-your-erp-should-speak-your-language/">an SG Schema</a> that describes their operation. Not code. A description. The platform reads it and generates the forms, workflows, validations, dashboards, and rules.</p>
+    <div id="root-infographic-mid"></div>
+    <p>The founder sees a working demo in 24 hours. They tell us what is wrong. We fix it. They see it again. We iterate until it matches how the business actually runs.</p>
+    <p>The team</p>
+    <p>The founding team has a manufacturing background that is not common in software companies.</p>
+    <p>The founder built and operated a $30M manufacturing business. Managed multiple factories, hundreds of employees, international buyers. Survived two ERP failures and ended up running operations on Google Sheets. SimpleGrid exists because he was the customer first.</p>
+    <p>One of the engineers worked in manufacturing at a glass company as a shift engineer from the shop floor up before moving into software. He has stood in a warehouse at 6 AM and knows what it feels like to use a system that was not built for you.</p>
+    <p>This matters because the decisions we make are informed by operational experience, not just technical capability. When we decide that the chatbot should accept "Got 300 planks from Shree Timber" as a valid input, that decision comes from knowing that a storekeeper has dusty hands, a ringing phone, and 12 more receipts to log before lunch.</p>
+    <h2>What we do not do</h2>
+    <p>We do not build features based on competitor parity. If Epicor has a feature and we do not, we ask: "Does this feature solve a problem our ICP actually has?" If yes, we build our version of it. If no, we skip it.</p>
+    <p>We do not add complexity to the interface to satisfy edge cases. If a feature serves 2% of users and complicates the experience for the other 98%, we find a different solution. Usually through configuration, not UI.</p>
+    <p>We do not ship and disappear. Senior engineers and founders lead every deployment together. When you call SimpleGrid, you get someone from the team that designed your system, wrote your SG Schema, and knows your operation by name. That is not scalable forever. But right now, it is the reason our deployments work.</p>
+    <p>The bet</p>
+    <p>SimpleGrid is a bet that the mid-market manufacturing ERP problem is not a feature problem. It is a model problem.</p>
+    <p>Every factory is different. The ERP industry treats that as a bug. We treat it as the foundational design requirement.</p>
+    <p>If you can model any factory, you can serve every factory. Not by building modules for each one. By building an engine that reads models.</p>
+    <p>That is the bet. And so far, the factories are proving us right.</p>
+    <p>SimpleGrid: built by operators, for operators. Every factory is different. That is the whole point.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/how-to-calculate-true-landed-cost-per-sku-and-why-most-manufacturers-cannot/">← True Landed Cost Per SKU (And Why Most Cannot)</a>
+      <a class="post-pager-link post-pager-next" href="/blog/why-mid-market-manufacturers-are-the-most-underserved-businesses-in-enterprise-software/">Why Mid-Market Manufacturers Are Underserved →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

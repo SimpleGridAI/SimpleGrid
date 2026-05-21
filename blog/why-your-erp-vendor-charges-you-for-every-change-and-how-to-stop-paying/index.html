@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,82 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 13;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>Why Your ERP Vendor Charges You for Every Change</h1>
+    <div class="post-meta">
+      <span>Industry Critique</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>You signed the contract. You paid for the implementation. You went live. Then your business changed, the way every business changes, and you called the vendor.</p>
+    <p>"We need a new approval rule."</p>
+    <p>"We will scope a change order. Estimated cost: $12,000. Timeline: 4 weeks."</p>
+    <p>That is not a bug. That is the business model.</p>
+    <h2>How the change order machine works</h2>
+    <p>Every traditional ERP is built as application code. The procurement workflow is code. The approval logic is code. The production stage definitions are code. The dispatch rules are code.</p>
+    <p>When you need a change, someone has to modify the code. That means a developer. Developers cost money. They need to understand the codebase, write the change, test it, deploy it. Even simple changes take days because of the overhead of not breaking something else.</p>
+    <p>The vendor is not being greedy (well, not just being greedy). The architecture genuinely requires developer time for every change. The business model follows the architecture: you pay per change because changes require engineering work.</p>
+    <p>Over time, this creates a dependency loop:</p>
+    <p style="padding-left:8px"><strong>1.</strong> You need the vendor because only they understand the codebase.</p>
+    <p style="padding-left:8px"><strong>2.</strong> They charge per change because changes are engineering work.</p>
+    <p style="padding-left:8px"><strong>3.</strong> You accumulate changes. Each one adds complexity.</p>
+    <p style="padding-left:8px"><strong>4.</strong> The codebase becomes more fragile. Changes take longer.</p>
+    <p style="padding-left:8px"><strong>5.</strong> Costs go up. Timelines stretch.</p>
+    <p style="padding-left:8px"><strong>6.</strong> Switching costs are too high to leave.</p>
+    <div id="root-infographic-mid"></div>
+    <p>This is vendor lock-in. Not through a contract clause. Through architecture.</p>
+    <h2>The annual math</h2>
+    <p>A mid-market manufacturer on Epicor or Plex typically requests 8 to 15 changes per year. New approval rules, new reports, new workflows, new user roles, new integrations.</p>
+    <p>At $8,000 to $20,000 per change order, that is $64,000 to $300,000 per year in post-deployment customization. On top of the $25,000 to $40,000 annual maintenance fee. On top of the $150,000 to $300,000 you already paid for the initial deployment.</p>
+    <p>Five-year total cost of ownership for a mid-market ERP: $500,000 to $1,200,000. And you still do not have everything you need.</p>
+    <h2>Why it does not have to work this way</h2>
+    <p>The change order model exists because business rules are stored in code. If you move business rules out of code and <a href="/blog/how-simplegrid-makes-erp-customization-take-minutes-not-months/">into your SG Schema</a>, the change order disappears.</p>
+    <p>In SimpleGrid, business rules live in tables. Not application code. Tables.</p>
+    <p>Need a new approval rule? Add a row. Need to change a threshold? Update a cell. Need a new permission? Add a row. Need a new automatic trigger? Add a row.</p>
+    <p>The SG Engine reads these tables and enforces them in real time. No developer involvement. No deployment. No downtime. No change order.</p>
+    <p>Here is a real comparison:</p>
+    <p>The question to ask your current vendor</p>
+    <p>"Show me every business rule the system currently enforces, in one place."</p>
+    <p>If the answer requires a developer, a code review, or a consultant, your rules are in the wrong place. And you will pay every time they need to change.</p>
+    <p>SimpleGrid stores every rule in a table. Zero change orders. Zero developer dependency. Zero annual surprise.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/the-real-cost-of-running-your-factory-on-spreadsheets/">← The Real Cost of Running Your Factory on Spreadshe…</a>
+      <a class="post-pager-link post-pager-next" href="/blog/how-ai-changed-erp-deployment-not-features-deployment/">How AI Changed ERP Deployment (Not Features) →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

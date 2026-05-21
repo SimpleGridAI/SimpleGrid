@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,86 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 4;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>Multi-Tenant Architecture: 100 Clients, One Platform</h1>
+    <div class="post-meta">
+      <span>Product Deep-Dive</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>When you sign up for an ERP, there is a question you probably never think to ask: is my data sharing a database with other companies?</p>
+    <p>The answer matters more than most vendors let on.</p>
+    <h2>Three models for running multiple clients</h2>
+    <p>Single-tenant: Every client gets their own copy of the entire application and their own database. This is the SAP on-premise model. Safe, but expensive. Every client is a separate deployment. Every update has to be rolled out individually. Every bug fix is a project.</p>
+    <p>Shared-database multi-tenant: All clients share one database. Their data is separated by a "tenant_id" column on every table. This is what most cloud ERPs do. It is cheap to run. It is also a single misconfigured query away from Client A seeing Client B's data.</p>
+    <p>Isolated-database multi-tenant: All clients share one application (one codebase, one deployment), but each client gets their own database. The application routes requests to the right database based on who is logged in.</p>
+    <p>SimpleGrid uses the third model. Here is why.</p>
+    <h2>The shared platform</h2>
+    <p>There is one SimpleGrid application. One codebase. One NestJS backend. One React frontend. One deployment. When we fix a bug, every client gets the fix. When we add a feature, every client gets access. No per-client deployments. No version fragmentation.</p>
+    <p>This is the "blue box" in our architecture. It is written once and shared by everyone. Inside it: the application code, the SG Engine that reads each client's rules, the template registry that stores industry templates, and the AI layer that handles document parsing and natural language input.</p>
+    <h2>The isolated databases</h2>
+    <p>Each client gets their own PostgreSQL database. Completely separate. Not a shared database with filters. A physically separate database.</p>
+    <h2>Client A's database contains:</h2>
+    <p>- Their configuration (what things they track, what states exist, what rules apply)</p>
+    <p>- Their operational data (actual orders, receipts, dispatch records)</p>
+    <p>- Their event ledger (every action that ever happened)</p>
+    <h2>- Their users, roles, and permissions</h2>
+    <div id="root-infographic-mid"></div>
+    <p>Client B has the same structure but completely different content. Different configuration. Different data. Different events. Different users.</p>
+    <p>No query from Client A can ever touch Client B's database. Not through a bug. Not through a misconfigured filter. Not through a SQL injection. The databases are separate at the infrastructure level.</p>
+    <h2>Why this model wins</h2>
+    <p>For security: Data isolation is not a software feature. It is an infrastructure guarantee. There is no "tenant_id" to forget. There is no WHERE clause that someone omits. The databases are separate. Full stop.</p>
+    <p>For performance: Client A running a heavy report does not slow down Client B. Their queries hit different databases on potentially different servers. No noisy neighbor problem.</p>
+    <p>For customization: Each client's database contains their own <a href="/blog/sg-schema-why-your-erp-should-speak-your-language/">SG Schema</a>. Client A's rules are different from Client B's rules. The shared platform reads the configuration from whichever database it connects to for that request. Same engine, different rules. (<a href="/blog/how-simplegrid-makes-erp-customization-take-minutes-not-months/">How rule changes happen in minutes</a>.)</p>
+    <p>For deployment speed: When we onboard a new client, we create a new database, load their configuration, import their data, and connect it to the shared platform. The platform already exists. The database schema already exists. We are not building a new application. We are provisioning a new isolated space.</p>
+    <p>This is one of the reasons we can deploy in days. The platform is not being rebuilt for each client. The platform is reading a new set of rules from a new database.</p>
+    <h2>What this means for your data</h2>
+    <p>Your data is yours. It lives in a database that only you and the SimpleGrid platform can access. No other client can see it, touch it, or affect it.</p>
+    <p>If you decide to leave, your data exports cleanly. It is in standard PostgreSQL tables. Your event ledger is a structured log. Your configuration is in readable tables. There is no proprietary format locking you in.</p>
+    <p>If you need a direct database connection for custom reporting or BI tools, that is possible. It is your database. We provide access.</p>
+    <h2>The tradeoff</h2>
+    <p>The honest tradeoff: isolated databases cost more to operate than a shared database. More databases means more infrastructure. More backups. More monitoring.</p>
+    <p>We accept that tradeoff because the alternative, a shared database where a single bug can expose one client's data to another, is not a tradeoff worth making for an ERP that handles operational and financial data.</p>
+    <p>Security is not a feature you bolt on. It is an architectural decision you make on day one.</p>
+    <p>SimpleGrid: one platform, isolated databases. Your data is yours. Your rules are yours. No other client can see, touch, or affect your operation.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/">← Entity Roots: Building Blocks of an SG Schema ERP</a>
+      <a class="post-pager-link post-pager-next" href="/blog/how-simplegrid-makes-erp-customization-take-minutes-not-months/">ERP Customization in Minutes, Not Months →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

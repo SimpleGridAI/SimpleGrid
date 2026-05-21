@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,108 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 3;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>Entity Roots: Building Blocks of an SG Schema ERP</h1>
+    <div class="post-meta">
+      <span>Product Deep-Dive</span>
+      <span>6 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Most ERPs let any record exist in isolation. A line item with no parent. A component requirement floating on its own. A receipt against a PO that was never approved. The system permits states that should be impossible, and you pay for it later in reconciliation.</p>
+    <p>An SG Schema does not work that way. Every entity in an SG Schema belongs to an entity group. One entity is the root. Every other entity in that group only exists in relation to the root and is only accessed through the root. That is the rule. SG Engine enforces it.</p>
+    <p>Here is what that looks like in a real manufacturing operation.</p>
+    <h2>A Sales Order is an entity group</h2>
+    <p>Consider a Sales Order for a furniture buyer. The order has line items: 200 dining tables, 150 chairs, 80 bookshelves. Each line item has a SKU, a quantity, a price.</p>
+    <p>The Sales Order is the entity root. The line items are its members. You never create a line item without a Sales Order. You never modify a line item without going through the Sales Order. If the Sales Order is cancelled, the line items go with it.</p>
+    <p>Why does this matter? Because it defines the boundary of consistency. When the founder approves a Sales Order, all line items freeze together. You cannot approve line 1 but leave line 2 in draft. The group moves as one unit.</p>
+    <p>Entity group: Sales Order</p>
+    <p>Root: The Sales Order itself (SO-4521)</p>
+    <p>Members: Line items (200 dining tables, 150 chairs, 80 bookshelves)</p>
+    <p>Consistency rule: All line items share the same approval state</p>
+    <h2>A Job Order is an entity group</h2>
+    <p>When the planner allocates work from a Sales Order, the system creates a Job Order. The Job Order is its own entity group, separate from the Sales Order.</p>
+    <p>The Job Order has its own members: component requirements. A dining table has 22 components. Each component needs a specific wood species, specific dimensions, specific cubic footage. Those component requirements belong to the Job Order.</p>
+    <p>Entity group: Job Order</p>
+    <p>Root: The Job Order itself (JO-1187)</p>
+    <p>Members: Component requirements (table top: mango 2.5 CFT, legs x4: sheesham 1.8 CFT each, frame: teak 1.2 CFT, drawers x3: oak 3.0 CFT each)</p>
+    <h2>Consistency rule: All components share the same production status</h2>
+    <p>The Job Order does not contain the Sales Order. It references it by ID. "This Job Order was created from SO-4521." That is a reference, not containment. This is a core SG Schema rule: entity groups point at each other by ID only, never by nesting one inside the other.</p>
+    <h2>A Vendor Purchase Order is an entity group</h2>
+    <p>Wood needs to be purchased. The system consolidates requirements across multiple Job Orders and creates a Vendor Purchase Order.</p>
+    <p>Entity group: Vendor Purchase Order</p>
+    <p>Root: The Vendor PO itself (VPO-0089)</p>
+    <p>Members: PO line items (500 CFT mango from Vendor A, 300 CFT teak from Vendor B)</p>
+    <h2>Consistency rule: All line items share the same approval and receipt status</h2>
+    <p>Again, the Vendor PO references the Job Orders it was created from by ID. It does not contain them. If Job Order JO-1187 is modified later, the Vendor PO does not automatically restructure itself. They are separate entity groups with separate lifecycles.</p>
+    <figure class="post-figure">
+      <img src="../../assets/blog/blog3_entity_roots_one_root_many_members.png" alt="An entity group, visualized. One root (Sales Order SO-4521), many members (3 line items: dining tables, side chairs, bookshelves), three rules: move as one, no orphans, reference don't nest." loading="lazy" decoding="async" width="2808" height="1040" style="max-width:100%;height:auto;display:block">
+      <figcaption>An entity group, visualized. One root (Sales Order SO-4521), many members (3 line items: dining tables, side chairs, bookshelves), three rules: move as one, no orphans, reference don't nest.</figcaption>
+    </figure>
+    <p>Why entity roots matter for your ERP</p>
+    <p>Three practical reasons.</p>
+    <div id="root-infographic-mid"></div>
+    <p style="padding-left:8px"><strong>1.</strong> They define what moves together. When you approve a Sales Order, all its line items approve. When you receive against a Vendor PO, the receipt applies to specific line items within that PO. The boundary is clear. There is no ambiguity about "which things changed."</p>
+    <p style="padding-left:8px"><strong>2.</strong> They prevent impossible states. A line item cannot exist without its parent. A component requirement cannot exist without its Job Order. An entity group guarantees that its internal state is always consistent. You cannot have a Job Order with 22 components where 3 of them belong to a different Job Order. The boundary prevents it.</p>
+    <p style="padding-left:8px"><strong>3.</strong> They make the system faster and safer. When two people are working on different entity groups (one person receiving material for VPO-0089, another person approving SO-4522), they cannot interfere with each other. The groups are independent. No locks. No conflicts. No "someone else is editing this record."</p>
+    <p>The full picture for a furniture manufacturer</p>
+    <p>Here is how the entity groups connect in a real deployment:</p>
+    <p>Sales Order (root + line items)</p>
+    <p>references -&gt;</p>
+    <p>Job Order (root + component requirements)</p>
+    <p>references -&gt;</p>
+    <p>Vendor Purchase Order (root + PO line items)</p>
+    <p>references -&gt;</p>
+    <p>Material Receipt (root + receipt line items)</p>
+    <p>references -&gt;</p>
+    <p>Stage Movement (root + component-level tracking records)</p>
+    <p>references -&gt;</p>
+    <p>Quality Check (root + inspection items)</p>
+    <p>references -&gt;</p>
+    <p>Dispatch Record (root + dispatch line items)</p>
+    <p>Each group is independent. Each has its own lifecycle. Each has its own rules. They communicate through <a href="/blog/event-sourcing-why-simplegrid-stores-everything-that-ever-happened/">events</a>: "Sales Order SO-4521 was approved" is an event that triggers the creation of Job Order JO-1187. The Sales Order does not "contain" the Job Order. It published an event. The production boundary reacted.</p>
+    <p>This is how SG Engine can run completely different businesses from completely different <a href="/blog/sg-schema-why-your-erp-should-speak-your-language/">SG Schemas</a>. The entity group structures are different for every client. A furniture manufacturer has Job Orders with component requirements. An apparel contract manufacturer has Work Orders with ephemeral SKUs. A pharma distributor has Supplier Offers with scheme logic. Different groups. Different members. Same engine.</p>
+    <h2>The practical takeaway</h2>
+    <p>If your current ERP lets you create orphan records, records that exist without a clear parent, or records that can be modified independently when they should move together, you are running into boundary violations. The system allows states that should not exist. That is where data gets inconsistent, reports get wrong, and reconciliation becomes a full-time job.</p>
+    <p>In an SG Schema-driven system, the boundaries prevent this by design. Not by validation rules bolted on after the fact. By the fundamental structure of how data is organized.</p>
+    <p>SG Engine models your business as entity groups with clear boundaries. Each entity has a root, its members, and its rules. Consistent by design, not by accident.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/sg-schema-why-your-erp-should-speak-your-language/">← SG Schema: Why Your ERP Should Speak Your Language</a>
+      <a class="post-pager-link post-pager-next" href="/blog/multi-tenant-architecture-how-simplegrid-runs-100-clients-on-one-platform/">Multi-Tenant Architecture: 100 Clients, One Platfo… →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

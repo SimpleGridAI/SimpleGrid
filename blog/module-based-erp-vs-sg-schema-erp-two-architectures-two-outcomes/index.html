@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,84 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 6;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>Module-Based ERP vs. SG Schema ERP</h1>
+    <div class="post-meta">
+      <span>Product Deep-Dive / Industry Critique</span>
+      <span>6 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Every ERP vendor sells modules. Inventory module. Procurement module. Production module. Finance module. You buy the ones you need. You configure them within their limits. You go live.</p>
+    <p>There is another way to build an ERP. Instead of pre-built modules with predefined workflows, you start with the business itself. You write down what exists, what states things can be in, what rules apply. The system generates itself from that specification.</p>
+    <p>The first approach is module-based architecture. The second is spec-driven architecture. Here is why the difference matters.</p>
+    <h2>How modules work</h2>
+    <p>A module is a pre-built application for a generic version of a business process. The Procurement module assumes: create a purchase order, send it to a vendor, receive goods, match the invoice, pay. That workflow is hardcoded into the module.</p>
+    <p>The problem starts when your procurement does not work that way.</p>
+    <p>What if your purchase orders consolidate per vendor across multiple production jobs? That is a customization. What if your receiving process measures in cubic feet instead of units? Customization. What if your approval chain differs for first-time vendors versus repeat vendors? Customization.</p>
+    <p>Each customization costs $10,000 to $50,000. Each one makes the system harder to upgrade. After 10 customizations, you are running a forked version of the software that nobody at the vendor fully understands.</p>
+    <h2>The module trap</h2>
+    <p><a href="/blog/the-myth-of-erp-best-practices-your-operation-is-not-generic/">Modules create a perverse incentive</a>. The vendor wants you to buy more modules. You want each module to match your process. The gap between what the module does and what you need is the vendor's profit margin.</p>
+    <p>And here is what nobody says out loud: every module is a separate database structure with its own tables, its own logic, and its own assumptions. When you need data to flow from Procurement to Production to Finance, that flow has to be built. Often by a consultant. Often expensively. Cross-module consistency is not free. It is not even cheap.</p>
+    <h2>How SG Schema architecture works</h2>
+    <p>An SG Schema ERP does not have modules. It has a single specification of your business: the SG Schema.</p>
+    <p>The SG Schema defines what types of things exist (Sales Orders, Job Orders, Purchase Orders). What states each type can be in. What transitions are allowed. What rules must hold at each transition. What chain reactions fire when an event occurs.</p>
+    <figure class="post-figure">
+      <img src="../../assets/blog/blog6_module_vs_sg_schema_cover.jpg" alt="Module-Based ERP vs SG Schema ERP. Left: rigid stacked modules (Procurement, Inventory, Production, Quality, Finance, Reports), $10K-$50K per change, 4 weeks per customization. Right: an organic SG Schema (entities, states, rules, events) that SG Engine reads and regenerates the system from in minutes." loading="lazy" decoding="async" width="1200" height="630" style="max-width:100%;height:auto;display:block">
+      <figcaption>Module-Based ERP vs SG Schema ERP. Left: rigid stacked modules (Procurement, Inventory, Production, Quality, Finance, Reports), $10K-$50K per change, 4 weeks per customization. Right: an organic SG Schema (entities, states, rules, events) that SG Engine reads and regenerates the system from in minutes.</figcaption>
+    </figure>
+    <div id="root-infographic-mid"></div>
+    <p>The SG Schema does not contain application code. It is a machine-readable specification. SG Engine reads the SG Schema and generates the application, including forms, workflows, validations, dashboards, and APIs. Automatically.</p>
+    <p>Change the SG Schema, the application changes instantly.</p>
+    <h2>The practical difference</h2>
+    <p>In a module-based system, adding "QC approval before dispatch" means modifying the Production module and the Dispatch module and the interface between them. Three code changes. One consultant. $20,000. 4 weeks.</p>
+    <p>In an SG Schema system, adding "QC approval before dispatch" means: add a QC state to the production flow. Add a transition rule: cannot move to Dispatch unless QC state is Passed. Add a chain reaction: QC Passed makes the item available for Dispatch.</p>
+    <p>Three rows in the SG Schema. Zero code changes. <a href="/blog/how-simplegrid-makes-erp-customization-take-minutes-not-months/">Done in minutes</a>.</p>
+    <p>Why modules keep winning (commercially)</p>
+    <p>Modules are easier to sell. They have names. They have feature lists. They have demo environments. A sales rep can walk you through the Procurement module in 20 minutes and check a box on your requirements list.</p>
+    <p>SG Schema systems are harder to demo because they do not have pre-built screens to show. SG Engine generates screens from your spec. The demo IS the deployment. That is why SimpleGrid's sales process starts with a working system built from your actual operation, not a generic walkthrough.</p>
+    <p>The test</p>
+    <p>Next time an ERP vendor presents their modules, ask this question: "If I need to add a business rule that spans two of your modules, how long does that take and what does it cost?"</p>
+    <p>If the answer involves consultants, change orders, and weeks, you are buying modules.</p>
+    <p>If the answer is "we add a few lines to the spec and it takes effect immediately," you are buying an SG Schema system.</p>
+    <p>SimpleGrid does not sell modules. We write your SG Schema. Your rules. Your language. Your operation.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/how-simplegrid-makes-erp-customization-take-minutes-not-months/">← ERP Customization in Minutes, Not Months</a>
+      <a class="post-pager-link post-pager-next" href="/blog/how-we-built-an-erp-chatbot-with-claude-no-rag-and-full-context/">Building an ERP Chatbot With Claude, No RAG →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

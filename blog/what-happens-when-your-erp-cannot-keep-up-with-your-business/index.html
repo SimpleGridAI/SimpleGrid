@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,81 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 15;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>When Your ERP Cannot Keep Up With Your Business</h1>
+    <div class="post-meta">
+      <span>Operator Insights</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Your business changes. Your ERP does not. That sentence describes the experience of nearly every mid-market manufacturer who has ever implemented an enterprise system.</p>
+    <p>The ERP was scoped in January. Requirements froze in March. The system went live in December. By then, you had added 2 new product lines, restructured your vendor network, changed your approval hierarchy, and opened a second warehouse. The system that went live was built for a business that no longer exists.</p>
+    <p>Here is how that plays out, and what it costs.</p>
+    <h2>Stage 1: The workarounds begin</h2>
+    <p>The first sign is small. A new rule needs to be added. "We need founder approval for POs to any vendor we have not used before." The system does not support vendor-specific approval logic. The workaround: the planner manually checks the vendor history and routes the PO by email for approval when needed.</p>
+    <p>Nobody thinks of this as a system failure. It is "just how we do it."</p>
+    <p>Within 6 months, the operation has 5 to 10 workarounds. Each one is a process that happens outside the ERP because the ERP cannot accommodate it. Each one is a manual step that someone has to remember. Each one is a point of failure that nobody catches until something goes wrong.</p>
+    <h2>Stage 2: The spreadsheets come back</h2>
+    <p>The workarounds create data gaps. The ERP does not capture the vendor-specific approval. So someone tracks it in a spreadsheet. The ERP does not support the new warehouse's unique inventory logic. So someone maintains a separate inventory sheet for that location.</p>
+    <p>Six months after go-live, <a href="/blog/the-real-cost-of-running-your-factory-on-spreadsheets/">the same spreadsheets you eliminated during implementation</a> have crept back. Not because the ERP failed. Because the business changed and the ERP did not.</p>
+    <p>You are now running two systems: the ERP (which handles 70% of the operation) and the spreadsheets (which handle the 30% the ERP cannot). The founder's dashboard is based on the ERP data. But 30% of the truth is somewhere else.</p>
+    <h2>Stage 3: The change orders</h2>
+    <p>You call the vendor. "We need these 5 changes." They scope it. $65,000. 12 weeks.</p>
+    <p>You approve 3 of the 5 (the other 2 are too expensive for now). The changes take 16 weeks instead of 12 because the customization from Phase 1 conflicts with the new changes. The vendor fixes the conflict. Another 3 weeks.</p>
+    <div id="root-infographic-mid"></div>
+    <p>Your annual change order budget is now the size of a full-time employee's salary. And you still have 2 unresolved changes and 10 workarounds.</p>
+    <h2>Stage 4: The trust erosion</h2>
+    <p>The founder opens the dashboard. The numbers do not match what he hears on the floor. The production count shows 4,200 units completed. The dispatch team says they have only 3,800 ready to ship. The gap is the 400 units that were logged as "complete" in the ERP but are actually in rework, which is tracked on a spreadsheet.</p>
+    <p>The founder stops trusting the dashboard. He goes back to calling the floor for updates. Three phone calls, 20 minutes. For a $15M operation, that is the founder's time being spent on data retrieval instead of decision-making.</p>
+    <h2>Stage 5: The replacement conversation</h2>
+    <p>Two years in. $300K spent. The ERP handles 60% of the operation. Spreadsheets handle 25%. WhatsApp handles 15%. The dashboard is "directionally correct" but not trustworthy for decisions.</p>
+    <p>Someone says: "Should we look at replacing the ERP?"</p>
+    <p>And the answer is usually: "With what? It took 18 months to implement this one. Going through that again would be worse."</p>
+    <p>That is vendor lock-in. Not through a contract. Through the sheer weight of time and money already spent. The sunk cost keeps you in a system that no longer fits.</p>
+    <h2>What the alternative looks like</h2>
+    <p>An ERP that changes when the business changes. Not in weeks. Not through change orders. In minutes, through configuration.</p>
+    <p>New approval rule? Add a row. New production stage? Add it to the flow. New warehouse with different receiving logic? Add a location-specific configuration. New product line with different component structures? Add a new set of rules.</p>
+    <p>The ERP is not a fixed system that the business adapts to. It is a living configuration that adapts to the business. When the business changes (and it will, because businesses always change), the system changes with it. Same day. Same cost: zero.</p>
+    <p>That is the difference between an ERP that works in year one and an ERP that still works in year five.</p>
+    <p>SimpleGrid adapts when your business does. Rules change in minutes. No change orders. No consultants. No workarounds. No spreadsheets creeping back.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/how-ai-changed-erp-deployment-not-features-deployment/">← How AI Changed ERP Deployment (Not Features)</a>
+      <a class="post-pager-link post-pager-next" href="/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/">Your Warehouse Manager Should Be Your ERP's First … →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

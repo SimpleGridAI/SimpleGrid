@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,85 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 14;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>How AI Changed ERP Deployment (Not Features)</h1>
+    <div class="post-meta">
+      <span>Industry Critique / Product</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Every ERP vendor is adding AI features. Chatbots on top of their existing systems. "Smart" recommendations. Automated report generation. These are features bolted onto architectures designed 20 years ago.</p>
+    <p>That is not what AI changes about ERP.</p>
+    <p>What AI actually changes is deployment. The process of going from "we need an ERP" to "we have a live ERP." That is the hard part. That is where 12 to 18 months gets spent. That is where $500K goes. And AI compresses it to days.</p>
+    <p>Where the time goes in traditional deployment</p>
+    <h2>A traditional ERP deployment has 6 phases:</h2>
+    <p style="padding-left:8px"><strong>1.</strong> Requirements gathering: 4 to 6 weeks. Consultants interview stakeholders. Hundreds of pages of requirements documents.</p>
+    <p style="padding-left:8px"><strong>2.</strong> System design: 4 to 8 weeks. The implementation team maps requirements to modules and custom workflows.</p>
+    <p style="padding-left:8px"><strong>3.</strong> Configuration and customization: 8 to 16 weeks. Developers build the custom parts.</p>
+    <p style="padding-left:8px"><strong>4.</strong> Data migration: 4 to 6 weeks. Moving historical data from spreadsheets and legacy systems.</p>
+    <p style="padding-left:8px"><strong>5.</strong> Testing and training: 4 to 8 weeks. User acceptance testing. Training sessions.</p>
+    <p style="padding-left:8px"><strong>6.</strong> Go-live and stabilization: 4 to 8 weeks. Bug fixes. Adjustments.</p>
+    <p>Total: 28 to 52 weeks. Each phase involves human labor, back-and-forth communication, and iterative refinement. The bottleneck is always the translation step: turning what the business does into what the software can do.</p>
+    <h2>What AI compresses</h2>
+    <p>AI does not eliminate any of these phases. It compresses the translation step in each one.</p>
+    <p>Requirements gathering. Instead of 6 weeks of interviews producing 200-page documents, a 2 to 3 hour conversation with the founder produces a structured SG Schema. AI assists in converting the conversation into a formal specification of the business: what entities exist, what states they live in, what rules apply.</p>
+    <p>System design. Instead of consultants mapping requirements to modules over 8 weeks, AI generates the SG Schema directly from the founder conversation. The SG Schema IS the system design. No translation step. No gap between "what the business needs" and "what the system will do."</p>
+    <div id="root-infographic-mid"></div>
+    <p>Configuration. Instead of developers writing custom code for 16 weeks, SG Engine reads the SG Schema and generates the application. This is the core architectural shift. The SG Schema is the complete specification of the client's system. SG Engine interprets it. No custom code per client.</p>
+    <p>Data migration. Instead of 6 weeks of manual mapping and cleaning, AI parses messy input files: Excel sheets with inconsistent layouts, PDFs with varying formats, CSV exports from legacy systems. It extracts structured data, maps it to the new system's types, and loads it. Manual validation still happens, but the heavy lifting is automated.</p>
+    <p>Testing. The SG Schema itself is testable. If it says "received_qty cannot exceed ordered_qty," that rule can be validated before go-live by simulating events against the spec. The test suite is generated from the rules, not written by hand.</p>
+    <p>The result</p>
+    <p>What used to take 28 to 52 weeks takes days. Not because corners were cut. Because the translation layer, the step where human understanding gets converted into software behavior, is now handled by AI.</p>
+    <p>The founder describes the business. AI writes the SG Schema. SG Engine generates the application. The founder reviews. Changes are made. The system goes live.</p>
+    <p>Working demo in 24 hours. Production-ready in 2 weeks.</p>
+    <h2>Why this is not incremental</h2>
+    <p>This is not "AI makes ERP 20% faster." It is a different deployment model entirely.</p>
+    <p>In the old model, deployment is a project. It has a start date, a team, a budget, and a go-live date 12 months away. It is managed by a project manager. It has weekly status meetings. It has a risk register.</p>
+    <p>In the new model, deployment is a conversation. The founder talks. The system listens. The result is visible in 24 hours. Feedback is immediate. Iteration is continuous. Go-live happens when the founder says "this is right."</p>
+    <p>The project model has a 50 to 75% failure rate because the feedback loop is too long. By the time you see the system, 12 months have passed and the business has changed. The conversation model has near-zero failure rate because the feedback loop is 24 hours. If it is wrong, you see it immediately and fix it.</p>
+    <h2>What AI does NOT change</h2>
+    <p>AI does not make bad architecture good. If the underlying system is module-based, AI can speed up the configuration of those modules, but you still have the same constraints: rigid workflows, expensive customization, cross-module consistency problems.</p>
+    <p>AI changes ERP deployment only when paired with <a href="/blog/module-based-erp-vs-sg-schema-erp-two-architectures-two-outcomes/">an architecture that was designed for it</a>: spec-driven, event-sourced, single source of truth. The AI writes the SG Schema. SG Engine reads it. The events record what happens. The rules enforce themselves.</p>
+    <p>The architecture is the foundation. AI is the accelerant.</p>
+    <p>SimpleGrid is AI-native: AI writes the SG Schema, SG Engine generates the system, and deployment takes days. Not AI bolted onto 20-year-old software.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/why-your-erp-vendor-charges-you-for-every-change-and-how-to-stop-paying/">← Why Your ERP Vendor Charges You for Every Change</a>
+      <a class="post-pager-link post-pager-next" href="/blog/what-happens-when-your-erp-cannot-keep-up-with-your-business/">When Your ERP Cannot Keep Up With Your Business →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

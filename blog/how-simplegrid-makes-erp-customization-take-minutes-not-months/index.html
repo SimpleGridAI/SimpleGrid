@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,83 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 5;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>ERP Customization in Minutes, Not Months</h1>
+    <div class="post-meta">
+      <span>Product Deep-Dive</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>In most ERPs, changing a business rule is a software project. In SimpleGrid, it is a row in a table.</p>
+    <p>That is not marketing language. It is literally how the system works. Here is the architecture behind it.</p>
+    <p>Two levels: knowledge and operations</p>
+    <p>Every SimpleGrid deployment has two distinct layers in its database.</p>
+    <p>The Knowledge Level defines what the business looks like. What types of things exist (Sales Orders, Purchase Orders, Job Orders). What states each type can be in (Draft, Approved, In Production, Dispatched). What transitions are allowed between states. What rules must hold. What happens automatically when an event occurs.</p>
+    <p>The Operational Level holds the actual data. The real Sales Order SO-4521. The real Purchase Order PO-0089. Their current states, their field values, their event histories.</p>
+    <p>The Knowledge Level is the blueprint. The Operational Level is the factory floor. The blueprint rarely changes. The floor changes every minute.</p>
+    <p>This separation is the key to everything.</p>
+    <h2>Three types of rules, three tables</h2>
+    <p>Every business rule in a manufacturing operation falls into one of three categories. Each lives in its own table.</p>
+    <p>Transition Guards. Rules that must be true BEFORE a state change happens. Stored in the invariants table.</p>
+    <p>Example: "received_qty cannot exceed ordered_qty." If a warehouse manager tries to receive 600 units against a PO for 500, the system checks this rule before committing anything. The action is rejected. No override. No workaround.</p>
+    <p>Approval Rules. Conditional permission escalations. Stored in the approval_rules table.</p>
+    <p>Example: "If PO amount exceeds $10,000, require founder approval." The planner creates a PO for $12,000. The system automatically routes it to the founder for approval instead of letting the planner approve it directly.</p>
+    <p>Role Permissions. Who can do what. Stored in the transitions table.</p>
+    <div id="root-infographic-mid"></div>
+    <p>Example: "Only warehouse supervisors can receive material." "Only the founder can skip a production stage." Each state transition specifies which roles can execute it.</p>
+    <h2>What a change looks like</h2>
+    <p>Your founder calls and says: "Starting next week, we need QC approval before any dispatch over $5,000."</p>
+    <p>In a traditional ERP, this goes through <a href="/blog/why-your-erp-vendor-charges-you-for-every-change-and-how-to-stop-paying/">a scoping call with the vendor</a>. A change order is written. A developer modifies the dispatch module. Testing. Staging. Deployment. 3 to 6 weeks. $8,000 to $20,000. A change order is written. A developer modifies the dispatch module. Testing. Staging. Deployment. 3 to 6 weeks. $8,000 to $20,000.</p>
+    <h2>In SimpleGrid, we open the approval_rules table and add one row:</h2>
+    <p>Done. The SG Engine reads this rule immediately. The next dispatch over $5,000 automatically routes to the QC head for approval. No code change. No deployment. No downtime.</p>
+    <h2>Real examples from live deployments</h2>
+    <p>Furniture manufacturer: "We need founder approval for the first PO to any new vendor." One row in approval_rules: if vendor is new (first PO), require founder approval. All subsequent POs to the same vendor go through normal channels.</p>
+    <p>Apparel contract manufacturer: "Dual size systems per brand. Brand A uses S/M/L. Brand B uses 38/40/42." One configuration per brand in the knowledge tables. System validates size entries against the brand's registered system automatically.</p>
+    <p>Pharma distributor: "Supplier offers have no formal expiry. Rank by recency." One configuration in the offer_rules table. No expiry field. Offers ranked by timestamp.</p>
+    <p>Each of these would be a multi-week customization project in a conventional ERP. In SimpleGrid, each is a row in a table.</p>
+    <h2>Why this matters over time</h2>
+    <p>After 6 months of operation, a typical SimpleGrid deployment has 40 to 60 invariants, 15 to 20 approval rules, and 30 to 40 permission configurations. All in tables. All readable. All changeable without a developer.</p>
+    <p>A traditional ERP with the same business logic has it scattered across 20 modules, 50 source files, and 3 consultant engagements worth of custom code. Nobody has a complete picture of all the rules. Changing one risks breaking another.</p>
+    <p>The Knowledge Level gives you something code never will: a single place to see every rule your business enforces. Your operations head can read it. Your founder can audit it. Your new planner can understand the rules on day one.</p>
+    <p>SimpleGrid stores every business rule in a table. Change a rule in minutes. See every rule in one place. No developer needed.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/multi-tenant-architecture-how-simplegrid-runs-100-clients-on-one-platform/">← Multi-Tenant Architecture: 100 Clients, One Platfo…</a>
+      <a class="post-pager-link post-pager-next" href="/blog/module-based-erp-vs-sg-schema-erp-two-architectures-two-outcomes/">Module-Based ERP vs. SG Schema ERP →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

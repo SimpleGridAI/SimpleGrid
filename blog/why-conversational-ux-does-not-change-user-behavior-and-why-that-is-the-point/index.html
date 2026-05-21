@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,89 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 8;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>Why Conversational UX Does Not Change Behavior</h1>
+    <div class="post-meta">
+      <span>Operator Insights / Product</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>The single biggest reason ERPs fail is not technology. It is adoption.</p>
+    <p>The system ships. The floor staff do not use it. The data stays in spreadsheets and WhatsApp. The dashboards show stale numbers. The founder stops trusting the system. Everyone goes back to what they were doing before.</p>
+    <p>This happens because every ERP asks users to change their behavior. Learn new menus. Navigate new screens. Follow new workflows. Fill out new forms. For a warehouse manager who has been tracking material on a clipboard for 15 years, that is not a small ask. That is a fundamental change in how they work.</p>
+    <p>SimpleGrid takes the opposite approach. We do not change behavior. We capture the behavior that already exists.</p>
+    <h2>How your team already communicates</h2>
+    <p>Watch any factory floor for 30 minutes. You will see the same pattern everywhere.</p>
+    <p>The warehouse manager receives a shipment. He sends a WhatsApp message to the planner: "Got 200 sheets of steel from Midwest Supply."</p>
+    <p>The QC inspector rejects a batch. She sends a WhatsApp message to the supervisor: "20 pieces failed at finishing for Job 47."</p>
+    <p>The supervisor completes a production stage. He sends a WhatsApp message to the dispatcher: "Packaging done for Order 765, 400 pieces ready."</p>
+    <p>The behavior is: type what happened, in plain language, and send it. That is what your team does 50 times a day. It is not a learned behavior. It is the natural way people communicate operational events.</p>
+    <h2>What SimpleGrid does with that behavior</h2>
+    <p>Instead of asking the warehouse manager to navigate to Inventory &gt; Material Receipt &gt; Select PO &gt; Enter Quantity &gt; Select Unit &gt; Confirm, we ask him to do exactly what he already does: type what happened.</p>
+    <p>"Received 200 sheets of 16-gauge steel from Midwest Supply."</p>
+    <p><a href="/blog/how-we-built-an-erp-chatbot-with-claude-no-rag-and-full-context/">Hank, the AI assistant</a>, reads that message and does everything a form-based ERP would do:</p>
+    <p>- Identifies the matching PO</p>
+    <p>- Checks the quantity against the ordered amount</p>
+    <p>- Updates inventory</p>
+    <p>- Fires all downstream triggers</p>
+    <div id="root-infographic-mid"></div>
+    <h2>- Logs the event with who did it and when</h2>
+    <p>The warehouse manager's behavior did not change. He typed a message, just like he would on WhatsApp. But now the data went into the system instead of a chat thread that nobody reviews.</p>
+    <h2>Why this matters more than any feature</h2>
+    <p>Fogg's Behavior Model says behavior happens when motivation, ability, and a trigger converge. Your floor staff already have the motivation (they want to log what happened). The trigger already exists (something just happened that needs recording).</p>
+    <h2>The bottleneck is always ability. Can they do it easily?</h2>
+    <p>A complex ERP interface raises the ability barrier. More screens means more effort. More effort means the behavior does not happen. The data stays in WhatsApp.</p>
+    <p>A conversational interface lowers the ability barrier to nearly zero. The user already knows how to type a message. They do it 50 times a day. No new skill required.</p>
+    <p>This is not a UX improvement. It is a completely different theory of how ERP adoption works. You do not train people to use the system. You build the system to understand people.</p>
+    <h2>The implementation effect</h2>
+    <p>Every ERP implementation has a "training phase." Users attend sessions. They get manuals. They practice in sandbox environments. Then they go back to the floor and do things the old way because the training did not stick.</p>
+    <p>SimpleGrid deployments do not have a traditional training phase. We put the system in front of the floor staff and say: "Type what happened, the way you would tell a colleague." The first time they do it and see the confirmation pop up, they understand. The learning curve is one interaction.</p>
+    <p>We have seen <a href="/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/">warehouse managers</a> who rejected previous ERPs for being too complex start using SimpleGrid on day one. Not because we built a simpler interface. Because we did not build an interface at all. We built a listener.</p>
+    <p>The data quality cascade</p>
+    <p>Here is the compounding effect that most people miss.</p>
+    <p>When floor staff actually use the system, the data entry happens at the point of action. The warehouse manager logs the receipt while the truck is still at the dock. The QC inspector logs the rejection while the pieces are still on the inspection table. The timestamps are accurate. The quantities are accurate. The actors are accurate.</p>
+    <p>When floor staff do not use the system and someone in the back office enters the data later, everything degrades. The timestamp is wrong (entered 4 hours after the event). The quantity might be wrong (entered from memory). The actor is wrong (the back office person entered it, not the person who did the work).</p>
+    <p>This is why dashboards in most ERPs show numbers that nobody trusts. The data was not entered by the people who know the truth. It was reconstructed later by people who were not there.</p>
+    <p>Conversational UX fixes this not by making data entry more accurate, but by making data entry happen when it should: at the moment the event occurs, by the person who witnessed it.</p>
+    <p>SimpleGrid does not train your team to use an ERP. It listens to what they already say. Same behavior. Better data. Real adoption.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/how-we-built-an-erp-chatbot-with-claude-no-rag-and-full-context/">← Building an ERP Chatbot With Claude, No RAG</a>
+      <a class="post-pager-link post-pager-next" href="/blog/how-to-calculate-true-landed-cost-per-sku-and-why-most-manufacturers-cannot/">True Landed Cost Per SKU (And Why Most Cannot) →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>

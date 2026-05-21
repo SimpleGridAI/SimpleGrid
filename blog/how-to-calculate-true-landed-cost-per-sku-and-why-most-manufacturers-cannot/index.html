@@ -69,8 +69,6 @@
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="../../data/blogs.js"></script>
-
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -85,18 +83,87 @@
   else setTimeout(sgLoadPostHog, 2000);
 </script>
 <script>
-  // Hint to PostMain which blog to render. Asset paths inside body
-  // images are repo-relative ("assets/blog/foo.png"); since we sit two
-  // levels deep, prepend ../../ at runtime.
+  // Tells Nav to resolve root-relative paths with ../../ since this page is
+  // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 9;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
 </head>
 <body>
-<div id="root"></div>
+<div id="root-nav"></div>
+
+<section class="post-header">
+  <div class="container-sm">
+    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <h1>True Landed Cost Per SKU (And Why Most Cannot)</h1>
+    <div class="post-meta">
+      <span>Operator Insights</span>
+      <span>6 min read</span>
+    </div>
+  </div>
+</section>
+
+<section class="post-content">
+  <div class="container-sm">
+    <p>Here is a question that should take 10 seconds to answer: "Is this product making us money?"</p>
+    <p>For most manufacturers running 200 or more SKUs, the honest answer is "I think so." They know the company is profitable. They can see it in the bank account. But whether the 6-seater dining table is more profitable than the bookshelf? Whether the console table is quietly losing money once you factor in rejection rates and rework? That is a different question. And most operations cannot answer it.</p>
+    <p>The reason is not laziness. The data exists. It is just scattered across too many places to connect.</p>
+    <h2>What goes into a true landed cost</h2>
+    <p>The landed cost of a SKU is not just material plus labor. It is every cost that touches that product from the moment raw material enters your warehouse to the moment the finished product ships to the buyer.</p>
+    <p>For a furniture manufacturer with 20+ components per SKU, the full cost stack looks like this:</p>
+    <p>Wood cost per component. The dining table has 22 components. Each component uses a different wood species at different dimensions. The table top uses 2.5 cubic feet of mango. The four legs use 1.8 cubic feet of sheesham each. The frame uses 1.2 cubic feet of teak. Each species has a different running rate, and that rate changes with every receipt.</p>
+    <p>Contractor cost per production stage. Machining contractor gets $X per piece. Assembly contractor gets $Y. Sanding, finishing, hardware installation, packing: each stage has its own contractor at its own rate. And those rates sometimes vary by SKU complexity.</p>
+    <p>Rejection cost. 600 pieces entered sanding. 580 came out. Those 20 pieces represent wood already consumed, machining already paid for, and assembly already completed. That cost does not disappear. It gets absorbed somewhere. Without SKU-level tracking, it gets absorbed invisibly.</p>
+    <p>Rework cost. 15 pieces failed QC at finishing. They go back to the finishing contractor for rework. Sometimes the rework is free (contractor's fault). Sometimes it is not. Either way, the rework adds time and potentially cost to that SKU.</p>
+    <p>Overhead allocation. Warehouse storage, equipment depreciation, quality team salaries, logistics for inter-facility movement. These are typically allocated per SKU based on production volume or floor time.</p>
+    <p>Why most systems cannot do this</p>
+    <p>The math is straightforward. The data collection is the problem.</p>
+    <p>In a typical manufacturing operation, wood issuance is logged in the storekeeper's register. Contractor costs are reconciled monthly from handwritten logs. Rejection counts are noted in the QC inspector's notebook. Rework events might not be tracked at all. Overhead is spread across the P&amp;L.</p>
+    <p>To calculate landed cost per SKU, someone would need to manually pull all of these numbers, match them to specific production runs, and aggregate them per SKU. For 200+ SKUs, that is a full-time job. So nobody does it.</p>
+    <p>Even in operations running Epicor or Plex, the data often lives in separate modules that do not connect at the SKU level. The procurement module tracks material cost. The production module tracks labor hours. The quality module tracks rejections. But tying them all to one SKU, one production run, one specific job order? That requires custom reports that somebody has to build and maintain.</p>
+    <h2>How event-driven architecture solves this</h2>
+    <div id="root-infographic-mid"></div>
+    <p>In SimpleGrid, <a href="/blog/event-sourcing-why-simplegrid-stores-everything-that-ever-happened/">every action is an event</a>. Every event is tagged with the entities it belongs to.</p>
+    <p>When the storekeeper issues 2.5 cubic feet of mango wood to the table top component of Job Order JO-1187, that event carries: the wood species, the quantity in cubic feet, the current running rate, the component it was issued to, the SKU it belongs to, and the Job Order it is part of.</p>
+    <p>When the machining contractor completes 400 table tops and gets paid at $3.20 per piece, that event carries: the contractor, the rate, the quantity, the component, the SKU, the Job Order.</p>
+    <p>When QC rejects 12 pieces at the finishing stage, that event carries: the rejection count, the stage, the root cause, the SKU, the accumulated cost of those 12 pieces up to that point.</p>
+    <p>Each event adds to the cost stack. By the time the finished product ships, the system knows exactly what it cost to produce, broken down by:</p>
+    <p>- Wood cost (per component, per species)</p>
+    <p>- Contractor cost (per stage)</p>
+    <p>- Rejection cost (accumulated wasted input cost)</p>
+    <p>- Rework cost (if applicable)</p>
+    <p>Compare that to the buyer's price. SKU-level margin. For every product, on every order, in real time.</p>
+    <h2>What this changes</h2>
+    <p>Before: the founder knew the company was profitable. He could see it in the P&amp;L. But he was producing 550 SKUs and had no way to know which ones contributed to that profit and which ones eroded it.</p>
+    <p>After: for the first time, he could sort his product catalog by margin. The top 50 SKUs by volume were not the top 50 by profitability. Some high-volume SKUs had thin margins because of high rejection rates at specific production stages. Some low-volume SKUs were highly profitable because they used cheaper wood species with simpler component structures.</p>
+    <p>That is not a dashboard upgrade. That is a different way of running the business.</p>
+    <h2>The practical takeaway</h2>
+    <p>If you cannot answer "what does this SKU actually cost to produce?" within 30 seconds, you are making pricing, production planning, and customer negotiation decisions based on estimates. You might be right most of the time. But the 10% of the time you are wrong, you are losing money without knowing it.</p>
+    <p>The solution is not better accounting. It is better data capture. When every cost-generating event is tagged with the SKU it belongs to, profitability is not a calculation someone has to build. It is a natural consequence of how the system records work.</p>
+    <p>SimpleGrid attaches every cost to the SKU it belongs to. Wood, labor, rejection, rework. Real margins. Real decisions.</p>
+
+    <div id="root-infographic-end"></div>
+
+    <!-- CTA -->
+    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
+      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+    </div>
+
+    <!-- Prev/Next -->
+    <div class="post-pager">
+      <a class="post-pager-link" href="/blog/why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point/">← Why Conversational UX Does Not Change Behavior</a>
+      <a class="post-pager-link post-pager-next" href="/blog/inside-simplegrid-every-factory-floor-is-different-that-is-the-whole-point/">Inside SimpleGrid: Every Factory Is Different →</a>
+    </div>
+  </div>
+</section>
+
+<div id="root-footer"></div>
+
 <script src="../../components/Nav.js" defer></script>
 <script src="../../components/LoginModal.js" defer></script>
 <script src="../../components/Footer.js" defer></script>
 <script src="../../components/PostInfographics.js" defer></script>
-<script src="../../components/PostMain.js" defer></script></body>
+<script src="../../app/blog-post.js" defer></script>
+</body>
 </html>
