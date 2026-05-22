@@ -224,10 +224,9 @@ window.RadialBurst = RadialBurst;
 function CycleHeadline() {
   const HEADLINES = [
     // index 0 is the primary; held longer than the others.
-    <React.Fragment key="e">The only ERP you<br/>try on before you buy</React.Fragment>,
     <React.Fragment key="b">Custom ERP. Built at our risk.<br/>Paid for after it works.</React.Fragment>,
+    <React.Fragment key="e">The only ERP you<br/>try on before you buy</React.Fragment>,
     <React.Fragment key="c">We build it. You run it<br/>30 days on your real floor.<br/>If it doesn't move the business, you walk.</React.Fragment>,
-    <React.Fragment key="a">Not free. Not cheap.<br/>Built by an operator who's been on your floor.</React.Fragment>,
   ];
   // Each tile fades smoothly; staggering them by (x+y)*delay gives a diagonal
   // sweep that visually "breaks" the headline into checkboxes and reassembles.

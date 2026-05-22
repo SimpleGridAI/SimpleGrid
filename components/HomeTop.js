@@ -231,14 +231,12 @@ function RadialBurst({
 window.RadialBurst = RadialBurst;
 function CycleHeadline() {
   const HEADLINES = [/*#__PURE__*/React.createElement(React.Fragment, {
-    key: "e"
-  }, "The only ERP you", /*#__PURE__*/React.createElement("br", null), "try on before you buy"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "b"
   }, "Custom ERP. Built at our risk.", /*#__PURE__*/React.createElement("br", null), "Paid for after it works."), /*#__PURE__*/React.createElement(React.Fragment, {
+    key: "e"
+  }, "The only ERP you", /*#__PURE__*/React.createElement("br", null), "try on before you buy"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "c"
-  }, "We build it. You run it", /*#__PURE__*/React.createElement("br", null), "30 days on your real floor.", /*#__PURE__*/React.createElement("br", null), "If it doesn't move the business, you walk."), /*#__PURE__*/React.createElement(React.Fragment, {
-    key: "a"
-  }, "Not free. Not cheap.", /*#__PURE__*/React.createElement("br", null), "Built by an operator who's been on your floor.")];
+  }, "We build it. You run it", /*#__PURE__*/React.createElement("br", null), "30 days on your real floor.", /*#__PURE__*/React.createElement("br", null), "If it doesn't move the business, you walk.")];
   const TX = 8,
     TY = 3;
   const TILES = React.useMemo(() => Array.from({
