@@ -27,7 +27,7 @@ function Footer() {
       { l: 'Adoption', href: 'product.html#ability' },
       { l: 'Your process, enforced', href: 'product.html#rules' },
     ]},
-    { h: 'Free tools', links: [
+    { h: 'Productive tools', links: [
       { l: 'PO Generator', href: 'tools/purchase-order-generator/' },
       { l: 'Invoice Generator', href: 'tools/invoice-generator/' },
       { l: 'Quote Generator', href: 'tools/quote-generator/' },

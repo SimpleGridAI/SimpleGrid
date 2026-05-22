@@ -83,7 +83,7 @@ function Footer() {
       href: 'product.html#rules'
     }]
   }, {
-    h: 'Free tools',
+    h: 'Productive tools',
     links: [{
       l: 'PO Generator',
       href: 'tools/purchase-order-generator/'

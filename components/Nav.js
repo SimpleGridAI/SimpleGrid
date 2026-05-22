@@ -49,9 +49,9 @@ function Nav({
     title: 'How SimpleGrid manufacturing ERP works'
   }, {
     id: 'tools',
-    label: 'Free Tools',
+    label: 'Productive Tools',
     href: 'tools/',
-    title: 'Free tools for manufacturers - PO, invoice, BOM, job cost'
+    title: 'Productive tools for manufacturers - PO, invoice, BOM, job cost'
   }];
   const resourceLinks = [{
     id: 'cases',
@@ -79,9 +79,9 @@ function Nav({
     title: 'How SimpleGrid works'
   }, {
     id: 'tools',
-    label: 'Free Tools',
+    label: 'Productive Tools',
     href: 'tools/',
-    title: 'Free tools for manufacturers'
+    title: 'Productive tools for manufacturers'
   }];
   const mobileResourceLinks = [{
     id: 'cases',

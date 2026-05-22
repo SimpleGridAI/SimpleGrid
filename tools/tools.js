@@ -197,7 +197,7 @@ function sgBuildPdf(spec) {
   doc.setFontSize(8);
   doc.setTextColor(110, 116, 128);
   const footY = doc.internal.pageSize.getHeight() - 28;
-  doc.text('Generated with SimpleGrid free tools - simplegrid.ai/tools/', M, footY);
+  doc.text('Generated with SimpleGrid productive tools - simplegrid.ai/tools/', M, footY);
 
   doc.save(spec.filename || 'document.pdf');
 }

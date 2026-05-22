@@ -30,7 +30,7 @@ SimpleGrid is a custom ERP for mid-market US manufacturers (50–1,500 employees
 - [Case studies - real deployments on real factory floors](https://simplegrid.ai/case-studies.html)
 - [Blog - field notes from operators building a custom ERP](https://simplegrid.ai/blog.html)
 - [Hiring - careers at SimpleGrid](https://simplegrid.ai/hiring.html)
-- [Free tools for mid-market manufacturers](https://simplegrid.ai/tools/)
+- [Productive tools for mid-market manufacturers](https://simplegrid.ai/tools/)
 - [Privacy policy](https://simplegrid.ai/privacy.html)
 - [Terms of service](https://simplegrid.ai/terms.html)
 - [Book a call with the founder](https://cal.com/simplegrid-ai)
