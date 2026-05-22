@@ -24,6 +24,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PGZBXNF51L');(function(){var loaded=false;var events=['mousemove','scroll','click','touchstart','keydown'];function trigger(){if(loaded)return;loaded=true;try{if(localStorage.getItem('sg_ph_opt_out')==='1')return;}catch(e){}var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';document.head.appendChild(s);events.forEach(function(e){document.removeEventListener(e,trigger,true);});}events.forEach(function(e){document.addEventListener(e,trigger,{once:true,passive:true,capture:true});});setTimeout(trigger,30000);})();</script>
 <script src="../tools.js" defer></script>
+
+<!-- PostHog Analytics — deferred to first user interaction (matches landing-page pattern) -->
+<script>
+  function sgLoadPostHog(){
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_uYqTNuyvu48ttUP7tjh89v8JBvjgbRZ9bvZdfdVoEPVh', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-01-30',
+        person_profiles: 'identified_only',
+        disable_session_recording: true,
+        disable_surveys: true,
+        opt_out_capturing_by_default: false
+    })
+  }
+  (function(){
+    var loaded = false;
+    var events = ['mousemove','scroll','click','touchstart','keydown'];
+    function trigger(){
+      if (loaded) return; loaded = true;
+      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
+      sgLoadPostHog();
+      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
+    }
+    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
+    setTimeout(trigger, 30000);
+  })();
+</script>
+
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -43,25 +71,25 @@
   <section class="tool-app"><div class="container-sm">
     <div class="tool-card"><h2>Finished product</h2>
       <div class="tool-form-grid">
-        <div class="tool-field"><label>Product / parent SKU</label><input id="prod-sku" type="text" placeholder="DT-4SEAT-001"></div>
-        <div class="tool-field"><label>Description</label><input id="prod-desc" type="text" placeholder="4-seat solid oak dining table"></div>
-        <div class="tool-field"><label>UoM (unit of measure)</label><input id="prod-uom" type="text" placeholder="each"></div>
-        <div class="tool-field"><label>Build quantity <span class="hint">for total cost</span></label><input id="prod-qty" type="number" min="1" step="1" value="1"></div>
-        <div class="tool-field full"><label>Revision / Notes <span class="hint">optional</span></label><input id="prod-rev" type="text" placeholder="Rev B, 2026-05-22"></div>
+        <div class="tool-field"><label for="prod-sku">Product / parent SKU</label><input id="prod-sku" type="text" placeholder="DT-4SEAT-001"></div>
+        <div class="tool-field"><label for="prod-desc">Description</label><input id="prod-desc" type="text" placeholder="4-seat solid oak dining table"></div>
+        <div class="tool-field"><label for="prod-uom">UoM (unit of measure)</label><input id="prod-uom" type="text" placeholder="each"></div>
+        <div class="tool-field"><label for="prod-qty">Build quantity <span class="hint">for total cost</span></label><input id="prod-qty" type="number" min="1" step="1" value="1"></div>
+        <div class="tool-field full"><label for="prod-rev">Revision / Notes <span class="hint">optional</span></label><input id="prod-rev" type="text" placeholder="Rev B, 2026-05-22"></div>
       </div>
     </div>
 
     <div class="tool-card"><h2>Components</h2>
       <table class="tool-items" id="bom-table">
         <thead><tr>
-          <th style="width:80px">Item #</th>
-          <th style="width:110px">Component SKU</th>
-          <th>Description</th>
-          <th class="num" style="width:80px">Qty / unit</th>
-          <th style="width:70px">UoM</th>
-          <th class="num" style="width:100px">Unit cost</th>
-          <th class="num" style="width:110px">Ext. cost / unit</th>
-          <th class="col-actions"></th>
+          <th scope="col" style="width:80px">Item #</th>
+          <th scope="col" style="width:110px">Component SKU</th>
+          <th scope="col">Description</th>
+          <th scope="col" class="num" style="width:80px">Qty / unit</th>
+          <th scope="col" style="width:70px">UoM</th>
+          <th scope="col" class="num" style="width:100px">Unit cost</th>
+          <th scope="col" class="num" style="width:110px">Ext. cost / unit</th>
+          <th scope="col" class="col-actions"></th>
         </tr></thead>
         <tbody id="bom-body"></tbody>
         <tfoot id="bom-foot"></tfoot>

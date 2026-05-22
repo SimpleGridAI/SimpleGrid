@@ -39,6 +39,34 @@
   (function(){var loaded=false;var events=['mousemove','scroll','click','touchstart','keydown'];function trigger(){if(loaded)return;loaded=true;try{if(localStorage.getItem('sg_ph_opt_out')==='1')return;}catch(e){}var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';document.head.appendChild(s);events.forEach(function(e){document.removeEventListener(e,trigger,true);});}events.forEach(function(e){document.addEventListener(e,trigger,{once:true,passive:true,capture:true});});setTimeout(trigger,30000);})();
 </script>
 <script src="../tools.js" defer></script>
+
+<!-- PostHog Analytics — deferred to first user interaction (matches landing-page pattern) -->
+<script>
+  function sgLoadPostHog(){
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_uYqTNuyvu48ttUP7tjh89v8JBvjgbRZ9bvZdfdVoEPVh', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-01-30',
+        person_profiles: 'identified_only',
+        disable_session_recording: true,
+        disable_surveys: true,
+        opt_out_capturing_by_default: false
+    })
+  }
+  (function(){
+    var loaded = false;
+    var events = ['mousemove','scroll','click','touchstart','keydown'];
+    function trigger(){
+      if (loaded) return; loaded = true;
+      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
+      sgLoadPostHog();
+      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
+    }
+    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
+    setTimeout(trigger, 30000);
+  })();
+</script>
+
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -69,11 +97,11 @@
   <section class="tool-app"><div class="container-sm">
     <div class="tool-card"><h2>Your company (seller)</h2>
       <div class="tool-form-grid">
-        <div class="tool-field"><label>Company name</label><input id="seller-name" type="text" placeholder="Acme Manufacturing Inc."></div>
-        <div class="tool-field"><label>Phone</label><input id="seller-phone" type="text" placeholder="(330) 555-0188"></div>
-        <div class="tool-field full"><label>Address</label><input id="seller-address" type="text" placeholder="1200 Industrial Way, Akron, OH 44310"></div>
-        <div class="tool-field"><label>Email</label><input id="seller-email" type="email" placeholder="ar@acme.com"></div>
-        <div class="tool-field"><label>EIN / Tax ID <span class="hint">optional</span></label><input id="seller-ein" type="text" placeholder="12-3456789"></div>
+        <div class="tool-field"><label for="seller-name">Company name</label><input id="seller-name" type="text" placeholder="Acme Manufacturing Inc."></div>
+        <div class="tool-field"><label for="seller-phone">Phone</label><input id="seller-phone" type="text" placeholder="(330) 555-0188"></div>
+        <div class="tool-field full"><label for="seller-address">Address</label><input id="seller-address" type="text" placeholder="1200 Industrial Way, Akron, OH 44310"></div>
+        <div class="tool-field"><label for="seller-email">Email</label><input id="seller-email" type="email" placeholder="ar@acme.com"></div>
+        <div class="tool-field"><label for="seller-ein">EIN / Tax ID <span class="hint">optional</span></label><input id="seller-ein" type="text" placeholder="12-3456789"></div>
       </div>
     </div>
 
@@ -84,55 +112,55 @@
         <button id="cust-clear" type="button" class="btn-secondary">Clear</button>
       </div>
       <div class="tool-form-grid">
-        <div class="tool-field"><label>Customer name</label><input id="cust-name" type="text" placeholder="Northwoods Furniture Co."></div>
-        <div class="tool-field"><label>Contact</label><input id="cust-contact" type="text" placeholder="James Beck"></div>
-        <div class="tool-field full"><label>Address</label><input id="cust-address" type="text" placeholder="2300 Industrial Blvd, High Point, NC 27260"></div>
-        <div class="tool-field"><label>Phone</label><input id="cust-phone" type="text"></div>
-        <div class="tool-field"><label>Email</label><input id="cust-email" type="email"></div>
+        <div class="tool-field"><label for="cust-name">Customer name</label><input id="cust-name" type="text" placeholder="Northwoods Furniture Co."></div>
+        <div class="tool-field"><label for="cust-contact">Contact</label><input id="cust-contact" type="text" placeholder="James Beck"></div>
+        <div class="tool-field full"><label for="cust-address">Address</label><input id="cust-address" type="text" placeholder="2300 Industrial Blvd, High Point, NC 27260"></div>
+        <div class="tool-field"><label for="cust-phone">Phone</label><input id="cust-phone" type="text"></div>
+        <div class="tool-field"><label for="cust-email">Email</label><input id="cust-email" type="email"></div>
       </div>
     </div>
 
     <div class="tool-card"><h2>Invoice details</h2>
       <div class="tool-form-grid cols-3">
-        <div class="tool-field"><label>Invoice #</label><input id="inv-number" type="text"></div>
-        <div class="tool-field"><label>Issue date</label><input id="inv-date" type="date"></div>
-        <div class="tool-field"><label>Due date</label><input id="inv-due" type="date"></div>
-        <div class="tool-field"><label>Payment terms</label>
+        <div class="tool-field"><label for="inv-number">Invoice #</label><input id="inv-number" type="text"></div>
+        <div class="tool-field"><label for="inv-date">Issue date</label><input id="inv-date" type="date"></div>
+        <div class="tool-field"><label for="inv-due">Due date</label><input id="inv-due" type="date"></div>
+        <div class="tool-field"><label for="inv-terms">Payment terms</label>
           <select id="inv-terms">
             <option>Net 30</option><option>Net 15</option><option>Net 45</option><option>Net 60</option>
             <option>Due on receipt</option><option>2/10 Net 30</option><option>COD</option>
           </select>
         </div>
-        <div class="tool-field"><label>PO reference <span class="hint">optional</span></label><input id="inv-po-ref" type="text" placeholder="PO-2026-0001"></div>
-        <div class="tool-field"><label>Currency</label><input id="inv-currency" type="text" value="USD" readonly style="background:var(--sg-off-white)"></div>
+        <div class="tool-field"><label for="inv-po-ref">PO reference <span class="hint">optional</span></label><input id="inv-po-ref" type="text" placeholder="PO-2026-0001"></div>
+        <div class="tool-field"><label for="inv-currency">Currency</label><input id="inv-currency" type="text" value="USD" readonly style="background:var(--sg-off-white)"></div>
       </div>
     </div>
 
     <div class="tool-card"><h2>Line items</h2>
       <table class="tool-items" id="items-table">
         <thead><tr>
-          <th style="width:90px">Item / SKU</th>
-          <th>Description</th>
-          <th class="num" style="width:80px">Qty</th>
-          <th class="num" style="width:110px">Unit price</th>
-          <th class="num" style="width:120px">Amount</th>
-          <th class="col-actions"></th>
+          <th scope="col" style="width:90px">Item / SKU</th>
+          <th scope="col">Description</th>
+          <th scope="col" class="num" style="width:80px">Qty</th>
+          <th scope="col" class="num" style="width:110px">Unit price</th>
+          <th scope="col" class="num" style="width:120px">Amount</th>
+          <th scope="col" class="col-actions"></th>
         </tr></thead>
         <tbody id="items-body"></tbody>
         <tfoot id="items-foot"></tfoot>
       </table>
       <div class="tool-actions"><button type="button" id="add-row" class="btn-add">＋ Add line item</button></div>
       <div class="tool-form-grid cols-3" style="margin-top:20px">
-        <div class="tool-field"><label>Sales tax (%)</label><input id="inv-tax" type="number" step="0.01" min="0" value="0"></div>
-        <div class="tool-field"><label>Shipping ($)</label><input id="inv-shipping" type="number" step="0.01" min="0" value="0"></div>
-        <div class="tool-field"><label>Discount ($)</label><input id="inv-discount" type="number" step="0.01" min="0" value="0"></div>
+        <div class="tool-field"><label for="inv-tax">Sales tax (%)</label><input id="inv-tax" type="number" step="0.01" min="0" value="0"></div>
+        <div class="tool-field"><label for="inv-shipping">Shipping ($)</label><input id="inv-shipping" type="number" step="0.01" min="0" value="0"></div>
+        <div class="tool-field"><label for="inv-discount">Discount ($)</label><input id="inv-discount" type="number" step="0.01" min="0" value="0"></div>
       </div>
     </div>
 
     <div class="tool-card"><h2>Payment + notes</h2>
       <div class="tool-form-grid">
-        <div class="tool-field full"><label>Payment instructions</label><textarea id="inv-payment" rows="3" placeholder="ACH: Routing 123456789, Account 9876543210&#10;Wire: ABA 123456789, Acct 9876543210, Acme Mfg Inc.&#10;Checks payable to: Acme Manufacturing Inc."></textarea></div>
-        <div class="tool-field full"><label>Notes / terms</label><textarea id="inv-notes" rows="2" placeholder="Thank you for your business. 1.5% / month late fee on overdue balances."></textarea></div>
+        <div class="tool-field full"><label for="inv-payment">Payment instructions</label><textarea id="inv-payment" rows="3" placeholder="ACH: Routing 123456789, Account 9876543210&#10;Wire: ABA 123456789, Acct 9876543210, Acme Mfg Inc.&#10;Checks payable to: Acme Manufacturing Inc."></textarea></div>
+        <div class="tool-field full"><label for="inv-notes">Notes / terms</label><textarea id="inv-notes" rows="2" placeholder="Thank you for your business. 1.5% / month late fee on overdue balances."></textarea></div>
       </div>
     </div>
 

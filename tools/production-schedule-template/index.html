@@ -22,6 +22,34 @@
 </script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PGZBXNF51L');(function(){var loaded=false;var events=['mousemove','scroll','click','touchstart','keydown'];function trigger(){if(loaded)return;loaded=true;try{if(localStorage.getItem('sg_ph_opt_out')==='1')return;}catch(e){}var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';document.head.appendChild(s);events.forEach(function(e){document.removeEventListener(e,trigger,true);});}events.forEach(function(e){document.addEventListener(e,trigger,{once:true,passive:true,capture:true});});setTimeout(trigger,30000);})();</script>
 <script src="../tools.js" defer></script>
+
+<!-- PostHog Analytics — deferred to first user interaction (matches landing-page pattern) -->
+<script>
+  function sgLoadPostHog(){
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_uYqTNuyvu48ttUP7tjh89v8JBvjgbRZ9bvZdfdVoEPVh', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-01-30',
+        person_profiles: 'identified_only',
+        disable_session_recording: true,
+        disable_surveys: true,
+        opt_out_capturing_by_default: false
+    })
+  }
+  (function(){
+    var loaded = false;
+    var events = ['mousemove','scroll','click','touchstart','keydown'];
+    function trigger(){
+      if (loaded) return; loaded = true;
+      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
+      sgLoadPostHog();
+      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
+    }
+    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
+    setTimeout(trigger, 30000);
+  })();
+</script>
+
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -42,12 +70,12 @@
     <div class="tool-card"><h2>Jobs</h2>
       <table class="tool-items" id="job-table">
         <thead><tr>
-          <th>Job / customer</th>
-          <th style="width:120px">Start date</th>
-          <th style="width:120px">End date</th>
-          <th style="width:120px">Status</th>
-          <th style="width:140px">Assigned to</th>
-          <th class="col-actions"></th>
+          <th scope="col">Job / customer</th>
+          <th scope="col" style="width:120px">Start date</th>
+          <th scope="col" style="width:120px">End date</th>
+          <th scope="col" style="width:120px">Status</th>
+          <th scope="col" style="width:140px">Assigned to</th>
+          <th scope="col" class="col-actions"></th>
         </tr></thead>
         <tbody id="job-body"></tbody>
       </table>
@@ -141,8 +169,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     const dayPx=Math.max(20,Math.min(36,Math.floor(900/totalDays)));
     // Build column headers (every 1 / 3 / 7 days depending on span)
     let step=1; if(totalDays>21)step=3; if(totalDays>56)step=7;
-    let headHtml='<th class="job-col">Job</th>';
-    for(let i=0;i<totalDays;i+=step){headHtml+=`<th style="width:${dayPx*step}px">${fmt(addDaysISO(minStart,i))}</th>`;}
+    let headHtml='<th scope="col" class="job-col">Job</th>';
+    for(let i=0;i<totalDays;i+=step){headHtml+=`<th scope="col" style="width:${dayPx*step}px">${fmt(addDaysISO(minStart,i))}</th>`;}
     const colspan=Math.ceil(totalDays/step);
     const statusColor={'Planned':'planned','In progress':'','Done':'done','Delayed':'delayed'};
     let rowsHtml='';
@@ -151,11 +179,11 @@ document.addEventListener('DOMContentLoaded',()=>{
       const dur=Math.max(1,daysBetween(j.start,j.end)+1);
       const left=offset*dayPx;
       const w=dur*dayPx;
+      // Bar shows status as colored block; job name lives in the sticky first column
+      // (avoids white-on-light-status contrast failures: gold/red barely pass AA at 11px).
       rowsHtml+=`<tr><td class="job-name">${j.name}${j.who?'<div style="font-size:11px;font-weight:400;color:var(--fg3);margin-top:2px">'+j.who+'</div>':''}</td>
         <td colspan="${colspan}" style="position:relative;padding:8px 4px;background:repeating-linear-gradient(90deg,#fff,#fff ${dayPx*step-1}px,#f3f5f8 ${dayPx*step-1}px,#f3f5f8 ${dayPx*step}px)">
-          <div class="bar ${statusColor[j.status]||''}" style="position:absolute;left:${left+4}px;top:8px;width:${w}px">
-            <div style="color:#fff;font-size:11px;font-weight:600;padding:2px 6px;white-space:nowrap;overflow:hidden">${j.name}</div>
-          </div>
+          <div class="bar ${statusColor[j.status]||''}" role="img" aria-label="${j.name} — ${j.status}" style="position:absolute;left:${left+4}px;top:8px;width:${w}px"></div>
         </td></tr>`;
     });
     wrap.innerHTML=`<table class="gantt"><thead><tr>${headHtml}</tr></thead><tbody>${rowsHtml}</tbody></table>`;

@@ -43,6 +43,34 @@
 .margin-stat .value.negative { color: var(--sg-red); }
 @media (max-width: 600px) { .margin-row { grid-template-columns: 1fr; } }
 </style>
+
+<!-- PostHog Analytics — deferred to first user interaction (matches landing-page pattern) -->
+<script>
+  function sgLoadPostHog(){
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_uYqTNuyvu48ttUP7tjh89v8JBvjgbRZ9bvZdfdVoEPVh', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-01-30',
+        person_profiles: 'identified_only',
+        disable_session_recording: true,
+        disable_surveys: true,
+        opt_out_capturing_by_default: false
+    })
+  }
+  (function(){
+    var loaded = false;
+    var events = ['mousemove','scroll','click','touchstart','keydown'];
+    function trigger(){
+      if (loaded) return; loaded = true;
+      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
+      sgLoadPostHog();
+      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
+    }
+    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
+    setTimeout(trigger, 30000);
+  })();
+</script>
+
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -62,15 +90,15 @@
   <section class="tool-app"><div class="container-sm">
     <div class="tool-card"><h2>Job info</h2>
       <div class="tool-form-grid cols-3">
-        <div class="tool-field"><label>Job number / name</label><input id="job-name" type="text" placeholder="J-2026-0042 / Dining table run"></div>
-        <div class="tool-field"><label>Customer</label><input id="job-customer" type="text" placeholder="Northwoods Furniture"></div>
-        <div class="tool-field"><label>Quantity (units)</label><input id="job-qty" type="number" min="1" value="100" step="1"></div>
+        <div class="tool-field"><label for="job-name">Job number / name</label><input id="job-name" type="text" placeholder="J-2026-0042 / Dining table run"></div>
+        <div class="tool-field"><label for="job-customer">Customer</label><input id="job-customer" type="text" placeholder="Northwoods Furniture"></div>
+        <div class="tool-field"><label for="job-qty">Quantity (units)</label><input id="job-qty" type="number" min="1" value="100" step="1"></div>
       </div>
     </div>
 
     <div class="tool-card"><h2>Direct materials</h2>
       <table class="tool-items" id="mat-table">
-        <thead><tr><th>Material</th><th class="num" style="width:100px">Qty</th><th style="width:70px">Unit</th><th class="num" style="width:110px">Unit cost</th><th class="num" style="width:120px">Total</th><th class="col-actions"></th></tr></thead>
+        <thead><tr><th scope="col">Material</th><th scope="col" class="num" style="width:100px">Qty</th><th scope="col" style="width:70px">Unit</th><th scope="col" class="num" style="width:110px">Unit cost</th><th scope="col" class="num" style="width:120px">Total</th><th scope="col" class="col-actions"></th></tr></thead>
         <tbody id="mat-body"></tbody>
       </table>
       <div class="tool-actions"><button type="button" id="add-mat" class="btn-add">＋ Add material</button></div>
@@ -79,7 +107,7 @@
 
     <div class="tool-card"><h2>Direct labor</h2>
       <table class="tool-items" id="lab-table">
-        <thead><tr><th>Operation / role</th><th class="num" style="width:100px">Hours</th><th class="num" style="width:120px">Loaded rate / hr</th><th class="num" style="width:120px">Total</th><th class="col-actions"></th></tr></thead>
+        <thead><tr><th scope="col">Operation / role</th><th scope="col" class="num" style="width:100px">Hours</th><th scope="col" class="num" style="width:120px">Loaded rate / hr</th><th scope="col" class="num" style="width:120px">Total</th><th scope="col" class="col-actions"></th></tr></thead>
         <tbody id="lab-body"></tbody>
       </table>
       <div class="tool-actions"><button type="button" id="add-lab" class="btn-add">＋ Add labor line</button></div>
@@ -88,7 +116,7 @@
 
     <div class="tool-card"><h2>Machine time</h2>
       <table class="tool-items" id="mach-table">
-        <thead><tr><th>Machine / cell</th><th class="num" style="width:100px">Hours</th><th class="num" style="width:120px">Rate / hr</th><th class="num" style="width:120px">Total</th><th class="col-actions"></th></tr></thead>
+        <thead><tr><th scope="col">Machine / cell</th><th scope="col" class="num" style="width:100px">Hours</th><th scope="col" class="num" style="width:120px">Rate / hr</th><th scope="col" class="num" style="width:120px">Total</th><th scope="col" class="col-actions"></th></tr></thead>
         <tbody id="mach-body"></tbody>
       </table>
       <div class="tool-actions"><button type="button" id="add-mach" class="btn-add">＋ Add machine line</button></div>
@@ -97,17 +125,17 @@
 
     <div class="tool-card"><h2>Other costs</h2>
       <div class="tool-form-grid cols-3">
-        <div class="tool-field"><label>Subcontractor / outside ops ($)</label><input id="job-sub" type="number" step="0.01" min="0" value="0"></div>
-        <div class="tool-field"><label>Tooling / setup ($)</label><input id="job-setup" type="number" step="0.01" min="0" value="0"></div>
-        <div class="tool-field"><label>Overhead rate (%)</label><input id="job-overhead" type="number" step="0.1" min="0" max="200" value="25"></div>
+        <div class="tool-field"><label for="job-sub">Subcontractor / outside ops ($)</label><input id="job-sub" type="number" step="0.01" min="0" value="0"></div>
+        <div class="tool-field"><label for="job-setup">Tooling / setup ($)</label><input id="job-setup" type="number" step="0.01" min="0" value="0"></div>
+        <div class="tool-field"><label for="job-overhead">Overhead rate (%)</label><input id="job-overhead" type="number" step="0.1" min="0" max="200" value="25"></div>
       </div>
       <p class="tool-note">Overhead = facility cost + indirect labor + utilities + QC + admin allocated to production. 15–40 % is the typical mid-market range.</p>
     </div>
 
     <div class="tool-card"><h2>Selling price + margin</h2>
       <div class="tool-form-grid">
-        <div class="tool-field"><label>Selling price per unit ($)</label><input id="job-price" type="number" step="0.01" min="0" placeholder="0.00"></div>
-        <div class="tool-field"><label>Target margin (%) <span class="hint">if you want a suggested price</span></label><input id="job-target-margin" type="number" step="0.1" min="0" max="99" placeholder="30"></div>
+        <div class="tool-field"><label for="job-price">Selling price per unit ($)</label><input id="job-price" type="number" step="0.01" min="0" placeholder="0.00"></div>
+        <div class="tool-field"><label for="job-target-margin">Target margin (%) <span class="hint">if you want a suggested price</span></label><input id="job-target-margin" type="number" step="0.1" min="0" max="99" placeholder="30"></div>
       </div>
     </div>
 

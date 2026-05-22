@@ -93,7 +93,7 @@ Each rewrite follows the brief's formula:
 | | Current | Proposed |
 |---|---|---|
 | Title | `SimpleGrid AI - Customized ERP for Manufacturers \| Fast Deployment in 7 Days` (76) | `AI ERP for Manufacturers — Live in 7 Days \| SimpleGrid` (54) |
-| Description | `SimpleGrid (Simple Grid AI) is a customized ERP for manufacturers — fast deployment in 7 days, built for the factory floor, not 18 months of consulting. SimpleGrid ERP fits your operation. Free until it works.` (208) | `Your ERP shouldn't take 18 months. SimpleGrid deploys in 7 days, zero upfront cost. See it working before you spend a rupee. 30 days free.` (138) |
+| Description | `SimpleGrid (Simple Grid AI) is a customized ERP for manufacturers — fast deployment in 7 days, built for the factory floor, not 18 months of consulting. SimpleGrid ERP fits your operation. Free until it works.` (208) | `Your ERP shouldn't take 18 months. SimpleGrid deploys in 7 days, zero upfront cost. See it working before you spend a dollar. 30 days free.` (138) |
 
 **Keyword:** AI ERP for manufacturers (primary).
 

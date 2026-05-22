@@ -90,6 +90,34 @@
 </script>
 
 <script src="../tools.js" defer></script>
+
+<!-- PostHog Analytics — deferred to first user interaction (matches landing-page pattern) -->
+<script>
+  function sgLoadPostHog(){
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_uYqTNuyvu48ttUP7tjh89v8JBvjgbRZ9bvZdfdVoEPVh', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-01-30',
+        person_profiles: 'identified_only',
+        disable_session_recording: true,
+        disable_surveys: true,
+        opt_out_capturing_by_default: false
+    })
+  }
+  (function(){
+    var loaded = false;
+    var events = ['mousemove','scroll','click','touchstart','keydown'];
+    function trigger(){
+      if (loaded) return; loaded = true;
+      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
+      sgLoadPostHog();
+      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
+    }
+    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
+    setTimeout(trigger, 30000);
+  })();
+</script>
+
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -126,11 +154,11 @@
       <div class="tool-card">
         <h2>Your company (buyer)</h2>
         <div class="tool-form-grid">
-          <div class="tool-field"><label>Company name</label><input id="buyer-name" type="text" placeholder="Acme Manufacturing Inc."></div>
-          <div class="tool-field"><label>Phone <span class="hint">optional</span></label><input id="buyer-phone" type="text" placeholder="(330) 555-0188"></div>
-          <div class="tool-field full"><label>Address</label><input id="buyer-address" type="text" placeholder="1200 Industrial Way, Akron, OH 44310"></div>
-          <div class="tool-field"><label>Email</label><input id="buyer-email" type="email" placeholder="purchasing@acme.com"></div>
-          <div class="tool-field"><label>Buyer (your name)</label><input id="buyer-contact" type="text" placeholder="Sarah Mitchell"></div>
+          <div class="tool-field"><label for="buyer-name">Company name</label><input id="buyer-name" type="text" placeholder="Acme Manufacturing Inc."></div>
+          <div class="tool-field"><label for="buyer-phone">Phone <span class="hint">optional</span></label><input id="buyer-phone" type="text" placeholder="(330) 555-0188"></div>
+          <div class="tool-field full"><label for="buyer-address">Address</label><input id="buyer-address" type="text" placeholder="1200 Industrial Way, Akron, OH 44310"></div>
+          <div class="tool-field"><label for="buyer-email">Email</label><input id="buyer-email" type="email" placeholder="purchasing@acme.com"></div>
+          <div class="tool-field"><label for="buyer-contact">Buyer (your name)</label><input id="buyer-contact" type="text" placeholder="Sarah Mitchell"></div>
         </div>
       </div>
 
@@ -138,7 +166,7 @@
         <h2>Branding <span style="font-weight:400;font-size:14px;color:var(--fg3);margin-left:8px">optional · saved to your browser</span></h2>
         <div style="display:grid;grid-template-columns:1fr 200px;gap:24px;align-items:start" id="brand-grid">
           <div>
-            <label style="font-size:13px;font-weight:600;color:var(--fg2);display:block;margin-bottom:6px">Company logo</label>
+            <label style="font-size:13px;font-weight:600;color:var(--fg2);display:block;margin-bottom:6px" for="logo-upload">Company logo</label>
             <input id="logo-upload" type="file" accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml" style="font-size:14px">
             <div id="logo-preview" style="display:none;margin-top:14px;padding:14px;background:var(--sg-off-white);border:1px solid var(--border);border-radius:8px">
               <div style="background:#fff;padding:10px;border-radius:6px;display:inline-block">
@@ -152,7 +180,7 @@
             <p class="tool-note">PNG, JPG, WebP, or SVG. Will be cropped before embedding. Lives only in your browser (~5 MB localStorage limit).</p>
           </div>
           <div>
-            <label style="font-size:13px;font-weight:600;color:var(--fg2);display:block;margin-bottom:6px">Brand color</label>
+            <label style="font-size:13px;font-weight:600;color:var(--fg2);display:block;margin-bottom:6px" for="vendor-name">Brand color</label>
             <div style="display:flex;align-items:center;gap:10px">
               <input id="brand-color" type="color" value="#3461E0" style="width:60px;height:40px;border:1px solid var(--border);border-radius:6px;padding:3px;cursor:pointer;background:#fff">
               <input id="brand-color-hex" type="text" value="#3461E0" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" style="width:90px;font-family:var(--font-mono,monospace);font-size:14px;padding:9px 10px;border:1px solid var(--border);border-radius:6px">
@@ -174,27 +202,27 @@
         </div>
         <div class="tool-form-grid">
           <div class="tool-field"><label>Vendor name</label><input id="vendor-name" type="text" placeholder="Midwest Steel Supply LLC"></div>
-          <div class="tool-field"><label>Vendor contact</label><input id="vendor-contact" type="text" placeholder="Tom Reed"></div>
-          <div class="tool-field full"><label>Vendor address</label><input id="vendor-address" type="text" placeholder="8400 W. Industrial Blvd, Cleveland, OH 44114"></div>
-          <div class="tool-field"><label>Phone</label><input id="vendor-phone" type="text" placeholder="(216) 555-0142"></div>
-          <div class="tool-field"><label>Email</label><input id="vendor-email" type="email" placeholder="orders@midweststeel.com"></div>
+          <div class="tool-field"><label for="vendor-contact">Vendor contact</label><input id="vendor-contact" type="text" placeholder="Tom Reed"></div>
+          <div class="tool-field full"><label for="vendor-address">Vendor address</label><input id="vendor-address" type="text" placeholder="8400 W. Industrial Blvd, Cleveland, OH 44114"></div>
+          <div class="tool-field"><label for="vendor-phone">Phone</label><input id="vendor-phone" type="text" placeholder="(216) 555-0142"></div>
+          <div class="tool-field"><label for="vendor-email">Email</label><input id="vendor-email" type="email" placeholder="orders@midweststeel.com"></div>
         </div>
       </div>
 
       <div class="tool-card">
         <h2>PO details</h2>
         <div class="tool-form-grid cols-3">
-          <div class="tool-field"><label>PO number</label><input id="po-number" type="text" placeholder="PO-2026-0001"></div>
-          <div class="tool-field"><label>Date</label><input id="po-date" type="date"></div>
-          <div class="tool-field"><label>Expected delivery</label><input id="po-delivery" type="date"></div>
-          <div class="tool-field"><label>Payment terms</label>
+          <div class="tool-field"><label for="po-number">PO number</label><input id="po-number" type="text" placeholder="PO-2026-0001"></div>
+          <div class="tool-field"><label for="po-date">Date</label><input id="po-date" type="date"></div>
+          <div class="tool-field"><label for="po-delivery">Expected delivery</label><input id="po-delivery" type="date"></div>
+          <div class="tool-field"><label for="po-terms">Payment terms</label>
             <select id="po-terms">
               <option>Net 30</option><option>Net 15</option><option>Net 45</option><option>Net 60</option>
               <option>Due on receipt</option><option>2/10 Net 30</option><option>COD</option>
             </select>
           </div>
-          <div class="tool-field"><label>Ship via <span class="hint">optional</span></label><input id="po-ship-via" type="text" placeholder="Vendor's truck / UPS / etc."></div>
-          <div class="tool-field"><label>FOB <span class="hint">optional</span></label><input id="po-fob" type="text" placeholder="Origin / Destination"></div>
+          <div class="tool-field"><label for="po-ship-via">Ship via <span class="hint">optional</span></label><input id="po-ship-via" type="text" placeholder="Vendor's truck / UPS / etc."></div>
+          <div class="tool-field"><label for="po-fob">FOB <span class="hint">optional</span></label><input id="po-fob" type="text" placeholder="Origin / Destination"></div>
         </div>
       </div>
 
@@ -203,13 +231,13 @@
         <table class="tool-items" id="items-table">
           <thead>
             <tr>
-              <th style="width:80px">SKU</th>
-              <th>Description</th>
-              <th class="num" style="width:80px">Qty</th>
-              <th style="width:70px">Unit</th>
-              <th class="num" style="width:110px">Unit price</th>
-              <th class="num" style="width:120px">Amount</th>
-              <th class="col-actions"></th>
+              <th scope="col" style="width:80px">SKU</th>
+              <th scope="col">Description</th>
+              <th scope="col" class="num" style="width:80px">Qty</th>
+              <th scope="col" style="width:70px">Unit</th>
+              <th scope="col" class="num" style="width:110px">Unit price</th>
+              <th scope="col" class="num" style="width:120px">Amount</th>
+              <th scope="col" class="col-actions"></th>
             </tr>
           </thead>
           <tbody id="items-body"></tbody>
@@ -220,9 +248,9 @@
         </div>
 
         <div class="tool-form-grid cols-3" style="margin-top:20px">
-          <div class="tool-field"><label>Tax rate (%)</label><input id="po-tax" type="number" step="0.01" min="0" max="100" value="0"></div>
-          <div class="tool-field"><label>Shipping ($)</label><input id="po-shipping" type="number" step="0.01" min="0" value="0"></div>
-          <div class="tool-field"><label>Other / handling ($)</label><input id="po-other" type="number" step="0.01" min="0" value="0"></div>
+          <div class="tool-field"><label for="po-tax">Tax rate (%)</label><input id="po-tax" type="number" step="0.01" min="0" max="100" value="0"></div>
+          <div class="tool-field"><label for="po-shipping">Shipping ($)</label><input id="po-shipping" type="number" step="0.01" min="0" value="0"></div>
+          <div class="tool-field"><label for="po-other">Other / handling ($)</label><input id="po-other" type="number" step="0.01" min="0" value="0"></div>
         </div>
       </div>
 

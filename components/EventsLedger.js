@@ -39,7 +39,7 @@ function EventsLedger() {
     t: '11:46:31',
     actor: 'James · Owner',
     verb: 'APPROVE',
-    entity: 'PO-8819 · ₹ 14.2 L',
+    entity: 'PO-8819 · $17,000',
     from: 'Pending',
     to: 'Approved',
     impact: 'Vendor notified · Funds reserved'
@@ -55,7 +55,7 @@ function EventsLedger() {
     t: '11:46:05',
     actor: 'System',
     verb: 'RECONCILE',
-    entity: 'Bank · ICICI 4421',
+    entity: 'Bank · Chase 4421',
     from: '-',
     to: 'Matched',
     impact: '37 receipts matched · 2 flagged'
@@ -66,7 +66,7 @@ function EventsLedger() {
     entity: 'GRN-3320 · 200 sheets',
     from: '-',
     to: 'In stock',
-    impact: 'Inventory +200 · AP +₹ 14.2 L'
+    impact: 'Inventory +200 · AP +$17,000'
   }];
   const [count, setCount] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
@@ -1285,7 +1285,7 @@ function AbilitySection() {
     text: '> received 200 sheets 16-gauge from Midwest, PO-4521'
   }, {
     type: 'response',
-    text: '✓ Matched to PO-4521.\n  Inventory +200 · AP +₹14.2L\n  Reorder rule R-204 paused.\n  Logged at 11:46:05 by Hank.'
+    text: '✓ Matched to PO-4521.\n  Inventory +200 · AP +$17,000\n  Reorder rule R-204 paused.\n  Logged at 11:46:05 by Hank.'
   }];
   return /*#__PURE__*/React.createElement("section", {
     className: "section",
