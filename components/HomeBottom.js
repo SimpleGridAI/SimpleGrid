@@ -385,13 +385,13 @@ function FounderStory() {
     className: "founder-text"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "BUILT BY OPERATORS"), /*#__PURE__*/React.createElement("blockquote", null, "We built a $30M manufacturing business. Survived two ERP failures. Ended up on Google Sheets."), /*#__PURE__*/React.createElement("p", {
+  }, "BUILT BY AN OPERATOR WHO'S BEEN ON YOUR FLOOR"), /*#__PURE__*/React.createElement("blockquote", null, "Built a $30M manufacturing business. Survived two ERP failures. Ended up on Google Sheets."), /*#__PURE__*/React.createElement("p", {
     className: "body"
-  }, "SimpleGrid exists because we were the customer first. Multiple factories, 400-person workforce. We know what breaks when your system can't keep up."), /*#__PURE__*/React.createElement("p", {
+  }, "SimpleGrid exists because we were the customer first — multiple factories, 400-person workforce. We bought the same enterprise systems you're being pitched today. We watched them fail. We know exactly what breaks when the system can't keep up with the floor."), /*#__PURE__*/React.createElement("p", {
     className: "body"
-  }, "We lead every deployment personally. You deal with our team - not a sales team, not a chatbot."), /*#__PURE__*/React.createElement("p", {
+  }, "That's why we built SimpleGrid the only way that makes sense to an operator: model it on your factory, run it on your real floor for 30 days, and only charge when it earns its keep."), /*#__PURE__*/React.createElement("p", {
     className: "body"
-  }, "SimpleGrid is what came out of all that - built the way operators actually run a plant. The next two sections are how we think about it, and how it works in practice.")))));
+  }, "Senior engineers and a founder are on every deployment. No sales reps. No SDRs. No chatbot. You deal with the people who'll actually build your system.")))));
 }
 window.FounderStory = FounderStory;
 function ProofSection() {
@@ -711,9 +711,9 @@ function Architecture() {
     style: {
       color: 'rgba(255,255,255,0.4)'
     }
-  }, "WHY 7 DAYS IS POSSIBLE"), /*#__PURE__*/React.createElement("h2", {
+  }, "WHY WE CAN BUILD CUSTOM IN DAYS"), /*#__PURE__*/React.createElement("h2", {
     className: "h2"
-  }, "The architecture.")), /*#__PURE__*/React.createElement("div", {
+  }, "The architecture that lets us carry the risk.")), /*#__PURE__*/React.createElement("div", {
     className: "arch-grid",
     style: {
       marginTop: 28
@@ -728,35 +728,47 @@ function Architecture() {
 window.Architecture = Architecture;
 function ComparisonTable() {
   const rows = [{
-    label: 'Deploy time',
-    sap: '18+ months',
-    epicor: '9–12 months',
-    qb: 'Instant',
-    sg: 'Days'
+    label: 'Built for',
+    sap: 'F500 finance, multi-country tax, public-co close',
+    epicor: 'Discrete manufacturers with mature IT teams',
+    qb: 'Small businesses that need bookkeeping',
+    sg: 'Mid-market manufacturers who don\'t want to be a software project'
   }, {
-    label: 'Cost to start',
+    label: 'What they do well',
+    sap: 'Deep finance, global compliance, scale to billions',
+    epicor: 'Strong shop-floor MRP, mature manufacturing modules',
+    qb: 'Easy accounting, every accountant knows it',
+    sg: 'Model your factory, ship in days, prove value before you pay'
+  }, {
+    label: 'Time to value',
+    sap: '12–18+ months',
+    epicor: '9–12 months',
+    qb: 'Same day for books — but breaks as you scale ops',
+    sg: 'Live in 7–21 days on your real data'
+  }, {
+    label: 'Up-front cost',
     sap: '$500K+',
     epicor: '$150K–$300K',
-    qb: 'Free',
-    sg: '$0'
+    qb: 'Low monthly fee',
+    sg: '$0. You pay only after it works.'
   }, {
-    label: 'Customization',
-    sap: 'Months + consultants',
-    epicor: 'Months + devs',
-    qb: 'Breaks at scale',
-    sg: 'Minutes'
+    label: 'Change a workflow',
+    sap: 'Consulting engagement',
+    epicor: 'Dev sprint',
+    qb: 'Build it in spreadsheets outside the system',
+    sg: 'Configure live, often on the same call'
   }, {
-    label: 'Floor staff UX',
-    sap: 'Complex menus',
-    epicor: 'Complex forms',
-    qb: 'Formulas',
-    sg: 'Plain English'
+    label: 'Floor-staff UX',
+    sap: 'Built for accountants and analysts',
+    epicor: 'Built for planners and IT',
+    qb: 'Built for bookkeepers',
+    sg: 'Built for the warehouse manager — plain English, same habit as texting'
   }, {
     label: 'Try before paying',
-    sap: 'No',
-    epicor: 'Limited',
-    qb: 'N/A',
-    sg: '30 days, live data'
+    sap: 'Sandbox demos',
+    epicor: 'Sandbox demos',
+    qb: 'Free tier',
+    sg: '30 days running on your real floor, your real orders'
   }];
   return /*#__PURE__*/React.createElement("section", {
     className: "section"
@@ -764,9 +776,12 @@ function ComparisonTable() {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "COMPARE"), /*#__PURE__*/React.createElement("h2", {
+  }, "COMPARE — HONESTLY"), /*#__PURE__*/React.createElement("h2", {
     className: "h2"
-  }, "How it stacks up.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "When is SimpleGrid the right call?"), /*#__PURE__*/React.createElement("p", {
+    className: "lead",
+    style: { maxWidth: 780 }
+  }, "SAP, Oracle NetSuite, Epicor and QuickBooks are excellent at what they were built for. SimpleGrid was built for a specific shape of customer: mid-market manufacturers who run differently from everyone, can't afford a 12-month rip-and-replace, and want to see the system run before they pay.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 200
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -774,7 +789,7 @@ function ComparisonTable() {
     }
   }, /*#__PURE__*/React.createElement("table", {
     className: "compare-table"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null), /*#__PURE__*/React.createElement("th", null, "SAP / Oracle"), /*#__PURE__*/React.createElement("th", null, "Epicor / Plex"), /*#__PURE__*/React.createElement("th", null, "QuickBooks + Excel"), /*#__PURE__*/React.createElement("th", null, "SimpleGrid"))), /*#__PURE__*/React.createElement("tbody", null, rows.map((r, i) => /*#__PURE__*/React.createElement("tr", {
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null), /*#__PURE__*/React.createElement("th", null, "SAP / Oracle NetSuite"), /*#__PURE__*/React.createElement("th", null, "Epicor / Plex"), /*#__PURE__*/React.createElement("th", null, "QuickBooks + Excel"), /*#__PURE__*/React.createElement("th", null, "SimpleGrid"))), /*#__PURE__*/React.createElement("tbody", null, rows.map((r, i) => /*#__PURE__*/React.createElement("tr", {
     key: i
   }, /*#__PURE__*/React.createElement("td", {
     style: {
@@ -791,15 +806,15 @@ function FinalCTA() {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("h2", {
     className: "h2"
-  }, "Deploy in days. Decide in 30."), /*#__PURE__*/React.createElement("p", {
+  }, "Try it on. Then decide."), /*#__PURE__*/React.createElement("p", {
     className: "sub"
-  }, "We build it at our cost. You run it with your team. Doesn't work? Walk away."), /*#__PURE__*/React.createElement("a", {
+  }, "We build a custom ERP around your factory at our cost. You run it on your real floor for 30 days. If it doesn't move the business, you walk. We earn nothing."), /*#__PURE__*/React.createElement("a", {
     href: "https://cal.com/simplegrid-ai",
     target: "_blank",
     rel: "noopener noreferrer",
     className: "btn btn-lg btn-primary"
-  }, "Book a call"), /*#__PURE__*/React.createElement("p", {
+  }, "Book a call with the founder"), /*#__PURE__*/React.createElement("p", {
     className: "note"
-  }, "No commitment. Migration included. Senior team on every deployment."))));
+  }, "Founder-led. Limited slots each quarter. We onboard selectively — only when we know we can win for you."))));
 }
 window.FinalCTA = FinalCTA;

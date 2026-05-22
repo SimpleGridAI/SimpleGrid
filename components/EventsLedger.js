@@ -643,14 +643,14 @@ function ProductHeroNew() {
       fontSize: 48,
       lineHeight: 1.1
     }
-  }, "Stop running your factory on messaging apps and Excel sheets."), /*#__PURE__*/React.createElement("p", {
+  }, "We don't sell software. We build a custom ERP around your factory."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
       color: leadColor,
       maxWidth: 760,
       marginTop: 18
     }
-  }, "You know how it goes. Fourteen Slack channels. Six spreadsheets. An approval lost in DMs. A dispatch nobody can confirm. And a buyer on the phone asking where their order is. SimpleGrid is one system for all of it - built the way your team already works."), /*#__PURE__*/React.createElement("div", {
+  }, "Your stages, your contractors, your approvals, your costing logic — modelled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28,
       display: 'flex',
@@ -673,7 +673,7 @@ function ProductHeroNew() {
       fontSize: 13,
       color: noteColor
     }
-  }, /*#__PURE__*/React.createElement("span", null, "\u25CF 7-day deployment"), /*#__PURE__*/React.createElement("span", null, "\u25CF No commitment"), /*#__PURE__*/React.createElement("span", null, "\u25CF Senior team runs your onboarding"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
+  }, /*#__PURE__*/React.createElement("span", null, "\u25CF Built at our risk"), /*#__PURE__*/React.createElement("span", null, "\u25CF Live in 7\u201321 days"), /*#__PURE__*/React.createElement("span", null, "\u25CF Paid for only after it works"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)
   }));
 }
@@ -1389,21 +1389,21 @@ function TriggerCTA() {
     style: {
       color: 'rgba(255,255,255,0.5)'
     }
-  }, "THE ONLY DECISION YOU NEED TO MAKE THIS WEEK"), /*#__PURE__*/React.createElement("h2", {
+  }, "TRY IT ON. THEN DECIDE."), /*#__PURE__*/React.createElement("h2", {
     className: "h2",
     style: {
       color: '#fff',
       maxWidth: 880,
       margin: '0 auto'
     }
-  }, "Spend 3 hours with us. Run it for 30 days. Keep it if it works."), /*#__PURE__*/React.createElement("p", {
+  }, "Three hours with us. Thirty days on your real floor. Pay only if it works."), /*#__PURE__*/React.createElement("p", {
     className: "sub",
     style: {
       color: 'rgba(255,255,255,0.75)',
       maxWidth: 720,
       margin: '18px auto 0'
     }
-  }, "We deploy at our cost. Your team uses it on real orders. If by day 30 you don", '\u2019', "t feel the difference, you walk away, and we", '\u2019', "ve still done the migration work."), /*#__PURE__*/React.createElement("div", {
+  }, "We build it at our cost and our risk. Your team runs it on real orders. If by day 30 it hasn", '\u2019', "t moved the business, you walk. No invoice. No clawback."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28,
       display: 'flex',
@@ -1422,7 +1422,7 @@ function TriggerCTA() {
       color: 'rgba(255,255,255,0.5)',
       marginTop: 14
     }
-  }, "Senior-led onboarding \xB7 Migration included \xB7 No commitment"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
+  }, "Founder-led \xB7 Migration included \xB7 Limited capacity each quarter"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)
   }));
 }

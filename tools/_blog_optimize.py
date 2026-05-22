@@ -69,7 +69,7 @@ FOOTER_HTML = '''<footer class="footer" role="contentinfo">
     <div class="footer-top">
       <div>
         <img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid - AI ERP for manufacturers logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-        <p class="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p>
+        <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p>
         <div style="margin-top:28px">
           <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--fg3);margin-bottom:12px">Trusted partners</div>
           <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">

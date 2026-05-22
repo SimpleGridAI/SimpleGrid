@@ -163,7 +163,7 @@ function Footer() {
     decoding: "async"
   }), /*#__PURE__*/React.createElement("p", {
     className: "footer-tagline"
-  }, "AI-native ERP. Days to deploy. For operators, not accountants."), /*#__PURE__*/React.createElement("div", {
+  }, "Custom ERP. Built at our risk. Paid for if it works."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28
     }

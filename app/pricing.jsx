@@ -1,46 +1,47 @@
 const TIERS = [
   {
-    name: 'Free trial',
-    sub: '30 days · no commitment',
+    name: 'Build + 30-day trial',
+    sub: 'You carry no cost until you see it run',
     price: '$0',
-    priceUnit: '',
+    priceUnit: 'For the build. For the migration. For the 30 days on your real floor.',
     accent: 'var(--sg-blue)',
     features: [
-      '7-day deployment, at our cost',
-      'Senior team on every deployment',
+      'We build a custom ERP modelled on your factory',
+      'Live in 7–21 days, at our cost and our risk',
+      'You run it on your real floor for 30 days',
       'All your data migrated for you',
-      'Unlimited floor users',
-      'Walk away anytime in 30 days',
+      'If it doesn\'t move the business, you walk. No invoice.',
     ],
-    cta: 'Book a Call',
+    cta: 'Book a call with the founder',
     ctaHref: 'https://cal.com/simplegrid-ai',
     highlight: true,
   },
   {
-    name: 'Operating',
-    sub: 'after the trial · monthly subscription',
-    price: 'Contact us',
-    priceUnit: 'Custom-quoted because every operation is different - but it\'s one number, included.',
+    name: 'After it works',
+    sub: 'Monthly subscription · one number, all in',
+    price: 'Custom-quoted',
+    priceUnit: 'We are not free and we are not cheap. We are priced like an operator who has carried the build for you.',
     accent: 'var(--sg-purple)',
     features: [
-      'One monthly subscription. That is the whole bill.',
-      'All features included. No tiers, no add-ons.',
+      'One monthly subscription. That is the entire bill.',
+      'All features included. No tiers. No add-ons. No per-seat fees.',
       'Every change to your ERP, now and forever, included.',
-      'New features ship regularly and are yours automatically.',
-      'Direct line to the founding team.',
+      'New features ship regularly — yours automatically.',
+      'Direct line to the founding team. No account-manager middle layer.',
     ],
-    cta: 'Talk to sales',
+    cta: 'Talk to the founder',
     ctaHref: 'https://cal.com/simplegrid-ai',
     highlight: false,
   },
 ];
 
 const COMPARE = [
-  { metric: 'Deployment time',             us: '7 days',                sap: '12-18 months',  netsuite: '6-12 months',                qbe: 'Days (accounting only)' },
-  { metric: 'Upfront cost',                us: '$0',                    sap: '$150K-$500K+',  netsuite: '$25K-$100K implementation',  qbe: '$1.7K/yr/user + add-ons' },
-  { metric: 'Change order fees',           us: 'No',                    sap: '$8K-$20K each', netsuite: '$200+/hr consultant',        qbe: 'Per add-on / SuiteApp' },
-  { metric: 'Built for the factory floor', us: 'Yes',                   sap: 'Generic',       netsuite: 'Generic',                    qbe: 'Accounting-first' },
-  { metric: 'Walk-away clause',            us: '30 days, no clawback',  sap: 'Bound by SOW',  netsuite: 'Annual contract, no refund', qbe: 'Subscription locked' },
+  { metric: 'What they\'re built for',     us: 'Mid-market manufacturers who don\'t want to be a software project', sap: 'F500 finance, multi-country tax, public-co close', netsuite: 'Mid-to-large multi-entity ops', qbe: 'Bookkeeping for small businesses' },
+  { metric: 'Time to value',               us: 'Live in 7–21 days',     sap: '12–18 months',  netsuite: '6–12 months',                qbe: 'Same day for books — breaks as ops scale' },
+  { metric: 'Up-front cost',               us: '$0',                    sap: '$150K–$500K+',  netsuite: '$25K–$100K implementation',  qbe: '$1.7K/yr/user + add-ons' },
+  { metric: 'Change-order fees',           us: 'None. Ever.',           sap: '$8K–$20K each', netsuite: '$200+/hr consultant',        qbe: 'Per add-on / SuiteApp' },
+  { metric: 'Built for the factory floor', us: 'Yes — same habit as texting', sap: 'Built for accountants',    netsuite: 'Built for analysts',          qbe: 'Built for bookkeepers' },
+  { metric: 'Try-before-you-buy',          us: '30 days on your real floor, real orders',  sap: 'Sandbox demos',  netsuite: 'Sandbox demos', qbe: 'Free tier' },
 ];
 
 const INCLUDED = [
@@ -64,9 +65,12 @@ function PricingPage() {
     <section className="section" style={{paddingBottom:32}}>
       <div className="container">
         <div className="tag">PRICING</div>
-        <h1 className="h2" style={{maxWidth:1200}}>ERP pricing built for manufacturers, not for vendors.</h1>
+        <h1 className="h2" style={{maxWidth:1200}}>You carry nothing until you see it run.</h1>
         <p className="lead" style={{maxWidth:'100%'}}>
-          Every other ERP vendor charges you to find out if it works. We don't. SimpleGrid deploys at our cost. You see your factory running on it for 30 days. If it doesn't fit, you walk away - and we lose, not you.
+          Every other ERP vendor charges you to find out if it works. We don't. SimpleGrid builds a custom ERP around your factory at our cost. You run it on your real floor for 30 days. If it doesn't move the business, you walk. We earn nothing.
+        </p>
+        <p className="lead" style={{maxWidth:'100%', marginTop:12, fontWeight:600, color:'var(--fg1)'}}>
+          We are not free. We are not cheap. We're priced like an operator who has carried the build for you — and earned the right to charge for what it does.
         </p>
       </div>
     </section>
@@ -74,10 +78,10 @@ function PricingPage() {
     {/* TIERS */}
     <section className="section section-alt" style={{paddingTop:48}}>
       <div className="container">
-        <div className="tag">PLANS</div>
-        <h2 className="h2" style={{marginBottom:8}}>$0 to start. 30 days to decide. Pay only if it works.</h2>
+        <div className="tag">HOW IT'S PRICED</div>
+        <h2 className="h2" style={{marginBottom:8}}>Try it on. Then pay.</h2>
         <p className="lead" style={{maxWidth:960, marginBottom:36}}>
-          Two plans. After the trial, one monthly subscription covers everything. No tiers. No change fees - now or later. Every new feature we ship is included.
+          Two stages. The build and the 30-day trial are on us. After that, one monthly subscription covers everything — no tiers, no change fees, no per-seat math. Every new feature we ship is included.
         </p>
         <div className="tier-grid" style={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:20, maxWidth:880, margin:'0 auto'}}>
           {TIERS.map((t,i) => (
@@ -117,10 +121,10 @@ function PricingPage() {
     {/* WHAT'S INCLUDED */}
     <section className="section">
       <div className="container">
-        <div className="tag">INCLUDED, AT NO EXTRA COST</div>
-        <h2 className="h2" style={{maxWidth:760}}>What you actually get in 7 days.</h2>
+        <div className="tag">WHAT THE BUILD COVERS</div>
+        <h2 className="h2" style={{maxWidth:760}}>What we build for you before you owe us anything.</h2>
         <p className="lead" style={{maxWidth:960}}>
-          Everything below is part of the trial. No add-ons. No professional services line item. No "implementation partner" you also have to pay.
+          Everything below is part of the build and the 30-day trial. No add-ons. No professional-services line item. No "implementation partner" you also have to pay.
         </p>
         <div className="incl-grid" style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:18, marginTop:32}}>
           {INCLUDED.map((it, i) => (
@@ -178,12 +182,14 @@ function PricingPage() {
         <h2 className="h2">Frequently asked questions about pricing.</h2>
         <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:18, marginTop:28}} className="pricing-faq-grid">
           {[
-            { q: 'How much does SimpleGrid cost after the trial?', a: 'Talk to us. We agree on a price together that fits your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items.' },
-            { q: 'Is there a setup or deployment fee?', a: 'No. SimpleGrid deploys at our cost. You pay nothing for the modeling sessions, the configuration, or the senior-led onboarding.' },
-            { q: 'What does "pay only if it works" mean?', a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk away. No invoice. No clawback.' },
-            { q: 'Do you charge for changes to the ERP - today or tomorrow?', a: 'No. New approval rule, new production stage, new QC gate, new report, new integration - every change is included, at go-live and forever after. Most ERPs charge $8K-$20K per change order. We never do.' },
-            { q: 'Are there feature tiers or add-on fees?', a: 'No. Every customer gets every feature. There is no Pro plan, no Enterprise tier, no per-feature licensing. When we ship something new, it is automatically yours.' },
-            { q: 'Do I get new features as you ship them?', a: 'Yes. We ship new products and features regularly, and they roll out to every customer at no extra cost. Your monthly subscription includes everything we have built and everything we are about to build.' },
+            { q: 'How much does SimpleGrid cost after the 30 days?', a: 'We agree on a number together that fits the operation. After that, you pay one monthly subscription. That is the entire bill — no setup, no add-ons, no surprise line items, no per-seat fees.' },
+            { q: 'Is there a setup or build fee?', a: 'No. The build, the modeling sessions, the data migration, the senior-led onboarding and the 30 days running on your real floor are all on us. You owe nothing until you decide it works.' },
+            { q: 'Why aren\'t you cheap?', a: 'Because we carry the build, the deployment risk, and the 30-day trial — and senior engineers and a founder are on every project. Cheap ERP exists. It will not show up on day one with a working version of your factory. We will. We price for what that takes.' },
+            { q: 'What does "you walk if it doesn\'t work" actually mean?', a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk. No invoice. No clawback. No data ransom — you get a clean export.' },
+            { q: 'Do you charge for changes to the ERP — today or tomorrow?', a: 'No. New approval rule, new production stage, new QC gate, new report, new integration — every change is included, at go-live and forever. Most ERPs charge $8K–$20K per change order. We never do.' },
+            { q: 'Are there feature tiers or add-on fees?', a: 'No. Every customer gets every feature. No Pro plan, no Enterprise tier, no per-feature licensing. When we ship something new, it is automatically yours.' },
+            { q: 'Why are you so selective about who you onboard?', a: 'Senior engineers and a founder are on every deployment. We have limited capacity each quarter. We only take on customers we know we can win for — because we only get paid when you succeed, and we don\'t want to set anyone up to lose.' },
+            { q: 'Do I get new features as you ship them?', a: 'Yes. We ship new products and features regularly, and they roll out to every customer at no extra cost. Your subscription includes everything we have built and everything we are about to build.' },
           ].map((f, i) => (
             <div key={i} style={{background:'#fff', border:'1px solid var(--border)', borderRadius:'var(--radius-lg)', padding:'22px 24px'}}>
               <div style={{fontFamily:'var(--font-heading)', fontSize:15, fontWeight:700, color:'var(--fg1)', marginBottom:8, letterSpacing:'-0.005em'}}>{f.q}</div>
@@ -197,9 +203,9 @@ function PricingPage() {
     {/* FINAL CTA */}
     <section className="section section-dark final-cta">
       <div className="container">
-        <h2 className="h2">$0 to start. 30 days to decide.</h2>
-        <p className="sub">See your factory running on SimpleGrid before you spend a dollar.</p>
-        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a Call</a>
+        <h2 className="h2">You carry nothing until you see it run.</h2>
+        <p className="sub">Custom ERP, built at our risk. Paid for after it works. Founder-led onboarding, limited capacity each quarter.</p>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a call with the founder</a>
       </div>
     </section>
     </main>

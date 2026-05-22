@@ -21,7 +21,7 @@ function Footer() {
         <div className="footer-top">
           <div>
             <img src="assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid" className="footer-logo" />
-            <p className="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p>
+            <p className="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p>
           </div>
           <div className="footer-cols" style={{gridTemplateColumns: 'repeat(3, 1fr)'}}>
             {cols.map(c => (

@@ -224,10 +224,10 @@ window.RadialBurst = RadialBurst;
 function CycleHeadline() {
   const HEADLINES = [
     // index 0 is the primary; held longer than the others.
-    <React.Fragment key="e">Enterprise-grade ERP<br/>But built around your workflow</React.Fragment>,
-    <React.Fragment key="b">You don't adapt to the system<br/>The system adapts to you</React.Fragment>,
-    <React.Fragment key="c">Your operation<br/>We build the ERP around it<br/>30 days to earn its keep, or walk away</React.Fragment>,
-    <React.Fragment key="a">AI-native ERP<br/>For operators, not accountants</React.Fragment>,
+    <React.Fragment key="e">The only ERP you<br/>try on before you buy</React.Fragment>,
+    <React.Fragment key="b">Custom ERP. Built at our risk.<br/>Paid for after it works.</React.Fragment>,
+    <React.Fragment key="c">We build it. You run it<br/>30 days on your real floor.<br/>If it doesn't move the business, you walk.</React.Fragment>,
+    <React.Fragment key="a">Not free. Not cheap.<br/>Built by an operator who's been on your floor.</React.Fragment>,
   ];
   // Each tile fades smoothly; staggering them by (x+y)*delay gives a diagonal
   // sweep that visually "breaks" the headline into checkboxes and reassembles.
@@ -301,7 +301,7 @@ function Hero() {
               <CycleHeadline />
             </Reveal>
             <Reveal delay={200}>
-              <p className="hero-sub">Your operations runs differently from everyone. That's not a problem - it's what makes you competitive. We build a custom ERP around your exact process.</p>
+              <p className="hero-sub">We don't sell software. We build a custom ERP modelled on how your factory actually runs — your stages, your contractors, your approvals, your costing logic. We carry the cost and the risk of the build. You run it for 30 days on your real floor. If it doesn't move the business, you walk. We earn nothing.</p>
             </Reveal>
             <Reveal delay={400}>
               <div className="hero-cta">
@@ -316,17 +316,18 @@ function Hero() {
           </div>
           <Reveal delay={300}>
             <div className="hero-stat-box" style={{background:'rgba(255,255,255,0.7)',border:'1px solid var(--border)',borderRadius:16,padding:32,textAlign:'center'}}>
-              <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg2)',marginBottom:10}}>Average Deployment Time</div>
+              <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg2)',marginBottom:10}}>Try Before You Buy</div>
               <div style={{fontFamily:'var(--font-heading)',fontSize:80,fontWeight:700,color:'var(--fg1)',lineHeight:1,letterSpacing:'-0.04em',position:'relative'}}>
-                <span>{count}</span>
+                <span>30</span>
                 <span style={{fontSize:24,color:'var(--fg3)',marginLeft:14,fontWeight:500,letterSpacing:'normal'}}>Days</span>
               </div>
+              <div style={{fontSize:14,color:'var(--fg2)',marginTop:14,lineHeight:1.5}}>On your real floor. Real team. Real orders.</div>
               <div style={{marginTop:32,paddingTop:28,borderTop:'1px solid var(--border)'}}>
-                <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg2)',marginBottom:10}}>Implementation Cost</div>
+                <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg2)',marginBottom:10}}>You Carry</div>
                 <div style={{fontFamily:'var(--font-heading)',fontSize:80,fontWeight:700,color:'var(--sg-blue)',lineHeight:1,letterSpacing:'-0.04em',position:'relative'}}>
                   ${cost.toLocaleString()}
                 </div>
-                <div style={{fontSize:14,color:'var(--fg2)',marginTop:14,lineHeight:1.5}}>Pricing kicks in after 1 month of usage.</div>
+                <div style={{fontSize:14,color:'var(--fg2)',marginTop:14,lineHeight:1.5}}>Until you see it run. If it doesn't move the business, you walk.</div>
               </div>
             </div>
           </Reveal>
@@ -543,8 +544,8 @@ function ProblemSection() {
     <section className="section">
       <div className="container">
         <Reveal>
-          <div className="tag">THE PROBLEM</div>
-          <h2 className="h2">Your enterprise runs differently from every other enterprise.</h2>
+          <div className="tag">WHY ERP KEEPS FAILING MID-MARKET</div>
+          <h2 className="h2">You wouldn't buy a t-shirt without trying it on. Why are you buying ERP that way?</h2>
         </Reveal>
         <div className="problem-grid" style={{marginTop:32}} ref={chatRef}>
           {problems.map((p,i) => (

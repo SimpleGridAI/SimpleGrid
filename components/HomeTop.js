@@ -232,13 +232,13 @@ window.RadialBurst = RadialBurst;
 function CycleHeadline() {
   const HEADLINES = [/*#__PURE__*/React.createElement(React.Fragment, {
     key: "e"
-  }, "Enterprise-grade ERP", /*#__PURE__*/React.createElement("br", null), "But built around your workflow"), /*#__PURE__*/React.createElement(React.Fragment, {
+  }, "The only ERP you", /*#__PURE__*/React.createElement("br", null), "try on before you buy"), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "b"
-  }, "You don't adapt to the system", /*#__PURE__*/React.createElement("br", null), "The system adapts to you"), /*#__PURE__*/React.createElement(React.Fragment, {
+  }, "Custom ERP. Built at our risk.", /*#__PURE__*/React.createElement("br", null), "Paid for after it works."), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "c"
-  }, "Your operation", /*#__PURE__*/React.createElement("br", null), "We build the ERP around it", /*#__PURE__*/React.createElement("br", null), "30 days to earn its keep, or walk away"), /*#__PURE__*/React.createElement(React.Fragment, {
+  }, "We build it. You run it", /*#__PURE__*/React.createElement("br", null), "30 days on your real floor.", /*#__PURE__*/React.createElement("br", null), "If it doesn't move the business, you walk."), /*#__PURE__*/React.createElement(React.Fragment, {
     key: "a"
-  }, "AI-native ERP", /*#__PURE__*/React.createElement("br", null), "For operators, not accountants")];
+  }, "Not free. Not cheap.", /*#__PURE__*/React.createElement("br", null), "Built by an operator who's been on your floor.")];
   const TX = 8,
     TY = 3;
   const TILES = React.useMemo(() => Array.from({
@@ -340,7 +340,7 @@ function Hero() {
     delay: 200
   }, /*#__PURE__*/React.createElement("p", {
     className: "hero-sub"
-  }, "Your operations runs differently from everyone. That's not a problem - it's what makes you competitive. We build a custom ERP around your exact process.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "We don't sell software. We build a custom ERP modelled on how your factory actually runs — your stages, your contractors, your approvals, your costing logic. We carry the cost and the risk of the build. You run it for 30 days on your real floor. If it doesn't move the business, you walk. We earn nothing.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 400
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-cta"
@@ -384,7 +384,7 @@ function Hero() {
       color: 'var(--fg2)',
       marginBottom: 10
     }
-  }, "Average Deployment Time"), /*#__PURE__*/React.createElement("div", {
+  }, "Try Before You Buy"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: 'var(--font-heading)',
       fontSize: 80,
@@ -394,7 +394,7 @@ function Hero() {
       letterSpacing: '-0.04em',
       position: 'relative'
     }
-  }, /*#__PURE__*/React.createElement("span", null, count), /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("span", null, 30), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 24,
       color: 'var(--fg3)',
@@ -403,6 +403,13 @@ function Hero() {
       letterSpacing: 'normal'
     }
   }, "Days")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      color: 'var(--fg2)',
+      marginTop: 14,
+      lineHeight: 1.5
+    }
+  }, "On your real floor. Real team. Real orders."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 32,
       paddingTop: 28,
@@ -417,7 +424,7 @@ function Hero() {
       color: 'var(--fg2)',
       marginBottom: 10
     }
-  }, "Implementation Cost"), /*#__PURE__*/React.createElement("div", {
+  }, "You Carry"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: 'var(--font-heading)',
       fontSize: 80,
@@ -434,7 +441,7 @@ function Hero() {
       marginTop: 14,
       lineHeight: 1.5
     }
-  }, "Pricing kicks in after 1 month of usage."))))))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
+  }, "Until you see it run. If it doesn't move the business, you walk."))))))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)
   }));
 }
@@ -938,9 +945,9 @@ function ProblemSection() {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "THE PROBLEM"), /*#__PURE__*/React.createElement("h2", {
+  }, "WHY ERP KEEPS FAILING MID-MARKET"), /*#__PURE__*/React.createElement("h2", {
     className: "h2"
-  }, "Your enterprise runs differently from every other enterprise.")), /*#__PURE__*/React.createElement("div", {
+  }, "You wouldn't buy a t-shirt without trying it on. Why are you buying ERP that way?")), /*#__PURE__*/React.createElement("div", {
     className: "problem-grid",
     style: {
       marginTop: 32

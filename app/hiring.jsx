@@ -7,7 +7,7 @@ const ROLES = [
     type: 'Fractional / part-time',
     datePosted: '2026-03-15',
     comp: 'USD $5,000 / month + equity + uncapped performance upside',
-    summary: 'Open the US market for an AI-native ERP. You bring the operator network, the book of relationships, and the hand-on-the-pen instinct. We bring a product that demos in 24 hours and goes live in 7 days.',
+    summary: 'Open the US market for a custom ERP that ships in days and gets paid for only after it works. You bring the operator network, the book of relationships, and the hand-on-the-pen instinct. We bring a product we build at our risk and a 30-day on-the-floor trial that closes deals on its own.',
     about: [
       'We have proof in India - real factories, real ledgers, real revenue. The US mid-market manufacturer (50-1,500 people) is our next wedge: the customer who has outgrown QuickBooks + Excel but cannot stomach a $500K, 18-month SAP deployment. They are exactly who SimpleGrid was built for.',
       'You will own US revenue strategy, partner with the founder on every early deal, and graduate to running a US team once the motion is repeatable.',
@@ -82,9 +82,9 @@ function HiringHero() {
     <section className="section section-dark" style={{paddingTop:80,paddingBottom:48}}>
       <div className="container">
         <div className="tag" style={{color:'rgba(255,255,255,0.45)'}}>HIRING</div>
-        <h1 className="h1" style={{color:'#fff',maxWidth:880}}>Build the ERP every operator wishes existed.</h1>
+        <h1 className="h1" style={{color:'#fff',maxWidth:880}}>Build a custom ERP at our risk. Get paid only when it works.</h1>
         <p className="lead" style={{color:'rgba(255,255,255,0.7)',maxWidth:760,marginTop:16}}>
-          Lean team. Senior engineers and founders on every customer. Real customers paying us. We are looking for engineers, operators, and go-to-market hires who want to ship a system that gets used - not bought and shelved.
+          Lean team. Senior engineers and a founder on every customer. We carry the build cost and the risk of every deployment — and we win only when the customer wins. We're hiring engineers, operators, and go-to-market hires who want to ship a system that gets used on the floor, not bought and shelved.
         </p>
         <div style={{marginTop:28,display:'flex',gap:12,flexWrap:'wrap'}}>
           <a href="#roles" className="btn btn-lg btn-primary">See open roles</a>
@@ -105,9 +105,9 @@ function WhyThis() {
         </Reveal>
         <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:20,marginTop:28}} className="hire-grid">
           {[
-            { t: 'Operator-grounded', b: 'Our founder ran a $30M manufacturing business. We design for the floor. Every feature is tested against a real plant.' },
-            { t: 'Days, not quarters', b: 'We deploy in 7 days. That cadence runs through the company. Tight loops. Visible work. No 9-month roadmaps.' },
-            { t: 'Small by design', b: 'We will stay under 25 people for as long as we can. Everyone ships. Everyone talks to customers.' },
+            { t: 'Operator-grounded', b: 'Our founder ran a $30M manufacturing business and survived two ERP failures before building this. We design for the floor. Every feature is tested against a real plant.' },
+            { t: 'We carry the risk', b: 'Every customer is built at our cost and only paid for after it works. That commitment runs through the company — tight loops, visible work, no 9-month roadmaps.' },
+            { t: 'Small by design', b: 'We will stay under 25 people for as long as we can. Everyone ships. Everyone talks to customers. Senior engineers and a founder on every deployment.' },
           ].map((c,i) => (
             <Reveal key={i} delay={i * 100}>
               <div style={{background:'#fff',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:24,height:'100%'}}>
