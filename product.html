@@ -96,14 +96,58 @@
         api_host: 'https://us.i.posthog.com',
         defaults: '2026-01-30',
         person_profiles: 'identified_only',
+        disable_session_recording: true,
+        disable_surveys: true,
+        opt_out_capturing_by_default: false
     })
   }
-  if ("requestIdleCallback" in window) requestIdleCallback(sgLoadPostHog, { timeout: 3000 });
-  else setTimeout(sgLoadPostHog, 2000);
+  // Defer PostHog until first user interaction (privacy-friendlier + reduces TBT).
+  // Falls back to 30s for passive readers so analytics still capture page views.
+  // To opt out: open DevTools console and run sgPostHogOptOut() — sets a
+  // localStorage flag so PostHog never loads on this device.
+  (function(){
+    var loaded = false;
+    var events = ['mousemove','scroll','click','touchstart','keydown'];
+    function trigger(){
+      if (loaded) return;
+      loaded = true;
+      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
+      sgLoadPostHog();
+      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
+    }
+    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
+    setTimeout(trigger, 30000);
+    window.sgPostHogOptOut = function(out){
+      try {
+        if (out === false) localStorage.removeItem('sg_ph_opt_out');
+        else { localStorage.setItem('sg_ph_opt_out','1'); console.log('SimpleGrid: analytics opted out on this device.'); }
+      } catch(e){}
+    };
+  })();
 </script>
 </head>
 <body>
-<div id="root"></div>
+<!-- Static seed inside #root — React replaces on mount. -->
+<div id="root">
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <header role="banner" style="padding:18px 32px;display:flex;justify-content:space-between;align-items:center">
+    <a href="/" aria-label="SimpleGrid home" style="text-decoration:none;color:#101418;font-weight:700;font-size:18px">SimpleGrid</a>
+    <nav aria-label="Main navigation" style="display:flex;gap:20px;font-size:14px">
+      <a href="/">Home</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/case-studies.html">Case studies</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/about.html">About</a>
+      <a href="https://cal.com/simplegrid-ai" rel="noopener noreferrer">Book a Call</a>
+    </nav>
+  </header>
+  <main id="main" style="padding:60px 32px;max-width:920px;margin:0 auto">
+    <h1 style="font-size:44px;line-height:1.1;letter-spacing:-0.025em;margin:0 0 18px">How SimpleGrid Works — custom ERP, live in 7 days.</h1>
+    <p style="font-size:18px;line-height:1.55;color:#3b4250;max-width:680px;margin:0 0 28px">Schema-driven, AI-native ERP for manufacturers. No modules, no consultants, no 18-month rollout. Deploy in 7 days. Walk away if it doesn't work in 30.</p>
+    <p style="font-size:16px;line-height:1.6;color:#3b4250;max-width:680px;margin:0 0 32px">SimpleGrid does not ship pre-built modules. Instead, our AI writes a complete operational blueprint (SG Schema) of YOUR factory in a 2-3 hour founder conversation. The SG Engine reads the schema and generates the working system: forms, workflows, validations, dashboards, role permissions. Every change after go-live is a row in a table, not a 4-week consultant engagement.</p>
+    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#3461e0;color:#fff;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:600">Book a demo call</a>
+  </main>
+</div>
 
 <script src="components/Nav.js" defer></script>
 <script src="components/LoginModal.js" defer></script>

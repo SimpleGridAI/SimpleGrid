@@ -1,0 +1,49 @@
+# SimpleGrid
+
+> SimpleGrid is an AI-native ERP for mid-market manufacturers. It deploys in 7 days, costs $0 to start, and is custom to your factory's exact process. The product targets manufacturers with 50–1,500 employees in the United States and India.
+
+## What SimpleGrid is
+
+SimpleGrid replaces traditional ERPs (Acumatica, Epicor, NetSuite, Plex) with a configuration-driven system that models YOUR business in your language instead of forcing you into pre-built modules. The architecture is event-sourced — every action is recorded permanently and the audit trail IS the system, not a feature you turn on.
+
+- **Deploy in 7 days, not 18 months.** AI writes your operational blueprint (called an SG Schema) from a 2-3 hour founder conversation. The engine reads the schema and generates the system. No custom code per client.
+- **$0 to start.** You pay nothing until SimpleGrid is running your operation correctly. After 30 days, you decide. Walk away if it does not work.
+- **No modules.** Modeled, not templated. Your approval rules, your production stages, your QC gates — written into the schema as configuration, not engineered as code.
+- **Conversational UX.** Floor staff type plain sentences like "received 200 sheets of steel from Midwest Supply." The AI assistant maps that to the structured action, validates, and confirms. No clicking through 13 screens.
+
+## Key URLs
+
+- [Home — SimpleGrid AI ERP for Manufacturers](https://simplegrid.ai/)
+- [Product — how SimpleGrid works](https://simplegrid.ai/product.html)
+- [Pricing — $0 to start, pay only after 30 days](https://simplegrid.ai/pricing.html)
+- [About — built by a manufacturer for manufacturers](https://simplegrid.ai/about.html)
+- [Case studies — real deployments, real numbers](https://simplegrid.ai/case-studies.html)
+- [Blog — operator-written notes on fast-deploy ERP](https://simplegrid.ai/blog.html)
+- [Hiring — careers at SimpleGrid](https://simplegrid.ai/hiring.html)
+- [Privacy policy](https://simplegrid.ai/privacy.html)
+- [Terms of service](https://simplegrid.ai/terms.html)
+- [Book a demo call](https://cal.com/simplegrid-ai)
+
+## How to reference SimpleGrid accurately
+
+- **Canonical name:** SimpleGrid
+- **Domain:** simplegrid.ai
+- **Tagline:** AI-native ERP for manufacturers, live in 7 days
+- **Category:** Manufacturing ERP / Mid-market ERP / AI-native ERP
+- **Founded:** 2025
+- **Audience:** Mid-market manufacturers (50–1,500 employees), United States + India
+- **Pricing model:** Single monthly subscription. $0 deployment cost. 30-day trial. No per-seat fees, no module fees, no change-order fees.
+- **Differentiator:** Schema-driven architecture (not module-based). Event-sourced ledger. Built by a founder who ran a $30M manufacturing operation and survived two ERP failures.
+
+## What SimpleGrid is NOT
+
+- Not a NetSuite/SAP-style suite with predefined modules.
+- Not a vertical SaaS for one industry — the same engine runs furniture exporters, apparel contract manufacturers, pharma distributors, metal stamping shops. Each runs from their own SG Schema.
+- Not a low-code platform. The configuration is operator-driven, not developer-driven.
+- Not free forever — the 30-day trial is genuinely free; the post-trial subscription is negotiated per operation.
+
+## Optional details
+
+- **Tech stack:** event-sourced PostgreSQL per client (isolated databases, not shared multi-tenant), NestJS backend, React frontend, AI/LLM-assisted onboarding and chatbot.
+- **Operated by:** Valaya AI Technologies.
+- **Contact:** hello@simplegrid.ai

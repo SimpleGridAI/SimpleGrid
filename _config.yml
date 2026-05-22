@@ -1,0 +1,34 @@
+# GitHub Pages site config.
+# `exclude:` tells Jekyll (which Pages runs by default) to NOT publish these
+# paths. Anything listed here will return 404 on simplegrid.ai.
+# Keep this list in sync with anything sensitive or non-public in the repo.
+
+exclude:
+  # Internal docs / project metadata — should never be public.
+  - CLAUDE.md
+  - AUDIT_SIMPLEGRID.md
+  - audit-artifacts/
+  - .claude/
+  - README.md
+
+  # Build/dev metadata — leaks toolchain + dependencies.
+  - package.json
+  - package-lock.json
+  - babel.config.json
+  - .babelrc
+  - .gitignore
+  - .DS_Store
+  - .vscode/
+  - node_modules/
+  - .node/
+
+  # Build scripts (not needed at runtime; production reads only the .html/.js output).
+  - scripts/
+
+  # JSX source files (the .js compiled versions are what the browser loads).
+  - components/*.jsx
+  - app/*.jsx
+  - "**/*.jsx.bak"
+
+# Note: `/data/blogs.js` is intentionally NOT excluded — it ships to the browser
+# for blog.html (the list page) at runtime.

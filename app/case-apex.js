@@ -81,10 +81,8 @@ function BarsInfographic() {
     ref: ref
   }, /*#__PURE__*/React.createElement("div", {
     className: "infographic-title"
-  }, "BY THE NUMBERS"), /*#__PURE__*/React.createElement("div", {
-    className: "infographic-h",
-    role: "heading",
-    "aria-level": "3"
+  }, "BY THE NUMBERS"), /*#__PURE__*/React.createElement("h2", {
+    className: "infographic-h"
   }, "Three streams. One inventory. Thirty-plus locations."), /*#__PURE__*/React.createElement("div", {
     className: "btn-info-grid"
   }, /*#__PURE__*/React.createElement("div", {
@@ -436,10 +434,8 @@ function ApexCaseStudy() {
     className: "infographic"
   }, /*#__PURE__*/React.createElement("div", {
     className: "infographic-title"
-  }, "THE OPERATION AT A GLANCE"), /*#__PURE__*/React.createElement("div", {
-    className: "infographic-h",
-    role: "heading",
-    "aria-level": "3"
+  }, "THE OPERATION AT A GLANCE"), /*#__PURE__*/React.createElement("h2", {
+    className: "infographic-h"
   }, "A factoryless apparel business, by the numbers."), /*#__PURE__*/React.createElement("div", {
     className: "stat-row"
   }, /*#__PURE__*/React.createElement("div", {

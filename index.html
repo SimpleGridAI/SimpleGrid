@@ -43,7 +43,6 @@
       "@id": "https://simplegrid.ai/#org",
       "name": "SimpleGrid",
       "alternateName": ["SimpleGrid AI", "SimpleGrid.ai", "Simple Grid", "Simple Grid AI", "SimpleGrid ERP", "Simple Grid ERP", "SimpleGridAI", "simplegrid", "simplegridai"],
-      "legalName": "Valaya AI Technologies Pvt. Ltd.",
       "url": "https://simplegrid.ai/",
       "logo": {
         "@type": "ImageObject",
@@ -76,15 +75,7 @@
         "contactType": "sales",
         "availableLanguage": "English",
         "areaServed": ["US", "IN"]
-      }],
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "22nd Cross, 23rd Main Rd, HSR Layout",
-        "addressLocality": "Bengaluru",
-        "addressRegion": "Karnataka",
-        "postalCode": "560102",
-        "addressCountry": "IN"
-      }
+      }]
     },
     {
       "@type": "WebSite",
@@ -170,20 +161,61 @@
         api_host: 'https://us.i.posthog.com',
         defaults: '2026-01-30',
         person_profiles: 'identified_only',
+        disable_session_recording: true,
+        disable_surveys: true,
+        opt_out_capturing_by_default: false
     })
   }
-  if ("requestIdleCallback" in window) requestIdleCallback(sgLoadPostHog, { timeout: 3000 });
-  else setTimeout(sgLoadPostHog, 2000);
+  // Defer PostHog until first user interaction (privacy-friendlier + reduces TBT).
+  // Falls back to 30s for passive readers so analytics still capture page views.
+  // To opt out: open DevTools console and run sgPostHogOptOut() — sets a
+  // localStorage flag so PostHog never loads on this device.
+  (function(){
+    var loaded = false;
+    var events = ['mousemove','scroll','click','touchstart','keydown'];
+    function trigger(){
+      if (loaded) return;
+      loaded = true;
+      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
+      sgLoadPostHog();
+      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
+    }
+    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
+    setTimeout(trigger, 30000);
+    window.sgPostHogOptOut = function(out){
+      try {
+        if (out === false) localStorage.removeItem('sg_ph_opt_out');
+        else { localStorage.setItem('sg_ph_opt_out','1'); console.log('SimpleGrid: analytics opted out on this device.'); }
+      } catch(e){}
+    };
+  })();
 </script>
 </head>
 <body>
-<div id="root"></div>
-
-<!-- Brand disambiguation for crawlers and assistive tech (not visually displayed). -->
-<section class="sr-only" aria-label="About SimpleGrid">
-  <h2>SimpleGrid - also known as Simple Grid, SimpleGrid AI, SimpleGrid.ai, SimpleGrid ERP, Simple Grid ERP, Simple Grid AI</h2>
-  <p>SimpleGrid is an AI-native ERP software for mid-market manufacturers in the United States and India. Common alternative spellings: SimpleGrid AI, Simple Grid AI, SimpleGridAI, simplegrid.ai, SimpleGrid ERP, Simple Grid ERP. Operated by Valaya AI Technologies Pvt. Ltd.</p>
-</section>
+<!-- Static seed content. Lives inside #root so React replaces it on mount —
+     crawlers + AI bots that don't run JS see this real content; humans see
+     the React app once it boots. Brand-spelling variants live in the
+     Organization schema's `alternateName` (above), not in body text. -->
+<div id="root">
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <header role="banner" style="padding:18px 32px;display:flex;justify-content:space-between;align-items:center">
+    <a href="/" aria-label="SimpleGrid home" style="text-decoration:none;color:#101418;font-weight:700;font-size:18px">SimpleGrid</a>
+    <nav aria-label="Main navigation" style="display:flex;gap:20px;font-size:14px">
+      <a href="/product.html">Product</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/case-studies.html">Case studies</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/about.html">About</a>
+      <a href="https://cal.com/simplegrid-ai" rel="noopener noreferrer">Book a Call</a>
+    </nav>
+  </header>
+  <main id="main" style="padding:60px 32px;max-width:920px;margin:0 auto">
+    <h1 style="font-size:44px;line-height:1.1;letter-spacing:-0.025em;margin:0 0 18px">AI-native ERP for manufacturers, live in 7 days.</h1>
+    <p style="font-size:18px;line-height:1.55;color:#3b4250;max-width:680px;margin:0 0 28px">SimpleGrid replaces traditional ERPs with a custom system modelled to your factory's exact process. $0 to start. Live in 7 days. Walk away if it doesn't work in 30.</p>
+    <p style="font-size:16px;line-height:1.6;color:#3b4250;max-width:680px;margin:0 0 32px">Built for mid-market manufacturers (50–1,500 employees) in the United States and India. Schema-driven architecture means we model your business in your language instead of forcing you into pre-built modules. Event-sourced ledger means every action is permanent — the audit trail IS the system.</p>
+    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#3461e0;color:#fff;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:600">Book a demo call</a>
+  </main>
+</div>
 
 <script src="components/Nav.js" defer></script>
 <script src="components/LoginModal.js" defer></script>

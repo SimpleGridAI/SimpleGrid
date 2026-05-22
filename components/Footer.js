@@ -121,12 +121,6 @@ function Footer() {
     l: 'Book a call',
     href: 'https://cal.com/simplegrid-ai',
     external: true
-  }, {
-    kind: 'pin',
-    l: '22nd Cross, 23rd Main Rd, HSR Layout\nBengaluru, Karnataka 560102',
-    isAddress: true,
-    href: 'https://www.google.com/maps/search/?api=1&query=22nd+Cross+Road,+23rd+Main+Road,+HSR+Layout,+Bengaluru,+Karnataka+560102',
-    external: true
   }];
   return /*#__PURE__*/React.createElement("footer", {
     className: "footer",
@@ -273,7 +267,7 @@ function Footer() {
     kind: x.kind
   }), /*#__PURE__*/React.createElement("span", null, x.l)))))), /*#__PURE__*/React.createElement("div", {
     className: "footer-bottom"
-  }, /*#__PURE__*/React.createElement("div", null, "\xA9 2026 Valaya AI Technologies Pvt. Ltd."), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, "\xA9 2026 Valaya AI Technologies"), /*#__PURE__*/React.createElement("div", {
     className: "footer-legal"
   }, /*#__PURE__*/React.createElement("a", {
     href: px('privacy.html')

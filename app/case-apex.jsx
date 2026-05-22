@@ -33,7 +33,7 @@ function BarsInfographic() {
   return (
     <div className="btn-info" ref={ref}>
       <div className="infographic-title">BY THE NUMBERS</div>
-      <div className="infographic-h" role="heading" aria-level="3">Three streams. One inventory. Thirty-plus locations.</div>
+      <h2 className="infographic-h">Three streams. One inventory. Thirty-plus locations.</h2>
 
       <div className="btn-info-grid">
         {/* Volume by stream */}
@@ -187,7 +187,7 @@ function ApexCaseStudy() {
       {/* INFOGRAPHIC 1 - operation at a glance */}
       <div className="infographic">
         <div className="infographic-title">THE OPERATION AT A GLANCE</div>
-        <div className="infographic-h" role="heading" aria-level="3">A factoryless apparel business, by the numbers.</div>
+        <h2 className="infographic-h">A factoryless apparel business, by the numbers.</h2>
 
         <div className="stat-row">
           <div className="stat-cell">

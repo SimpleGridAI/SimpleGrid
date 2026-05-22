@@ -43,7 +43,6 @@ function Footer() {
     { kind: 'mail',     l: 'hello@simplegrid.ai', href: 'mailto:hello@simplegrid.ai' },
     { kind: 'linkedin', l: 'LinkedIn',            href: 'https://www.linkedin.com/company/simplegridai', external: true },
     { kind: 'calendar', l: 'Book a call',         href: 'https://cal.com/simplegrid-ai', external: true },
-    { kind: 'pin',      l: '22nd Cross, 23rd Main Rd, HSR Layout\nBengaluru, Karnataka 560102', isAddress: true, href: 'https://www.google.com/maps/search/?api=1&query=22nd+Cross+Road,+23rd+Main+Road,+HSR+Layout,+Bengaluru,+Karnataka+560102', external: true },
   ];
 
   return (
@@ -107,7 +106,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <div>© 2026 Valaya AI Technologies Pvt. Ltd.</div>
+          <div>© 2026 Valaya AI Technologies</div>
           <div className="footer-legal">
             <a href={px('privacy.html')}>Privacy Policy</a><a href={px('terms.html')}>Terms</a>
           </div>

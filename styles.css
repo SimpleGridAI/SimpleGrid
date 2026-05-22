@@ -414,6 +414,12 @@ img { max-width: 100%; display: block; }
 .post-content h2:first-child { margin-top: 0; }
 .post-content p { font-size: 18px; color: var(--fg2); line-height: 1.7; margin: 0 0 16px; max-width: 100%; }
 .post-content strong { color: var(--fg1); }
+/* Inline links inside body text get an underline so they don't rely on color alone
+   (WCAG 1.4.1 / Lighthouse link-in-text-block). Same for legal pages. */
+.post-content p a, .post-content li a,
+.legal-page p a, .legal-page li a { color: var(--sg-blue); text-decoration: underline; text-underline-offset: 2px; }
+.post-content p a:hover, .post-content li a:hover,
+.legal-page p a:hover, .legal-page li a:hover { color: var(--sg-blue-dark); }
 .post-content, .post-content p, .post-content h2, .post-content li, .post-content figure, .post-content figcaption { overflow-wrap: anywhere; word-break: normal; }
 .post-content > div, .post-content > p, .post-content > h2, .post-content > figure, .post-content > [class^="pi-"] { max-width: 100%; }
 .post-pager { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); gap: 20px; }

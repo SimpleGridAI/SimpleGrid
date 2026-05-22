@@ -69,10 +69,34 @@
         api_host: 'https://us.i.posthog.com',
         defaults: '2026-01-30',
         person_profiles: 'identified_only',
+        disable_session_recording: true,
+        disable_surveys: true,
+        opt_out_capturing_by_default: false
     })
   }
-  if ("requestIdleCallback" in window) requestIdleCallback(sgLoadPostHog, { timeout: 3000 });
-  else setTimeout(sgLoadPostHog, 2000);
+  // Defer PostHog until first user interaction (privacy-friendlier + reduces TBT).
+  // Falls back to 30s for passive readers so analytics still capture page views.
+  // To opt out: open DevTools console and run sgPostHogOptOut() — sets a
+  // localStorage flag so PostHog never loads on this device.
+  (function(){
+    var loaded = false;
+    var events = ['mousemove','scroll','click','touchstart','keydown'];
+    function trigger(){
+      if (loaded) return;
+      loaded = true;
+      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
+      sgLoadPostHog();
+      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
+    }
+    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
+    setTimeout(trigger, 30000);
+    window.sgPostHogOptOut = function(out){
+      try {
+        if (out === false) localStorage.removeItem('sg_ph_opt_out');
+        else { localStorage.setItem('sg_ph_opt_out','1'); console.log('SimpleGrid: analytics opted out on this device.'); }
+      } catch(e){}
+    };
+  })();
 </script>
 <script>
   // Tells Nav to resolve root-relative paths with ../../ since this page is
@@ -128,6 +152,7 @@
   </nav>
 </div>
 
+<main id="main">
 <section class="post-header">
   <div class="container-sm">
     <a href="../../blog.html" style="font-size:15px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
@@ -183,6 +208,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <footer class="footer" role="contentinfo">
   <div class="container">
