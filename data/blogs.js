@@ -5,7 +5,7 @@ const BLOG_DATA = [
     "cat": "Product Deep-Dive",
     "readTime": "6 min",
     "slug": "event-sourcing-why-simplegrid-stores-everything-that-ever-happened",
-    "datePublished": "2026-02-10",
+    "datePublished": "2026-03-25",
     "images": [
       {
         "src": "assets/blog/event_sourcing_landscape_2.png",
@@ -23,7 +23,7 @@ const BLOG_DATA = [
     "cat": "Product Deep-Dive",
     "readTime": "6 min",
     "slug": "sg-schema-why-your-erp-should-speak-your-language",
-    "datePublished": "2026-02-14",
+    "datePublished": "2026-03-29",
     "images": [
       {
         "src": "assets/blog/blog2_sg_schema_same_word_different_operations.png",
@@ -39,7 +39,7 @@ const BLOG_DATA = [
     "cat": "Product Deep-Dive",
     "readTime": "6 min",
     "slug": "entity-roots-the-building-blocks-of-an-sg-schema-erp",
-    "datePublished": "2026-02-18",
+    "datePublished": "2026-04-01",
     "images": [
       {
         "src": "assets/blog/blog3_entity_roots_one_root_many_members.png",
@@ -55,7 +55,7 @@ const BLOG_DATA = [
     "cat": "Product Deep-Dive",
     "readTime": "5 min",
     "slug": "multi-tenant-architecture-how-simplegrid-runs-100-clients-on-one-platform",
-    "datePublished": "2026-02-22"
+    "datePublished": "2026-04-05"
   },
   {
     "id": 5,
@@ -63,7 +63,7 @@ const BLOG_DATA = [
     "cat": "Product Deep-Dive",
     "readTime": "5 min",
     "slug": "how-simplegrid-makes-erp-customization-take-minutes-not-months",
-    "datePublished": "2026-02-26"
+    "datePublished": "2026-04-08"
   },
   {
     "id": 6,
@@ -71,7 +71,7 @@ const BLOG_DATA = [
     "cat": "Product Deep-Dive / Industry Critique",
     "readTime": "6 min",
     "slug": "module-based-erp-vs-sg-schema-erp-two-architectures-two-outcomes",
-    "datePublished": "2026-03-02",
+    "datePublished": "2026-04-12",
     "images": [
       {
         "src": "assets/blog/blog6_module_vs_sg_schema_cover.jpg",
@@ -87,7 +87,7 @@ const BLOG_DATA = [
     "cat": "Build in Public",
     "readTime": "6 min",
     "slug": "how-we-built-an-erp-chatbot-with-claude-no-rag-and-full-context",
-    "datePublished": "2026-03-06"
+    "datePublished": "2026-04-15"
   },
   {
     "id": 8,
@@ -95,7 +95,7 @@ const BLOG_DATA = [
     "cat": "Operator Insights / Product",
     "readTime": "5 min",
     "slug": "why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point",
-    "datePublished": "2026-03-10"
+    "datePublished": "2026-04-19"
   },
   {
     "id": 9,
@@ -103,7 +103,7 @@ const BLOG_DATA = [
     "cat": "Operator Insights",
     "readTime": "6 min",
     "slug": "how-to-calculate-true-landed-cost-per-sku-and-why-most-manufacturers-cannot",
-    "datePublished": "2026-03-14"
+    "datePublished": "2026-04-22"
   },
   {
     "id": 10,
@@ -111,7 +111,7 @@ const BLOG_DATA = [
     "cat": "Culture",
     "readTime": "5 min",
     "slug": "inside-simplegrid-every-factory-floor-is-different-that-is-the-whole-point",
-    "datePublished": "2026-03-18"
+    "datePublished": "2026-04-26"
   },
   {
     "id": 11,
@@ -119,7 +119,7 @@ const BLOG_DATA = [
     "cat": "Industry Critique",
     "readTime": "5 min",
     "slug": "why-mid-market-manufacturers-are-the-most-underserved-businesses-in-enterprise-software",
-    "datePublished": "2026-03-22"
+    "datePublished": "2026-04-29"
   },
   {
     "id": 12,
@@ -127,7 +127,7 @@ const BLOG_DATA = [
     "cat": "Operator Insights",
     "readTime": "5 min",
     "slug": "the-real-cost-of-running-your-factory-on-spreadsheets",
-    "datePublished": "2026-03-26"
+    "datePublished": "2026-05-03"
   },
   {
     "id": 13,
@@ -135,7 +135,7 @@ const BLOG_DATA = [
     "cat": "Industry Critique",
     "readTime": "5 min",
     "slug": "why-your-erp-vendor-charges-you-for-every-change-and-how-to-stop-paying",
-    "datePublished": "2026-03-30"
+    "datePublished": "2026-05-06"
   },
   {
     "id": 14,
@@ -143,7 +143,7 @@ const BLOG_DATA = [
     "cat": "Industry Critique / Product",
     "readTime": "5 min",
     "slug": "how-ai-changed-erp-deployment-not-features-deployment",
-    "datePublished": "2026-04-03"
+    "datePublished": "2026-05-10"
   },
   {
     "id": 15,
@@ -151,7 +151,7 @@ const BLOG_DATA = [
     "cat": "Operator Insights",
     "readTime": "5 min",
     "slug": "what-happens-when-your-erp-cannot-keep-up-with-your-business",
-    "datePublished": "2026-04-07"
+    "datePublished": "2026-05-13"
   },
   {
     "id": 16,
@@ -159,7 +159,7 @@ const BLOG_DATA = [
     "cat": "Operator Insights",
     "readTime": "4 min",
     "slug": "why-your-warehouse-manager-should-be-your-erp-s-first-user",
-    "datePublished": "2026-04-11"
+    "datePublished": "2026-05-17"
   },
   {
     "id": 17,
@@ -167,6 +167,6 @@ const BLOG_DATA = [
     "cat": "Industry Critique",
     "readTime": "5 min",
     "slug": "the-myth-of-erp-best-practices-your-operation-is-not-generic",
-    "datePublished": "2026-04-15"
+    "datePublished": "2026-05-22"
   }
 ];
