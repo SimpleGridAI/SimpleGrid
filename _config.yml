@@ -7,7 +7,10 @@ exclude:
   # Internal docs / project metadata — should never be public.
   - CLAUDE.md
   - AUDIT_SIMPLEGRID.md
+  - AUDIT_FIXES_TODO.md
+  - SEO_STRATEGY_SIMPLEGRID.md
   - audit-artifacts/
+  - seo-research/
   - .claude/
   - README.md
 
