@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Free Quality Inspection Checklist Generator for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Free browser-based quality inspection checklist generator for US manufacturers. Per-batch QC with pass/fail, criterion, actual reading, and signed PDF report.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/quality-inspection-checklist/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/quality-inspection-checklist/"><meta property="og:title" content="Free Quality Inspection Checklist Generator"><meta property="og:description" content="QC checklist with pass/fail. Signed PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Free Quality Inspection Checklist Generator","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/quality-inspection-checklist/","description":"Free browser-based QC inspection checklist for manufacturers. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Free Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Quality Inspection Checklist","item":"https://simplegrid.ai/tools/quality-inspection-checklist/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PGZBXNF51L');(function(){var loaded=false;var events=['mousemove','scroll','click','touchstart','keydown'];function trigger(){if(loaded)return;loaded=true;try{if(localStorage.getItem('sg_ph_opt_out')==='1')return;}catch(e){}var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';document.head.appendChild(s);events.forEach(function(e){document.removeEventListener(e,trigger,true);});}events.forEach(function(e){document.addEventListener(e,trigger,{once:true,passive:true,capture:true});});setTimeout(trigger,30000);})();</script>
+<script src="../tools.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../../pricing.html" class="nav-link">Pricing</a><a href="../" class="nav-link active">Tools</a><a href="../../case-studies.html" class="nav-link">Case studies</a><a href="../../blog.html" class="nav-link">Blog</a></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a Call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All free tools</a>
+    <h1>Free Quality Inspection Checklist Generator.</h1>
+    <p class="lead">Build a per-batch QC checklist for incoming material, in-process inspection, or final QC. Capture criterion, target, actual reading, and pass/fail per item. Signed PDF report for your records.</p>
+  </div></section>
+
+  <section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Inspection info</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label>Inspection #</label><input id="ins-number" type="text"></div>
+        <div class="tool-field"><label>Date</label><input id="ins-date" type="date"></div>
+        <div class="tool-field"><label>Inspection type</label>
+          <select id="ins-type"><option>Incoming material</option><option>In-process</option><option>Final QC</option><option>Pre-shipment</option><option>Customer return</option></select>
+        </div>
+        <div class="tool-field"><label>Product / SKU</label><input id="ins-product" type="text" placeholder="DT-4SEAT-001"></div>
+        <div class="tool-field"><label>Batch / lot #</label><input id="ins-batch" type="text" placeholder="LOT-2026-A12"></div>
+        <div class="tool-field"><label>Quantity inspected</label><input id="ins-qty" type="number" min="0" placeholder="50"></div>
+        <div class="tool-field"><label>Inspector name</label><input id="ins-inspector" type="text" placeholder="Sarah K."></div>
+        <div class="tool-field"><label>Job / PO reference</label><input id="ins-job" type="text" placeholder="J-0042"></div>
+        <div class="tool-field"><label>Customer / Vendor</label><input id="ins-party" type="text" placeholder="Northwoods Furniture"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Inspection items</h2>
+      <div class="tool-actions" style="margin-bottom:14px"><button type="button" id="add-row" class="btn-add">＋ Add inspection item</button></div>
+      <div id="qc-list">
+        <div class="qc-row header">
+          <div>Criterion / characteristic</div>
+          <div>Target / spec</div>
+          <div>Actual</div>
+          <div>Pass/Fail</div>
+          <div>Notes</div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card" id="summary-card" style="background:linear-gradient(180deg,var(--sg-blue-light) 0%,#fff 100%)">
+      <h2>Summary</h2>
+      <div id="qc-summary" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px"></div>
+      <div class="tool-form-grid" style="margin-top:18px">
+        <div class="tool-field"><label>Overall disposition</label>
+          <select id="ins-disp"><option>Accepted</option><option>Accepted with rework</option><option>Rejected</option><option>Hold for engineering</option></select>
+        </div>
+        <div class="tool-field"><label>Reviewed by / supervisor</label><input id="ins-supervisor" type="text"></div>
+        <div class="tool-field full"><label>Overall comments</label><textarea id="ins-notes" rows="3" placeholder="Batch acceptable. 3 pieces flagged for rework — minor surface defects. Notify rework cell."></textarea></div>
+      </div>
+    </div>
+
+    <div class="tool-actions" style="justify-content:flex-end;gap:10px;flex-wrap:wrap">
+      <button type="button" id="export-csv" class="btn-secondary">Export CSV</button>
+      <button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Inspection Report</button>
+    </div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When the clipboard becomes a problem</div>
+      <h2>SimpleGrid turns every inspection into an event that closes the loop.</h2>
+      <p>A QC failure on the floor automatically holds the batch, notifies engineering, and logs the rejection cost to the right job. No paperwork to chase. No batches shipped that shouldn't have been.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a 15-min demo</a>
+    </div>
+  </div></section>
+
+  <section class="tool-seo"><div class="container-sm">
+    <h2>Inspection types we cover</h2>
+    <ul>
+      <li><strong>Incoming material</strong> — verify the raw material from your vendor matches the PO spec.</li>
+      <li><strong>In-process</strong> — between operations, catch defects before they propagate.</li>
+      <li><strong>Final QC</strong> — last gate before goods leave the floor.</li>
+      <li><strong>Pre-shipment</strong> — verify packaging, labeling, count before the truck arrives.</li>
+      <li><strong>Customer return</strong> — RMA inspection on returned goods.</li>
+    </ul>
+    <h2>FAQ</h2>
+    <details><summary>Can I save my checklist as a template?</summary><p>Not in this free version — each session starts fresh. SimpleGrid lets you save inspection templates per product / per operation, so the same checklist auto-applies to every batch.</p></details>
+    <details><summary>What if I need photos in the inspection?</summary><p>This tool is text-only. Photo attachment + signature capture is part of SimpleGrid's QC module. <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">Book a demo →</a></p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Free tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>© 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('ins-number').value=nextDocNumber('QC','qc');
+  document.getElementById('ins-date').value=todayISO();
+  const list=document.getElementById('qc-list');
+  function addRow(p={}){
+    const row=document.createElement('div');row.className='qc-row';
+    row.innerHTML=`<input type="text" data-f="crit" placeholder="Surface finish, length, weight..." value="${p.crit||''}">
+      <input type="text" data-f="target" placeholder="2.0 ± 0.1 in" value="${p.target||''}">
+      <input type="text" data-f="actual" placeholder="2.02" value="${p.actual||''}">
+      <select class="pf" data-f="pf"><option ${p.pf==='Pass'?'selected':''}>Pass</option><option ${p.pf==='Fail'?'selected':''}>Fail</option><option ${p.pf==='N/A'?'selected':''}>N/A</option></select>
+      <input type="text" data-f="notes" placeholder="Notes" value="${p.notes||''}">
+      <button type="button" class="row-del" style="background:transparent;border:none;color:var(--fg3);cursor:pointer;font-size:18px">×</button>`;
+    list.appendChild(row);
+    row.querySelector('.row-del').addEventListener('click',()=>{row.remove();updateSummary();});
+    row.querySelectorAll('input,select').forEach(i=>i.addEventListener('input',updateSummary));
+  }
+  function rows(){return Array.from(list.querySelectorAll('.qc-row:not(.header)')).map(r=>({crit:r.querySelector('[data-f="crit"]').value,target:r.querySelector('[data-f="target"]').value,actual:r.querySelector('[data-f="actual"]').value,pf:r.querySelector('[data-f="pf"]').value,notes:r.querySelector('[data-f="notes"]').value}));}
+  function updateSummary(){
+    const rs=rows().filter(r=>r.crit||r.actual);
+    const total=rs.length;
+    const pass=rs.filter(r=>r.pf==='Pass').length;
+    const fail=rs.filter(r=>r.pf==='Fail').length;
+    const na=rs.filter(r=>r.pf==='N/A').length;
+    const passPct=total>0?Math.round((pass/(total-na||1))*100):0;
+    document.getElementById('qc-summary').innerHTML=`
+      <div style="padding:14px;background:#fff;border-radius:10px;text-align:center"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg3)">Total items</div><div style="font-family:var(--font-heading);font-size:28px;font-weight:700">${total}</div></div>
+      <div style="padding:14px;background:#fff;border-radius:10px;text-align:center"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg3)">Pass</div><div style="font-family:var(--font-heading);font-size:28px;font-weight:700;color:var(--sg-green)">${pass}</div></div>
+      <div style="padding:14px;background:#fff;border-radius:10px;text-align:center"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg3)">Fail</div><div style="font-family:var(--font-heading);font-size:28px;font-weight:700;color:var(--sg-red)">${fail}</div></div>
+      <div style="padding:14px;background:#fff;border-radius:10px;text-align:center"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg3)">Pass rate</div><div style="font-family:var(--font-heading);font-size:28px;font-weight:700;color:${passPct>=95?'var(--sg-green)':passPct>=80?'var(--fg1)':'var(--sg-red)'}">${passPct}%</div></div>`;
+  }
+  document.getElementById('add-row').addEventListener('click',()=>{addRow();updateSummary();});
+  // Seed friendly defaults
+  addRow({crit:'Dimensional check — length',target:'48 ± 0.5 in',actual:'',pf:'Pass'});
+  addRow({crit:'Surface finish — visual',target:'Smooth, no scratches',actual:'',pf:'Pass'});
+  addRow({crit:'Weight',target:'24–26 lbs',actual:'',pf:'Pass'});
+  addRow({crit:'Hardware torque',target:'15 ft-lb ± 1',actual:'',pf:'Pass'});
+  updateSummary();
+
+  document.getElementById('export-csv').addEventListener('click',()=>{
+    const rs=rows();
+    sgDownloadCSV((document.getElementById('ins-number').value||'inspection')+'.csv',[
+      ['Inspection',document.getElementById('ins-number').value],
+      ['Date',document.getElementById('ins-date').value],
+      ['Type',document.getElementById('ins-type').value],
+      ['Product',document.getElementById('ins-product').value],
+      ['Batch',document.getElementById('ins-batch').value],
+      ['Quantity',document.getElementById('ins-qty').value],
+      ['Inspector',document.getElementById('ins-inspector').value],
+      [],
+      ['Criterion','Target','Actual','P/F','Notes'],
+      ...rs.map(r=>[r.crit,r.target,r.actual,r.pf,r.notes]),
+      [],
+      ['Disposition',document.getElementById('ins-disp').value]
+    ]);
+  });
+
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    const rs=rows().filter(r=>r.crit||r.actual);
+    if(rs.length===0){alert('Add at least one inspection item.');return;}
+    sgBuildPdf({
+      title:'Quality Inspection Report', docNumberLabel:'Inspection #', docNumber:document.getElementById('ins-number').value,
+      date:document.getElementById('ins-date').value,
+      terms:document.getElementById('ins-type').value + '  ·  Disposition: ' + document.getElementById('ins-disp').value,
+      fromLabel:'INSPECTED',
+      from:['Product: '+document.getElementById('ins-product').value, 'Batch: '+document.getElementById('ins-batch').value, 'Quantity: '+document.getElementById('ins-qty').value, 'Job ref: '+document.getElementById('ins-job').value, 'Customer/Vendor: '+document.getElementById('ins-party').value],
+      toLabel:'INSPECTED BY',
+      to:['Inspector: '+document.getElementById('ins-inspector').value, 'Reviewed: '+(document.getElementById('ins-supervisor').value||''), '', 'Date: '+fmtDateUS(document.getElementById('ins-date').value)],
+      itemColumns:['Criterion','Target','Actual','P/F','Notes'],
+      items:rs, itemRowMapper:r=>[r.crit,r.target,r.actual,r.pf,r.notes],
+      itemColumnStyles:{0:{cellWidth:140},1:{cellWidth:100},2:{cellWidth:80},3:{cellWidth:40,halign:'center'},4:{cellWidth:'auto'}},
+      totals:[
+        {label:'Items inspected', value:rs.length},
+        {label:'Passed', value:rs.filter(r=>r.pf==='Pass').length},
+        {label:'Failed', value:rs.filter(r=>r.pf==='Fail').length, bold:true}
+      ],
+      notes:(document.getElementById('ins-notes').value||'')+'\n\nDisposition: '+document.getElementById('ins-disp').value+'\n\nInspector signature: __________________________   Date: ____________\nSupervisor signature: __________________________   Date: ____________',
+      filename:(document.getElementById('ins-number').value||'inspection').replace(/\W+/g,'_')+'.pdf'
+    });
+  });
+});
+</script>
+</body>
+</html>

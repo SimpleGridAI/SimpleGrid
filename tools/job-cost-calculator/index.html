@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Free Job Cost Calculator for Manufacturers — Margin + Break-Even | SimpleGrid</title>
+<meta name="description" content="Free job cost calculator for US manufacturers. Materials + labor + machine + overhead = true job cost. See margin at your selling price, or get a suggested price for your target margin.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/job-cost-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/job-cost-calculator/"><meta property="og:title" content="Free Job Cost Calculator for Manufacturers"><meta property="og:description" content="Materials + labor + machine + overhead = true job cost. Margin check. PDF cost report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Free Job Cost Calculator for Manufacturers","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/job-cost-calculator/","description":"Free browser-based job cost calculator. Materials, labor, machine, overhead. Margin + suggested price.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Free Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Job Cost Calculator","item":"https://simplegrid.ai/tools/job-cost-calculator/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I calculate true job cost in manufacturing?","acceptedAnswer":{"@type":"Answer","text":"Add direct materials + direct labor (hours × loaded rate) + machine time (hours × rate) + subcontractor cost + manufacturing overhead. Manufacturing overhead is typically applied as a percentage of direct labor or as an hourly burden rate."}},
+{"@type":"Question","name":"What overhead rate should I use?","acceptedAnswer":{"@type":"Answer","text":"For US mid-market manufacturers it's typically 15-40% of direct labor + machine costs. The right number depends on facility cost, indirect labor, utilities, equipment depreciation, and quality/QC overhead. Use your trailing 12-month figures, not industry averages."}},
+{"@type":"Question","name":"How do I know if a job is profitable?","acceptedAnswer":{"@type":"Answer","text":"Calculate total cost, subtract from selling price, divide by selling price for margin %. Anything under 15% gross margin on a manufactured product is usually unprofitable after you account for sales, admin, and bad debt. 25-40% is healthy mid-market manufacturing margin."}}
+]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PGZBXNF51L');(function(){var loaded=false;var events=['mousemove','scroll','click','touchstart','keydown'];function trigger(){if(loaded)return;loaded=true;try{if(localStorage.getItem('sg_ph_opt_out')==='1')return;}catch(e){}var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';document.head.appendChild(s);events.forEach(function(e){document.removeEventListener(e,trigger,true);});}events.forEach(function(e){document.addEventListener(e,trigger,{once:true,passive:true,capture:true});});setTimeout(trigger,30000);})();</script>
+<script src="../tools.js" defer></script>
+<style>
+.cost-summary { background: linear-gradient(180deg, var(--sg-blue-light) 0%, #fff 100%); border: 1px solid var(--border); border-radius: 14px; padding: 28px; margin-top: 24px; }
+.cost-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--sg-off-white); font-size: 15px; color: var(--fg2); }
+.cost-row.total { border-top: 2px solid var(--fg1); margin-top: 8px; padding-top: 14px; font-size: 22px; font-weight: 700; color: var(--fg1); border-bottom: none; }
+.cost-row strong { color: var(--fg1); font-variant-numeric: tabular-nums; font-weight: 700; }
+.margin-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-top: 16px; }
+.margin-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.margin-stat { padding: 14px; background: var(--sg-off-white); border-radius: 10px; text-align: center; }
+.margin-stat .label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+.margin-stat .value { font-family: var(--font-heading); font-size: 26px; font-weight: 700; color: var(--fg1); letter-spacing: -0.015em; font-variant-numeric: tabular-nums; }
+.margin-stat .value.positive { color: var(--sg-green); }
+.margin-stat .value.negative { color: var(--sg-red); }
+@media (max-width: 600px) { .margin-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../../pricing.html" class="nav-link">Pricing</a><a href="../" class="nav-link active">Tools</a><a href="../../case-studies.html" class="nav-link">Case studies</a><a href="../../blog.html" class="nav-link">Blog</a></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a Call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All free tools</a>
+    <h1>Free Job Cost Calculator — true cost + margin + suggested price.</h1>
+    <p class="lead">Materials + direct labor + machine time + subcontractor + overhead = true job cost. Then check your margin at your selling price, or work backwards from a target margin to a suggested price. PDF cost report ready for your records.</p>
+  </div></section>
+
+  <section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Job info</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label>Job number / name</label><input id="job-name" type="text" placeholder="J-2026-0042 / Dining table run"></div>
+        <div class="tool-field"><label>Customer</label><input id="job-customer" type="text" placeholder="Northwoods Furniture"></div>
+        <div class="tool-field"><label>Quantity (units)</label><input id="job-qty" type="number" min="1" value="100" step="1"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Direct materials</h2>
+      <table class="tool-items" id="mat-table">
+        <thead><tr><th>Material</th><th class="num" style="width:100px">Qty</th><th style="width:70px">Unit</th><th class="num" style="width:110px">Unit cost</th><th class="num" style="width:120px">Total</th><th class="col-actions"></th></tr></thead>
+        <tbody id="mat-body"></tbody>
+      </table>
+      <div class="tool-actions"><button type="button" id="add-mat" class="btn-add">＋ Add material</button></div>
+      <p class="tool-note">Include only materials directly consumed in the job. Add a 2–5 % allowance for normal scrap if your costing doesn't already include it.</p>
+    </div>
+
+    <div class="tool-card"><h2>Direct labor</h2>
+      <table class="tool-items" id="lab-table">
+        <thead><tr><th>Operation / role</th><th class="num" style="width:100px">Hours</th><th class="num" style="width:120px">Loaded rate / hr</th><th class="num" style="width:120px">Total</th><th class="col-actions"></th></tr></thead>
+        <tbody id="lab-body"></tbody>
+      </table>
+      <div class="tool-actions"><button type="button" id="add-lab" class="btn-add">＋ Add labor line</button></div>
+      <p class="tool-note">Loaded rate = wage + payroll taxes + benefits + worker's-comp. US mid-market machining/assembly typically $28–$45 loaded.</p>
+    </div>
+
+    <div class="tool-card"><h2>Machine time</h2>
+      <table class="tool-items" id="mach-table">
+        <thead><tr><th>Machine / cell</th><th class="num" style="width:100px">Hours</th><th class="num" style="width:120px">Rate / hr</th><th class="num" style="width:120px">Total</th><th class="col-actions"></th></tr></thead>
+        <tbody id="mach-body"></tbody>
+      </table>
+      <div class="tool-actions"><button type="button" id="add-mach" class="btn-add">＋ Add machine line</button></div>
+      <p class="tool-note">Machine rate = depreciation + power + tooling + maintenance per hour. CNC mill typically $25–$80/hr; press brake $40–$120/hr; injection mold $60–$200/hr.</p>
+    </div>
+
+    <div class="tool-card"><h2>Other costs</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label>Subcontractor / outside ops ($)</label><input id="job-sub" type="number" step="0.01" min="0" value="0"></div>
+        <div class="tool-field"><label>Tooling / setup ($)</label><input id="job-setup" type="number" step="0.01" min="0" value="0"></div>
+        <div class="tool-field"><label>Overhead rate (%)</label><input id="job-overhead" type="number" step="0.1" min="0" max="200" value="25"></div>
+      </div>
+      <p class="tool-note">Overhead = facility cost + indirect labor + utilities + QC + admin allocated to production. 15–40 % is the typical mid-market range.</p>
+    </div>
+
+    <div class="tool-card"><h2>Selling price + margin</h2>
+      <div class="tool-form-grid">
+        <div class="tool-field"><label>Selling price per unit ($)</label><input id="job-price" type="number" step="0.01" min="0" placeholder="0.00"></div>
+        <div class="tool-field"><label>Target margin (%) <span class="hint">if you want a suggested price</span></label><input id="job-target-margin" type="number" step="0.1" min="0" max="99" placeholder="30"></div>
+      </div>
+    </div>
+
+    <div class="cost-summary" id="cost-summary"></div>
+
+    <div class="margin-card" id="margin-card" style="display:none">
+      <h3 style="margin:0 0 14px;font-family:var(--font-heading);font-size:18px;letter-spacing:-0.01em">At your selling price</h3>
+      <div class="margin-row" id="margin-row"></div>
+    </div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px">
+      <button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Cost Report</button>
+    </div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">From spreadsheet job costing to live job costing</div>
+      <h2>SimpleGrid attaches every cost to the job as it happens — and tells you margin in real time.</h2>
+      <p>Material issued from stores, contractor settlement, rejection rework — every event posts to the job. You see margin live, not after month-end.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a 15-min demo</a>
+    </div>
+  </div></section>
+
+  <section class="tool-seo"><div class="container-sm">
+    <h2>How to calculate true job cost in manufacturing</h2>
+    <p>True job cost has four direct inputs and one indirect:</p>
+    <ul>
+      <li><strong>Direct materials</strong> — anything physically in the finished product. Include normal scrap allowance.</li>
+      <li><strong>Direct labor</strong> — hours that touch the job, at the <em>loaded</em> rate (wage + taxes + benefits + worker's comp).</li>
+      <li><strong>Machine time</strong> — hours on each machine at its full hourly rate (depreciation + power + tooling + maintenance).</li>
+      <li><strong>Subcontractor / outside ops</strong> — heat treat, coating, plating, finishing done outside your shop.</li>
+      <li><strong>Manufacturing overhead</strong> — facility, indirect labor, utilities, QC, applied as a % of direct labor + machine, or as a burden rate per direct labor hour.</li>
+    </ul>
+    <p>Add all five = total job cost. Divide by units produced = per-unit cost. Subtract from selling price = gross margin.</p>
+
+    <h2>What overhead rate should I use?</h2>
+    <p>For US mid-market manufacturers, the typical overhead rate is 15–40 % of direct labor + machine. The honest way: take your trailing 12 months of indirect production costs (rent, utilities, indirect supervision, QC, depreciation, maintenance) and divide by direct labor + machine hours. Don't use industry averages — yours is probably different, and that difference matters when you quote a custom job.</p>
+
+    <h2>FAQ</h2>
+    <details><summary>What's the difference between direct labor and indirect labor?</summary><p>Direct = hands on the job (operator, assembler). Indirect = supervisor, scheduler, QC inspector, warehouse staff. Indirect labor is part of overhead, not direct labor.</p></details>
+    <details><summary>How do I handle scrap and rework?</summary><p>Two options: (1) include a 2–5 % scrap allowance in your material cost; OR (2) cost the job assuming 100% yield, then add a separate "rework / rejection" line. SimpleGrid's event-sourced costing handles this automatically — every rejection event posts the consumed cost to that job.</p></details>
+    <details><summary>What's a healthy gross margin for manufacturing?</summary><p>25–40 % gross margin (selling price minus total job cost, divided by selling price) is healthy for US mid-market discrete manufacturers. Below 15 % is usually unprofitable after you account for sales, admin, bad debt, and the cost of capital.</p></details>
+    <details><summary>I want to see margin live during production, not after the job is done.</summary><p>That's what an event-sourced ERP gives you. Every cost-generating event (material issued, hour logged, contractor settlement, rejection) posts to the job in real time. SimpleGrid does this. <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">Book a demo →</a></p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Free tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>© 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function makeRow(parent, cols, prefill={}) {
+    const tr=document.createElement('tr');
+    tr.innerHTML = cols.map(c=>{
+      if (c.type==='action') return '<td class="col-actions"><button type="button" class="row-del">×</button></td>';
+      if (c.type==='total') return `<td class="col-line-total" data-f="${c.f}">$0.00</td>`;
+      return `<td><input type="${c.type}" ${c.cls?'class="'+c.cls+'"':''} data-f="${c.f}" ${c.step?'step="'+c.step+'"':''} ${c.min!=null?'min="'+c.min+'"':''} placeholder="${c.ph||''}" value="${prefill[c.f]!=null?prefill[c.f]:''}"></td>`;
+    }).join('');
+    parent.appendChild(tr);
+    tr.querySelector('.row-del')?.addEventListener('click',()=>{tr.remove();recalc();});
+    tr.querySelectorAll('input').forEach(i=>i.addEventListener('input',recalc));
+    return tr;
+  }
+  const matCols=[{type:'text',f:'name',ph:'16-gauge steel sheet'},{type:'number',cls:'num',f:'qty',step:'0.01',min:0,ph:'0'},{type:'text',f:'unit',ph:'sheet'},{type:'number',cls:'num',f:'price',step:'0.01',min:0,ph:'0.00'},{type:'total',f:'line'},{type:'action'}];
+  const labCols=[{type:'text',f:'name',ph:'Cutting / Assembly'},{type:'number',cls:'num',f:'hours',step:'0.1',min:0,ph:'0'},{type:'number',cls:'num',f:'rate',step:'0.01',min:0,ph:'35.00'},{type:'total',f:'line'},{type:'action'}];
+  const machCols=[{type:'text',f:'name',ph:'CNC Mill / Press brake'},{type:'number',cls:'num',f:'hours',step:'0.1',min:0,ph:'0'},{type:'number',cls:'num',f:'rate',step:'0.01',min:0,ph:'45.00'},{type:'total',f:'line'},{type:'action'}];
+
+  function recalc(){
+    function sum(tableBody,fields){
+      let total=0;
+      Array.from(tableBody.querySelectorAll('tr')).forEach(tr=>{
+        const vals=fields.map(f=>parseFloat(tr.querySelector('[data-f="'+f+'"]').value)||0);
+        const line=vals.reduce((a,b)=>a*b,1);
+        total+=line;
+        tr.querySelector('[data-f="line"]').textContent=money(line);
+      });
+      return total;
+    }
+    const matTotal=sum(document.getElementById('mat-body'),['qty','price']);
+    const labTotal=sum(document.getElementById('lab-body'),['hours','rate']);
+    const machTotal=sum(document.getElementById('mach-body'),['hours','rate']);
+    const sub=parseFloat(document.getElementById('job-sub').value)||0;
+    const setup=parseFloat(document.getElementById('job-setup').value)||0;
+    const ohRate=parseFloat(document.getElementById('job-overhead').value)||0;
+    const overhead=(labTotal+machTotal)*(ohRate/100);
+    const totalJob=matTotal+labTotal+machTotal+sub+setup+overhead;
+    const qty=Math.max(1,parseInt(document.getElementById('job-qty').value)||1);
+    const perUnit=totalJob/qty;
+    document.getElementById('cost-summary').innerHTML=`
+      <div class="cost-row"><span>Direct materials</span><strong>${money(matTotal)}</strong></div>
+      <div class="cost-row"><span>Direct labor</span><strong>${money(labTotal)}</strong></div>
+      <div class="cost-row"><span>Machine time</span><strong>${money(machTotal)}</strong></div>
+      <div class="cost-row"><span>Subcontractor / outside</span><strong>${money(sub)}</strong></div>
+      <div class="cost-row"><span>Tooling / setup</span><strong>${money(setup)}</strong></div>
+      <div class="cost-row"><span>Manufacturing overhead (${ohRate}% of labor + machine)</span><strong>${money(overhead)}</strong></div>
+      <div class="cost-row total"><span>TOTAL JOB COST (${qty} units)</span><strong>${money(totalJob)}</strong></div>
+      <div class="cost-row" style="margin-top:8px"><span>Per-unit cost</span><strong>${money(perUnit)}</strong></div>
+    `;
+    // Margin / suggested price
+    const sellPrice=parseFloat(document.getElementById('job-price').value)||0;
+    const targetMargin=parseFloat(document.getElementById('job-target-margin').value);
+    const mc=document.getElementById('margin-card');
+    if (sellPrice>0 || (!isNaN(targetMargin) && targetMargin>0)) {
+      mc.style.display='block';
+      let html='';
+      if (sellPrice>0) {
+        const sellTotal=sellPrice*qty;
+        const profit=sellTotal-totalJob;
+        const margin=sellTotal>0?(profit/sellTotal)*100:0;
+        const markup=totalJob>0?(profit/totalJob)*100:0;
+        const cls=margin>=20?'positive':margin>=0?'':'negative';
+        html=`
+          <div class="margin-stat"><div class="label">Gross margin</div><div class="value ${cls}">${margin.toFixed(1)}%</div></div>
+          <div class="margin-stat"><div class="label">Profit on job</div><div class="value ${cls}">${money(profit)}</div></div>
+          <div class="margin-stat"><div class="label">Markup over cost</div><div class="value ${cls}">${markup.toFixed(1)}%</div></div>`;
+      }
+      if (!isNaN(targetMargin) && targetMargin>0 && targetMargin<100) {
+        const suggested=perUnit/(1-targetMargin/100);
+        html += `<div class="margin-stat" style="grid-column:1 / -1;background:var(--sg-blue-light)"><div class="label">Suggested per-unit price for ${targetMargin}% margin</div><div class="value">${money(suggested)}</div></div>`;
+      }
+      document.getElementById('margin-row').innerHTML=html;
+    } else {
+      mc.style.display='none';
+    }
+    return {matTotal,labTotal,machTotal,sub,setup,ohRate,overhead,totalJob,qty,perUnit,sellPrice,targetMargin};
+  }
+  document.getElementById('add-mat').addEventListener('click',()=>{makeRow(document.getElementById('mat-body'),matCols);recalc();});
+  document.getElementById('add-lab').addEventListener('click',()=>{makeRow(document.getElementById('lab-body'),labCols);recalc();});
+  document.getElementById('add-mach').addEventListener('click',()=>{makeRow(document.getElementById('mach-body'),machCols);recalc();});
+  ['job-qty','job-sub','job-setup','job-overhead','job-price','job-target-margin'].forEach(id=>document.getElementById(id).addEventListener('input',recalc));
+  // Seed with friendly defaults
+  makeRow(document.getElementById('mat-body'),matCols);
+  makeRow(document.getElementById('mat-body'),matCols);
+  makeRow(document.getElementById('lab-body'),labCols);
+  makeRow(document.getElementById('lab-body'),labCols);
+  makeRow(document.getElementById('mach-body'),machCols);
+  recalc();
+
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    const r=recalc();
+    function rows(tbodyId,labels){return Array.from(document.getElementById(tbodyId).querySelectorAll('tr')).map(tr=>labels.map(l=>{const i=tr.querySelector('[data-f="'+l+'"]');if(!i)return '';if(i.tagName==='TD')return i.textContent;return i.value;}));}
+    const matRows=rows('mat-body',['name','qty','unit','price','line']).filter(r=>r[0]||parseFloat(r[3])>0);
+    const labRows=rows('lab-body',['name','hours','rate','line']).filter(r=>r[0]||parseFloat(r[1])>0);
+    const machRows=rows('mach-body',['name','hours','rate','line']).filter(r=>r[0]||parseFloat(r[1])>0);
+    const allItems=[];
+    matRows.forEach(r=>allItems.push(['MAT',r[0],r[1]+' '+(r[2]||''),money(parseFloat(r[3])||0),r[4]]));
+    labRows.forEach(r=>allItems.push(['LAB',r[0],r[1]+' hr',money(parseFloat(r[2])||0)+'/hr',r[3]]));
+    machRows.forEach(r=>allItems.push(['MACH',r[0],r[1]+' hr',money(parseFloat(r[2])||0)+'/hr',r[3]]));
+    sgBuildPdf({
+      title:'Job Cost Report', docNumberLabel:'Job', docNumber:document.getElementById('job-name').value||'(unnamed)',
+      date:todayISO(),
+      terms: 'Customer: ' + (document.getElementById('job-customer').value||'-') + '  ·  Qty: ' + r.qty,
+      fromLabel:'PREPARED BY', from:['SimpleGrid Job Cost Calculator','simplegrid.ai/tools/job-cost-calculator/'],
+      toLabel:'JOB', to:[document.getElementById('job-name').value, 'Customer: '+(document.getElementById('job-customer').value||'-'), 'Quantity: '+r.qty+' units'],
+      itemColumns:['Type','Item','Qty / Hours','Unit cost','Total'],
+      items:allItems, itemRowMapper:row=>row,
+      itemColumnStyles:{0:{cellWidth:50},1:{cellWidth:170},2:{halign:'right',cellWidth:80},3:{halign:'right',cellWidth:80},4:{halign:'right',cellWidth:80}},
+      totals:[
+        {label:'Materials subtotal', value:r.matTotal},
+        {label:'Labor subtotal', value:r.labTotal},
+        {label:'Machine subtotal', value:r.machTotal},
+        ...(r.sub?[{label:'Subcontractor / outside', value:r.sub}]:[]),
+        ...(r.setup?[{label:'Tooling / setup', value:r.setup}]:[]),
+        {label:'Overhead ('+r.ohRate+'%)', value:r.overhead},
+        {label:'Total job cost', value:r.totalJob, bold:true},
+        {label:'Per-unit cost ('+r.qty+' units)', value:r.perUnit}
+      ],
+      notes: r.sellPrice>0
+        ? `Selling price: ${money(r.sellPrice)} / unit  ·  ${money(r.sellPrice*r.qty)} total\nProfit: ${money((r.sellPrice*r.qty)-r.totalJob)}  ·  Gross margin: ${(((r.sellPrice*r.qty)-r.totalJob)/(r.sellPrice*r.qty)*100).toFixed(1)}%`
+        : 'No selling price entered.',
+      filename: ((document.getElementById('job-name').value || 'job-cost')+'_report').replace(/\W+/g,'_')+'.pdf'
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -37,6 +37,7 @@ function Nav({ page = 'home', onLoginClick }) {
   const links = [
     { id: 'home', label: 'Home', href: 'index.html', title: 'SimpleGrid home - AI ERP for manufacturers' },
     { id: 'product', label: 'Product', href: 'product.html', title: 'How SimpleGrid manufacturing ERP works' },
+    { id: 'tools', label: 'Free Tools', href: 'tools/', title: 'Free tools for manufacturers — PO, invoice, BOM, job cost' },
   ];
   const resourceLinks = [
     { id: 'cases', label: 'Case studies', href: 'case-studies.html', desc: 'Real deployments. Real numbers.', title: 'SimpleGrid manufacturing ERP case studies' },
@@ -47,6 +48,7 @@ function Nav({ page = 'home', onLoginClick }) {
   const mobileTopLinks = [
     { id: 'home', label: 'Home', href: 'index.html', title: 'SimpleGrid home' },
     { id: 'product', label: 'Product', href: 'product.html', title: 'How SimpleGrid works' },
+    { id: 'tools', label: 'Free Tools', href: 'tools/', title: 'Free tools for manufacturers' },
   ];
   const mobileResourceLinks = [
     { id: 'cases', label: 'Case studies', href: 'case-studies.html', title: 'Manufacturing ERP case studies' },

@@ -47,6 +47,11 @@ function Nav({
     label: 'Product',
     href: 'product.html',
     title: 'How SimpleGrid manufacturing ERP works'
+  }, {
+    id: 'tools',
+    label: 'Free Tools',
+    href: 'tools/',
+    title: 'Free tools for manufacturers — PO, invoice, BOM, job cost'
   }];
   const resourceLinks = [{
     id: 'cases',
@@ -72,6 +77,11 @@ function Nav({
     label: 'Product',
     href: 'product.html',
     title: 'How SimpleGrid works'
+  }, {
+    id: 'tools',
+    label: 'Free Tools',
+    href: 'tools/',
+    title: 'Free tools for manufacturers'
   }];
   const mobileResourceLinks = [{
     id: 'cases',

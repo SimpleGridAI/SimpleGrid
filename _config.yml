@@ -27,6 +27,9 @@ exclude:
 
   # Build scripts (not needed at runtime; production reads only the .html/.js output).
   - scripts/
+  - tools/_blog_optimize.py
+  - tools/_bump_fonts.py
+  - tools/_drop_geist.py
 
   # JSX source files (the .js compiled versions are what the browser loads).
   - components/*.jsx

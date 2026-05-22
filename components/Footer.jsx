@@ -27,6 +27,15 @@ function Footer() {
       { l: 'Adoption', href: 'product.html#ability' },
       { l: 'Your process, enforced', href: 'product.html#rules' },
     ]},
+    { h: 'Free tools', links: [
+      { l: 'PO Generator', href: 'tools/purchase-order-generator/' },
+      { l: 'Invoice Generator', href: 'tools/invoice-generator/' },
+      { l: 'Quote Generator', href: 'tools/quote-generator/' },
+      { l: 'Job Cost Calculator', href: 'tools/job-cost-calculator/' },
+      { l: 'BOM Builder', href: 'tools/bill-of-materials-template/' },
+      { l: 'Production Schedule', href: 'tools/production-schedule-template/' },
+      { l: 'Quality Inspection', href: 'tools/quality-inspection-checklist/' },
+    ]},
     { h: 'Resources', links: [
       { l: 'Case studies', href: 'case-studies.html' },
       { l: 'Blog', href: 'blog.html' },

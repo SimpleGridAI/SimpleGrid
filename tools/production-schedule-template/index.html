@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Free Production Schedule Template (Gantt) for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Free browser-based production schedule template with a Gantt chart for US manufacturers. Add jobs, dates, status. Print-ready and CSV export.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/production-schedule-template/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/production-schedule-template/"><meta property="og:title" content="Free Production Schedule Template (Gantt)"><meta property="og:description" content="Browser-based Gantt schedule for manufacturers. Print + CSV export."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Free Production Schedule Template","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/production-schedule-template/","description":"Free browser-based production schedule + Gantt chart for manufacturers.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Free Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Production Schedule","item":"https://simplegrid.ai/tools/production-schedule-template/"}]}
+]}
+</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PGZBXNF51L');(function(){var loaded=false;var events=['mousemove','scroll','click','touchstart','keydown'];function trigger(){if(loaded)return;loaded=true;try{if(localStorage.getItem('sg_ph_opt_out')==='1')return;}catch(e){}var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';document.head.appendChild(s);events.forEach(function(e){document.removeEventListener(e,trigger,true);});}events.forEach(function(e){document.addEventListener(e,trigger,{once:true,passive:true,capture:true});});setTimeout(trigger,30000);})();</script>
+<script src="../tools.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../../pricing.html" class="nav-link">Pricing</a><a href="../" class="nav-link active">Tools</a><a href="../../case-studies.html" class="nav-link">Case studies</a><a href="../../blog.html" class="nav-link">Blog</a></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a Call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All free tools</a>
+    <h1>Free Production Schedule (Gantt) for Manufacturers.</h1>
+    <p class="lead">List your open jobs with start date, duration, and status. Get a printable Gantt for the production floor and the owner. Auto-spans the date range based on your earliest start to latest finish.</p>
+  </div></section>
+
+  <section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Jobs</h2>
+      <table class="tool-items" id="job-table">
+        <thead><tr>
+          <th>Job / customer</th>
+          <th style="width:120px">Start date</th>
+          <th style="width:120px">End date</th>
+          <th style="width:120px">Status</th>
+          <th style="width:140px">Assigned to</th>
+          <th class="col-actions"></th>
+        </tr></thead>
+        <tbody id="job-body"></tbody>
+      </table>
+      <div class="tool-actions"><button type="button" id="add-row" class="btn-add">＋ Add job</button></div>
+    </div>
+
+    <div class="tool-card"><h2>Schedule preview</h2>
+      <div id="gantt-wrap" class="gantt-wrap"></div>
+      <div class="gantt-legend">
+        <div><span class="swatch" style="background:var(--sg-gold)"></span>Planned</div>
+        <div><span class="swatch" style="background:var(--sg-blue)"></span>In progress</div>
+        <div><span class="swatch" style="background:var(--sg-green)"></span>Done</div>
+        <div><span class="swatch" style="background:var(--sg-red)"></span>Delayed</div>
+      </div>
+    </div>
+
+    <div class="tool-actions" style="justify-content:flex-end;gap:10px;flex-wrap:wrap">
+      <button type="button" id="export-csv" class="btn-secondary">Export CSV</button>
+      <button type="button" id="print" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Print / Save as PDF</button>
+    </div>
+    <p class="tool-note" style="text-align:right">Print → "Save as PDF" in your browser's print dialog gives you a printable PDF with the Gantt visible.</p>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When the whiteboard stops working</div>
+      <h2>SimpleGrid replaces the whiteboard with live scheduling that updates when work actually happens.</h2>
+      <p>Floor logs progress → schedule updates → planner sees the impact → resequences if needed. No more 2-hour Monday scheduling meetings.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a 15-min demo</a>
+    </div>
+  </div></section>
+
+  <section class="tool-seo"><div class="container-sm">
+    <h2>How to use this production schedule template</h2>
+    <ol>
+      <li>Add each open job with customer name, start date, and end date.</li>
+      <li>Set status (Planned, In progress, Done, Delayed).</li>
+      <li>Assign to a person, cell, or machine — whatever maps to your shop.</li>
+      <li>The Gantt chart updates live. Print it for the morning huddle.</li>
+    </ol>
+    <h2>What's a Gantt chart and why do manufacturers use one?</h2>
+    <p>A Gantt chart shows jobs as horizontal bars across a date axis — you see at a glance which jobs overlap, which are running long, and where the bottleneck is. For mid-market manufacturers managing 10–50 concurrent jobs, the Gantt is the single most useful planning tool that exists.</p>
+    <h2>FAQ</h2>
+    <details><summary>Can I save my schedule for next time?</summary><p>Yes — the schedule auto-saves to your browser's localStorage. Reopen the tool, your jobs are still there.</p></details>
+    <details><summary>What if I need machine-level or cell-level scheduling?</summary><p>This tool is at the job level. For machine/cell-level scheduling with capacity constraints, setup time, and run-time per piece, you've outgrown a free template. <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">SimpleGrid handles this →</a></p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Free tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>© 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  const tbody=document.getElementById('job-body');
+  const SKEY='psched_jobs';
+  function addRow(p={}){
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><input type="text" data-f="name" placeholder="J-0042 Northwoods table run" value="${p.name||''}"></td>
+      <td><input type="date" data-f="start" value="${p.start||''}"></td>
+      <td><input type="date" data-f="end" value="${p.end||''}"></td>
+      <td><select data-f="status">${['Planned','In progress','Done','Delayed'].map(s=>`<option ${p.status===s?'selected':''}>${s}</option>`).join('')}</select></td>
+      <td><input type="text" data-f="who" placeholder="Mike / Cell 2" value="${p.who||''}"></td>
+      <td class="col-actions"><button type="button" class="row-del">×</button></td>`;
+    tbody.appendChild(tr);
+    tr.querySelector('.row-del').addEventListener('click',()=>{tr.remove();renderGantt();save();});
+    tr.querySelectorAll('input,select').forEach(i=>i.addEventListener('input',()=>{renderGantt();save();}));
+  }
+  function jobs(){return Array.from(tbody.querySelectorAll('tr')).map(tr=>({name:tr.querySelector('[data-f="name"]').value,start:tr.querySelector('[data-f="start"]').value,end:tr.querySelector('[data-f="end"]').value,status:tr.querySelector('[data-f="status"]').value,who:tr.querySelector('[data-f="who"]').value}));}
+  function save(){sgSave(SKEY,jobs());}
+
+  function daysBetween(a,b){const d1=new Date(a),d2=new Date(b);return Math.round((d2-d1)/(1000*60*60*24));}
+  function fmt(d){const dt=new Date(d);return (dt.getMonth()+1)+'/'+dt.getDate();}
+  function addDaysISO(iso,n){const d=new Date(iso);d.setDate(d.getDate()+n);return d.toISOString().slice(0,10);}
+
+  function renderGantt(){
+    const wrap=document.getElementById('gantt-wrap');
+    const js=jobs().filter(j=>j.name&&j.start&&j.end);
+    if(js.length===0){wrap.innerHTML='<div style="padding:32px;color:var(--fg3);font-size:14px;text-align:center">Add at least one job with start and end dates.</div>';return;}
+    const minStart=js.reduce((a,j)=>a<j.start?a:j.start,js[0].start);
+    const maxEnd=js.reduce((a,j)=>a>j.end?a:j.end,js[0].end);
+    const totalDays=Math.max(1,daysBetween(minStart,maxEnd)+1);
+    const dayPx=Math.max(20,Math.min(36,Math.floor(900/totalDays)));
+    // Build column headers (every 1 / 3 / 7 days depending on span)
+    let step=1; if(totalDays>21)step=3; if(totalDays>56)step=7;
+    let headHtml='<th class="job-col">Job</th>';
+    for(let i=0;i<totalDays;i+=step){headHtml+=`<th style="width:${dayPx*step}px">${fmt(addDaysISO(minStart,i))}</th>`;}
+    const colspan=Math.ceil(totalDays/step);
+    const statusColor={'Planned':'planned','In progress':'','Done':'done','Delayed':'delayed'};
+    let rowsHtml='';
+    js.forEach(j=>{
+      const offset=daysBetween(minStart,j.start);
+      const dur=Math.max(1,daysBetween(j.start,j.end)+1);
+      const left=offset*dayPx;
+      const w=dur*dayPx;
+      rowsHtml+=`<tr><td class="job-name">${j.name}${j.who?'<div style="font-size:11px;font-weight:400;color:var(--fg3);margin-top:2px">'+j.who+'</div>':''}</td>
+        <td colspan="${colspan}" style="position:relative;padding:8px 4px;background:repeating-linear-gradient(90deg,#fff,#fff ${dayPx*step-1}px,#f3f5f8 ${dayPx*step-1}px,#f3f5f8 ${dayPx*step}px)">
+          <div class="bar ${statusColor[j.status]||''}" style="position:absolute;left:${left+4}px;top:8px;width:${w}px">
+            <div style="color:#fff;font-size:11px;font-weight:600;padding:2px 6px;white-space:nowrap;overflow:hidden">${j.name}</div>
+          </div>
+        </td></tr>`;
+    });
+    wrap.innerHTML=`<table class="gantt"><thead><tr>${headHtml}</tr></thead><tbody>${rowsHtml}</tbody></table>`;
+  }
+
+  document.getElementById('add-row').addEventListener('click',()=>{addRow();renderGantt();save();});
+
+  document.getElementById('export-csv').addEventListener('click',()=>{
+    const js=jobs();
+    sgDownloadCSV('production-schedule.csv',[['Job','Start','End','Status','Assigned to'],...js.map(j=>[j.name,j.start,j.end,j.status,j.who])]);
+  });
+  document.getElementById('print').addEventListener('click',()=>{window.print();});
+
+  // Restore saved jobs or seed demo data
+  const saved=sgLoad(SKEY,null);
+  if(saved && saved.length>0){
+    saved.forEach(j=>addRow(j));
+  } else {
+    const t=todayISO();
+    addRow({name:'J-0042 Northwoods Furniture',start:t,end:addDaysISO(t,9),status:'In progress',who:'Cell 2'});
+    addRow({name:'J-0043 Apex Apparel Q3 run',start:addDaysISO(t,3),end:addDaysISO(t,16),status:'Planned',who:'Cell 1'});
+    addRow({name:'J-0041 Midwest Steel finishing',start:addDaysISO(t,-4),end:addDaysISO(t,2),status:'Delayed',who:'Mike R.'});
+  }
+  renderGantt();
+});
+</script>
+</body>
+</html>

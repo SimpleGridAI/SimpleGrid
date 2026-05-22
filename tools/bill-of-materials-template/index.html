@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Free Bill of Materials (BOM) Builder for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Free browser-based bill of materials builder for US manufacturers. Multi-component BOM with per-unit costs and assembly totals. Export as CSV or PDF.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/bill-of-materials-template/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/bill-of-materials-template/"><meta property="og:title" content="Free Bill of Materials Builder"><meta property="og:description" content="BOM builder for US manufacturers. CSV + PDF export."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Free Bill of Materials Builder","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/bill-of-materials-template/","description":"Free browser-based BOM builder for manufacturers. CSV + PDF export.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Free Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"BOM Builder","item":"https://simplegrid.ai/tools/bill-of-materials-template/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PGZBXNF51L');(function(){var loaded=false;var events=['mousemove','scroll','click','touchstart','keydown'];function trigger(){if(loaded)return;loaded=true;try{if(localStorage.getItem('sg_ph_opt_out')==='1')return;}catch(e){}var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';document.head.appendChild(s);events.forEach(function(e){document.removeEventListener(e,trigger,true);});}events.forEach(function(e){document.addEventListener(e,trigger,{once:true,passive:true,capture:true});});setTimeout(trigger,30000);})();</script>
+<script src="../tools.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../../pricing.html" class="nav-link">Pricing</a><a href="../" class="nav-link active">Tools</a><a href="../../case-studies.html" class="nav-link">Case studies</a><a href="../../blog.html" class="nav-link">Blog</a></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a Call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All free tools</a>
+    <h1>Free Bill of Materials Builder — per-unit cost + CSV + PDF.</h1>
+    <p class="lead">Add your finished product, list every component with quantity-per-unit and unit cost. Get the assembly total instantly. Export as CSV for your costing spreadsheet or PDF for the floor.</p>
+  </div></section>
+
+  <section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Finished product</h2>
+      <div class="tool-form-grid">
+        <div class="tool-field"><label>Product / parent SKU</label><input id="prod-sku" type="text" placeholder="DT-4SEAT-001"></div>
+        <div class="tool-field"><label>Description</label><input id="prod-desc" type="text" placeholder="4-seat solid oak dining table"></div>
+        <div class="tool-field"><label>UoM (unit of measure)</label><input id="prod-uom" type="text" placeholder="each"></div>
+        <div class="tool-field"><label>Build quantity <span class="hint">for total cost</span></label><input id="prod-qty" type="number" min="1" step="1" value="1"></div>
+        <div class="tool-field full"><label>Revision / Notes <span class="hint">optional</span></label><input id="prod-rev" type="text" placeholder="Rev B, 2026-05-22"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Components</h2>
+      <table class="tool-items" id="bom-table">
+        <thead><tr>
+          <th style="width:80px">Item #</th>
+          <th style="width:110px">Component SKU</th>
+          <th>Description</th>
+          <th class="num" style="width:80px">Qty / unit</th>
+          <th style="width:70px">UoM</th>
+          <th class="num" style="width:100px">Unit cost</th>
+          <th class="num" style="width:110px">Ext. cost / unit</th>
+          <th class="col-actions"></th>
+        </tr></thead>
+        <tbody id="bom-body"></tbody>
+        <tfoot id="bom-foot"></tfoot>
+      </table>
+      <div class="tool-actions"><button type="button" id="add-row" class="btn-add">＋ Add component</button></div>
+      <p class="tool-note">"Qty / unit" = how many of this component go into ONE finished product. Total component cost = qty × unit cost × build quantity.</p>
+    </div>
+
+    <div class="tool-actions" style="justify-content:flex-end;gap:10px;flex-wrap:wrap">
+      <button type="button" id="export-csv" class="btn-secondary">Export CSV</button>
+      <button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF BOM</button>
+    </div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When you have 50 SKUs and BOMs change every month</div>
+      <h2>BOMs in a spreadsheet drift. BOMs in an ERP don't.</h2>
+      <p>SimpleGrid links every BOM revision to its production runs, costing, and inventory consumption. When a component price changes or a supplier swaps, every downstream cost updates automatically — without you re-keying anywhere.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a 15-min demo</a>
+    </div>
+  </div></section>
+
+  <section class="tool-seo"><div class="container-sm">
+    <h2>What is a bill of materials?</h2>
+    <p>A BOM lists every component, sub-assembly, raw material, and consumable required to manufacture one finished product. For US mid-market manufacturers, the BOM is the single most important document — it drives purchasing, inventory consumption, job costing, and production planning. Get the BOM wrong and everything downstream is wrong.</p>
+
+    <h2>What goes on a manufacturing BOM</h2>
+    <ul>
+      <li><strong>Parent SKU</strong> — the finished product.</li>
+      <li><strong>Item number</strong> (1, 2, 3...) — used in assembly drawings and work instructions.</li>
+      <li><strong>Component SKU</strong> — the part number of each child item.</li>
+      <li><strong>Description</strong> — clear enough for the floor to identify.</li>
+      <li><strong>Quantity per unit</strong> — how many of this component per ONE finished product.</li>
+      <li><strong>Unit of measure</strong> — each, lbs, ft, cubic feet, etc. <em>Always</em> include UoM; it's the #1 source of BOM errors.</li>
+      <li><strong>Unit cost</strong> — what you pay for one unit of this component.</li>
+      <li><strong>Revision number</strong> — so you know which BOM was used for which production run.</li>
+    </ul>
+
+    <h2>FAQ</h2>
+    <details><summary>Single-level vs multi-level BOM — which is this tool?</summary><p>This is a single-level BOM (parent → components). For multi-level BOMs (where a component is itself an assembly with its own BOM), you've outgrown a free tool. SimpleGrid handles multi-level BOMs with phantom assemblies and explosion logic. <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">See how →</a></p></details>
+    <details><summary>How do I handle BOM revisions?</summary><p>The Revision field lets you tag this BOM (Rev A, Rev B, etc.). For real revision control with effective dates and ECO (engineering change order) tracking, you need an ERP.</p></details>
+    <details><summary>Can I export to CSV for my costing spreadsheet?</summary><p>Yes. Click Export CSV — it downloads a comma-separated file with all your BOM lines. Opens directly in Excel or Google Sheets.</p></details>
+    <details><summary>What if my BOM has 200+ lines?</summary><p>The tool will handle it, but at that complexity you really want a system that links the BOM to inventory, costing, and production. <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">Book a demo →</a></p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Free tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>© 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  const tbody=document.getElementById('bom-body'),tfoot=document.getElementById('bom-foot');
+  let itemNum=0;
+  function addRow(p={}){
+    itemNum++;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><input type="text" data-f="num" value="${p.num||itemNum}" style="text-align:center"></td>
+      <td><input type="text" data-f="sku" placeholder="LEG-OAK-30" value="${p.sku||''}"></td>
+      <td><input type="text" data-f="desc" placeholder="Solid oak table leg 30in" value="${p.desc||''}"></td>
+      <td><input type="number" class="num" data-f="qty" step="0.01" min="0" value="${p.qty!=null?p.qty:''}" placeholder="0"></td>
+      <td><input type="text" data-f="uom" value="${p.uom||''}" placeholder="each"></td>
+      <td><input type="number" class="num" data-f="price" step="0.01" min="0" value="${p.price!=null?p.price:''}" placeholder="0.00"></td>
+      <td class="col-line-total" data-f="line">$0.00</td>
+      <td class="col-actions"><button type="button" class="row-del">×</button></td>`;
+    tbody.appendChild(tr);
+    tr.querySelector('.row-del').addEventListener('click',()=>{tr.remove();recalc();});
+    tr.querySelectorAll('input').forEach(i=>i.addEventListener('input',recalc));
+  }
+  function rows(){return Array.from(tbody.querySelectorAll('tr')).map(tr=>({num:tr.querySelector('[data-f="num"]').value,sku:tr.querySelector('[data-f="sku"]').value,desc:tr.querySelector('[data-f="desc"]').value,qty:parseFloat(tr.querySelector('[data-f="qty"]').value)||0,uom:tr.querySelector('[data-f="uom"]').value,price:parseFloat(tr.querySelector('[data-f="price"]').value)||0}));}
+  function recalc(){
+    let perUnit=0;
+    Array.from(tbody.querySelectorAll('tr')).forEach(tr=>{
+      const q=parseFloat(tr.querySelector('[data-f="qty"]').value)||0;
+      const p=parseFloat(tr.querySelector('[data-f="price"]').value)||0;
+      const line=q*p; perUnit+=line;
+      tr.querySelector('[data-f="line"]').textContent=money(line);
+    });
+    const buildQty=parseInt(document.getElementById('prod-qty').value)||1;
+    const total=perUnit*buildQty;
+    tfoot.innerHTML=`<tr class="totals"><td colspan="6" class="label">Assembly cost / unit</td><td class="value">${money(perUnit)}</td><td></td></tr>
+      <tr class="totals grand-total"><td colspan="6" class="label">Total cost for ${buildQty} units</td><td class="value">${money(total)}</td><td></td></tr>`;
+    return {perUnit,total,buildQty};
+  }
+  document.getElementById('add-row').addEventListener('click',()=>{addRow();recalc();});
+  document.getElementById('prod-qty').addEventListener('input',recalc);
+  // Seed
+  addRow(); addRow(); addRow(); recalc();
+
+  document.getElementById('export-csv').addEventListener('click',()=>{
+    const r=recalc();
+    const rs=rows();
+    const out=[
+      ['Parent SKU',document.getElementById('prod-sku').value],
+      ['Description',document.getElementById('prod-desc').value],
+      ['UoM',document.getElementById('prod-uom').value],
+      ['Revision',document.getElementById('prod-rev').value],
+      ['Build qty',r.buildQty],
+      [],
+      ['Item #','Component SKU','Description','Qty/unit','UoM','Unit cost','Ext. cost/unit'],
+      ...rs.map(x=>[x.num,x.sku,x.desc,x.qty,x.uom,x.price.toFixed(2),(x.qty*x.price).toFixed(2)]),
+      [],
+      ['','','','','','Assembly cost / unit',r.perUnit.toFixed(2)],
+      ['','','','','','Total cost ('+r.buildQty+' units)',r.total.toFixed(2)]
+    ];
+    sgDownloadCSV((document.getElementById('prod-sku').value||'bom')+'.csv',out);
+  });
+
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    const r=recalc();
+    const rs=rows().filter(x=>x.sku||x.desc||x.qty>0);
+    if(rs.length===0){alert('Add at least one component.');return;}
+    sgBuildPdf({
+      title:'Bill of Materials', docNumberLabel:'Parent SKU', docNumber:document.getElementById('prod-sku').value||'(unnamed)',
+      date:todayISO(),
+      terms:'Rev: ' + (document.getElementById('prod-rev').value||'-') + '  ·  UoM: ' + (document.getElementById('prod-uom').value||'each') + '  ·  Build qty: ' + r.buildQty,
+      fromLabel:'PRODUCT', from:[document.getElementById('prod-sku').value, document.getElementById('prod-desc').value, 'Revision: '+(document.getElementById('prod-rev').value||'-')],
+      toLabel:'BUILD',  to:[r.buildQty + ' units', 'Assembly cost / unit: '+money(r.perUnit), 'Total cost: '+money(r.total)],
+      itemColumns:['#','SKU','Description','Qty','UoM','Unit cost','Ext. cost'],
+      items:rs, itemRowMapper:x=>[x.num,x.sku,x.desc,num(x.qty),x.uom,money(x.price),money(x.qty*x.price)],
+      itemColumnStyles:{0:{halign:'center',cellWidth:30},1:{cellWidth:75},3:{halign:'right',cellWidth:45},4:{cellWidth:45},5:{halign:'right',cellWidth:65},6:{halign:'right',cellWidth:65}},
+      totals:[{label:'Assembly cost / unit', value:r.perUnit},{label:'Total ('+r.buildQty+' units)', value:r.total, bold:true}],
+      filename:((document.getElementById('prod-sku').value||'BOM')+'_BOM').replace(/\W+/g,'_')+'.pdf'
+    });
+  });
+});
+</script>
+</body>
+</html>
