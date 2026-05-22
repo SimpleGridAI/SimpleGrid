@@ -96,7 +96,7 @@ function Nav({ page = 'home', onLoginClick }) {
         </nav>
         <div className="nav-right">
           <button className="btn btn-sm btn-secondary desktop-only" onClick={onLoginClick}>Log in</button>
-          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-primary" title="Book a SimpleGrid demo call">Book a Call</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-primary" title="Book a SimpleGrid demo call">Book a call with the founder</a>
           <button
             type="button"
             className={'nav-burger' + (openMenu ? ' is-open' : '')}

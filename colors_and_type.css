@@ -4,10 +4,13 @@
    ========================================================================== */
 
 /* -----  FONTS  ----- */
-/* Logo/brand: Geist (Google Fonts fallback). Headings + body: Calibri (system).
-   Code: Consolas (system). Geist is loaded via <link> in every HTML <head>
-   (moved out of @import here so the font request can run in parallel with
-   the stylesheet download instead of being serialized behind it). */
+/* Brand guidelines v1.0 specified Geist Medium 500. Production ships Calibri
+   because (a) it's a system font on Windows + many corporate manufacturer
+   desktops, (b) no extra font request, (c) renders identically across the
+   factory-floor IT estate we sell into. Geist is kept as `--font-brand` for
+   logo/wordmark surfaces and as the first fallback in --font-heading - if a
+   future build self-hosts it (woff2 in /assets/fonts/), all headings upgrade
+   automatically with zero markup changes. Code: Consolas (system). */
 
 :root {
   /* ----- PRIMARY COLORS ----- */
@@ -58,8 +61,8 @@
 
   /* ----- FONT FAMILIES ----- */
   --font-brand:      'Geist', -apple-system, 'SF Pro Display', 'Segoe UI', sans-serif;
-  --font-heading:    Calibri, 'Trebuchet MS', -apple-system, sans-serif;
-  --font-body:       Calibri, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading:    'Geist', Calibri, 'Trebuchet MS', -apple-system, sans-serif;
+  --font-body:       'Geist', Calibri, -apple-system, 'Segoe UI', sans-serif;
   --font-mono:       Consolas, 'SF Mono', 'Liberation Mono', monospace;
 
   /* ----- TYPE SCALE (web) ----- */

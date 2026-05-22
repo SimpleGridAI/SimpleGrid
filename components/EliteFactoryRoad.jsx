@@ -382,7 +382,7 @@ function EliteFactoryRoad({ compact = false } = {}) {
 
   const SVGBlock = (
     <div style={{ position: 'relative', width: '100%' }}>
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ display: 'block', width: '100%', height: 'auto' }}>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ display: 'block', width: '100%', height: 'auto' }} aria-hidden="true">
         <defs>
           <linearGradient id="vsky" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#F4F7FB"/>
@@ -527,9 +527,9 @@ function EliteFactoryRoad({ compact = false } = {}) {
         aria-label={playing ? 'Pause' : 'Play'}
       >
         {playing ? (
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
         ) : (
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
         )}
       </button>
       <input type="range" min="0" max={TOTAL - 0.001} step="0.01" value={t}

@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
 <title>Inside SimpleGrid: Every Factory Is Different | SimpleGrid Blog</title>
 <meta name="description" content="Most ERP companies start with software and look for customers who fit. We started with factories and built software that fits them. How that shapes us.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,73 +67,18 @@
   ]
 }
 </script>
-<!-- PostHog Analytics (deferred to idle / 2s timeout) -->
-<script>
-  function sgLoadPostHog(){
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('phc_uYqTNuyvu48ttUP7tjh89v8JBvjgbRZ9bvZdfdVoEPVh', {
-        api_host: 'https://us.i.posthog.com',
-        defaults: '2026-01-30',
-        person_profiles: 'identified_only',
-        disable_session_recording: true,
-        disable_surveys: true,
-        opt_out_capturing_by_default: false
-    })
-  }
-  // Defer PostHog until first user interaction (privacy-friendlier + reduces TBT).
-  // Falls back to 30s for passive readers so analytics still capture page views.
-  // To opt out: open DevTools console and run sgPostHogOptOut() - sets a
-  // localStorage flag so PostHog never loads on this device.
-  (function(){
-    var loaded = false;
-    var events = ['mousemove','scroll','click','touchstart','keydown'];
-    function trigger(){
-      if (loaded) return;
-      loaded = true;
-      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
-      sgLoadPostHog();
-      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
-    }
-    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
-    setTimeout(trigger, 30000);
-    window.sgPostHogOptOut = function(out){
-      try {
-        if (out === false) localStorage.removeItem('sg_ph_opt_out');
-        else { localStorage.setItem('sg_ph_opt_out','1'); console.log('SimpleGrid: analytics opted out on this device.'); }
-      } catch(e){}
-    };
-  })();
-</script>
 <script>
   // Tells Nav to resolve root-relative paths with ../../ since this page is
   // two levels deep, and tells blog-post.js which infographic to mount.
   window.__SG_BLOG_ID__ = 10;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
-<!-- Google tag (gtag.js) - deferred to first user interaction (privacy + perf parity with PostHog).
-     To opt out: open DevTools console and run sgPostHogOptOut() - same flag controls both. -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-PGZBXNF51L');
-  (function(){
-    var loaded = false;
-    var events = ['mousemove','scroll','click','touchstart','keydown'];
-    function trigger(){
-      if (loaded) return;
-      loaded = true;
-      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';
-      document.head.appendChild(s);
-      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
-    }
-    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
-    setTimeout(trigger, 30000);
-  })();
-</script>
+<!-- Analytics (PostHog + GA4) - deferred to first user interaction. See /assets/js/analytics-init.js -->
+<script src="../../assets/js/analytics-init.js" defer></script>
+<!-- Conversion event tracking (data-cta + form + scroll) -->
+<script src="../../assets/js/tracking.js" defer></script>
+<!-- Cookie consent banner -->
+<script src="../../assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
 <!-- sg-static-chrome -->
@@ -158,7 +109,7 @@
       </div>
     </nav>
     <div class="nav-right">
-      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary" title="Book a SimpleGrid demo call">Book a Call</a>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary" title="Book a SimpleGrid demo call">Book a call with the founder</a>
       <button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false" data-sg-burger>
         <span></span><span></span><span></span>
       </button>
@@ -174,7 +125,7 @@
     <a href="../../case-studies.html" class="nav-mobile-link nav-mobile-sub">Case studies</a>
     <a href="../../blog.html" class="nav-mobile-link nav-mobile-sub active">Blog</a>
     <div class="nav-mobile-sep"></div>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="nav-mobile-link">Book a call</a>
+    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="nav-mobile-link">Book a call with the founder</a>
   </nav>
 </div>
 
@@ -232,7 +183,7 @@
     <!-- CTA -->
     <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
       <p style="font-family:var(--font-heading);font-size:21px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
-      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call with the founder</a>
     </div>
 
     <!-- Prev/Next -->
@@ -290,7 +241,7 @@
           <div class="footer-h">Get in touch</div>
           <a href="mailto:hello@simplegrid.ai" class="footer-link" style="display:flex;gap:8px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>hello@simplegrid.ai</span></a>
           <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;margin-top:2px"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.04h4.56V23H.22V8.04zm7.42 0h4.37v2.05h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V23h-4.56v-6.62c0-1.58-.03-3.61-2.2-3.61-2.2 0-2.54 1.72-2.54 3.5V23H7.64V8.04z"/></svg><span>LinkedIn</span></a>
-          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Book a call</span></a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Book a call with the founder</span></a>
           <a href="https://www.google.com/maps/search/?api=1&amp;query=22nd+Cross+Road,+23rd+Main+Road,+HSR+Layout,+Bengaluru,+Karnataka+560102" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:flex-start;white-space:pre-line;line-height:1.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>22nd Cross, 23rd Main Rd, HSR Layout
 Bengaluru, Karnataka 560102</span></a>
         </div>

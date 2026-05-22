@@ -282,12 +282,12 @@ function Hero() {
         aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
       >
         {theme === 'dark' ? (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4" />
             <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
           </svg>
         ) : (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
           </svg>
         )}
@@ -304,12 +304,12 @@ function Hero() {
             </Reveal>
             <Reveal delay={400}>
               <div className="hero-cta">
-                <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{boxShadow:'0 0 0 0 rgba(74,123,247,0.45), 0 6px 20px rgba(74,123,247,0.18)',animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>
+                <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="hero" className="btn btn-lg btn-invite" style={{boxShadow:'0 0 0 0 rgba(74,123,247,0.45), 0 6px 20px rgba(74,123,247,0.18)',animation:'sgBuildPulse 1.8s ease-in-out infinite',textDecoration:'none'}} onClick={() => window.sgTrack && window.sgTrack('cta_clicked', {location:'hero'})}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{marginRight:2}} aria-hidden="true">
                     <path d="M12 2l2.39 5.84L20 10l-5.61 2.16L12 18l-2.39-5.84L4 10l5.61-2.16L12 2z" fill="currentColor"/>
                   </svg>
-                  Request an Invite
-                </button>
+                  Book a call with the founder
+                </a>
               </div>
             </Reveal>
           </div>
@@ -377,6 +377,33 @@ function IntegrationsBar() {
 }
 window.IntegrationsBar = IntegrationsBar;
 
+function TrustStrip() {
+  // Slim "Recognized by" strip - lives just below the hero so above-fold
+  // visitors see real third-party validation. Duplicated in the footer
+  // (intentional - footer is the catalog, this is the hero proof).
+  const prefix = (typeof window !== 'undefined' && window.__SG_BLOG_ASSET_PREFIX__) || '';
+  return (
+    <div aria-label="Recognized by" style={{
+      display:'flex', justifyContent:'center', alignItems:'center', gap:24,
+      padding:'14px 24px', flexWrap:'wrap',
+      borderBottom:'1px solid var(--border)', background:'var(--bg-alt)'
+    }}>
+      <span style={{fontSize:11, fontWeight:700, letterSpacing:'0.16em', textTransform:'uppercase', color:'var(--fg3)'}}>Recognized by</span>
+      <a href="https://www.nvidia.com/en-us/startups/" target="_blank" rel="noopener noreferrer" title="NVIDIA Inception Program member" data-cta="trust_nvidia" style={{display:'inline-flex',alignItems:'center',height:28,opacity:0.85}}>
+        <img src={prefix + 'assets/nvidia-inception.png'} alt="NVIDIA Inception Program member" width="84" height="26" loading="lazy" decoding="async" style={{display:'block',height:26,width:'auto'}} />
+      </a>
+      <a href="https://aws.amazon.com/startups/" target="_blank" rel="noopener noreferrer" title="AWS Activate Startups member" data-cta="trust_aws" style={{display:'inline-flex',alignItems:'center',gap:6,height:28,opacity:0.85,textDecoration:'none'}}>
+        <svg width="32" height="20" viewBox="0 0 304 182" aria-hidden="true">
+          <path fill="#252F3E" d="M86.4 66.4c0 3.7.4 6.7 1.1 8.9.8 2.2 1.8 4.6 3.2 7.2.5.8.7 1.6.7 2.3 0 1-.6 2-1.9 3l-6.3 4.2c-.9.6-1.8.9-2.6.9-1 0-2-.5-3-1.4-.4-.4-.8-.9-1.2-1.4 -7.8 9.2-17.6 13.8-29.4 13.8-8.4 0-15.1-2.4-20-7.2-4.9-4.8-7.4-11.2-7.4-19.2 0-8.5 3-15.4 9.1-20.6 6.1-5.2 14.2-7.8 24.5-7.8 3.4 0 6.9.3 10.6.8 3.7.5 7.5 1.3 11.5 2.2v-7.3c0-7.6-1.6-12.9-4.7-16-3.2-3.1-8.6-4.6-16.3-4.6-3.5 0-7.1.4-10.8 1.3-3.7.9-7.3 2-10.8 3.4-1.6.7-2.8 1.1-3.5 1.3-.7.2-1.2.3-1.6.3-1.4 0-2.1-1-2.1-3.1v-4.9c0-1.6.2-2.8.7-3.5.5-.7 1.4-1.4 2.8-2.1 3.5-1.8 7.7-3.3 12.6-4.5C41 1.9 46.2 1.3 51.7 1.3c11.9 0 20.6 2.7 26.2 8.1 5.5 5.4 8.3 13.6 8.3 24.6v32.4h.2z"/>
+          <path fill="#FF9900" d="M273.5 143.7c-32.9 24.3-80.7 37.2-121.8 37.2-57.6 0-109.5-21.3-148.7-56.7-3.1-2.8-.3-6.6 3.4-4.4 42.4 24.6 94.7 39.5 148.8 39.5 36.5 0 76.6-7.6 113.5-23.2 5.5-2.5 10.2 3.6 4.8 7.6z"/>
+        </svg>
+        <span style={{fontSize:11, fontWeight:600, color:'var(--fg2)'}}>AWS Activate</span>
+      </a>
+    </div>
+  );
+}
+window.TrustStrip = TrustStrip;
+
 function ProblemSection() {
   const [activeChatStep, setActiveChatStep] = React.useState(0);
   const chatRef = React.useRef(null);
@@ -402,7 +429,7 @@ function ProblemSection() {
       n: '01', t: 'You pay before you ever see what works', b: 'Six figures, often before you see a working screen. Three possible systems come out. You only find out which one you got after the cheque clears.',
       footer: 'With SimpleGrid, you see and use it first. Then you pay.',
       visual: (
-        <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}}>
+        <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}} aria-hidden="true">
           <defs>
             <radialGradient id="sgHoleCore" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#000" stopOpacity="1"/>
@@ -483,7 +510,7 @@ function ProblemSection() {
       n: '02', t: 'Your business evolves. Your ERP does not.', b: 'Every small change = 6-week consulting project.',
       footer: 'SimpleGrid bends to your process. Most systems lock you in mid-growth.',
       visual: (
-        <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}}>
+        <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}} aria-hidden="true">
           <text x="20" y="50" fontSize="13" fill="var(--fg1)" fontWeight="600">Your business with a fluid ERP</text>
           <rect x="20" y="62" width="360" height="20" rx="10" fill="#E5E8ED"/>
           <rect x="20" y="62" width="360" height="20" rx="10" fill="#10B981" style={{transformOrigin:'20px 72px',animation:'sg-grow-b 3s ease-out infinite'}}/>
@@ -500,7 +527,7 @@ function ProblemSection() {
       n: '03', t: 'UI built for accountants, not operators', b: 'Seven tabs. Twelve fields. Nothing gets done.',
       footer: 'The ERP slows the floor, so teams go around it.',
       visual: (
-        <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}}>
+        <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}} aria-hidden="true">
           <rect x="10" y="10" width="380" height="180" rx="6" fill="#fff" stroke="#E5E8ED" strokeWidth="1.5"/>
           {['Orders','Items','Stock','Vendor','QC','Tax','GL'].map((tab,i) => (
             <g key={i}>
@@ -563,7 +590,7 @@ function ProblemSection() {
                       <div style={{color:'var(--sg-green)',marginTop:6,opacity:activeChatStep>=2?1:0.2,transition:'opacity 0.3s'}}>✓ PO matched. Inventory updated.</div>
                       <div style={{marginTop:14,paddingTop:12,borderTop:'1px dashed var(--border)',color:'var(--fg3)',fontSize:11,marginBottom:8,fontFamily:'var(--font-body)',fontWeight:600,letterSpacing:'0.08em',textTransform:'uppercase',opacity:activeChatStep>=3?1:0.2,transition:'opacity 0.3s'}}>Sales drops a PDF in chat:</div>
                       <div style={{display:'inline-flex',alignItems:'center',gap:8,padding:'6px 10px',border:'1px solid var(--border)',borderRadius:8,background:'#fff',opacity:activeChatStep>=3?1:0.2,transition:'opacity 0.3s'}}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sg-red)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0}}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sg-red)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0}} aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                         <span style={{color:'var(--fg1)',fontSize:12}}>SO_4521_BuyerPO.pdf</span>
                       </div>
                       <div style={{color:'var(--sg-green)',marginTop:8,opacity:activeChatStep>=4?1:0.2,transition:'opacity 0.3s'}}>✓ AI parsed. 23 line items matched to BOM.</div>
@@ -902,7 +929,7 @@ function HowItWorks() {
         ] },
       ],
       visual: (
-        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet">
+        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <circle cx="22" cy="36" r="11" fill="#4A7BF7"/>
           <text x="22" y="40" fontSize="11" fill="#fff" textAnchor="middle" fontWeight="700">F</text>
           <path d="M 36 26 L 196 26 Q 204 26 204 34 L 204 50 Q 204 58 196 58 L 44 58 L 36 64 Z" fill="rgba(74,123,247,0.10)" stroke="rgba(74,123,247,0.30)"/>
@@ -932,7 +959,7 @@ function HowItWorks() {
         ] },
       ],
       visual: (
-        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet">
+        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <rect x="14" y="14" width="192" height="132" rx="6" fill="#fff" stroke="var(--border)"/>
           <rect x="14" y="14" width="192" height="20" rx="6" fill="var(--sg-off-white)"/>
           <line x1="14" y1="34" x2="206" y2="34" stroke="var(--border)"/>
@@ -970,7 +997,7 @@ function HowItWorks() {
         ] },
       ],
       visual: (
-        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet">
+        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <rect x="14" y="14" width="192" height="132" rx="6" fill="var(--bg-alt)" stroke="var(--border)"/>
           <rect x="22" y="22" width="80" height="6" rx="2" fill="var(--border)"/>
           <rect x="22" y="34" width="120" height="6" rx="2" fill="var(--border)"/>
@@ -1009,7 +1036,7 @@ function HowItWorks() {
         ] },
       ],
       visual: (
-        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet">
+        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <line x1="14" y1="138" x2="206" y2="138" stroke="var(--border)" strokeWidth="1"/>
           {[1,2,3,4,5,6,7].map(d => {
             const x = 18 + (d-1) * 28;
@@ -1044,7 +1071,7 @@ function HowItWorks() {
         ] },
       ],
       visual: (
-        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet">
+        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <rect x="64" y="8" width="92" height="148" rx="12" fill="var(--fg1)"/>
           <rect x="68" y="12" width="84" height="140" rx="8" fill="#FFFFFF"/>
           <rect x="68" y="12" width="84" height="14" rx="8" fill="var(--bg-alt)"/>
@@ -1116,7 +1143,7 @@ function HowItWorks() {
             <Reveal key={i} delay={i * 80}>
               <button type="button" className="hiw-card" onClick={() => setSelected({ ...c, num: i + 1 })} aria-label={`Step ${i+1}: ${c.title}`}>
                 <span className="hiw-corner" aria-hidden="true">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--fg3)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--fg3)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="3 9 3 3 9 3"></polyline>
                     <polyline points="21 15 21 21 15 21"></polyline>
                   </svg>

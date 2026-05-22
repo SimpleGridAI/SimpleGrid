@@ -242,7 +242,7 @@ function FlowLine({ steps }) {
           }}>{s.label}</div>
           {i < steps.length - 1 && (
             <div style={{width:32,display:'flex',alignItems:'center',justifyContent:'center'}}>
-              <svg width="20" height="12" viewBox="0 0 20 12"><path d="M0 6h16M12 1l5 5-5 5" fill="none" stroke="var(--sg-blue)" strokeWidth="1.5"/></svg>
+              <svg width="20" height="12" viewBox="0 0 20 12" aria-hidden="true"><path d="M0 6h16M12 1l5 5-5 5" fill="none" stroke="var(--sg-blue)" strokeWidth="1.5"/></svg>
             </div>
           )}
         </React.Fragment>

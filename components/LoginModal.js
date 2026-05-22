@@ -192,6 +192,6 @@ function LoginModal({
       color: 'var(--sg-blue)',
       border: 'none'
     }
-  }, "Book a call"), " to get started.")));
+  }, "Book a call with the founder"), " to get started.")));
 }
 window.LoginModal = LoginModal;

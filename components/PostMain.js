@@ -266,7 +266,7 @@ function BlogPost() {
     target: "_blank",
     rel: "noopener noreferrer",
     className: "btn btn-primary"
-  }, "Book a call")), /*#__PURE__*/React.createElement("div", {
+  }, "Book a call with the founder")), /*#__PURE__*/React.createElement("div", {
     className: "post-pager"
   }, prevBlog ? /*#__PURE__*/React.createElement("a", {
     className: "post-pager-link",

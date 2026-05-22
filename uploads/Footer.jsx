@@ -12,7 +12,7 @@ function Footer() {
       { l: 'mukund@simplegrid.ai', href: 'mailto:mukund@simplegrid.ai' },
       { l: '+91 96499 33000', href: 'tel:+919649933000' },
       { l: 'LinkedIn', href: '#' },
-      { l: 'Book a call', href: 'https://calendly.com' },
+      { l: 'Book a call with the founder', href: 'https://calendly.com' },
     ]},
   ];
   return (

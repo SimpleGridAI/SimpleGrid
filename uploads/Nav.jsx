@@ -58,7 +58,7 @@ function Nav({ page = 'home', onLoginClick }) {
         <div className="nav-right">
           <a href="build.html" className="btn btn-sm btn-secondary desktop-only" style={{borderColor:'var(--sg-blue)',color:'var(--sg-blue)'}}>Build your ERP</a>
           <button className="btn btn-sm btn-secondary desktop-only" onClick={onLoginClick}>Log in</button>
-          <a href="https://calendly.com" target="_blank" rel="noopener" className="btn btn-sm btn-primary">Book a call</a>
+          <a href="https://calendly.com" target="_blank" rel="noopener" className="btn btn-sm btn-primary">Book a call with the founder</a>
         </div>
       </div>
     </header>

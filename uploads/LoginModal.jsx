@@ -34,7 +34,7 @@ function LoginModal({ onClose, onSuccess, title = 'Log in to SimpleGrid', sub = 
         </div>
         <button type="submit" className="btn btn-primary" style={{width:'100%',justifyContent:'center',marginTop:4}}>Log in</button>
         <p style={{fontSize:13,color:'var(--fg3)',textAlign:'center',marginTop:14}}>
-          Don't have an account? <a href="https://calendly.com" target="_blank" rel="noopener" style={{color:'var(--sg-blue)',border:'none'}}>Book a call</a> to get started.
+          Don't have an account? <a href="https://calendly.com" target="_blank" rel="noopener" style={{color:'var(--sg-blue)',border:'none'}}>Book a call with the founder</a> to get started.
         </p>
       </form>
     </div>

@@ -11,6 +11,11 @@ img { max-width: 100%; display: block; }
 .skip-link { position: absolute; top: 0; left: 0; padding: 12px 20px; background: var(--sg-blue, #4A7BF7); color: #fff; font-weight: 600; text-decoration: none; z-index: 10000; transform: translateY(-100%); transition: transform 120ms ease; }
 .skip-link:focus { transform: translateY(0); outline: 2px solid #fff; outline-offset: 2px; }
 
+/* Global branded keyboard focus indicator (only fires for keyboard nav, not mouse clicks) */
+:focus-visible { outline: 2px solid var(--sg-blue, #4A7BF7); outline-offset: 2px; border-radius: 4px; }
+.btn:focus-visible { box-shadow: 0 0 0 3px rgba(74, 123, 247, 0.30); outline: 2px solid var(--sg-blue); outline-offset: 2px; }
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--sg-blue); outline-offset: 1px; }
+
 /* ===== Integrations marquee (between hero + problem section) ===== */
 .ig-bar { display: flex; align-items: center; gap: 18px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--sg-off-white); padding: 14px 24px; overflow: hidden; }
 .ig-label { flex: 0 0 auto; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg3); white-space: nowrap; }
@@ -1228,6 +1233,15 @@ img { max-width: 100%; display: block; }
   .footer-cols { grid-template-columns: 1fr !important; gap: 24px; }
   .footer-bottom { flex-direction: column; gap: 8px; }
   .footer-legal a:first-child { margin-left: 0; }
+  /* Responsive hero h1 - cap font-size at ~32px below 480px so 3-line headlines fit */
+  .hero-title { font-size: 32px !important; line-height: 1.15 !important; min-height: 0 !important; }
+  .hero { padding: 64px 0 56px !important; min-height: auto !important; }
+  .hero-stat-box { padding: 22px !important; }
+  .hero-stat-box > div > span:first-child,
+  .hero-stat-box [style*="fontSize:80"] { font-size: 56px !important; }
+  /* Mobile sticky CTA tightened on narrow phones */
+  .mobile-cta { padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)) !important; }
+  .mobile-cta .btn { min-height: 44px !important; max-height: 48px !important; padding: 10px 14px !important; font-size: 14px !important; }
 }
 
 /* Reserve space for lazy-mounted blog infographics so they don't shift layout

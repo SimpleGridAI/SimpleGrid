@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
 <title>Careers at SimpleGrid - Build the ERP Every Operator Wished For</title>
 <meta name="description" content="Small team building a custom-modeled ERP for mid-market manufacturers. Engineers, operators, GTM hires welcome. Operator-grounded. Founder-led customer relationships. Apply by email.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +27,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://simplegrid.ai/hiring.html">
 <meta property="og:title" content="Careers at SimpleGrid - Build the ERP Every Operator Wished For">
-<meta property="og:description" content="Lean team building a custom ERP for mid-market manufacturers. We carry the build risk; we ship working systems in days, not months.">
+<meta property="og:description" content="Small team building a custom-modeled ERP for mid-market manufacturers. Engineers, operators, GTM hires welcome. Operator-grounded. Founder-led customer relationships. Apply by email.">
 <meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
 <meta property="og:image:alt" content="SimpleGrid careers - building a custom ERP for mid-market manufacturers">
 
@@ -30,7 +36,7 @@
 <meta name="twitter:site" content="@simplegridai">
 <meta name="twitter:creator" content="@simplegridai">
 <meta name="twitter:title" content="Careers at SimpleGrid - Build the ERP Every Operator Wished For">
-<meta name="twitter:description" content="Building a custom ERP for mid-market manufacturers. Operator-grounded. Senior team on every customer.">
+<meta name="twitter:description" content="Small team building a custom-modeled ERP for mid-market manufacturers. Engineers, operators, GTM hires welcome. Operator-grounded. Founder-led customer relationships. Apply by email.">
 <meta name="twitter:image" content="https://simplegrid.ai/assets/og-card.jpg">
 
 <script type="application/ld+json">
@@ -60,67 +66,12 @@
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
 
-<!-- PostHog Analytics (deferred to idle / 2s timeout) -->
-<script>
-  function sgLoadPostHog(){
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('phc_uYqTNuyvu48ttUP7tjh89v8JBvjgbRZ9bvZdfdVoEPVh', {
-        api_host: 'https://us.i.posthog.com',
-        defaults: '2026-01-30',
-        person_profiles: 'identified_only',
-        disable_session_recording: true,
-        disable_surveys: true,
-        opt_out_capturing_by_default: false
-    })
-  }
-  // Defer PostHog until first user interaction (privacy-friendlier + reduces TBT).
-  // Falls back to 30s for passive readers so analytics still capture page views.
-  // To opt out: open DevTools console and run sgPostHogOptOut() - sets a
-  // localStorage flag so PostHog never loads on this device.
-  (function(){
-    var loaded = false;
-    var events = ['mousemove','scroll','click','touchstart','keydown'];
-    function trigger(){
-      if (loaded) return;
-      loaded = true;
-      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
-      sgLoadPostHog();
-      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
-    }
-    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
-    setTimeout(trigger, 30000);
-    window.sgPostHogOptOut = function(out){
-      try {
-        if (out === false) localStorage.removeItem('sg_ph_opt_out');
-        else { localStorage.setItem('sg_ph_opt_out','1'); console.log('SimpleGrid: analytics opted out on this device.'); }
-      } catch(e){}
-    };
-  })();
-</script>
-<!-- Google tag (gtag.js) - deferred to first user interaction (privacy + perf parity with PostHog).
-     To opt out: open DevTools console and run sgPostHogOptOut() - same flag controls both. -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-PGZBXNF51L');
-  (function(){
-    var loaded = false;
-    var events = ['mousemove','scroll','click','touchstart','keydown'];
-    function trigger(){
-      if (loaded) return;
-      loaded = true;
-      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';
-      document.head.appendChild(s);
-      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
-    }
-    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
-    setTimeout(trigger, 30000);
-  })();
-</script>
+<!-- Analytics (PostHog + GA4) - deferred to first user interaction. See /assets/js/analytics-init.js -->
+<script src="assets/js/analytics-init.js" defer></script>
+<!-- Conversion event tracking (data-cta + form + scroll) -->
+<script src="assets/js/tracking.js" defer></script>
+<!-- Cookie consent banner -->
+<script src="assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
 <!-- Static seed inside #root - React replaces on mount. -->
@@ -137,7 +88,7 @@
       <a href="/blog.html">Blog</a>
       <a href="/about.html">About</a>
       <a href="/tools/">Productive Tools</a>
-      <a href="https://cal.com/simplegrid-ai" rel="noopener noreferrer">Book a Call</a>
+      <a href="https://cal.com/simplegrid-ai" rel="noopener noreferrer">Book a call with the founder</a>
     </nav>
   </header>
   <main id="main" style="padding:60px 32px;max-width:920px;margin:0 auto">

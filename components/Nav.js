@@ -211,7 +211,7 @@ function Nav({
     rel: "noopener noreferrer",
     className: "btn btn-sm btn-primary",
     title: "Book a SimpleGrid demo call"
-  }, "Book a Call"), /*#__PURE__*/React.createElement("button", {
+  }, "Book a call with the founder"), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: 'nav-burger' + (openMenu ? ' is-open' : ''),
     "aria-label": openMenu ? 'Close menu' : 'Open menu',

@@ -97,13 +97,13 @@ function CaseStudiesPage() {
       margin: '0 0 10px',
       letterSpacing: '-0.015em'
     }
-  }, "Apex Apparel ", /*#__PURE__*/React.createElement("span", {
+  }, "Apparel Contract Manufacturer ", /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 12,
       color: 'var(--fg3)',
       fontWeight: 400
     }
-  }, "(confidential)")), /*#__PURE__*/React.createElement("p", null, "80\u2013100k shirts/month. 3 streams: CMT, own brand, fabric trading. 20+ job workers. 30+ inventory locations. Live in 12 days."), /*#__PURE__*/React.createElement("div", {
+  }, "(reference on request)")), /*#__PURE__*/React.createElement("p", null, "80\u2013100k shirts/month. 3 streams: CMT, own brand, fabric trading. 20+ job workers. 30+ inventory locations. Live in 12 days."), /*#__PURE__*/React.createElement("div", {
     className: "proof-stats"
   }, "34 things tracked. 44 automatic triggers."), /*#__PURE__*/React.createElement("div", {
     className: "proof-quote"

@@ -37,7 +37,7 @@ function CaseStudiesPage() {
             </div>
             <div className="proof-body case-row-body">
               <div className="tag" style={{marginBottom:8}}>APPAREL CMT</div>
-              <h2 style={{fontFamily:'var(--font-heading)',fontSize:22,fontWeight:700,margin:'0 0 10px',letterSpacing:'-0.015em'}}>Apex Apparel <span style={{fontSize:12,color:'var(--fg3)',fontWeight:400}}>(confidential)</span></h2>
+              <h2 style={{fontFamily:'var(--font-heading)',fontSize:22,fontWeight:700,margin:'0 0 10px',letterSpacing:'-0.015em'}}>Apparel Contract Manufacturer <span style={{fontSize:12,color:'var(--fg3)',fontWeight:400}}>(reference on request)</span></h2>
               <p>80–100k shirts/month. 3 streams: CMT, own brand, fabric trading. 20+ job workers. 30+ inventory locations. Live in 12 days.</p>
               <div className="proof-stats">34 things tracked. 44 automatic triggers.</div>
               <div className="proof-quote">

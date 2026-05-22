@@ -415,7 +415,7 @@
     return (
       <div className="pi-agg">
         <div className="pi-agg-stage">
-          <svg viewBox="0 0 440 260" preserveAspectRatio="none" className="pi-agg-svg">
+          <svg viewBox="0 0 440 260" preserveAspectRatio="none" className="pi-agg-svg" aria-hidden="true">
             <ellipse cx="220" cy="135" rx="155" ry="100" fill="none" stroke="rgba(74,123,247,0.35)" strokeWidth="1.5" strokeDasharray="5 4" vectorEffect="non-scaling-stroke"/>
             <text x="220" y="36" textAnchor="middle" fontSize="9" fill="var(--sg-blue)" fontWeight="700" letterSpacing="2">ENTITY BOUNDARY</text>
             {/* lines from root center to member centers (positions match DOM cards) */}

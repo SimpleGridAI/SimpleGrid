@@ -342,14 +342,18 @@ function Hero() {
     delay: 400
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-cta"
-  }, /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    onClick: () => setShowInvite(true),
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "https://cal.com/simplegrid-ai",
+    target: "_blank",
+    rel: "noopener noreferrer",
+    "data-cta": "hero",
     className: "btn btn-lg btn-invite",
     style: {
       boxShadow: '0 0 0 0 rgba(74,123,247,0.45), 0 6px 20px rgba(74,123,247,0.18)',
-      animation: 'sgBuildPulse 1.8s ease-in-out infinite'
-    }
+      animation: 'sgBuildPulse 1.8s ease-in-out infinite',
+      textDecoration: 'none'
+    },
+    onClick: () => window.sgTrack && window.sgTrack('cta_clicked', {location: 'hero'})
   }, /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
@@ -362,7 +366,7 @@ function Hero() {
   }, /*#__PURE__*/React.createElement("path", {
     d: "M12 2l2.39 5.84L20 10l-5.61 2.16L12 18l-2.39-5.84L4 10l5.61-2.16L12 2z",
     fill: "currentColor"
-  })), "Request an Invite")))), /*#__PURE__*/React.createElement(Reveal, {
+  })), "Book a call with the founder")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: 300
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-stat-box",
@@ -486,6 +490,27 @@ function IntegrationsBar() {
   })), /*#__PURE__*/React.createElement("span", null, it.name))))));
 }
 window.IntegrationsBar = IntegrationsBar;
+
+function TrustStrip() {
+  var prefix = (typeof window !== 'undefined' && window.__SG_BLOG_ASSET_PREFIX__) || '';
+  return /*#__PURE__*/React.createElement("div", {
+    "aria-label": "Recognized by",
+    style: { display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 24, padding: '14px 24px', flexWrap: 'wrap', borderBottom: '1px solid var(--border)', background: 'var(--bg-alt)' }
+  },
+    /*#__PURE__*/React.createElement("span", { style: { fontSize: 11, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--fg3)' } }, "Recognized by"),
+    /*#__PURE__*/React.createElement("a", { href: "https://www.nvidia.com/en-us/startups/", target: "_blank", rel: "noopener noreferrer", title: "NVIDIA Inception Program member", "data-cta": "trust_nvidia", style: { display: 'inline-flex', alignItems: 'center', height: 28, opacity: 0.85 } },
+      /*#__PURE__*/React.createElement("img", { src: prefix + "assets/nvidia-inception.png", alt: "NVIDIA Inception Program member", width: "84", height: "26", loading: "lazy", decoding: "async", style: { display: 'block', height: 26, width: 'auto' } })
+    ),
+    /*#__PURE__*/React.createElement("a", { href: "https://aws.amazon.com/startups/", target: "_blank", rel: "noopener noreferrer", title: "AWS Activate Startups member", "data-cta": "trust_aws", style: { display: 'inline-flex', alignItems: 'center', gap: 6, height: 28, opacity: 0.85, textDecoration: 'none' } },
+      /*#__PURE__*/React.createElement("svg", { width: "32", height: "20", viewBox: "0 0 304 182", "aria-hidden": "true" },
+        /*#__PURE__*/React.createElement("path", { fill: "#252F3E", d: "M86.4 66.4c0 3.7.4 6.7 1.1 8.9.8 2.2 1.8 4.6 3.2 7.2.5.8.7 1.6.7 2.3 0 1-.6 2-1.9 3l-6.3 4.2c-.9.6-1.8.9-2.6.9-1 0-2-.5-3-1.4-.4-.4-.8-.9-1.2-1.4 -7.8 9.2-17.6 13.8-29.4 13.8-8.4 0-15.1-2.4-20-7.2-4.9-4.8-7.4-11.2-7.4-19.2 0-8.5 3-15.4 9.1-20.6 6.1-5.2 14.2-7.8 24.5-7.8 3.4 0 6.9.3 10.6.8 3.7.5 7.5 1.3 11.5 2.2v-7.3c0-7.6-1.6-12.9-4.7-16-3.2-3.1-8.6-4.6-16.3-4.6-3.5 0-7.1.4-10.8 1.3-3.7.9-7.3 2-10.8 3.4-1.6.7-2.8 1.1-3.5 1.3-.7.2-1.2.3-1.6.3-1.4 0-2.1-1-2.1-3.1v-4.9c0-1.6.2-2.8.7-3.5.5-.7 1.4-1.4 2.8-2.1 3.5-1.8 7.7-3.3 12.6-4.5C41 1.9 46.2 1.3 51.7 1.3c11.9 0 20.6 2.7 26.2 8.1 5.5 5.4 8.3 13.6 8.3 24.6v32.4h.2z" }),
+        /*#__PURE__*/React.createElement("path", { fill: "#FF9900", d: "M273.5 143.7c-32.9 24.3-80.7 37.2-121.8 37.2-57.6 0-109.5-21.3-148.7-56.7-3.1-2.8-.3-6.6 3.4-4.4 42.4 24.6 94.7 39.5 148.8 39.5 36.5 0 76.6-7.6 113.5-23.2 5.5-2.5 10.2 3.6 4.8 7.6z" })
+      ),
+      /*#__PURE__*/React.createElement("span", { style: { fontSize: 11, fontWeight: 600, color: 'var(--fg2)' } }, "AWS Activate")
+    )
+  );
+}
+window.TrustStrip = TrustStrip;
 
 function ProblemSection() {
   const [activeChatStep, setActiveChatStep] = React.useState(0);

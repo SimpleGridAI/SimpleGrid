@@ -171,7 +171,7 @@ function FactoryScene({ stage, progress, color }) {
 
   const scenes = [
     // 0: Order - document flying in
-    <svg key="0" viewBox="0 0 300 200" style={{width:'100%'}}>
+    <svg key="0" viewBox="0 0 300 200" style={{width:'100%'}} aria-hidden="true">
       <rect x="60" y="40" width="180" height="120" rx="8" fill="#fff" stroke={color} strokeWidth="2"/>
       <line x1="90" y1="70" x2="210" y2="70" stroke="#E5E8ED" strokeWidth="2"/>
       <line x1="90" y1="90" x2="180" y2="90" stroke="#E5E8ED" strokeWidth="2"/>
@@ -183,7 +183,7 @@ function FactoryScene({ stage, progress, color }) {
       <path d={`M 240 76 L 210 ${70 + progress * 20}`} stroke={color} strokeWidth="1.5" strokeDasharray="4,3" opacity={progress}/>
     </svg>,
     // 1: Planning - grid/allocation
-    <svg key="1" viewBox="0 0 300 200" style={{width:'100%'}}>
+    <svg key="1" viewBox="0 0 300 200" style={{width:'100%'}} aria-hidden="true">
       {[0,1,2].map(r => [0,1,2].map(c => {
         const filled = (r * 3 + c) < Math.ceil(progress * 9);
         return <rect key={`${r}-${c}`} x={50+c*75} y={30+r*55} width="65" height="45" rx="6" fill={filled ? color+'22' : '#FAFBFC'} stroke={filled ? color : '#E5E8ED'} strokeWidth="1.5" style={{transition:'all 0.3s'}}/>;
@@ -191,7 +191,7 @@ function FactoryScene({ stage, progress, color }) {
       <text x="150" y="190" textAnchor="middle" fill="var(--fg3)" fontSize="10">Allocating across production lines</text>
     </svg>,
     // 2: Procure - boxes arriving
-    <svg key="2" viewBox="0 0 300 200" style={{width:'100%'}}>
+    <svg key="2" viewBox="0 0 300 200" style={{width:'100%'}} aria-hidden="true">
       {[0,1,2,3].map(i => {
         const x = 30 + i * 70;
         const arrived = i < Math.ceil(progress * 4);
@@ -204,7 +204,7 @@ function FactoryScene({ stage, progress, color }) {
       <text x="150" y="170" textAnchor="middle" fill="var(--fg3)" fontSize="10">Purchase orders sent to vendors</text>
     </svg>,
     // 3: Receive - warehouse
-    <svg key="3" viewBox="0 0 300 200" style={{width:'100%'}}>
+    <svg key="3" viewBox="0 0 300 200" style={{width:'100%'}} aria-hidden="true">
       <rect x="60" y="50" width="180" height="110" rx="4" fill="none" stroke="#E5E8ED" strokeWidth="2"/>
       <rect x="60" y="35" width="180" height="20" rx="4" fill="#FAFBFC" stroke="#E5E8ED" strokeWidth="1"/>
       <text x="150" y="49" textAnchor="middle" fill="var(--fg3)" fontSize="9" fontWeight="600">WAREHOUSE B</text>
@@ -216,7 +216,7 @@ function FactoryScene({ stage, progress, color }) {
       <text x="150" y="180" textAnchor="middle" fill="var(--fg3)" fontSize="10">Inventory filling up in real time</text>
     </svg>,
     // 4: Production - conveyor belt
-    <svg key="4" viewBox="0 0 300 200" style={{width:'100%'}}>
+    <svg key="4" viewBox="0 0 300 200" style={{width:'100%'}} aria-hidden="true">
       <rect x="20" y={beltY-5} width="260" height="10" rx="5" fill="#E5E8ED"/>
       {[0,1,2,3,4].map(i => {
         const x = 30 + ((i * 55 + progress * 55) % 260);
@@ -232,7 +232,7 @@ function FactoryScene({ stage, progress, color }) {
       <text x="150" y="180" textAnchor="middle" fill="var(--fg3)" fontSize="10">Components moving through stages</text>
     </svg>,
     // 5: QC - checkmarks
-    <svg key="5" viewBox="0 0 300 200" style={{width:'100%'}}>
+    <svg key="5" viewBox="0 0 300 200" style={{width:'100%'}} aria-hidden="true">
       {[0,1,2,3,4,5].map(i => {
         const col = i % 3, row = Math.floor(i / 3);
         const passed = i < Math.ceil(progress * 5);
@@ -245,7 +245,7 @@ function FactoryScene({ stage, progress, color }) {
       <text x="150" y="185" textAnchor="middle" fill="var(--fg3)" fontSize="10">Quality gate: pass or reject at source</text>
     </svg>,
     // 6: Packaging
-    <svg key="6" viewBox="0 0 300 200" style={{width:'100%'}}>
+    <svg key="6" viewBox="0 0 300 200" style={{width:'100%'}} aria-hidden="true">
       {[0,1,2].map(i => {
         const x = 40 + i * 85;
         const sealed = i < Math.ceil(progress * 3);
@@ -259,7 +259,7 @@ function FactoryScene({ stage, progress, color }) {
       <text x="150" y="180" textAnchor="middle" fill="var(--fg3)" fontSize="10">Packed to buyer specifications</text>
     </svg>,
     // 7: Dispatch - truck
-    <svg key="7" viewBox="0 0 300 200" style={{width:'100%'}}>
+    <svg key="7" viewBox="0 0 300 200" style={{width:'100%'}} aria-hidden="true">
       <g style={{transform: `translateX(${-80 + progress * 200}px)`, transition: 'transform 0.3s linear'}}>
         <rect x="60" y="70" width="120" height="60" rx="4" fill={color+'22'} stroke={color} strokeWidth="1.5"/>
         <rect x="180" y="85" width="50" height="45" rx="4" fill={color} stroke={color} strokeWidth="1.5"/>

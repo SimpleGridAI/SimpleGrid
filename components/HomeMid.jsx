@@ -69,7 +69,7 @@ function DemoVideo() {
           <p style={{fontSize:15,color:'var(--fg2)',marginBottom:20}}>Watch one complete transaction. Start to finish. 60 seconds.</p>
           <div className="video-wrap">
             <div className="play-btn">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polygon points="6,3 20,12 6,21" fill="currentColor"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><polygon points="6,3 20,12 6,21" fill="currentColor"/></svg>
             </div>
           </div>
         </Reveal>

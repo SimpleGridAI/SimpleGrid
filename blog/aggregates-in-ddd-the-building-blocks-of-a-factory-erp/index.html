@@ -2,35 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
 <title>Redirecting… | SimpleGrid Blog</title>
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://simplegrid.ai/blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/">
 <meta http-equiv="refresh" content="0; url=/blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/">
 <script>window.location.replace("/blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/");</script>
-<!-- Google tag (gtag.js) - deferred to first user interaction (privacy + perf parity with PostHog).
-     To opt out: open DevTools console and run sgPostHogOptOut() - same flag controls both. -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-PGZBXNF51L');
-  (function(){
-    var loaded = false;
-    var events = ['mousemove','scroll','click','touchstart','keydown'];
-    function trigger(){
-      if (loaded) return;
-      loaded = true;
-      try { if (localStorage.getItem('sg_ph_opt_out') === '1') return; } catch(e){}
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';
-      document.head.appendChild(s);
-      events.forEach(function(e){ document.removeEventListener(e, trigger, true); });
-    }
-    events.forEach(function(e){ document.addEventListener(e, trigger, {once:true, passive:true, capture:true}); });
-    setTimeout(trigger, 30000);
-  })();
-</script>
+<!-- Analytics (PostHog + GA4) - deferred to first user interaction. See /assets/js/analytics-init.js -->
+<script src="../../assets/js/analytics-init.js" defer></script>
+<!-- Conversion event tracking (data-cta + form + scroll) -->
+<script src="../../assets/js/tracking.js" defer></script>
+<!-- Cookie consent banner -->
+<script src="../../assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
 <p>This post has moved. <a href="/blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/">Continue to the new URL</a>.</p>

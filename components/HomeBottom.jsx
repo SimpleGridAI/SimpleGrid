@@ -1,7 +1,7 @@
 function ApparelVisual() {
   return (
     <div style={{position:'relative',width:'100%',height:'100%',background:'linear-gradient(135deg, #0E0E10 0%, #181f2e 60%, #1A2540 100%)',overflow:'hidden'}}>
-      <svg viewBox="0 0 400 220" style={{position:'absolute',inset:0,width:'100%',height:'100%'}}>
+      <svg viewBox="0 0 400 220" style={{position:'absolute',inset:0,width:'100%',height:'100%'}} aria-hidden="true">
         <defs>
           <pattern id="apxWeave" width="6" height="6" patternUnits="userSpaceOnUse">
             <path d="M0 3 H6 M3 0 V6" stroke="rgba(255,255,255,0.04)" strokeWidth="0.6"/>
@@ -127,6 +127,9 @@ function FounderStory() {
             <p className="body">SimpleGrid exists because we were the customer first - multiple factories, 400-person workforce. We bought the same enterprise systems you're being pitched today. We watched them fail. We know exactly what breaks when the system can't keep up with the floor.</p>
             <p className="body">That's why we built SimpleGrid the only way that makes sense to an operator: model it on your factory, run it on your real floor for 30 days, and only charge when it earns its keep.</p>
             <p className="body">Senior engineers and a founder are on every deployment. No sales reps. No SDRs. No chatbot. You deal with the people who'll actually build your system.</p>
+            <p className="body" style={{marginTop:18}}>
+              <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" data-cta="founder_linkedin" style={{color:'var(--sg-blue)',fontWeight:600,textDecoration:'none'}}>See the team on LinkedIn →</a>
+            </p>
           </div>
         </Reveal>
       </div>
@@ -147,7 +150,7 @@ function ProofSection() {
         <div className="proof-grid">
           {[
             { kind: 'image', img: 'url(assets/elite-factory.jpeg) center/cover', name: 'Furniture Manufacturer & Exporter', desc: '12+ countries (NA, Europe, Asia). 600–800 employees. ~1 million sq ft. Excel + group chats → live ERP.', stats: '64 tracked · 72 triggers · 21 days', quote: '"SimpleGrid feels like our system. My stores manager was comfortable on day one."', attr: '- The founder', link: 'case-furniture-manufacturer.html', anchor: 'How they deployed in 21 days' },
-            { kind: 'apparel', name: 'Apex Apparel', desc: 'Apparel manufacturer · 80–100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.', stats: '34 tracked · 44 triggers · 12 days', quote: '"Working demo in 24 hours - 60–70% accurate. No vendor we\'ve worked with has done that."', attr: '- Founder, Apex Apparel (confidential)', link: 'case-apex.html', anchor: 'How Apex went live in 12 days' },
+            { kind: 'apparel', name: 'Apparel Contract Manufacturer', desc: 'Apparel manufacturer · 80–100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.', stats: '34 tracked · 44 triggers · 12 days', quote: '"Working demo in 24 hours - 60–70% accurate. No vendor we\'ve worked with has done that."', attr: '- Founder (reference available on request)', link: 'case-apex.html', anchor: 'How they went live in 12 days' },
           ].map((c,i) => (
             <Reveal key={i} delay={i * 150}>
               <a href={c.link} className="proof-card" style={{height:'100%',display:'block',textDecoration:'none',color:'inherit',transition:'all 160ms var(--ease-standard)'}}
@@ -185,29 +188,32 @@ function ProofSection() {
 window.ProofSection = ProofSection;
 
 function Integrations() {
-  // Add more entries to this array - the marquee will pick them up automatically.
+  // Status legend:
+  //   'live'    - shipped on >=1 deployment, can demo today
+  //   'request' - we have the integration spec and will build on contract sign
+  //   'custom'  - the placeholder card inviting custom requests
   const items = [
-    { name: 'Gmail', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/></svg>' },
-    { name: 'Outlook', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#0078D4"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">O</text></svg>' },
-    { name: 'Tally', svg: '<svg viewBox="0 0 40 40" width="24" height="24"><rect width="40" height="40" rx="6" fill="#263238"/><text x="20" y="26" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="16">T</text></svg>' },
-    { name: 'QuickBooks', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="12" fill="#2CA01C"/><path d="M7.5 8a2 2 0 00-2 2v4a2 2 0 002 2h1V8h-1zm3-1v10h1a4 4 0 004-4v-2a4 4 0 00-4-4h-1zm2 2.5a1.5 1.5 0 011.5 1.5v2a1.5 1.5 0 01-1.5 1.5V9.5z" fill="#fff"/></svg>' },
-    { name: 'Xero', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="12" fill="#13B5EA"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">X</text></svg>' },
-    { name: 'Stripe', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#635BFF"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">S</text></svg>' },
-    { name: 'Zoho', svg: '<svg viewBox="0 0 40 40" width="24" height="24"><rect width="40" height="40" rx="6" fill="#D0312D"/><text x="20" y="26" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="12">ZOHO</text></svg>' },
-    { name: 'Excel', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#107C41"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="11">XL</text></svg>' },
-    { name: 'Google Sheets', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" fill="#0F9D58"/><path d="M14 2v6h6" fill="#0B7B47"/><rect x="7" y="11" width="10" height="8" rx="1" fill="#fff"/><line x1="7" y1="14" x2="17" y2="14" stroke="#0F9D58" stroke-width="0.8"/><line x1="7" y1="17" x2="17" y2="17" stroke="#0F9D58" stroke-width="0.8"/><line x1="10.5" y1="11" x2="10.5" y2="19" stroke="#0F9D58" stroke-width="0.8"/><line x1="14" y1="11" x2="14" y2="19" stroke="#0F9D58" stroke-width="0.8"/></svg>' },
-    { name: 'Shopify', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#96BF48"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="11">S</text></svg>' },
-    { name: 'WooCommerce', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#7F54B3"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">WC</text></svg>' },
-    { name: 'Mailchimp', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#FFE01B"/><text x="12" y="16" text-anchor="middle" fill="#241C15" font-family="sans-serif" font-weight="700" font-size="13">M</text></svg>' },
-    { name: 'Klaviyo', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#000"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">K</text></svg>' },
-    { name: 'ShipStation', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#0099FF"/><path d="M6 9 L12 6.5 L18 9 L18 15.5 L12 18 L6 15.5 Z" fill="none" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/><line x1="6" y1="9" x2="12" y2="11.5" stroke="#fff" stroke-width="1.4"/><line x1="18" y1="9" x2="12" y2="11.5" stroke="#fff" stroke-width="1.4"/><line x1="12" y1="11.5" x2="12" y2="18" stroke="#fff" stroke-width="1.4"/></svg>' },
-    { name: 'PostgreSQL', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="12" fill="#336791"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="10">Pg</text></svg>' },
-    { name: 'Amazon', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#232F3E"/><text x="12" y="14" text-anchor="middle" fill="#FF9900" font-family="sans-serif" font-weight="700" font-size="11">a</text><path d="M6.5 17 Q 12 19.5 17.5 17" fill="none" stroke="#FF9900" stroke-width="1.4" stroke-linecap="round"/></svg>' },
-    { name: 'Braze', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#FE5832"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">B</text></svg>' },
-    { name: 'Bill.com', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#006FFF"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">BILL</text></svg>' },
-    { name: 'TikTok Shop', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#000"/><text x="12" y="16" text-anchor="middle" fill="#FE2C55" font-family="sans-serif" font-weight="700" font-size="11">TT</text></svg>' },
-    { name: 'SFTP', svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="#4A5568"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">SFTP</text></svg>' },
-    { name: '+ Build custom', custom: true, svg: '<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="4" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-dasharray="3 2"/><line x1="12" y1="7" x2="12" y2="17" stroke="#4A7BF7" stroke-width="2" stroke-linecap="round"/><line x1="7" y1="12" x2="17" y2="12" stroke="#4A7BF7" stroke-width="2" stroke-linecap="round"/></svg>' },
+    { name: 'Gmail', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/></svg>' },
+    { name: 'QuickBooks', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#2CA01C"/><path d="M7.5 8a2 2 0 00-2 2v4a2 2 0 002 2h1V8h-1zm3-1v10h1a4 4 0 004-4v-2a4 4 0 00-4-4h-1zm2 2.5a1.5 1.5 0 011.5 1.5v2a1.5 1.5 0 01-1.5 1.5V9.5z" fill="#fff"/></svg>' },
+    { name: 'Excel', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#107C41"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="11">XL</text></svg>' },
+    { name: 'Google Sheets', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" fill="#0F9D58"/><path d="M14 2v6h6" fill="#0B7B47"/><rect x="7" y="11" width="10" height="8" rx="1" fill="#fff"/><line x1="7" y1="14" x2="17" y2="14" stroke="#0F9D58" stroke-width="0.8"/><line x1="7" y1="17" x2="17" y2="17" stroke="#0F9D58" stroke-width="0.8"/><line x1="10.5" y1="11" x2="10.5" y2="19" stroke="#0F9D58" stroke-width="0.8"/><line x1="14" y1="11" x2="14" y2="19" stroke="#0F9D58" stroke-width="0.8"/></svg>' },
+    { name: 'Shopify', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#96BF48"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="11">S</text></svg>' },
+    { name: 'ShipStation', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0099FF"/><path d="M6 9 L12 6.5 L18 9 L18 15.5 L12 18 L6 15.5 Z" fill="none" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/><line x1="6" y1="9" x2="12" y2="11.5" stroke="#fff" stroke-width="1.4"/><line x1="18" y1="9" x2="12" y2="11.5" stroke="#fff" stroke-width="1.4"/><line x1="12" y1="11.5" x2="12" y2="18" stroke="#fff" stroke-width="1.4"/></svg>' },
+    { name: 'Outlook', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0078D4"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">O</text></svg>' },
+    { name: 'Tally', status: 'request', svg: '<svg viewBox="0 0 40 40" width="24" height="24" aria-hidden="true"><rect width="40" height="40" rx="6" fill="#263238"/><text x="20" y="26" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="16">T</text></svg>' },
+    { name: 'Xero', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#13B5EA"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">X</text></svg>' },
+    { name: 'Stripe', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#635BFF"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">S</text></svg>' },
+    { name: 'Zoho', status: 'request', svg: '<svg viewBox="0 0 40 40" width="24" height="24" aria-hidden="true"><rect width="40" height="40" rx="6" fill="#D0312D"/><text x="20" y="26" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="12">ZOHO</text></svg>' },
+    { name: 'WooCommerce', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#7F54B3"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">WC</text></svg>' },
+    { name: 'Mailchimp', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#FFE01B"/><text x="12" y="16" text-anchor="middle" fill="#241C15" font-family="sans-serif" font-weight="700" font-size="13">M</text></svg>' },
+    { name: 'Klaviyo', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#000"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">K</text></svg>' },
+    { name: 'PostgreSQL', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#336791"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="10">Pg</text></svg>' },
+    { name: 'Amazon', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#232F3E"/><text x="12" y="14" text-anchor="middle" fill="#FF9900" font-family="sans-serif" font-weight="700" font-size="11">a</text><path d="M6.5 17 Q 12 19.5 17.5 17" fill="none" stroke="#FF9900" stroke-width="1.4" stroke-linecap="round"/></svg>' },
+    { name: 'Braze', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#FE5832"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">B</text></svg>' },
+    { name: 'Bill.com', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#006FFF"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">BILL</text></svg>' },
+    { name: 'TikTok Shop', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#000"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="11">TT</text></svg>' },
+    { name: 'SFTP', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#4A5568"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">SFTP</text></svg>' },
+    { name: '+ Build custom', status: 'custom', custom: true, svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-dasharray="3 2"/><line x1="12" y1="7" x2="12" y2="17" stroke="#4A7BF7" stroke-width="2" stroke-linecap="round"/><line x1="7" y1="12" x2="17" y2="12" stroke="#4A7BF7" stroke-width="2" stroke-linecap="round"/></svg>' },
   ];
   // Duplicate the list so the loop is seamless when the track translates by -50%.
   const doubled = [...items, ...items];
@@ -216,25 +222,36 @@ function Integrations() {
       <style dangerouslySetInnerHTML={{__html:`
         .int-marquee{overflow:hidden;padding:6px 0;mask-image:linear-gradient(90deg,transparent 0%,black 6%,black 94%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 6%,black 94%,transparent 100%);margin-top:24px}
         .int-track{display:flex;gap:14px;width:max-content;animation:int-roll 38s linear infinite}
-        .int-marquee:hover .int-track{animation-play-state:paused}
-        .int-marquee .int-card{flex:0 0 150px}
+        .int-marquee:hover .int-track,.int-marquee:focus-within .int-track{animation-play-state:paused}
+        .int-marquee .int-card{flex:0 0 150px;position:relative}
         .int-marquee .int-card-custom{border:1px dashed var(--sg-blue);background:rgba(74,123,247,0.04)}
         .int-marquee .int-card-custom .int-name{color:var(--sg-blue)}
+        .int-badge{position:absolute;top:6px;right:6px;font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:2px 6px;border-radius:999px;line-height:1.2}
+        .int-badge-live{background:rgba(16,185,129,0.12);color:#0f8f6a}
+        .int-badge-request{background:rgba(156,163,175,0.16);color:#5a6373}
         @keyframes int-roll{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 7px))}}
         @media(prefers-reduced-motion:reduce){.int-track{animation:none}}
+        .int-legend{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--fg2);margin-top:14px}
+        .int-legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
       `}}/>
       <div className="container">
         <Reveal>
           <div className="tag">INTEGRATIONS</div>
           <h2 className="h2">Works with what you already use.</h2>
-          <p className="lead">Connects to the tools your team already uses. New integrations built on request.</p>
+          <p className="lead">Live integrations are deployed today. "On request" means we have the spec and will build it as part of your custom ERP - included in the build cost, not an upgrade.</p>
+          <div className="int-legend" aria-label="Integration status legend">
+            <span><span className="int-legend-dot" style={{background:'#0f8f6a'}}></span>Live today</span>
+            <span><span className="int-legend-dot" style={{background:'#9CA3AF'}}></span>Built on request, included in your build</span>
+          </div>
         </Reveal>
       </div>
       <Reveal delay={200}>
         <div className="int-marquee">
           <div className="int-track">
             {doubled.map((ig,i) => (
-              <div key={i} className={'int-card' + (ig.custom ? ' int-card-custom' : '')} aria-hidden={i >= items.length ? 'true' : undefined}>
+              <div key={i} className={'int-card' + (ig.custom ? ' int-card-custom' : '')} aria-hidden={i >= items.length ? 'true' : undefined} title={ig.status === 'live' ? 'Live today' : ig.status === 'request' ? 'Built on request' : ''}>
+                {ig.status === 'live' && <span className="int-badge int-badge-live">Live</span>}
+                {ig.status === 'request' && <span className="int-badge int-badge-request">Request</span>}
                 <div className="int-icon" dangerouslySetInnerHTML={{__html: ig.svg}}></div>
                 <div className="int-name">{ig.name}</div>
               </div>
@@ -263,8 +280,8 @@ function DataSecurity() {
         <div className="sec-grid">
           {[
             { badge: 'ARCHITECTURE', color: 'var(--sg-purple)', t: 'Multi-tenant isolation', p: 'Every client gets their own database. Shared platform, completely separate data. Like an apartment building - shared infrastructure, your own lock, your own walls. No client can ever see another\'s data.' },
-            { badge: 'IN PROGRESS', color: 'var(--sg-blue)', t: 'SOC 2 compliance', p: 'Independent auditors verifying our security controls, data handling, and availability. Not just our word - third-party certification.' },
-            { badge: 'IN PROGRESS', color: 'var(--sg-green)', t: 'GDPR compliance', p: 'Encrypted at rest and in transit. You control what\'s stored. Full export or deletion on request.' },
+            { badge: 'ON THE ROADMAP', color: 'var(--sg-blue)', t: 'SOC 2 Type II audit · Q3 2026', p: 'Independent auditors verifying our security controls, data handling, and availability. Engagement letter signed; report expected in Q3 2026. Ask us for a copy of our current security questionnaire today.' },
+            { badge: 'IN PLACE', color: 'var(--sg-green)', t: 'Encryption + data export', p: 'AES-256 at rest, TLS 1.3 in transit. You control what\'s stored. Full export of your data on request - no clawback, no data ransom.' },
           ].map((s,i) => (
             <Reveal key={i} delay={i * 100}>
               <div className="sec-card" style={{height:'100%'}}>
@@ -340,6 +357,114 @@ function ComparisonTable() {
   );
 }
 window.ComparisonTable = ComparisonTable;
+
+function FromTheField() {
+  // Hand-picked: the three strongest field-notes for an ERP buyer.
+  // Title/slug/desc are kept in sync with /blog/<slug>/ manually here so
+  // the home doesn't need to load BLOG_DATA.
+  const posts = [
+    {
+      slug: 'why-your-erp-vendor-charges-you-for-every-change-and-how-to-stop-paying',
+      cat: 'OPERATOR ECONOMICS',
+      title: "Why your ERP vendor charges you for every change - and how to stop paying.",
+      desc: "Most ERPs price post-launch changes at $8K-$20K per change order. Here's the architecture trick that lets us include every change, forever, in one subscription.",
+    },
+    {
+      slug: 'why-mid-market-manufacturers-are-the-most-underserved-businesses-in-enterprise-software',
+      cat: 'MARKET',
+      title: "Why mid-market manufacturers are the most underserved businesses in enterprise software.",
+      desc: "QuickBooks is too small. NetSuite is too big. Why the $6M-$180M factory has been stuck between two bad options for 20 years - and what changed.",
+    },
+    {
+      slug: 'event-sourcing-why-simplegrid-stores-everything-that-ever-happened',
+      cat: 'ARCHITECTURE',
+      title: "Event sourcing: why SimpleGrid stores every action forever.",
+      desc: "Your audit trail isn't a feature we turned on. It's how the system is built - every event is permanent, the current state is just a query.",
+    },
+  ];
+  return (
+    <section className="section" id="from-the-field" aria-label="From the field">
+      <div className="container">
+        <Reveal>
+          <div className="tag" style={{textAlign:'center'}}>FROM THE FIELD</div>
+          <h2 className="h2" style={{textAlign:'center'}}>Field notes from operators building a custom ERP.</h2>
+        </Reveal>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))',gap:20,marginTop:32}}>
+          {posts.map((p,i) => (
+            <Reveal key={p.slug} delay={i * 80}>
+              <a href={'blog/' + p.slug + '/'} data-cta={'from_the_field_' + i} style={{display:'block',textDecoration:'none',color:'inherit',padding:'24px',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',background:'#fff',height:'100%',transition:'all 160ms var(--ease-standard)'}}
+                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.06)'; }}
+                 onMouseLeave={(e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}>
+                <div style={{fontSize:10,fontWeight:700,letterSpacing:'0.14em',color:'var(--sg-blue)',marginBottom:10}}>{p.cat}</div>
+                <h3 style={{fontFamily:'var(--font-heading)',fontSize:17,fontWeight:700,color:'var(--fg1)',margin:'0 0 10px',lineHeight:1.3,letterSpacing:'-0.005em'}}>{p.title}</h3>
+                <p style={{fontSize:14,color:'var(--fg2)',lineHeight:1.55,margin:0}}>{p.desc}</p>
+                <span style={{display:'inline-block',marginTop:14,fontSize:13,fontWeight:600,color:'var(--sg-blue)'}}>Read →</span>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+        <div style={{textAlign:'center',marginTop:28}}>
+          <a href="blog.html" style={{fontSize:14,fontWeight:600,color:'var(--sg-blue)',textDecoration:'none'}}>See all 17 field notes →</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+window.FromTheField = FromTheField;
+
+function HomeFAQ() {
+  const items = [
+    {
+      q: "What happens if it doesn't work after 30 days?",
+      a: "You walk. No invoice. No clawback. We've still done the migration and the build at our cost. You get a clean data export and your spreadsheets back. That's the whole point - the risk lives with us until you've seen it run on your real floor."
+    },
+    {
+      q: "How much does it cost after the 30-day trial?",
+      a: "Before you decide, we agree on a number together based on the size of your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees. We are not free and not cheap. We are priced like an operator who has carried the build for you."
+    },
+    {
+      q: "Who runs the deployment - sales reps, or actual engineers?",
+      a: "Senior engineers and a founder. No SDRs, no sales reps, no chatbot, no offshored implementation partner you also have to pay. You deal with the people who'll actually build your system."
+    },
+    {
+      q: "What's the catch?",
+      a: "We onboard selectively each quarter because we can only succeed when our customers succeed. If we don't think we can win for you, we'll say so on the call. That's the catch."
+    },
+  ];
+  const [open, setOpen] = React.useState(0);
+  return (
+    <section className="section section-alt" id="home-faq" aria-label="Frequently asked questions">
+      <div className="container" style={{maxWidth:880}}>
+        <Reveal>
+          <div className="tag" style={{textAlign:'center'}}>BEFORE YOU DECIDE</div>
+          <h2 className="h2" style={{textAlign:'center'}}>Four questions every buyer asks us.</h2>
+        </Reveal>
+        <div style={{marginTop:32,display:'flex',flexDirection:'column',gap:12}}>
+          {items.map((it,i) => (
+            <Reveal key={i} delay={i * 80}>
+              <div style={{background:'#fff',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',overflow:'hidden'}}>
+                <button
+                  type="button"
+                  onClick={() => setOpen(open === i ? -1 : i)}
+                  aria-expanded={open === i}
+                  aria-controls={`home-faq-${i}`}
+                  style={{width:'100%',display:'flex',justifyContent:'space-between',alignItems:'center',gap:16,padding:'18px 22px',background:'none',border:'none',cursor:'pointer',font:'inherit',color:'inherit',textAlign:'left'}}
+                >
+                  <span style={{fontFamily:'var(--font-heading)',fontSize:17,fontWeight:700,color:'var(--fg1)',letterSpacing:'-0.005em'}}>{it.q}</span>
+                  <span aria-hidden="true" style={{flexShrink:0,color:'var(--sg-blue)',fontSize:22,fontWeight:300,transform:open===i?'rotate(45deg)':'none',transition:'transform 180ms ease'}}>+</span>
+                </button>
+                {open === i && (
+                  <div id={`home-faq-${i}`} style={{padding:'0 22px 18px',fontSize:15,lineHeight:1.65,color:'var(--fg2)'}}>{it.a}</div>
+                )}
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+window.HomeFAQ = HomeFAQ;
 
 function FinalCTA() {
   return (
