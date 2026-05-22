@@ -1,88 +1,24 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Your Warehouse Manager Should Be Your ERP&#39;s First User | SimpleGrid Blog</title>
-<meta name="description" content="Most ERPs are designed for the executive dashboard and die at the warehouse. Build for the floor first - and the dashboards take care of themselves.">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#4A7BF7">
-<meta name="robots" content="index, follow">
-<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-<link rel="canonical" href="https://simplegrid.ai/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/">
-<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="dns-prefetch" href="https://us-assets.i.posthog.com">
-<link rel="stylesheet" href="../../colors_and_type.css">
-<link rel="stylesheet" href="../../styles.css">
+#!/usr/bin/env python3
+"""One-shot blog post optimizer.
 
-<!-- Open Graph -->
-<meta property="og:site_name" content="SimpleGrid">
-<meta property="og:type" content="article">
-<meta property="og:locale" content="en_US">
-<meta property="og:url" content="https://simplegrid.ai/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/">
-<meta property="og:title" content="Your Warehouse Manager Should Be Your ERP&#39;s First User">
-<meta property="og:description" content="Most ERPs are designed for the executive dashboard and die at the warehouse. Build for the floor first - and the dashboards take care of themselves.">
-<meta property="og:image" content="https://simplegrid.ai/assets/simplegrid-logo-horizontal.svg">
-<meta property="og:image:alt" content="Your Warehouse Manager Should Be Your ERP&#39;s First User - SimpleGrid blog post">
+Reads every /blog/{slug}/index.html that is a real article (skips redirect
+stubs), and rewrites it to:
+  - inline a static Nav + Footer (so no React is needed for chrome)
+  - lazy-load React + PostInfographics only when the user scrolls near a
+    `#root-infographic-*` mount div
+  - swap blog <img> tags for <picture> with a WebP source
+  - drop the per-page React/Nav/LoginModal/Footer/blog-post.js script tags
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@simplegridai">
-<meta name="twitter:creator" content="@simplegridai">
-<meta name="twitter:title" content="Your Warehouse Manager Should Be Your ERP&#39;s First User">
-<meta name="twitter:description" content="Most ERPs are designed for the executive dashboard and die at the warehouse. Build for the floor first - and the dashboards take care of themselves.">
-<meta name="twitter:image" content="https://simplegrid.ai/assets/simplegrid-logo-horizontal.svg">
+Re-runnable: looks for sentinel `<!-- sg-static-chrome -->` to detect already-
+processed files.
+"""
+import os, re, sys, pathlib
 
-<!-- JSON-LD: Article + BreadcrumbList (for crawlers that don't run JS) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Why Your Warehouse Manager Should Be Your ERP's First User",
-  "description": "Most ERPs are designed for the executive dashboard and die at the warehouse. Build for the floor first - and the dashboards take care of themselves.",
-  "image": "https://simplegrid.ai/assets/simplegrid-logo-horizontal.svg",
-  "url": "https://simplegrid.ai/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/",
-  "mainEntityOfPage": "https://simplegrid.ai/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/",
-  "inLanguage": "en",
-  "isPartOf": { "@id": "https://simplegrid.ai/blog.html#blog" },
-  "publisher": { "@id": "https://simplegrid.ai/#org" },
-  "author": { "@type": "Organization", "@id": "https://simplegrid.ai/#org" },
-  "datePublished": "2026-04-11",
-  "dateModified": "2026-04-11"
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://simplegrid.ai/" },
-    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://simplegrid.ai/blog.html" },
-    { "@type": "ListItem", "position": 3, "name": "Why Your Warehouse Manager Should Be Your ERP's First User", "item": "https://simplegrid.ai/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/" }
-  ]
-}
-</script>
-<!-- PostHog Analytics (deferred to idle / 2s timeout) -->
-<script>
-  function sgLoadPostHog(){
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('phc_uYqTNuyvu48ttUP7tjh89v8JBvjgbRZ9bvZdfdVoEPVh', {
-        api_host: 'https://us.i.posthog.com',
-        defaults: '2026-01-30',
-        person_profiles: 'identified_only',
-    })
-  }
-  if ("requestIdleCallback" in window) requestIdleCallback(sgLoadPostHog, { timeout: 3000 });
-  else setTimeout(sgLoadPostHog, 2000);
-</script>
-<script>
-  // Tells Nav to resolve root-relative paths with ../../ since this page is
-  // two levels deep, and tells blog-post.js which infographic to mount.
-  window.__SG_BLOG_ID__ = 16;
-  window.__SG_BLOG_ASSET_PREFIX__ = "../../";
-</script>
-</head>
-<body>
-<!-- sg-static-chrome -->
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+BLOG = ROOT / 'blog'
+SENTINEL = '<!-- sg-static-chrome -->'
+
+NAV_HTML = '''<!-- sg-static-chrome -->
 <a href="#main" class="skip-link">Skip to main content</a>
 <header class="nav" role="banner">
   <div class="nav-inner">
@@ -98,12 +34,12 @@
         </button>
         <div data-sg-resources-panel hidden style="position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:8px;min-width:280px;box-shadow:0 12px 32px rgba(0,0,0,0.08);z-index:100">
           <a href="../../case-studies.html" title="SimpleGrid manufacturing ERP case studies" style="display:block;padding:12px 14px;border-radius:var(--radius-md);text-decoration:none">
-            <div style="font-size:16px;font-weight:600;color:var(--fg1);margin-bottom:2px">Case studies</div>
-            <div style="font-size:14px;color:var(--fg3)">Real deployments. Real numbers.</div>
+            <div style="font-size:14px;font-weight:600;color:var(--fg1);margin-bottom:2px">Case studies</div>
+            <div style="font-size:12px;color:var(--fg3)">Real deployments. Real numbers.</div>
           </a>
           <a href="../../blog.html" title="SimpleGrid blog for manufacturers" style="display:block;padding:12px 14px;border-radius:var(--radius-md);text-decoration:none">
-            <div style="font-size:16px;font-weight:600;color:var(--fg1);margin-bottom:2px">Blog</div>
-            <div style="font-size:14px;color:var(--fg3)">Field notes on ERP and ops.</div>
+            <div style="font-size:14px;font-weight:600;color:var(--fg1);margin-bottom:2px">Blog</div>
+            <div style="font-size:12px;color:var(--fg3)">Field notes on ERP and ops.</div>
           </a>
         </div>
       </div>
@@ -126,71 +62,16 @@
     <div class="nav-mobile-sep"></div>
     <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="nav-mobile-link">Book a call</a>
   </nav>
-</div>
+</div>'''
 
-<section class="post-header">
-  <div class="container-sm">
-    <a href="../../blog.html" style="font-size:15px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
-    <h1>Your Warehouse Manager Should Be Your ERP's First User</h1>
-    <div class="post-meta">
-      <span>Operator Insights</span>
-      <span>4 min read</span>
-    </div>
-  </div>
-</section>
-
-<section class="post-content">
-  <div class="container-sm">
-    <p>Every ERP demo starts with the executive dashboard. The founder sees charts, graphs, KPIs. It looks great. The founder signs.</p>
-    <p>Then the system reaches the warehouse. And it dies.</p>
-    <h2>The adoption chain</h2>
-    <p>An ERP's value flows upward: floor data becomes supervisory reports becomes executive dashboards. But data entry flows downward: the executive buys the system, IT implements it, and the warehouse manager is told to use it.</p>
-    <p>The warehouse manager did not choose this system. Was not consulted. Was handed a login and a training manual. And now needs to navigate Procurement &gt; Purchase Orders &gt; Select PO &gt; Click Receive &gt; Enter Quantity &gt; Select Unit &gt; Confirm &gt; Print GRN for every single material receipt. 12 times a day.</p>
-    <p>The warehouse manager stands in a dusty warehouse with a ringing phone, a truck at the dock, and 20 minutes before the next delivery arrives. He is not going to learn a multi-step form interface. He is going to write it in his notebook and let someone else enter it later.</p>
-    <p>When that happens, the executive dashboard shows numbers that are 4 hours stale. The founder notices. Stops trusting the dashboard. The ERP dies quietly.</p>
-    <h2>Build for the floor first</h2>
-    <p>The fix is not better training. It is not simpler menus. It is designing the system for the warehouse manager FIRST, and letting the executive dashboard emerge from the data the warehouse manager enters.</p>
-    <p>What the warehouse manager actually needs: type what happened, the way you would send a text message, and move on.</p>
-    <p>"Got 200 sheets of steel from Midwest Supply."</p>
-    <p>"Issued 50 units of hardware kit to Job 47."</p>
-    <div id="root-infographic-mid"></div>
-    <p>"300 pieces back from finishing, 12 rejected."</p>
-    <p>Each input takes 10 seconds. (<a href="/blog/why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point/">Why conversational UX captures the behavior that already exists</a> No navigation. No dropdowns. No clicking through screens. The system identifies the matching records, validates the quantities, updates inventory, fires triggers, and confirms.</p>
-    <p>The warehouse manager's behavior does not change. He is still sending a message about what happened. The difference is that the message now goes into the system instead of a WhatsApp thread.</p>
-    <h2>The cascade</h2>
-    <p>When the warehouse manager enters data at the point of action, everything downstream improves.</p>
-    <p>The inventory numbers are real-time. The planner makes decisions based on current stock, not yesterday's stock. The production schedule reflects actual material availability. The founder's dashboard shows numbers that are minutes old, not hours old.</p>
-    <p>One person using the system correctly at the point of action is worth more than an entire back-office team entering data retroactively. Because the warehouse manager was there when it happened. The back-office team was not.</p>
-    <h2>The design principle</h2>
-    <p>Before you buy an ERP, ask the vendor to show you the warehouse manager's interface. Not the executive dashboard. Not the planner's view. The screen that your warehouse manager, your QC inspector, and your floor supervisor will use. Every day. On their phone. Standing up.</p>
-    <p>If the interface requires more than 15 seconds per entry, your adoption rate will be low, your data quality will be poor, and your dashboards will be fiction.</p>
-    <p>Build for the floor. The C-suite takes care of itself.</p>
-    <p>SimpleGrid is designed for the warehouse manager first. Type what happened. Get a confirmation. 10 seconds per entry. The rest builds itself.</p>
-
-    <div id="root-infographic-end"></div>
-
-    <!-- CTA -->
-    <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
-      <p style="font-family:var(--font-heading);font-size:21px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
-      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
-    </div>
-
-    <!-- Prev/Next -->
-    <div class="post-pager">
-      <a class="post-pager-link" href="/blog/what-happens-when-your-erp-cannot-keep-up-with-your-business/">← When Your ERP Cannot Keep Up With Your Business</a>
-      <a class="post-pager-link post-pager-next" href="/blog/the-myth-of-erp-best-practices-your-operation-is-not-generic/">The Myth of ERP Best Practices →</a>
-    </div>
-  </div>
-</section>
-
-<footer class="footer" role="contentinfo">
+FOOTER_HTML = '''<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-top">
       <div>
         <img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid - AI ERP for manufacturers logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
         <p class="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p>
         <div style="margin-top:28px">
-          <div style="font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--fg3);margin-bottom:12px">Trusted partners</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--fg3);margin-bottom:12px">Trusted partners</div>
           <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
             <a href="https://www.nvidia.com/en-us/startups/" target="_blank" rel="noopener noreferrer" title="NVIDIA Inception Program member" style="display:inline-flex;align-items:center;padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:#fff;text-decoration:none;height:56px;box-sizing:border-box">
               <img src="../../assets/nvidia-inception.png" alt="NVIDIA Inception Program member badge" width="120" height="38" loading="lazy" decoding="async" style="display:block">
@@ -198,7 +79,7 @@
             <a href="https://aws.amazon.com/startups/" target="_blank" rel="noopener noreferrer" title="AWS Startups partner" style="display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:#fff;text-decoration:none;height:56px;box-sizing:border-box">
               <svg width="44" height="26" viewBox="0 0 304 182" aria-hidden="true"><path fill="#252F3E" d="M86.4 66.4c0 3.7.4 6.7 1.1 8.9.8 2.2 1.8 4.6 3.2 7.2.5.8.7 1.6.7 2.3 0 1-.6 2-1.9 3l-6.3 4.2c-.9.6-1.8.9-2.6.9-1 0-2-.5-3-1.4C76.2 90 75 88.4 74 86.8c-1-1.7-2-3.6-3.1-5.9-7.8 9.2-17.6 13.8-29.4 13.8-8.4 0-15.1-2.4-20-7.2-4.9-4.8-7.4-11.2-7.4-19.2 0-8.5 3-15.4 9.1-20.6 6.1-5.2 14.2-7.8 24.5-7.8 3.4 0 6.9.3 10.6.8 3.7.5 7.5 1.3 11.5 2.2v-7.3c0-7.6-1.6-12.9-4.7-16-3.2-3.1-8.6-4.6-16.3-4.6-3.5 0-7.1.4-10.8 1.3-3.7.9-7.3 2-10.8 3.4-1.6.7-2.8 1.1-3.5 1.3-.7.2-1.2.3-1.6.3-1.4 0-2.1-1-2.1-3.1v-4.9c0-1.6.2-2.8.7-3.5.5-.7 1.4-1.4 2.8-2.1 3.5-1.8 7.7-3.3 12.6-4.5C41 1.9 46.2 1.3 51.7 1.3c11.9 0 20.6 2.7 26.2 8.1 5.5 5.4 8.3 13.6 8.3 24.6v32.4h.2zM45.8 81.6c3.3 0 6.7-.6 10.3-1.8 3.6-1.2 6.8-3.4 9.5-6.4 1.6-1.9 2.8-4 3.4-6.4.6-2.4 1-5.3 1-8.7v-4.2c-2.9-.7-6-1.3-9.2-1.7-3.2-.4-6.3-.6-9.4-.6-6.7 0-11.6 1.3-14.9 4-3.3 2.7-4.9 6.5-4.9 11.5 0 4.7 1.2 8.2 3.7 10.6 2.4 2.5 5.9 3.7 10.5 3.7zm80.3 10.8c-1.8 0-3-.3-3.8-1-.8-.6-1.5-2-2.1-3.9L96.7 10.2c-.6-2-.9-3.3-.9-4 0-1.6.8-2.5 2.4-2.5h9.8c1.9 0 3.2.3 3.9 1 .8.6 1.4 2 2 3.9l16.8 66.2 15.6-66.2c.5-2 1.1-3.3 1.9-3.9.8-.6 2.2-1 4-1h8c1.9 0 3.2.3 4 1 .8.6 1.5 2 1.9 3.9l15.8 67 17.3-67c.6-2 1.3-3.3 2-3.9.8-.6 2.1-1 3.9-1h9.3c1.6 0 2.5.8 2.5 2.5 0 .5-.1 1-.2 1.6-.1.6-.3 1.4-.7 2.5l-24.1 77.3c-.6 2-1.3 3.3-2.1 3.9-.8.6-2.1 1-3.8 1h-8.6c-1.9 0-3.2-.3-4-1-.8-.7-1.5-2-1.9-4L156 23l-15.4 64.4c-.5 2-1.1 3.3-1.9 4-.8.7-2.2 1-4 1h-8.6zm128.5 2.7c-5.2 0-10.4-.6-15.4-1.8-5-1.2-8.9-2.5-11.5-4-1.6-.9-2.7-1.9-3.1-2.8-.4-.9-.6-1.9-.6-2.8v-5.1c0-2.1.8-3.1 2.3-3.1.6 0 1.2.1 1.8.3.6.2 1.5.6 2.5 1 3.4 1.5 7.1 2.7 11 3.5 4 .8 7.9 1.2 11.9 1.2 6.3 0 11.2-1.1 14.6-3.3 3.4-2.2 5.2-5.4 5.2-9.5 0-2.8-.9-5.1-2.7-7-1.8-1.9-5.2-3.6-10.1-5.2L246 52c-7.3-2.3-12.7-5.7-16-10.2-3.3-4.4-5-9.3-5-14.5 0-4.2.9-7.9 2.7-11.1 1.8-3.2 4.2-6 7.2-8.2 3-2.3 6.4-4 10.4-5.2 4-1.2 8.2-1.7 12.6-1.7 2.2 0 4.5.1 6.7.4 2.3.3 4.4.7 6.5 1.1 2 .5 3.9 1 5.7 1.6 1.8.6 3.2 1.2 4.2 1.8 1.4.8 2.4 1.6 3 2.5.6.8.9 1.9.9 3.3v4.7c0 2.1-.8 3.2-2.3 3.2-.8 0-2.1-.4-3.8-1.2-5.7-2.6-12.1-3.9-19.2-3.9-5.7 0-10.2.9-13.3 2.8-3.1 1.9-4.7 4.8-4.7 8.9 0 2.8 1 5.2 3 7.1 2 1.9 5.7 3.8 11 5.5l14.2 4.5c7.2 2.3 12.4 5.5 15.5 9.6 3.1 4.1 4.6 8.8 4.6 14 0 4.3-.9 8.2-2.6 11.6-1.8 3.4-4.2 6.4-7.3 8.8-3.1 2.5-6.8 4.3-11.1 5.6-4.5 1.4-9.2 2.1-14.3 2.1z"/><path fill="#FF9900" fill-rule="evenodd" clip-rule="evenodd" d="M273.5 143.7c-32.9 24.3-80.7 37.2-121.8 37.2-57.6 0-109.5-21.3-148.7-56.7-3.1-2.8-.3-6.6 3.4-4.4 42.4 24.6 94.7 39.5 148.8 39.5 36.5 0 76.6-7.6 113.5-23.2 5.5-2.5 10.2 3.6 4.8 7.6z"/><path fill="#FF9900" fill-rule="evenodd" clip-rule="evenodd" d="M287.2 128.1c-4.2-5.4-27.8-2.6-38.5-1.3-3.2.4-3.7-2.4-.8-4.5 18.8-13.2 49.7-9.4 53.3-5 3.6 4.5-1 35.4-18.6 50.2-2.7 2.3-5.3 1.1-4.1-1.9 4-9.9 12.9-32.2 8.7-37.5z"/></svg>
               <span style="width:1px;height:24px;background:var(--border)"></span>
-              <span style="font-size:14px;font-weight:600;color:var(--fg1);letter-spacing:0.01em;line-height:1.2">Activate<br>Startups</span>
+              <span style="font-size:12px;font-weight:600;color:var(--fg1);letter-spacing:0.01em;line-height:1.2">Activate<br>Startups</span>
             </a>
           </div>
         </div>
@@ -230,8 +111,7 @@
           <a href="mailto:hello@simplegrid.ai" class="footer-link" style="display:flex;gap:8px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>hello@simplegrid.ai</span></a>
           <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;margin-top:2px"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.04h4.56V23H.22V8.04zm7.42 0h4.37v2.05h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V23h-4.56v-6.62c0-1.58-.03-3.61-2.2-3.61-2.2 0-2.54 1.72-2.54 3.5V23H7.64V8.04z"/></svg><span>LinkedIn</span></a>
           <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Book a call</span></a>
-          <a href="https://www.google.com/maps/search/?api=1&amp;query=22nd+Cross+Road,+23rd+Main+Road,+HSR+Layout,+Bengaluru,+Karnataka+560102" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:flex-start;white-space:pre-line;line-height:1.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>22nd Cross, 23rd Main Rd, HSR Layout
-Bengaluru, Karnataka 560102</span></a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=22nd+Cross+Road,+23rd+Main+Road,+HSR+Layout,+Bengaluru,+Karnataka+560102" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:flex-start;white-space:pre-line;line-height:1.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>22nd Cross, 23rd Main Rd, HSR Layout\nBengaluru, Karnataka 560102</span></a>
         </div>
       </div>
     </div>
@@ -243,8 +123,11 @@ Bengaluru, Karnataka 560102</span></a>
       </div>
     </div>
   </div>
-</footer>
-<script>
+</footer>'''
+
+# Tiny inline script: handles burger + Resources dropdown, lazy-loads React +
+# PostInfographics only when scrolled near a #root-infographic-* mount.
+LAZY_SCRIPT = '''<script>
 (function(){
   // Mobile burger.
   var burger = document.querySelector('[data-sg-burger]');
@@ -315,6 +198,74 @@ Bengaluru, Karnataka 560102</span></a>
     loadOnce();
   }
 })();
-</script>
-</body>
-</html>
+</script>'''
+
+# WebP-eligible images.
+WEBP_BASES = {
+  'event_sourcing_landscape_1',
+  'event_sourcing_landscape_2',
+  'blog2_sg_schema_same_word_different_operations',
+  'blog3_entity_roots_one_root_many_members',
+  'blog6_module_vs_sg_schema_cover',
+}
+
+
+def picturize(html: str) -> str:
+  """Wrap blog <img src="../../assets/blog/X.png|jpg" ...> in <picture> with WebP."""
+  pat = re.compile(r'<img\s+([^>]*?)src="(\.\./\.\./assets/blog/([^"]+?)\.(png|jpe?g))"([^>]*?)>', re.S)
+  def repl(m):
+    pre, fullsrc, base, ext, post = m.groups()
+    if base not in WEBP_BASES:
+      return m.group(0)
+    webp = '../../assets/blog/' + base + '.webp'
+    # Re-build the inner <img> with attrs preserved.
+    inner = '<img ' + pre + 'src="' + fullsrc + '"' + post + '>'
+    return '<picture><source srcset="' + webp + '" type="image/webp">' + inner + '</picture>'
+  return pat.sub(repl, html)
+
+
+def transform(html: str) -> str:
+  if SENTINEL in html:
+    return html  # already done
+  # Replace nav placeholder.
+  html = html.replace('<div id="root-nav"></div>', NAV_HTML)
+  # Replace footer placeholder.
+  html = html.replace('<div id="root-footer"></div>', FOOTER_HTML)
+  # Drop heavy scripts in head: React + ReactDOM (we lazy-load).
+  html = re.sub(r'\s*<script src="https://unpkg.com/react@18\.3\.1/umd/react\.production\.min\.js"[^>]*></script>', '', html)
+  html = re.sub(r'\s*<script src="https://unpkg.com/react-dom@18\.3\.1/umd/react-dom\.production\.min\.js"[^>]*></script>', '', html)
+  # Drop preconnect to unpkg (no longer eagerly used).
+  html = re.sub(r'\s*<link rel="preconnect" href="https://unpkg\.com" crossorigin>', '', html)
+  # Drop bottom component scripts + blog-post.js. Replace with lazy inline.
+  bottom_pat = re.compile(
+    r'\n*<script src="\.\./\.\./components/Nav\.js" defer></script>\s*'
+    r'<script src="\.\./\.\./components/LoginModal\.js" defer></script>\s*'
+    r'<script src="\.\./\.\./components/Footer\.js" defer></script>\s*'
+    r'<script src="\.\./\.\./components/PostInfographics\.js" defer></script>\s*'
+    r'<script src="\.\./\.\./app/blog-post\.js" defer></script>')
+  html = bottom_pat.sub('\n' + LAZY_SCRIPT, html)
+  # Picturize images.
+  html = picturize(html)
+  return html
+
+
+def main():
+  files = sorted(BLOG.glob('*/index.html'))
+  changed = 0
+  for f in files:
+    src = f.read_text(encoding='utf-8')
+    # Skip redirect stubs.
+    if 'http-equiv="refresh"' in src and 'window.location.replace' in src:
+      continue
+    if 'root-nav' not in src and 'root-footer' not in src:
+      continue
+    out = transform(src)
+    if out != src:
+      f.write_text(out, encoding='utf-8')
+      changed += 1
+      print('updated', f.relative_to(ROOT))
+  print(f'done. {changed} files changed.')
+
+
+if __name__ == '__main__':
+  main()

@@ -10,12 +10,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link rel="dns-prefetch" href="https://us-assets.i.posthog.com">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 
@@ -66,9 +61,6 @@
   ]
 }
 </script>
-
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
 <!-- PostHog Analytics (deferred to idle / 2s timeout) -->
 <script>
   function sgLoadPostHog(){
@@ -90,11 +82,55 @@
 </script>
 </head>
 <body>
-<div id="root-nav"></div>
+<!-- sg-static-chrome -->
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner">
+  <div class="nav-inner">
+    <a class="nav-logo" href="../../index.html" aria-label="SimpleGrid home" title="SimpleGrid - AI ERP for manufacturers">
+      <img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid - AI ERP for manufacturers logo" width="160" height="32" fetchpriority="high" decoding="async">
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="../../index.html" title="SimpleGrid home - AI ERP for manufacturers" class="nav-link">Home</a>
+      <a href="../../product.html" title="How SimpleGrid manufacturing ERP works" class="nav-link">Product</a>
+      <div style="position:relative;display:inline-flex;align-items:center" data-sg-resources>
+        <button type="button" class="nav-link active" aria-haspopup="true" aria-expanded="false" data-sg-resources-toggle style="background:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;color:inherit">Resources
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" style="transition:transform .15s"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div data-sg-resources-panel hidden style="position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:8px;min-width:280px;box-shadow:0 12px 32px rgba(0,0,0,0.08);z-index:100">
+          <a href="../../case-studies.html" title="SimpleGrid manufacturing ERP case studies" style="display:block;padding:12px 14px;border-radius:var(--radius-md);text-decoration:none">
+            <div style="font-size:16px;font-weight:600;color:var(--fg1);margin-bottom:2px">Case studies</div>
+            <div style="font-size:14px;color:var(--fg3)">Real deployments. Real numbers.</div>
+          </a>
+          <a href="../../blog.html" title="SimpleGrid blog for manufacturers" style="display:block;padding:12px 14px;border-radius:var(--radius-md);text-decoration:none">
+            <div style="font-size:16px;font-weight:600;color:var(--fg1);margin-bottom:2px">Blog</div>
+            <div style="font-size:14px;color:var(--fg3)">Field notes on ERP and ops.</div>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div class="nav-right">
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary" title="Book a SimpleGrid demo call">Book a Call</a>
+      <button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false" data-sg-burger>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="nav-mobile" data-sg-mobile-menu hidden>
+  <nav class="nav-mobile-panel" aria-label="Mobile navigation">
+    <a href="../../index.html" class="nav-mobile-link">Home</a>
+    <a href="../../product.html" class="nav-mobile-link">Product</a>
+    <div class="nav-mobile-section">Resources</div>
+    <a href="../../case-studies.html" class="nav-mobile-link nav-mobile-sub">Case studies</a>
+    <a href="../../blog.html" class="nav-mobile-link nav-mobile-sub active">Blog</a>
+    <div class="nav-mobile-sep"></div>
+    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="nav-mobile-link">Book a call</a>
+  </nav>
+</div>
 
 <section class="post-header">
   <div class="container-sm">
-    <a href="../../blog.html" style="font-size:13px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
+    <a href="../../blog.html" style="font-size:15px;color:var(--sg-blue);text-decoration:none;border:none">← Back to blog</a>
     <h1>Entity Roots: Building Blocks of an SG Schema ERP</h1>
     <div class="post-meta">
       <span>Product Deep-Dive</span>
@@ -132,7 +168,7 @@
     <h2>Consistency rule: All line items share the same approval and receipt status</h2>
     <p>Again, the Vendor PO references the Job Orders it was created from by ID. It does not contain them. If Job Order JO-1187 is modified later, the Vendor PO does not automatically restructure itself. They are separate entity groups with separate lifecycles.</p>
     <figure class="post-figure">
-      <img src="../../assets/blog/blog3_entity_roots_one_root_many_members.png" alt="An entity group, visualized. One root (Sales Order SO-4521), many members (3 line items: dining tables, side chairs, bookshelves), three rules: move as one, no orphans, reference don't nest." loading="lazy" decoding="async" width="2808" height="1040" style="max-width:100%;height:auto;display:block">
+      <picture><source srcset="../../assets/blog/blog3_entity_roots_one_root_many_members.webp" type="image/webp"><img src="../../assets/blog/blog3_entity_roots_one_root_many_members.png" alt="An entity group, visualized. One root (Sales Order SO-4521), many members (3 line items: dining tables, side chairs, bookshelves), three rules: move as one, no orphans, reference don't nest." loading="lazy" decoding="async" width="2808" height="1040" style="max-width:100%;height:auto;display:block"></picture>
       <figcaption>An entity group, visualized. One root (Sales Order SO-4521), many members (3 line items: dining tables, side chairs, bookshelves), three rules: move as one, no orphans, reference don't nest.</figcaption>
     </figure>
     <p>Why entity roots matter for your ERP</p>
@@ -167,7 +203,7 @@
 
     <!-- CTA -->
     <div style="background:var(--sg-blue-light);border-radius:var(--radius-lg);padding:32px;margin-top:40px;text-align:center">
-      <p style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
+      <p style="font-family:var(--font-heading);font-size:21px;font-weight:700;color:var(--fg1);margin:0 0 12px">See how this works for your operation.</p>
       <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a call</a>
     </div>
 
@@ -179,12 +215,138 @@
   </div>
 </section>
 
-<div id="root-footer"></div>
-
-<script src="../../components/Nav.js" defer></script>
-<script src="../../components/LoginModal.js" defer></script>
-<script src="../../components/Footer.js" defer></script>
-<script src="../../components/PostInfographics.js" defer></script>
-<script src="../../app/blog-post.js" defer></script>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid - AI ERP for manufacturers logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+        <p class="footer-tagline">AI-native ERP. Days to deploy. For operators, not accountants.</p>
+        <div style="margin-top:28px">
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--fg3);margin-bottom:12px">Trusted partners</div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+            <a href="https://www.nvidia.com/en-us/startups/" target="_blank" rel="noopener noreferrer" title="NVIDIA Inception Program member" style="display:inline-flex;align-items:center;padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:#fff;text-decoration:none;height:56px;box-sizing:border-box">
+              <img src="../../assets/nvidia-inception.png" alt="NVIDIA Inception Program member badge" width="120" height="38" loading="lazy" decoding="async" style="display:block">
+            </a>
+            <a href="https://aws.amazon.com/startups/" target="_blank" rel="noopener noreferrer" title="AWS Startups partner" style="display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:#fff;text-decoration:none;height:56px;box-sizing:border-box">
+              <svg width="44" height="26" viewBox="0 0 304 182" aria-hidden="true"><path fill="#252F3E" d="M86.4 66.4c0 3.7.4 6.7 1.1 8.9.8 2.2 1.8 4.6 3.2 7.2.5.8.7 1.6.7 2.3 0 1-.6 2-1.9 3l-6.3 4.2c-.9.6-1.8.9-2.6.9-1 0-2-.5-3-1.4C76.2 90 75 88.4 74 86.8c-1-1.7-2-3.6-3.1-5.9-7.8 9.2-17.6 13.8-29.4 13.8-8.4 0-15.1-2.4-20-7.2-4.9-4.8-7.4-11.2-7.4-19.2 0-8.5 3-15.4 9.1-20.6 6.1-5.2 14.2-7.8 24.5-7.8 3.4 0 6.9.3 10.6.8 3.7.5 7.5 1.3 11.5 2.2v-7.3c0-7.6-1.6-12.9-4.7-16-3.2-3.1-8.6-4.6-16.3-4.6-3.5 0-7.1.4-10.8 1.3-3.7.9-7.3 2-10.8 3.4-1.6.7-2.8 1.1-3.5 1.3-.7.2-1.2.3-1.6.3-1.4 0-2.1-1-2.1-3.1v-4.9c0-1.6.2-2.8.7-3.5.5-.7 1.4-1.4 2.8-2.1 3.5-1.8 7.7-3.3 12.6-4.5C41 1.9 46.2 1.3 51.7 1.3c11.9 0 20.6 2.7 26.2 8.1 5.5 5.4 8.3 13.6 8.3 24.6v32.4h.2zM45.8 81.6c3.3 0 6.7-.6 10.3-1.8 3.6-1.2 6.8-3.4 9.5-6.4 1.6-1.9 2.8-4 3.4-6.4.6-2.4 1-5.3 1-8.7v-4.2c-2.9-.7-6-1.3-9.2-1.7-3.2-.4-6.3-.6-9.4-.6-6.7 0-11.6 1.3-14.9 4-3.3 2.7-4.9 6.5-4.9 11.5 0 4.7 1.2 8.2 3.7 10.6 2.4 2.5 5.9 3.7 10.5 3.7zm80.3 10.8c-1.8 0-3-.3-3.8-1-.8-.6-1.5-2-2.1-3.9L96.7 10.2c-.6-2-.9-3.3-.9-4 0-1.6.8-2.5 2.4-2.5h9.8c1.9 0 3.2.3 3.9 1 .8.6 1.4 2 2 3.9l16.8 66.2 15.6-66.2c.5-2 1.1-3.3 1.9-3.9.8-.6 2.2-1 4-1h8c1.9 0 3.2.3 4 1 .8.6 1.5 2 1.9 3.9l15.8 67 17.3-67c.6-2 1.3-3.3 2-3.9.8-.6 2.1-1 3.9-1h9.3c1.6 0 2.5.8 2.5 2.5 0 .5-.1 1-.2 1.6-.1.6-.3 1.4-.7 2.5l-24.1 77.3c-.6 2-1.3 3.3-2.1 3.9-.8.6-2.1 1-3.8 1h-8.6c-1.9 0-3.2-.3-4-1-.8-.7-1.5-2-1.9-4L156 23l-15.4 64.4c-.5 2-1.1 3.3-1.9 4-.8.7-2.2 1-4 1h-8.6zm128.5 2.7c-5.2 0-10.4-.6-15.4-1.8-5-1.2-8.9-2.5-11.5-4-1.6-.9-2.7-1.9-3.1-2.8-.4-.9-.6-1.9-.6-2.8v-5.1c0-2.1.8-3.1 2.3-3.1.6 0 1.2.1 1.8.3.6.2 1.5.6 2.5 1 3.4 1.5 7.1 2.7 11 3.5 4 .8 7.9 1.2 11.9 1.2 6.3 0 11.2-1.1 14.6-3.3 3.4-2.2 5.2-5.4 5.2-9.5 0-2.8-.9-5.1-2.7-7-1.8-1.9-5.2-3.6-10.1-5.2L246 52c-7.3-2.3-12.7-5.7-16-10.2-3.3-4.4-5-9.3-5-14.5 0-4.2.9-7.9 2.7-11.1 1.8-3.2 4.2-6 7.2-8.2 3-2.3 6.4-4 10.4-5.2 4-1.2 8.2-1.7 12.6-1.7 2.2 0 4.5.1 6.7.4 2.3.3 4.4.7 6.5 1.1 2 .5 3.9 1 5.7 1.6 1.8.6 3.2 1.2 4.2 1.8 1.4.8 2.4 1.6 3 2.5.6.8.9 1.9.9 3.3v4.7c0 2.1-.8 3.2-2.3 3.2-.8 0-2.1-.4-3.8-1.2-5.7-2.6-12.1-3.9-19.2-3.9-5.7 0-10.2.9-13.3 2.8-3.1 1.9-4.7 4.8-4.7 8.9 0 2.8 1 5.2 3 7.1 2 1.9 5.7 3.8 11 5.5l14.2 4.5c7.2 2.3 12.4 5.5 15.5 9.6 3.1 4.1 4.6 8.8 4.6 14 0 4.3-.9 8.2-2.6 11.6-1.8 3.4-4.2 6.4-7.3 8.8-3.1 2.5-6.8 4.3-11.1 5.6-4.5 1.4-9.2 2.1-14.3 2.1z"/><path fill="#FF9900" fill-rule="evenodd" clip-rule="evenodd" d="M273.5 143.7c-32.9 24.3-80.7 37.2-121.8 37.2-57.6 0-109.5-21.3-148.7-56.7-3.1-2.8-.3-6.6 3.4-4.4 42.4 24.6 94.7 39.5 148.8 39.5 36.5 0 76.6-7.6 113.5-23.2 5.5-2.5 10.2 3.6 4.8 7.6z"/><path fill="#FF9900" fill-rule="evenodd" clip-rule="evenodd" d="M287.2 128.1c-4.2-5.4-27.8-2.6-38.5-1.3-3.2.4-3.7-2.4-.8-4.5 18.8-13.2 49.7-9.4 53.3-5 3.6 4.5-1 35.4-18.6 50.2-2.7 2.3-5.3 1.1-4.1-1.9 4-9.9 12.9-32.2 8.7-37.5z"/></svg>
+              <span style="width:1px;height:24px;background:var(--border)"></span>
+              <span style="font-size:14px;font-weight:600;color:var(--fg1);letter-spacing:0.01em;line-height:1.2">Activate<br>Startups</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-cols" style="grid-template-columns:1fr 1fr 1fr 1.5fr;gap:20px">
+        <div>
+          <div class="footer-h">Product</div>
+          <a href="../../product.html#hank" class="footer-link">Meet Hank</a>
+          <a href="../../product.html#integrations" class="footer-link">Integrations</a>
+          <a href="../../product.html#security" class="footer-link">Data security</a>
+          <a href="../../product.html#ledger" class="footer-link">Events ledger</a>
+          <a href="../../product.html#ability" class="footer-link">Adoption</a>
+          <a href="../../product.html#rules" class="footer-link">Your process, enforced</a>
+        </div>
+        <div>
+          <div class="footer-h">Resources</div>
+          <a href="../../case-studies.html" class="footer-link">Case studies</a>
+          <a href="../../blog.html" class="footer-link">Blog</a>
+        </div>
+        <div>
+          <div class="footer-h">Company</div>
+          <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../pricing.html" class="footer-link">Pricing</a>
+          <a href="../../about.html#architecture" class="footer-link">Architecture</a>
+          <a href="../../hiring.html" class="footer-link">Hiring</a>
+        </div>
+        <div>
+          <div class="footer-h">Get in touch</div>
+          <a href="mailto:hello@simplegrid.ai" class="footer-link" style="display:flex;gap:8px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>hello@simplegrid.ai</span></a>
+          <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;margin-top:2px"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.04h4.56V23H.22V8.04zm7.42 0h4.37v2.05h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V23h-4.56v-6.62c0-1.58-.03-3.61-2.2-3.61-2.2 0-2.54 1.72-2.54 3.5V23H7.64V8.04z"/></svg><span>LinkedIn</span></a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Book a call</span></a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=22nd+Cross+Road,+23rd+Main+Road,+HSR+Layout,+Bengaluru,+Karnataka+560102" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:flex-start;white-space:pre-line;line-height:1.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>22nd Cross, 23rd Main Rd, HSR Layout
+Bengaluru, Karnataka 560102</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Valaya AI Technologies Pvt. Ltd.</div>
+      <div class="footer-legal">
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  // Mobile burger.
+  var burger = document.querySelector('[data-sg-burger]');
+  var menu = document.querySelector('[data-sg-mobile-menu]');
+  if (burger && menu) {
+    burger.addEventListener('click', function(){
+      var open = burger.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', open);
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) menu.removeAttribute('hidden');
+      else menu.setAttribute('hidden', '');
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    menu.addEventListener('click', function(e){
+      if (e.target === menu) burger.click();
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && burger.classList.contains('is-open')) burger.click();
+    });
+  }
+  // Resources dropdown.
+  var resWrap = document.querySelector('[data-sg-resources]');
+  if (resWrap) {
+    var btn = resWrap.querySelector('[data-sg-resources-toggle]');
+    var panel = resWrap.querySelector('[data-sg-resources-panel]');
+    var arrow = btn && btn.querySelector('svg');
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = panel.hasAttribute('hidden');
+      if (open) { panel.removeAttribute('hidden'); btn.setAttribute('aria-expanded','true'); if(arrow) arrow.style.transform='rotate(180deg)'; }
+      else { panel.setAttribute('hidden',''); btn.setAttribute('aria-expanded','false'); if(arrow) arrow.style.transform=''; }
+    });
+    document.addEventListener('click', function(e){
+      if (!resWrap.contains(e.target)) { panel.setAttribute('hidden',''); btn.setAttribute('aria-expanded','false'); if(arrow) arrow.style.transform=''; }
+    });
+  }
+  // Lazy-load React + PostInfographics only if there's an infographic on the page.
+  var mounts = document.querySelectorAll('[id^="root-infographic-"]');
+  if (!mounts.length) return;
+  var loaded = false;
+  function loadOnce(){
+    if (loaded) return;
+    loaded = true;
+    function add(src, cb){
+      var s = document.createElement('script');
+      s.src = src; s.async = false; s.onload = cb; document.head.appendChild(s);
+    }
+    add('https://unpkg.com/react@18.3.1/umd/react.production.min.js', function(){
+      add('https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js', function(){
+        add('../../components/PostInfographics.js', function(){
+          var id = window.__SG_BLOG_ID__;
+          var pi = id && window.PostInfographics && window.PostInfographics[id];
+          if (!pi) return;
+          mounts.forEach(function(el){
+            var which = el.id === 'root-infographic-mid' ? pi.mid : pi.end;
+            if (which) ReactDOM.createRoot(el).render(which);
+          });
+        });
+      });
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { loadOnce(); io.disconnect(); } });
+    }, { rootMargin: '600px 0px' });
+    mounts.forEach(function(m){ io.observe(m); });
+  } else {
+    loadOnce();
+  }
+})();
+</script>
 </body>
 </html>

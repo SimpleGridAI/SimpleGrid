@@ -63,14 +63,14 @@
   --font-mono:       Consolas, 'SF Mono', 'Liberation Mono', monospace;
 
   /* ----- TYPE SCALE (web) ----- */
-  --fs-hero:         44px;  /* 36–48 */
-  --fs-h1:           30px;  /* 28–32 */
-  --fs-h2:           22px;  /* 20–24 */
-  --fs-h3:           18px;
-  --fs-body:         15px;  /* 14–16 */
-  --fs-small:        13px;
-  --fs-caption:      11px;  /* 10–12 */
-  --fs-tag:          10px;  /* 8–10, uppercase */
+  --fs-hero:         50px;  /* 36–48 */
+  --fs-h1:           35px;  /* 28–32 */
+  --fs-h2:           25px;  /* 20–24 */
+  --fs-h3:           21px;
+  --fs-body:         18px;  /* 14–16 */
+  --fs-small:        15px;
+  --fs-caption:      13px;  /* 10–12 */
+  --fs-tag:          12px;  /* 8–10, uppercase */
 
   --lh-tight:        1.15;
   --lh-snug:         1.3;
