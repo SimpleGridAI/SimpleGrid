@@ -44,6 +44,16 @@ function nextDocNumber(prefix, key) {
 }
 
 // ----- PDF builder helper. Tools call this with their own spec. -----
+// Supported optional spec keys: brandColor (#hex), logoDataUrl (data: URL of logo).
+function _hexToRgb(hex) {
+  if (!hex || typeof hex !== 'string') return null;
+  hex = hex.replace('#','').trim();
+  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+  if (hex.length !== 6) return null;
+  const n = parseInt(hex, 16);
+  if (isNaN(n)) return null;
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
 function sgBuildPdf(spec) {
   if (!window.jspdf || !window.jspdf.jsPDF) {
     alert('PDF library is still loading — wait a moment and try again.');
@@ -54,15 +64,32 @@ function sgBuildPdf(spec) {
   const W = doc.internal.pageSize.getWidth();
   const M = 48; // margin
 
+  // Brand color: defaults to SimpleGrid blue if not provided
+  const brandRgb = _hexToRgb(spec.brandColor) || [52, 97, 224];
+
   // Header band
-  doc.setFillColor(52, 97, 224); // sg-blue
+  doc.setFillColor(brandRgb[0], brandRgb[1], brandRgb[2]);
   doc.rect(0, 0, W, 6, 'F');
+
+  // Optional logo at top-right of header area. Auto-fits to 130×55pt box.
+  let titleX = M;
+  if (spec.logoDataUrl) {
+    try {
+      const props = doc.getImageProperties(spec.logoDataUrl);
+      const maxW = 130, maxH = 55;
+      const ratio = Math.min(maxW / props.width, maxH / props.height);
+      const w = props.width * ratio, h = props.height * ratio;
+      doc.addImage(spec.logoDataUrl, props.fileType || 'PNG', W - M - w, 24, w, h);
+    } catch (e) {
+      console.warn('Logo embed failed:', e);
+    }
+  }
 
   // Document title
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(22);
   doc.setTextColor(20, 22, 28);
-  doc.text(spec.title || 'Document', M, 50);
+  doc.text(spec.title || 'Document', titleX, 50);
 
   // Doc number + date
   doc.setFont('helvetica', 'normal');
@@ -105,7 +132,7 @@ function sgBuildPdf(spec) {
         money(it.price),
         money((Number(it.qty) || 0) * (Number(it.price) || 0))
       ])),
-      headStyles: { fillColor: [52, 97, 224], textColor: 255, fontSize: 9, halign: 'left' },
+      headStyles: { fillColor: brandRgb, textColor: 255, fontSize: 9, halign: 'left' },
       bodyStyles: { fontSize: 10, textColor: [20, 22, 28] },
       columnStyles: spec.itemColumnStyles || {
         0: { cellWidth: 70 },

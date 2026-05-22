@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
 
 <meta property="og:site_name" content="SimpleGrid">
 <meta property="og:type" content="website">
@@ -61,9 +62,10 @@
 }
 </script>
 
-<!-- jsPDF + autotable -->
+<!-- jsPDF + autotable + Cropper.js (logo cropping) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js" defer></script>
 
 <!-- Google tag (gtag.js) — deferred -->
 <script>
@@ -129,6 +131,35 @@
           <div class="tool-field full"><label>Address</label><input id="buyer-address" type="text" placeholder="1200 Industrial Way, Akron, OH 44310"></div>
           <div class="tool-field"><label>Email</label><input id="buyer-email" type="email" placeholder="purchasing@acme.com"></div>
           <div class="tool-field"><label>Buyer (your name)</label><input id="buyer-contact" type="text" placeholder="Sarah Mitchell"></div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <h2>Branding <span style="font-weight:400;font-size:14px;color:var(--fg3);margin-left:8px">optional · saved to your browser</span></h2>
+        <div style="display:grid;grid-template-columns:1fr 200px;gap:24px;align-items:start" id="brand-grid">
+          <div>
+            <label style="font-size:13px;font-weight:600;color:var(--fg2);display:block;margin-bottom:6px">Company logo</label>
+            <input id="logo-upload" type="file" accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml" style="font-size:14px">
+            <div id="logo-preview" style="display:none;margin-top:14px;padding:14px;background:var(--sg-off-white);border:1px solid var(--border);border-radius:8px">
+              <div style="background:#fff;padding:10px;border-radius:6px;display:inline-block">
+                <img id="logo-preview-img" alt="Logo preview" style="max-height:64px;max-width:240px;display:block">
+              </div>
+              <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+                <button id="logo-recrop" type="button" class="btn-secondary" style="font-size:13px;padding:6px 12px">Re-crop</button>
+                <button id="logo-clear" type="button" class="btn-secondary" style="font-size:13px;padding:6px 12px">Remove logo</button>
+              </div>
+            </div>
+            <p class="tool-note">PNG, JPG, WebP, or SVG. Will be cropped before embedding. Lives only in your browser (~5 MB localStorage limit).</p>
+          </div>
+          <div>
+            <label style="font-size:13px;font-weight:600;color:var(--fg2);display:block;margin-bottom:6px">Brand color</label>
+            <div style="display:flex;align-items:center;gap:10px">
+              <input id="brand-color" type="color" value="#3461E0" style="width:60px;height:40px;border:1px solid var(--border);border-radius:6px;padding:3px;cursor:pointer;background:#fff">
+              <input id="brand-color-hex" type="text" value="#3461E0" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" style="width:90px;font-family:var(--font-mono,monospace);font-size:14px;padding:9px 10px;border:1px solid var(--border);border-radius:6px">
+            </div>
+            <p class="tool-note">Used for the header band + table-header color on the PDF.</p>
+            <button id="brand-reset" type="button" class="btn-secondary" style="font-size:13px;padding:6px 12px;margin-top:6px">Reset to default</button>
+          </div>
         </div>
       </div>
 
@@ -269,6 +300,22 @@
   </section>
 </main>
 
+<!-- Logo crop modal — hidden until a logo is being cropped -->
+<div id="crop-modal" style="display:none;position:fixed;inset:0;background:rgba(15,18,25,0.7);z-index:1000;align-items:center;justify-content:center;padding:24px" role="dialog" aria-modal="true" aria-labelledby="crop-modal-title">
+  <div style="background:#fff;border-radius:14px;padding:24px;max-width:640px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 24px 60px rgba(0,0,0,0.3)">
+    <h3 id="crop-modal-title" style="margin:0 0 6px;font-family:var(--font-heading);font-size:20px;letter-spacing:-0.015em">Crop your logo</h3>
+    <p style="margin:0 0 16px;font-size:14px;color:var(--fg3)">Drag the handles to choose what's included. Aspect ratio is free — logos come in all shapes.</p>
+    <div style="max-height:60vh;overflow:hidden;background:var(--sg-off-white);border-radius:8px"><img id="crop-target" alt="Logo to crop" style="max-width:100%;display:block"></div>
+    <div style="display:flex;gap:10px;margin-top:18px;justify-content:space-between;flex-wrap:wrap">
+      <button id="crop-reset" type="button" class="btn-secondary">Reset crop</button>
+      <div style="display:flex;gap:10px">
+        <button id="crop-cancel" type="button" class="btn-secondary">Cancel</button>
+        <button id="crop-apply" type="button" class="btn btn-primary" style="padding:10px 22px">Apply crop</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-top">
@@ -324,6 +371,130 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('po-date').value = todayISO();
   document.getElementById('po-delivery').value = addDays(todayISO(), 14);
   document.getElementById('po-number').value = nextDocNumber('PO', 'po');
+
+  // -----------------------------------------------------------------
+  // Branding: logo upload + crop, brand color
+  // -----------------------------------------------------------------
+  const LOGO_KEY = 'po_brand_logo';
+  const COLOR_KEY = 'po_brand_color';
+  const DEFAULT_COLOR = '#3461E0';
+
+  const logoUpload = document.getElementById('logo-upload');
+  const logoPreview = document.getElementById('logo-preview');
+  const logoPreviewImg = document.getElementById('logo-preview-img');
+  const colorInput = document.getElementById('brand-color');
+  const colorHex = document.getElementById('brand-color-hex');
+
+  // Load saved color
+  const savedColor = sgLoad(COLOR_KEY, DEFAULT_COLOR);
+  colorInput.value = savedColor;
+  colorHex.value = savedColor;
+  function syncColor(v) {
+    if (!/^#[0-9A-Fa-f]{6}$/.test(v)) return;
+    colorInput.value = v;
+    colorHex.value = v;
+    sgSave(COLOR_KEY, v);
+  }
+  colorInput.addEventListener('input', () => syncColor(colorInput.value));
+  colorHex.addEventListener('input', () => syncColor(colorHex.value));
+  document.getElementById('brand-reset').addEventListener('click', () => syncColor(DEFAULT_COLOR));
+
+  // Show saved logo
+  function showLogo(dataUrl) {
+    if (dataUrl) {
+      logoPreviewImg.src = dataUrl;
+      logoPreview.style.display = 'block';
+    } else {
+      logoPreviewImg.src = '';
+      logoPreview.style.display = 'none';
+    }
+  }
+  showLogo(sgLoad(LOGO_KEY));
+
+  // Crop modal
+  const cropModal = document.getElementById('crop-modal');
+  const cropTarget = document.getElementById('crop-target');
+  let cropper = null;
+  let originalForCrop = null; // remember the pre-crop original so user can re-crop
+
+  function openCropper(dataUrl) {
+    if (!window.Cropper) {
+      alert('Cropper library still loading — wait a moment and try again.');
+      return;
+    }
+    originalForCrop = dataUrl;
+    cropTarget.src = dataUrl;
+    cropModal.style.display = 'flex';
+    if (cropper) { cropper.destroy(); cropper = null; }
+    // Wait for img to load before initializing Cropper (Cropper needs naturalWidth)
+    cropTarget.onload = () => {
+      cropper = new Cropper(cropTarget, {
+        aspectRatio: NaN,      // free
+        viewMode: 1,
+        background: false,
+        autoCropArea: 1,
+        zoomable: true,
+        movable: true,
+        responsive: true
+      });
+    };
+    // If src is already the same (re-crop case), onload may not fire — kick it
+    if (cropTarget.complete) cropTarget.onload();
+  }
+  function closeCropper() {
+    cropModal.style.display = 'none';
+    if (cropper) { cropper.destroy(); cropper = null; }
+    originalForCrop = null;
+  }
+
+  logoUpload.addEventListener('change', (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    if (f.size > 8 * 1024 * 1024) {
+      alert('Image is over 8 MB. Please resize before uploading.');
+      logoUpload.value = '';
+      return;
+    }
+    const fr = new FileReader();
+    fr.onload = ev => openCropper(ev.target.result);
+    fr.onerror = () => alert('Could not read the file. Try a different image.');
+    fr.readAsDataURL(f);
+  });
+
+  document.getElementById('crop-cancel').addEventListener('click', closeCropper);
+  document.getElementById('crop-reset').addEventListener('click', () => { if (cropper) cropper.reset(); });
+  document.getElementById('crop-apply').addEventListener('click', () => {
+    if (!cropper) return;
+    // Cropped output: cap to a reasonable size for localStorage. PNG preserves alpha.
+    const canvas = cropper.getCroppedCanvas({
+      maxWidth: 800,
+      maxHeight: 320,
+      imageSmoothingEnabled: true,
+      imageSmoothingQuality: 'high'
+    });
+    if (!canvas) { alert('Could not crop. Try again.'); return; }
+    const cropped = canvas.toDataURL('image/png');
+    sgSave(LOGO_KEY, cropped);
+    showLogo(cropped);
+    closeCropper();
+    logoUpload.value = '';
+  });
+
+  document.getElementById('logo-recrop').addEventListener('click', () => {
+    // Use the SAVED logo as the source for re-crop (allows iterative refinement)
+    const saved = sgLoad(LOGO_KEY);
+    if (saved) openCropper(saved);
+  });
+  document.getElementById('logo-clear').addEventListener('click', () => {
+    try { localStorage.removeItem('sg_tools_' + LOGO_KEY); } catch(e){}
+    showLogo(null);
+    logoUpload.value = '';
+  });
+
+  // Close modal on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cropModal.style.display === 'flex') closeCropper();
+  });
 
   // Bind buyer fields to persistent storage so they save across visits
   sgBindFields({
@@ -466,6 +637,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const poNum = document.getElementById('po-number').value || 'PO';
     sgBuildPdf({
       title: 'Purchase Order',
+      brandColor: sgLoad(COLOR_KEY, DEFAULT_COLOR),
+      logoDataUrl: sgLoad(LOGO_KEY) || null,
       docNumberLabel: 'PO #',
       docNumber: poNum,
       date: document.getElementById('po-date').value,
