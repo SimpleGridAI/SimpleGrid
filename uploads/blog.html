@@ -24,16 +24,16 @@ const coverStyles = [
   { bg: 'var(--sg-blue-light)', fg: 'var(--sg-blue-dark)', sub: 'rgba(30,58,138,0.6)', accent: 'var(--sg-blue-dark)' },
 ];
 
-// Simple, topical SVG graphics — one per blog
+// Simple, topical SVG graphics - one per blog
 function BlogGraphic({ id, fg, sub, accent }) {
   const s = { fg, sub, accent };
-  // 1 Event sourcing — timeline of events
+  // 1 Event sourcing - timeline of events
   if (id === 1) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <line x1="20" y1="55" x2="180" y2="55" stroke={s.sub} strokeWidth="1.5"/>
     {[30,70,110,150].map((x,i)=>(<g key={i}><circle cx={x} cy="55" r={i===3?6:4} fill={i===3?s.accent:s.fg}/><text x={x} y="78" fontSize="7" fill={s.sub} textAnchor="middle" fontFamily="monospace">E{i+1}</text></g>))}
     <text x="100" y="30" fontSize="10" fill={s.fg} textAnchor="middle" fontWeight="600" fontFamily="monospace">Append only</text>
   </svg>);
-  // 2 Domain-driven design — business speaks, software listens
+  // 2 Domain-driven design - business speaks, software listens
   if (id === 2) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <rect x="20" y="35" width="70" height="40" rx="4" fill="none" stroke={s.fg} strokeWidth="1.5"/>
     <text x="55" y="59" fontSize="9" fill={s.fg} textAnchor="middle" fontWeight="600">Business</text>
@@ -42,7 +42,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <rect x="130" y="35" width="55" height="40" rx="4" fill={s.accent} opacity="0.15"/>
     <text x="157" y="59" fontSize="9" fill={s.accent} textAnchor="middle" fontWeight="600">Model</text>
   </svg>);
-  // 3 Aggregates — cluster with a root
+  // 3 Aggregates - cluster with a root
   if (id === 3) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <circle cx="100" cy="55" r="38" fill="none" stroke={s.sub} strokeWidth="1" strokeDasharray="3 3"/>
     <circle cx="100" cy="55" r="12" fill={s.accent}/>
@@ -50,13 +50,13 @@ function BlogGraphic({ id, fg, sub, accent }) {
     {[[70,35],[130,35],[70,80],[130,80]].map(([x,y],i)=>(<circle key={i} cx={x} cy={y} r="5" fill={s.fg}/>))}
     {[[70,35],[130,35],[70,80],[130,80]].map(([x,y],i)=>(<line key={i} x1="100" y1="55" x2={x} y2={y} stroke={s.sub} strokeWidth="1"/>))}
   </svg>);
-  // 4 Multi-tenant — shared platform, separate DBs
+  // 4 Multi-tenant - shared platform, separate DBs
   if (id === 4) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <rect x="30" y="20" width="140" height="18" rx="3" fill={s.accent} opacity="0.3"/>
     <text x="100" y="32" fontSize="8" fill={s.fg} textAnchor="middle" fontWeight="600">One platform</text>
     {[0,1,2].map(i=>(<g key={i}><rect x={35+i*46} y="55" width="40" height="40" rx="3" fill="none" stroke={s.fg} strokeWidth="1.5"/><circle cx={55+i*46} cy="68" r="3" fill={s.fg}/><line x1={42+i*46} y1="78" x2={68+i*46} y2="78" stroke={s.fg} strokeWidth="1"/><line x1={42+i*46} y1="84" x2={68+i*46} y2="84" stroke={s.fg} strokeWidth="1"/><line x1={42+i*46} y1="90" x2={60+i*46} y2="90" stroke={s.fg} strokeWidth="1"/></g>))}
   </svg>);
-  // 5 Customization — code vs rows in table
+  // 5 Customization - code vs rows in table
   if (id === 5) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <rect x="30" y="25" width="140" height="60" rx="3" fill="none" stroke={s.fg} strokeWidth="1.5"/>
     {[0,1,2,3].map(i=>(<line key={i} x1="30" y1={40+i*12} x2="170" y2={40+i*12} stroke={s.sub} strokeWidth="0.8"/>))}
@@ -65,14 +65,14 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <rect x="30" y="52" width="140" height="12" fill={s.accent} opacity="0.25"/>
     <text x="100" y="100" fontSize="8" fill={s.sub} textAnchor="middle" fontFamily="monospace">rules table</text>
   </svg>);
-  // 6 Module vs domain — stacked boxes vs organic shape
+  // 6 Module vs domain - stacked boxes vs organic shape
   if (id === 6) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     {[0,1,2].map(i=>(<rect key={i} x="25" y={25+i*18} width="60" height="14" rx="2" fill="none" stroke={s.sub} strokeWidth="1.2"/>))}
     <text x="55" y="92" fontSize="7" fill={s.sub} textAnchor="middle">modules</text>
     <path d="M115 30 Q160 25 170 55 Q175 85 135 85 Q105 82 115 55 Z" fill="none" stroke={s.accent} strokeWidth="1.5"/>
     <text x="143" y="92" fontSize="7" fill={s.accent} textAnchor="middle" fontWeight="600">domain</text>
   </svg>);
-  // 7 AI chatbot with Claude — speech bubble + cursor
+  // 7 AI chatbot with Claude - speech bubble + cursor
   if (id === 7) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <path d="M30 30 L150 30 Q158 30 158 38 L158 62 Q158 70 150 70 L60 70 L48 82 L48 70 L38 70 Q30 70 30 62 Z" fill={s.accent} opacity="0.2" stroke={s.accent} strokeWidth="1.2"/>
     <text x="94" y="54" fontSize="9" fill={s.fg} textAnchor="middle" fontFamily="monospace">stock of 304?</text>
@@ -80,7 +80,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
       <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
     </rect>
   </svg>);
-  // 8 Conversational UX — chat bubbles stacked
+  // 8 Conversational UX - chat bubbles stacked
   if (id === 8) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <rect x="30" y="20" width="110" height="20" rx="10" fill={s.sub} opacity="0.3"/>
     <text x="85" y="34" fontSize="8" fill={s.fg} textAnchor="middle">Got 200 sheets</text>
@@ -89,7 +89,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <rect x="30" y="76" width="90" height="20" rx="10" fill={s.sub} opacity="0.3"/>
     <text x="75" y="90" fontSize="8" fill={s.fg} textAnchor="middle">20 rejected</text>
   </svg>);
-  // 9 Landed cost — stacked cost components
+  // 9 Landed cost - stacked cost components
   if (id === 9) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     {[[35,'Wood',45],[60,'Labor',55],[80,'Rework',30],[100,'QC',25],[115,'Pack',40]].map(([y,l,w],i)=>(
       <g key={i}><rect x="40" y={y} width={w} height="10" fill={s.accent} opacity={0.3+i*0.15}/><text x="38" y={y+8} fontSize="7" fill={s.fg} textAnchor="end">{l}</text></g>
@@ -97,7 +97,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <line x1="40" y1="95" x2="160" y2="95" stroke={s.fg} strokeWidth="1.5"/>
     <text x="165" y="98" fontSize="9" fill={s.accent} fontWeight="700" fontFamily="monospace">$</text>
   </svg>);
-  // 10 Culture — factory building
+  // 10 Culture - factory building
   if (id === 10) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <path d="M30 85 L30 55 L55 40 L55 55 L80 40 L80 55 L105 40 L105 55 L130 40 L130 85 Z" fill="none" stroke={s.fg} strokeWidth="1.5"/>
     <rect x="40" y="68" width="10" height="17" fill={s.accent}/>
@@ -108,7 +108,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <line x1="150" y1="85" x2="150" y2="60" stroke={s.sub} strokeWidth="1"/>
     <path d="M150 60 L155 55 L160 60" fill="none" stroke={s.sub} strokeWidth="1"/>
   </svg>);
-  // 11 Mid-market gap — squeezed in between
+  // 11 Mid-market gap - squeezed in between
   if (id === 11) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <rect x="20" y="40" width="35" height="40" fill={s.sub} opacity="0.4"/>
     <text x="37" y="64" fontSize="7" fill={s.fg} textAnchor="middle">SAP</text>
@@ -118,7 +118,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <rect x="145" y="50" width="35" height="30" fill={s.sub} opacity="0.4"/>
     <text x="162" y="69" fontSize="7" fill={s.fg} textAnchor="middle">QB</text>
   </svg>);
-  // 12 Spreadsheets — messy grid with circles
+  // 12 Spreadsheets - messy grid with circles
   if (id === 12) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <rect x="30" y="20" width="140" height="75" fill="none" stroke={s.fg} strokeWidth="1.2"/>
     {[0,1,2,3,4].map(i=>(<line key={i} x1="30" y1={35+i*12} x2="170" y2={35+i*12} stroke={s.sub} strokeWidth="0.6"/>))}
@@ -127,7 +127,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <circle cx="130" cy="64" r="6" fill="none" stroke={s.accent} strokeWidth="1.5"/>
     <circle cx="55" cy="76" r="6" fill="none" stroke={s.accent} strokeWidth="1.5"/>
   </svg>);
-  // 13 Change orders — stack of invoices
+  // 13 Change orders - stack of invoices
   if (id === 13) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     {[0,1,2,3].map(i=>(<g key={i}><rect x={55+i*4} y={20+i*4} width="80" height="60" fill="#fff" stroke={s.fg} strokeWidth="1"/></g>))}
     <rect x="67" y="32" width="80" height="60" fill="#fff" stroke={s.accent} strokeWidth="1.5"/>
@@ -136,7 +136,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <line x1="73" y1="60" x2="130" y2="60" stroke={s.sub} strokeWidth="0.8"/>
     <text x="130" y="84" fontSize="10" fill={s.accent} textAnchor="end" fontWeight="700" fontFamily="monospace">+$12K</text>
   </svg>);
-  // 14 AI changed deployment — 12mo to 7d
+  // 14 AI changed deployment - 12mo to 7d
   if (id === 14) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <rect x="25" y="45" width="90" height="14" fill={s.sub} opacity="0.4"/>
     <text x="70" y="70" fontSize="8" fill={s.sub} textAnchor="middle">12 months</text>
@@ -145,7 +145,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <rect x="145" y="45" width="18" height="14" fill={s.accent}/>
     <text x="154" y="70" fontSize="8" fill={s.accent} textAnchor="middle" fontWeight="700">7 days</text>
   </svg>);
-  // 15 ERP cannot keep up — diverging lines
+  // 15 ERP cannot keep up - diverging lines
   if (id === 15) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <path d="M25 85 Q 70 85 100 55 T 175 20" fill="none" stroke={s.accent} strokeWidth="2"/>
     <path d="M25 85 L 175 75" fill="none" stroke={s.sub} strokeWidth="1.5" strokeDasharray="3 3"/>
@@ -153,7 +153,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <text x="178" y="78" fontSize="7" fill={s.sub}>ERP</text>
     <line x1="25" y1="90" x2="175" y2="90" stroke={s.fg} strokeWidth="1"/>
   </svg>);
-  // 16 Warehouse — clipboard & phone
+  // 16 Warehouse - clipboard & phone
   if (id === 16) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <rect x="40" y="25" width="50" height="70" rx="3" fill="none" stroke={s.fg} strokeWidth="1.5"/>
     <rect x="55" y="20" width="20" height="10" rx="2" fill={s.fg}/>
@@ -163,7 +163,7 @@ function BlogGraphic({ id, fg, sub, accent }) {
     <circle cx="135" cy="87" r="2.5" fill="#fff"/>
     <text x="135" y="58" fontSize="7" fill={s.accent} textAnchor="middle" fontWeight="700">OK</text>
   </svg>);
-  // 17 Best practices myth — stamp with X
+  // 17 Best practices myth - stamp with X
   if (id === 17) return (<svg viewBox="0 0 200 110" style={{width:'70%',height:'auto'}}>
     <rect x="45" y="30" width="110" height="50" rx="4" fill="none" stroke={s.fg} strokeWidth="1.5"/>
     <text x="100" y="52" fontSize="10" fill={s.fg} textAnchor="middle" fontWeight="700">BEST PRACTICES</text>

@@ -81,7 +81,7 @@
   }
   // Defer PostHog until first user interaction (privacy-friendlier + reduces TBT).
   // Falls back to 30s for passive readers so analytics still capture page views.
-  // To opt out: open DevTools console and run sgPostHogOptOut() — sets a
+  // To opt out: open DevTools console and run sgPostHogOptOut() - sets a
   // localStorage flag so PostHog never loads on this device.
   (function(){
     var loaded = false;
@@ -103,8 +103,8 @@
     };
   })();
 </script>
-<!-- Google tag (gtag.js) — deferred to first user interaction (privacy + perf parity with PostHog).
-     To opt out: open DevTools console and run sgPostHogOptOut() — same flag controls both. -->
+<!-- Google tag (gtag.js) - deferred to first user interaction (privacy + perf parity with PostHog).
+     To opt out: open DevTools console and run sgPostHogOptOut() - same flag controls both. -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -129,7 +129,7 @@
 </script>
 </head>
 <body>
-<!-- Static seed inside #root — React replaces on mount. Full legal text in source
+<!-- Static seed inside #root - React replaces on mount. Full legal text in source
      so crawlers + JS-disabled users see the policy without waiting for React. -->
 <div id="root">
   <a href="#main" class="skip-link">Skip to main content</a>

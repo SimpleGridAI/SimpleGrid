@@ -1,4 +1,4 @@
-# SEO Audit — Phase 2: Proposed Changes
+# SEO Audit - Phase 2: Proposed Changes
 
 **Status:** diffs only, **no code changed**.
 **Approval pattern:** reply with `apply P0`, `apply P0+P1`, `apply all`, or `apply [#1, #5, #14]` (specific numbers).
@@ -8,15 +8,15 @@
 
 ## Priority groups
 
-- **P0 — Critical** (broken canonicals, missing H1s, no JSON-LD on blog, sitemap errors): 8 changes
-- **P1 — High Impact** (heading structure, meta tags, image alt/dim, internal links): 6 changes
-- **P2 — Enhancement** (new pages, build step, OG images, URL restructure): 6 changes
+- **P0 - Critical** (broken canonicals, missing H1s, no JSON-LD on blog, sitemap errors): 8 changes
+- **P1 - High Impact** (heading structure, meta tags, image alt/dim, internal links): 6 changes
+- **P2 - Enhancement** (new pages, build step, OG images, URL restructure): 6 changes
 
 Total: 20 proposed changes.
 
 ---
 
-## P0 — Apply first
+## P0 - Apply first
 
 ---
 
@@ -54,7 +54,7 @@ Total: 20 proposed changes.
 **After:**
 ```jsx
 <div className="tag">BLOG</div>
-<h1 className="h2">ERP for manufacturers — field notes from operators who built it.</h1>
+<h1 className="h2">ERP for manufacturers - field notes from operators who built it.</h1>
 ```
 
 **Keyword targeted:** "ERP for manufacturers" + "factory floor software".
@@ -85,15 +85,15 @@ Total: 20 proposed changes.
 **Issue:** 8 of 11 titles exceed 60 chars. 9 of 11 descriptions exceed 155.
 
 Each rewrite follows the brief's formula:
-- **Title:** `[Primary KW] — [Differentiator] | SimpleGrid`
+- **Title:** `[Primary KW] - [Differentiator] | SimpleGrid`
 - **Description:** `[Pain]. [What we do]. [CTA].`
 
 #### index.html (line 5–6)
 
 | | Current | Proposed |
 |---|---|---|
-| Title | `SimpleGrid AI - Customized ERP for Manufacturers \| Fast Deployment in 7 Days` (76) | `AI ERP for Manufacturers — Live in 7 Days \| SimpleGrid` (54) |
-| Description | `SimpleGrid (Simple Grid AI) is a customized ERP for manufacturers — fast deployment in 7 days, built for the factory floor, not 18 months of consulting. SimpleGrid ERP fits your operation. Free until it works.` (208) | `Your ERP shouldn't take 18 months. SimpleGrid deploys in 7 days, zero upfront cost. See it working before you spend a dollar. 30 days free.` (138) |
+| Title | `SimpleGrid AI - Customized ERP for Manufacturers \| Fast Deployment in 7 Days` (76) | `AI ERP for Manufacturers - Live in 7 Days \| SimpleGrid` (54) |
+| Description | `SimpleGrid (Simple Grid AI) is a customized ERP for manufacturers - fast deployment in 7 days, built for the factory floor, not 18 months of consulting. SimpleGrid ERP fits your operation. Free until it works.` (208) | `Your ERP shouldn't take 18 months. SimpleGrid deploys in 7 days, zero upfront cost. See it working before you spend a dollar. 30 days free.` (138) |
 
 **Keyword:** AI ERP for manufacturers (primary).
 
@@ -101,7 +101,7 @@ Each rewrite follows the brief's formula:
 
 | | Current | Proposed |
 |---|---|---|
-| Title | `Product - SimpleGrid AI \| Customized ERP for Factories, Fast Deployment in 7 Days` (78) | `How SimpleGrid ERP Works — 7-Day Deploy \| SimpleGrid` (52) |
+| Title | `Product - SimpleGrid AI \| Customized ERP for Factories, Fast Deployment in 7 Days` (78) | `How SimpleGrid ERP Works - 7-Day Deploy \| SimpleGrid` (52) |
 | Description | (199) | `Schema-driven ERP. AI configures it from your data. No modules, no consultants, no 18-month rollout. Deploy in 7 days. Walk away if it doesn't work.` (149) |
 
 **Keyword:** how SimpleGrid ERP works (primary).
@@ -110,14 +110,14 @@ Each rewrite follows the brief's formula:
 
 | | Current | Proposed |
 |---|---|---|
-| Title | (80) | `ERP Case Studies — Live in 12 to 21 Days \| SimpleGrid` (53) |
+| Title | (80) | `ERP Case Studies - Live in 12 to 21 Days \| SimpleGrid` (53) |
 | Description | (242) | `Two factories on SimpleGrid: a 600-employee furniture exporter live in 21 days, an 80–100k shirts/month apparel manufacturer live in 12 days.` (140) |
 
 #### case-elite.html (line 5–6)
 
 | | Current | Proposed |
 |---|---|---|
-| Title | (73) | `Furniture ERP Case Study — 21-Day Deploy \| SimpleGrid` (53) |
+| Title | (73) | `Furniture ERP Case Study - 21-Day Deploy \| SimpleGrid` (53) |
 | Description | (217) | `600-employee furniture exporter replaced Excel and group chats with SimpleGrid in 21 days. 64 things tracked. 72 automatic triggers.` (132) |
 
 **Keyword:** ERP for furniture manufacturers.
@@ -126,7 +126,7 @@ Each rewrite follows the brief's formula:
 
 | | Current | Proposed |
 |---|---|---|
-| Title | (67) | `Apparel ERP Case Study — Live in 12 Days \| SimpleGrid` (53) |
+| Title | (67) | `Apparel ERP Case Study - Live in 12 Days \| SimpleGrid` (53) |
 | Description | (216) | `An 80–100k shirts/month apparel manufacturer running 100% job work across 30+ locations. Live on SimpleGrid in 12 days. Real numbers.` (134) |
 
 **Keyword:** ERP for apparel manufacturers.
@@ -135,39 +135,39 @@ Each rewrite follows the brief's formula:
 
 | | Current | Proposed |
 |---|---|---|
-| Title | (87) | `ERP Blog for Manufacturers — Field Notes \| SimpleGrid` (54) |
+| Title | (87) | `ERP Blog for Manufacturers - Field Notes \| SimpleGrid` (54) |
 | Description | (245) | `Field notes from operators on fast-deploy ERP, factory floor software, and why most ERP rollouts fail. Read posts from the team building SimpleGrid.` (149) |
 
 #### post.html (line 5–6)
 
 | | Current | Proposed |
 |---|---|---|
-| Title | (89) | `SimpleGrid Blog — Notes from Manufacturers` (43) |
+| Title | (89) | `SimpleGrid Blog - Notes from Manufacturers` (43) |
 | Description | (187) | `Operator-written guides on fast-deploy ERP, factory floor software, and how to evaluate ERP for a 200-person factory.` (118) |
 
-(Note: title and description are dynamically rewritten by the JS effect per blog post — these are static fallbacks for non-JS crawlers and the blog index URL.)
+(Note: title and description are dynamically rewritten by the JS effect per blog post - these are static fallbacks for non-JS crawlers and the blog index URL.)
 
 #### about.html (line 5–6)
 
 | | Current | Proposed |
 |---|---|---|
-| Title | (78) | `About SimpleGrid — Built by a Manufacturer \| SimpleGrid` (55) |
+| Title | (78) | `About SimpleGrid - Built by a Manufacturer \| SimpleGrid` (55) |
 | Description | (246) | `SimpleGrid was built by a founder who ran a $30M factory, survived two ERP failures, and ended up on Google Sheets. Now we ship the system we needed.` (151) |
 
 #### hiring.html (line 5–6)
 
 | | Current | Proposed |
 |---|---|---|
-| Title | `Careers - SimpleGrid AI \| Build the ERP Operators Wish Existed` (60) | `Careers at SimpleGrid — Build for Operators \| SimpleGrid` (55) |
+| Title | `Careers - SimpleGrid AI \| Build the ERP Operators Wish Existed` (60) | `Careers at SimpleGrid - Build for Operators \| SimpleGrid` (55) |
 | Description | (175) | `Small team building AI-native ERP for mid-market manufacturers. Engineers, operators, GTM hires welcome. Founder-led. Operator-grounded.` (135) |
 
-**Privacy and Terms** are already within budget — no rewrite proposed.
+**Privacy and Terms** are already within budget - no rewrite proposed.
 
 **Impact:** High across all 9 pages. Prevents truncation in mobile SERP, improves CTR.
 
 ---
 
-### P0-3 · Fix /post.html canonical (currently points to /blog.html — wrong) ⚠️
+### P0-3 · Fix /post.html canonical (currently points to /blog.html - wrong) ⚠️
 
 **Section:** §5 (canonicals).
 **Issue:** Static canonical on every blog post page is `https://simplegrid.ai/blog.html`. This tells Google "the canonical version of every blog post is the blog listing", which collapses all 17 posts into one URL and destroys their ranking potential. JS effect already sets a per-post canonical at runtime, but static fallback is wrong.
@@ -212,7 +212,7 @@ can.setAttribute('href', 'https://simplegrid.ai/post.html?id=' + blog.id);
 ```
 
 **Keyword:** all 17 blog post primary keywords (currently zero of them rank because of canonical collapse).
-**Impact:** **High** — single biggest unlock for the blog content's search visibility.
+**Impact:** **High** - single biggest unlock for the blog content's search visibility.
 
 ---
 
@@ -223,9 +223,9 @@ can.setAttribute('href', 'https://simplegrid.ai/post.html?id=' + blog.id);
 
 **Blocker:** datePublished and dateModified are not in `data/blogs.js`. Per brief Section 13 ("Never invent ... dateModified must reflect actual last-modified"), I cannot fabricate these. **Request:** add `datePublished` (ISO string) to each entry in `data/blogs.js`. Until then, propose two options:
 
-**Option A — ship without dates** (skip the field, lose some rich-result eligibility, but valid Article schema):
+**Option A - ship without dates** (skip the field, lose some rich-result eligibility, but valid Article schema):
 
-#### post.html — extend the existing useEffect
+#### post.html - extend the existing useEffect
 
 **Before** (post.html line 113–127, current useEffect):
 ```js
@@ -287,7 +287,7 @@ React.useEffect(() => {
     'mainEntityOfPage': url,
     'publisher': { '@id': 'https://simplegrid.ai/#org' },
     'author': { '@type': 'Organization', '@id': 'https://simplegrid.ai/#org' }
-    // datePublished + dateModified intentionally omitted — to be populated when blog data has dates
+    // datePublished + dateModified intentionally omitted - to be populated when blog data has dates
   });
 
   // BreadcrumbList JSON-LD
@@ -305,7 +305,7 @@ React.useEffect(() => {
 }, [blog]);
 ```
 
-**Option B — wait until dates are added to blogs.js, then ship full Article schema with datePublished/dateModified.**
+**Option B - wait until dates are added to blogs.js, then ship full Article schema with datePublished/dateModified.**
 
 **Keyword:** all 17 blog post topics (covers Article rich-result eligibility).
 **Impact:** High.
@@ -440,7 +440,7 @@ Each gets a 2-element BreadcrumbList: Home → [page name].
 
 Inject per-role schema via JS effect on hiring.html.
 
-#### hiring.html — add inside the existing `function HiringPage` body (or top-level)
+#### hiring.html - add inside the existing `function HiringPage` body (or top-level)
 
 ```js
 React.useEffect(() => {
@@ -496,7 +496,7 @@ React.useEffect(() => {
 
 ---
 
-## P1 — Apply after P0
+## P1 - Apply after P0
 
 ---
 
@@ -505,7 +505,7 @@ React.useEffect(() => {
 **Section:** §4 (Product / How It Works schema map).
 **Issue:** Product page is highest commercial-intent page after home; has zero schema.
 
-#### product.html — insert after canonical (line ~9)
+#### product.html - insert after canonical (line ~9)
 
 ```html
 <script type="application/ld+json">
@@ -516,7 +516,7 @@ React.useEffect(() => {
       "@type": "WebPage",
       "@id": "https://simplegrid.ai/product.html#webpage",
       "url": "https://simplegrid.ai/product.html",
-      "name": "How SimpleGrid ERP Works — 7-Day Deploy",
+      "name": "How SimpleGrid ERP Works - 7-Day Deploy",
       "isPartOf": { "@id": "https://simplegrid.ai/#website" },
       "primaryImageOfPage": "https://simplegrid.ai/assets/simplegrid-logo-horizontal.svg",
       "description": "Schema-driven ERP. AI configures it from your data. Deploy in 7 days."
@@ -584,12 +584,12 @@ React.useEffect(() => {
 
 **Section:** §9 (image SEO budgets).
 **Issues:**
-- `assets/elite-factory.jpeg` is 788 KB — over the 200 KB budget by ~4×.
+- `assets/elite-factory.jpeg` is 788 KB - over the 200 KB budget by ~4×.
 - `assets/founder.jpg` is 840 KB and **not referenced anywhere** in code.
 
 **Proposed actions:**
 1. Convert `elite-factory.jpeg` to WebP. Target: <120 KB at 1600px wide. Tooling: `cwebp -q 78 elite-factory.jpeg -o elite-factory.webp`. Then update CSS background-image references in `case-studies.html`, `case-elite.html`, and any others.
-2. **Delete `assets/founder.jpg`** (orphan asset, 840 KB) — OR wire it into the About page's FounderStory component as a real founder photo.
+2. **Delete `assets/founder.jpg`** (orphan asset, 840 KB) - OR wire it into the About page's FounderStory component as a real founder photo.
 
 **Cannot do this in code-only step:** image conversion needs a binary tool (cwebp, ImageMagick, or design software). I can run `cwebp` if you have it installed, or you can supply a WebP and I'll wire up the references.
 
@@ -624,13 +624,13 @@ React.useEffect(() => {
 
 ---
 
-### P1 — Other items rolled in already
+### P1 - Other items rolled in already
 
 P1-6 (Breadcrumbs) and P1-7 (Product schema) are listed under P0 since they're quick. P1 has these 4 actionable items.
 
 ---
 
-## P2 — Heavier / requires copy or design
+## P2 - Heavier / requires copy or design
 
 ---
 
@@ -655,12 +655,12 @@ Once images are produced and placed in `assets/og/`, I'll update each page's `<m
 
 ---
 
-### P2-11 · Create /pricing.html ⚠️ NEW PAGE — REQUIRES COPY
+### P2-11 · Create /pricing.html ⚠️ NEW PAGE - REQUIRES COPY
 
 **Section:** §7 (must-have pages).
 **Issue:** No pricing page. Brief Section 2 maps a primary keyword (`ERP pricing for manufacturers`) to this page; site has none.
 
-**Proposed structure** (copy not written — flagged for owner approval):
+**Proposed structure** (copy not written - flagged for owner approval):
 
 ```
 URL: /pricing.html
@@ -684,26 +684,26 @@ Body sections:
 Schema: WebPage + Product (with Offer/AggregateOffer) + FAQPage + BreadcrumbList
 ```
 
-**Impact:** **High** — captures a high-commercial-intent search class with no current target. P0 for revenue, but P2 for execution because it requires owner-written pricing copy.
+**Impact:** **High** - captures a high-commercial-intent search class with no current target. P0 for revenue, but P2 for execution because it requires owner-written pricing copy.
 
 ---
 
-### P2-12 · Industry pages (Furniture, Apparel, Pharma) ⚠️ NEW PAGES — REQUIRES COPY
+### P2-12 · Industry pages (Furniture, Apparel, Pharma) ⚠️ NEW PAGES - REQUIRES COPY
 
 **Section:** §7, §11.
-**Issue:** Case studies are not industry landing pages. A user searching "ERP for furniture manufacturers" lands on case-elite — a single-customer story — not an industry overview.
+**Issue:** Case studies are not industry landing pages. A user searching "ERP for furniture manufacturers" lands on case-elite - a single-customer story - not an industry overview.
 
 **Proposed pages:** (3 pages, each ~1500 words)
 
 | URL | Primary KW | H1 |
 |---|---|---|
-| `/erp-for-furniture-manufacturers.html` | ERP for furniture manufacturers | "ERP for furniture manufacturers — modeled around your wood, your contractors, your stages." |
-| `/erp-for-apparel-manufacturers.html` | ERP for apparel manufacturers | "ERP for apparel manufacturers — built for job work, brand-nominated suppliers, and ephemeral SKUs." |
-| `/erp-for-pharma-distributors.html` | ERP for pharma distributors | "ERP for pharma distributors — built around supplier offers, scheme logic, and live recency ranking." |
+| `/erp-for-furniture-manufacturers.html` | ERP for furniture manufacturers | "ERP for furniture manufacturers - modeled around your wood, your contractors, your stages." |
+| `/erp-for-apparel-manufacturers.html` | ERP for apparel manufacturers | "ERP for apparel manufacturers - built for job work, brand-nominated suppliers, and ephemeral SKUs." |
+| `/erp-for-pharma-distributors.html` | ERP for pharma distributors | "ERP for pharma distributors - built around supplier offers, scheme logic, and live recency ranking." |
 
 **Each page contains:**
 - Hero with industry-specific pain (wood waste / job work coordination / scheme tracking)
-- Section: "What's different about [industry] operations" (3-5 H3s — vocabulary, workflows, contractors, etc.)
+- Section: "What's different about [industry] operations" (3-5 H3s - vocabulary, workflows, contractors, etc.)
 - Section: "How SimpleGrid models it" (link to case study + product)
 - FAQ (5 questions per industry)
 - CTA: book a call
@@ -712,11 +712,11 @@ Schema: WebPage + Product (with Offer/AggregateOffer) + FAQPage + BreadcrumbList
 
 **Internal linking:** each page links to (a) the relevant case study, (b) product, (c) the other 2 industry pages.
 
-**Impact:** **High** — captures 3 high-volume commercial keywords currently with no target. P0 strategically, P2 for execution because it requires industry-specific copy from owner.
+**Impact:** **High** - captures 3 high-volume commercial keywords currently with no target. P0 strategically, P2 for execution because it requires industry-specific copy from owner.
 
 ---
 
-### P2-13 · Comparison pages (vs SAP, vs Tally, vs Zoho) ⚠️ NEW PAGES — REQUIRES COPY
+### P2-13 · Comparison pages (vs SAP, vs Tally, vs Zoho) ⚠️ NEW PAGES - REQUIRES COPY
 
 **Section:** §7, §11.
 **Issue:** Zero comparison pages. Comparison searches ("SAP alternative for manufacturers", "Tally alternative") are some of the highest commercial-intent keywords in the brief's keyword strategy.
@@ -725,9 +725,9 @@ Schema: WebPage + Product (with Offer/AggregateOffer) + FAQPage + BreadcrumbList
 
 | URL | Primary KW | H1 |
 |---|---|---|
-| `/vs-sap.html` | SAP alternative for manufacturers | "SimpleGrid vs SAP Business One — 7 days, not 18 months." |
-| `/vs-tally.html` | Tally alternative for manufacturing | "SimpleGrid vs Tally — beyond accounting, into the factory floor." |
-| `/vs-zoho.html` | Zoho alternative manufacturers | "SimpleGrid vs Zoho ERP — modeled on your factory, not on a generic template." |
+| `/vs-sap.html` | SAP alternative for manufacturers | "SimpleGrid vs SAP Business One - 7 days, not 18 months." |
+| `/vs-tally.html` | Tally alternative for manufacturing | "SimpleGrid vs Tally - beyond accounting, into the factory floor." |
+| `/vs-zoho.html` | Zoho alternative manufacturers | "SimpleGrid vs Zoho ERP - modeled on your factory, not on a generic template." |
 
 **Each page contains:**
 - Hero with the side-by-side comparison hook
@@ -739,7 +739,7 @@ Schema: WebPage + Product (with Offer/AggregateOffer) + FAQPage + BreadcrumbList
 
 **Schema:** WebPage + FAQPage + BreadcrumbList
 
-**Impact:** **High** — captures 3 of the highest commercial-intent keyword classes. P2 for execution because it requires factual comparison content.
+**Impact:** **High** - captures 3 of the highest commercial-intent keyword classes. P2 for execution because it requires factual comparison content.
 
 ---
 
@@ -813,7 +813,7 @@ GitHub Pages supports custom 404 fallback. Create:
 
 ### P2-17 · Decide on alternateName "Simple Grid" / "Simple Grid AI" in JSON-LD ⚠️ DECISION
 
-**Section:** §1 (brand voice — never use "Simple Grid"), §4.
+**Section:** §1 (brand voice - never use "Simple Grid"), §4.
 **Issue:** Current home JSON-LD includes:
 ```json
 "alternateName": ["SimpleGrid AI", "Simple Grid", "Simple Grid AI", "SimpleGrid ERP", "Simple Grid ERP", "SimpleGridAI"]
@@ -844,7 +844,7 @@ The brief Section 1 says: *"Never 'Simple Grid', 'SG', 'SIMPLEGRID', 'simpleGrid
 
 | Tier | Count | Effort | Net SEO impact |
 |---|---|---|---|
-| P0 | 8 changes | Quick (1-2 hrs total) | High — unlocks structural SEO |
+| P0 | 8 changes | Quick (1-2 hrs total) | High - unlocks structural SEO |
 | P1 | 4 changes | Medium (3-5 hrs + asset work) | High |
 | P2 | 6 changes | Heavy (new pages + build step) | Highest, but each needs copy / design / engineering decisions |
 
@@ -852,14 +852,14 @@ The brief Section 1 says: *"Never 'Simple Grid', 'SG', 'SIMPLEGRID', 'simpleGrid
 
 ---
 
-## STOP — Phase 2 complete
+## STOP - Phase 2 complete
 
 Send one of:
-- `apply P0` — I apply only the 8 P0 fixes (after you approve the copy in P0-1, P0-2, P0-4 datePosted)
-- `apply P0+P1` — adds the 4 P1 fixes
-- `apply all` — adds the 6 P2 fixes (some will still defer waiting on copy / design / decisions)
-- `apply [#1, #5, #14]` — specific fix numbers
-- `revise [item]` — re-issue with edits
+- `apply P0` - I apply only the 8 P0 fixes (after you approve the copy in P0-1, P0-2, P0-4 datePosted)
+- `apply P0+P1` - adds the 4 P1 fixes
+- `apply all` - adds the 6 P2 fixes (some will still defer waiting on copy / design / decisions)
+- `apply [#1, #5, #14]` - specific fix numbers
+- `revise [item]` - re-issue with edits
 
 After your apply command, Phase 3 produces:
 - `/seo-audit/POST_FIX_REPORT.md` (before/after verification)

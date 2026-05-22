@@ -124,7 +124,7 @@ function FounderStory() {
           <div className="founder-text">
             <div className="tag">BUILT BY AN OPERATOR WHO'S BEEN ON YOUR FLOOR</div>
             <blockquote>Built a $30M manufacturing business. Survived two ERP failures. Ended up on Google Sheets.</blockquote>
-            <p className="body">SimpleGrid exists because we were the customer first — multiple factories, 400-person workforce. We bought the same enterprise systems you're being pitched today. We watched them fail. We know exactly what breaks when the system can't keep up with the floor.</p>
+            <p className="body">SimpleGrid exists because we were the customer first - multiple factories, 400-person workforce. We bought the same enterprise systems you're being pitched today. We watched them fail. We know exactly what breaks when the system can't keep up with the floor.</p>
             <p className="body">That's why we built SimpleGrid the only way that makes sense to an operator: model it on your factory, run it on your real floor for 30 days, and only charge when it earns its keep.</p>
             <p className="body">Senior engineers and a founder are on every deployment. No sales reps. No SDRs. No chatbot. You deal with the people who'll actually build your system.</p>
           </div>
@@ -309,17 +309,17 @@ function ComparisonTable() {
   const rows = [
     { label: 'Built for', sap: 'F500 finance, multi-country tax, public-co close', epicor: 'Discrete manufacturers with mature IT teams', qb: 'Small businesses that need bookkeeping', sg: 'Mid-market manufacturers who don\'t want to be a software project' },
     { label: 'What they do well', sap: 'Deep finance, global compliance, scale to billions', epicor: 'Strong shop-floor MRP, mature manufacturing modules', qb: 'Easy accounting, every accountant knows it', sg: 'Model your factory, ship in days, prove value before you pay' },
-    { label: 'Time to value', sap: '12–18+ months', epicor: '9–12 months', qb: 'Same day for books — but breaks as you scale ops', sg: 'Live in 7–21 days on your real data' },
+    { label: 'Time to value', sap: '12–18+ months', epicor: '9–12 months', qb: 'Same day for books - but breaks as you scale ops', sg: 'Live in 7–21 days on your real data' },
     { label: 'Up-front cost', sap: '$500K+', epicor: '$150K–$300K', qb: 'Low monthly fee', sg: '$0. You pay only after it works.' },
     { label: 'Change a workflow', sap: 'Consulting engagement', epicor: 'Dev sprint', qb: 'Build it in spreadsheets outside the system', sg: 'Configure live, often on the same call' },
-    { label: 'Floor-staff UX', sap: 'Built for accountants and analysts', epicor: 'Built for planners and IT', qb: 'Built for bookkeepers', sg: 'Built for the warehouse manager — plain English, same habit as texting' },
+    { label: 'Floor-staff UX', sap: 'Built for accountants and analysts', epicor: 'Built for planners and IT', qb: 'Built for bookkeepers', sg: 'Built for the warehouse manager - plain English, same habit as texting' },
     { label: 'Try before paying', sap: 'Sandbox demos', epicor: 'Sandbox demos', qb: 'Free tier', sg: '30 days running on your real floor, your real orders' },
   ];
   return (
     <section className="section">
       <div className="container">
         <Reveal>
-          <div className="tag">COMPARE — HONESTLY</div>
+          <div className="tag">COMPARE - HONESTLY</div>
           <h2 className="h2">When is SimpleGrid the right call?</h2>
           <p className="lead" style={{maxWidth:780}}>SAP, Oracle NetSuite, Epicor and QuickBooks are excellent at what they were built for. SimpleGrid was built for a specific shape of customer: mid-market manufacturers who run differently from everyone, can't afford a 12-month rip-and-replace, and want to see the system run before they pay.</p>
         </Reveal>
@@ -349,7 +349,7 @@ function FinalCTA() {
           <h2 className="h2">Try it on. Then decide.</h2>
           <p className="sub">We build a custom ERP around your factory at our cost. You run it on your real floor for 30 days. If it doesn't move the business, you walk. We earn nothing.</p>
           <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a call with the founder</a>
-          <p className="note">Founder-led. Limited slots each quarter. We onboard selectively — only when we know we can win for you.</p>
+          <p className="note">Founder-led. Limited slots each quarter. We onboard selectively - only when we know we can win for you.</p>
         </Reveal>
       </div>
     </section>

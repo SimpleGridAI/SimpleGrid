@@ -26,7 +26,7 @@ const TIERS = [
       'One monthly subscription. That is the entire bill.',
       'All features included. No tiers. No add-ons. No per-seat fees.',
       'Every change to your ERP, now and forever, included.',
-      'New features ship regularly — yours automatically.',
+      'New features ship regularly - yours automatically.',
       'Direct line to the founding team. No account-manager middle layer.',
     ],
     cta: 'Talk to the founder',
@@ -37,10 +37,10 @@ const TIERS = [
 
 const COMPARE = [
   { metric: 'What they\'re built for',     us: 'Mid-market manufacturers who don\'t want to be a software project', sap: 'F500 finance, multi-country tax, public-co close', netsuite: 'Mid-to-large multi-entity ops', qbe: 'Bookkeeping for small businesses' },
-  { metric: 'Time to value',               us: 'Live in 7–21 days',     sap: '12–18 months',  netsuite: '6–12 months',                qbe: 'Same day for books — breaks as ops scale' },
+  { metric: 'Time to value',               us: 'Live in 7–21 days',     sap: '12–18 months',  netsuite: '6–12 months',                qbe: 'Same day for books - breaks as ops scale' },
   { metric: 'Up-front cost',               us: '$0',                    sap: '$150K–$500K+',  netsuite: '$25K–$100K implementation',  qbe: '$1.7K/yr/user + add-ons' },
   { metric: 'Change-order fees',           us: 'None. Ever.',           sap: '$8K–$20K each', netsuite: '$200+/hr consultant',        qbe: 'Per add-on / SuiteApp' },
-  { metric: 'Built for the factory floor', us: 'Yes — same habit as texting', sap: 'Built for accountants',    netsuite: 'Built for analysts',          qbe: 'Built for bookkeepers' },
+  { metric: 'Built for the factory floor', us: 'Yes - same habit as texting', sap: 'Built for accountants',    netsuite: 'Built for analysts',          qbe: 'Built for bookkeepers' },
   { metric: 'Try-before-you-buy',          us: '30 days on your real floor, real orders',  sap: 'Sandbox demos',  netsuite: 'Sandbox demos', qbe: 'Free tier' },
 ];
 
@@ -49,7 +49,7 @@ const INCLUDED = [
   { h: 'Working demo in 24 hours', p: 'Not a slideshow. A live system reflecting how your operation actually runs.' },
   { h: 'Data migration',      p: 'Your spreadsheets, your existing ERP exports, your group chats - we move what we can use.' },
   { h: 'Floor-staff training', p: 'Your team types what happened the way they would on WhatsApp. The training is the conversation.' },
-  { h: 'Senior-led onboarding', p: 'Every deployment is led by senior engineers and founders — not by a sales engineer or an account manager.' },
+  { h: 'Senior-led onboarding', p: 'Every deployment is led by senior engineers and founders - not by a sales engineer or an account manager.' },
   { h: 'All future rule changes', p: 'New approval rule. New production stage. New QC gate. All configuration, not code. No change orders.' },
 ];
 
@@ -70,7 +70,7 @@ function PricingPage() {
           Every other ERP vendor charges you to find out if it works. We don't. SimpleGrid builds a custom ERP around your factory at our cost. You run it on your real floor for 30 days. If it doesn't move the business, you walk. We earn nothing.
         </p>
         <p className="lead" style={{maxWidth:'100%', marginTop:12, fontWeight:600, color:'var(--fg1)'}}>
-          We are not free. We are not cheap. We're priced like an operator who has carried the build for you — and earned the right to charge for what it does.
+          We are not free. We are not cheap. We're priced like an operator who has carried the build for you - and earned the right to charge for what it does.
         </p>
       </div>
     </section>
@@ -81,7 +81,7 @@ function PricingPage() {
         <div className="tag">HOW IT'S PRICED</div>
         <h2 className="h2" style={{marginBottom:8}}>Try it on. Then pay.</h2>
         <p className="lead" style={{maxWidth:960, marginBottom:36}}>
-          Two stages. The build and the 30-day trial are on us. After that, one monthly subscription covers everything — no tiers, no change fees, no per-seat math. Every new feature we ship is included.
+          Two stages. The build and the 30-day trial are on us. After that, one monthly subscription covers everything - no tiers, no change fees, no per-seat math. Every new feature we ship is included.
         </p>
         <div className="tier-grid" style={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:20, maxWidth:880, margin:'0 auto'}}>
           {TIERS.map((t,i) => (
@@ -182,13 +182,13 @@ function PricingPage() {
         <h2 className="h2">Frequently asked questions about pricing.</h2>
         <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:18, marginTop:28}} className="pricing-faq-grid">
           {[
-            { q: 'How much does SimpleGrid cost after the 30 days?', a: 'We agree on a number together that fits the operation. After that, you pay one monthly subscription. That is the entire bill — no setup, no add-ons, no surprise line items, no per-seat fees.' },
+            { q: 'How much does SimpleGrid cost after the 30 days?', a: 'We agree on a number together that fits the operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees.' },
             { q: 'Is there a setup or build fee?', a: 'No. The build, the modeling sessions, the data migration, the senior-led onboarding and the 30 days running on your real floor are all on us. You owe nothing until you decide it works.' },
-            { q: 'Why aren\'t you cheap?', a: 'Because we carry the build, the deployment risk, and the 30-day trial — and senior engineers and a founder are on every project. Cheap ERP exists. It will not show up on day one with a working version of your factory. We will. We price for what that takes.' },
-            { q: 'What does "you walk if it doesn\'t work" actually mean?', a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk. No invoice. No clawback. No data ransom — you get a clean export.' },
-            { q: 'Do you charge for changes to the ERP — today or tomorrow?', a: 'No. New approval rule, new production stage, new QC gate, new report, new integration — every change is included, at go-live and forever. Most ERPs charge $8K–$20K per change order. We never do.' },
+            { q: 'Why aren\'t you cheap?', a: 'Because we carry the build, the deployment risk, and the 30-day trial - and senior engineers and a founder are on every project. Cheap ERP exists. It will not show up on day one with a working version of your factory. We will. We price for what that takes.' },
+            { q: 'What does "you walk if it doesn\'t work" actually mean?', a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk. No invoice. No clawback. No data ransom - you get a clean export.' },
+            { q: 'Do you charge for changes to the ERP - today or tomorrow?', a: 'No. New approval rule, new production stage, new QC gate, new report, new integration - every change is included, at go-live and forever. Most ERPs charge $8K–$20K per change order. We never do.' },
             { q: 'Are there feature tiers or add-on fees?', a: 'No. Every customer gets every feature. No Pro plan, no Enterprise tier, no per-feature licensing. When we ship something new, it is automatically yours.' },
-            { q: 'Why are you so selective about who you onboard?', a: 'Senior engineers and a founder are on every deployment. We have limited capacity each quarter. We only take on customers we know we can win for — because we only get paid when you succeed, and we don\'t want to set anyone up to lose.' },
+            { q: 'Why are you so selective about who you onboard?', a: 'Senior engineers and a founder are on every deployment. We have limited capacity each quarter. We only take on customers we know we can win for - because we only get paid when you succeed, and we don\'t want to set anyone up to lose.' },
             { q: 'Do I get new features as you ship them?', a: 'Yes. We ship new products and features regularly, and they roll out to every customer at no extra cost. Your subscription includes everything we have built and everything we are about to build.' },
           ].map((f, i) => (
             <div key={i} style={{background:'#fff', border:'1px solid var(--border)', borderRadius:'var(--radius-lg)', padding:'22px 24px'}}>

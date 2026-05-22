@@ -51,7 +51,7 @@ function Nav({
     id: 'tools',
     label: 'Free Tools',
     href: 'tools/',
-    title: 'Free tools for manufacturers — PO, invoice, BOM, job cost'
+    title: 'Free tools for manufacturers - PO, invoice, BOM, job cost'
   }];
   const resourceLinks = [{
     id: 'cases',

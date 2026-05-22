@@ -1,4 +1,4 @@
-# SEO Audit — Phase 3: Remaining Work
+# SEO Audit - Phase 3: Remaining Work
 
 Items from the Phase 2 plan that were **not** applied in this round, organized by what they need from you.
 
@@ -6,7 +6,7 @@ Items from the Phase 2 plan that were **not** applied in this round, organized b
 
 ## NEEDS YOUR COPY
 
-### 1. Body internal links (P1-9) — 8 anchor decisions
+### 1. Body internal links (P1-9) - 8 anchor decisions
 
 I deferred this because every anchor changes a sentence in your body copy. Reply with `approve [#]` per row to apply.
 
@@ -17,8 +17,8 @@ I deferred this because every anchor changes a sentence in your body copy. Reply
 | c | `/` ProofSection lead paragraph | `/case-studies.html` | append "[Read both deployments →]" at end |
 | d | `/product.html` after MotivationSection | `/case-studies.html` | "[See live customer deployments →]" |
 | e | `/product.html` Architecture section | `/about.html` | inside copy: "[built by operators who ran a $30M factory]" |
-| f | `/case-elite.html` bottom (before final CTA) | `/case-apex.html` | "[See another deployment — apparel manufacturer in 12 days →]" |
-| g | `/case-apex.html` bottom | `/case-elite.html` | "[See another deployment — furniture exporter in 21 days →]" |
+| f | `/case-elite.html` bottom (before final CTA) | `/case-apex.html` | "[See another deployment - apparel manufacturer in 12 days →]" |
+| g | `/case-apex.html` bottom | `/case-elite.html` | "[See another deployment - furniture exporter in 21 days →]" |
 | h | `/about.html` bottom (before final CTA) | `/product.html` | "[See how the system actually works →]" |
 
 ### 2. New pages (P2-11, P2-12, P2-13)
@@ -32,7 +32,7 @@ See [CONTENT_ROADMAP.md](CONTENT_ROADMAP.md) for outlines. Each page needs:
 - SimpleGrid vs Tally (P2-13)
 - SimpleGrid vs Zoho (P2-13)
 
-I can scaffold the HTML/JSX shell for each one (head metadata, JSON-LD, layout, CTAs) — **just write the body copy and send back**. I will NOT generate body copy from thin air per brief Section 13.
+I can scaffold the HTML/JSX shell for each one (head metadata, JSON-LD, layout, CTAs) - **just write the body copy and send back**. I will NOT generate body copy from thin air per brief Section 13.
 
 ### 3. Article schema dates (P0-4 partial)
 
@@ -51,7 +51,7 @@ Suggested mass-add: pick a sequence of dates 2026-01 through 2026-04 spread acro
 ### 5. Person schema for founder
 
 Brief Section 4 lists `Person` schema as required for the About page. I deferred because:
-- Founder full name is currently `"Mukund Agarwal"` (per recent commit removing the byline) — should it appear in JSON-LD even though the byline was removed from visible copy?
+- Founder full name is currently `"Mukund Agarwal"` (per recent commit removing the byline) - should it appear in JSON-LD even though the byline was removed from visible copy?
 - No author bio currently anywhere on site.
 - No founder photo wired up (`assets/founder.jpg` was just deleted as orphan).
 
@@ -78,7 +78,7 @@ Brief Section 4 lists `Person` schema as required for the About page. I deferred
 | `og-about.png` | `/about.html` | Founder photo / team / "Built by operators" |
 | `og-hiring.png` | `/hiring.html` | "Build the ERP every operator wishes existed" |
 
-Templates: keep brand layout consistent — logo top-left, headline center-left, single accent color (sg-blue `#4A7BF7`).
+Templates: keep brand layout consistent - logo top-left, headline center-left, single accent color (sg-blue `#4A7BF7`).
 
 ### 7. Founder photo
 
@@ -108,7 +108,7 @@ Single biggest performance win. Currently every page ships ~600 KB of Babel that
 
 **Trade-off:** the dev workflow changes. Today you run VS Code Live Server → click Go Live → edit files → save → browser auto-refreshes. With Vite, you'd run `npm run dev` in a terminal once, edit files, save → browser auto-refreshes. Production builds via `npm run build` → output goes to `dist/`. GitHub Pages would then serve from `dist/` instead of root.
 
-This is the biggest single technical decision in the audit. **Recommend approving for next sprint** — the LCP gain will materially improve search rankings.
+This is the biggest single technical decision in the audit. **Recommend approving for next sprint** - the LCP gain will materially improve search rankings.
 
 If approved, I'll:
 - Add `package.json`, `vite.config.js`, `.gitignore` updates
@@ -121,7 +121,7 @@ If approved, I'll:
 
 Currently `/post.html?id=N` (e.g. `/post.html?id=1`). Cleaner alternative: `/blog/event-sourcing-why-simplegrid-stores-everything/`.
 
-**Depends on:** P2-15 (build step) for clean implementation. Alternative without build: GitHub Pages 404 fallback hack — works but messy.
+**Depends on:** P2-15 (build step) for clean implementation. Alternative without build: GitHub Pages 404 fallback hack - works but messy.
 
 **Defer until P2-15 lands.**
 
@@ -129,7 +129,7 @@ Currently `/post.html?id=N` (e.g. `/post.html?id=1`). Cleaner alternative: `/blo
 
 Today every `<lastmod>` in `sitemap.xml` is the same hardcoded date and will rot.
 
-**Proposed script** — drop in `scripts/generate-sitemap.js`, run before each commit (or hook to git pre-commit):
+**Proposed script** - drop in `scripts/generate-sitemap.js`, run before each commit (or hook to git pre-commit):
 
 ```js
 // scripts/generate-sitemap.js
@@ -190,11 +190,11 @@ If you want it added, say `apply sitemap script` and I'll create the file.
 
 ### 13. Submit to Bing Webmaster Tools
 - Same flow at `https://www.bing.com/webmasters`
-- Bing matters for ~3-5% of traffic in your ICP markets — worth doing once
+- Bing matters for ~3-5% of traffic in your ICP markets - worth doing once
 
 ### 14. LinkedIn social preview test
 - Once OG images (item #6) ship, test each major page at `https://www.linkedin.com/post-inspector`
-- LinkedIn caches social previews for ~7 days — request re-scrape if you push updates
+- LinkedIn caches social previews for ~7 days - request re-scrape if you push updates
 
 ### 15. Lighthouse mobile audit
 - Run `https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fsimplegrid.ai%2F` and screenshot baseline
@@ -206,7 +206,7 @@ If you want it added, say `apply sitemap script` and I'll create the file.
 
 | # | Decision | Default if no reply |
 |---|---|---|
-| A | Approve body internal links (item #1) — yes/no per anchor | unchanged (current state) |
+| A | Approve body internal links (item #1) - yes/no per anchor | unchanged (current state) |
 | B | Add `datePublished` to blogs.js | Article schema ships without dates |
 | C | Add `datePosted` to ROLES | JobPosting uses render-time today |
 | D | Include Person schema for founder | omit |

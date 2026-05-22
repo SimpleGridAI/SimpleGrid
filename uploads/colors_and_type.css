@@ -1,11 +1,11 @@
 /* ==========================================================================
-   SimpleGrid Design System — Colors & Typography
+   SimpleGrid Design System - Colors & Typography
    v1.0 | Based on SimpleGrid Brand Guidelines v1.0 (March 2026)
    ========================================================================== */
 
 /* -----  FONTS  ----- */
 /* Logo/brand: Geist (Google Fonts fallback). Headings + body: Calibri (system).
-   Code: Consolas (system). Geist loaded via Google Fonts — sub nearest match. */
+   Code: Consolas (system). Geist loaded via Google Fonts - sub nearest match. */
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap');
 
 :root {
@@ -180,7 +180,7 @@ a:hover { color: var(--accent-hover); border-bottom-color: currentColor; }
   color: var(--fg1);
 }
 
-/* Section tag: uppercase, blue, letter-spaced — the signature label */
+/* Section tag: uppercase, blue, letter-spaced - the signature label */
 .sg-tag {
   display: inline-block;
   font-family: var(--font-body);

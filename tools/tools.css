@@ -144,7 +144,7 @@
 /* Small inline help text */
 .tool-note { font-size: 13px; color: var(--fg3); margin-top: 4px; }
 
-/* Print styles — make tool printable without UI chrome */
+/* Print styles - make tool printable without UI chrome */
 @media print {
   header.nav, footer.footer, .tool-cta, .tool-seo, .tool-actions { display: none !important; }
   .tool-header { background: none; padding: 0 0 16px; border-bottom: 1px solid #000; }

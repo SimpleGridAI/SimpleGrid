@@ -417,7 +417,7 @@
 
   // ===== Blog 2 - SG Schema: same word, different operational boundaries =====
   function DomainMorph() {
-    // Three boundaries from three industries — same word ("order") means
+    // Three boundaries from three industries - same word ("order") means
     // a different entity in each. The point is breadth, not furniture.
     const ctx = [{
       name: 'Sales (Furniture)',

@@ -5,7 +5,7 @@
 const SG_NS = 'sg_tools_';
 function sgSave(key, value) {
   try { localStorage.setItem(SG_NS + key, JSON.stringify(value)); }
-  catch (e) { /* localStorage full or disabled — silently ignore */ }
+  catch (e) { /* localStorage full or disabled - silently ignore */ }
 }
 function sgLoad(key, fallback) {
   try {
@@ -56,7 +56,7 @@ function _hexToRgb(hex) {
 }
 function sgBuildPdf(spec) {
   if (!window.jspdf || !window.jspdf.jsPDF) {
-    alert('PDF library is still loading — wait a moment and try again.');
+    alert('PDF library is still loading - wait a moment and try again.');
     return;
   }
   const { jsPDF } = window.jspdf;
@@ -197,7 +197,7 @@ function sgBuildPdf(spec) {
   doc.setFontSize(8);
   doc.setTextColor(110, 116, 128);
   const footY = doc.internal.pageSize.getHeight() - 28;
-  doc.text('Generated with SimpleGrid free tools — simplegrid.ai/tools/', M, footY);
+  doc.text('Generated with SimpleGrid free tools - simplegrid.ai/tools/', M, footY);
 
   doc.save(spec.filename || 'document.pdf');
 }

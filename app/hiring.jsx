@@ -84,7 +84,7 @@ function HiringHero() {
         <div className="tag" style={{color:'rgba(255,255,255,0.45)'}}>HIRING</div>
         <h1 className="h1" style={{color:'#fff',maxWidth:880}}>Build a custom ERP at our risk. Get paid only when it works.</h1>
         <p className="lead" style={{color:'rgba(255,255,255,0.7)',maxWidth:760,marginTop:16}}>
-          Lean team. Senior engineers and a founder on every customer. We carry the build cost and the risk of every deployment — and we win only when the customer wins. We're hiring engineers, operators, and go-to-market hires who want to ship a system that gets used on the floor, not bought and shelved.
+          Lean team. Senior engineers and a founder on every customer. We carry the build cost and the risk of every deployment - and we win only when the customer wins. We're hiring engineers, operators, and go-to-market hires who want to ship a system that gets used on the floor, not bought and shelved.
         </p>
         <div style={{marginTop:28,display:'flex',gap:12,flexWrap:'wrap'}}>
           <a href="#roles" className="btn btn-lg btn-primary">See open roles</a>
@@ -106,7 +106,7 @@ function WhyThis() {
         <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:20,marginTop:28}} className="hire-grid">
           {[
             { t: 'Operator-grounded', b: 'Our founder ran a $30M manufacturing business and survived two ERP failures before building this. We design for the floor. Every feature is tested against a real plant.' },
-            { t: 'We carry the risk', b: 'Every customer is built at our cost and only paid for after it works. That commitment runs through the company — tight loops, visible work, no 9-month roadmaps.' },
+            { t: 'We carry the risk', b: 'Every customer is built at our cost and only paid for after it works. That commitment runs through the company - tight loops, visible work, no 9-month roadmaps.' },
             { t: 'Small by design', b: 'We will stay under 25 people for as long as we can. Everyone ships. Everyone talks to customers. Senior engineers and a founder on every deployment.' },
           ].map((c,i) => (
             <Reveal key={i} delay={i * 100}>

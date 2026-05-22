@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# (path-rel-to-root, search, replacement). Idempotent — re-running is
+# (path-rel-to-root, search, replacement). Idempotent - re-running is
 # safe because once the brand text is gone, the replacement is no-op.
 EDITS = [
     # ---- HTML head/meta/JSON-LD ----
@@ -39,7 +39,7 @@ EDITS = [
     # ---- Case-elite body copy (jsx) ----
     ("app/case-elite.jsx",
      'Over four years, Elite Arts &amp; Crafts lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just a furniture manufacturing operation running at 600–800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around.',
-     'Over four years, a furniture manufacturer and exporter — 12+ countries across North America, Europe, and Asia — lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just an operation running at 600–800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around.'),
+     'Over four years, a furniture manufacturer and exporter - 12+ countries across North America, Europe, and Asia - lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just an operation running at 600–800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around.'),
     ("app/case-elite.jsx",
      'Elite Arts &amp; Crafts is a furniture exporter running 600–800 people across nearly 1 million square feet of production space - raw wood comes in at one end, finished furniture leaves the other in 40-foot containers bound for international buyers.',
      'The client (kept confidential at their request) is a furniture manufacturer and exporter with presence in 12+ countries across North America, Europe, and Asia, running 600–800 people across nearly 1 million square feet of production space - raw wood comes in at one end, finished furniture leaves the other in 40-foot containers bound for international buyers.'),
@@ -50,10 +50,10 @@ EDITS = [
      '- Chirag, Founder, Elite Arts &amp; Crafts',
      '- The founder'),
 
-    # ---- Case-elite body copy (compiled .js — ampersand encoding differs) ----
+    # ---- Case-elite body copy (compiled .js - ampersand encoding differs) ----
     ("app/case-elite.js",
      'Over four years, Elite Arts & Crafts lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just a furniture manufacturing operation running at 600–800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around.',
-     'Over four years, a furniture manufacturer and exporter — 12+ countries across North America, Europe, and Asia — lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just an operation running at 600–800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around.'),
+     'Over four years, a furniture manufacturer and exporter - 12+ countries across North America, Europe, and Asia - lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just an operation running at 600–800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around.'),
     ("app/case-elite.js",
      'Elite Arts & Crafts is a furniture exporter running 600–800 people across nearly 1 million square feet of production space - raw wood comes in at one end, finished furniture leaves the other in 40-foot containers bound for international buyers.',
      'The client (kept confidential at their request) is a furniture manufacturer and exporter with presence in 12+ countries across North America, Europe, and Asia, running 600–800 people across nearly 1 million square feet of production space - raw wood comes in at one end, finished furniture leaves the other in 40-foot containers bound for international buyers.'),

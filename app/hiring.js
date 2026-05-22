@@ -54,7 +54,7 @@ function HiringHero() {
       maxWidth: 760,
       marginTop: 16
     }
-  }, "Lean team. Senior engineers and a founder on every customer. We carry the build cost and the risk of every deployment — and we win only when the customer wins. We're hiring engineers, operators, and go-to-market hires who want to ship a system that gets used on the floor, not bought and shelved."), /*#__PURE__*/React.createElement("div", {
+  }, "Lean team. Senior engineers and a founder on every customer. We carry the build cost and the risk of every deployment - and we win only when the customer wins. We're hiring engineers, operators, and go-to-market hires who want to ship a system that gets used on the floor, not bought and shelved."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28,
       display: 'flex',
@@ -91,7 +91,7 @@ function WhyThis() {
     b: 'Our founder ran a $30M manufacturing business and survived two ERP failures before building this. We design for the floor. Every feature is tested against a real plant.'
   }, {
     t: 'We carry the risk',
-    b: 'Every customer is built at our cost and only paid for after it works. That commitment runs through the company — tight loops, visible work, no 9-month roadmaps.'
+    b: 'Every customer is built at our cost and only paid for after it works. That commitment runs through the company - tight loops, visible work, no 9-month roadmaps.'
   }, {
     t: 'Small by design',
     b: 'We will stay under 25 people for as long as we can. Everyone ships. Everyone talks to customers. Senior engineers and a founder on every deployment.'

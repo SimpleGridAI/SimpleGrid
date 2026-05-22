@@ -76,7 +76,7 @@
   }
   // Defer PostHog until first user interaction (privacy-friendlier + reduces TBT).
   // Falls back to 30s for passive readers so analytics still capture page views.
-  // To opt out: open DevTools console and run sgPostHogOptOut() — sets a
+  // To opt out: open DevTools console and run sgPostHogOptOut() - sets a
   // localStorage flag so PostHog never loads on this device.
   (function(){
     var loaded = false;
@@ -104,8 +104,8 @@
   window.__SG_BLOG_ID__ = 8;
   window.__SG_BLOG_ASSET_PREFIX__ = "../../";
 </script>
-<!-- Google tag (gtag.js) — deferred to first user interaction (privacy + perf parity with PostHog).
-     To opt out: open DevTools console and run sgPostHogOptOut() — same flag controls both. -->
+<!-- Google tag (gtag.js) - deferred to first user interaction (privacy + perf parity with PostHog).
+     To opt out: open DevTools console and run sgPostHogOptOut() - same flag controls both. -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}

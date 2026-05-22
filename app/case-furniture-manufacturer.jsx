@@ -234,7 +234,7 @@ function EliteCaseStudy() {
       <div className="container">
         <div className="tag">CASE STUDY · FURNITURE EXPORT</div>
         <h1>How a furniture exporter with 800 employees went from Excel to a live ERP in 21 days</h1>
-        <p className="case-hook">Over four years, a furniture manufacturer and exporter — 12+ countries across North America, Europe, and Asia — lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just an operation running at 600–800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around.</p>
+        <p className="case-hook">Over four years, a furniture manufacturer and exporter - 12+ countries across North America, Europe, and Asia - lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just an operation running at 600–800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around.</p>
         <div className="case-strip">
           <div className="case-strip-item"><div className="label">Industry</div><div className="value">Furniture export</div></div>
           <div className="case-strip-item"><div className="label">Employees</div><div className="value">600–800</div></div>

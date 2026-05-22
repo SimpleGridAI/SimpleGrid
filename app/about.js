@@ -38,7 +38,7 @@ function AboutPage() {
     style: {
       maxWidth: 960
     }
-  }, "SimpleGrid was not designed in a boardroom. It was designed on a shop floor that was already running on Excel and group chats — and not working. Our founder built a $30M manufacturing business, survived two ERP failures, and ended up on Google Sheets. SimpleGrid is the system he wished he had — and the reason we don't ask you to pay until we've proven it works on your floor."))), /*#__PURE__*/React.createElement(FounderStory, null), /*#__PURE__*/React.createElement(ArchitectureNew, null), /*#__PURE__*/React.createElement(ProductionFlow, null), /*#__PURE__*/React.createElement("section", {
+  }, "SimpleGrid was not designed in a boardroom. It was designed on a shop floor that was already running on Excel and group chats - and not working. Our founder built a $30M manufacturing business, survived two ERP failures, and ended up on Google Sheets. SimpleGrid is the system he wished he had - and the reason we don't ask you to pay until we've proven it works on your floor."))), /*#__PURE__*/React.createElement(FounderStory, null), /*#__PURE__*/React.createElement(ArchitectureNew, null), /*#__PURE__*/React.createElement(ProductionFlow, null), /*#__PURE__*/React.createElement("section", {
     className: "section section-dark final-cta"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
@@ -61,7 +61,7 @@ function AboutPage() {
       maxWidth: 680,
       margin: '18px auto 0'
     }
-  }, "Founder-led. Limited capacity each quarter. We only take on customers we know we can win for — because we carry the cost and the risk of the build, and we only get paid when you succeed."), /*#__PURE__*/React.createElement("div", {
+  }, "Founder-led. Limited capacity each quarter. We only take on customers we know we can win for - because we carry the cost and the risk of the build, and we only get paid when you succeed."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28,
       display: 'flex',

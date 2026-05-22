@@ -361,7 +361,7 @@ function ProductHeroNew() {
           We don't sell software. We build a custom ERP around your factory.
         </h1>
         <p className="lead" style={{ color: leadColor, maxWidth: 760, marginTop: 18 }}>
-          Your stages, your contractors, your approvals, your costing logic — modelled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs.
+          Your stages, your contractors, your approvals, your costing logic - modelled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs.
         </p>
         <div style={{ marginTop: 28, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>Request an Invite →</button>

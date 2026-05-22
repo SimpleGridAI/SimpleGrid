@@ -28,7 +28,7 @@ git add -A && git commit -m "Pre-transpile JSX, drop Babel-standalone" && git pu
 (`runtime: classic`, `sourceType: script`) so the output JSX-free files
 remain plain global-scope scripts that work as `<script src="…">` tags.
 The same step runs over **`app/*.jsx`** which contains each page's
-inline `App()` block — extracted into one file per page (`app/home.jsx`,
+inline `App()` block - extracted into one file per page (`app/home.jsx`,
 `app/product.jsx`, …, `app/not-found.jsx`).
 
 After Babel, [scripts/swap-jsx-to-js-in-html.js](scripts/swap-jsx-to-js-in-html.js)
@@ -43,7 +43,7 @@ walks every HTML file and:
    order can be guaranteed (all-defer scripts execute in document order
    after HTML parsing).
 
-The script is **idempotent** — safe to run repeatedly.
+The script is **idempotent** - safe to run repeatedly.
 
 ## Daily workflow after migration
 
@@ -56,14 +56,14 @@ npm run build
 That single command transpiles, rewrites HTML, and you're ready to commit.
 
 If you forget, the `.js` files in your working tree go stale and the live
-site renders the older code — but the page won't break, because the
+site renders the older code - but the page won't break, because the
 `.jsx` files are no longer referenced anywhere in HTML after the first
 migration.
 
 ## Expected wire-byte impact
 
-- `babel.min.js` — **3,068 KB raw / ~620 KB gz removed** from every page.
-- React `.development.js` → `.production.min.js` — already done in
+- `babel.min.js` - **3,068 KB raw / ~620 KB gz removed** from every page.
+- React `.development.js` → `.production.min.js` - already done in
   Fix 3, before this migration. Saves ~245 KB gz.
 - Component `.jsx` (text/jsx) → `.js` (application/javascript) means
   GitHub Pages now gzips them. ~154 KB raw → ~35 KB gz on the wire.

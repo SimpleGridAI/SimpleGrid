@@ -14,7 +14,7 @@ Disallow: /uploads/
 # Legacy query-string router redirects to /blog/{slug}/ which is canonical.
 Disallow: /post.html
 
-# AI crawlers — SimpleGrid welcomes AI assistants (ChatGPT, Claude, Perplexity,
+# AI crawlers - SimpleGrid welcomes AI assistants (ChatGPT, Claude, Perplexity,
 # Gemini, etc.) reading our content. Explicit allows so they don't have to guess.
 User-agent: GPTBot
 Allow: /

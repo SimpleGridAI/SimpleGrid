@@ -23,7 +23,7 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PGZBXNF51L');(function(){var loaded=false;var events=['mousemove','scroll','click','touchstart','keydown'];function trigger(){if(loaded)return;loaded=true;try{if(localStorage.getItem('sg_ph_opt_out')==='1')return;}catch(e){}var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';document.head.appendChild(s);events.forEach(function(e){document.removeEventListener(e,trigger,true);});}events.forEach(function(e){document.addEventListener(e,trigger,{once:true,passive:true,capture:true});});setTimeout(trigger,30000);})();</script>
 <script src="../tools.js" defer></script>
 
-<!-- PostHog Analytics — deferred to first user interaction (matches landing-page pattern) -->
+<!-- PostHog Analytics - deferred to first user interaction (matches landing-page pattern) -->
 <script>
   function sgLoadPostHog(){
     !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -111,13 +111,13 @@
     <ol>
       <li>Add each open job with customer name, start date, and end date.</li>
       <li>Set status (Planned, In progress, Done, Delayed).</li>
-      <li>Assign to a person, cell, or machine — whatever maps to your shop.</li>
+      <li>Assign to a person, cell, or machine - whatever maps to your shop.</li>
       <li>The Gantt chart updates live. Print it for the morning huddle.</li>
     </ol>
     <h2>What's a Gantt chart and why do manufacturers use one?</h2>
-    <p>A Gantt chart shows jobs as horizontal bars across a date axis — you see at a glance which jobs overlap, which are running long, and where the bottleneck is. For mid-market manufacturers managing 10–50 concurrent jobs, the Gantt is the single most useful planning tool that exists.</p>
+    <p>A Gantt chart shows jobs as horizontal bars across a date axis - you see at a glance which jobs overlap, which are running long, and where the bottleneck is. For mid-market manufacturers managing 10–50 concurrent jobs, the Gantt is the single most useful planning tool that exists.</p>
     <h2>FAQ</h2>
-    <details><summary>Can I save my schedule for next time?</summary><p>Yes — the schedule auto-saves to your browser's localStorage. Reopen the tool, your jobs are still there.</p></details>
+    <details><summary>Can I save my schedule for next time?</summary><p>Yes - the schedule auto-saves to your browser's localStorage. Reopen the tool, your jobs are still there.</p></details>
     <details><summary>What if I need machine-level or cell-level scheduling?</summary><p>This tool is at the job level. For machine/cell-level scheduling with capacity constraints, setup time, and run-time per piece, you've outgrown a free template. <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">SimpleGrid handles this →</a></p></details>
   </div></section>
 </main>
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       // (avoids white-on-light-status contrast failures: gold/red barely pass AA at 11px).
       rowsHtml+=`<tr><td class="job-name">${j.name}${j.who?'<div style="font-size:11px;font-weight:400;color:var(--fg3);margin-top:2px">'+j.who+'</div>':''}</td>
         <td colspan="${colspan}" style="position:relative;padding:8px 4px;background:repeating-linear-gradient(90deg,#fff,#fff ${dayPx*step-1}px,#f3f5f8 ${dayPx*step-1}px,#f3f5f8 ${dayPx*step}px)">
-          <div class="bar ${statusColor[j.status]||''}" role="img" aria-label="${j.name} — ${j.status}" style="position:absolute;left:${left+4}px;top:8px;width:${w}px"></div>
+          <div class="bar ${statusColor[j.status]||''}" role="img" aria-label="${j.name} - ${j.status}" style="position:absolute;left:${left+4}px;top:8px;width:${w}px"></div>
         </td></tr>`;
     });
     wrap.innerHTML=`<table class="gantt"><thead><tr>${headHtml}</tr></thead><tbody>${rowsHtml}</tbody></table>`;

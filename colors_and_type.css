@@ -12,7 +12,7 @@
 :root {
   /* ----- PRIMARY COLORS ----- */
   --sg-black:        #1A1A1A;  /* Logo, headings, primary text */
-  --sg-blue:         #3461E0;  /* CTAs, links, tags, interactive (darkened to pass WCAG AA contrast on white — was #4A7BF7) */
+  --sg-blue:         #3461E0;  /* CTAs, links, tags, interactive (darkened to pass WCAG AA contrast on white - was #4A7BF7) */
   --sg-white:        #FFFFFF;  /* Page + card backgrounds */
   --sg-off-white:    #FAFBFC;  /* Alt backgrounds, table headers */
 
@@ -21,7 +21,7 @@
   --sg-blue-light:   #EBF0FF;  /* Highlight backgrounds, callouts */
   --sg-charcoal:     #2D2D2D;  /* Dark mode bg, closing slides */
   --sg-dark-gray:    #4A5568;  /* Body text, secondary copy */
-  --sg-mid-gray:     #6B7280;  /* Muted text, captions, metadata (darkened to pass WCAG AA on white — was #9CA3AF) */
+  --sg-mid-gray:     #6B7280;  /* Muted text, captions, metadata (darkened to pass WCAG AA on white - was #9CA3AF) */
   --sg-light-gray:   #E5E8ED;  /* Borders, dividers, card strokes */
 
   /* ----- SEMANTIC / ACCENT COLORS ----- */

@@ -387,7 +387,7 @@ function FounderStory() {
     className: "tag"
   }, "BUILT BY AN OPERATOR WHO'S BEEN ON YOUR FLOOR"), /*#__PURE__*/React.createElement("blockquote", null, "Built a $30M manufacturing business. Survived two ERP failures. Ended up on Google Sheets."), /*#__PURE__*/React.createElement("p", {
     className: "body"
-  }, "SimpleGrid exists because we were the customer first — multiple factories, 400-person workforce. We bought the same enterprise systems you're being pitched today. We watched them fail. We know exactly what breaks when the system can't keep up with the floor."), /*#__PURE__*/React.createElement("p", {
+  }, "SimpleGrid exists because we were the customer first - multiple factories, 400-person workforce. We bought the same enterprise systems you're being pitched today. We watched them fail. We know exactly what breaks when the system can't keep up with the floor."), /*#__PURE__*/React.createElement("p", {
     className: "body"
   }, "That's why we built SimpleGrid the only way that makes sense to an operator: model it on your factory, run it on your real floor for 30 days, and only charge when it earns its keep."), /*#__PURE__*/React.createElement("p", {
     className: "body"
@@ -743,7 +743,7 @@ function ComparisonTable() {
     label: 'Time to value',
     sap: '12–18+ months',
     epicor: '9–12 months',
-    qb: 'Same day for books — but breaks as you scale ops',
+    qb: 'Same day for books - but breaks as you scale ops',
     sg: 'Live in 7–21 days on your real data'
   }, {
     label: 'Up-front cost',
@@ -762,7 +762,7 @@ function ComparisonTable() {
     sap: 'Built for accountants and analysts',
     epicor: 'Built for planners and IT',
     qb: 'Built for bookkeepers',
-    sg: 'Built for the warehouse manager — plain English, same habit as texting'
+    sg: 'Built for the warehouse manager - plain English, same habit as texting'
   }, {
     label: 'Try before paying',
     sap: 'Sandbox demos',
@@ -776,7 +776,7 @@ function ComparisonTable() {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "COMPARE — HONESTLY"), /*#__PURE__*/React.createElement("h2", {
+  }, "COMPARE - HONESTLY"), /*#__PURE__*/React.createElement("h2", {
     className: "h2"
   }, "When is SimpleGrid the right call?"), /*#__PURE__*/React.createElement("p", {
     className: "lead",
@@ -815,6 +815,6 @@ function FinalCTA() {
     className: "btn btn-lg btn-primary"
   }, "Book a call with the founder"), /*#__PURE__*/React.createElement("p", {
     className: "note"
-  }, "Founder-led. Limited slots each quarter. We onboard selectively — only when we know we can win for you."))));
+  }, "Founder-led. Limited slots each quarter. We onboard selectively - only when we know we can win for you."))));
 }
 window.FinalCTA = FinalCTA;

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Re-frame the "founder personally does X" messaging across the site.
 Right now multiple surfaces say "Founder-led", "Mukund - our founder",
-"founder still answers your call", etc. — which lands as "the company
+"founder still answers your call", etc. - which lands as "the company
 is one guy". We want the trust signal of senior involvement without the
 "too-small-to-trust" read.
 
@@ -11,7 +11,7 @@ Substitutions favor:
   - first-name "Mukund" -> "our founders" (or anonymous "James" in demo data)
   - "the founder personally"  -> "founders and senior engineers"
 
-The "founder built a $30M manufacturing business" history line stays —
+The "founder built a $30M manufacturing business" history line stays -
 that's a track-record signal, not a smallness signal."""
 from pathlib import Path
 
@@ -45,7 +45,7 @@ EDITS = [
     ("app/pricing.jsx", "'Founder still answers your call.'", "'Direct line to the founding team.'"),
     ("app/pricing.jsx",
      "{ h: 'Founder-led onboarding', p: 'Every deployment is led personally - not by a sales engineer or an account manager.' }",
-     "{ h: 'Senior-led onboarding', p: 'Every deployment is led by senior engineers and founders — not by a sales engineer or an account manager.' }"),
+     "{ h: 'Senior-led onboarding', p: 'Every deployment is led by senior engineers and founders - not by a sales engineer or an account manager.' }"),
     ("app/pricing.jsx",
      "'No. SimpleGrid deploys at our cost. You pay nothing for the modeling sessions, the configuration, or the founder-led onboarding.'",
      "'No. SimpleGrid deploys at our cost. You pay nothing for the modeling sessions, the configuration, or the senior-led onboarding.'"),
@@ -71,14 +71,14 @@ EDITS = [
      'Small team. Founder-led. Real customers paying us. We are looking for engineers, operators, and go-to-market hires who want to ship a system that gets used - not bought and shelved.',
      'Lean team. Senior engineers and founders on every customer. Real customers paying us. We are looking for engineers, operators, and go-to-market hires who want to ship a system that gets used - not bought and shelved.'),
 
-    # ---- HomeTop (jsx + js) — the "3 slots open" hero badge subtitle ----
+    # ---- HomeTop (jsx + js) - the "3 slots open" hero badge subtitle ----
     ("components/HomeTop.jsx",
      "Our founder personally builds and deploys every system. We run tight to keep the experience exceptional.",
      "Our senior engineers and founders are on every deployment. We run tight to keep the experience exceptional."),
     ("components/HomeTop.js",
      "Our founder personally builds and deploys every system. We run tight to keep the experience exceptional.",
      "Our senior engineers and founders are on every deployment. We run tight to keep the experience exceptional."),
-    # ---- HomeTop (jsx + js) — the "Day 1" walkthrough copy ----
+    # ---- HomeTop (jsx + js) - the "Day 1" walkthrough copy ----
     ("components/HomeTop.jsx",
      "Day 1 is a 3-hour live video call with Mukund - our founder, not a sales rep, not an SDR.",
      "Day 1 is a 3-hour live video call with our founders and lead engineer - not a sales rep, not an SDR."),

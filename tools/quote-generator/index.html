@@ -29,7 +29,7 @@
 <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-PGZBXNF51L');(function(){var loaded=false;var events=['mousemove','scroll','click','touchstart','keydown'];function trigger(){if(loaded)return;loaded=true;try{if(localStorage.getItem('sg_ph_opt_out')==='1')return;}catch(e){}var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-PGZBXNF51L';document.head.appendChild(s);events.forEach(function(e){document.removeEventListener(e,trigger,true);});}events.forEach(function(e){document.addEventListener(e,trigger,{once:true,passive:true,capture:true});});setTimeout(trigger,30000);})();</script>
 <script src="../tools.js" defer></script>
 
-<!-- PostHog Analytics — deferred to first user interaction (matches landing-page pattern) -->
+<!-- PostHog Analytics - deferred to first user interaction (matches landing-page pattern) -->
 <script>
   function sgLoadPostHog(){
     !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -69,7 +69,7 @@
   <section class="tool-header"><div class="container-sm">
     <a href="../" class="back-link">← All free tools</a>
     <h1>Free Quote / Estimate Generator.</h1>
-    <p class="lead">Send a polished PDF quote with line items, validity date, optional discount, and an acceptance signature line. Customers save locally — pick from the dropdown next time.</p>
+    <p class="lead">Send a polished PDF quote with line items, validity date, optional discount, and an acceptance signature line. Customers save locally - pick from the dropdown next time.</p>
   </div></section>
 
   <section class="tool-app"><div class="container-sm">
@@ -84,7 +84,7 @@
     </div>
     <div class="tool-card"><h2>Prospect / Customer</h2>
       <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
-        <select id="cust-load" style="flex:1;min-width:180px;padding:9px 12px;border-radius:8px;border:1px solid var(--border);font-size:15px"><option value="">— Load saved —</option></select>
+        <select id="cust-load" style="flex:1;min-width:180px;padding:9px 12px;border-radius:8px;border:1px solid var(--border);font-size:15px"><option value="">- Load saved -</option></select>
         <button id="cust-save" type="button" class="btn-secondary">Save current</button>
         <button id="cust-clear" type="button" class="btn-secondary">Clear</button>
       </div>
@@ -122,7 +122,7 @@
       <div class="tool-form-grid">
         <div class="tool-field full"><label for="q-notes">Notes & conditions</label><textarea id="q-notes" rows="3" placeholder="Pricing valid 30 days. Lead time confirmed at PO acceptance. Subject to standard terms (attached)."></textarea></div>
         <div class="tool-field full"><label>Include acceptance signature line on PDF</label>
-          <label style="font-weight:400;font-size:14px"><input id="q-sigline" type="checkbox" checked> Yes — adds a "Signature / Date" block at the bottom of the PDF</label>
+          <label style="font-weight:400;font-size:14px"><input id="q-sigline" type="checkbox" checked> Yes - adds a "Signature / Date" block at the bottom of the PDF</label>
         </div>
       </div>
     </div>
@@ -149,8 +149,8 @@
       <li><strong>Acceptance signature line</strong>. Turns the quote into a contract once signed.</li>
     </ul>
     <h2>FAQ</h2>
-    <details><summary>Quote vs estimate vs proposal — which is this?</summary><p>This is a quote — a firm price commitment, time-limited. An estimate is informal and non-binding. A proposal usually includes broader scope and terms beyond just price.</p></details>
-    <details><summary>Should I include a signature line?</summary><p>For custom work, yes — turns the quote into a contract once signed. For commodity items, optional.</p></details>
+    <details><summary>Quote vs estimate vs proposal - which is this?</summary><p>This is a quote - a firm price commitment, time-limited. An estimate is informal and non-binding. A proposal usually includes broader scope and terms beyond just price.</p></details>
+    <details><summary>Should I include a signature line?</summary><p>For custom work, yes - turns the quote into a contract once signed. For commodity items, optional.</p></details>
     <details><summary>How do I track which quotes converted?</summary><p>Free tools don't. SimpleGrid auto-tracks conversion rate per sales rep, per customer, per product line. <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">See how →</a></p></details>
   </div></section>
 </main>
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
   addItem();addItem();
 
   const CKEY='q_customers',cLoad=document.getElementById('cust-load');
-  function refreshC(){const list=sgLoad(CKEY,[]);cLoad.innerHTML='<option value="">— Load saved —</option>';list.forEach((v,i)=>{const o=document.createElement('option');o.value=i;o.textContent=v.name||'(unnamed)';cLoad.appendChild(o);});}
+  function refreshC(){const list=sgLoad(CKEY,[]);cLoad.innerHTML='<option value="">- Load saved -</option>';list.forEach((v,i)=>{const o=document.createElement('option');o.value=i;o.textContent=v.name||'(unnamed)';cLoad.appendChild(o);});}
   cLoad.addEventListener('change',()=>{const i=cLoad.value;if(i==='')return;const v=sgLoad(CKEY,[])[i];if(!v)return;document.getElementById('cust-name').value=v.name||'';document.getElementById('cust-contact').value=v.contact||'';document.getElementById('cust-address').value=v.address||'';document.getElementById('cust-phone').value=v.phone||'';document.getElementById('cust-email').value=v.email||'';});
   document.getElementById('cust-save').addEventListener('click',()=>{const v={name:document.getElementById('cust-name').value.trim(),contact:document.getElementById('cust-contact').value.trim(),address:document.getElementById('cust-address').value.trim(),phone:document.getElementById('cust-phone').value.trim(),email:document.getElementById('cust-email').value.trim()};if(!v.name){alert('Add a name first.');return;}const list=sgLoad(CKEY,[]);const idx=list.findIndex(x=>x.name===v.name);if(idx>=0)list[idx]=v;else list.push(v);sgSave(CKEY,list);refreshC();alert(`Saved "${v.name}".`);});
   document.getElementById('cust-clear').addEventListener('click',()=>{['cust-name','cust-contact','cust-address','cust-phone','cust-email'].forEach(id=>document.getElementById(id).value='');cLoad.value='';});

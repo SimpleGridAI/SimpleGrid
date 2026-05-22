@@ -650,7 +650,7 @@ function ProductHeroNew() {
       maxWidth: 760,
       marginTop: 18
     }
-  }, "Your stages, your contractors, your approvals, your costing logic — modelled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs."), /*#__PURE__*/React.createElement("div", {
+  }, "Your stages, your contractors, your approvals, your costing logic - modelled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28,
       display: 'flex',

@@ -14,7 +14,7 @@ const TIERS = [{
   price: 'Custom-quoted',
   priceUnit: 'We are not free and we are not cheap. We are priced like an operator who has carried the build for you.',
   accent: 'var(--sg-purple)',
-  features: ['One monthly subscription. That is the entire bill.', 'All features included. No tiers. No add-ons. No per-seat fees.', 'Every change to your ERP, now and forever, included.', 'New features ship regularly — yours automatically.', 'Direct line to the founding team. No account-manager middle layer.'],
+  features: ['One monthly subscription. That is the entire bill.', 'All features included. No tiers. No add-ons. No per-seat fees.', 'Every change to your ERP, now and forever, included.', 'New features ship regularly - yours automatically.', 'Direct line to the founding team. No account-manager middle layer.'],
   cta: 'Talk to the founder',
   ctaHref: 'https://cal.com/simplegrid-ai',
   highlight: false
@@ -30,7 +30,7 @@ const COMPARE = [{
   us: 'Live in 7–21 days',
   sap: '12–18 months',
   netsuite: '6–12 months',
-  qbe: 'Same day for books — breaks as ops scale'
+  qbe: 'Same day for books - breaks as ops scale'
 }, {
   metric: 'Up-front cost',
   us: '$0',
@@ -45,7 +45,7 @@ const COMPARE = [{
   qbe: 'Per add-on / SuiteApp'
 }, {
   metric: 'Built for the factory floor',
-  us: 'Yes — same habit as texting',
+  us: 'Yes - same habit as texting',
   sap: 'Built for accountants',
   netsuite: 'Built for analysts',
   qbe: 'Built for bookkeepers'
@@ -108,7 +108,7 @@ function PricingPage() {
       fontWeight: 600,
       color: 'var(--fg1)'
     }
-  }, "We are not free. We are not cheap. We're priced like an operator who has carried the build for you — and earned the right to charge for what it does."))), /*#__PURE__*/React.createElement("section", {
+  }, "We are not free. We are not cheap. We're priced like an operator who has carried the build for you - and earned the right to charge for what it does."))), /*#__PURE__*/React.createElement("section", {
     className: "section section-alt",
     style: {
       paddingTop: 48
@@ -128,7 +128,7 @@ function PricingPage() {
       maxWidth: 960,
       marginBottom: 36
     }
-  }, "Two stages. The build and the 30-day trial are on us. After that, one monthly subscription covers everything — no tiers, no change fees, no per-seat math. Every new feature we ship is included."), /*#__PURE__*/React.createElement("div", {
+  }, "Two stages. The build and the 30-day trial are on us. After that, one monthly subscription covers everything - no tiers, no change fees, no per-seat math. Every new feature we ship is included."), /*#__PURE__*/React.createElement("div", {
     className: "tier-grid",
     style: {
       display: 'grid',
@@ -266,7 +266,7 @@ function PricingPage() {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "COMPARE — HONESTLY"), /*#__PURE__*/React.createElement("h2", {
+  }, "COMPARE - HONESTLY"), /*#__PURE__*/React.createElement("h2", {
     className: "h2",
     style: {
       maxWidth: 760
@@ -334,25 +334,25 @@ function PricingPage() {
     className: "pricing-faq-grid"
   }, [{
     q: 'How much does SimpleGrid cost after the 30 days?',
-    a: 'We agree on a number together that fits the operation. After that, you pay one monthly subscription. That is the entire bill — no setup, no add-ons, no surprise line items, no per-seat fees.'
+    a: 'We agree on a number together that fits the operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees.'
   }, {
     q: 'Is there a setup or build fee?',
     a: 'No. The build, the modeling sessions, the data migration, the senior-led onboarding and the 30 days running on your real floor are all on us. You owe nothing until you decide it works.'
   }, {
     q: 'Why aren\'t you cheap?',
-    a: 'Because we carry the build, the deployment risk, and the 30-day trial — and senior engineers and a founder are on every project. Cheap ERP exists. It will not show up on day one with a working version of your factory. We will. We price for what that takes.'
+    a: 'Because we carry the build, the deployment risk, and the 30-day trial - and senior engineers and a founder are on every project. Cheap ERP exists. It will not show up on day one with a working version of your factory. We will. We price for what that takes.'
   }, {
     q: 'What does "you walk if it doesn\'t work" actually mean?',
-    a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk. No invoice. No clawback. No data ransom — you get a clean export.'
+    a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk. No invoice. No clawback. No data ransom - you get a clean export.'
   }, {
-    q: 'Do you charge for changes to the ERP — today or tomorrow?',
-    a: 'No. New approval rule, new production stage, new QC gate, new report, new integration — every change is included, at go-live and forever. Most ERPs charge $8K–$20K per change order. We never do.'
+    q: 'Do you charge for changes to the ERP - today or tomorrow?',
+    a: 'No. New approval rule, new production stage, new QC gate, new report, new integration - every change is included, at go-live and forever. Most ERPs charge $8K–$20K per change order. We never do.'
   }, {
     q: 'Are there feature tiers or add-on fees?',
     a: 'No. Every customer gets every feature. No Pro plan, no Enterprise tier, no per-feature licensing. When we ship something new, it is automatically yours.'
   }, {
     q: 'Why are you so selective about who you onboard?',
-    a: 'Senior engineers and a founder are on every deployment. We have limited capacity each quarter. We only take on customers we know we can win for — because we only get paid when you succeed, and we don\'t want to set anyone up to lose.'
+    a: 'Senior engineers and a founder are on every deployment. We have limited capacity each quarter. We only take on customers we know we can win for - because we only get paid when you succeed, and we don\'t want to set anyone up to lose.'
   }, {
     q: 'Do I get new features as you ship them?',
     a: 'Yes. We ship new products and features regularly, and they roll out to every customer at no extra cost. Your subscription includes everything we have built and everything we are about to build.'

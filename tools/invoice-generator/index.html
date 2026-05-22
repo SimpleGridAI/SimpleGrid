@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Free Invoice Generator for Manufacturers — PDF Download | SimpleGrid</title>
+<title>Free Invoice Generator for Manufacturers - PDF Download | SimpleGrid</title>
 <meta name="description" content="Free browser-based invoice generator for US manufacturers. Fill in customer + line items, download branded PDF invoice. Saves customers locally. No signup.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
@@ -40,7 +40,7 @@
 </script>
 <script src="../tools.js" defer></script>
 
-<!-- PostHog Analytics — deferred to first user interaction (matches landing-page pattern) -->
+<!-- PostHog Analytics - deferred to first user interaction (matches landing-page pattern) -->
 <script>
   function sgLoadPostHog(){
     !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ei Ni init zi Gi Nr Ui Xi Vi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync ln identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Qi createPersonProfile setInternalOrTestUser sn qi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ji debug Fr rn getPageViewId captureTraceFeedback captureTraceMetric Bi".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -90,7 +90,7 @@
 <main id="main">
   <section class="tool-header"><div class="container-sm">
     <a href="../" class="back-link">← All free tools</a>
-    <h1>Free Invoice Generator — Branded PDF in 30 seconds.</h1>
+    <h1>Free Invoice Generator - Branded PDF in 30 seconds.</h1>
     <p class="lead">Fill in your company, your customer, and what you're billing for. Download a clean PDF invoice with payment terms, due date, and tax. Saves your customers locally for next time.</p>
   </div></section>
 
@@ -107,7 +107,7 @@
 
     <div class="tool-card"><h2>Bill to (customer)</h2>
       <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
-        <select id="cust-load" style="flex:1;min-width:180px;padding:9px 12px;border-radius:8px;border:1px solid var(--border);font-size:15px"><option value="">— Load saved customer —</option></select>
+        <select id="cust-load" style="flex:1;min-width:180px;padding:9px 12px;border-radius:8px;border:1px solid var(--border);font-size:15px"><option value="">- Load saved customer -</option></select>
         <button id="cust-save" type="button" class="btn-secondary">Save current customer</button>
         <button id="cust-clear" type="button" class="btn-secondary">Clear</button>
       </div>
@@ -180,25 +180,25 @@
   <section class="tool-seo"><div class="container-sm">
     <h2>How to use this invoice generator</h2>
     <ol>
-      <li>Type your company info once — it saves for next time.</li>
+      <li>Type your company info once - it saves for next time.</li>
       <li>Add the customer. Save them to your library so you don't retype.</li>
       <li>Add line items. Set tax, shipping, discount.</li>
-      <li>Click Download — PDF lands in your Downloads folder, branded and ready to email.</li>
+      <li>Click Download - PDF lands in your Downloads folder, branded and ready to email.</li>
     </ol>
     <h2>What to include on a manufacturing invoice</h2>
     <ul>
       <li><strong>Invoice number</strong> (sequential) and <strong>issue date</strong>.</li>
       <li><strong>Due date</strong> + payment terms (Net 30 is the manufacturing default).</li>
-      <li><strong>Your customer's PO number</strong> — they need it to pay you.</li>
+      <li><strong>Your customer's PO number</strong> - they need it to pay you.</li>
       <li><strong>Line items</strong> with SKU, description, qty, unit price.</li>
       <li><strong>Sales tax</strong> if you collect it; <strong>shipping</strong> if you charged for it.</li>
-      <li><strong>Payment instructions</strong> — ACH, wire, check. ACH is the cheapest for manufacturing-sized invoices.</li>
+      <li><strong>Payment instructions</strong> - ACH, wire, check. ACH is the cheapest for manufacturing-sized invoices.</li>
       <li><strong>Late fee</strong> notice if you charge one (1.5%/month is industry standard).</li>
     </ul>
     <h2>FAQ</h2>
     <details><summary>Is this invoice generator free?</summary><p>Yes. Browser-based, no signup, no email wall, unlimited invoices.</p></details>
-    <details><summary>Where does my data go?</summary><p>Nowhere — runs entirely in your browser. PDF is built locally and downloaded to your device. Customer library and recent invoices save to your browser's localStorage.</p></details>
-    <details><summary>Does it calculate sales tax automatically?</summary><p>No — you enter the tax rate. Sales tax in the US varies by state, county, and sometimes city, and exemptions matter for B2B sales. We don't want to give you the wrong number.</p></details>
+    <details><summary>Where does my data go?</summary><p>Nowhere - runs entirely in your browser. PDF is built locally and downloaded to your device. Customer library and recent invoices save to your browser's localStorage.</p></details>
+    <details><summary>Does it calculate sales tax automatically?</summary><p>No - you enter the tax rate. Sales tax in the US varies by state, county, and sometimes city, and exemptions matter for B2B sales. We don't want to give you the wrong number.</p></details>
     <details><summary>Can I use this for international customers?</summary><p>The PDF is in USD only. For international invoicing in other currencies or with VAT, you'll outgrow this fast.</p></details>
     <details><summary>I generate 30+ invoices a month. Outgrown?</summary><p>Probably. At that volume you want auto-invoicing from sales orders, A/R aging reports, reconciliation against bank deposits, and customer credit-limit tracking. SimpleGrid does all of it. <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">Book a demo →</a></p></details>
   </div></section>
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const cLoad = document.getElementById('cust-load');
   function refreshC() {
     const list = sgLoad(CKEY, []);
-    cLoad.innerHTML = '<option value="">— Load saved customer —</option>';
+    cLoad.innerHTML = '<option value="">- Load saved customer -</option>';
     list.forEach((v,i) => { const o = document.createElement('option'); o.value=i; o.textContent=v.name||'(unnamed)'; cLoad.appendChild(o); });
   }
   cLoad.addEventListener('change', () => {

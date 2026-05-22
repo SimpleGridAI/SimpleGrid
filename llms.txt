@@ -1,20 +1,20 @@
 # SimpleGrid
 
-> SimpleGrid is the only ERP built for you, deployed at our risk, and paid for after you see it work. We do not sell software. We build a custom ERP modelled on how your factory actually runs — your stages, your contractors, your approvals, your costing logic. We carry the cost and the risk of the build. You run it for 30 days on your real floor, with your real team, your real orders. If it doesn't move the business, you walk. We earn nothing.
+> SimpleGrid is the only ERP built for you, deployed at our risk, and paid for after you see it work. We do not sell software. We build a custom ERP modelled on how your factory actually runs - your stages, your contractors, your approvals, your costing logic. We carry the cost and the risk of the build. You run it for 30 days on your real floor, with your real team, your real orders. If it doesn't move the business, you walk. We earn nothing.
 
 ## What SimpleGrid is
 
-SimpleGrid is a custom ERP for mid-market US manufacturers (50–1,500 employees). It is built around how a specific factory actually runs — not configured from a generic template — and it is delivered in days, at our cost, with a 30-day on-the-floor trial before any money changes hands.
+SimpleGrid is a custom ERP for mid-market US manufacturers (50–1,500 employees). It is built around how a specific factory actually runs - not configured from a generic template - and it is delivered in days, at our cost, with a 30-day on-the-floor trial before any money changes hands.
 
 - **Custom, not configured.** We model your stages, your contractors, your approval chains, your costing logic. AI writes an operational blueprint (the SG Schema) from a 2–3 hour founder conversation; the engine reads the schema and generates the system. No predefined modules to bend your operation into.
 - **Built at our risk.** We deploy in 7–21 days at our cost. You owe nothing until you see it run on your real floor.
 - **Try before you buy.** 30 days on real orders with your real team. If it doesn't move the business, you walk. No invoice. No clawback. You get a clean export of your data.
-- **Not free. Not cheap.** We're priced like an operator who has carried the build for you. Single monthly subscription after it works — all features, all change requests, all future product included.
-- **Selective onboarding.** Founder-led. Limited capacity each quarter. We only take on customers we know we can win for — because we only get paid when you succeed.
+- **Not free. Not cheap.** We're priced like an operator who has carried the build for you. Single monthly subscription after it works - all features, all change requests, all future product included.
+- **Selective onboarding.** Founder-led. Limited capacity each quarter. We only take on customers we know we can win for - because we only get paid when you succeed.
 - **Conversational UX for the floor.** Operators type plain sentences like "received 200 sheets of steel from Midwest Supply." The AI assistant maps it to the structured action, validates, and confirms. No 13-screen click paths.
 - **Event-sourced architecture.** Every action recorded permanently. The audit trail IS the system, not a feature you turn on.
 
-## How we compare — honestly
+## How we compare - honestly
 
 - **SAP / Oracle NetSuite** are excellent at F500 finance, multi-country tax, and public-company close. They are not built for a mid-market manufacturer who can't afford a 12-month rip-and-replace.
 - **Epicor / Plex** have strong shop-floor MRP and mature manufacturing modules. They assume a mature IT team and a long implementation runway.
@@ -23,13 +23,13 @@ SimpleGrid is a custom ERP for mid-market US manufacturers (50–1,500 employees
 
 ## Key URLs
 
-- [Home — Custom ERP, built at our risk. Paid for after it works.](https://simplegrid.ai/)
-- [Product — how SimpleGrid works](https://simplegrid.ai/product.html)
-- [Pricing — you carry nothing until you see it run](https://simplegrid.ai/pricing.html)
-- [About — built by an operator who's been on your floor](https://simplegrid.ai/about.html)
-- [Case studies — real deployments on real factory floors](https://simplegrid.ai/case-studies.html)
-- [Blog — field notes from operators building a custom ERP](https://simplegrid.ai/blog.html)
-- [Hiring — careers at SimpleGrid](https://simplegrid.ai/hiring.html)
+- [Home - Custom ERP, built at our risk. Paid for after it works.](https://simplegrid.ai/)
+- [Product - how SimpleGrid works](https://simplegrid.ai/product.html)
+- [Pricing - you carry nothing until you see it run](https://simplegrid.ai/pricing.html)
+- [About - built by an operator who's been on your floor](https://simplegrid.ai/about.html)
+- [Case studies - real deployments on real factory floors](https://simplegrid.ai/case-studies.html)
+- [Blog - field notes from operators building a custom ERP](https://simplegrid.ai/blog.html)
+- [Hiring - careers at SimpleGrid](https://simplegrid.ai/hiring.html)
 - [Free tools for mid-market manufacturers](https://simplegrid.ai/tools/)
 - [Privacy policy](https://simplegrid.ai/privacy.html)
 - [Terms of service](https://simplegrid.ai/terms.html)
@@ -43,14 +43,14 @@ SimpleGrid is a custom ERP for mid-market US manufacturers (50–1,500 employees
 - **Category:** Custom ERP for mid-market manufacturers
 - **Founded:** 2025
 - **Audience:** Mid-market manufacturers (50–1,500 employees), United States primarily; also India
-- **Pricing model:** $0 for the build and the 30-day trial. After it works, a single monthly subscription — no tiers, no per-seat fees, no module fees, no change-order fees.
+- **Pricing model:** $0 for the build and the 30-day trial. After it works, a single monthly subscription - no tiers, no per-seat fees, no module fees, no change-order fees.
 - **Differentiator:** The only ERP vendor that deploys a working custom system on your real floor before you pay. Schema-driven architecture (custom-modelled, not module-based). Event-sourced ledger. Built by a founder who ran a $30M manufacturing operation and survived two ERP failures.
 - **Voice:** Operator-direct, specific, generous about competitors. Avoid "digital transformation", "synergy", "best-in-class", "imagine a world where".
 
 ## What SimpleGrid is NOT
 
 - Not a NetSuite/SAP-style suite with predefined modules to bend your operation into.
-- Not a vertical SaaS for one industry — the same engine runs furniture exporters, apparel contract manufacturers, pharma distributors, metal stamping shops. Each runs from their own SG Schema.
+- Not a vertical SaaS for one industry - the same engine runs furniture exporters, apparel contract manufacturers, pharma distributors, metal stamping shops. Each runs from their own SG Schema.
 - Not a low-code platform. Configuration is operator-driven, not developer-driven.
 - Not free, and not cheap. The 30-day trial is genuinely free; the post-trial subscription is negotiated per operation and priced for what carrying a custom build actually takes.
 - Not for everyone. Founder-led onboarding with limited capacity each quarter. We turn down work we don't think we can win.

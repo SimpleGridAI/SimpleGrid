@@ -1,4 +1,4 @@
-/* SimpleGrid Website v2 — Revamped Styles */
+/* SimpleGrid Website v2 - Revamped Styles */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 html, body { margin: 0; padding: 0; background: #fff; color: var(--fg1); }
@@ -62,7 +62,7 @@ img { max-width: 100%; display: block; }
 .hero-proof-num { font-family: var(--font-heading); font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
 .hero-proof-label { font-size: 12px; color: var(--sg-mid-gray); margin-top: 4px; }
 
-/* Hero visual — animated counter */
+/* Hero visual - animated counter */
 .hero-visual { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-xl); padding: 28px; }
 .hv-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 14px; }
 .hv-row:last-child { border-bottom: none; }
@@ -70,7 +70,7 @@ img { max-width: 100%; display: block; }
 .hv-old { color: rgba(239,68,68,0.7); text-decoration: line-through; font-size: 13px; }
 .hv-new { color: var(--sg-blue); font-weight: 700; }
 
-/* ===== STAT STRIP — horizontal ===== */
+/* ===== STAT STRIP - horizontal ===== */
 .stat-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
 .stat-item { background: #fff; padding: 28px 24px; text-align: center; }
 .stat-num { font-family: var(--font-heading); font-size: 28px; font-weight: 700; color: var(--sg-red); letter-spacing: -0.02em; }
@@ -98,7 +98,7 @@ img { max-width: 100%; display: block; }
 .scenario-old { font-size: 12px; color: var(--sg-mid-gray); margin-bottom: 4px; }
 .scenario-new { font-size: 12px; color: var(--sg-blue); font-weight: 600; }
 
-/* ===== FEATURE BLOCKS v2 — alternating ===== */
+/* ===== FEATURE BLOCKS v2 - alternating ===== */
 .feature-row { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 48px 0; border-bottom: 1px solid var(--border); }
 .feature-row:last-child { border-bottom: none; }
 .feature-row.reverse { direction: rtl; }

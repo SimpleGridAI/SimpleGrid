@@ -13,7 +13,7 @@
  *  4) Adds `defer` to the React + ReactDOM <script> tags now that load order
  *     can be guaranteed by all-defer (no more Babel-runtime race).
  *
- * Idempotent — safe to run multiple times.
+ * Idempotent - safe to run multiple times.
  */
 const fs = require('fs');
 const path = require('path');
@@ -80,9 +80,9 @@ function processHtml(filePath, appSlug, isBlogSlug = false) {
     );
   }
 
-  // Blog slug pages: post.html-style — convert any remaining type="text/babel"
+  // Blog slug pages: post.html-style - convert any remaining type="text/babel"
   // (data/blogs.js script and the inline window.__SG_BLOG_ID__ block can stay
-  // as plain inline scripts — they don't contain JSX)
+  // as plain inline scripts - they don't contain JSX)
   if (isBlogSlug) {
     // The window.__SG_BLOG_ID__ inline script has no JSX, just leave the type="text/babel" attr off
     src = src.replace(/<script type="text\/babel">(\s*\/\/[^\n]*\n[\s\S]*?window\.__SG_BLOG_ID__[\s\S]*?)<\/script>/g,
