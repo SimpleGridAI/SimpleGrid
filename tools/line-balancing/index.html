@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Line Balancing Tool for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Enter tasks and times. See minimum stations to hit takt, balance efficiency, idle per station. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/line-balancing/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/line-balancing/"><meta property="og:title" content="Line Balancing Tool for Manufacturers | SimpleGrid"><meta property="og:description" content="Enter tasks and times. See minimum stations to hit takt, balance efficiency, idle per station. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Line Balancing Tool for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/line-balancing/","description":"Enter tasks and times. See minimum stations to hit takt, balance efficiency, idle per station. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Line Balancing Tool for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/line-balancing/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is line balancing?","acceptedAnswer":{"@type":"Answer","text":"Assigning tasks to workstations so each has roughly equal work time, close to but under takt. Good balance = high efficiency and low idle time."}},
+{"@type":"Question","name":"Why does the longest task matter?","acceptedAnswer":{"@type":"Answer","text":"It sets the floor for cycle time. If one task takes 90 seconds and takt is 60 seconds, you cannot meet takt with a single-line layout. You must split the task or run parallel stations."}},
+{"@type":"Question","name":"What is PFD allowance?","acceptedAnswer":{"@type":"Answer","text":"Personal, Fatigue, and Delay - the percentage of time operators lose to micro-stops and fatigue. 10-15% is standard for assembly; 8-10% for seated/light work."}},
+{"@type":"Question","name":"What balance efficiency should I target?","acceptedAnswer":{"@type":"Answer","text":"Above 90% is excellent. 80-90% is typical for well-run mid-market lines. Below 75% means rebalancing will pay back fast."}},
+{"@type":"Question","name":"Does this handle task precedence?","acceptedAnswer":{"@type":"Answer","text":"No - it uses the Largest Candidate Rule. For assemblies with strict precedence, verify the output respects your precedence diagram by hand."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Line Balancing Tool.</h1>
+    <p class="lead">Most assembly lines we audit run at 70-80% balance efficiency. Rebalancing usually frees one station - the equivalent of a free hire. This tool finds the right station count.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Line setup</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="takt">Takt time (sec)</label><input id="takt" type="number" data-clamp="1,100000" step="1" value="60" data-required></div>
+        <div class="tool-field"><label for="allow">PFD allowance (%)</label><input id="allow" type="number" data-clamp="0,50" step="1" value="12"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Tasks <span class="hint" style="font-weight:400;font-size:14px;color:var(--fg3)">- one per line: task name, time in seconds</span></h2>
+      <textarea id="tasks-paste" rows="8" placeholder="Pick parts, 18&#10;Fasten housing, 42&#10;Install harness, 31&#10;Test, 25&#10;Pack, 14" style="width:100%;font-family:var(--font-mono,monospace);font-size:13px;padding:12px;border-radius:8px;border:1px solid var(--border)">Pick parts, 18
+Fasten housing, 42
+Install harness, 31
+Test, 25
+Pack, 14</textarea>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When the line is balanced once and never again</div>
+      <h2>SimpleGrid tracks station-level cycle time on every run and flags drift.</h2>
+      <p>When one station starts running long because an operator changed methods or material moved, you see it the same shift. Not at the end-of-month review.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="line_balancing_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+
+function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+function nv(id){var v=document.getElementById(id).value; return v===''?null:parseFloat(v);}
+
+function parseTasks(){
+  var raw = document.getElementById('tasks-paste').value.trim();
+  if(!raw) return [];
+  var tasks=[];
+  raw.split(/\r?\n/).forEach(function(line){
+    var parts = line.split(/\t|,/).map(function(s){ return s.trim(); });
+    if(parts.length<2) return;
+    var name = parts.slice(0,-1).join(', ');
+    var t = parseFloat(parts[parts.length-1]);
+    if(!isFinite(t) || t<=0) return;
+    tasks.push({ name: name, time: t });
+  });
+  return tasks;
+}
+
+function recalc(){
+  var takt = nn('takt'), allow = nn('allow');
+  var tasks = parseTasks();
+  var warns=[];
+  if(takt<=0) warns.push('Takt time must be greater than 0.');
+  if(allow>50) warns.push('PFD allowance > 50% is not realistic. Typical: 10-15%.');
+  if(!tasks.length){
+    document.getElementById('hero').innerHTML='<div data-sg-warn></div><div class="big-caption">Enter at least one task to see balancing.</div>';
+    sgWarnPanel(document.getElementById('hero'), ['Add tasks (name, time) one per line.']);
+    document.getElementById('detail').innerHTML='';
+    return { tasks: [], stations: [] };
+  }
+  var effTakt = takt * (1 - allow/100);
+  var maxTask = tasks.reduce(function(m,t){ return Math.max(m, t.time); }, 0);
+  if(maxTask > effTakt) warns.push('Longest task ('+maxTask.toFixed(1)+'s) exceeds effective takt ('+effTakt.toFixed(1)+'s). Split or parallelize that task first.');
+  var total = tasks.reduce(function(s,t){ return s+t.time; }, 0);
+  var minStations = Math.ceil(sgSafeDiv(total, effTakt));
+
+  var sorted = tasks.slice().sort(function(a,b){ return b.time - a.time; });
+  sorted.forEach(function(t){ t._used=false; });
+  var stations=[];
+  while(sorted.some(function(t){ return !t._used; })){
+    var st={ tasks:[], load:0 };
+    for(var i=0;i<sorted.length;i++){
+      var t = sorted[i];
+      if(!t._used && st.load + t.time <= effTakt + 0.001){ st.tasks.push(t); st.load += t.time; t._used=true; }
+    }
+    if(!st.tasks.length){
+      var longest = sorted.find(function(t){ return !t._used; });
+      st.tasks.push(longest); st.load = longest.time; longest._used=true;
+    }
+    stations.push(st);
+    if(stations.length>200) break;
+  }
+  var eff = sgSafeDiv(total, stations.length * effTakt) * 100;
+  var idle = stations.length * effTakt - total;
+  var effCls = eff>=90?'green':eff>=75?'gold':'red';
+
+  var hero=document.getElementById('hero');
+  hero.innerHTML = '<div data-sg-warn></div>'+
+    '<div class="big-label">Balance efficiency</div>'+
+    '<div class="big-number '+effCls+'">'+eff.toFixed(1)+'%</div>'+
+    '<div class="big-caption">'+stations.length+' stations needed at effective takt of '+effTakt.toFixed(1)+'s &middot; theoretical minimum: '+minStations+'</div>'+
+    '<div class="results-grid" style="margin-top:24px">'+
+      '<div class="results-stat"><div class="label">Total task time</div><div class="value">'+total.toFixed(1)+'s</div><div class="sub">'+tasks.length+' tasks</div></div>'+
+      '<div class="results-stat"><div class="label">Effective takt</div><div class="value">'+effTakt.toFixed(1)+'s</div><div class="sub">'+takt+'s - '+allow+'% allowance</div></div>'+
+      '<div class="results-stat"><div class="label">Idle per cycle</div><div class="value">'+idle.toFixed(1)+'s</div><div class="sub">across '+stations.length+' stations</div></div>'+
+    '</div>';
+  sgWarnPanel(hero, warns);
+
+  var tbl = '<h2>Station assignments</h2><table class="results-table"><thead><tr><th>Station</th><th>Tasks</th><th class="num">Load</th><th class="num">Idle</th></tr></thead><tbody>';
+  stations.forEach(function(st, i){
+    var load = st.load;
+    var idleS = effTakt - load;
+    var idleCls = idleS < effTakt*0.1 ? 'green' : idleS < effTakt*0.25 ? 'gold' : 'red';
+    tbl += '<tr><td><strong>'+(i+1)+'</strong></td><td>'+st.tasks.map(function(t){ return sgEscapeHtml(t.name)+' ('+t.time.toFixed(1)+'s)'; }).join(', ')+'</td><td class="num">'+load.toFixed(1)+'s</td><td class="num '+idleCls+'">'+idleS.toFixed(1)+'s</td></tr>';
+  });
+  tbl += '</tbody></table>';
+
+  document.getElementById('detail').innerHTML = tbl + '<p class="tool-note" style="margin-top:14px">Assignment uses the Largest Candidate Rule (longest tasks first). Precedence is not enforced - verify against your assembly precedence diagram.</p>';
+  return { tasks, stations, eff, effTakt, total, idle, minStations };
+}
+document.getElementById('tasks-paste').addEventListener('input', recalc);
+document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+recalc();
+document.getElementById('generate-pdf').addEventListener('click', () => {
+  var r = recalc();
+  if(!r.tasks.length){ sgToast('Add tasks first.', { type:'error' }); return; }
+  sgBuildPdf({
+    title: 'Line Balancing', docNumberLabel: 'Stations', docNumber: r.stations.length.toString(),
+    date: todayISO(),
+    fromLabel: 'INPUTS', from: ['Takt: '+nn('takt')+'s', 'PFD allowance: '+nn('allow')+'%', 'Effective takt: '+r.effTakt.toFixed(1)+'s', 'Tasks: '+r.tasks.length],
+    toLabel: 'RESULTS', to: ['Stations: '+r.stations.length+' (theor min '+r.minStations+')', 'Balance efficiency: '+r.eff.toFixed(1)+'%', 'Total task time: '+r.total.toFixed(1)+'s', 'Idle/cycle: '+r.idle.toFixed(1)+'s'],
+    itemColumns: ['Station','Tasks','Load','Idle'],
+    items: r.stations.map(function(st, i){ return [(i+1).toString(), st.tasks.map(function(t){ return t.name+' ('+t.time.toFixed(1)+'s)'; }).join(', '), st.load.toFixed(1)+'s', (r.effTakt - st.load).toFixed(1)+'s']; }),
+    itemRowMapper: x => x,
+    notes: 'Assignment method: Largest Candidate Rule. Tasks sorted by time (descending), each packed into first station with remaining capacity. Precedence is not enforced - verify against your assembly precedence diagram.',
+    filename: 'line-balancing-' + todayISO() + '.pdf'
+  });
+});
+
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why most lines are imbalanced</h2>
+    <p>Lines get balanced once - at install. Then a method changes, a tool moves, a station gets a second monitor for "kitting." Within six months, one station is the bottleneck and three stations are waiting for it. The line runs at 70% efficiency and nobody can quite say why.</p>
+    <p>The first sign: high WIP at one station, idle operators at others. The second sign: overtime that does not correlate with demand. The third sign: complaints about a specific station from the operators rotating into it.</p>
+    <h2>What good balancing looks like</h2>
+    <p>90%+ balance efficiency. Station loads within 10% of each other. Visible work distribution so a supervisor can see at a glance who is keeping up. And periodic rebalancing - quarterly is typical for stable products, monthly for high-mix.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is line balancing?</summary><p>Assigning tasks to workstations so each has roughly equal work time, close to but under takt. Good balance = high efficiency and low idle time.</p></details>
+    <details><summary>Why does the longest task matter?</summary><p>It sets the floor for cycle time. If one task takes 90 seconds and takt is 60 seconds, you cannot meet takt with a single-line layout. You must split the task or run parallel stations.</p></details>
+    <details><summary>What is PFD allowance?</summary><p>Personal, Fatigue, and Delay - the percentage of time operators lose to micro-stops and fatigue. 10-15% is standard for assembly; 8-10% for seated/light work.</p></details>
+    <details><summary>What balance efficiency should I target?</summary><p>Above 90% is excellent. 80-90% is typical for well-run mid-market lines. Below 75% means rebalancing will pay back fast.</p></details>
+    <details><summary>Does this handle task precedence?</summary><p>No - it uses the Largest Candidate Rule. For assemblies with strict precedence, verify the output respects your precedence diagram by hand.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

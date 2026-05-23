@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Machine Hour Rate Calculator | SimpleGrid</title>
+<meta name="description" content="Calculate a defensible $/hour per machine: capital, energy, operator, maintenance, overhead. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/machine-hour-rate/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/machine-hour-rate/"><meta property="og:title" content="Machine Hour Rate Calculator | SimpleGrid"><meta property="og:description" content="Calculate a defensible $/hour per machine: capital, energy, operator, maintenance, overhead. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Machine Hour Rate Calculator | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/machine-hour-rate/","description":"Calculate a defensible $/hour per machine: capital, energy, operator, maintenance, overhead. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Machine Hour Rate Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/machine-hour-rate/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I pick utilization?","acceptedAnswer":{"@type":"Answer","text":"Use actual run-time hours, not scheduled hours. 65% (one shift, busy CNC) is typical. 85% means running close to 3 shifts. Below 50% means structurally over-bought."}},
+{"@type":"Question","name":"Should I include interest on capital?","acceptedAnswer":{"@type":"Answer","text":"Yes - even if you paid cash. The cash could be earning return elsewhere. Use WACC or the rate you would pay for a new machine loan."}},
+{"@type":"Question","name":"What about operator coverage?","acceptedAnswer":{"@type":"Answer","text":"A 5-axis with pallet changer might run 60% unattended - operator coverage 0.4. A manual lathe needs full attention - 1.0. Adjust per machine."}},
+{"@type":"Question","name":"Why does this differ from accounting numbers?","acceptedAnswer":{"@type":"Answer","text":"Accounting uses sunk-cost depreciation (often 7-year MACRS). This uses useful-economic-life depreciation, which is more honest for pricing decisions. Difference can be $10-15/hr on capital-intensive machines."}},
+{"@type":"Question","name":"Should every machine have its own rate?","acceptedAnswer":{"@type":"Answer","text":"Yes if rates differ by more than 20%. Lumping a $50k VMC with a $400k 5-axis under one shop rate guarantees mis-pricing on both."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Machine Hour Rate Calculator.</h1>
+    <p class="lead">Quoting at a flat shop rate ($65-95/hr) hides reality: a $400k 5-axis is not the same cost center as a 30-year-old Bridgeport. This tool computes a defensible rate per machine.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Capital</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="cap">Machine cost ($)</label><input id="cap" type="number" data-clamp="0,100000000" step="1000" value="380000" data-required></div>
+        <div class="tool-field"><label for="life">Useful life (years)</label><input id="life" type="number" data-clamp="1,50" step="1" value="10"></div>
+        <div class="tool-field"><label for="salv">Salvage value ($)</label><input id="salv" type="number" data-clamp="0,10000000" step="1000" value="40000"></div>
+        <div class="tool-field"><label for="coc">Cost of capital (%)</label><input id="coc" type="number" data-clamp="0,30" step="0.5" value="8"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Energy and consumables</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="kw">Power draw (kW)</label><input id="kw" type="number" data-clamp="0,10000" step="0.5" value="18"></div>
+        <div class="tool-field"><label for="kwhRate">$/kWh</label><input id="kwhRate" type="number" data-clamp="0,2" step="0.01" value="0.12"></div>
+        <div class="tool-field"><label for="consum">Consumables / hr ($)</label><input id="consum" type="number" data-clamp="0,1000" step="0.10" value="3.50"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Labor and overhead</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="op">Operator burden rate ($/hr)</label><input id="op" type="number" data-clamp="0,500" step="1" value="42"></div>
+        <div class="tool-field"><label for="cov">Operator coverage (0-1)</label><input id="cov" type="number" data-clamp="0,1" step="0.05" value="0.6"></div>
+        <div class="tool-field"><label for="maint">Maintenance ($/yr)</label><input id="maint" type="number" data-clamp="0,1000000" step="100" value="8500"></div>
+        <div class="tool-field"><label for="ins">Insurance + property tax ($/yr)</label><input id="ins" type="number" data-clamp="0,1000000" step="100" value="2200"></div>
+        <div class="tool-field"><label for="ovh">Facility overhead ($/yr)</label><input id="ovh" type="number" data-clamp="0,1000000" step="100" value="6000"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Utilization</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="availHr">Available hours / year</label><input id="availHr" type="number" data-clamp="1,8760" step="50" value="3800"></div>
+        <div class="tool-field"><label for="util">Utilization (%)</label><input id="util" type="number" data-clamp="0,100" step="1" value="65"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When every machine has the same rate</div>
+      <h2>SimpleGrid tracks per-machine cost and utilization in real time.</h2>
+      <p>Rates update as utilization and inputs shift. Quotes pull the right machine rate automatically based on the routing.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="machine_hour_rate_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+
+function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+function nv(id){var v=document.getElementById(id).value; return v===''?null:parseFloat(v);}
+
+function recalc(){
+  var cap=nn('cap'), life=nn('life'), salv=nn('salv'), coc=nn('coc'), kw=nn('kw'), kwhRate=nn('kwhRate'), consum=nn('consum'), op=nn('op'), cov=nn('cov'), maint=nn('maint'), ins=nn('ins'), ovh=nn('ovh'), availHr=nn('availHr'), util=nn('util');
+  var warns=[];
+  if(salv>=cap && cap>0) warns.push('Salvage value cannot meet or exceed machine cost.');
+  if(util<=0 || util>100) warns.push('Utilization must be 1-100%.');
+  if(life<=0) warns.push('Useful life must be greater than 0.');
+
+  var productiveHr = availHr * (util/100);
+  var depAnn = (cap - salv) / Math.max(life, 1);
+  var intAnn = ((cap + salv)/2) * (coc/100);
+  var energyHr = kw * kwhRate;
+  var opHr = op * cov;
+  var capHr = sgSafeDiv(depAnn, productiveHr);
+  var intHr = sgSafeDiv(intAnn, productiveHr);
+  var maintHr = sgSafeDiv(maint, productiveHr);
+  var ovhHr = sgSafeDiv(ins + ovh, productiveHr);
+  var total = capHr + intHr + energyHr + consum + opHr + maintHr + ovhHr;
+
+  var hero=document.getElementById('hero');
+  hero.innerHTML = '<div data-sg-warn></div>'+
+    '<div class="big-label">Machine hour rate</div>'+
+    '<div class="big-number">'+fmt$(total)+'<span style="font-size:24px;color:var(--fg3);font-weight:500"> / hr</span></div>'+
+    '<div class="big-caption">'+Math.round(productiveHr).toLocaleString()+' productive hours/year (at '+util+'% utilization)</div>'+
+    '<div class="results-grid" style="margin-top:24px">'+
+      '<div class="results-stat"><div class="label">Capital + interest</div><div class="value">'+fmt$(capHr + intHr)+'</div><div class="sub">depreciation + cost of capital</div></div>'+
+      '<div class="results-stat"><div class="label">Operating ($/hr)</div><div class="value">'+fmt$(energyHr + consum + opHr)+'</div><div class="sub">energy + consumables + operator</div></div>'+
+      '<div class="results-stat"><div class="label">Maintenance + overhead</div><div class="value">'+fmt$(maintHr + ovhHr)+'</div><div class="sub">maint + insurance + facility</div></div>'+
+    '</div>';
+  sgWarnPanel(hero, warns);
+
+  var rows = [
+    ['Capital (depreciation)', capHr, depAnn+'/yr / '+Math.round(productiveHr)+' hr'],
+    ['Interest on capital', intHr, fmt$(intAnn)+'/yr / '+Math.round(productiveHr)+' hr'],
+    ['Energy', energyHr, kw+' kW x $'+kwhRate+'/kWh'],
+    ['Consumables', consum, 'direct input'],
+    ['Operator (loaded)', opHr, '$'+op+'/hr x '+cov+' coverage'],
+    ['Maintenance', maintHr, fmt$(maint)+'/yr / '+Math.round(productiveHr)+' hr'],
+    ['Insurance + facility', ovhHr, fmt$(ins+ovh)+'/yr / '+Math.round(productiveHr)+' hr'],
+  ];
+  var tbl = '<h2>Cost breakdown</h2><table class="results-table"><thead><tr><th>Element</th><th class="num">$/hr</th><th>Source</th></tr></thead><tbody>';
+  rows.forEach(function(r){
+    tbl += '<tr><td>'+r[0]+'</td><td class="num"><strong>'+fmt$(r[1])+'</strong></td><td>'+r[2]+'</td></tr>';
+  });
+  tbl += '<tr style="background:rgba(52,97,224,0.08);font-weight:700"><td>TOTAL</td><td class="num">'+fmt$(total)+'</td><td>per productive hour</td></tr></tbody></table>';
+
+  var pos = '<h2 style="margin-top:32px">Use this for</h2>'+
+    '<ul>'+
+      '<li><strong>Quoting</strong> - applied to standard cycle time per part</li>'+
+      '<li><strong>Make-vs-buy</strong> - true cost of running internally vs. outsourcing</li>'+
+      '<li><strong>Capex decisions</strong> - what hour rate would a new machine need to justify</li>'+
+      '<li><strong>Investment prioritization</strong> - which machine has the highest rate x most utilization = highest dollar impact</li>'+
+    '</ul>'+
+    '<p>Reference: Cooper &amp; Kaplan, <i>Cost &amp; Effect</i>; Lean Accounting Summit machine-rate worksheets.</p>';
+
+  document.getElementById('detail').innerHTML = tbl + pos;
+  return { total, capHr, intHr, energyHr, consum, opHr, maintHr, ovhHr, productiveHr };
+}
+document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+recalc();
+document.getElementById('generate-pdf').addEventListener('click', () => {
+  var r = recalc();
+  sgBuildPdf({
+    title: 'Machine Hour Rate', docNumberLabel: 'Date', docNumber: todayISO(),
+    date: todayISO(),
+    fromLabel: 'INPUTS', from: ['Machine cost: '+fmt$K(nn('cap')), 'Useful life: '+nn('life')+' yrs', 'Power: '+nn('kw')+' kW', 'Operator: $'+nn('op')+'/hr', 'Available: '+nn('availHr')+' hr/yr', 'Utilization: '+nn('util')+'%'],
+    toLabel: 'RATE', to: ['Total: '+fmt$(r.total)+'/hr', 'Productive hours: '+Math.round(r.productiveHr).toLocaleString()+'/yr', 'Capital share: '+fmt$(r.capHr + r.intHr)+'/hr', 'Operating share: '+fmt$(r.energyHr + r.consum + r.opHr)+'/hr'],
+    itemColumns: ['Element','$/hr'],
+    items: [
+      ['Capital (depreciation)', fmt$(r.capHr)],
+      ['Interest on capital', fmt$(r.intHr)],
+      ['Energy', fmt$(r.energyHr)],
+      ['Consumables', fmt$(r.consum)],
+      ['Operator (loaded)', fmt$(r.opHr)],
+      ['Maintenance', fmt$(r.maintHr)],
+      ['Insurance + facility', fmt$(r.ovhHr)],
+      ['TOTAL', fmt$(r.total)],
+    ],
+    itemRowMapper: x => x,
+    notes: 'Machine hour rate methodology: capital recovery (straight-line depreciation + interest on average book value), variable operating costs (energy, consumables, operator), and allocated fixed costs (maintenance, insurance, facility). Reference: Cooper & Kaplan, Cost & Effect.',
+    filename: 'machine-rate-' + todayISO() + '.pdf'
+  });
+});
+
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why a flat shop rate guarantees mis-pricing</h2>
+    <p>Most US machine shops quote at a single $65-95/hr rate across all equipment. The new 5-axis with the $400k price tag and the 30-year-old Bridgeport get the same rate. Result: you underprice work on the new machine and overprice work on the old one - and you win business on what loses money while losing business on what should win.</p>
+    <p>The fix is not complicated. Each machine has its own capital cost, energy draw, operator coverage, and maintenance profile. Sum them, divide by productive hours, and you have a defensible rate. Lump them and you do not.</p>
+    <h2>The interest-on-capital question</h2>
+    <p>Should you include interest on capital? Yes - even if you paid cash. The cash could be earning return elsewhere. Use your WACC or the rate you would pay for a new machine loan. Excluding it understates the true cost of holding capital equipment.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>How do I pick utilization?</summary><p>Use actual run-time hours, not scheduled hours. 65% (one shift, busy CNC) is typical. 85% means running close to 3 shifts. Below 50% means structurally over-bought.</p></details>
+    <details><summary>Should I include interest on capital?</summary><p>Yes - even if you paid cash. The cash could be earning return elsewhere. Use WACC or the rate you would pay for a new machine loan.</p></details>
+    <details><summary>What about operator coverage?</summary><p>A 5-axis with pallet changer might run 60% unattended - operator coverage 0.4. A manual lathe needs full attention - 1.0. Adjust per machine.</p></details>
+    <details><summary>Why does this differ from accounting numbers?</summary><p>Accounting uses sunk-cost depreciation (often 7-year MACRS). This uses useful-economic-life depreciation, which is more honest for pricing decisions. Difference can be $10-15/hr on capital-intensive machines.</p></details>
+    <details><summary>Should every machine have its own rate?</summary><p>Yes if rates differ by more than 20%. Lumping a $50k VMC with a $400k 5-axis under one shop rate guarantees mis-pricing on both.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

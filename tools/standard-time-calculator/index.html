@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Standard Time Calculator | SimpleGrid</title>
+<meta name="description" content="Calculate the standard time for a job: observed time + performance rating + PFD allowance. The basis for quoting, scheduling, and incentives. Free.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/standard-time-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/standard-time-calculator/"><meta property="og:title" content="Standard Time Calculator | SimpleGrid"><meta property="og:description" content="Calculate the standard time for a job: observed time + performance rating + PFD allowance. The basis for quoting, scheduling, and incentives. Free."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Standard Time Calculator | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/standard-time-calculator/","description":"Calculate the standard time for a job: observed time + performance rating + PFD allowance. The basis for quoting, scheduling, and incentives. Free.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Standard Time Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/standard-time-calculator/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is performance rating?","acceptedAnswer":{"@type":"Answer","text":"A judgment by the time-study observer of how fast the worker was going. 100% = trained operator at normal pace. 90% = slightly slow. 110% = slightly fast. Westinghouse, Bedaux, and ILO have formal systems."}},
+{"@type":"Question","name":"What PFD allowance should I use?","acceptedAnswer":{"@type":"Answer","text":"10-15% for assembly, 15-25% for heavy physical work, 8-10% for seated light work. Higher for hot environments, awkward postures, or high-precision tasks."}},
+{"@type":"Question","name":"How many cycles do I need?","acceptedAnswer":{"@type":"Answer","text":"10 is a good default. For short repetitive tasks, 15-20. For long irregular tasks (10+ minutes), 3-5 may suffice. The narrower the cycle-to-cycle variation, the fewer cycles you need."}},
+{"@type":"Question","name":"What if the operator was unusually fast or slow?","acceptedAnswer":{"@type":"Answer","text":"That is what performance rating is for. Rate at 110-120% if visibly fast; 80-90% if visibly slow. The math removes the operator-specific variation."}},
+{"@type":"Question","name":"How does this work for non-repetitive jobs?","acceptedAnswer":{"@type":"Answer","text":"It does not, well. Standard time is for repetitive work. For job-shop or one-off work, use historical estimates or MTM/MOST (predetermined motion time systems)."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Standard Time Calculator.</h1>
+    <p class="lead">A defensible standard time has three ingredients: observed time, performance rating (was the operator working at normal pace?), and PFD allowance. Skip any one and your standard is wrong.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Time study</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="obs">Observed time (min/unit)</label><input id="obs" type="number" data-clamp="0,10000" step="0.01" value="3.4" data-required></div>
+        <div class="tool-field"><label for="rating">Performance rating (%)</label><input id="rating" type="number" data-clamp="50,150" step="1" value="95"></div>
+        <div class="tool-field"><label for="cycles">Cycles observed</label><input id="cycles" type="number" data-clamp="1,10000" step="1" value="12"></div>
+      </div>
+      <p class="tool-note" style="margin-top:8px">Performance rating: 100% = trained operator at normal pace. 80% = noticeably slow. 120% = fast/incentivized. Westinghouse system is the standard reference.</p>
+    </div>
+
+    <div class="tool-card"><h2>PFD allowance (Personal, Fatigue, Delay)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="personal">Personal (%)</label><input id="personal" type="number" data-clamp="0,15" step="0.5" value="5"></div>
+        <div class="tool-field"><label for="fatigue">Fatigue (%)</label><input id="fatigue" type="number" data-clamp="0,30" step="0.5" value="4"></div>
+        <div class="tool-field"><label for="delay">Unavoidable delay (%)</label><input id="delay" type="number" data-clamp="0,30" step="0.5" value="3"></div>
+      </div>
+      <p class="tool-note" style="margin-top:8px">Standard total PFD: 10-15% for assembly, 15-25% for heavy physical work, 8-10% for seated light work. Reference: ILO and Niebel standards.</p>
+    </div>
+
+    <div class="tool-card"><h2>Pricing context</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="rate">Labor rate ($/hr, fully loaded)</label><input id="rate" type="number" data-clamp="0,500" step="1" value="42"></div>
+        <div class="tool-field"><label for="vol">Annual volume (units)</label><input id="vol" type="number" data-clamp="0,10000000" step="100" value="24000"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When standards are guesses</div>
+      <h2>SimpleGrid captures real cycle times on every job and rolls them into standards automatically.</h2>
+      <p>No more relying on the foreman's memory. Standards update as methods change.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="standard_time_calculator_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+
+function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+function recalc(){
+  var obs=nn('obs'), rating=nn('rating'), cycles=nn('cycles'), per=nn('personal'), fat=nn('fatigue'), del=nn('delay'), rate=nn('rate'), vol=nn('vol');
+  var warns=[];
+  if(obs<=0) warns.push('Observed time must be greater than 0.');
+  if(rating<50||rating>150) warns.push('Performance rating outside 50-150% is unusual. Re-check observation.');
+  if(cycles<5) warns.push('Fewer than 5 cycles makes the standard statistically weak. Aim for 10+ cycles.');
+  var pfdTotal = per + fat + del;
+  if(pfdTotal>40) warns.push('Total PFD '+pfdTotal+'% exceeds typical max (40%). Re-check inputs.');
+
+  var normal = obs * (rating/100);
+  var pfdFactor = 1 + pfdTotal/100;
+  var standard = normal * pfdFactor;
+  var standardHr = standard / 60;
+  var unitCost = standardHr * rate;
+  var annualLaborHr = standardHr * vol;
+  var annualLaborCost = annualLaborHr * rate;
+  var unitsPerHr = sgSafeDiv(60, standard);
+
+  var hero=document.getElementById('hero');
+  hero.innerHTML = '<div data-sg-warn></div>'+
+    '<div class="big-label">Standard time</div>'+
+    '<div class="big-number">'+standard.toFixed(2)+' <span style="font-size:24px;color:var(--fg3);font-weight:500">min/unit</span></div>'+
+    '<div class="big-caption">'+unitsPerHr.toFixed(1)+' units/hr at standard pace</div>'+
+    '<div class="results-grid" style="margin-top:24px">'+
+      '<div class="results-stat"><div class="label">Labor cost / unit</div><div class="value">'+fmt$(unitCost)+'</div><div class="sub">at '+fmt$(rate)+'/hr loaded</div></div>'+
+      '<div class="results-stat"><div class="label">Annual labor hours</div><div class="value">'+Math.round(annualLaborHr).toLocaleString()+'</div><div class="sub">'+vol.toLocaleString()+' units</div></div>'+
+      '<div class="results-stat"><div class="label">Annual labor cost</div><div class="value">'+fmt$K(annualLaborCost)+'</div><div class="sub">basis for quote / standard cost</div></div>'+
+    '</div>';
+  sgWarnPanel(hero, warns);
+
+  var detail = '<h2>How the math works</h2>'+
+    '<table class="results-table"><thead><tr><th>Step</th><th class="num">Value</th><th>Note</th></tr></thead><tbody>'+
+    '<tr><td>Observed time</td><td class="num">'+obs.toFixed(2)+' min</td><td>average of '+cycles+' cycles</td></tr>'+
+    '<tr><td>Normal time = observed x (rating/100)</td><td class="num">'+normal.toFixed(2)+' min</td><td>rating: '+rating+'%</td></tr>'+
+    '<tr><td>PFD allowance</td><td class="num">'+pfdTotal.toFixed(1)+'%</td><td>'+per+'% personal + '+fat+'% fatigue + '+del+'% delay</td></tr>'+
+    '<tr style="background:rgba(52,97,224,0.06);font-weight:600"><td>Standard time = normal x (1 + PFD)</td><td class="num">'+standard.toFixed(2)+' min</td><td>basis for quoting / scheduling</td></tr>'+
+    '</tbody></table>'+
+    '<h2 style="margin-top:32px">What standard time is for</h2>'+
+    '<ul>'+
+      '<li><strong>Quoting</strong> - labor minutes per unit x loaded rate = labor in the price</li>'+
+      '<li><strong>Capacity planning</strong> - sum standard hours across orders = required staffing</li>'+
+      '<li><strong>Scheduling</strong> - planned hours by job</li>'+
+      '<li><strong>Variance analysis</strong> - actual vs. standard = improvement opportunities</li>'+
+      '<li><strong>Earned-hours incentives</strong> - if operators average 110% of standard, incentive applies</li>'+
+    '</ul>'+
+    '<p>Reference: Benjamin Niebel &amp; Andris Freivalds, <i>Methods, Standards, and Work Design</i>; ILO Work Study handbook</p>';
+  document.getElementById('detail').innerHTML = detail;
+
+  return { obs, rating, normal, pfdTotal, standard, unitCost, annualLaborHr, annualLaborCost, unitsPerHr };
+}
+document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+recalc();
+document.getElementById('generate-pdf').addEventListener('click', () => {
+  var r = recalc();
+  sgBuildPdf({
+    title: 'Standard Time Study', docNumberLabel: 'Date', docNumber: todayISO(),
+    date: todayISO(),
+    fromLabel: 'OBSERVATION', from: ['Observed: '+r.obs.toFixed(2)+' min', 'Rating: '+r.rating+'%', 'Cycles: '+nn('cycles'), 'PFD allowance: '+r.pfdTotal.toFixed(1)+'%'],
+    toLabel: 'STANDARD', to: ['Standard time: '+r.standard.toFixed(2)+' min/unit', 'Units/hr: '+r.unitsPerHr.toFixed(1), 'Labor cost/unit: '+fmt$(r.unitCost), 'Annual labor: '+fmt$K(r.annualLaborCost)],
+    itemColumns: ['Step','Value','Source'],
+    items: [
+      ['Observed time', r.obs.toFixed(2)+' min', nn('cycles')+' cycles'],
+      ['Performance rating', r.rating+'%', 'Westinghouse scale'],
+      ['Normal time', r.normal.toFixed(2)+' min', 'observed x rating'],
+      ['Personal allowance', nn('personal')+'%', 'breaks, restroom'],
+      ['Fatigue allowance', nn('fatigue')+'%', 'physical effort'],
+      ['Delay allowance', nn('delay')+'%', 'material, instructions'],
+      ['Standard time', r.standard.toFixed(2)+' min', 'normal x (1+PFD)'],
+      ['Units per hour', r.unitsPerHr.toFixed(1), 'at standard pace'],
+      ['Labor cost per unit', fmt$(r.unitCost), 'at '+fmt$(nn('rate'))+'/hr'],
+    ],
+    itemRowMapper: x => x,
+    notes: 'Standard time = observed x performance rating x (1 + PFD allowance). Performance rating uses Westinghouse system (100% = trained operator at normal pace). PFD = Personal, Fatigue, Delay. Reference: Niebel & Freivalds, Methods Standards and Work Design.',
+    filename: 'standard-time-' + todayISO() + '.pdf'
+  });
+});
+
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>The three things a standard time must include</h2>
+    <p><strong>Observed time</strong> - what you saw with a stopwatch. <strong>Performance rating</strong> - was the operator working at normal pace, or sandbagging, or hustling? <strong>PFD allowance</strong> - what percentage of the day is unavoidably lost to breaks, fatigue, and short delays?</p>
+    <p>Skip the performance rating and you bake the observed operator's pace into the standard - rewarding slow workers and penalizing fast ones. Skip the PFD and your standard is unattainable - operators learn to ignore it. Both errors are common.</p>
+    <h2>How many cycles?</h2>
+    <p>Statistical theory says 5-15 cycles for short tasks (under a minute), 3-8 for longer tasks. Niebel's tables give exact numbers based on observed variability. In practice, 10 cycles is a good default for most factory work.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is performance rating?</summary><p>A judgment by the time-study observer of how fast the worker was going. 100% = trained operator at normal pace. 90% = slightly slow. 110% = slightly fast. Westinghouse, Bedaux, and ILO have formal systems.</p></details>
+    <details><summary>What PFD allowance should I use?</summary><p>10-15% for assembly, 15-25% for heavy physical work, 8-10% for seated light work. Higher for hot environments, awkward postures, or high-precision tasks.</p></details>
+    <details><summary>How many cycles do I need?</summary><p>10 is a good default. For short repetitive tasks, 15-20. For long irregular tasks (10+ minutes), 3-5 may suffice. The narrower the cycle-to-cycle variation, the fewer cycles you need.</p></details>
+    <details><summary>What if the operator was unusually fast or slow?</summary><p>That is what performance rating is for. Rate at 110-120% if visibly fast; 80-90% if visibly slow. The math removes the operator-specific variation.</p></details>
+    <details><summary>How does this work for non-repetitive jobs?</summary><p>It does not, well. Standard time is for repetitive work. For job-shop or one-off work, use historical estimates or MTM/MOST (predetermined motion time systems).</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>ABC Inventory Analysis Tool for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Pareto-based inventory classification. Find your A, B, C items in minutes. Paste data or enter manually. PDF report. Free.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/abc-analysis/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/abc-analysis/"><meta property="og:title" content="ABC Inventory Analysis Tool for Manufacturers | SimpleGrid"><meta property="og:description" content="Pareto-based inventory classification. Find your A, B, C items in minutes. Paste data or enter manually. PDF report. Free."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"ABC Inventory Analysis Tool for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/abc-analysis/","description":"Pareto-based inventory classification. Find your A, B, C items in minutes. Paste data or enter manually. PDF report. Free.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"ABC Inventory Analysis Tool for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/abc-analysis/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What thresholds should I use for A/B/C?","acceptedAnswer":{"@type":"Answer","text":"Classic 80/15/5 is the right starting point. If your top items are very concentrated (top 10 items = 80% of value), shift to 70/20/10. The point is to identify a small, manageable A list - not to match any particular textbook split."}},
+{"@type":"Question","name":"How often should I re-run ABC?","acceptedAnswer":{"@type":"Answer","text":"Quarterly is standard. After major changes (new product launch, customer loss, supplier change) re-run immediately - the classifications can shift fast."}},
+{"@type":"Question","name":"Should I include WIP and finished goods?","acceptedAnswer":{"@type":"Answer","text":"For raw material inventory management, just raw materials. For overall portfolio analysis, all categories. Run them separately - their dynamics are different."}},
+{"@type":"Question","name":"What is ABC-XYZ?","acceptedAnswer":{"@type":"Answer","text":"A 9-box matrix combining ABC (value) with XYZ (demand predictability). AX = high-value/stable (great for JIT). AZ = high-value/erratic (the most dangerous box - tight monitoring required). Requires 12+ months of monthly usage data to compute."}},
+{"@type":"Question","name":"Should I delete C items?","acceptedAnswer":{"@type":"Answer","text":"Audit them, do not auto-delete. Items with zero usage in 12 months are dead stock candidates. Items with low but consistent usage may be necessary spare parts or seasonal items - simplify their management but keep them."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>ABC Inventory Analysis.</h1>
+    <p class="lead">20% of your items drive 80% of inventory spend. This tool finds them - so A items get tight control and C items get a min/max, not a weekly review.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Paste your items <span class="hint" style="font-weight:400;font-size:14px;color:var(--fg3)">- one per line: item, description, annual usage, unit cost</span></h2>
+      <textarea id="paste" rows="8" placeholder="SKU-001, Hex bolt 1/4-20, 12000, 0.18&#10;SKU-002, Stainless sheet 16ga, 480, 132.50&#10;SKU-003, Polyester thread, 1800, 8.20" style="width:100%;font-family:var(--font-mono,monospace);font-size:13px;padding:12px;border-radius:8px;border:1px solid var(--border)"></textarea>
+      <div class="tool-form-grid cols-3" style="margin-top:14px">
+        <div class="tool-field"><label for="a-thr">A threshold (% of value)</label><input id="a-thr" type="number" data-clamp="50,95" step="1" value="80"></div>
+        <div class="tool-field"><label for="b-thr">B threshold (next % of value)</label><input id="b-thr" type="number" data-clamp="5,40" step="1" value="15"></div>
+        <div class="tool-field"><label for="carry">Carrying cost rate (%)</label><input id="carry" type="number" data-clamp="0,100" step="1" value="25"></div>
+      </div>
+      <p class="tool-note" style="margin-top:8px">Paste accepts comma-separated or tab-separated. Description column is optional. Numbers can have commas or $ signs - we will strip them.</p>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When every SKU is managed the same way</div>
+      <h2>SimpleGrid runs ABC classification automatically from real consumption.</h2>
+      <p>Updated daily. A items get flagged when stock drops; C items get flagged when they go dormant. Not an annual exercise.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="abc_analysis_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+
+function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+function parseData() {
+  const raw = document.getElementById('paste').value.trim();
+  if (!raw) return [];
+  const items = [];
+  raw.split(/\r?\n/).forEach((line, idx) => {
+    if (!line.trim()) return;
+    const cells = line.split(/\t|,/).map(c => c.trim().replace(/[$,]/g, ''));
+    let id, desc, usage, cost;
+    if (cells.length >= 4) {
+      [id, desc, usage, cost] = [cells[0], cells[1], parseFloat(cells[2]), parseFloat(cells[3])];
+    } else if (cells.length === 3) {
+      [id, usage, cost] = [cells[0], parseFloat(cells[1]), parseFloat(cells[2])];
+      desc = '';
+    } else return;
+    if (!isFinite(usage) || !isFinite(cost) || usage <= 0 || cost <= 0) return;
+    items.push({ id, desc, usage, cost, value: usage * cost });
+  });
+  return items;
+}
+
+function recalc() {
+  const items = parseData();
+  const aThr = nn('a-thr');
+  const bThr = nn('b-thr');
+  const carry = nn('carry') / 100;
+
+  const warns = [];
+  if (!items.length) {
+    document.getElementById('hero').innerHTML = '<div data-sg-warn></div><div class="big-caption">Paste your items to see ABC classification.</div>';
+    sgWarnPanel(document.getElementById('hero'), ['Paste at least one item with annual usage and unit cost.']);
+    document.getElementById('detail').innerHTML = '';
+    return { items: [] };
+  }
+  if (aThr + bThr >= 100) warns.push('A + B thresholds total ' + (aThr+bThr) + '% - leaving no room for C items. Reduce thresholds.');
+
+  items.sort((a,b) => b.value - a.value);
+  const totalValue = items.reduce((s,i) => s + i.value, 0);
+  let running = 0;
+  items.forEach((i, idx) => {
+    running += i.value;
+    i.cumPct = running / totalValue * 100;
+    i.rank = idx + 1;
+    if (i.cumPct <= aThr) i.cls = 'A';
+    else if (i.cumPct <= aThr + bThr) i.cls = 'B';
+    else i.cls = 'C';
+  });
+  const aItems = items.filter(i => i.cls === 'A');
+  const bItems = items.filter(i => i.cls === 'B');
+  const cItems = items.filter(i => i.cls === 'C');
+
+  const aVal = aItems.reduce((s,i) => s + i.value, 0);
+  const bVal = bItems.reduce((s,i) => s + i.value, 0);
+  const cVal = cItems.reduce((s,i) => s + i.value, 0);
+
+  // Estimated avg inventory value (assume 3-month supply)
+  const estAvgInv = totalValue / 4;
+  const estCarrying = estAvgInv * carry;
+
+  const hero = document.getElementById('hero');
+  hero.innerHTML = `
+    <div data-sg-warn></div>
+    <div class="big-label">${items.length} items analyzed</div>
+    <div class="big-number">${fmt$K(totalValue)}<span style="font-size:24px;color:var(--fg3);font-weight:500"> annual usage value</span></div>
+    <div class="big-caption">Estimated avg inventory: <strong>${fmt$K(estAvgInv)}</strong> &middot; Estimated carrying cost: <strong>${fmt$K(estCarrying)}/yr</strong></div>
+    <div class="results-grid" style="margin-top:24px">
+      <div class="results-stat"><div class="label">A items (top ${aThr}% of value)</div><div class="value red">${aItems.length}</div><div class="sub">${(aItems.length/items.length*100).toFixed(0)}% of SKUs &middot; ${(aVal/totalValue*100).toFixed(0)}% of value</div></div>
+      <div class="results-stat"><div class="label">B items</div><div class="value gold">${bItems.length}</div><div class="sub">${(bItems.length/items.length*100).toFixed(0)}% of SKUs &middot; ${(bVal/totalValue*100).toFixed(0)}% of value</div></div>
+      <div class="results-stat"><div class="label">C items</div><div class="value green">${cItems.length}</div><div class="sub">${(cItems.length/items.length*100).toFixed(0)}% of SKUs &middot; ${(cVal/totalValue*100).toFixed(0)}% of value</div></div>
+    </div>
+  `;
+  sgWarnPanel(hero, warns);
+
+  // Pareto curve as series of bars showing cumulative %
+  let pareto = '<h2 style="margin-top:8px;margin-bottom:14px">Pareto curve (cumulative % of value)</h2>';
+  const sample = items.length > 50 ? items.filter((_, i) => i % Math.ceil(items.length/50) === 0) : items;
+  sample.forEach(i => {
+    const c = i.cls === 'A' ? 'red' : i.cls === 'B' ? 'gold' : 'green';
+    pareto += `<div class="bar-row"><span class="bar-label">${sgEscapeHtml((i.id||'').substring(0,18))}</span><div class="bar-track"><div class="bar-fill ${c}" style="width:${i.cumPct}%"></div></div><span class="bar-value">${i.cumPct.toFixed(1)}% cum &middot; class ${i.cls}</span></div>`;
+  });
+
+  // Top items table
+  let tbl = '<h2 style="margin-top:32px;margin-bottom:14px">Top 25 items by annual value</h2><table class="results-table"><thead><tr><th>Rank</th><th>Item</th><th>Description</th><th class="num">Usage</th><th class="num">Unit cost</th><th class="num">Annual value</th><th class="num">Cum %</th><th>Class</th></tr></thead><tbody>';
+  items.slice(0, 25).forEach(i => {
+    const bg = i.cls === 'A' ? 'background:rgba(239,68,68,0.06)' : i.cls === 'B' ? 'background:rgba(245,158,11,0.06)' : 'background:rgba(16,185,129,0.04)';
+    tbl += `<tr style="${bg}"><td>${i.rank}</td><td><strong>${sgEscapeHtml(i.id||'')}</strong></td><td>${sgEscapeHtml(i.desc||'')}</td><td class="num">${i.usage.toLocaleString()}</td><td class="num">${fmt$(i.cost)}</td><td class="num"><strong>${fmt$K(i.value)}</strong></td><td class="num">${i.cumPct.toFixed(1)}%</td><td><strong>${i.cls}</strong></td></tr>`;
+  });
+  tbl += '</tbody></table>';
+  if (items.length > 25) tbl += `<p class="tool-note" style="margin-top:8px">Showing top 25 of ${items.length} items. PDF report includes all items.</p>`;
+
+  // Strategy by class
+  const strat = `<h2 style="margin-top:32px;margin-bottom:14px">Management strategy by class</h2>
+    <div style="background:rgba(239,68,68,0.06);border-left:3px solid #B91C1C;padding:14px 16px;margin-bottom:10px;border-radius:6px"><strong>A items (${aItems.length}, ${(aVal/totalValue*100).toFixed(0)}% of value)</strong> - tight control. Weekly cycle counts. Calculated reorder points with safety stock. Dual-source critical items. Monthly demand forecasts. Prime warehouse locations, FIFO enforced.</div>
+    <div style="background:rgba(245,158,11,0.06);border-left:3px solid #B45309;padding:14px 16px;margin-bottom:10px;border-radius:6px"><strong>B items (${bItems.length}, ${(bVal/totalValue*100).toFixed(0)}% of value)</strong> - moderate control. Monthly cycle counts. Standard min/max. Annual price reviews. Standard locations.</div>
+    <div style="background:rgba(16,185,129,0.06);border-left:3px solid #047857;padding:14px 16px;margin-bottom:10px;border-radius:6px"><strong>C items (${cItems.length}, ${(cVal/totalValue*100).toFixed(0)}% of value)</strong> - do not waste time. Quarterly counts. Two-bin or generous min/max. Bulk vendor consolidation. Consider consignment. If usage = 0 for 12 months: write off or liquidate.</div>`;
+
+  document.getElementById('detail').innerHTML = pareto + tbl + strat;
+  return { items, aItems, bItems, cItems, totalValue, aVal, bVal, cVal };
+}
+
+document.getElementById('paste').addEventListener('input', recalc);
+document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+recalc();
+
+document.getElementById('generate-pdf').addEventListener('click', () => {
+  const r = recalc();
+  if (!r.items || !r.items.length) { sgToast('Paste items first.', { type: 'error' }); return; }
+  sgBuildPdf({
+    title: 'ABC Inventory Analysis', docNumberLabel: 'Items analyzed', docNumber: r.items.length.toString(),
+    date: todayISO(),
+    fromLabel: 'PORTFOLIO', from: ['Total annual usage value: ' + fmt$K(r.totalValue), 'A items: ' + r.aItems.length + ' (' + (r.aVal/r.totalValue*100).toFixed(0) + '% of value)', 'B items: ' + r.bItems.length, 'C items: ' + r.cItems.length],
+    toLabel: 'STRATEGY', to: ['A: tight control + weekly counts', 'B: standard control + monthly counts', 'C: simplify + quarterly counts'],
+    itemColumns: ['Rank','Item','Annual usage','Unit cost','Annual value','Cum %','Class'],
+    items: r.items.slice(0, 100).map(i => [i.rank.toString(), i.id||'', i.usage.toLocaleString(), fmt$(i.cost), fmt$K(i.value), i.cumPct.toFixed(1)+'%', i.cls]),
+    itemRowMapper: x => x,
+    notes: 'Methodology: H. Ford Dickie ABC classification (GE, 1951). Items ranked by annual usage value (qty x cost). Classification based on cumulative percentage of total value: A = top ' + nn('a-thr') + '%, B = next ' + nn('b-thr') + '%, C = remainder.',
+    filename: 'abc-analysis-' + todayISO() + '.pdf'
+  });
+});
+
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>The 80/20 rule applies to your inventory</h2>
+    <p>Vilfredo Pareto observed in 1896 that 80% of land in Italy was owned by 20% of the population. The pattern repeats everywhere - including your warehouse. Roughly 20% of your SKUs drive 80% of your inventory spend. Those are your A items. The bottom 50% drive maybe 5% of spend. Managing them the same way is operational malpractice.</p>
+    <h2>Why this matters in cash terms</h2>
+    <p>A items deserve weekly attention because they hold most of your inventory cash. Improving turns on A items by 10% frees real money. C items are noise - over-investing attention on them is wasted effort that should be redirected to A items where the leverage is.</p>
+    <h2>Original framework</h2>
+    <p>H. Ford Dickie at GE formalized ABC classification in 1951. APICS/ASCM adopted it as the foundation of inventory management. The advanced version (ABC-XYZ) adds a second dimension for demand predictability - useful once you have monthly usage data, but the basic ABC is the right place to start.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What thresholds should I use for A/B/C?</summary><p>Classic 80/15/5 is the right starting point. If your top items are very concentrated (top 10 items = 80% of value), shift to 70/20/10. The point is to identify a small, manageable A list - not to match any particular textbook split.</p></details>
+    <details><summary>How often should I re-run ABC?</summary><p>Quarterly is standard. After major changes (new product launch, customer loss, supplier change) re-run immediately - the classifications can shift fast.</p></details>
+    <details><summary>Should I include WIP and finished goods?</summary><p>For raw material inventory management, just raw materials. For overall portfolio analysis, all categories. Run them separately - their dynamics are different.</p></details>
+    <details><summary>What is ABC-XYZ?</summary><p>A 9-box matrix combining ABC (value) with XYZ (demand predictability). AX = high-value/stable (great for JIT). AZ = high-value/erratic (the most dangerous box - tight monitoring required). Requires 12+ months of monthly usage data to compute.</p></details>
+    <details><summary>Should I delete C items?</summary><p>Audit them, do not auto-delete. Items with zero usage in 12 months are dead stock candidates. Items with low but consistent usage may be necessary spare parts or seasonal items - simplify their management but keep them.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

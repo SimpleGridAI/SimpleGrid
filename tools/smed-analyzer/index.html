@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>SMED Changeover Analyzer | SimpleGrid</title>
+<meta name="description" content="List changeover steps. Classify internal vs external. See your SMED target and annual margin recovered. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/smed-analyzer/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/smed-analyzer/"><meta property="og:title" content="SMED Changeover Analyzer | SimpleGrid"><meta property="og:description" content="List changeover steps. Classify internal vs external. See your SMED target and annual margin recovered. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"SMED Changeover Analyzer | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/smed-analyzer/","description":"List changeover steps. Classify internal vs external. See your SMED target and annual margin recovered. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"SMED Changeover Analyzer | SimpleGrid","item":"https://simplegrid.ai/tools/smed-analyzer/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does SMED stand for?","acceptedAnswer":{"@type":"Answer","text":"Single-Minute Exchange of Die. Coined by Shigeo Shingo at Toyota. The original target: sub-10-minute changeovers (single digits of minutes), not literally 60 seconds."}},
+{"@type":"Question","name":"How do I tell internal from external?","acceptedAnswer":{"@type":"Answer","text":"Internal = the machine must be down for this step (e.g., physically swapping the die). External = could be done while the previous job is still running (e.g., walking to fetch the next die, pre-heating, paperwork)."}},
+{"@type":"Question","name":"What is a realistic improvement?","acceptedAnswer":{"@type":"Answer","text":"First-pass workshops cut changeover by 40-60% just by externalizing prep work. Another 20-30% comes from parallel operations and fixturing over the following months."}},
+{"@type":"Question","name":"Do we need to invest in tooling?","acceptedAnswer":{"@type":"Answer","text":"Not for Stage 1 (separate internal vs. external) - pure process. Stage 2 sometimes needs preset jigs or duplicate fixtures. Stage 3 (streamline remaining internal) is where capex shows up."}},
+{"@type":"Question","name":"Which lines benefit most?","acceptedAnswer":{"@type":"Answer","text":"High-mix, low-volume lines with frequent changeovers - machine shops, packaging lines, short-run fab. If you change over more than twice per shift, SMED pays back in weeks."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>SMED Analyzer (Changeover Reduction).</h1>
+    <p class="lead">Most "setup" steps do not require the machine to be down. Pre-staging tools, fetching the next die, paperwork - all external. SMED separates them and lets you cut changeover by 40-60% with zero capex.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Changeover steps <span class="hint" style="font-weight:400;font-size:14px;color:var(--fg3)">- one per line: step, minutes, type (I/E), can externalize (Y/N)</span></h2>
+      <textarea id="steps-paste" rows="10" placeholder="Walk to tool crib for next die, 6, I, Y&#10;Park machine, open guard, 2, I, N&#10;Remove old die, 8, I, N&#10;Install new die, 12, I, N&#10;Find correct bolts, 5, I, Y&#10;Align die, 7, I, N&#10;First-article inspection, 6, I, N&#10;Update job traveler, 3, E, N" style="width:100%;font-family:var(--font-mono,monospace);font-size:13px;padding:12px;border-radius:8px;border:1px solid var(--border)">Walk to tool crib for next die, 6, I, Y
+Park machine open guard, 2, I, N
+Remove old die, 8, I, N
+Install new die, 12, I, N
+Find correct bolts, 5, I, Y
+Align die, 7, I, N
+First-article inspection, 6, I, N
+Update job traveler, 3, E, N</textarea>
+      <p class="tool-note" style="margin-top:8px">Type: I = internal (machine must be down), E = external (could be done while previous job is running). Can externalize: Y = with prep work, this internal step could become external.</p>
+    </div>
+
+    <div class="tool-card"><h2>Cost inputs</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="freq">Changeovers per week</label><input id="freq" type="number" data-clamp="0,500" step="1" value="8"></div>
+        <div class="tool-field"><label for="cm">Contribution margin per uptime minute ($)</label><input id="cm" type="number" data-clamp="0,1000" step="0.5" value="12"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When changeovers eat the day</div>
+      <h2>SimpleGrid logs every changeover with start and stop times - across all machines.</h2>
+      <p>You see which machines run long, which operators are fastest, and which SKU combinations cost you the most setup time per shipped dollar.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="smed_analyzer_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+
+function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+function nv(id){var v=document.getElementById(id).value; return v===''?null:parseFloat(v);}
+
+function parseSteps(){
+  var raw = document.getElementById('steps-paste').value.trim();
+  if(!raw) return [];
+  var steps=[];
+  raw.split(/\r?\n/).forEach(function(line){
+    var parts = line.split(/\t|,/).map(function(s){ return s.trim(); });
+    if(parts.length<3) return;
+    var ext = parts.length>=4 ? parts[3].toUpperCase().startsWith('Y') : false;
+    var type = parts[parts.length - (parts.length>=4 ? 2 : 1)].toUpperCase();
+    var min = parseFloat(parts[parts.length - (parts.length>=4 ? 3 : 2)]);
+    var name = parts.slice(0, parts.length - (parts.length>=4 ? 3 : 2)).join(', ');
+    if(!isFinite(min) || min<0) return;
+    steps.push({ name: name, min: min, type: type==='E'?'E':'I', ext: ext });
+  });
+  return steps;
+}
+
+function recalc(){
+  var steps = parseSteps();
+  var freq = nn('freq'), cm = nn('cm');
+  var warns=[];
+  if(!steps.length){
+    document.getElementById('hero').innerHTML='<div data-sg-warn></div><div class="big-caption">Enter changeover steps to see SMED analysis.</div>';
+    sgWarnPanel(document.getElementById('hero'), ['Add steps (name, minutes, I/E, Y/N) one per line.']);
+    document.getElementById('detail').innerHTML='';
+    return { steps: [] };
+  }
+  var total = steps.reduce(function(s,x){ return s+x.min; }, 0);
+  var internal = steps.filter(function(x){ return x.type==='I'; }).reduce(function(s,x){ return s+x.min; }, 0);
+  var external = total - internal;
+  var mis = steps.filter(function(x){ return x.type==='I' && x.ext; }).reduce(function(s,x){ return s+x.min; }, 0);
+  var target = internal - mis;
+  var savedMin = mis;
+  var annual = savedMin * freq * 52 * cm;
+  var redPct = sgSafeDiv(savedMin, internal) * 100;
+
+  var hero=document.getElementById('hero');
+  hero.innerHTML = '<div data-sg-warn></div>'+
+    '<div class="big-label">Machine-down time after externalizing</div>'+
+    '<div class="big-number green">'+target.toFixed(1)+' min</div>'+
+    '<div class="big-caption">Down from '+internal.toFixed(1)+' min (current internal) - a '+redPct.toFixed(0)+'% cut with zero capex</div>'+
+    '<div class="results-grid" style="margin-top:24px">'+
+      '<div class="results-stat"><div class="label">Current changeover</div><div class="value">'+total.toFixed(1)+' min</div><div class="sub">'+steps.length+' steps</div></div>'+
+      '<div class="results-stat"><div class="label">Minutes recovered / changeover</div><div class="value green">'+savedMin.toFixed(1)+'</div><div class="sub">externalize prep work</div></div>'+
+      '<div class="results-stat"><div class="label">Annual margin recovered</div><div class="value green">'+fmt$K(annual)+'</div><div class="sub">at '+freq+' changeovers/wk</div></div>'+
+    '</div>';
+  sgWarnPanel(hero, warns);
+
+  var tbl = '<h2>Step breakdown</h2><table class="results-table"><thead><tr><th>#</th><th>Step</th><th class="num">Min</th><th>Type</th><th>Action</th></tr></thead><tbody>';
+  steps.forEach(function(s,i){
+    var action = s.type==='I' ? (s.ext ? 'Externalize (move to before/after run)' : 'Streamline (already internal)') : 'Already external';
+    var cls = s.type==='I' ? (s.ext ? 'gold' : 'red') : 'green';
+    tbl += '<tr><td>'+(i+1)+'</td><td>'+sgEscapeHtml(s.name)+'</td><td class="num">'+s.min.toFixed(1)+'</td><td class="'+cls+'"><strong>'+(s.type==='I'?'Internal':'External')+'</strong></td><td>'+action+'</td></tr>';
+  });
+  tbl += '</tbody></table>';
+
+  var stages = '<h2 style="margin-top:32px">SMED stages</h2>'+
+    '<div style="background:rgba(239,68,68,0.06);border-left:3px solid #B91C1C;padding:14px 16px;margin-bottom:10px;border-radius:6px"><strong>Stage 1 - separate internal from external (this analysis)</strong>: '+savedMin.toFixed(1)+' min of work currently done while the machine is down could be done before or after. Pure process change, no capex. Typical first-pass: 30-50% cut.</div>'+
+    '<div style="background:rgba(245,158,11,0.06);border-left:3px solid #B45309;padding:14px 16px;margin-bottom:10px;border-radius:6px"><strong>Stage 2 - convert remaining internal to external</strong>: pre-heating, pre-positioning, duplicate fixtures. Small capex. Typical: another 20-30% cut.</div>'+
+    '<div style="background:rgba(16,185,129,0.06);border-left:3px solid #047857;padding:14px 16px;margin-bottom:10px;border-radius:6px"><strong>Stage 3 - streamline remaining internal steps</strong>: quick-clamps, one-turn fasteners, automated alignment. Higher capex. Required to hit sub-10-minute "single digit minute" changeovers.</div>';
+
+  document.getElementById('detail').innerHTML = tbl + stages;
+  return { steps, total, internal, external, mis, target, savedMin, annual };
+}
+document.getElementById('steps-paste').addEventListener('input', recalc);
+document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+recalc();
+document.getElementById('generate-pdf').addEventListener('click', () => {
+  var r = recalc();
+  if(!r.steps.length){ sgToast('Add steps first.', { type:'error' }); return; }
+  sgBuildPdf({
+    title: 'SMED Changeover Analysis', docNumberLabel: 'Date', docNumber: todayISO(),
+    date: todayISO(),
+    fromLabel: 'CURRENT', from: ['Total changeover: '+r.total.toFixed(1)+' min', 'Internal: '+r.internal.toFixed(1)+' min', 'External: '+r.external.toFixed(1)+' min', 'Frequency: '+nn('freq')+'/wk'],
+    toLabel: 'AFTER STAGE 1', to: ['Machine-down: '+r.target.toFixed(1)+' min', 'Minutes recovered: '+r.savedMin.toFixed(1)+'/changeover', 'Annual recovered margin: '+fmt$K(r.annual), 'Cut: '+sgSafeDiv(r.savedMin, r.internal).toFixed(2)*100+'%'],
+    itemColumns: ['#','Step','Min','Type','Action'],
+    items: r.steps.map(function(s,i){ return [(i+1).toString(), s.name, s.min.toFixed(1), s.type==='I'?'Internal':'External', s.type==='I'?(s.ext?'Externalize':'Streamline'):'Already external']; }),
+    itemRowMapper: x => x,
+    notes: 'SMED methodology: Shingo, A Revolution in Manufacturing (Productivity Press). Stage 1 separates internal from external steps - pure process change, no capex required. Stage 2 converts internal to external. Stage 3 streamlines remaining internal.',
+    filename: 'smed-analysis-' + todayISO() + '.pdf'
+  });
+});
+
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Shingo's insight</h2>
+    <p>Most "setup" is not setup. Walking to the tool crib, finding the right bolts, fetching the next die, writing up the job - these don't need the machine down. They get done while the machine is down because nobody has separated them.</p>
+    <p>Once you separate them, you can do them in parallel with the prior run. The machine sits idle for less time. The line throughput goes up by exactly the amount you externalize. Most operators are surprised by how much this is - typically 30-50% on the first pass.</p>
+    <h2>Why "single-minute" matters</h2>
+    <p>The original SMED goal: single-digit minutes (under 10 minutes). Why? Below 10 minutes, you can run smaller batches without losing capacity to changeover. Smaller batches = less WIP, shorter lead time, faster response to demand. SMED is the enabling step for everything else in lean.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What does SMED stand for?</summary><p>Single-Minute Exchange of Die. Coined by Shigeo Shingo at Toyota. The original target: sub-10-minute changeovers (single digits of minutes), not literally 60 seconds.</p></details>
+    <details><summary>How do I tell internal from external?</summary><p>Internal = the machine must be down for this step (e.g., physically swapping the die). External = could be done while the previous job is still running (e.g., walking to fetch the next die, pre-heating, paperwork).</p></details>
+    <details><summary>What is a realistic improvement?</summary><p>First-pass workshops cut changeover by 40-60% just by externalizing prep work. Another 20-30% comes from parallel operations and fixturing over the following months.</p></details>
+    <details><summary>Do we need to invest in tooling?</summary><p>Not for Stage 1 (separate internal vs. external) - pure process. Stage 2 sometimes needs preset jigs or duplicate fixtures. Stage 3 (streamline remaining internal) is where capex shows up.</p></details>
+    <details><summary>Which lines benefit most?</summary><p>High-mix, low-volume lines with frequent changeovers - machine shops, packaging lines, short-run fab. If you change over more than twice per shift, SMED pays back in weeks.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

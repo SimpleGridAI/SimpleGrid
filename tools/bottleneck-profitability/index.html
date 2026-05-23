@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Bottleneck Profitability Calculator | SimpleGrid</title>
+<meta name="description" content="Rank products by throughput per bottleneck minute. The number that matters when capacity is constrained. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/bottleneck-profitability/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/bottleneck-profitability/"><meta property="og:title" content="Bottleneck Profitability Calculator | SimpleGrid"><meta property="og:description" content="Rank products by throughput per bottleneck minute. The number that matters when capacity is constrained. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Bottleneck Profitability Calculator | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/bottleneck-profitability/","description":"Rank products by throughput per bottleneck minute. The number that matters when capacity is constrained. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Bottleneck Profitability Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/bottleneck-profitability/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is the bottleneck?","acceptedAnswer":{"@type":"Answer","text":"The resource (machine, work center, person) with the least excess capacity relative to demand. By definition, one of every production system. The whole shop's output is limited by it."}},
+{"@type":"Question","name":"How do I find the bottleneck?","acceptedAnswer":{"@type":"Answer","text":"Walk the floor. Look for the resource with the most WIP in front of it, the highest utilization, the most frequent overtime, and the most expediting requests. It is usually obvious. If not, look at scheduling system load reports."}},
+{"@type":"Question","name":"What if the bottleneck moves?","acceptedAnswer":{"@type":"Answer","text":"It will. As you exploit and elevate one bottleneck, another emerges. That is the normal cycle of Theory of Constraints work: identify, exploit, subordinate, elevate, repeat. Bottleneck-driven scheduling makes the shifts visible."}},
+{"@type":"Question","name":"What does \"subordinate\" mean in TOC?","acceptedAnswer":{"@type":"Answer","text":"Non-bottleneck resources should not produce more than the bottleneck can consume. Producing ahead of the bottleneck builds WIP without throughput - waste, not productivity."}},
+{"@type":"Question","name":"Should we always reject low-margin work?","acceptedAnswer":{"@type":"Answer","text":"Only if it consumes bottleneck time that could be filled by higher-throughput-per-minute work. If the bottleneck is below 80% utilization, take the low-margin work - it contributes throughput even at low margin per unit."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Bottleneck Profitability Calculator.</h1>
+    <p class="lead">When one machine is the bottleneck, the most profitable product is the one that earns the most per minute of bottleneck time - not the one with the highest margin. Throughput accounting shows the difference.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Bottleneck</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="bnName">Bottleneck name</label><input id="bnName" type="text" maxlength="40" value="5-axis cell"></div>
+        <div class="tool-field"><label for="bnHrPerWk">Hours available / week</label><input id="bnHrPerWk" type="number" data-clamp="0,168" step="0.5" value="80"></div>
+        <div class="tool-field"><label for="bnFixedCost">Fixed operating cost ($/wk)</label><input id="bnFixedCost" type="number" data-clamp="0,1000000" step="100" value="14000"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Products <span class="hint" style="font-weight:400;font-size:14px;color:var(--fg3)">- one per line: product, price ($/unit), material cost ($/unit), bottleneck time (min/unit), weekly demand</span></h2>
+      <textarea id="products" rows="8" placeholder="Widget A, 120, 38, 14, 200&#10;Widget B, 280, 95, 45, 80&#10;Widget C, 65, 22, 6, 600&#10;Widget D, 180, 60, 22, 150" style="width:100%;font-family:var(--font-mono,monospace);font-size:13px;padding:12px;border-radius:8px;border:1px solid var(--border)">Widget A, 120, 38, 14, 200
+Widget B, 280, 95, 45, 80
+Widget C, 65, 22, 6, 600
+Widget D, 180, 60, 22, 150</textarea>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When the bottleneck makes the wrong parts</div>
+      <h2>SimpleGrid identifies the bottleneck in real time and ranks every quote by bottleneck-minute profitability.</h2>
+      <p>Sales sees which orders are good business and which are filling capacity that should run something better. Quoting catches up with throughput thinking.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="bottleneck_profitability_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+
+function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+function parseProducts(){
+  var raw = document.getElementById('products').value.trim();
+  if(!raw) return [];
+  var out=[];
+  raw.split(/\r?\n/).forEach(function(line){
+    var parts = line.split(/\t|,/).map(function(s){ return s.trim().replace(/[$,]/g, ''); });
+    if(parts.length<5) return;
+    var demand = parseFloat(parts[parts.length-1]);
+    var bnMin = parseFloat(parts[parts.length-2]);
+    var matCost = parseFloat(parts[parts.length-3]);
+    var price = parseFloat(parts[parts.length-4]);
+    var name = parts.slice(0, parts.length-4).join(', ');
+    if(!isFinite(price) || !isFinite(matCost) || !isFinite(bnMin) || !isFinite(demand)) return;
+    out.push({ name: name, price: price, matCost: matCost, bnMin: bnMin, demand: demand });
+  });
+  return out;
+}
+
+function recalc(){
+  var bnHrPerWk = nn('bnHrPerWk'), bnFixed = nn('bnFixedCost');
+  var products = parseProducts();
+  if(!products.length){
+    document.getElementById('hero').innerHTML='<div data-sg-warn></div><div class="big-caption">Enter at least one product.</div>';
+    sgWarnPanel(document.getElementById('hero'), ['Add products (name, price, material cost, bottleneck minutes, demand) one per line.']);
+    document.getElementById('detail').innerHTML='';
+    return { products: [] };
+  }
+  var bnMinPerWk = bnHrPerWk * 60;
+
+  products.forEach(function(p){
+    p.tput = p.price - p.matCost;
+    p.tputPerMin = sgSafeDiv(p.tput, p.bnMin);
+    p.marginPct = sgSafeDiv(p.tput, p.price) * 100;
+    p.demandMin = p.demand * p.bnMin;
+  });
+
+  // Sort by throughput per bottleneck minute (descending)
+  var byTpm = products.slice().sort(function(a,b){ return b.tputPerMin - a.tputPerMin; });
+  // Sort by margin (descending) - for comparison
+  var byMargin = products.slice().sort(function(a,b){ return b.marginPct - a.marginPct; });
+
+  // Greedy allocation by TPM
+  var remaining = bnMinPerWk;
+  var alloc = [];
+  byTpm.forEach(function(p){
+    var demandMin = p.demand * p.bnMin;
+    var useMin = Math.min(demandMin, remaining);
+    var units = useMin / p.bnMin;
+    remaining -= useMin;
+    alloc.push(Object.assign({}, p, { allocMin: useMin, allocUnits: units, weeklyThroughput: units * p.tput }));
+  });
+  var totalThroughput = alloc.reduce(function(s,a){ return s+a.weeklyThroughput; }, 0);
+  var netProfit = totalThroughput - bnFixed;
+  var demandMinTotal = products.reduce(function(s,p){ return s+p.demandMin; }, 0);
+  var loadPct = sgSafeDiv(demandMinTotal, bnMinPerWk) * 100;
+
+  var hero=document.getElementById('hero');
+  hero.innerHTML = '<div data-sg-warn></div>'+
+    '<div class="big-label">Weekly throughput (T) at optimal mix</div>'+
+    '<div class="big-number green">'+fmt$K(totalThroughput)+'</div>'+
+    '<div class="big-caption">Less fixed cost ('+fmt$K(bnFixed)+') = <strong>net profit '+fmt$K(netProfit)+'/week</strong></div>'+
+    '<div class="results-grid" style="margin-top:24px">'+
+      '<div class="results-stat"><div class="label">Bottleneck demand vs. capacity</div><div class="value '+(loadPct>100?'red':loadPct>85?'gold':'green')+'">'+loadPct.toFixed(0)+'%</div><div class="sub">'+(demandMinTotal/60).toFixed(0)+' / '+bnHrPerWk+' hr</div></div>'+
+      '<div class="results-stat"><div class="label">Highest $/bottleneck minute</div><div class="value">'+fmt$(byTpm[0].tputPerMin)+'</div><div class="sub">'+sgEscapeHtml(byTpm[0].name)+'</div></div>'+
+      '<div class="results-stat"><div class="label">Annual run-rate</div><div class="value">'+fmt$K(totalThroughput*50)+'</div><div class="sub">at 50 wks</div></div>'+
+    '</div>';
+
+  var ranked = '<h2>Ranked by throughput per bottleneck minute</h2><table class="results-table"><thead><tr><th>#</th><th>Product</th><th class="num">Price</th><th class="num">Throughput (T)</th><th class="num">T %</th><th class="num">BN min/unit</th><th class="num">$/BN min</th><th>Margin rank</th></tr></thead><tbody>';
+  byTpm.forEach(function(p, i){
+    var mIdx = byMargin.findIndex(function(x){ return x.name===p.name; }) + 1;
+    var different = (i+1) !== mIdx;
+    ranked += '<tr><td><strong>'+(i+1)+'</strong></td><td>'+sgEscapeHtml(p.name)+'</td><td class="num">'+fmt$(p.price)+'</td><td class="num">'+fmt$(p.tput)+'</td><td class="num">'+p.marginPct.toFixed(0)+'%</td><td class="num">'+p.bnMin.toFixed(1)+'</td><td class="num"><strong>'+fmt$(p.tputPerMin)+'</strong></td><td>#'+mIdx+(different?' <span style="color:#B45309">(different)</span>':'')+'</td></tr>';
+  });
+  ranked += '</tbody></table><p class="tool-note" style="margin-top:8px">If TPM rank differs from margin rank, your highest-margin product is not your most profitable product per minute of capacity. That is the throughput-accounting insight.</p>';
+
+  var allocTbl = '<h2 style="margin-top:32px">Optimal weekly schedule</h2><table class="results-table"><thead><tr><th>Product</th><th class="num">Units to make</th><th class="num">BN minutes used</th><th class="num">Weekly T contribution</th></tr></thead><tbody>';
+  alloc.forEach(function(a){
+    allocTbl += '<tr><td>'+sgEscapeHtml(a.name)+'</td><td class="num">'+a.allocUnits.toFixed(0)+'</td><td class="num">'+a.allocMin.toFixed(0)+'</td><td class="num">'+fmt$K(a.weeklyThroughput)+'</td></tr>';
+  });
+  allocTbl += '<tr style="background:rgba(52,97,224,0.06);font-weight:600"><td>TOTAL</td><td class="num">-</td><td class="num">'+(bnMinPerWk - remaining).toFixed(0)+' / '+bnMinPerWk+'</td><td class="num">'+fmt$K(totalThroughput)+'</td></tr></tbody></table>';
+
+  document.getElementById('detail').innerHTML = ranked + allocTbl + '<p style="margin-top:16px">Reference: Eliyahu Goldratt, <i>The Goal</i>; Corbett, <i>Throughput Accounting</i>; Theory of Constraints body of knowledge.</p>';
+  return { totalThroughput, netProfit, alloc, byTpm, byMargin, loadPct, bnMinPerWk };
+}
+document.getElementById('products').addEventListener('input', recalc);
+document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+recalc();
+document.getElementById('generate-pdf').addEventListener('click', () => {
+  var r = recalc();
+  if(!r.alloc.length){ sgToast('Add products first.', { type:'error' }); return; }
+  sgBuildPdf({
+    title: 'Bottleneck Profitability', docNumberLabel: 'Date', docNumber: todayISO(),
+    date: todayISO(),
+    fromLabel: 'BOTTLENECK', from: ['Resource: '+document.getElementById('bnName').value, 'Hours/wk: '+nn('bnHrPerWk'), 'Fixed cost: '+fmt$K(nn('bnFixedCost'))+'/wk', 'Demand load: '+r.loadPct.toFixed(0)+'%'],
+    toLabel: 'RESULT', to: ['Weekly throughput: '+fmt$K(r.totalThroughput), 'Net profit: '+fmt$K(r.netProfit)+'/wk', 'Annual run-rate: '+fmt$K(r.totalThroughput*50), 'Top product: '+r.byTpm[0].name+' at '+fmt$(r.byTpm[0].tputPerMin)+'/BN min'],
+    itemColumns: ['#','Product','$/BN min','Make','BN min used','Throughput'],
+    items: r.alloc.map(function(a, i){ return [(i+1).toString(), a.name, fmt$(a.tputPerMin), a.allocUnits.toFixed(0), a.allocMin.toFixed(0), fmt$K(a.weeklyThroughput)]; }),
+    itemRowMapper: x => x,
+    notes: 'Throughput Accounting (TOC): rank products by Throughput per bottleneck minute, not by gross margin. Throughput (T) = Price - Material Cost. Greedy allocation: highest $/BN min first, fill remaining capacity downward. Reference: Goldratt, The Goal.',
+    filename: 'bottleneck-profit-' + todayISO() + '.pdf'
+  });
+});
+
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why gross margin lies when capacity is tight</h2>
+    <p>Conventional accounting says: rank products by gross margin, focus on the high-margin ones. That works when capacity is unlimited. When one resource is the bottleneck, the right ranking is throughput per minute of that resource - not gross margin per unit.</p>
+    <p>A 60%-margin product that takes 45 minutes on the bottleneck earns less per bottleneck minute than a 35%-margin product that takes 14 minutes. If the bottleneck is saturated, making the first product is the wrong choice. Most ERP systems and most quoting processes get this wrong.</p>
+    <h2>The throughput-accounting view</h2>
+    <p>Throughput (T) = Sales Price - Material Cost. Everything else (labor, overhead) is Operating Expense (OE) - largely fixed in the short term. The question is not "what is the margin" but "how much T does each minute of the bottleneck produce."</p>
+    <p>Then you maximize Net Profit = Total T - OE. Eliyahu Goldratt's Theory of Constraints, in a sentence.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is the bottleneck?</summary><p>The resource (machine, work center, person) with the least excess capacity relative to demand. By definition, one of every production system. The whole shop's output is limited by it.</p></details>
+    <details><summary>How do I find the bottleneck?</summary><p>Walk the floor. Look for the resource with the most WIP in front of it, the highest utilization, the most frequent overtime, and the most expediting requests. It is usually obvious. If not, look at scheduling system load reports.</p></details>
+    <details><summary>What if the bottleneck moves?</summary><p>It will. As you exploit and elevate one bottleneck, another emerges. That is the normal cycle of Theory of Constraints work: identify, exploit, subordinate, elevate, repeat. Bottleneck-driven scheduling makes the shifts visible.</p></details>
+    <details><summary>What does "subordinate" mean in TOC?</summary><p>Non-bottleneck resources should not produce more than the bottleneck can consume. Producing ahead of the bottleneck builds WIP without throughput - waste, not productivity.</p></details>
+    <details><summary>Should we always reject low-margin work?</summary><p>Only if it consumes bottleneck time that could be filled by higher-throughput-per-minute work. If the bottleneck is below 80% utilization, take the low-margin work - it contributes throughput even at low margin per unit.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

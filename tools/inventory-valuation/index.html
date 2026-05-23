@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Inventory Valuation Calculator: FIFO vs LIFO vs Weighted Average | SimpleGrid</title>
+<meta name="description" content="Compare FIFO, LIFO, and weighted-average inventory valuation. See COGS, ending inventory, gross profit, tax impact. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/inventory-valuation/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/inventory-valuation/"><meta property="og:title" content="Inventory Valuation Calculator: FIFO vs LIFO vs Weighted Average | SimpleGrid"><meta property="og:description" content="Compare FIFO, LIFO, and weighted-average inventory valuation. See COGS, ending inventory, gross profit, tax impact. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Inventory Valuation Calculator: FIFO vs LIFO vs Weighted Average | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/inventory-valuation/","description":"Compare FIFO, LIFO, and weighted-average inventory valuation. See COGS, ending inventory, gross profit, tax impact. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Inventory Valuation Calculator: FIFO vs LIFO vs Weighted Average | SimpleGrid","item":"https://simplegrid.ai/tools/inventory-valuation/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Why does method matter if my inventory is the same physically?","acceptedAnswer":{"@type":"Answer","text":"Because the accounting assumption about WHICH units were used affects COGS, which affects taxable income. Same physical reality, different reported profit."}},
+{"@type":"Question","name":"Should I switch to LIFO for the tax savings?","acceptedAnswer":{"@type":"Answer","text":"Maybe. Run the numbers. If your annual material spend is below $1M, the complexity probably is not worth it. Above $5M with rising commodity costs, LIFO can save real money - but talk to your accountant about IRS Form 3115 first."}},
+{"@type":"Question","name":"What is the LIFO conformity rule?","acceptedAnswer":{"@type":"Answer","text":"If you elect LIFO for tax purposes, you must also use LIFO for your audited financial statements. You cannot show high profit on financial reports and low profit to the IRS."}},
+{"@type":"Question","name":"Why is LIFO prohibited under IFRS?","acceptedAnswer":{"@type":"Answer","text":"IFRS regulators decided LIFO does not reflect actual inventory flow and can be used to manipulate earnings (LIFO liquidations can artificially boost profit). The IRS still allows it because it generates real economic effects."}},
+{"@type":"Question","name":"What happens to LIFO reserve when prices fall?","acceptedAnswer":{"@type":"Answer","text":"It shrinks. If you have built up a large LIFO reserve over years of rising prices and then prices fall, you can recognize \"LIFO liquidation\" gain - which is taxable. Surprise to many manufacturers."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Inventory Valuation: FIFO vs LIFO vs Weighted Average.</h1>
+    <p class="lead">Same physical inventory, three financial values. Method choice affects COGS, gross profit, taxable income, and balance sheet. This tool shows the difference.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Purchase history (oldest first)</h2>
+      <p class="tool-note" style="margin:0 0 12px">Add purchases for one inventory item. Beginning inventory goes in the first row.</p>
+      <table class="results-table">
+        <thead><tr><th>Date</th><th class="num">Quantity</th><th class="num">Unit cost ($)</th><th class="col-actions"></th></tr></thead>
+        <tbody id="purch-body"></tbody>
+      </table>
+      <div class="tool-actions"><button type="button" id="add-purch" class="btn-add">+ Add purchase</button></div>
+    </div>
+
+    <div class="tool-card"><h2>Usage / sales for the period</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="sold">Total units sold / used</label><input id="sold" type="number" data-clamp="0,1000000000" step="100" value="14000" data-required></div>
+        <div class="tool-field"><label for="price">Selling price / unit ($) <span class="hint">optional, for margin</span></label><input id="price" type="number" data-clamp="0,1000000" step="0.01" value="2.50"></div>
+        <div class="tool-field"><label for="tax">Marginal tax rate (%)</label><input id="tax" type="number" data-clamp="0,60" step="1" value="25"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When you do not know your inventory method is costing you</div>
+      <h2>SimpleGrid handles all three methods automatically per receipt and issue.</h2>
+      <p>Your COGS, inventory value, and margin reports are always accurate and always current.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="inventory_valuation_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+
+function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+const purchBody = document.getElementById('purch-body');
+function addPurch(p) {
+  p = p || {};
+  const esc = sgEscapeHtml;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><input type="date" data-f="date" value="${esc(p.date||'')}" style="width:100%"></td><td><input type="number" data-clamp="0,100000000" step="100" data-f="qty" value="${esc(p.qty||'')}" style="width:100%"></td><td><input type="number" data-clamp="0,1000000" step="0.01" data-f="cost" value="${esc(p.cost||'')}" style="width:100%"></td><td class="col-actions"><button type="button" class="row-del">x</button></td>`;
+  purchBody.appendChild(tr);
+  tr.querySelector('.row-del').addEventListener('click', () => { tr.remove(); recalc(); });
+  tr.querySelectorAll('input').forEach(i => i.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(tr);
+}
+[['2026-01-15', 5000, 1.20],['2026-03-10', 6000, 1.35],['2026-06-05', 6000, 1.50]].forEach(p => addPurch({date:p[0], qty:p[1], cost:p[2]}));
+document.getElementById('add-purch').addEventListener('click', () => addPurch());
+
+function recalc(){
+  const purchases = Array.from(purchBody.querySelectorAll('tr')).map(tr => {
+    const get = f => tr.querySelector(`[data-f="${f}"]`).value;
+    return { date: get('date'), qty: parseFloat(get('qty'))||0, cost: parseFloat(get('cost'))||0 };
+  }).filter(p => p.qty > 0 && p.cost > 0);
+
+  const sold = nn('sold');
+  const price = nn('price');
+  const tax = nn('tax') / 100;
+
+  const warns = [];
+  if (!purchases.length) warns.push('Add at least one purchase row.');
+  const totalAvailable = purchases.reduce((s,p) => s + p.qty, 0);
+  const totalCost = purchases.reduce((s,p) => s + p.qty * p.cost, 0);
+  if (sold > totalAvailable) warns.push('Sold units (' + sold + ') exceeds total purchased (' + totalAvailable + '). Add more purchase rows or reduce units sold.');
+
+  const ending = Math.max(0, totalAvailable - sold);
+  purchases.sort((a,b) => a.date.localeCompare(b.date));
+
+  // FIFO
+  let fifoCogs = 0, remaining = sold;
+  for (const p of purchases) {
+    if (remaining <= 0) break;
+    const used = Math.min(p.qty, remaining);
+    fifoCogs += used * p.cost;
+    remaining -= used;
+  }
+  const fifoEnding = totalCost - fifoCogs;
+
+  // LIFO
+  let lifoCogs = 0; remaining = sold;
+  for (const p of [...purchases].reverse()) {
+    if (remaining <= 0) break;
+    const used = Math.min(p.qty, remaining);
+    lifoCogs += used * p.cost;
+    remaining -= used;
+  }
+  const lifoEnding = totalCost - lifoCogs;
+
+  // Weighted average
+  const wavgCost = totalCost / totalAvailable;
+  const wavgCogs = sold * wavgCost;
+  const wavgEnding = ending * wavgCost;
+
+  // Margins
+  const revenue = sold * price;
+  const fifoGp = revenue - fifoCogs, lifoGp = revenue - lifoCogs, wavgGp = revenue - wavgCogs;
+  const fifoTax = fifoGp * tax, lifoTax = lifoGp * tax, wavgTax = wavgGp * tax;
+  const taxDelta = fifoTax - lifoTax;
+
+  const hero = document.getElementById('hero');
+  const high = Math.max(fifoCogs, lifoCogs, wavgCogs);
+  const low = Math.min(fifoCogs, lifoCogs, wavgCogs);
+  const range = high - low;
+  hero.innerHTML = `
+    <div data-sg-warn></div>
+    <div class="big-label">COGS difference between methods</div>
+    <div class="big-number">${fmt$K(range)}</div>
+    <div class="big-caption">Total available: ${totalAvailable.toLocaleString()} units &middot; Total cost: ${fmt$K(totalCost)} &middot; Sold: ${sold.toLocaleString()} &middot; Ending: ${ending.toLocaleString()}</div>
+    <div class="results-grid" style="margin-top:24px">
+      <div class="results-stat"><div class="label">FIFO - COGS</div><div class="value">${fmt$K(fifoCogs)}</div><div class="sub">ending: ${fmt$K(fifoEnding)}</div></div>
+      <div class="results-stat"><div class="label">LIFO - COGS</div><div class="value">${fmt$K(lifoCogs)}</div><div class="sub">ending: ${fmt$K(lifoEnding)}</div></div>
+      <div class="results-stat"><div class="label">Weighted avg - COGS</div><div class="value">${fmt$K(wavgCogs)}</div><div class="sub">ending: ${fmt$K(wavgEnding)}</div></div>
+    </div>
+  `;
+  sgWarnPanel(hero, warns);
+
+  // Comparison table
+  let tbl = '<h2 style="margin-top:8px;margin-bottom:14px">Full comparison</h2><table class="results-table"><thead><tr><th>Method</th><th class="num">COGS</th><th class="num">COGS/unit</th><th class="num">Ending inventory</th>' + (price > 0 ? '<th class="num">Gross profit</th><th class="num">Gross margin</th><th class="num">Tax</th>' : '') + '</tr></thead><tbody>';
+  function row(name, cogs, ending) {
+    let r = `<tr><td><strong>${name}</strong></td><td class="num">${fmt$K(cogs)}</td><td class="num">${fmt$(cogs/sold)}</td><td class="num">${fmt$K(ending)}</td>`;
+    if (price > 0) {
+      const gp = revenue - cogs;
+      const gm = sgSafeDiv(gp, revenue) * 100;
+      r += `<td class="num">${fmt$K(gp)}</td><td class="num">${gm.toFixed(1)}%</td><td class="num">${fmt$K(gp * tax)}</td>`;
+    }
+    return r + '</tr>';
+  }
+  tbl += row('FIFO', fifoCogs, fifoEnding);
+  tbl += row('LIFO', lifoCogs, lifoEnding);
+  tbl += row('Weighted avg', wavgCogs, wavgEnding);
+  tbl += '</tbody></table>';
+
+  // Tax impact
+  let taxBlock = '';
+  if (price > 0 && Math.abs(taxDelta) > 100) {
+    const rising = fifoCogs < lifoCogs; // costs rising = FIFO has lower COGS
+    taxBlock = `<h2 style="margin-top:32px;margin-bottom:14px">Tax impact</h2>
+      <div style="background:${rising?'#FEF3C7':'#ECFDF5'};border-left:4px solid ${rising?'#B45309':'#047857'};padding:14px 16px;border-radius:6px">
+        <p style="margin:0;font-size:15px;color:${rising?'#78350F':'#064E3B'};line-height:1.6">${rising ? 'Costs are rising in this period. FIFO produces <strong>' + fmt$K(taxDelta) + ' MORE tax</strong> than LIFO (cash to IRS instead of staying with you).' : 'Costs are falling in this period. FIFO produces <strong>' + fmt$K(Math.abs(taxDelta)) + ' LESS tax</strong> than LIFO.'}</p>
+        <p style="margin:8px 0 0;font-size:14px;color:#78350F">Note: LIFO is allowed under US GAAP but prohibited under IFRS. If you report internationally, LIFO is not an option. Changing methods requires IRS Form 3115 - talk to your accountant before switching.</p>
+      </div>`;
+  }
+
+  document.getElementById('detail').innerHTML = tbl + taxBlock;
+  return { purchases, sold, ending, totalAvailable, totalCost, fifoCogs, fifoEnding, lifoCogs, lifoEnding, wavgCogs, wavgEnding, price, revenue, fifoGp, lifoGp, wavgGp, taxDelta };
+}
+document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+recalc();
+document.getElementById('generate-pdf').addEventListener('click', () => {
+  if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+  const r = recalc();
+  sgBuildPdf({
+    title: 'Inventory Valuation Comparison', docNumberLabel: 'Method spread', docNumber: fmt$K(Math.max(r.fifoCogs, r.lifoCogs, r.wavgCogs) - Math.min(r.fifoCogs, r.lifoCogs, r.wavgCogs)),
+    date: todayISO(),
+    fromLabel: 'INPUTS', from: ['Total available: ' + r.totalAvailable.toLocaleString() + ' units', 'Total cost: ' + fmt$K(r.totalCost), 'Sold: ' + r.sold.toLocaleString(), 'Ending: ' + r.ending.toLocaleString()],
+    toLabel: 'RESULTS', to: ['FIFO COGS: ' + fmt$K(r.fifoCogs) + ' / ending ' + fmt$K(r.fifoEnding), 'LIFO COGS: ' + fmt$K(r.lifoCogs) + ' / ending ' + fmt$K(r.lifoEnding), 'WAvg COGS: ' + fmt$K(r.wavgCogs) + ' / ending ' + fmt$K(r.wavgEnding)],
+    itemColumns: ['Method','COGS','Ending inventory'],
+    items: [['FIFO', fmt$K(r.fifoCogs), fmt$K(r.fifoEnding)], ['LIFO', fmt$K(r.lifoCogs), fmt$K(r.lifoEnding)], ['Weighted average', fmt$K(r.wavgCogs), fmt$K(r.wavgEnding)]],
+    itemRowMapper: x => x,
+    notes: 'GAAP ASC 330, IAS 2 (IFRS). LIFO permitted under US GAAP but prohibited under IFRS. LIFO conformity rule: if used for tax, must be used for financial reporting. Method change requires IRS Form 3115.',
+    filename: 'inventory-valuation-' + todayISO() + '.pdf'
+  });
+});
+
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>The three methods, in one sentence each</h2>
+    <p><strong>FIFO (First In, First Out):</strong> COGS uses the oldest costs - matches physical flow (oldest material used first). Higher inventory value on the balance sheet. Higher COGS-driven profit during inflation.</p>
+    <p><strong>LIFO (Last In, First Out):</strong> COGS uses the newest costs - tax-favorable during inflation (lower profit = lower tax). Balance sheet shows old, often understated inventory values. Not allowed under IFRS.</p>
+    <p><strong>Weighted Average:</strong> Smooths everything to one average cost. Simplest to maintain. No tax advantage either direction. Allowed under both GAAP and IFRS.</p>
+    <h2>Which method most US manufacturers use</h2>
+    <p>FIFO is the default for most mid-market manufacturers. LIFO has tax advantages in inflationary periods but adds complexity and is rarely worth it below $1M in annual material spend. Weighted average is common in process industries (chemicals, food, commodities) where the physical mixing makes FIFO impractical.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>Why does method matter if my inventory is the same physically?</summary><p>Because the accounting assumption about WHICH units were used affects COGS, which affects taxable income. Same physical reality, different reported profit.</p></details>
+    <details><summary>Should I switch to LIFO for the tax savings?</summary><p>Maybe. Run the numbers. If your annual material spend is below $1M, the complexity probably is not worth it. Above $5M with rising commodity costs, LIFO can save real money - but talk to your accountant about IRS Form 3115 first.</p></details>
+    <details><summary>What is the LIFO conformity rule?</summary><p>If you elect LIFO for tax purposes, you must also use LIFO for your audited financial statements. You cannot show high profit on financial reports and low profit to the IRS.</p></details>
+    <details><summary>Why is LIFO prohibited under IFRS?</summary><p>IFRS regulators decided LIFO does not reflect actual inventory flow and can be used to manipulate earnings (LIFO liquidations can artificially boost profit). The IRS still allows it because it generates real economic effects.</p></details>
+    <details><summary>What happens to LIFO reserve when prices fall?</summary><p>It shrinks. If you have built up a large LIFO reserve over years of rising prices and then prices fall, you can recognize "LIFO liquidation" gain - which is taxable. Surprise to many manufacturers.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

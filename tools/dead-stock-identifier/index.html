@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Dead Stock & Slow-Moving Inventory Identifier | SimpleGrid</title>
+<meta name="description" content="Find inventory that has not moved in 6-24 months. Cash trapped, disposition recommendations, write-off candidates. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/dead-stock-identifier/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/dead-stock-identifier/"><meta property="og:title" content="Dead Stock & Slow-Moving Inventory Identifier | SimpleGrid"><meta property="og:description" content="Find inventory that has not moved in 6-24 months. Cash trapped, disposition recommendations, write-off candidates. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Dead Stock & Slow-Moving Inventory Identifier | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/dead-stock-identifier/","description":"Find inventory that has not moved in 6-24 months. Cash trapped, disposition recommendations, write-off candidates. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Dead Stock & Slow-Moving Inventory Identifier | SimpleGrid","item":"https://simplegrid.ai/tools/dead-stock-identifier/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How often should I run this analysis?","acceptedAnswer":{"@type":"Answer","text":"Quarterly minimum. Monthly is best - the longer you wait, the lower your recovery rate."}},
+{"@type":"Question","name":"What is \"dead\" - 6 months or 12?","acceptedAnswer":{"@type":"Answer","text":"Standard cutoff is 12 months for \"dead.\" For perishable or technology products, dead can be 90 days. For commodity raw materials, 18-24 months can still be \"very slow.\""}},
+{"@type":"Question","name":"Can I get a tax deduction for write-offs?","acceptedAnswer":{"@type":"Answer","text":"Yes - inventory write-downs are deductible as ordinary business expense in the year recognized. Talk to your accountant about the documentation required."}},
+{"@type":"Question","name":"Should I sell at a loss?","acceptedAnswer":{"@type":"Answer","text":"Almost always yes. A 70% loss today beats a 100% loss after the item becomes truly obsolete. Plus you free space and stop the carrying cost bleed."}},
+{"@type":"Question","name":"How do I prevent dead stock in the first place?","acceptedAnswer":{"@type":"Answer","text":"Monthly slow-moving reports (90-day threshold), engineering change alerts that flag affected inventory, restocking fees on cancelled custom orders, and lower MOQs negotiated with suppliers for slow movers."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Dead Stock &amp; Slow-Moving Inventory Identifier.</h1>
+    <p class="lead">How much of your warehouse is a museum? Items sitting 6, 12, 24 months untouched. This tool surfaces the cash trapped and recommends disposition.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Paste your inventory <span class="hint" style="font-weight:400;font-size:14px;color:var(--fg3)">- one per line: item, description, qty on hand, unit cost, last movement date</span></h2>
+      <textarea id="paste" rows="8" placeholder="SKU-A001, Old-style fitting, 850, 12.50, 2023-04-15&#10;SKU-B221, Standard widget, 120, 4.80, 2026-05-01&#10;SKU-C309, Discontinued bracket, 240, 18.00, 2022-11-08" style="width:100%;font-family:var(--font-mono,monospace);font-size:13px;padding:12px;border-radius:8px;border:1px solid var(--border)"></textarea>
+      <p class="tool-note" style="margin-top:8px">Date can be YYYY-MM-DD or MM/DD/YYYY. Items without a parseable date are skipped.</p>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When dead stock is invisible until inventory day</div>
+      <h2>SimpleGrid monitors velocity continuously - flagging items at 90 days, before they become dead.</h2>
+      <p>Prevention beats annual cleanup. Movement reports, slow-moving alerts, and write-off recommendations - automatic.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="dead_stock_identifier_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+
+function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+function parseDate(s) {
+  if (!s) return null;
+  s = s.trim();
+  let d;
+  if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(s)) d = new Date(s);
+  else if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(s)) {
+    const [m, dd, y] = s.split('/');
+    d = new Date(y, m-1, dd);
+  } else d = new Date(s);
+  return isNaN(d.getTime()) ? null : d;
+}
+function parseData() {
+  const raw = document.getElementById('paste').value.trim();
+  if (!raw) return [];
+  const today = new Date();
+  const items = [];
+  raw.split(/\r?\n/).forEach(line => {
+    if (!line.trim()) return;
+    const cells = line.split(/\t|,/).map(c => c.trim().replace(/[$,]/g, ''));
+    if (cells.length < 4) return;
+    const id = cells[0];
+    const hasDesc = cells.length >= 5 && isNaN(parseFloat(cells[1]));
+    let desc, qty, cost, dateStr;
+    if (hasDesc) {
+      [desc, qty, cost, dateStr] = [cells[1], parseFloat(cells[2]), parseFloat(cells[3]), cells[4]];
+    } else {
+      desc = '';
+      [qty, cost, dateStr] = [parseFloat(cells[1]), parseFloat(cells[2]), cells[3]];
+    }
+    const date = parseDate(dateStr);
+    if (!isFinite(qty) || !isFinite(cost) || qty <= 0 || cost <= 0 || !date) return;
+    const days = Math.floor((today - date) / 86400000);
+    let velocity, recovery;
+    if (days <= 30) { velocity = 'Active'; recovery = 1.0; }
+    else if (days <= 90) { velocity = 'Normal'; recovery = 1.0; }
+    else if (days <= 180) { velocity = 'Slow'; recovery = 0.60; }
+    else if (days <= 365) { velocity = 'Very slow'; recovery = 0.30; }
+    else { velocity = 'Dead'; recovery = 0.10; }
+    const value = qty * cost;
+    items.push({ id, desc, qty, cost, value, date, days, velocity, recovery, estRecovery: value * recovery, valueAtRisk: value * (1 - recovery) });
+  });
+  return items;
+}
+
+function recalc(){
+  const items = parseData();
+  const warns = [];
+  const hero = document.getElementById('hero');
+  if (!items.length) {
+    hero.innerHTML = '<div data-sg-warn></div><div class="big-caption">Paste your inventory data to see movement classification.</div>';
+    sgWarnPanel(hero, ['Paste items with qty, cost, and last-movement date.']);
+    document.getElementById('detail').innerHTML = '';
+    return { items: [] };
+  }
+
+  const totalValue = items.reduce((s,i) => s + i.value, 0);
+  const groups = {};
+  ['Active','Normal','Slow','Very slow','Dead'].forEach(v => groups[v] = items.filter(i => i.velocity === v));
+  const deadValue = groups['Dead'].reduce((s,i) => s + i.value, 0);
+  const slowValue = groups['Slow'].reduce((s,i) => s + i.value, 0) + groups['Very slow'].reduce((s,i) => s + i.value, 0);
+  const trapped = deadValue + slowValue;
+  const carryingCost = trapped * 0.25;
+  const writeOffRisk = items.filter(i => i.velocity === 'Dead' || i.velocity === 'Very slow').reduce((s,i) => s + i.valueAtRisk, 0);
+
+  hero.innerHTML = `
+    <div data-sg-warn></div>
+    <div class="big-label">Cash trapped in slow + dead inventory</div>
+    <div class="big-number red">${fmt$K(trapped)}</div>
+    <div class="big-caption">${(trapped/totalValue*100).toFixed(0)}% of your inventory value &middot; ~<strong>${fmt$K(carryingCost)}/year</strong> in carrying cost on stock that is not moving.</div>
+    <div class="results-grid" style="margin-top:24px">
+      <div class="results-stat"><div class="label">Dead (&gt;365 days)</div><div class="value red">${fmt$K(deadValue)}</div><div class="sub">${groups['Dead'].length} items</div></div>
+      <div class="results-stat"><div class="label">Very slow (180-365)</div><div class="value">${fmt$K(groups['Very slow'].reduce((s,i)=>s+i.value,0))}</div><div class="sub">${groups['Very slow'].length} items</div></div>
+      <div class="results-stat"><div class="label">Slow (90-180)</div><div class="value gold">${fmt$K(groups['Slow'].reduce((s,i)=>s+i.value,0))}</div><div class="sub">${groups['Slow'].length} items</div></div>
+      <div class="results-stat"><div class="label">Write-off risk</div><div class="value red">${fmt$K(writeOffRisk)}</div><div class="sub">value above expected recovery</div></div>
+    </div>
+  `;
+  sgWarnPanel(hero, warns);
+
+  // Dead stock table
+  const problem = items.filter(i => i.velocity === 'Dead' || i.velocity === 'Very slow' || i.velocity === 'Slow').sort((a,b) => b.value - a.value).slice(0, 30);
+  let tbl = '<h2 style="margin-top:8px;margin-bottom:14px">Top 30 problem items (slow / very slow / dead)</h2><table class="results-table"><thead><tr><th>Item</th><th>Description</th><th class="num">Qty</th><th class="num">Value</th><th class="num">Days idle</th><th>Status</th><th class="num">Est. recovery</th></tr></thead><tbody>';
+  problem.forEach(i => {
+    const bg = i.velocity === 'Dead' ? 'background:rgba(239,68,68,0.10)' : i.velocity === 'Very slow' ? 'background:rgba(245,158,11,0.10)' : 'background:rgba(245,158,11,0.04)';
+    tbl += `<tr style="${bg}"><td><strong>${sgEscapeHtml(i.id||'')}</strong></td><td>${sgEscapeHtml(i.desc||'')}</td><td class="num">${i.qty.toLocaleString()}</td><td class="num">${fmt$K(i.value)}</td><td class="num">${i.days}</td><td>${i.velocity}</td><td class="num">${fmt$K(i.estRecovery)}</td></tr>`;
+  });
+  tbl += '</tbody></table>';
+
+  // Disposition recommendations
+  const recs = `<h2 style="margin-top:32px;margin-bottom:14px">Disposition recommendations</h2>
+    <div style="background:rgba(239,68,68,0.06);border-left:3px solid #B91C1C;padding:14px 16px;margin-bottom:10px;border-radius:6px"><strong>Dead stock (${groups['Dead'].length} items, ${fmt$K(deadValue)})</strong>: Review each item THIS week. Options in order: (1) return to supplier for credit, (2) liquidate via surplus dealers / eBay / industry exchanges (expect 10-30% of cost), (3) repurpose for different products, (4) donate (tax deduction), (5) scrap.</div>
+    <div style="background:rgba(245,158,11,0.06);border-left:3px solid #B45309;padding:14px 16px;margin-bottom:10px;border-radius:6px"><strong>Very slow (${groups['Very slow'].length} items)</strong>: Heading toward dead. Verify upcoming demand; reduce to minimum; stop reordering until on-hand is consumed.</div>
+    <div style="background:rgba(245,158,11,0.04);border-left:3px solid #92400E;padding:14px 16px;border-radius:6px"><strong>Slow (${groups['Slow'].length} items)</strong>: Monitor. Check whether reorder point is set too high, batch size too large, or safety stock too generous.</div>`;
+
+  document.getElementById('detail').innerHTML = tbl + recs;
+  return { items, deadValue, slowValue, trapped, carryingCost, writeOffRisk, groups };
+}
+document.getElementById('paste').addEventListener('input', recalc);
+recalc();
+document.getElementById('generate-pdf').addEventListener('click', () => {
+  const r = recalc();
+  if (!r.items.length) { sgToast('Paste items first.', { type: 'error' }); return; }
+  const problem = r.items.filter(i => i.velocity === 'Dead' || i.velocity === 'Very slow' || i.velocity === 'Slow').sort((a,b) => b.value - a.value);
+  sgBuildPdf({
+    title: 'Dead Stock Identifier', docNumberLabel: 'Cash trapped', docNumber: fmt$K(r.trapped),
+    date: todayISO(),
+    fromLabel: 'SUMMARY', from: ['Items analyzed: ' + r.items.length, 'Dead (>365d): ' + r.groups['Dead'].length + ' items / ' + fmt$K(r.deadValue), 'Very slow (180-365d): ' + r.groups['Very slow'].length + ' items', 'Slow (90-180d): ' + r.groups['Slow'].length + ' items'],
+    toLabel: 'EXPOSURE', to: ['Total cash trapped: ' + fmt$K(r.trapped), 'Annual carrying cost on this stock: ' + fmt$K(r.carryingCost), 'Write-off risk: ' + fmt$K(r.writeOffRisk)],
+    itemColumns: ['Item','Qty','Value','Days idle','Status'],
+    items: problem.slice(0, 100).map(i => [i.id||'-', i.qty.toString(), fmt$K(i.value), i.days.toString(), i.velocity]),
+    itemRowMapper: x => x,
+    notes: 'Methodology: APICS Excess & Obsolete inventory management. Velocity classification by days since last movement: Active <=30, Normal <=90, Slow <=180, Very slow <=365, Dead >365. Recovery estimates based on disposition route averages.',
+    filename: 'dead-stock-' + todayISO() + '.pdf'
+  });
+});
+
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>The five velocity classes</h2>
+    <p>Active (moved &lt;30 days ago): your working stock - leave it alone. Normal (30-90): standard turnover. Slow (90-180): worth a look. Very slow (180-365): an alarm. Dead (&gt;365): a museum exhibit costing you rent.</p>
+    <h2>Why dead stock is the #1 hidden cost</h2>
+    <p>Dead stock combines three problems: cash tied up that you cannot deploy, warehouse space consumed that you cannot use for active items, and write-off risk - the longer it sits, the less of its book value you will actually recover.</p>
+    <h2>Disposition options (best to worst)</h2>
+    <ol><li>Return to supplier (full or partial credit) - best outcome.</li><li>Sell into another customer or product line - recover 100% of cost.</li><li>Liquidate via surplus dealer or auction - recover 10-30%.</li><li>Donate - tax deduction (consult accountant).</li><li>Scrap - last resort.</li></ol>
+    <h2>Frequently asked questions</h2>
+    <details><summary>How often should I run this analysis?</summary><p>Quarterly minimum. Monthly is best - the longer you wait, the lower your recovery rate.</p></details>
+    <details><summary>What is "dead" - 6 months or 12?</summary><p>Standard cutoff is 12 months for "dead." For perishable or technology products, dead can be 90 days. For commodity raw materials, 18-24 months can still be "very slow."</p></details>
+    <details><summary>Can I get a tax deduction for write-offs?</summary><p>Yes - inventory write-downs are deductible as ordinary business expense in the year recognized. Talk to your accountant about the documentation required.</p></details>
+    <details><summary>Should I sell at a loss?</summary><p>Almost always yes. A 70% loss today beats a 100% loss after the item becomes truly obsolete. Plus you free space and stop the carrying cost bleed.</p></details>
+    <details><summary>How do I prevent dead stock in the first place?</summary><p>Monthly slow-moving reports (90-day threshold), engineering change alerts that flag affected inventory, restocking fees on cancelled custom orders, and lower MOQs negotiated with suppliers for slow movers.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

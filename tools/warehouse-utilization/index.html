@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Warehouse Space Utilization Calculator | SimpleGrid</title>
+<meta name="description" content="Calculate true warehouse utilization. Find wasted space, vertical opportunity, dead-stock space. Recoverable square footage before you lease more. Free.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/warehouse-utilization/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/warehouse-utilization/"><meta property="og:title" content="Warehouse Space Utilization Calculator | SimpleGrid"><meta property="og:description" content="Calculate true warehouse utilization. Find wasted space, vertical opportunity, dead-stock space. Recoverable square footage before you lease more. Free."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Warehouse Space Utilization Calculator | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/warehouse-utilization/","description":"Calculate true warehouse utilization. Find wasted space, vertical opportunity, dead-stock space. Recoverable square footage before you lease more. Free.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Warehouse Space Utilization Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/warehouse-utilization/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is \"good\" storage utilization?","acceptedAnswer":{"@type":"Answer","text":"85-90% is healthy. Above 95% means you have no buffer - one big receipt and you cannot put it away. Below 70% is over-built and expensive."}},
+{"@type":"Question","name":"Should I narrow my aisles?","acceptedAnswer":{"@type":"Answer","text":"If counterbalance forklift aisles take >25% of your floor, yes. The forklift swap pays back in 12-24 months at typical rents. If you only have a manual pallet jack, no - you already have narrow aisles."}},
+{"@type":"Question","name":"How much vertical space am I wasting?","acceptedAnswer":{"@type":"Answer","text":"If your rack height is less than (clear height - 2 ft), you are leaving capacity on the table. Each additional rack level adds ~33% more pallet positions per square foot of floor."}},
+{"@type":"Question","name":"When should I lease more space?","acceptedAnswer":{"@type":"Answer","text":"When storage utilization is >90% AFTER you have cleared dead stock and maximized vertical. Before that, you are leasing for inefficiency, not for need."}},
+{"@type":"Question","name":"What is dead-stock space cost?","acceptedAnswer":{"@type":"Answer","text":"At $9/sq ft and 15% dead-stock occupancy in a 22,000 sq ft warehouse, dead stock alone is consuming ~3,300 sq ft = $30K/year in rent. Plus what is on those shelves is depreciating."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Warehouse Space Utilization Calculator.</h1>
+    <p class="lead">Before you lease more warehouse - measure what you have. Most manufacturers run at 65-75% utilization with poor organization, not 100% with no space.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Total facility</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="total-sqft">Total warehouse sq ft</label><input id="total-sqft" type="number" data-clamp="100,10000000" step="100" value="22000" data-required></div>
+        <div class="tool-field"><label for="clear-height">Clear height (feet)</label><input id="clear-height" type="number" data-clamp="8,60" step="1" value="22"></div>
+        <div class="tool-field"><label for="rent">Cost per sq ft / year ($)</label><input id="rent" type="number" data-clamp="0,200" step="0.5" value="9"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Current layout (square feet)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="rack-sqft">Pallet rack footprint</label><input id="rack-sqft" type="number" data-clamp="0,1000000" step="100" value="8000"></div>
+        <div class="tool-field"><label for="rack-levels">Rack levels (high)</label><input id="rack-levels" type="number" data-clamp="1,10" step="1" value="3"></div>
+        <div class="tool-field"><label for="rack-total">Total pallet positions</label><input id="rack-total" type="number" data-clamp="0,100000" step="10" value="540"></div>
+        <div class="tool-field"><label for="rack-occ">Pallet positions occupied</label><input id="rack-occ" type="number" data-clamp="0,100000" step="10" value="420"></div>
+        <div class="tool-field"><label for="floor-sqft">Floor / bulk storage sq ft</label><input id="floor-sqft" type="number" data-clamp="0,1000000" step="100" value="3500"></div>
+        <div class="tool-field"><label for="floor-occ">Floor utilization (%)</label><input id="floor-occ" type="number" data-clamp="0,100" step="1" value="70"></div>
+        <div class="tool-field"><label for="shelf-sqft">Shelving / bin storage sq ft</label><input id="shelf-sqft" type="number" data-clamp="0,1000000" step="100" value="1500"></div>
+        <div class="tool-field"><label for="shelf-occ">Shelving utilization (%)</label><input id="shelf-occ" type="number" data-clamp="0,100" step="1" value="60"></div>
+        <div class="tool-field"><label for="aisle">Aisle sq ft</label><input id="aisle" type="number" data-clamp="0,1000000" step="100" value="5500"></div>
+        <div class="tool-field"><label for="staging">Staging / dock sq ft</label><input id="staging" type="number" data-clamp="0,1000000" step="100" value="2500"></div>
+        <div class="tool-field"><label for="empty">Empty / unused sq ft</label><input id="empty" type="number" data-clamp="0,1000000" step="100" value="1000"></div>
+        <div class="tool-field"><label for="dead-pct">Estimated dead-stock space (%)</label><input id="dead-pct" type="number" data-clamp="0,80" step="1" value="15"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Material handling</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="forklift">Primary forklift type</label>
+          <select id="forklift"><option value="20,12">Counterbalance (12 ft aisle, 20 ft lift)</option><option value="30,9">Reach truck (9 ft aisle, 30 ft)</option><option value="40,6">Narrow aisle (6 ft, 40 ft)</option><option value="45,5">Turret truck (5 ft, 45 ft)</option><option value="6,5">Manual / pallet jack</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When the answer is "we need more space"</div>
+      <h2>SimpleGrid tracks what is in every location and how fast it moves.</h2>
+      <p>Slotting suggestions, slow-mover alerts, capacity forecasts - so you only expand when you really have to.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="warehouse_utilization_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+
+function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+function recalc(){
+  const total = nn('total-sqft');
+  const clear = nn('clear-height');
+  const rent = nn('rent');
+  const rackSqft = nn('rack-sqft');
+  const rackLevels = nn('rack-levels');
+  const rackTotal = nn('rack-total');
+  const rackOcc = nn('rack-occ');
+  const floorSqft = nn('floor-sqft');
+  const floorOcc = nn('floor-occ') / 100;
+  const shelfSqft = nn('shelf-sqft');
+  const shelfOcc = nn('shelf-occ') / 100;
+  const aisle = nn('aisle');
+  const staging = nn('staging');
+  const empty = nn('empty');
+  const deadPct = nn('dead-pct') / 100;
+  const [maxHeight, optAisle] = document.getElementById('forklift').value.split(',').map(parseFloat);
+
+  const storageSqft = rackSqft + floorSqft + shelfSqft;
+  const accounted = storageSqft + aisle + staging + empty;
+  const warns = [];
+  if (Math.abs(accounted - total) > total * 0.10) warns.push('Sum of layout zones (' + accounted.toLocaleString() + ' sq ft) differs from total (' + total.toLocaleString() + ') by more than 10% - check inputs.');
+
+  const rackUtil = sgSafeDiv(rackOcc, rackTotal) * 100;
+  const overallStorageUtil = ((rackSqft * rackUtil/100) + (floorSqft * floorOcc) + (shelfSqft * shelfOcc)) / Math.max(1, storageSqft) * 100;
+  const productivePct = sgSafeDiv(storageSqft, total) * 100;
+  const aislePct = sgSafeDiv(aisle, total) * 100;
+  const emptyPct = sgSafeDiv(empty, total) * 100;
+  const currentRackHeight = rackLevels * 5;
+  const vertUtil = sgSafeDiv(currentRackHeight, Math.min(clear - 2, maxHeight)) * 100;
+  const deadSqft = storageSqft * overallStorageUtil/100 * deadPct;
+  const recoverable = empty + deadSqft;
+  const emptyCost = empty * rent;
+  const deadCost = deadSqft * rent;
+  const wastedCost = emptyCost + deadCost;
+  const availablePallets = rackTotal - rackOcc + Math.floor(floorSqft * (1-floorOcc) / 16);
+  const additionalLevels = Math.max(0, Math.floor(Math.min(clear-2, maxHeight) / 5) - rackLevels);
+  const addedPallets = additionalLevels > 0 ? (rackTotal / rackLevels) * additionalLevels : 0;
+
+  const hero = document.getElementById('hero');
+  hero.innerHTML = `
+    <div data-sg-warn></div>
+    <div class="big-label">Storage utilization</div>
+    <div class="big-number ${overallStorageUtil>=85?'green':overallStorageUtil>=70?'gold':'red'}">${overallStorageUtil.toFixed(0)}%</div>
+    <div class="big-caption">Productive space: <strong>${productivePct.toFixed(0)}%</strong> of total &middot; Aisles: ${aislePct.toFixed(0)}% &middot; Empty: ${emptyPct.toFixed(0)}%</div>
+    <div class="results-grid" style="margin-top:24px">
+      <div class="results-stat"><div class="label">Rack utilization</div><div class="value">${rackUtil.toFixed(0)}%</div><div class="sub">${rackOcc}/${rackTotal} positions</div></div>
+      <div class="results-stat"><div class="label">Vertical utilization</div><div class="value ${vertUtil>=80?'green':'red'}">${vertUtil.toFixed(0)}%</div><div class="sub">${currentRackHeight} ft / ${Math.min(clear-2, maxHeight)} ft max</div></div>
+      <div class="results-stat"><div class="label">Recoverable space</div><div class="value gold">${Math.round(recoverable).toLocaleString()} sq ft</div><div class="sub">${fmt$K(wastedCost)}/yr in rent</div></div>
+      <div class="results-stat"><div class="label">Growth headroom</div><div class="value">${availablePallets.toLocaleString()} pallets</div><div class="sub">current capacity remaining</div></div>
+    </div>
+  `;
+  sgWarnPanel(hero, warns);
+
+  // Allocation breakdown
+  let alloc = '<h2 style="margin-top:8px;margin-bottom:14px">Space allocation</h2>';
+  const items = [['Pallet rack', rackSqft, ''], ['Floor / bulk storage', floorSqft, ''], ['Shelving / bins', shelfSqft, ''], ['Aisles', aisle, 'gold'], ['Staging / dock', staging, 'gold'], ['Empty / unused', empty, 'red']];
+  const max = total;
+  items.forEach(([l,v,c]) => {
+    alloc += `<div class="bar-row"><span class="bar-label">${l}</span><div class="bar-track"><div class="bar-fill ${c}" style="width:${v/max*100}%"></div></div><span class="bar-value">${v.toLocaleString()} sq ft (${(v/max*100).toFixed(0)}%)</span></div>`;
+  });
+
+  // Wasted
+  const wasted = `<h2 style="margin-top:32px;margin-bottom:14px">Space you are wasting</h2>
+    <div style="background:#FEF2F2;border:1px solid #F87171;border-left:4px solid #B91C1C;border-radius:8px;padding:16px 18px">
+      <p style="margin:0;font-size:15px;color:#7F1D1D;line-height:1.6">Empty space: <strong>${empty.toLocaleString()} sq ft</strong> (${fmt$K(emptyCost)}/yr in rent).</p>
+      <p style="margin:6px 0 0;font-size:15px;color:#7F1D1D;line-height:1.6">Dead-stock space: <strong>~${Math.round(deadSqft).toLocaleString()} sq ft</strong> (${fmt$K(deadCost)}/yr).</p>
+      <p style="margin:8px 0 0;font-size:14px;color:#7F1D1D"><strong>Total recoverable: ${Math.round(recoverable).toLocaleString()} sq ft</strong> - equivalent to ~${Math.floor(recoverable/16)} additional pallet positions.</p>
+    </div>`;
+
+  // Improvement opportunities
+  let opps = '<h2 style="margin-top:32px;margin-bottom:14px">Improvement opportunities</h2><ul style="font-size:15px;line-height:1.7;padding-left:20px">';
+  if (vertUtil < 80) opps += `<li><strong>Go vertical.</strong> Your clear height is ${clear} ft, max safe rack ${Math.min(clear-2, maxHeight)} ft. Adding ${additionalLevels} more level${additionalLevels===1?'':'s'} would create ~${Math.round(addedPallets)} additional pallet positions WITHOUT any additional floor space.</li>`;
+  if (deadPct > 0.10) opps += `<li><strong>Clear dead stock.</strong> Estimated ${(deadPct*100).toFixed(0)}% of storage holds dead/slow inventory. Clearing it frees ~${Math.round(deadSqft).toLocaleString()} sq ft. <a href="../dead-stock-identifier/" style="color:var(--sg-blue)">Use the Dead Stock Identifier</a> to find what to liquidate.</li>`;
+  if (optAisle < 9 && aislePct > 22) opps += `<li><strong>Narrow your aisles.</strong> Aisles are ${aislePct.toFixed(0)}% of your floor. Switching to a forklift that supports narrower aisles (currently optimal: ${optAisle} ft) could reclaim ${Math.round(aisle * 0.25).toLocaleString()} sq ft.</li>`;
+  opps += '<li><strong>Reorganize by velocity.</strong> ABC-based slotting (A items closest to shipping, C items in the back) reduces travel time and frees prime locations.</li>';
+  opps += '</ul>';
+
+  // Before-leasing rule
+  const beforeLease = `<h2 style="margin-top:32px;margin-bottom:14px">Before you lease more space</h2>
+    <p style="font-size:15px;line-height:1.6">Only expand when ALL of these are true:</p>
+    <ul style="font-size:15px;line-height:1.7;padding-left:20px">
+      <li>Storage utilization consistently &gt;90% after optimization</li>
+      <li>Dead stock &lt;5% of inventory value</li>
+      <li>Vertical utilization &gt;85%</li>
+      <li>Off-site storage evaluated for slow-movers</li>
+    </ul>
+    <p class="tool-note" style="margin-top:8px">At ${fmt$(rent)}/sq ft, an additional 5,000 sq ft costs ${fmt$K(5000 * rent)}/year. Worth seeing if you can fit the same product in the space you have.</p>`;
+
+  document.getElementById('detail').innerHTML = alloc + wasted + opps + beforeLease;
+  return { total, overallStorageUtil, recoverable, wastedCost, availablePallets, addedPallets, vertUtil };
+}
+document.querySelectorAll('input,select').forEach(el => el.addEventListener('input', recalc));
+if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+recalc();
+document.getElementById('generate-pdf').addEventListener('click', () => {
+  if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+  const r = recalc();
+  sgBuildPdf({
+    title: 'Warehouse Space Utilization', docNumberLabel: 'Storage utilization', docNumber: r.overallStorageUtil.toFixed(0) + '%',
+    date: todayISO(),
+    fromLabel: 'CURRENT', from: ['Total sq ft: ' + r.total.toLocaleString(), 'Storage utilization: ' + r.overallStorageUtil.toFixed(0) + '%', 'Vertical utilization: ' + r.vertUtil.toFixed(0) + '%', 'Growth headroom: ' + r.availablePallets.toLocaleString() + ' pallets'],
+    toLabel: 'OPPORTUNITY', to: ['Recoverable space: ' + Math.round(r.recoverable).toLocaleString() + ' sq ft', 'Wasted rent: ' + fmt$K(r.wastedCost) + '/yr', 'Additional rack levels possible: ' + Math.round(r.addedPallets) + ' positions'],
+    itemColumns: ['Metric','Value'],
+    items: [['Storage utilization', r.overallStorageUtil.toFixed(0) + '%'], ['Vertical utilization', r.vertUtil.toFixed(0) + '%'], ['Recoverable sq ft', Math.round(r.recoverable).toLocaleString()], ['Wasted rent', fmt$K(r.wastedCost) + '/yr']],
+    itemRowMapper: x => x,
+    notes: 'Methodology: WERC space utilization benchmarks, lean warehouse principles, material handling engineering standards. Recoverable = empty + estimated dead-stock space.',
+    filename: 'warehouse-utilization-' + todayISO() + '.pdf'
+  });
+});
+
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why "we are out of space" is usually wrong</h2>
+    <p>WERC benchmarks show most mid-market warehouses run at 65-75% storage utilization. That means 25-35% of the space you are paying for is wasted - wide aisles, empty rack positions, dead stock, poor slotting. Before you sign a lease on a second building, find out where the space is actually going.</p>
+    <h2>The three quickest wins</h2>
+    <p><strong>Vertical.</strong> If your clear height supports more rack levels than you are using, you can add capacity at the cost of racking only - no floor expansion.</p>
+    <p><strong>Dead stock.</strong> 10-20% of warehouse space typically holds inventory that has not moved in 12+ months. Liquidating it frees space AND cash.</p>
+    <p><strong>Aisle narrowing.</strong> Counterbalance forklifts need 12-ft aisles; reach trucks need 9 ft; narrow-aisle trucks need 6 ft. Switching equipment can reclaim 20-30% of aisle space.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is "good" storage utilization?</summary><p>85-90% is healthy. Above 95% means you have no buffer - one big receipt and you cannot put it away. Below 70% is over-built and expensive.</p></details>
+    <details><summary>Should I narrow my aisles?</summary><p>If counterbalance forklift aisles take >25% of your floor, yes. The forklift swap pays back in 12-24 months at typical rents. If you only have a manual pallet jack, no - you already have narrow aisles.</p></details>
+    <details><summary>How much vertical space am I wasting?</summary><p>If your rack height is less than (clear height - 2 ft), you are leaving capacity on the table. Each additional rack level adds ~33% more pallet positions per square foot of floor.</p></details>
+    <details><summary>When should I lease more space?</summary><p>When storage utilization is >90% AFTER you have cleared dead stock and maximized vertical. Before that, you are leasing for inefficiency, not for need.</p></details>
+    <details><summary>What is dead-stock space cost?</summary><p>At $9/sq ft and 15% dead-stock occupancy in a 22,000 sq ft warehouse, dead stock alone is consuming ~3,300 sq ft = $30K/year in rent. Plus what is on those shelves is depreciating.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>
