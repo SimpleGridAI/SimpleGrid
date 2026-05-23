@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Customer Concentration Risk Calculator | SimpleGrid</title>
+<meta name="description" content="Free customer concentration risk calculator. HHI score, top customer/top 3/top 5 share, valuation impact, scenario analysis. PDF export.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/customer-concentration-risk/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/customer-concentration-risk/"><meta property="og:title" content="Customer Concentration Risk Calculator | SimpleGrid"><meta property="og:description" content="Free customer concentration risk calculator. HHI score, top customer/top 3/top 5 share, valuation impact, scenario analysis. PDF export."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Customer Concentration Risk Calculator | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/customer-concentration-risk/","description":"Free customer concentration risk calculator. HHI score, top customer/top 3/top 5 share, valuation impact, scenario analysis. PDF export.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Customer Concentration Risk Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/customer-concentration-risk/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>Customer Concentration Risk - the silent valuation killer.</h1>
+    <p class="lead">Top customer over 25% of revenue typically costs 15-25% in valuation discount (HBR). This calculator scores your concentration via the Herfindahl-Hirschman Index, models loss scenarios, and quantifies the valuation hit.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Your top customers</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="rev">Annual revenue ($)</label><input id="rev" type="number" data-clamp="0,10000000000" step="10000" value="10000000" data-required></div>
+        <div class="tool-field"><label for="c1n">Customer 1 name (optional)</label><input id="c1n" type="text" placeholder="Customer A"></div>
+        <div class="tool-field"><label for="c1r">Revenue from #1 ($)</label><input id="c1r" type="number" data-clamp="0,10000000000" step="1000" value="3200000"></div>
+        <div class="tool-field"><label for="c2n">Customer 2 name</label><input id="c2n" type="text" placeholder="Customer B"></div>
+        <div class="tool-field"><label for="c2r">Revenue from #2 ($)</label><input id="c2r" type="number" data-clamp="0,10000000000" step="1000" value="1800000"></div>
+        <div class="tool-field"><label for="c3n">Customer 3 name</label><input id="c3n" type="text" placeholder="Customer C"></div>
+        <div class="tool-field"><label for="c3r">Revenue from #3 ($)</label><input id="c3r" type="number" data-clamp="0,10000000000" step="1000" value="900000"></div>
+        <div class="tool-field"><label for="c4n">Customer 4 name</label><input id="c4n" type="text" placeholder="Customer D"></div>
+        <div class="tool-field"><label for="c4r">Revenue from #4 ($)</label><input id="c4r" type="number" data-clamp="0,10000000000" step="1000" value="600000"></div>
+        <div class="tool-field"><label for="c5n">Customer 5 name</label><input id="c5n" type="text" placeholder="Customer E"></div>
+        <div class="tool-field"><label for="c5r">Revenue from #5 ($)</label><input id="c5r" type="number" data-clamp="0,10000000000" step="1000" value="400000"></div>
+        <div class="tool-field"><label for="rest">Number of remaining customers</label><input id="rest" type="number" data-clamp="0,100000" step="1" value="35"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When concentration risk shows up only at the exit table</div>
+      <h2>SimpleGrid surfaces customer concentration trends as they happen.</h2>
+      <p>Top customer share live, by month, by product line. Diversification progress tracked. Buyers ask about concentration on every deal - have the answer ready.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="cc_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function fmt$K(n){if(n>=1000000) return '$'+(n/1000000).toFixed(2)+'M'; if(n>=10000) return '$'+Math.round(n/1000)+'K'; return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function recalc(){
+    const rev = nn('rev');
+    const rs = [nn('c1r'), nn('c2r'), nn('c3r'), nn('c4r'), nn('c5r')];
+    const ns = ['c1n','c2n','c3n','c4n','c5n'].map(i=>document.getElementById(i).value || 'Customer '+(['1','2','3','4','5'][['c1n','c2n','c3n','c4n','c5n'].indexOf(i)]));
+    const top5sum = rs.reduce((a,b)=>a+b,0);
+    const restRev = Math.max(0, rev - top5sum);
+    const restCount = Math.max(0, nn('rest'));
+    const restPer = restCount>0 ? restRev/restCount : 0;
+    const shares = rs.map(r=>rev>0?r/rev*100:0);
+    const top1 = shares[0]||0;
+    const top3 = (shares[0]||0) + (shares[1]||0) + (shares[2]||0);
+    const top5 = shares.reduce((a,b)=>a+b,0);
+    const hhi = shares.reduce((sum,s)=>sum + s*s, 0) + (restCount>0?(restPer/rev*100)**2*restCount:0);
+    let conc, concCls;
+    if (hhi<1500) { conc='Low concentration (diversified)'; concCls='green'; }
+    else if (hhi<2500) { conc='Moderate concentration'; concCls='gold'; }
+    else if (hhi<5000) { conc='High concentration'; concCls='red'; }
+    else { conc='Extreme concentration (dangerous)'; concCls='red'; }
+    let risk, riskCls;
+    if (top1<15) { risk='Low'; riskCls='green'; }
+    else if (top1<25) { risk='Moderate'; riskCls='gold'; }
+    else if (top1<40) { risk='High'; riskCls='red'; }
+    else { risk='Critical'; riskCls='red'; }
+    let valDiscount;
+    if (top1<15) valDiscount = -0.2; else if (top1<25) valDiscount = 0; else if (top1<40) valDiscount = 0.3; else valDiscount = 0.75;
+    const sdeEstimate = rev * 0.10; // rough SDE proxy
+    const valImpact = sdeEstimate * valDiscount * 3.5;
+    document.getElementById('hero').innerHTML = `
+      <div class="big-label">Customer concentration risk</div>
+      <div class="big-number ${riskCls}">${risk}</div>
+      <div class="big-caption"><strong>HHI: ${Math.round(hhi).toLocaleString()}</strong> (${conc}). Top customer: ${top1.toFixed(1)}% of revenue.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Top customer</div><div class="value ${top1>=25?'red':'green'}">${top1.toFixed(1)}%</div></div>
+        <div class="results-stat"><div class="label">Top 3 customers</div><div class="value">${top3.toFixed(1)}%</div></div>
+        <div class="results-stat"><div class="label">Top 5 customers</div><div class="value ${top5>=80?'red':top5>=70?'gold':'green'}">${top5.toFixed(1)}%</div></div>
+      </div>
+    `;
+    let tbl = '<h2 style="margin-bottom:14px">Customer breakdown</h2><table class="results-table"><thead><tr><th>Customer</th><th class="num">Revenue</th><th class="num">% of total</th></tr></thead><tbody>';
+    for (let i=0; i<5; i++) if (rs[i]>0) tbl += `<tr><td>${ns[i]}</td><td class="num">${fmt$(rs[i])}</td><td class="num">${shares[i].toFixed(1)}%</td></tr>`;
+    if (restRev>0) tbl += `<tr><td>${restCount} other customers</td><td class="num">${fmt$(restRev)}</td><td class="num">${(restRev/rev*100).toFixed(1)}%</td></tr>`;
+    tbl += '</tbody></table>';
+    let scen = '<h2 style="margin-top:32px;margin-bottom:14px">Scenario analysis - if you lose key customers</h2><table class="results-table"><thead><tr><th>Scenario</th><th class="num">Revenue lost</th><th class="num">% of total</th></tr></thead><tbody>';
+    scen += `<tr><td>Lose top customer</td><td class="num">-${fmt$(rs[0])}</td><td class="num">-${shares[0].toFixed(1)}%</td></tr>`;
+    scen += `<tr><td>Lose top 3</td><td class="num">-${fmt$(rs[0]+rs[1]+rs[2])}</td><td class="num">-${top3.toFixed(1)}%</td></tr>`;
+    scen += '</tbody></table>';
+    let valHtml = '';
+    if (valImpact !== 0) {
+      valHtml = `<h2 style="margin-top:32px;margin-bottom:14px">Valuation impact</h2><p style="font-size:15px;color:var(--fg1);line-height:1.6">Your concentration profile typically ${valDiscount<0?'adds':'subtracts'} ${Math.abs(valDiscount).toFixed(1)}x to the valuation multiple. At rough SDE of ${fmt$K(sdeEstimate)}, that\'s <strong style="color:${valDiscount<0?'#047857':'#B91C1C'}">${valImpact<0?'+':'-'}${fmt$K(Math.abs(valImpact))}</strong> on enterprise value. Source: HBR research on customer concentration discounts in mid-market M&A.</p>`;
+    }
+    document.getElementById('detail').innerHTML = tbl + scen + valHtml;
+    return {rev,top1,top3,top5,hhi,conc,risk,rs,ns,valImpact,valDiscount};
+  }
+  document.querySelectorAll('input').forEach(el=>el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title:'Customer Concentration Risk Report', docNumberLabel:'Risk', docNumber:r.risk,
+      date: todayISO(),
+      fromLabel:'METRICS', from:['Top customer: '+r.top1.toFixed(1)+'%', 'Top 3: '+r.top3.toFixed(1)+'%', 'Top 5: '+r.top5.toFixed(1)+'%', 'HHI: '+Math.round(r.hhi)],
+      toLabel:'STATUS', to:[r.conc, 'Risk level: '+r.risk],
+      itemColumns:['Customer','Revenue','% of total'],
+      items: r.rs.map((v,i)=>v>0?[r.ns[i], fmt$(v), (v/r.rev*100).toFixed(1)+'%']:null).filter(Boolean),
+      itemRowMapper: x=>x,
+      notes:'Methodology: Herfindahl-Hirschman Index adapted for customer concentration. HBR research: top customer >25% = 15-25% valuation discount. SBA classifies >30% single-customer as high-risk for lending.',
+      filename:'customer-concentration-'+todayISO()+'.pdf'
+    });
+  });
+});
+</script>
+
+
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Insurance Coverage Adequacy Checklist | SimpleGrid</title>
+<meta name="description" content="Free 18-item insurance coverage checklist for manufacturers. Property, BI, GL, product liability, workers comp, cyber, auto, umbrella. PDF report.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/insurance-coverage-checklist/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/insurance-coverage-checklist/"><meta property="og:title" content="Insurance Coverage Adequacy Checklist | SimpleGrid"><meta property="og:description" content="Free 18-item insurance coverage checklist for manufacturers. Property, BI, GL, product liability, workers comp, cyber, auto, umbrella. PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Insurance Coverage Adequacy Checklist | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/insurance-coverage-checklist/","description":"Free 18-item insurance coverage checklist for manufacturers. Property, BI, GL, product liability, workers comp, cyber, auto, umbrella. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Insurance Coverage Adequacy Checklist | SimpleGrid","item":"https://simplegrid.ai/tools/insurance-coverage-checklist/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>Insurance Coverage Adequacy - what your broker should have covered.</h1>
+    <p class="lead">Average uninsured loss for mid-market manufacturers: $250K-$2M. Most have a critical gap in at least one of: Business Interruption, Product Liability, or Cyber. This 18-item checklist surfaces yours.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <p class="tool-note" style="margin:0 0 20px">18 essential coverage items for mid-market manufacturers. Average uninsured loss: $250K-$2M (The Hartford, 2022 claims data). Most manufacturers have a critical gap in at least one of: Business Interruption, Product Liability, or Cyber.</p>
+    <form id="ins-form"><div class="q-card"><div class="q-num">Item 1 - Critical</div><div class="q-text" style="margin-top:6px">Property: building at REPLACEMENT cost</div><div class="q-options" data-q="i1"><label class="q-option"><input type="radio" name="i1" value="2">Have</label><label class="q-option"><input type="radio" name="i1" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i1" value="0">Don't have</label><label class="q-option"><input type="radio" name="i1" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 2 - Critical</div><div class="q-text" style="margin-top:6px">Property: equipment at replacement cost</div><div class="q-options" data-q="i2"><label class="q-option"><input type="radio" name="i2" value="2">Have</label><label class="q-option"><input type="radio" name="i2" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i2" value="0">Don't have</label><label class="q-option"><input type="radio" name="i2" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 3 - Important</div><div class="q-text" style="margin-top:6px">Property: inventory covered to peak value</div><div class="q-options" data-q="i3"><label class="q-option"><input type="radio" name="i3" value="2">Have</label><label class="q-option"><input type="radio" name="i3" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i3" value="0">Don't have</label><label class="q-option"><input type="radio" name="i3" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 4 - Important</div><div class="q-text" style="margin-top:6px">Property: equipment breakdown / mechanical failure endorsement</div><div class="q-options" data-q="i4"><label class="q-option"><input type="radio" name="i4" value="2">Have</label><label class="q-option"><input type="radio" name="i4" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i4" value="0">Don't have</label><label class="q-option"><input type="radio" name="i4" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 5 - Critical</div><div class="q-text" style="margin-top:6px">Business Interruption: lost revenue coverage</div><div class="q-options" data-q="i5"><label class="q-option"><input type="radio" name="i5" value="2">Have</label><label class="q-option"><input type="radio" name="i5" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i5" value="0">Don't have</label><label class="q-option"><input type="radio" name="i5" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 6 - Important</div><div class="q-text" style="margin-top:6px">Business Interruption: extra expense (temp facilities)</div><div class="q-options" data-q="i6"><label class="q-option"><input type="radio" name="i6" value="2">Have</label><label class="q-option"><input type="radio" name="i6" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i6" value="0">Don't have</label><label class="q-option"><input type="radio" name="i6" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 7 - Important</div><div class="q-text" style="margin-top:6px">Business Interruption: contingent BI (key supplier damage)</div><div class="q-options" data-q="i7"><label class="q-option"><input type="radio" name="i7" value="2">Have</label><label class="q-option"><input type="radio" name="i7" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i7" value="0">Don't have</label><label class="q-option"><input type="radio" name="i7" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 8 - Critical</div><div class="q-text" style="margin-top:6px">CGL: $1M+ per occurrence, $2M+ aggregate</div><div class="q-options" data-q="i8"><label class="q-option"><input type="radio" name="i8" value="2">Have</label><label class="q-option"><input type="radio" name="i8" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i8" value="0">Don't have</label><label class="q-option"><input type="radio" name="i8" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 9 - Critical</div><div class="q-text" style="margin-top:6px">CGL: Completed Operations coverage</div><div class="q-options" data-q="i9"><label class="q-option"><input type="radio" name="i9" value="2">Have</label><label class="q-option"><input type="radio" name="i9" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i9" value="0">Don't have</label><label class="q-option"><input type="radio" name="i9" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 10 - Important</div><div class="q-text" style="margin-top:6px">CGL: Contractual liability for customer indemnification</div><div class="q-options" data-q="i10"><label class="q-option"><input type="radio" name="i10" value="2">Have</label><label class="q-option"><input type="radio" name="i10" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i10" value="0">Don't have</label><label class="q-option"><input type="radio" name="i10" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 11 - Critical</div><div class="q-text" style="margin-top:6px">Product Liability: adequate for vertical risk profile</div><div class="q-options" data-q="i11"><label class="q-option"><input type="radio" name="i11" value="2">Have</label><label class="q-option"><input type="radio" name="i11" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i11" value="0">Don't have</label><label class="q-option"><input type="radio" name="i11" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 12 - Critical</div><div class="q-text" style="margin-top:6px">Product Recall coverage (most CGL excludes)</div><div class="q-options" data-q="i12"><label class="q-option"><input type="radio" name="i12" value="2">Have</label><label class="q-option"><input type="radio" name="i12" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i12" value="0">Don't have</label><label class="q-option"><input type="radio" name="i12" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 13 - Critical</div><div class="q-text" style="margin-top:6px">Workers Comp in place + correct class codes</div><div class="q-options" data-q="i13"><label class="q-option"><input type="radio" name="i13" value="2">Have</label><label class="q-option"><input type="radio" name="i13" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i13" value="0">Don't have</label><label class="q-option"><input type="radio" name="i13" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 14 - Important</div><div class="q-text" style="margin-top:6px">Return-to-work program reduces claim costs 30-50%</div><div class="q-options" data-q="i14"><label class="q-option"><input type="radio" name="i14" value="2">Have</label><label class="q-option"><input type="radio" name="i14" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i14" value="0">Don't have</label><label class="q-option"><input type="radio" name="i14" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 15 - Critical</div><div class="q-text" style="margin-top:6px">Cyber Liability: ransomware payment + recovery</div><div class="q-options" data-q="i15"><label class="q-option"><input type="radio" name="i15" value="2">Have</label><label class="q-option"><input type="radio" name="i15" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i15" value="0">Don't have</label><label class="q-option"><input type="radio" name="i15" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 16 - Important</div><div class="q-text" style="margin-top:6px">Cyber Liability: BI from cyber event covered</div><div class="q-options" data-q="i16"><label class="q-option"><input type="radio" name="i16" value="2">Have</label><label class="q-option"><input type="radio" name="i16" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i16" value="0">Don't have</label><label class="q-option"><input type="radio" name="i16" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 17 - Important</div><div class="q-text" style="margin-top:6px">Commercial Auto: hired + non-owned auto coverage</div><div class="q-options" data-q="i17"><label class="q-option"><input type="radio" name="i17" value="2">Have</label><label class="q-option"><input type="radio" name="i17" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i17" value="0">Don't have</label><label class="q-option"><input type="radio" name="i17" value="-1">N/A</label></div></div><div class="q-card"><div class="q-num">Item 18 - Critical</div><div class="q-text" style="margin-top:6px">Umbrella: total = 1x annual revenue minimum</div><div class="q-options" data-q="i18"><label class="q-option"><input type="radio" name="i18" value="2">Have</label><label class="q-option"><input type="radio" name="i18" value="1">Partial / Underlimited</label><label class="q-option"><input type="radio" name="i18" value="0">Don't have</label><label class="q-option"><input type="radio" name="i18" value="-1">N/A</label></div></div></form>
+    <div class="results-hero" id="hero" style="display:none"></div>
+    <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button></div>
+    <p class="tool-note" style="margin-top:16px;font-style:italic">This checklist is educational and not insurance advice. Consult a licensed commercial insurance broker familiar with manufacturing.</p>
+    <div class="tool-cta">
+      <div class="eyebrow">When the policy was right 5 years ago but maybe not today</div>
+      <h2>SimpleGrid surfaces the data your broker actually needs for the renewal.</h2>
+      <p>Equipment replacement values, peak inventory, supplier concentration, cyber exposure - all live, all current. Reduces renewal surprises and supports the case for the limits you actually need.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="ins_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:10px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:4px}.q-card .q-text{font-size:14px;font-weight:600;color:var(--fg1);margin:0 0 10px;line-height:1.4}.q-options{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}@media(max-width:700px){.q-options{grid-template-columns:1fr 1fr}}.q-option{padding:8px 10px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:12px;color:var(--fg1);transition:all 120ms ease;background:#fff;text-align:center}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:600}.q-option input{display:none}</style>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  const ITEMS = [["Property: building at REPLACEMENT cost", "Critical"], ["Property: equipment at replacement cost", "Critical"], ["Property: inventory covered to peak value", "Important"], ["Property: equipment breakdown / mechanical failure endorsement", "Important"], ["Business Interruption: lost revenue coverage", "Critical"], ["Business Interruption: extra expense (temp facilities)", "Important"], ["Business Interruption: contingent BI (key supplier damage)", "Important"], ["CGL: $1M+ per occurrence, $2M+ aggregate", "Critical"], ["CGL: Completed Operations coverage", "Critical"], ["CGL: Contractual liability for customer indemnification", "Important"], ["Product Liability: adequate for vertical risk profile", "Critical"], ["Product Recall coverage (most CGL excludes)", "Critical"], ["Workers Comp in place + correct class codes", "Critical"], ["Return-to-work program reduces claim costs 30-50%", "Important"], ["Cyber Liability: ransomware payment + recovery", "Critical"], ["Cyber Liability: BI from cyber event covered", "Important"], ["Commercial Auto: hired + non-owned auto coverage", "Important"], ["Umbrella: total = 1x annual revenue minimum", "Critical"]];
+  const total = ITEMS.length;
+  const allQs = Array.from({length:total}, (_,i)=>'i'+(i+1));
+  document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
+  function answered(){return allQs.every(q=>document.querySelector('input[name="'+q+'"]:checked'));}
+  function val(q){const el=document.querySelector('input[name="'+q+'"]:checked');return el?parseInt(el.value):null;}
+  function recalc(){
+    if (!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
+    let have=0, partial=0, dont=0, na=0, dontCritical=0, partialCritical=0;
+    for (let i=0; i<total; i++){const v=val('i'+(i+1)); const prio=ITEMS[i][1]; if (v===2) have++; else if (v===1){partial++; if (prio==='Critical') partialCritical++;} else if (v===0){dont++; if (prio==='Critical') dontCritical++;} else na++;}
+    const effective = total - na;
+    const pct = effective>0 ? Math.round(((have + partial*0.5) / effective) * 100) : 0;
+    const criticalGaps = dontCritical + partialCritical;
+    let band, cls;
+    if (pct>=90 && dontCritical===0){band='Well covered - low uninsured exposure';cls='green';}
+    else if (pct>=75 && dontCritical<=1){band='Mostly covered - 1-2 gaps to close';cls='gold';}
+    else if (pct>=60){band='Significant gaps - review with broker';cls='gold';}
+    else{band='Critical exposure - immediate broker conversation';cls='red';}
+    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
+    document.getElementById('hero').innerHTML=`<div class="big-label">Coverage adequacy</div><div class="big-number ${cls}">${pct}% <span style="font-size:24px;color:var(--fg3);font-weight:500">${have + partial*0.5}/${effective} items</span></div><div class="big-caption"><strong>${band}.</strong> Critical gaps: ${criticalGaps}.</div>`;
+    let gaps = '<h2 style="margin-bottom:14px">Coverage gaps</h2><table class="results-table"><thead><tr><th>Item</th><th>Priority</th><th>Status</th></tr></thead><tbody>';
+    let added=0;
+    for (let i=0; i<total; i++){const v=val('i'+(i+1)); if (v===0 || v===1){gaps += `<tr><td>${ITEMS[i][0]}</td><td><strong style="color:${ITEMS[i][1]==='Critical'?'#B91C1C':'#B45309'}">${ITEMS[i][1]}</strong></td><td>${v===0?'Missing':'Partial / Underlimited'}</td></tr>`; added++;}}
+    if (added===0) gaps += '<tr><td colspan="3" style="text-align:center;color:#047857">All coverage in place - excellent.</td></tr>';
+    gaps += '</tbody></table>';
+    document.getElementById('detail').innerHTML = gaps;
+    return {pct, band, have, partial, dont, dontCritical, criticalGaps};
+  }
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    const r = recalc(); if (!r) return;
+    sgBuildPdf({title:'Insurance Coverage Adequacy', docNumberLabel:'Coverage', docNumber:r.pct+'%', date:todayISO(),
+      fromLabel:'STATUS', from:[r.band, r.criticalGaps+' critical gaps'],
+      toLabel:'BREAKDOWN', to:['Have: '+r.have, 'Partial: '+r.partial, 'Missing: '+r.dont],
+      itemColumns:['Have','Partial','Missing'], items:[[r.have, r.partial, r.dont]], itemRowMapper:x=>x,
+      notes:'EDUCATIONAL - not insurance advice. Consult a licensed commercial insurance broker familiar with manufacturing. Source: Hartford Manufacturing Insurance + Zurich Manufacturing Risk Insights.',
+      filename:'insurance-coverage-'+todayISO()+'.pdf'});
+  });
+});
+</script>
+
+
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

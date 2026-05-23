@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Hire vs Overtime Calculator for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Free hire vs OT calculator. Compares total cost, break-even months, and expected value of hiring vs continuing overtime. PDF report.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/hire-vs-overtime/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/hire-vs-overtime/"><meta property="og:title" content="Hire vs Overtime Calculator for Manufacturers | SimpleGrid"><meta property="og:description" content="Free hire vs OT calculator. Compares total cost, break-even months, and expected value of hiring vs continuing overtime. PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Hire vs Overtime Calculator for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/hire-vs-overtime/","description":"Free hire vs OT calculator. Compares total cost, break-even months, and expected value of hiring vs continuing overtime. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Hire vs Overtime Calculator for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/hire-vs-overtime/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>Hire vs Overtime - the math behind the decision.</h1>
+    <p class="lead">OT under 10 hrs/wk is fine. Over 20 hrs/wk for sustained periods, you must hire (Stanford research: productivity collapses). The middle zone needs real numbers - this calculator gives them.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Current OT situation</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="ot-h">OT hours / week (total)</label><input id="ot-h" type="number" data-clamp="0,500" step="1" value="40" data-required></div>
+        <div class="tool-field"><label for="ot-r">OT hourly rate ($)</label><input id="ot-r" type="number" data-clamp="0,500" step="0.50" value="48"></div>
+        <div class="tool-field"><label for="duration">Expected duration of high demand (months)</label><input id="duration" type="number" data-clamp="0,60" step="1" value="9"></div>
+        <div class="tool-field"><label for="prob">% probability demand persists</label><input id="prob" type="number" data-clamp="0,100" step="5" value="65"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>Cost of a new hire</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="hire-cost">Fully loaded annual cost ($)</label><input id="hire-cost" type="number" data-clamp="0,500000" step="1000" value="62000"></div>
+        <div class="tool-field"><label for="train-weeks">Weeks to full productivity</label><input id="train-weeks" type="number" data-clamp="0,52" step="1" value="6"></div>
+        <div class="tool-field"><label for="train-prod">Productivity during training (%)</label><input id="train-prod" type="number" data-clamp="0,100" step="5" value="50"></div>
+        <div class="tool-field"><label for="recruit">Recruiting cost ($)</label><input id="recruit" type="number" data-clamp="0,50000" step="100" value="4500"></div>
+        <div class="tool-field"><label for="term">Cost to terminate if demand drops ($)</label><input id="term" type="number" data-clamp="0,50000" step="100" value="2500"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When the answer is not obvious from the OT line on the P&L</div>
+      <h2>SimpleGrid models hire-vs-OT against actual demand history, not gut feel.</h2>
+      <p>OT under 10 hrs/week sustained: keep OT. Over 20 hrs/week sustained: hire regardless of duration (Stanford research: productivity collapses above 20 hrs/wk OT). The middle zone needs real numbers.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="hvo_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function recalc(){
+    const oth = nn('ot-h'), otr = nn('ot-r'), duration = nn('duration'), prob = nn('prob')/100;
+    const hireCost = nn('hire-cost'), trainWeeks = nn('train-weeks'), trainProd = nn('train-prod')/100;
+    const recruit = nn('recruit'), term = nn('term');
+    const otMonthly = oth * otr * 4.33;
+    const otTotal = otMonthly * duration;
+    const hireMonthly = hireCost / 12;
+    const productiveValue = (1 - trainProd) * (trainWeeks/52) * hireCost;
+    const trainCost = recruit + productiveValue;
+    const hireTotal = hireMonthly * duration + trainCost;
+    const breakEvenMonths = (otMonthly - hireMonthly) > 0 ? trainCost / (otMonthly - hireMonthly) : 999;
+    const ev = prob * (otTotal - hireTotal) - (1-prob) * term;
+    let rec, recCls;
+    if (oth <= 10) { rec='STAY ON OT - under 10 hrs/wk is sustainable indefinitely. Hiring not justified by current demand.'; recCls='green'; }
+    else if (oth > 20) { rec='HIRE - over 20 hrs/wk sustained OT causes productivity collapse (Stanford research: 25% loss after 8 weeks). Hire regardless of break-even math.'; recCls='red'; }
+    else if (breakEvenMonths < duration && ev > 0) { rec='HIRE - break-even in '+Math.ceil(breakEvenMonths)+' months and expected value of hiring is +'+fmt$(ev)+'.'; recCls='green'; }
+    else { rec='STAY ON OT - hiring break-even ('+Math.ceil(breakEvenMonths)+' months) exceeds expected demand duration ('+duration+' months) at your confidence level.'; recCls='gold'; }
+    document.getElementById('hero').innerHTML = `
+      <div class="big-label">Recommendation</div>
+      <div class="big-number ${recCls}">${recCls==='green' && oth>10?'HIRE':recCls==='red'?'HIRE':'OT'}</div>
+      <div class="big-caption">${rec}</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Continue OT</div><div class="value">${fmt$(otMonthly)}/mo</div><div class="sub">${fmt$(otTotal)} over ${duration} months</div></div>
+        <div class="results-stat"><div class="label">Hire 1 FTE</div><div class="value">${fmt$(hireMonthly)}/mo</div><div class="sub">${fmt$(hireTotal)} over ${duration} months + setup</div></div>
+        <div class="results-stat"><div class="label">Break-even</div><div class="value">${breakEvenMonths<999?Math.ceil(breakEvenMonths)+' mo':'N/A'}</div></div>
+      </div>
+    `;
+    document.getElementById('detail').innerHTML = `
+      <h2 style="margin-bottom:14px">Cost comparison</h2>
+      <table class="results-table">
+        <thead><tr><th>Period</th><th class="num">Continue OT</th><th class="num">Hire 1 FTE</th></tr></thead>
+        <tbody>
+          <tr><td>Setup (one-time)</td><td class="num">$0</td><td class="num">${fmt$(trainCost)}</td></tr>
+          <tr><td>Monthly</td><td class="num">${fmt$(otMonthly)}</td><td class="num">${fmt$(hireMonthly)}</td></tr>
+          <tr><td>Over ${duration} months</td><td class="num"><strong>${fmt$(otTotal)}</strong></td><td class="num"><strong>${fmt$(hireTotal)}</strong></td></tr>
+          <tr><td>Expected value of hiring</td><td class="num">-</td><td class="num"><strong style="color:${ev>0?'#047857':'#B91C1C'}">${ev>0?'+':''}${fmt$(ev)}</strong></td></tr>
+        </tbody>
+      </table>
+      <p class="tool-note" style="margin-top:14px">Stanford research (Pencavel 2014): OT above 15 hrs/wk for 8+ weeks reduces productivity 25%. You pay for hours but lose the output. This is why "OT is cheaper" is wrong above the threshold.</p>
+    `;
+    return {oth, otMonthly, otTotal, hireMonthly, hireTotal, trainCost, breakEvenMonths, ev, rec};
+  }
+  document.querySelectorAll('input').forEach(el=>el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({title:'Hire vs Overtime Analysis', docNumberLabel:'Recommendation', docNumber:r.rec.split(' - ')[0], date:todayISO(),
+      fromLabel:'OT', from:['Hours/wk: '+r.oth, 'Monthly cost: '+fmt$(r.otMonthly), 'Total: '+fmt$(r.otTotal)],
+      toLabel:'HIRE', to:['Setup cost: '+fmt$(r.trainCost), 'Monthly cost: '+fmt$(r.hireMonthly), 'Total: '+fmt$(r.hireTotal), 'Break-even: '+Math.ceil(r.breakEvenMonths)+' months', 'Expected value: '+(r.ev>0?'+':'')+fmt$(r.ev)],
+      itemColumns:['Component','OT','Hire'], items:[['Setup','$0',fmt$(r.trainCost)],['Monthly',fmt$(r.otMonthly),fmt$(r.hireMonthly)],['Total over period',fmt$(r.otTotal),fmt$(r.hireTotal)]], itemRowMapper:x=>x,
+      notes:r.rec+'
+
+Stanford research (Pencavel 2014): OT above 15 hrs/wk for 8+ weeks reduces productivity 25%.',
+      filename:'hire-vs-overtime-'+todayISO()+'.pdf'});
+  });
+});
+</script>
+
+
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

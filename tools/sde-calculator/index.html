@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Seller's Discretionary Earnings (SDE) Walkthrough | SimpleGrid</title>
+<meta name="description" content="Free 16-step SDE calculator for mid-market manufacturers. IBBA-standard methodology with warning flags for aggressive add-backs. PDF report.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/sde-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/sde-calculator/"><meta property="og:title" content="Seller's Discretionary Earnings (SDE) Walkthrough | SimpleGrid"><meta property="og:description" content="Free 16-step SDE calculator for mid-market manufacturers. IBBA-standard methodology with warning flags for aggressive add-backs. PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Seller's Discretionary Earnings (SDE) Walkthrough | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/sde-calculator/","description":"Free 16-step SDE calculator for mid-market manufacturers. IBBA-standard methodology with warning flags for aggressive add-backs. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Seller's Discretionary Earnings (SDE) Walkthrough | SimpleGrid","item":"https://simplegrid.ai/tools/sde-calculator/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>SDE Walkthrough - what a buyer actually takes home.</h1>
+    <p class="lead">IBBA-standard 16-step walkthrough. Most owners undervalue by missing legitimate add-backs - or overvalue by adding back things buyers will reject. This walks through every line item with warning flags for aggressive add-backs.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <p class="tool-note" style="margin:0 0 20px">IBBA-standard SDE methodology. Most owners undervalue their business by missing legitimate add-backs - or overvalue by adding back things buyers will challenge. Walk through each step; we calculate as you type.</p>
+    <div class="tool-card"><h2>Step 1: Start with Net Income</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="rev">Annual revenue ($)</label><input id="rev" type="number" data-clamp="0,10000000000" step="10000" value="8000000"></div>
+        <div class="tool-field"><label for="ni">Net Income ($)</label><input id="ni" type="number" data-clamp="-10000000000,10000000000" step="1000" value="420000" data-required></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>Steps 2-9: Owner add-backs</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="sal">Owner salary ($)</label><input id="sal" type="number" data-clamp="0,10000000" step="1000" value="200000"></div>
+        <div class="tool-field"><label for="ptax">Employer payroll tax on owner salary ($)</label><input id="ptax" type="number" data-clamp="0,1000000" step="100" value="15000"></div>
+        <div class="tool-field"><label for="health">Owner health insurance ($)</label><input id="health" type="number" data-clamp="0,1000000" step="100" value="22000"></div>
+        <div class="tool-field"><label for="ret">Owner retirement ($)</label><input id="ret" type="number" data-clamp="0,1000000" step="100" value="18000"></div>
+        <div class="tool-field"><label for="veh">Owner vehicle ($)</label><input id="veh" type="number" data-clamp="0,200000" step="100" value="12000"></div>
+        <div class="tool-field"><label for="phone">Owner cell/home-office ($)</label><input id="phone" type="number" data-clamp="0,50000" step="100" value="3600"></div>
+        <div class="tool-field"><label for="te">Owner T&E (personal portion only) ($)</label><input id="te" type="number" data-clamp="0,500000" step="100" value="8000"></div>
+        <div class="tool-field"><label for="life">Owner life/disability ($)</label><input id="life" type="number" data-clamp="0,50000" step="50" value="2400"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>Steps 10-12: Financial add-backs</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="int">Interest expense ($)</label><input id="int" type="number" data-clamp="0,10000000" step="100" value="35000"></div>
+        <div class="tool-field"><label for="dep">Depreciation ($)</label><input id="dep" type="number" data-clamp="0,10000000" step="100" value="150000"></div>
+        <div class="tool-field"><label for="amort">Amortization ($)</label><input id="amort" type="number" data-clamp="0,10000000" step="100" value="0"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>Steps 13-16: Other add-backs (handle with care)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="onetime">One-time non-recurring ($)</label><input id="onetime" type="number" data-clamp="0,10000000" step="100" value="15000"></div>
+        <div class="tool-field"><label for="rent">Above-market rent add-back ($)</label><input id="rent" type="number" data-clamp="0,1000000" step="100" value="0"></div>
+        <div class="tool-field"><label for="fam">Family on payroll (above-market portion) ($)</label><input id="fam" type="number" data-clamp="0,1000000" step="100" value="0"></div>
+        <div class="tool-field"><label for="other">Other discretionary ($)</label><input id="other" type="number" data-clamp="0,1000000" step="100" value="0"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When buyers will audit every line item</div>
+      <h2>SimpleGrid documents every add-back with source data.</h2>
+      <p>Buyer asks "what was this $24,000?" - the answer is one query. Owners with defensible add-backs sell at the high end of their multiple range. Owners who can't document fall to the low end or get the add-back rejected entirely.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="sde_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function fmt$M(n){if(n>=1000000) return '$'+(n/1000000).toFixed(2)+'M'; if(n>=10000) return '$'+Math.round(n/1000)+'K'; return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function num(id){return parseFloat(document.getElementById(id).value)||0;}
+  function recalc(){
+    const rev = nn('rev'), ni = num('ni');
+    const owner = nn('sal')+nn('ptax')+nn('health')+nn('ret')+nn('veh')+nn('phone')+nn('te')+nn('life');
+    const fin = nn('int')+nn('dep')+nn('amort');
+    const other = nn('onetime')+nn('rent')+nn('fam')+nn('other');
+    const sde = ni + owner + fin + other;
+    const sdeMargin = rev>0 ? sde/rev*100 : 0;
+    const addBacks = owner + fin + other;
+    const addBackPct = sde>0 ? addBacks/sde*100 : 0;
+    const val25 = sde*2.5, val35 = sde*3.5, val45 = sde*4.5;
+    const replacementSalary = 120000; // typical GM/CEO salary for mid-market mfg
+    const adjCashFlow = sde - replacementSalary;
+    let warnings = [];
+    if (addBackPct > 50) warnings.push('Aggressive add-backs (over 50% of SDE) will face buyer scrutiny. Document every line item.');
+    if (sdeMargin > 30) warnings.push('SDE margin over 30% is unusually high for manufacturing. Verify you are not double-counting.');
+    if (sdeMargin < 10 && sdeMargin > 0) warnings.push('SDE margin under 10% is low for a sellable business. Buyers typically want 15%+.');
+    document.getElementById('hero').innerHTML = `
+      <div class="big-label">Seller's Discretionary Earnings (SDE)</div>
+      <div class="big-number">${fmt$(sde)}</div>
+      <div class="big-caption"><strong>${sdeMargin.toFixed(1)}% margin</strong> on ${fmt$(rev)} revenue. Add-backs are ${addBackPct.toFixed(0)}% of SDE.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Net Income (start)</div><div class="value">${fmt$(ni)}</div></div>
+        <div class="results-stat"><div class="label">SDE</div><div class="value green">${fmt$(sde)}</div></div>
+        <div class="results-stat"><div class="label">Adj cash flow to buyer</div><div class="value">${fmt$(adjCashFlow)}</div><div class="sub">SDE - replacement salary</div></div>
+      </div>
+    `;
+    let walk = '<h2 style="margin-bottom:14px">Walkthrough</h2><table class="results-table"><thead><tr><th>Line item</th><th class="num">Amount</th><th class="num">Running total</th></tr></thead><tbody>';
+    let run = ni;
+    walk += `<tr><td>Net Income</td><td class="num">${fmt$(ni)}</td><td class="num">${fmt$(run)}</td></tr>`;
+    run += owner; walk += `<tr><td>+ Owner compensation (salary + benefits + perks)</td><td class="num">${fmt$(owner)}</td><td class="num">${fmt$(run)}</td></tr>`;
+    run += nn('int'); walk += `<tr><td>+ Interest</td><td class="num">${fmt$(nn('int'))}</td><td class="num">${fmt$(run)}</td></tr>`;
+    run += nn('dep')+nn('amort'); walk += `<tr><td>+ Depreciation & Amortization</td><td class="num">${fmt$(nn('dep')+nn('amort'))}</td><td class="num">${fmt$(run)}</td></tr>`;
+    run += other; walk += `<tr><td>+ One-time / discretionary add-backs</td><td class="num">${fmt$(other)}</td><td class="num"><strong style="color:#047857">${fmt$(run)}</strong></td></tr>`;
+    walk += '</tbody></table>';
+    let val = '<h2 style="margin-top:32px;margin-bottom:14px">Valuation ranges (SDE method)</h2><table class="results-table"><thead><tr><th>Multiple</th><th class="num">Valuation</th></tr></thead><tbody>';
+    val += `<tr><td>2.5x SDE (low end of manufacturing range)</td><td class="num">${fmt$M(val25)}</td></tr>`;
+    val += `<tr><td>3.5x SDE (median)</td><td class="num"><strong>${fmt$M(val35)}</strong></td></tr>`;
+    val += `<tr><td>4.5x SDE (high end - strong fundamentals)</td><td class="num">${fmt$M(val45)}</td></tr>`;
+    val += '</tbody></table>';
+    let warnHtml = '';
+    if (warnings.length) {
+      warnHtml = '<h2 style="margin-top:32px;margin-bottom:14px">Warning flags</h2><ul>';
+      warnings.forEach(w => warnHtml += `<li style="color:#B91C1C;margin-bottom:6px">${w}</li>`);
+      warnHtml += '</ul>';
+    }
+    document.getElementById('detail').innerHTML = walk + val + warnHtml;
+    return {rev,ni,owner,fin,other,sde,sdeMargin,addBackPct,val25,val35,val45,adjCashFlow,warnings};
+  }
+  document.querySelectorAll('input').forEach(el=>el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({title:'SDE Walkthrough', docNumberLabel:'SDE', docNumber:fmt$(r.sde), date:todayISO(),
+      fromLabel:'CALCULATION', from:['Net Income: '+fmt$(r.ni), '+ Owner comp: '+fmt$(r.owner), '+ Interest+D&A: '+fmt$(r.fin), '+ Other: '+fmt$(r.other), '= SDE: '+fmt$(r.sde)],
+      toLabel:'VALUATION', to:['Low (2.5x): '+fmt$M(r.val25), 'Mid (3.5x): '+fmt$M(r.val35), 'High (4.5x): '+fmt$M(r.val45)],
+      itemColumns:['Line','Amount'], items:[['Net Income',fmt$(r.ni)],['+ Owner comp',fmt$(r.owner)],['+ Interest+D&A',fmt$(r.fin)],['+ Other',fmt$(r.other)],['= SDE',fmt$(r.sde)]], itemRowMapper:x=>x,
+      notes:'IBBA-standard methodology. Source: International Business Brokers Association. Buyers will scrutinize every add-back >5% of SDE - documentation matters.',
+      filename:'sde-walkthrough-'+todayISO()+'.pdf'});
+  });
+});
+</script>
+
+
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

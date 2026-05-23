@@ -150,6 +150,45 @@ function Footer() {
     }, {
       l: 'Operations Health Score',
       href: 'tools/operations-health-score/'
+    }, {
+      l: 'Customer Concentration Risk',
+      href: 'tools/customer-concentration-risk/'
+    }, {
+      l: 'SDE Calculator',
+      href: 'tools/sde-calculator/'
+    }, {
+      l: 'Automation ROI',
+      href: 'tools/automation-roi-estimator/'
+    }, {
+      l: 'Cost of Poor Quality',
+      href: 'tools/cost-of-poor-quality/'
+    }, {
+      l: 'Digital Maturity',
+      href: 'tools/digital-maturity-assessment/'
+    }, {
+      l: 'Exit Readiness',
+      href: 'tools/exit-readiness-scorecard/'
+    }, {
+      l: 'Capacity Planning',
+      href: 'tools/capacity-planning-calculator/'
+    }, {
+      l: 'Hire vs Overtime',
+      href: 'tools/hire-vs-overtime/'
+    }, {
+      l: 'Lease vs Buy',
+      href: 'tools/lease-vs-buy-equipment/'
+    }, {
+      l: 'Expansion ROI',
+      href: 'tools/expansion-roi-calculator/'
+    }, {
+      l: 'OSHA Checklist',
+      href: 'tools/osha-compliance-checklist/'
+    }, {
+      l: 'ISO 9001 Readiness',
+      href: 'tools/iso-9001-readiness/'
+    }, {
+      l: 'Insurance Audit',
+      href: 'tools/insurance-coverage-checklist/'
     }]
   }, {
     h: 'Resources',

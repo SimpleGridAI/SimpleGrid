@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Automation ROI Estimator for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Free automation ROI calculator. What manual data work costs you, payback period if you deploy a system. PDF report.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/automation-roi-estimator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/automation-roi-estimator/"><meta property="og:title" content="Automation ROI Estimator for Manufacturers | SimpleGrid"><meta property="og:description" content="Free automation ROI calculator. What manual data work costs you, payback period if you deploy a system. PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Automation ROI Estimator for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/automation-roi-estimator/","description":"Free automation ROI calculator. What manual data work costs you, payback period if you deploy a system. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Automation ROI Estimator for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/automation-roi-estimator/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>Automation ROI Estimator - what manual data work actually costs.</h1>
+    <p class="lead">McKinsey: 50% of manufacturing work activities are automatable. Mid-market manufacturers have automated 10-15%. This calculator gives you the gap in dollars and the payback period if you closed it.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Your manual work hours</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="rev">Annual revenue ($)</label><input id="rev" type="number" data-clamp="0,10000000000" step="10000" value="12000000" data-required></div>
+        <div class="tool-field"><label for="emp">Employees</label><input id="emp" type="number" data-clamp="1,100000" step="1" value="60"></div>
+        <div class="tool-field"><label for="data">Data-entry hours / week (team total)</label><input id="data" type="number" data-clamp="0,5000" step="0.5" value="25"></div>
+        <div class="tool-field"><label for="search">Info-search hours / week</label><input id="search" type="number" data-clamp="0,5000" step="0.5" value="15"></div>
+        <div class="tool-field"><label for="rate">Loaded labor cost / hr ($)</label><input id="rate" type="number" data-clamp="0,500" step="0.50" value="38"></div>
+        <div class="tool-field"><label for="syscost">Monthly system cost if you deployed one ($)</label><input id="syscost" type="number" data-clamp="0,100000" step="100" value="2500"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When 8-15% of your labor is on data work that a system should do</div>
+      <h2>SimpleGrid eliminates the manual handoff between systems.</h2>
+      <p>Order intake to production to shipping to invoice - one event chain, no re-keying. McKinsey: 50% of manufacturing work activities are automatable. Mid-market manufacturers have automated 10-15%. The gap is yours to close.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="auto_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function fmt$K(n){if(n>=1000000) return '$'+(n/1000000).toFixed(2)+'M'; if(n>=10000) return '$'+Math.round(n/1000)+'K'; return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function recalc(){
+    const rev = nn('rev'); const emp = Math.max(1, nn('emp'));
+    const data = nn('data'); const search = nn('search'); const rate = nn('rate');
+    const sysCostAnnual = nn('syscost') * 12;
+    const dataWaste = data * rate * 52;
+    const searchWaste = search * rate * 52;
+    const totalWaste = dataWaste + searchWaste;
+    const totalHours = (data + search) * 52;
+    const fte = totalHours / 2080;
+    const pctRev = rev>0 ? totalWaste/rev*100 : 0;
+    const threeYr = totalWaste * 3 * 1.05;
+    const netSaving = totalWaste - sysCostAnnual;
+    const paybackMonths = (totalWaste/12) > 0 ? Math.ceil(sysCostAnnual / (totalWaste/12)) : 0;
+    document.getElementById('hero').innerHTML = `
+      <div class="big-label">Annual cost of manual data work</div>
+      <div class="big-number red">${fmt$K(totalWaste)}</div>
+      <div class="big-caption"><strong>${pctRev.toFixed(1)}% of your revenue</strong> - that\'s ${fte.toFixed(1)} FTEs doing work a system could do. Mid-market manufacturing best-in-class: under 5% (Aberdeen).</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Recoverable hours / year</div><div class="value">${Math.round(totalHours).toLocaleString()}</div></div>
+        <div class="results-stat"><div class="label">FTE equivalent</div><div class="value">${fte.toFixed(1)}</div></div>
+        <div class="results-stat"><div class="label">3-year cost if no change</div><div class="value red">${fmt$K(threeYr)}</div></div>
+      </div>
+    `;
+    document.getElementById('detail').innerHTML = `
+      <h2 style="margin-bottom:14px">Waste breakdown</h2>
+      <div class="bar-row"><span class="bar-label">Data entry</span><div class="bar-track"><div class="bar-fill red" style="width:${totalWaste>0?dataWaste/totalWaste*100:0}%"></div></div><span class="bar-value">${fmt$K(dataWaste)}</span></div>
+      <div class="bar-row"><span class="bar-label">Info searching</span><div class="bar-track"><div class="bar-fill red" style="width:${totalWaste>0?searchWaste/totalWaste*100:0}%"></div></div><span class="bar-value">${fmt$K(searchWaste)}</span></div>
+
+      <h2 style="margin-top:32px;margin-bottom:14px">ROI if you deployed a system at ${fmt$(nn('syscost'))}/month</h2>
+      <table class="results-table"><thead><tr><th>Metric</th><th class="num">Value</th></tr></thead><tbody>
+        <tr><td>Annual savings</td><td class="num">${fmt$(totalWaste)}</td></tr>
+        <tr><td>Annual system cost</td><td class="num">${fmt$(sysCostAnnual)}</td></tr>
+        <tr><td><strong>Net annual saving</strong></td><td class="num"><strong style="color:#047857">${fmt$(netSaving)}</strong></td></tr>
+        <tr><td>Payback period</td><td class="num">${paybackMonths} months</td></tr>
+        <tr><td>3-year ROI</td><td class="num"><strong>${sysCostAnnual>0?Math.round((netSaving*3/sysCostAnnual/3)*100):0}%</strong></td></tr>
+      </tbody></table>
+      <p class="tool-note" style="margin-top:14px">Source: McKinsey Global Institute (50% of manufacturing work is automatable), Aberdeen Group (best-in-class spends under 5% of labor hours on manual data work; median 12-18%).</p>
+    `;
+    return {rev,totalWaste,totalHours,fte,pctRev,threeYr,netSaving,paybackMonths,sysCostAnnual};
+  }
+  document.querySelectorAll('input').forEach(el=>el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({title:'Automation ROI Estimate', docNumberLabel:'Annual waste', docNumber:fmt$(r.totalWaste), date:todayISO(),
+      fromLabel:'TODAY', from:[fmt$(r.totalWaste)+' annual cost of manual data work', r.fte.toFixed(1)+' FTE equivalent', r.pctRev.toFixed(1)+'% of revenue'],
+      toLabel:'IF AUTOMATED', to:['Annual saving: '+fmt$(r.netSaving), 'Payback: '+r.paybackMonths+' months', '3-yr ROI: '+(r.sysCostAnnual>0?Math.round((r.netSaving*3/r.sysCostAnnual/3)*100)+'%':'-')],
+      itemColumns:['Metric','Value'], items:[['Recoverable hours/yr',Math.round(r.totalHours)],['FTE equivalent',r.fte.toFixed(1)],['Annual labor waste',fmt$(r.totalWaste)],['3-yr cost if no change',fmt$(r.threeYr)]], itemRowMapper:x=>x,
+      notes:'McKinsey Global Institute 2017: 50% of manufacturing work activities are automatable. Aberdeen: best-in-class under 5% of labor on manual data; median 12-18%.',
+      filename:'automation-roi-'+todayISO()+'.pdf'});
+  });
+});
+</script>
+
+
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Equipment Lease vs Buy Calculator | SimpleGrid</title>
+<meta name="description" content="Free equipment lease vs buy NPV calculator with tax adjustments (Section 179, depreciation). Side-by-side decision factors. PDF report.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/lease-vs-buy-equipment/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/lease-vs-buy-equipment/"><meta property="og:title" content="Equipment Lease vs Buy Calculator | SimpleGrid"><meta property="og:description" content="Free equipment lease vs buy NPV calculator with tax adjustments (Section 179, depreciation). Side-by-side decision factors. PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Equipment Lease vs Buy Calculator | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/lease-vs-buy-equipment/","description":"Free equipment lease vs buy NPV calculator with tax adjustments (Section 179, depreciation). Side-by-side decision factors. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Equipment Lease vs Buy Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/lease-vs-buy-equipment/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>Equipment Lease vs Buy - NPV with tax adjustments.</h1>
+    <p class="lead">Every mid-market manufacturer makes 5-10 equipment decisions per year. The wrong choice on a $200K CNC costs you 5-15% over its life. NPV with tax adjustments gives you the real answer.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Equipment + financial parameters</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="price">Purchase price ($)</label><input id="price" type="number" data-clamp="0,100000000" step="1000" value="180000" data-required></div>
+        <div class="tool-field"><label for="life">Useful life (years)</label><input id="life" type="number" data-clamp="1,30" step="1" value="7" data-required></div>
+        <div class="tool-field"><label for="residual">Estimated residual value ($)</label><input id="residual" type="number" data-clamp="0,100000000" step="1000" value="35000"></div>
+        <div class="tool-field"><label for="maint">Annual maintenance if owned ($)</label><input id="maint" type="number" data-clamp="0,1000000" step="100" value="8000"></div>
+        <div class="tool-field"><label for="lease">Monthly lease payment ($)</label><input id="lease" type="number" data-clamp="0,1000000" step="100" value="3200"></div>
+        <div class="tool-field"><label for="term">Lease term (months)</label><input id="term" type="number" data-clamp="1,120" step="1" value="60"></div>
+        <div class="tool-field"><label for="leaseM">Maintenance in lease?</label>
+          <select id="leaseM"><option value="yes">Yes (included)</option><option value="no" selected>No (paid separately)</option></select>
+        </div>
+        <div class="tool-field"><label for="tax">Tax rate (%)</label><input id="tax" type="number" data-clamp="0,60" step="1" value="25"></div>
+        <div class="tool-field"><label for="discount">Discount rate / WACC (%)</label><input id="discount" type="number" data-clamp="0,40" step="0.5" value="8"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When you make 5-10 equipment decisions per year and want them all right</div>
+      <h2>SimpleGrid models capex against actual job costing and OEE data.</h2>
+      <p>Should you lease or buy the next CNC? Should you buy used or new? SimpleGrid surfaces the answer using your own data, not vendor projections.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="lvb_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function pv(cf, r, y){return cf / Math.pow(1+r, y);}
+  function recalc(){
+    const price = nn('price'); const life = Math.max(1, nn('life')); const residual = nn('residual');
+    const maint = nn('maint'); const lease = nn('lease'); const term = Math.max(1, nn('term'));
+    const leaseM = document.getElementById('leaseM').value;
+    const tax = nn('tax')/100; const r = nn('discount')/100;
+    // BUY (cash)
+    const sec179 = price * tax;
+    let buyNPV = -price + sec179;
+    for (let y=1; y<=life; y++){
+      const cf = -maint * (1 - tax); // maintenance is deductible
+      buyNPV += pv(cf, r, y);
+    }
+    buyNPV += pv(residual, r, life);
+    // LEASE
+    let leaseNPV = 0;
+    const leaseYr = Math.min(life, term/12);
+    for (let y=1; y<=leaseYr; y++){
+      const annLease = lease * 12;
+      const annMaint = leaseM==='yes' ? 0 : maint;
+      const cf = -(annLease + annMaint) * (1 - tax);
+      leaseNPV += pv(cf, r, y);
+    }
+    // After lease term, owner has nothing
+    const diff = leaseNPV - buyNPV;
+    const buyMonthlyEq = -buyNPV * r / (1 - Math.pow(1+r, -life)) / 12;
+    const leaseMonthlyEq = lease + (leaseM==='yes' ? 0 : maint/12);
+    let rec, recCls;
+    if (Math.abs(diff) / Math.abs(buyNPV) < 0.05) { rec='CLOSE - within 5%. Decide on cash flow priority: lease preserves cash; buy preserves equity.'; recCls='gold'; }
+    else if (diff > 0) { rec='BUY - lower NPV cost by '+fmt$(diff)+'. Buying preserves residual value and gives Section 179 deduction in year 1.'; recCls='green'; }
+    else { rec='LEASE - lower NPV cost by '+fmt$(-diff)+'. Leasing preserves cash and offers flexibility to upgrade.'; recCls='gold'; }
+    document.getElementById('hero').innerHTML = `
+      <div class="big-label">Recommendation</div>
+      <div class="big-number ${recCls}">${diff>0?'BUY':'LEASE'}</div>
+      <div class="big-caption">${rec}</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">BUY total NPV cost</div><div class="value">${fmt$(-buyNPV)}</div></div>
+        <div class="results-stat"><div class="label">LEASE total NPV cost</div><div class="value">${fmt$(-leaseNPV)}</div></div>
+        <div class="results-stat"><div class="label">Difference</div><div class="value ${diff>0?'green':'gold'}">${fmt$(Math.abs(diff))}</div><div class="sub">${diff>0?'cheaper to buy':'cheaper to lease'}</div></div>
+      </div>
+    `;
+    document.getElementById('detail').innerHTML = `
+      <h2 style="margin-bottom:14px">Decision factors beyond NPV</h2>
+      <table class="results-table">
+        <thead><tr><th>Factor</th><th>BUY</th><th>LEASE</th></tr></thead>
+        <tbody>
+          <tr><td>Year 1 cash impact</td><td>${fmt$(price - sec179)} outflow</td><td>${fmt$(lease*12)} outflow</td></tr>
+          <tr><td>Year 1 tax deduction</td><td>Section 179: ${fmt$(sec179)}</td><td>Lease payments: ${fmt$(lease*12*tax)}</td></tr>
+          <tr><td>Flexibility to upgrade</td><td>Low (sell + buy new)</td><td>High (lease end)</td></tr>
+          <tr><td>Residual value</td><td>You keep it (${fmt$(residual)})</td><td>Gone at lease end</td></tr>
+          <tr><td>Balance sheet impact</td><td>Asset + debt (if financed)</td><td>Lease liability (ASC 842)</td></tr>
+        </tbody>
+      </table>
+      <p class="tool-note" style="margin-top:14px">Section 179 (2023): up to $1.16M annual deduction. Bonus depreciation available in addition. Consult your CPA for current limits and your specific tax situation.</p>
+    `;
+    return {price, life, buyNPV, leaseNPV, diff, rec};
+  }
+  document.querySelectorAll('input, select').forEach(el=>el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({title:'Equipment Lease vs Buy Analysis', docNumberLabel:'Recommendation', docNumber:r.diff>0?'BUY':'LEASE', date:todayISO(),
+      fromLabel:'INPUTS', from:['Price: '+fmt$(r.price), 'Useful life: '+r.life+' years'],
+      toLabel:'RESULT', to:['BUY NPV cost: '+fmt$(-r.buyNPV), 'LEASE NPV cost: '+fmt$(-r.leaseNPV), 'Difference: '+fmt$(Math.abs(r.diff))],
+      itemColumns:['Metric','Value'], items:[['BUY NPV',fmt$(-r.buyNPV)],['LEASE NPV',fmt$(-r.leaseNPV)],['Recommendation',r.diff>0?'BUY':'LEASE']], itemRowMapper:x=>x,
+      notes:r.rec+'
+
+Methodology: NPV comparison with tax adjustments (Section 179 + depreciation tax shield). Consult your CPA for current Section 179 limits.',
+      filename:'lease-vs-buy-'+todayISO()+'.pdf'});
+  });
+});
+</script>
+
+
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>
