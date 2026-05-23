@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Import Duty & Tariff Lookup for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Estimate US import duties by product category and country. Section 301 (China), MPF, HMF, FTA benefits. Directional guidance + sourcing alternatives. Free.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/import-duty-lookup/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/import-duty-lookup/"><meta property="og:title" content="Import Duty & Tariff Lookup for Manufacturers | SimpleGrid"><meta property="og:description" content="Estimate US import duties by product category and country. Section 301 (China), MPF, HMF, FTA benefits. Directional guidance + sourcing alternatives. Free."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Import Duty & Tariff Lookup for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/import-duty-lookup/","description":"Estimate US import duties by product category and country. Section 301 (China), MPF, HMF, FTA benefits. Directional guidance + sourcing alternatives. Free.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Import Duty & Tariff Lookup for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/import-duty-lookup/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is Section 301?","acceptedAnswer":{"@type":"Answer","text":"The tariff added in 2018 on most Chinese-origin manufacturing imports. Rates 7.5-25% on top of regular MFN rate. Applied based on HTS chapter \"Lists\" 1-4. Subject to ongoing review - check ustr.gov for current status."}},
+{"@type":"Question","name":"What is the difference between Section 232 and Section 301?","acceptedAnswer":{"@type":"Answer","text":"Section 232 = national security tariffs (steel, aluminum) - 10-25% on most origins, not just China. Section 301 = unfair trade practices (originally targeting China specifically) - 7.5-25% on most Chinese origin."}},
+{"@type":"Question","name":"What is USMCA and how do I claim it?","acceptedAnswer":{"@type":"Answer","text":"US-Mexico-Canada Agreement. Replaces NAFTA. Products from Mexico/Canada qualify for duty-free entry if they meet the specific rule of origin for their HTS code (typically regional value content or substantial transformation). Your supplier provides a USMCA Certification of Origin."}},
+{"@type":"Question","name":"Should I use an FTZ?","acceptedAnswer":{"@type":"Answer","text":"If you import substantial volume (>$500K annually) and have working capital constraints, yes. FTZ defers duty until goods leave the zone into US commerce. For high-duty products this materially improves cash flow."}},
+{"@type":"Question","name":"What is duty drawback?","acceptedAnswer":{"@type":"Answer","text":"A refund of up to 99% of duties paid on imported materials that are used to make products subsequently exported. Must file within 5 years. Worth pursuing if you re-export more than ~$100K of duty per year."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Import Duty &amp; Tariff Lookup.</h1>
+    <p class="lead">What is the duty on steel sheet from China? Plywood from Vietnam? Electronics from Taiwan? Get a directional estimate by product category - enough to make sourcing decisions.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Your product</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="prod-desc">Product description</label><input id="prod-desc" type="text" maxlength="120" placeholder="e.g., 16-gauge stainless steel sheet"></div>
+        <div class="tool-field"><label for="category">Product category</label>
+          <select id="category">
+            <option value="metals">Metals &amp; metal products</option>
+            <option value="wood">Wood &amp; wood products</option>
+            <option value="plastics">Plastics &amp; rubber</option>
+            <option value="textiles">Textiles &amp; apparel</option>
+            <option value="machinery">Machinery &amp; equipment</option>
+            <option value="electrical">Electrical &amp; electronics</option>
+            <option value="chemicals">Chemicals</option>
+            <option value="furniture">Furniture</option>
+            <option value="auto-parts">Automotive parts</option>
+            <option value="paper">Paper &amp; packaging</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="tool-field"><label for="origin">Country of origin</label>
+          <select id="origin">
+            <option>US (domestic)</option>
+            <option selected>China</option>
+            <option>Vietnam</option>
+            <option>India</option>
+            <option>Mexico</option>
+            <option>Canada</option>
+            <option>Taiwan</option>
+            <option>South Korea</option>
+            <option>Japan</option>
+            <option>Germany</option>
+            <option>Thailand</option>
+            <option>Indonesia</option>
+            <option>Italy</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="tool-field"><label for="value">Annual import value ($)</label><input id="value" type="number" data-clamp="0,1000000000" step="1000" value="180000"></div>
+        <div class="tool-field"><label for="hts">HTS code (if known)</label><input id="hts" type="text" maxlength="20" placeholder="e.g., 7219.32.00.30"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When sourcing decisions ignore the tariff math</div>
+      <h2>SimpleGrid includes actual duty costs in every landed-cost calculation.</h2>
+      <p>Your job costs and quotes reflect the real number - not the pre-tariff number that flattered the sourcing choice.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="import_duty_lookup_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+  // Reference data: typical duty ranges by category and origin
+  const DATA = {
+    metals: { base: [0, 6.5], typical: 4, name: 'Metals & metal products', items: [
+      ['Steel sheet/coil (HS 72)','0-6.5%','25% (China)','Also subject to Section 232: 25% on most steel from all countries. AD/CVD orders on many products.'],
+      ['Aluminum sheet/coil (HS 76)','2.6-6.5%','25% (China)','Section 232: 10% on most aluminum from many countries.'],
+      ['Stainless steel (HS 7219-7220)','0-3%','25% (China)','AD/CVD duties from China can exceed 200%.'],
+      ['Fasteners (HS 7318)','0-8.6%','25% (China)','Wide rate range based on type.'],
+      ['Pipe/tube (HS 7304-7306)','0-5.5%','25% (China)','Extensive AD/CVD orders.']
+    ]},
+    wood: { base: [0, 8], typical: 4, name: 'Wood & wood products', items: [
+      ['Plywood (HS 4412)','0-8%','25% (China)','Chinese plywood subject to AD/CVD. Vietnam increasingly used as alternative.'],
+      ['Hardwood lumber (HS 4407)','0-4.9%','-','Many tropical hardwoods duty-free.'],
+      ['MDF/Particleboard (HS 4411)','0-3.9%','25% (China)',''],
+      ['Furniture parts (HS 9401-9403)','0-4.7%','25% (China)','AD/CVD on Chinese bedroom furniture.']
+    ]},
+    plastics: { base: [0, 6.5], typical: 4, name: 'Plastics & rubber', items: [
+      ['Plastic resins (HS 3901-3914)','0-6.5%','25% (China)',''],
+      ['Plastic parts (HS 3926)','3.4-5.3%','25% (China)',''],
+      ['Rubber gaskets (HS 4016)','2.5-4%','25% (China)','']
+    ]},
+    textiles: { base: [5, 32], typical: 12, name: 'Textiles & apparel', items: [
+      ['Cotton fabric (HS 5208-5212)','6-12%','7.5-25% (China)','Textiles have some of the highest US tariff rates.'],
+      ['Polyester fabric (HS 5407)','8-15%','7.5-25% (China)',''],
+      ['Yarn (HS 5205-5206)','5-12%','-','USMCA: duty-free from Mexico/Canada (subject to yarn-forward rules).']
+    ]},
+    machinery: { base: [0, 4], typical: 2.5, name: 'Machinery & equipment', items: [
+      ['CNC machines (HS 8456-8462)','0-4.4%','25% (China)','Many machines duty-free. Verify by exact HTS.'],
+      ['Pumps/compressors (HS 8413-8414)','0-3%','25% (China)',''],
+      ['Bearings (HS 8482)','2.4-9%','25% (China)','AD/CVD on ball bearings from multiple countries.']
+    ]},
+    electrical: { base: [0, 5], typical: 2.5, name: 'Electrical & electronics', items: [
+      ['Motors (HS 8501)','0-3.3%','25% (China)',''],
+      ['Connectors (HS 8536)','0-3.9%','25% (China)',''],
+      ['PCBs (HS 8534)','0%','25% (China)','Duty-free but Section 301 applies to Chinese origin.'],
+      ['Semiconductors (HS 8541-8542)','0%','25% (China)','CHIPS Act implications. Taiwan: geopolitical risk.']
+    ]},
+    chemicals: { base: [0, 6.5], typical: 4, name: 'Chemicals', items: [
+      ['Organic chemicals (HS 29)','0-6.5%','25% (China)',''],
+      ['Industrial chemicals (HS 28-38)','0-6.5%','25% (China)','']
+    ]},
+    furniture: { base: [0, 4.7], typical: 2.5, name: 'Furniture', items: [
+      ['Wood furniture (HS 9403)','0-4.7%','25% (China)','AD/CVD on Chinese bedroom furniture.'],
+      ['Metal furniture (HS 9402-9403)','0-3.5%','25% (China)','']
+    ]},
+    'auto-parts': { base: [0, 4], typical: 2.5, name: 'Automotive parts', items: [
+      ['Auto parts (HS 8708)','0-4%','25% (China)','USMCA: duty-free if rules of origin met.']
+    ]},
+    paper: { base: [0, 7], typical: 3, name: 'Paper & packaging', items: [
+      ['Paperboard (HS 4805-4811)','0-7%','25% (China)',''],
+      ['Corrugated cases (HS 4819)','0-4.7%','25% (China)','']
+    ]},
+    other: { base: [0, 8], typical: 4, name: 'Other', items: [] }
+  };
+
+  const SECTION_301_COUNTRIES = ['China'];
+  const FTA_COUNTRIES = {
+    'Mexico': 'USMCA - duty-free if rules of origin met (regional value content, substantial transformation in USMCA countries)',
+    'Canada': 'USMCA - same as Mexico',
+    'South Korea': 'KORUS - most manufacturing goods duty-free or reduced',
+    'Australia': 'AUSFTA - most manufacturing goods duty-free'
+  };
+  const GEOPOLITICAL_FLAG = ['Taiwan', 'China'];
+
+  function recalc(){
+    const cat = document.getElementById('category').value;
+    const origin = document.getElementById('origin').value;
+    const value = nn('value');
+    const data = DATA[cat] || DATA.other;
+
+    const warns = [];
+    if (origin === 'US (domestic)') warns.push('Domestic-origin products are duty-free. This tool is designed for imports.');
+    if (origin === 'Other') warns.push('"Other" selected - check the specific country trade status (FTA eligibility, AD/CVD orders, Section 232).');
+
+    const baseRate = data.typical;
+    const isChina = origin === 'China';
+    const sec301 = isChina ? 25 : 0;
+    const ftaBenefit = FTA_COUNTRIES[origin];
+    const isGeo = GEOPOLITICAL_FLAG.includes(origin);
+
+    const totalRate = baseRate + sec301;
+    const annualDuty = value * totalRate / 100;
+
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">Estimated total duty rate</div>
+      <div class="big-number ${totalRate>15?'red':totalRate>5?'gold':'green'}">${totalRate.toFixed(1)}%</div>
+      <div class="big-caption">${data.name} from ${origin}. Annual duty cost on ${fmt$K(value)} of imports: <strong>${fmt$K(annualDuty)}</strong>.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Base duty (typical)</div><div class="value">${baseRate.toFixed(1)}%</div><div class="sub">range ${data.base[0]}-${data.base[1]}%</div></div>
+        <div class="results-stat"><div class="label">Section 301 (China)</div><div class="value ${sec301?'red':''}">${sec301 ? sec301+'%' : 'N/A'}</div><div class="sub">${isChina ? 'applies' : 'not applicable'}</div></div>
+        <div class="results-stat"><div class="label">FTA benefit</div><div class="value ${ftaBenefit?'green':''}">${ftaBenefit ? 'Yes' : 'No'}</div><div class="sub">${ftaBenefit ? FTA_COUNTRIES[origin].split('-')[0].trim() : 'no agreement'}</div></div>
+      </div>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Common items
+    let items = '<h2 style="margin-top:8px;margin-bottom:14px">Common items in this category</h2><table class="results-table"><thead><tr><th>Item (HTS chapter)</th><th class="num">Base duty</th><th class="num">Section 301</th><th>Notes</th></tr></thead><tbody>';
+    data.items.forEach(i => {
+      items += `<tr><td>${i[0]}</td><td class="num">${i[1]}</td><td class="num">${i[2]}</td><td style="font-size:13px;color:var(--fg2)">${i[3]||'-'}</td></tr>`;
+    });
+    if (data.items.length === 0) items += '<tr><td colspan="4" style="color:var(--fg3);text-align:center">No common items listed for this category - use the HTS database directly.</td></tr>';
+    items += '</tbody></table>';
+
+    // How to find exact HTS
+    const guide = `<h2 style="margin-top:32px;margin-bottom:14px">How to find your exact HTS code</h2>
+      <ol style="font-size:15px;line-height:1.7;padding-left:20px">
+        <li>Go to <strong>hts.usitc.gov</strong> (official US tariff database).</li>
+        <li>Search by keyword or browse by chapter.</li>
+        <li>Your product classifies at the 10-digit level (e.g., 7219.32.00.30).</li>
+        <li>The &quot;General&quot; column shows your duty rate.</li>
+        <li>Check the &quot;Special&quot; column for FTA / GSP reduced rates.</li>
+        <li>For Section 301: check ustr.gov/301 for the current product list.</li>
+      </ol>
+      <p style="font-size:15px;color:var(--fg2);line-height:1.6;margin-top:8px">Or: ask your customs broker. Classification is part of their service.</p>`;
+
+    // Tariff mitigation
+    let mit = '<h2 style="margin-top:32px;margin-bottom:14px">Tariff mitigation strategies</h2><ul style="font-size:15px;line-height:1.7;padding-left:20px">';
+    if (isChina) {
+      const altSavings = value * sec301 / 100;
+      mit += `<li><strong>Alternate-country sourcing:</strong> Vietnam, India, Thailand, or Mexico are not subject to Section 301. Could eliminate <strong style="color:#047857">${fmt$K(altSavings)}/year</strong> in Section 301 cost alone. Many Chinese factories now have Vietnam operations specifically for this reason.</li>`;
+    }
+    if (FTA_COUNTRIES[origin]) {
+      mit += `<li><strong>${FTA_COUNTRIES[origin]}</strong> - verify your product meets the rules of origin to claim duty-free entry.</li>`;
+    }
+    if (totalRate > 5) {
+      mit += '<li><strong>Foreign Trade Zone (FTZ) or bonded warehouse:</strong> defer duty until goods enter US commerce. Improves cash flow.</li>';
+    }
+    mit += '<li><strong>Duty drawback:</strong> If you re-export products made with imported materials, you may recover up to 99% of duties paid. File within 5 years.</li>';
+    mit += '</ul>';
+
+    if (isGeo) {
+      mit += `<div style="background:#FEF3C7;border:1px solid #F59E0B;border-left:4px solid #B45309;border-radius:8px;padding:14px 16px;margin-top:16px"><strong>Geopolitical risk note:</strong> ${origin} carries elevated geopolitical risk. Consider diversification to reduce concentration even if cost is competitive.</div>`;
+    }
+
+    // Disclaimer
+    const disc = `<h2 style="margin-top:32px;margin-bottom:14px">Important disclaimers</h2>
+      <div style="background:#FEF2F2;border:1px solid #F87171;border-left:4px solid #B91C1C;border-radius:8px;padding:14px 16px;font-size:14px;color:#7F1D1D;line-height:1.6">
+        This is directional guidance only. Actual duty depends on your specific 10-digit HTS classification, country of origin, trade-agreement eligibility, and current tariff status. Rates change frequently. For binding numbers: consult a licensed customs broker, request a binding ruling from CBP, or check the official HTS database at hts.usitc.gov. Section 301, AD/CVD, and Section 232 tariffs change based on policy - monitor USTR.gov, Commerce.gov/ITA, and CBP.gov.
+      </div>`;
+
+    document.getElementById('detail').innerHTML = items + guide + mit + disc;
+    return { cat, origin, value, baseRate, sec301, totalRate, annualDuty, isChina, ftaBenefit };
+  }
+  document.querySelectorAll('input,select').forEach(el => el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Import Duty Estimate', docNumberLabel: 'Total rate', docNumber: r.totalRate.toFixed(1) + '%',
+      date: todayISO(),
+      fromLabel: 'PRODUCT', from: ['Category: ' + r.cat, 'Origin: ' + r.origin, 'Annual import value: ' + fmt$K(r.value)],
+      toLabel: 'ESTIMATE', to: ['Base duty: ' + r.baseRate.toFixed(1) + '%', 'Section 301: ' + r.sec301 + '%', 'Total estimated rate: ' + r.totalRate.toFixed(1) + '%', 'Annual duty cost: ' + fmt$K(r.annualDuty)],
+      itemColumns: ['Item','Value'],
+      items: [['Category', r.cat], ['Origin', r.origin], ['Total rate', r.totalRate.toFixed(1)+'%'], ['Annual cost', fmt$K(r.annualDuty)]],
+      itemRowMapper: x => x,
+      notes: 'DIRECTIONAL ESTIMATE ONLY. Actual rates depend on 10-digit HTS classification, country of origin, FTA eligibility. For binding: hts.usitc.gov, customs broker, or CBP binding ruling. Section 301 rates and product lists change - monitor USTR.gov.',
+      filename: 'import-duty-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why most US manufacturers do not know their real duty exposure</h2>
+    <p>Import duty is not a simple percentage. It is the regular MFN rate from the HTS schedule, plus Section 301 if the origin is China (7.5-25% extra), plus Section 232 if the product is steel or aluminum (10-25%), plus AD/CVD if the product is on a specific order (can be 100%+), minus any FTA preference. Most mid-market manufacturers know their MFN rate from a long-ago broker conversation. They do not know the current stack.</p>
+    <h2>The Section 301 fact every manufacturer should know</h2>
+    <p>Since 2018, most Chinese-origin manufacturing goods carry 7.5-25% in additional tariffs on top of the MFN rate. For a product with a 5% MFN rate, the total is 30%, not 5%. Many manufacturers built supplier relationships before 2018 and never re-evaluated when the math changed. The relationship feels established; the economics no longer work.</p>
+    <h2>Mitigation strategies that actually work</h2>
+    <p>Alternate-country sourcing (Vietnam, India, Mexico, Thailand for products that would otherwise come from China). USMCA preference for Mexico/Canada (verify rules of origin). FTZ or bonded warehouse to defer duty. Duty drawback if you re-export. None of these are exotic - they are standard tools used by sophisticated importers.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is Section 301?</summary><p>The tariff added in 2018 on most Chinese-origin manufacturing imports. Rates 7.5-25% on top of regular MFN rate. Applied based on HTS chapter "Lists" 1-4. Subject to ongoing review - check ustr.gov for current status.</p></details>
+    <details><summary>What is the difference between Section 232 and Section 301?</summary><p>Section 232 = national security tariffs (steel, aluminum) - 10-25% on most origins, not just China. Section 301 = unfair trade practices (originally targeting China specifically) - 7.5-25% on most Chinese origin.</p></details>
+    <details><summary>What is USMCA and how do I claim it?</summary><p>US-Mexico-Canada Agreement. Replaces NAFTA. Products from Mexico/Canada qualify for duty-free entry if they meet the specific rule of origin for their HTS code (typically regional value content or substantial transformation). Your supplier provides a USMCA Certification of Origin.</p></details>
+    <details><summary>Should I use an FTZ?</summary><p>If you import substantial volume (>$500K annually) and have working capital constraints, yes. FTZ defers duty until goods leave the zone into US commerce. For high-duty products this materially improves cash flow.</p></details>
+    <details><summary>What is duty drawback?</summary><p>A refund of up to 99% of duties paid on imported materials that are used to make products subsequently exported. Must file within 5 years. Worth pursuing if you re-export more than ~$100K of duty per year.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (55)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

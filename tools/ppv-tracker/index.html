@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Purchase Price Variance (PPV) Tracker | SimpleGrid</title>
+<meta name="description" content="Track material price vs. standard cost. Variance per item, category breakdown, margin impact. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/ppv-tracker/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/ppv-tracker/"><meta property="og:title" content="Purchase Price Variance (PPV) Tracker | SimpleGrid"><meta property="og:description" content="Track material price vs. standard cost. Variance per item, category breakdown, margin impact. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Purchase Price Variance (PPV) Tracker | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/ppv-tracker/","description":"Track material price vs. standard cost. Variance per item, category breakdown, margin impact. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Purchase Price Variance (PPV) Tracker | SimpleGrid","item":"https://simplegrid.ai/tools/ppv-tracker/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a favorable vs unfavorable PPV?","acceptedAnswer":{"@type":"Answer","text":"Favorable (negative variance): you paid LESS than standard - margin booster. Unfavorable (positive variance): you paid MORE than standard - margin drag."}},
+{"@type":"Question","name":"How big should PPV be?","acceptedAnswer":{"@type":"Answer","text":"Best-in-class procurement: PPV within +/-2% of standard across the portfolio. Average mid-market: 4-7%. Above 10% means standards are stale, supplier relationships are sloppy, or both."}},
+{"@type":"Question","name":"Should I update standard costs when prices change?","acceptedAnswer":{"@type":"Answer","text":"Yes - for high-impact items, quarterly. But not for every fluctuation; the point of \"standard\" is a stable reference. Update when the gap becomes structural (3+ months above 5% variance) not noise."}},
+{"@type":"Question","name":"How does PPV affect my job costing?","acceptedAnswer":{"@type":"Answer","text":"If your standards are wrong, every job quote you build is wrong. If actual material cost is consistently 8% above standard, your quoted margins are 8% higher than your real margins. PPV reveals exactly this gap."}},
+{"@type":"Question","name":"What is the difference between PPV and material price variance?","acceptedAnswer":{"@type":"Answer","text":"Same thing. \"PPV\" is the term used in procurement; \"Material Price Variance\" is the cost-accounting term in standard-costing systems."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Purchase Price Variance (PPV) Tracker.</h1>
+    <p class="lead">Are you paying what you expected for materials? Standard cost vs actual is the single fastest way to spot margin leakage in procurement.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Your items (up to 15)</h2>
+      <p class="tool-note" style="margin:0 0 12px">Add the materials with the biggest spend. Standard cost is what you budgeted; actual is what you paid most recently.</p>
+      <table class="results-table">
+        <thead><tr><th>Item</th><th>Category</th><th class="num">Standard ($)</th><th class="num">Actual ($)</th><th class="num">Qty (period)</th><th class="col-actions"></th></tr></thead>
+        <tbody id="ppv-body"></tbody>
+      </table>
+      <div class="tool-actions"><button type="button" id="add-ppv" class="btn-add">+ Add item</button></div>
+    </div>
+
+    <div class="tool-card"><h2>Optional: margin context</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="revenue">Total revenue (period) ($)</label><input id="revenue" type="number" data-clamp="0,1000000000" step="10000" value="0"></div>
+        <div class="tool-field"><label for="target-margin">Target gross margin (%)</label><input id="target-margin" type="number" data-clamp="0,100" step="1" value="30"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When material costs drift and your standard does not</div>
+      <h2>SimpleGrid calculates PPV from every PO, automatically, in real time.</h2>
+      <p>Standard cost vs. actual cost - per item, per supplier, per period - flagged the moment variance crosses a threshold. No more end-of-quarter surprises.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="ppv_tracker_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(v){return parseFloat(v)||0;}
+
+  const CATS = ['Raw material','Components','Packaging','MRO','Subcontract','Other'];
+  const ppvBody = document.getElementById('ppv-body');
+  function addRow(p) {
+    p = p || {};
+    const esc = sgEscapeHtml;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" maxlength="60" data-f="name" placeholder="Item name" value="${esc(p.name||'')}"></td>
+      <td><select data-f="cat">${CATS.map(c => `<option ${p.cat===c?'selected':''}>${c}</option>`).join('')}</select></td>
+      <td><input type="number" data-clamp="0,1000000" step="0.01" data-f="std" value="${esc(p.std||'')}" style="width:100%"></td>
+      <td><input type="number" data-clamp="0,1000000" step="0.01" data-f="act" value="${esc(p.act||'')}" style="width:100%"></td>
+      <td><input type="number" data-clamp="0,10000000" step="1" data-f="qty" value="${esc(p.qty||'')}" style="width:100%"></td>
+      <td class="col-actions"><button type="button" class="row-del">x</button></td>`;
+    ppvBody.appendChild(tr);
+    tr.querySelector('.row-del').addEventListener('click', () => { tr.remove(); recalc(); });
+    tr.querySelectorAll('input,select').forEach(i => i.addEventListener('input', recalc));
+    if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(tr);
+  }
+  // Seed
+  [
+    ['3/4 in Baltic Birch plywood','Raw material',48.50,52.30,420],
+    ['304 SS sheet 16ga','Raw material',132,138,180],
+    ['Polyester thread (cone)','Components',8.20,7.95,1200],
+    ['Corrugated cartons (12x12x10)','Packaging',1.35,1.62,3200],
+    ['Pneumatic tubing 1/4 in','MRO',0.85,0.95,800],
+    ['CNC programming (hour)','Subcontract',95,108,180]
+  ].forEach(r => addRow({ name: r[0], cat: r[1], std: r[2], act: r[3], qty: r[4] }));
+  document.getElementById('add-ppv').addEventListener('click', () => addRow());
+
+  function recalc(){
+    const items = Array.from(ppvBody.querySelectorAll('tr')).map(tr => {
+      const get = f => tr.querySelector(`[data-f="${f}"]`).value;
+      const std = nn(get('std'));
+      const act = nn(get('act'));
+      const qty = nn(get('qty'));
+      const unitVar = act - std;
+      const unitVarPct = sgSafeDiv(unitVar, std) * 100;
+      const totalVar = unitVar * qty;
+      return { name: get('name'), cat: get('cat'), std, act, qty, unitVar, unitVarPct, totalVar };
+    }).filter(i => i.std > 0 && i.qty > 0);
+
+    const warns = [];
+    if (!items.length) warns.push('Add at least one item with standard cost, actual cost, and quantity.');
+
+    const totalStd = items.reduce((s,i) => s + i.std * i.qty, 0);
+    const totalAct = items.reduce((s,i) => s + i.act * i.qty, 0);
+    const totalPpv = totalAct - totalStd;
+    const totalPpvPct = sgSafeDiv(totalPpv, totalStd) * 100;
+
+    const revenue = nn(document.getElementById('revenue').value);
+    const targetMargin = nn(document.getElementById('target-margin').value);
+    const marginImpactPct = revenue > 0 ? totalPpv / revenue * 100 : 0;
+
+    const cls = totalPpv > 0 ? 'red' : totalPpv < 0 ? 'green' : '';
+    const sign = totalPpv > 0 ? '+' : '';
+
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">${totalPpv > 0 ? 'Over budget by' : totalPpv < 0 ? 'Under budget by' : 'On budget'}</div>
+      <div class="big-number ${cls}">${sign}${fmt$K(Math.abs(totalPpv))}</div>
+      <div class="big-caption">Standard spend ${fmt$K(totalStd)} &middot; Actual spend ${fmt$K(totalAct)} &middot; <strong>${sign}${totalPpvPct.toFixed(1)}%</strong> variance.</div>
+      ${revenue > 0 ? `<div class="big-caption" style="margin-top:8px">Margin impact: <strong style="color:${marginImpactPct>0?'#B91C1C':'#047857'}">${sign}${marginImpactPct.toFixed(2)}pp</strong> on a ${targetMargin}% target.</div>` : ''}
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Variance table
+    items.sort((a,b) => b.totalVar - a.totalVar);
+    let tbl = '<h2 style="margin-top:8px;margin-bottom:14px">Item-level variance (largest unfavorable first)</h2><table class="results-table"><thead><tr><th>Item</th><th>Category</th><th class="num">Std</th><th class="num">Actual</th><th class="num">Unit var</th><th class="num">Qty</th><th class="num">Total var</th><th class="num">%</th></tr></thead><tbody>';
+    items.forEach(i => {
+      const bg = i.totalVar > 100 ? 'background:rgba(239,68,68,0.10)' : i.totalVar < -100 ? 'background:rgba(16,185,129,0.10)' : '';
+      const color = i.totalVar > 0 ? '#B91C1C' : i.totalVar < 0 ? '#047857' : 'var(--fg1)';
+      tbl += `<tr style="${bg}"><td>${sgEscapeHtml(i.name||'-')}</td><td>${i.cat}</td><td class="num">${fmt$(i.std)}</td><td class="num">${fmt$(i.act)}</td><td class="num" style="color:${color};font-weight:600">${i.unitVar>=0?'+':''}${fmt$(i.unitVar)}</td><td class="num">${i.qty.toLocaleString()}</td><td class="num" style="color:${color};font-weight:600">${i.totalVar>=0?'+':''}${fmt$K(i.totalVar)}</td><td class="num">${i.unitVarPct.toFixed(1)}%</td></tr>`;
+    });
+    tbl += '</tbody></table>';
+
+    // Category breakdown
+    const cats = {};
+    items.forEach(i => {
+      if (!cats[i.cat]) cats[i.cat] = { std: 0, act: 0 };
+      cats[i.cat].std += i.std * i.qty;
+      cats[i.cat].act += i.act * i.qty;
+    });
+    let catChart = '<h2 style="margin-top:32px;margin-bottom:14px">Variance by category</h2>';
+    const maxAbs = Math.max(...Object.values(cats).map(c => Math.abs(c.act - c.std)), 1);
+    Object.entries(cats).forEach(([cat, v]) => {
+      const variance = v.act - v.std;
+      const pct = Math.abs(variance) / maxAbs * 100;
+      const c = variance > 0 ? 'red' : 'green';
+      catChart += `<div class="bar-row"><span class="bar-label">${cat}</span><div class="bar-track"><div class="bar-fill ${c}" style="width:${pct}%"></div></div><span class="bar-value" style="color:${variance>0?'#B91C1C':'#047857'}">${variance>0?'+':''}${fmt$K(variance)}</span></div>`;
+    });
+
+    // Top 3 cost increases
+    const unfav = items.filter(i => i.totalVar > 0).slice(0, 3);
+    let topInc = '';
+    if (unfav.length) {
+      topInc = '<h2 style="margin-top:32px;margin-bottom:14px">Top cost increases</h2><ul style="font-size:15px;line-height:1.7;padding-left:20px">';
+      unfav.forEach(i => {
+        const share = sgSafeDiv(i.totalVar, totalPpv) * 100;
+        topInc += `<li><strong>${sgEscapeHtml(i.name||'-')}</strong>: ${fmt$(i.unitVar)} over budget per unit &times; ${i.qty.toLocaleString()} units = <strong style="color:#B91C1C">${fmt$K(i.totalVar)} over</strong> ${totalPpv > 0 ? '(' + share.toFixed(0) + '% of total unfavorable PPV)' : ''}. Action: re-quote with supplier, get competitive bids, check if spec can be relaxed.</li>`;
+      });
+      topInc += '</ul>';
+    }
+
+    // Margin context
+    let marginCtx = '';
+    if (revenue > 0 && totalPpv > 0) {
+      const priceLiftNeeded = totalPpv / revenue * 100;
+      marginCtx = `<h2 style="margin-top:32px;margin-bottom:14px">Margin impact</h2>
+        <p style="font-size:15px;color:var(--fg2);line-height:1.6">Unfavorable PPV of <strong>${fmt$K(totalPpv)}</strong> has reduced your gross margin by approximately <strong>${marginImpactPct.toFixed(2)} percentage points</strong>.</p>
+        <p style="font-size:15px;color:var(--fg2);line-height:1.6;margin-top:8px">To offset, you would need to raise prices by <strong>${priceLiftNeeded.toFixed(2)}%</strong> across the board, OR sell ${fmt$K(totalPpv / (targetMargin/100))} in additional revenue at current margin.</p>`;
+    }
+
+    document.getElementById('detail').innerHTML = tbl + catChart + topInc + marginCtx;
+    return { items, totalStd, totalAct, totalPpv, totalPpvPct, marginImpactPct };
+  }
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Purchase Price Variance Report', docNumberLabel: 'Net PPV', docNumber: (r.totalPpv>=0?'+':'')+fmt$K(r.totalPpv),
+      date: todayISO(),
+      fromLabel: 'STANDARD', from: ['Standard spend: ' + fmt$K(r.totalStd), 'Items tracked: ' + r.items.length],
+      toLabel: 'ACTUAL', to: ['Actual spend: ' + fmt$K(r.totalAct), 'PPV: ' + (r.totalPpv>=0?'+':'') + fmt$K(r.totalPpv) + ' (' + r.totalPpvPct.toFixed(1) + '%)'],
+      itemColumns: ['Item','Std','Actual','Qty','Total var'],
+      items: r.items.map(i => [i.name||'-', fmt$(i.std), fmt$(i.act), i.qty.toString(), (i.totalVar>=0?'+':'')+fmt$(i.totalVar)]),
+      itemRowMapper: x => x,
+      notes: 'Methodology: Standard Cost Accounting (Horngren, Datar, Rajan - Cost Accounting), APICS/ASCM procurement performance metrics. Unfavorable PPV directly reduces gross margin by (PPV / revenue).',
+      filename: 'ppv-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>PPV: the procurement KPI most mid-market manufacturers do not track</h2>
+    <p>Purchase Price Variance compares standard cost (what you budgeted) to actual price paid (what you paid). Unfavorable PPV - paying more than standard - is the single fastest way to erode gross margin without any visible cause. Most mid-market manufacturers do not track PPV because their ERP does not enforce standard costs. So material costs drift, margins shrink, and nobody knows why until quarter-end.</p>
+    <h2>How to use PPV</h2>
+    <p>Set standard costs at the start of the year (or each quarter). Track actual prices on every PO. Compare. Items with unfavorable PPV &gt;5%: re-quote, get competitive bids, consider alternate suppliers. Items with favorable PPV: lock in with a blanket order before the price moves. Categories with persistent unfavorable PPV: structural problem, address upstream.</p>
+    <h2>Standard cost maintenance</h2>
+    <p>Your standard costs are useless if they are stale. Items where actual is more than 10% off from standard distort job costing and pricing. Update standards quarterly for high-spend items; annually for everything else.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is a favorable vs unfavorable PPV?</summary><p>Favorable (negative variance): you paid LESS than standard - margin booster. Unfavorable (positive variance): you paid MORE than standard - margin drag.</p></details>
+    <details><summary>How big should PPV be?</summary><p>Best-in-class procurement: PPV within +/-2% of standard across the portfolio. Average mid-market: 4-7%. Above 10% means standards are stale, supplier relationships are sloppy, or both.</p></details>
+    <details><summary>Should I update standard costs when prices change?</summary><p>Yes - for high-impact items, quarterly. But not for every fluctuation; the point of "standard" is a stable reference. Update when the gap becomes structural (3+ months above 5% variance) not noise.</p></details>
+    <details><summary>How does PPV affect my job costing?</summary><p>If your standards are wrong, every job quote you build is wrong. If actual material cost is consistently 8% above standard, your quoted margins are 8% higher than your real margins. PPV reveals exactly this gap.</p></details>
+    <details><summary>What is the difference between PPV and material price variance?</summary><p>Same thing. "PPV" is the term used in procurement; "Material Price Variance" is the cost-accounting term in standard-costing systems.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (55)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

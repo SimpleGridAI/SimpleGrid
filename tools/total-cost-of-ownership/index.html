@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Total Cost of Ownership (TCO) Calculator for Materials | SimpleGrid</title>
+<meta name="description" content="Beyond purchase price: freight, duties, inspection, rejects, carrying cost, risk. See true TCO per unit. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/total-cost-of-ownership/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/total-cost-of-ownership/"><meta property="og:title" content="Total Cost of Ownership (TCO) Calculator for Materials | SimpleGrid"><meta property="og:description" content="Beyond purchase price: freight, duties, inspection, rejects, carrying cost, risk. See true TCO per unit. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Total Cost of Ownership (TCO) Calculator for Materials | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/total-cost-of-ownership/","description":"Beyond purchase price: freight, duties, inspection, rejects, carrying cost, risk. See true TCO per unit. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Total Cost of Ownership (TCO) Calculator for Materials | SimpleGrid","item":"https://simplegrid.ai/tools/total-cost-of-ownership/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a typical TCO premium over quoted price?","acceptedAnswer":{"@type":"Answer","text":"Domestic suppliers with strong quality: 10-15% above quoted price. Overseas suppliers (China, Vietnam, India): 30-50%. The premium is driven mostly by freight, duties, inspection, and the inventory cost of long lead times."}},
+{"@type":"Question","name":"How accurate is this TCO calculation?","acceptedAnswer":{"@type":"Answer","text":"Directionally accurate within +/- 15% if the inputs are honest. The biggest sources of error are reject rate (often under-reported), disruption cost (often estimated too low), and admin time (almost never tracked)."}},
+{"@type":"Question","name":"Why does payment terms show as a benefit?","acceptedAnswer":{"@type":"Answer","text":"Terms longer than 30 days are essentially free financing from the supplier - your supplier carries the receivable instead of you carrying the payable. At an 8% cost of capital, every 30 days of terms beyond Net 30 is worth ~0.66% of purchase cost."}},
+{"@type":"Question","name":"Should I always pick the lowest TCO supplier?","acceptedAnswer":{"@type":"Answer","text":"Usually yes, but consider concentration risk (do not put 100% with one supplier even if their TCO is best) and qualification status (a lower-TCO unqualified supplier is not actually available to you)."}},
+{"@type":"Question","name":"How does this differ from landed cost?","acceptedAnswer":{"@type":"Answer","text":"Landed cost is one slice of TCO - the freight + duties + clearance + delivery portion. TCO adds quality, inventory, risk, and financing. Landed cost answers \"what does it cost to get it here?\" - TCO answers \"what does it cost to own it across a year of use?\""}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Total Cost of Ownership (TCO) Calculator.</h1>
+    <p class="lead">The $2.00 part that costs $3.40 once you add freight, duties, inspection, reject handling, and lead-time risk. Stop sourcing on unit price alone.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Item &amp; usage</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="item">Item description <span class="hint">optional</span></label><input id="item" type="text" maxlength="80" placeholder="16-gauge steel sheet"></div>
+        <div class="tool-field"><label for="usage">Annual usage (units)</label><input id="usage" type="number" data-clamp="1,100000000" step="100" value="50000" data-required></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Supplier basics</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="price">Unit price ($)</label><input id="price" type="number" data-clamp="0,1000000" step="0.01" value="2.00" data-required></div>
+        <div class="tool-field"><label for="moq">MOQ (units)</label><input id="moq" type="number" data-clamp="1,10000000" step="1" value="5000"></div>
+        <div class="tool-field"><label for="terms">Payment terms (days)</label><input id="terms" type="number" data-clamp="0,365" step="1" value="30"></div>
+        <div class="tool-field"><label for="lead">Lead time (weeks)</label><input id="lead" type="number" data-clamp="0,52" step="1" value="12"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Logistics</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="freight">Freight per unit ($)</label><input id="freight" type="number" data-clamp="0,1000" step="0.01" value="0.18"></div>
+        <div class="tool-field"><label for="duty">Import duty rate (%)</label><input id="duty" type="number" data-clamp="0,100" step="0.1" value="5"></div>
+        <div class="tool-field"><label for="brokerage">Brokerage per shipment ($)</label><input id="brokerage" type="number" data-clamp="0,10000" step="10" value="200"></div>
+        <div class="tool-field"><label for="ups">Units per shipment</label><input id="ups" type="number" data-clamp="1,1000000" step="1" value="5000"></div>
+        <div class="tool-field"><label for="ins-rate">Cargo insurance (%)</label><input id="ins-rate" type="number" data-clamp="0,5" step="0.1" value="0.3"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Quality &amp; inspection</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="insp-type">Inspection level</label>
+          <select id="insp-type"><option value="0.1">Skip lot (occasional audit)</option><option value="1" selected>Sampling</option><option value="5">100% inspection</option></select>
+        </div>
+        <div class="tool-field"><label for="insp-hrs">Inspection hours / lot</label><input id="insp-hrs" type="number" data-clamp="0,1000" step="0.1" value="0.5"></div>
+        <div class="tool-field"><label for="insp-rate">Inspection labor rate ($/hr)</label><input id="insp-rate" type="number" data-clamp="0,500" step="1" value="40"></div>
+        <div class="tool-field"><label for="reject">Historical reject rate (%)</label><input id="reject" type="number" data-clamp="0,100" step="0.1" value="2"></div>
+        <div class="tool-field"><label for="reject-cost">Cost per rejected unit ($)</label><input id="reject-cost" type="number" data-clamp="0,100000" step="0.01" value="4.00"></div>
+        <div class="tool-field"><label for="sup-credits">Supplier credits rejects?</label>
+          <select id="sup-credits"><option value="0.3">Yes (admin only)</option><option value="1" selected>No (full cost)</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Inventory &amp; risk</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="safety">Safety stock (weeks)</label><input id="safety" type="number" data-clamp="0,52" step="0.5" value="6"></div>
+        <div class="tool-field"><label for="carry">Carrying cost rate (%)</label><input id="carry" type="number" data-clamp="0,100" step="0.5" value="25"></div>
+        <div class="tool-field"><label for="storage">Storage per unit/month ($)</label><input id="storage" type="number" data-clamp="0,100" step="0.01" value="0"></div>
+        <div class="tool-field"><label for="disrupts">Disruptions / year</label><input id="disrupts" type="number" data-clamp="0,50" step="1" value="0"></div>
+        <div class="tool-field"><label for="disrupt-cost">Cost per disruption ($)</label><input id="disrupt-cost" type="number" data-clamp="0,1000000" step="100" value="5000"></div>
+        <div class="tool-field"><label for="admin">Admin burden</label>
+          <select id="admin"><option value="500" selected>Minimal</option><option value="2000">Moderate</option><option value="5000">Significant</option><option value="12000">Excessive</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When purchasing decisions ignore the hidden costs</div>
+      <h2>SimpleGrid tracks actual receiving data, actual reject rates, actual lead times - per supplier, per item.</h2>
+      <p>Your TCO updates with every delivery. The decision to switch suppliers becomes a numbers decision, not a guess.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="total_cost_of_ownership_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function recalc(){
+    const usage = nn('usage');
+    const price = nn('price');
+    const moq = Math.max(1, nn('moq'));
+    const terms = nn('terms');
+    const lead = nn('lead');
+    const freight = nn('freight');
+    const duty = nn('duty') / 100;
+    const brokerage = nn('brokerage');
+    const ups = Math.max(1, nn('ups'));
+    const insRate = nn('ins-rate') / 100;
+    const inspMult = nn('insp-type');
+    const inspHrs = nn('insp-hrs');
+    const inspRate = nn('insp-rate');
+    const reject = nn('reject') / 100;
+    const rejectCost = nn('reject-cost');
+    const supCreditFactor = nn('sup-credits');
+    const safety = nn('safety');
+    const carry = nn('carry') / 100;
+    const storage = nn('storage');
+    const disrupts = nn('disrupts');
+    const disruptCost = nn('disrupt-cost');
+    const admin = nn('admin');
+
+    const warns = [];
+    if (price === 0) warns.push('Enter a unit price to compute TCO.');
+    if (usage === 0) warns.push('Enter annual usage.');
+    if (lead > 0 && safety > lead * 2) warns.push('Safety stock (' + safety + ' wk) is much larger than lead time (' + lead + ' wk) - inventory cost will be high.');
+
+    const purchase = price * usage;
+    const numShipments = Math.ceil(usage / ups);
+    const annFreight = freight * usage;
+    const annDuties = purchase * duty;
+    const annBrokerage = numShipments * brokerage;
+    const annInsurance = purchase * insRate;
+    const logistics = annFreight + annDuties + annBrokerage + annInsurance;
+
+    const annInsp = numShipments * inspHrs * inspRate * inspMult;
+    const annRejectCost = usage * reject * rejectCost * supCreditFactor;
+    const quality = annInsp + annRejectCost;
+
+    const avgOrder = Math.min(usage, moq);
+    const cycleStock = avgOrder / 2;
+    const safetyUnits = (usage / 52) * safety;
+    const avgInv = cycleStock + safetyUnits;
+    const avgInvVal = avgInv * price;
+    const annCarry = avgInvVal * carry;
+    const annStorage = avgInv * storage * 12;
+    const inventory = annCarry + annStorage;
+
+    // Financing benefit/cost (terms > 30 days = benefit)
+    const finBenefit = purchase * (terms - 30) / 365 * 0.08;
+
+    const annDisrupt = disrupts * disruptCost;
+    const risk = annDisrupt + admin;
+
+    const tco = purchase + logistics + quality + inventory - finBenefit + risk;
+    const tcoPerUnit = sgSafeDiv(tco, usage);
+    const tcoPremium = sgSafeDiv(tcoPerUnit - price, price) * 100;
+
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">True cost per unit (TCO)</div>
+      <div class="big-number">${fmt$(tcoPerUnit)}</div>
+      <div class="big-caption">Quoted price ${fmt$(price)} &middot; TCO premium <strong>+${tcoPremium.toFixed(1)}%</strong>. Annual TCO: <strong>${fmt$K(tco)}</strong>.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Purchase</div><div class="value">${fmt$K(purchase)}</div><div class="sub">${(purchase/tco*100).toFixed(0)}% of TCO</div></div>
+        <div class="results-stat"><div class="label">Logistics</div><div class="value">${fmt$K(logistics)}</div><div class="sub">${(logistics/tco*100).toFixed(0)}% of TCO</div></div>
+        <div class="results-stat"><div class="label">Quality</div><div class="value">${fmt$K(quality)}</div><div class="sub">${(quality/tco*100).toFixed(0)}% of TCO</div></div>
+        <div class="results-stat"><div class="label">Inventory</div><div class="value">${fmt$K(inventory)}</div><div class="sub">${(inventory/tco*100).toFixed(0)}% of TCO</div></div>
+        <div class="results-stat"><div class="label">Risk + admin</div><div class="value">${fmt$K(risk)}</div><div class="sub">${(risk/tco*100).toFixed(0)}% of TCO</div></div>
+      </div>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Stacked bar breakdown
+    let bars = '<h2 style="margin-top:8px;margin-bottom:14px">Where the money goes</h2>';
+    const items = [
+      { l: 'Purchase price', v: purchase, c: '' },
+      { l: 'Freight', v: annFreight, c: 'gold' },
+      { l: 'Duties + brokerage + insurance', v: annDuties + annBrokerage + annInsurance, c: 'gold' },
+      { l: 'Inspection', v: annInsp, c: 'red' },
+      { l: 'Rejects', v: annRejectCost, c: 'red' },
+      { l: 'Inventory carrying + storage', v: inventory, c: 'gold' },
+      { l: 'Disruption + admin', v: risk, c: 'red' }
+    ];
+    if (finBenefit > 0) items.push({ l: 'Financing benefit (longer terms)', v: -finBenefit, c: 'green' });
+    const max = Math.max(...items.map(i => Math.abs(i.v)), 1);
+    items.forEach(i => {
+      const pct = Math.abs(i.v) / max * 100;
+      bars += `<div class="bar-row"><span class="bar-label">${i.l}</span><div class="bar-track"><div class="bar-fill ${i.c}" style="width:${pct}%"></div></div><span class="bar-value" style="color:${i.v<0?'#047857':'var(--fg1)'}">${i.v<0?'-':''}${fmt$K(Math.abs(i.v))}</span></div>`;
+    });
+
+    // The iceberg
+    const hiddenPct = ((tco - purchase) / tco * 100).toFixed(0);
+    const iceberg = `<h2 style="margin-top:32px;margin-bottom:14px">The hidden cost iceberg</h2>
+      <div style="background:#FEF3C7;border:1px solid #F59E0B;border-left:4px solid #B45309;border-radius:8px;padding:16px 18px">
+        <p style="margin:0;font-size:15px;color:#78350F;line-height:1.6">Visible (purchase price): <strong>${(purchase/tco*100).toFixed(0)}% of TCO</strong>.</p>
+        <p style="margin:6px 0 0;font-size:15px;color:#78350F;line-height:1.6">Hidden (logistics + quality + inventory + risk): <strong>${hiddenPct}% of TCO</strong>.</p>
+        <p style="margin:8px 0 0;font-size:14px;color:#92400E">You are seeing only ${(purchase/tco*100).toFixed(0)}% of the true cost when you compare on price alone.</p>
+      </div>`;
+
+    // Insights
+    let insights = '<h2 style="margin-top:32px;margin-bottom:14px">Key insights</h2><ul style="font-size:15px;line-height:1.7;padding-left:20px">';
+    if (logistics / tco > 0.15) insights += `<li>Freight + duties + insurance add <strong>${fmt$(logistics/usage)}</strong> per unit. Consider consolidating shipments or sourcing domestically.</li>`;
+    if (quality / tco > 0.05) insights += `<li>Quality issues cost <strong>${fmt$K(quality)}</strong>/year. Demand a corrective action plan or switch supplier.</li>`;
+    if (inventory / tco > 0.10) insights += `<li>Long lead times force <strong>${fmt$K(avgInvVal)}</strong> in safety stock - earning 0% interest. A domestic supplier with 2-week lead could free most of this.</li>`;
+    if (risk / tco > 0.05) insights += `<li>Disruption risk is adding <strong>${fmt$(risk/usage)}</strong> per unit. Single-source suppliers with no BCP are the #1 cause of line stoppages.</li>`;
+    if (finBenefit > 0) insights += `<li>Payment terms (Net ${terms}) save <strong>${fmt$K(finBenefit)}</strong>/year in financing cost vs. standard Net 30.</li>`;
+    if (tcoPremium > 30) insights += `<li><strong>True cost is ${tcoPremium.toFixed(0)}% higher than the quoted price.</strong> Price-only sourcing decisions are costing significant money here.</li>`;
+    insights += '</ul>';
+
+    // Sensitivity: lead time halved
+    const safetyHalf = safety / 2;
+    const safetyHalfUnits = (usage / 52) * safetyHalf;
+    const avgInvHalf = cycleStock + safetyHalfUnits;
+    const inventoryHalf = (avgInvHalf * price * carry) + (avgInvHalf * storage * 12);
+    const tcoHalf = purchase + logistics + quality + inventoryHalf - finBenefit + (risk * 0.5);
+    const savingsLeadTime = tco - tcoHalf;
+    const sensitivity = `<h2 style="margin-top:32px;margin-bottom:14px">Sensitivity: if lead time halved</h2>
+      <p style="font-size:15px;color:var(--fg2);line-height:1.6">If lead time dropped from <strong>${lead} weeks</strong> to <strong>${(lead/2).toFixed(0)} weeks</strong>, TCO would drop by <strong style="color:#047857">${fmt$K(savingsLeadTime)}/year</strong> from lower safety stock and reduced disruption risk. This is why domestic sourcing often wins on TCO even when unit price is higher.</p>`;
+
+    document.getElementById('detail').innerHTML = bars + iceberg + insights + sensitivity;
+    return { price, usage, purchase, logistics, quality, inventory, risk, finBenefit, tco, tcoPerUnit, tcoPremium };
+  }
+  document.querySelectorAll('input,select').forEach(el => el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Total Cost of Ownership Analysis', docNumberLabel: 'TCO per unit', docNumber: fmt$(r.tcoPerUnit),
+      date: todayISO(),
+      fromLabel: 'INPUTS', from: ['Unit price: ' + fmt$(r.price), 'Annual usage: ' + r.usage.toLocaleString() + ' units', 'Annual purchase cost: ' + fmt$K(r.purchase)],
+      toLabel: 'RESULT', to: ['Annual TCO: ' + fmt$K(r.tco), 'TCO per unit: ' + fmt$(r.tcoPerUnit), 'TCO premium over price: +' + r.tcoPremium.toFixed(1) + '%'],
+      itemColumns: ['Cost category','Annual $','% of TCO'],
+      items: [
+        ['Purchase', fmt$K(r.purchase), (r.purchase/r.tco*100).toFixed(0)+'%'],
+        ['Logistics', fmt$K(r.logistics), (r.logistics/r.tco*100).toFixed(0)+'%'],
+        ['Quality', fmt$K(r.quality), (r.quality/r.tco*100).toFixed(0)+'%'],
+        ['Inventory', fmt$K(r.inventory), (r.inventory/r.tco*100).toFixed(0)+'%'],
+        ['Risk + admin', fmt$K(r.risk), (r.risk/r.tco*100).toFixed(0)+'%'],
+        ['Financing benefit', '-' + fmt$K(r.finBenefit), '-' + (r.finBenefit/r.tco*100).toFixed(1)+'%']
+      ],
+      itemRowMapper: x => x,
+      notes: 'Methodology: Ellram TCO framework (1993), CAPS Research TCO Decision Support Tool, ISM Principles of Supply Management. Includes acquisition + ownership + quality + risk + financing.',
+      filename: 'tco-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why the $2 part costs $3.40</h2>
+    <p>Total Cost of Ownership (TCO) goes beyond purchase price to include every cost associated with acquiring, receiving, storing, and using a material. For overseas-sourced items, TCO is typically 30-50% higher than the quoted price. For domestic items, 10-20% higher. Most procurement decisions are made on quoted price - which is why most procurement decisions are wrong.</p>
+    <h2>The five buckets of hidden cost</h2>
+    <ol>
+      <li><strong>Logistics.</strong> Freight, duties, brokerage, port handling, insurance. For overseas shipments: 15-25% of purchase cost.</li>
+      <li><strong>Quality.</strong> Receiving inspection, rejects, returns, replacement delays, rework. For an unreliable supplier: 5-15% of purchase cost.</li>
+      <li><strong>Inventory.</strong> Carrying cost (storage, insurance, obsolescence, capital cost) on safety stock and cycle stock. Long lead times multiply this.</li>
+      <li><strong>Risk.</strong> Production stoppages from supply disruptions, admin time, engineering support hours.</li>
+      <li><strong>Financing.</strong> Payment terms create cost or benefit vs. the standard Net 30 baseline.</li>
+    </ol>
+    <h2>Methodology</h2>
+    <p>Based on Dr. Lisa Ellram&#39;s 1993 TCO framework (the foundational academic work, widely adopted by CAPS Research and the Institute for Supply Management). The tool decomposes cost into six categories and computes total cost across all of them, normalized to TCO per unit and TCO as a percentage premium over quoted price.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is a typical TCO premium over quoted price?</summary><p>Domestic suppliers with strong quality: 10-15% above quoted price. Overseas suppliers (China, Vietnam, India): 30-50%. The premium is driven mostly by freight, duties, inspection, and the inventory cost of long lead times.</p></details>
+    <details><summary>How accurate is this TCO calculation?</summary><p>Directionally accurate within +/- 15% if the inputs are honest. The biggest sources of error are reject rate (often under-reported), disruption cost (often estimated too low), and admin time (almost never tracked).</p></details>
+    <details><summary>Why does payment terms show as a benefit?</summary><p>Terms longer than 30 days are essentially free financing from the supplier - your supplier carries the receivable instead of you carrying the payable. At an 8% cost of capital, every 30 days of terms beyond Net 30 is worth ~0.66% of purchase cost.</p></details>
+    <details><summary>Should I always pick the lowest TCO supplier?</summary><p>Usually yes, but consider concentration risk (do not put 100% with one supplier even if their TCO is best) and qualification status (a lower-TCO unqualified supplier is not actually available to you).</p></details>
+    <details><summary>How does this differ from landed cost?</summary><p>Landed cost is one slice of TCO - the freight + duties + clearance + delivery portion. TCO adds quality, inventory, risk, and financing. Landed cost answers "what does it cost to get it here?" - TCO answers "what does it cost to own it across a year of use?"</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (55)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Landed Cost Calculator for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Calculate true landed cost: freight, duties, Section 301, broker, port, drayage, insurance. Compare imported vs domestic. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/landed-cost-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/landed-cost-calculator/"><meta property="og:title" content="Landed Cost Calculator for Manufacturers | SimpleGrid"><meta property="og:description" content="Calculate true landed cost: freight, duties, Section 301, broker, port, drayage, insurance. Compare imported vs domestic. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Landed Cost Calculator for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/landed-cost-calculator/","description":"Calculate true landed cost: freight, duties, Section 301, broker, port, drayage, insurance. Compare imported vs domestic. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Landed Cost Calculator for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/landed-cost-calculator/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is Section 301?","acceptedAnswer":{"@type":"Answer","text":"The tariff added by the Trump administration in 2018 on most Chinese-origin manufacturing imports. Rates range from 7.5% to 25% depending on the HTS code list. Applied on top of regular duty. Subject to change - check ustr.gov."}},
+{"@type":"Question","name":"How accurate is this calculator?","acceptedAnswer":{"@type":"Answer","text":"Within ~10% for standard ocean shipments with stable rates. Less accurate during disruption periods (post-COVID 2021-2022 ocean rate spike, Red Sea routing 2024) where freight rates swung 3x. For binding numbers always get a quote from your customs broker."}},
+{"@type":"Question","name":"Should I include duty drawback?","acceptedAnswer":{"@type":"Answer","text":"Not in this calculator (it would over-credit). If you re-export goods made with imported materials, you can recover up to 99% of duties paid via duty drawback. File within 5 years."}},
+{"@type":"Question","name":"What is MPF and HMF?","acceptedAnswer":{"@type":"Answer","text":"Merchandise Processing Fee (0.3464% of value, $31.67-$614.35) on most formal entries. Harbor Maintenance Fee (0.125% of value) on ocean shipments. Both are real costs that go into landed."}},
+{"@type":"Question","name":"Why is my landed cost so much higher than my supplier quoted?","acceptedAnswer":{"@type":"Answer","text":"Suppliers quote FOB or EXW (free on board / ex works). Everything from the supplier dock to your dock is your cost - and there is more of it than most buyers realize. That gap is exactly what this calculator surfaces."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Landed Cost Calculator.</h1>
+    <p class="lead">FOB Shanghai $1.50 becomes $2.10 landed in Ohio. This tool builds the full picture so you can compare imported vs. domestic sourcing on real numbers.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Shipment</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="prod">Product description <span class="hint">optional</span></label><input id="prod" type="text" maxlength="80" placeholder="Stainless steel fasteners"></div>
+        <div class="tool-field"><label for="value">Unit price ($, at quoted Incoterm)</label><input id="value" type="number" data-clamp="0,1000000" step="0.01" value="1.50" data-required></div>
+        <div class="tool-field"><label for="units">Total units in shipment</label><input id="units" type="number" data-clamp="1,100000000" step="100" value="20000" data-required></div>
+        <div class="tool-field"><label for="weight">Weight per unit (lbs)</label><input id="weight" type="number" data-clamp="0,10000" step="0.01" value="0.25"></div>
+        <div class="tool-field"><label for="origin">Country of origin</label>
+          <select id="origin"><option>China</option><option>Vietnam</option><option>India</option><option>Mexico</option><option>Taiwan</option><option>South Korea</option><option>Germany</option><option>Other</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>International freight</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="mode">Mode</label>
+          <select id="mode"><option>Ocean (FCL)</option><option>Ocean (LCL)</option><option>Air</option></select>
+        </div>
+        <div class="tool-field"><label for="ocean">Ocean freight (total $) <span class="hint">FCL/LCL</span></label><input id="ocean" type="number" data-clamp="0,100000" step="100" value="4500"></div>
+        <div class="tool-field"><label for="air">Air rate ($/kg)</label><input id="air" type="number" data-clamp="0,50" step="0.10" value="5.00"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Customs &amp; duties</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="duty">Import duty rate (%)</label><input id="duty" type="number" data-clamp="0,100" step="0.1" value="5"></div>
+        <div class="tool-field"><label for="s301">Section 301 rate (%) <span class="hint">China-only typically</span></label><input id="s301" type="number" data-clamp="0,100" step="0.1" value="25"></div>
+        <div class="tool-field"><label for="adcvd">AD/CVD rate (%) <span class="hint">if applicable</span></label><input id="adcvd" type="number" data-clamp="0,500" step="0.1" value="0"></div>
+        <div class="tool-field"><label for="mpf-on">MPF</label>
+          <select id="mpf-on"><option value="1" selected>Yes (formal entry)</option><option value="0">No</option></select>
+        </div>
+        <div class="tool-field"><label for="hmf-on">HMF (ocean shipments)</label>
+          <select id="hmf-on"><option value="1" selected>Yes (ocean)</option><option value="0">No (air)</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Other landed costs</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="broker">Customs broker ($)</label><input id="broker" type="number" data-clamp="0,5000" step="10" value="200"></div>
+        <div class="tool-field"><label for="bond">Bond fee ($)</label><input id="bond" type="number" data-clamp="0,5000" step="10" value="50"></div>
+        <div class="tool-field"><label for="port">Port / terminal handling ($)</label><input id="port" type="number" data-clamp="0,10000" step="10" value="350"></div>
+        <div class="tool-field"><label for="drayage">Drayage ($)</label><input id="drayage" type="number" data-clamp="0,5000" step="10" value="500"></div>
+        <div class="tool-field"><label for="inland">Inland freight ($)</label><input id="inland" type="number" data-clamp="0,10000" step="10" value="800"></div>
+        <div class="tool-field"><label for="ins-rate">Cargo insurance (%)</label><input id="ins-rate" type="number" data-clamp="0,5" step="0.1" value="0.4"></div>
+        <div class="tool-field"><label for="recv-hrs">Receiving hours</label><input id="recv-hrs" type="number" data-clamp="0,200" step="0.1" value="4"></div>
+        <div class="tool-field"><label for="recv-rate">Receiving labor rate ($/hr)</label><input id="recv-rate" type="number" data-clamp="0,500" step="1" value="35"></div>
+        <div class="tool-field"><label for="other">Other (ISF, fumigation) ($)</label><input id="other" type="number" data-clamp="0,5000" step="10" value="50"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Optional: domestic comparison</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="dom-price">Domestic price ($/unit) <span class="hint">leave 0 to skip</span></label><input id="dom-price" type="number" data-clamp="0,1000000" step="0.01" value="0"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When import pricing decisions ignore the half they cannot see</div>
+      <h2>SimpleGrid tracks landed cost for every PO, every item, every supplier.</h2>
+      <p>Your job costs, your quotes, your margin reports always reflect the real number - not the FOB number that flattered the sourcing decision.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="landed_cost_calculator_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function recalc(){
+    const price = nn('value');
+    const units = nn('units');
+    const weight = nn('weight');
+    const origin = document.getElementById('origin').value;
+    const mode = document.getElementById('mode').value;
+    const ocean = nn('ocean');
+    const airRate = nn('air');
+    const duty = nn('duty') / 100;
+    const s301 = (origin === 'China') ? nn('s301') / 100 : 0;
+    const adcvd = nn('adcvd') / 100;
+    const mpfOn = nn('mpf-on');
+    const hmfOn = nn('hmf-on');
+    const broker = nn('broker');
+    const bond = nn('bond');
+    const port = nn('port');
+    const drayage = nn('drayage');
+    const inland = nn('inland');
+    const insRate = nn('ins-rate') / 100;
+    const recvHrs = nn('recv-hrs');
+    const recvRate = nn('recv-rate');
+    const other = nn('other');
+    const domPrice = nn('dom-price');
+
+    const warns = [];
+    if (price === 0 || units === 0) warns.push('Enter unit price and total units to compute landed cost.');
+    if (origin === 'China' && s301 === 0) warns.push('Origin is China but Section 301 rate is 0% - most Chinese imports are subject to 7.5-25% Section 301 tariffs. Check USTR.gov for your product.');
+
+    const totalValue = price * units;
+    const totalKg = weight * units * 0.4536;
+
+    let freight = 0;
+    if (mode === 'Air') freight = airRate * totalKg;
+    else freight = ocean;
+
+    const cif = totalValue + freight;
+    const insurance = cif * 1.10 * insRate;
+
+    const customsValue = cif;
+    const regDuty = customsValue * duty;
+    const s301Duty = customsValue * s301;
+    const adcvdDuty = customsValue * adcvd;
+    const totalDuties = regDuty + s301Duty + adcvdDuty;
+
+    const mpf = mpfOn ? Math.min(Math.max(customsValue * 0.003464, 31.67), 614.35) : 0;
+    const hmf = (hmfOn && mode !== 'Air') ? customsValue * 0.00125 : 0;
+
+    const localCosts = broker + bond + port + drayage + inland + other;
+    const receiving = recvHrs * recvRate;
+
+    const landed = totalValue + freight + insurance + totalDuties + mpf + hmf + localCosts + receiving;
+    const landedPerUnit = sgSafeDiv(landed, units);
+    const premium = sgSafeDiv(landedPerUnit - price, price) * 100;
+
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">Landed cost per unit</div>
+      <div class="big-number">${fmt$(landedPerUnit)}</div>
+      <div class="big-caption">FOB ${fmt$(price)} &rarr; landed ${fmt$(landedPerUnit)} (<strong>+${premium.toFixed(1)}%</strong>). Total shipment: <strong>${fmt$K(landed)}</strong>.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Product value (FOB)</div><div class="value">${fmt$K(totalValue)}</div><div class="sub">${(totalValue/landed*100).toFixed(0)}%</div></div>
+        <div class="results-stat"><div class="label">Freight + insurance</div><div class="value">${fmt$K(freight + insurance)}</div><div class="sub">${((freight+insurance)/landed*100).toFixed(0)}%</div></div>
+        <div class="results-stat"><div class="label">Duties + tariffs</div><div class="value red">${fmt$K(totalDuties + mpf + hmf)}</div><div class="sub">${((totalDuties+mpf+hmf)/landed*100).toFixed(0)}%</div></div>
+      </div>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Waterfall as bars
+    let bars = '<h2 style="margin-top:8px;margin-bottom:14px">Cost buildup</h2>';
+    const items = [
+      ['Product value (FOB)', totalValue, ''],
+      ['Ocean / air freight', freight, 'gold'],
+      ['Regular duty', regDuty, 'red'],
+      ['Section 301 (China)', s301Duty, 'red'],
+      ['AD / CVD', adcvdDuty, 'red'],
+      ['MPF + HMF', mpf + hmf, 'gold'],
+      ['Cargo insurance', insurance, 'gold'],
+      ['Broker + bond', broker + bond, 'gold'],
+      ['Port + drayage', port + drayage, 'gold'],
+      ['Inland freight', inland, 'gold'],
+      ['Receiving labor', receiving, ''],
+      ['Other (ISF, etc.)', other, '']
+    ];
+    const max = Math.max(...items.map(i => i[1]), 1);
+    items.forEach(([l,v,c]) => {
+      if (v === 0) return;
+      const pct = v / max * 100;
+      bars += `<div class="bar-row"><span class="bar-label">${l}</span><div class="bar-track"><div class="bar-fill ${c}" style="width:${pct}%"></div></div><span class="bar-value">${fmt$(v)} (${fmt$(v/units)}/unit)</span></div>`;
+    });
+
+    // Tariff alert
+    let alert = '';
+    if (s301Duty > 0) {
+      alert = `<h2 style="margin-top:32px;margin-bottom:14px">Section 301 tariff alert</h2>
+        <div style="background:#FEF2F2;border:1px solid #F87171;border-left:4px solid #B91C1C;border-radius:8px;padding:16px 18px">
+          <p style="margin:0;font-size:15px;color:#7F1D1D;line-height:1.6">Section 301 tariff adds <strong>${fmt$(s301Duty/units)}/unit (${fmt$K(s301Duty)} per shipment)</strong>.</p>
+          <p style="margin:8px 0 0;font-size:14px;color:#7F1D1D">Alternative sourcing from non-affected countries (Vietnam, India, Mexico, Thailand) could eliminate this. Note: Section 301 rates and product lists change - check USTR.gov for current status.</p>
+        </div>`;
+    }
+
+    // Domestic comparison
+    let dom = '';
+    if (domPrice > 0) {
+      const diff = domPrice - landedPerUnit;
+      const annual = diff * units;
+      dom = `<h2 style="margin-top:32px;margin-bottom:14px">Domestic comparison</h2>
+        <p style="font-size:15px;color:var(--fg1);line-height:1.6">Domestic price <strong>${fmt$(domPrice)}/unit</strong> vs. landed import <strong>${fmt$(landedPerUnit)}/unit</strong>. Difference: <strong style="color:${diff>0?'#B91C1C':'#047857'}">${diff>0?'+':''}${fmt$(diff)}/unit</strong>. On this shipment: ${diff>0?'+':''}${fmt$K(annual)}.</p>
+        <p style="font-size:14px;color:var(--fg3);line-height:1.6;margin-top:8px">Note: this is landed cost only. For full TCO (including lead-time risk, inventory carrying cost, and quality), use the <a href="../total-cost-of-ownership/" style="color:var(--sg-blue)">TCO calculator</a>.</p>`;
+    }
+
+    document.getElementById('detail').innerHTML = bars + alert + dom;
+    return { price, units, totalValue, freight, totalDuties, s301Duty, insurance, localCosts, receiving, landed, landedPerUnit, premium };
+  }
+  document.querySelectorAll('input,select').forEach(el => el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Landed Cost Analysis', docNumberLabel: 'Landed cost / unit', docNumber: fmt$(r.landedPerUnit),
+      date: todayISO(),
+      fromLabel: 'INPUTS', from: ['FOB unit price: ' + fmt$(r.price), 'Total units: ' + r.units.toLocaleString(), 'FOB shipment value: ' + fmt$K(r.totalValue)],
+      toLabel: 'RESULT', to: ['Total landed: ' + fmt$K(r.landed), 'Landed per unit: ' + fmt$(r.landedPerUnit), 'Landed premium over FOB: +' + r.premium.toFixed(1) + '%'],
+      itemColumns: ['Cost category','Amount'],
+      items: [
+        ['Product value (FOB)', fmt$K(r.totalValue)],
+        ['Freight', fmt$K(r.freight)],
+        ['Duties + 301 + AD/CVD', fmt$K(r.totalDuties)],
+        ['Section 301 (China only)', fmt$K(r.s301Duty)],
+        ['Insurance', fmt$K(r.insurance)],
+        ['Local costs (broker, bond, port, drayage, inland, other)', fmt$K(r.localCosts)],
+        ['Receiving labor', fmt$K(r.receiving)],
+        ['TOTAL LANDED', fmt$K(r.landed)]
+      ],
+      itemRowMapper: x => x,
+      notes: 'Methodology: Incoterms 2020 (ICC), US CBP valuation rules, standard international logistics modeling. CIF used as US customs valuation basis. Section 301 + AD/CVD applied where origin and product qualify.',
+      filename: 'landed-cost-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>FOB to landed: the gap most manufacturers do not see</h2>
+    <p>FOB Shanghai $1.50 sounds cheap. By the time the container clears customs in Long Beach, gets trucked to your warehouse in Akron, and gets received, that $1.50 part is $2.10 - sometimes $2.25 or more. The buildup is mechanical: freight $0.18, duty 5% on customs value, Section 301 25% on China origin, broker $200/shipment, port + drayage $850, inland freight $800, insurance 0.4% of CIF, plus receiving labor. None of these are negotiable individually; together they swing your sourcing decision.</p>
+    <h2>Section 301: the tariff that changed everything</h2>
+    <p>Since 2018, most Chinese-origin manufacturing goods carry an additional 7.5-25% tariff on top of the regular duty rate. For a 5%-base-rate product, that means total duty of 30%, not 5%. Many manufacturers built their cost structures before Section 301 and never updated them. The numbers no longer work the way they did.</p>
+    <h2>When domestic wins on landed cost alone</h2>
+    <p>The break-even point is roughly 25-30% above FOB China for most manufacturing commodities. If a domestic supplier can match that, they often win - especially when you add the TCO components landed cost ignores (lead time, inventory, quality, risk).</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is Section 301?</summary><p>The tariff added by the Trump administration in 2018 on most Chinese-origin manufacturing imports. Rates range from 7.5% to 25% depending on the HTS code list. Applied on top of regular duty. Subject to change - check ustr.gov.</p></details>
+    <details><summary>How accurate is this calculator?</summary><p>Within ~10% for standard ocean shipments with stable rates. Less accurate during disruption periods (post-COVID 2021-2022 ocean rate spike, Red Sea routing 2024) where freight rates swung 3x. For binding numbers always get a quote from your customs broker.</p></details>
+    <details><summary>Should I include duty drawback?</summary><p>Not in this calculator (it would over-credit). If you re-export goods made with imported materials, you can recover up to 99% of duties paid via duty drawback. File within 5 years.</p></details>
+    <details><summary>What is MPF and HMF?</summary><p>Merchandise Processing Fee (0.3464% of value, $31.67-$614.35) on most formal entries. Harbor Maintenance Fee (0.125% of value) on ocean shipments. Both are real costs that go into landed.</p></details>
+    <details><summary>Why is my landed cost so much higher than my supplier quoted?</summary><p>Suppliers quote FOB or EXW (free on board / ex works). Everything from the supplier dock to your dock is your cost - and there is more of it than most buyers realize. That gap is exactly what this calculator surfaces.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (55)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

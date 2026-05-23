@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Consignment Inventory Calculator | SimpleGrid</title>
+<meta name="description" content="Compare supplier consignment vs standard purchase. Carrying cost, cash flow benefit, premium break-even. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/consignment-inventory-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/consignment-inventory-calculator/"><meta property="og:title" content="Consignment Inventory Calculator | SimpleGrid"><meta property="og:description" content="Compare supplier consignment vs standard purchase. Carrying cost, cash flow benefit, premium break-even. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Consignment Inventory Calculator | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/consignment-inventory-calculator/","description":"Compare supplier consignment vs standard purchase. Carrying cost, cash flow benefit, premium break-even. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Consignment Inventory Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/consignment-inventory-calculator/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is consignment inventory?","acceptedAnswer":{"@type":"Answer","text":"Supplier-owned inventory stored at the buyer facility. Buyer only pays as they consume it. Supplier retains ownership (and obsolescence risk, ideally) until use."}},
+{"@type":"Question","name":"What is a typical consignment price premium?","acceptedAnswer":{"@type":"Answer","text":"5-15% over standard purchase price, reflecting the supplier cost of carrying inventory and the working-capital benefit they are providing the buyer."}},
+{"@type":"Question","name":"Who insures consignment stock?","acceptedAnswer":{"@type":"Answer","text":"Contract-dependent. Best practice: supplier insures while in their ownership. Many contracts inappropriately push insurance onto the buyer - read carefully."}},
+{"@type":"Question","name":"What happens to consignment stock if I end the relationship?","acceptedAnswer":{"@type":"Answer","text":"Contract-dependent. Best practice: supplier removes their stock at their cost. Avoid contracts that require you to buy out existing consignment inventory on termination."}},
+{"@type":"Question","name":"How often should I count consignment stock?","acceptedAnswer":{"@type":"Answer","text":"Monthly is standard for high-velocity items. Quarterly is acceptable for stable, low-turnover items. The counting cost is real - factor it into the consignment math."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Consignment Inventory Calculator.</h1>
+    <p class="lead">Supplier offers consignment - you only pay when you use it. Sounds great. Consignment prices are typically 5-15% higher. Does the math actually work?</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Standard purchase (current state)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="usage">Annual usage (units)</label><input id="usage" type="number" data-clamp="1,100000000" step="100" value="48000" data-required></div>
+        <div class="tool-field"><label for="std-price">Standard purchase price ($/unit)</label><input id="std-price" type="number" data-clamp="0,1000000" step="0.01" value="6.80" data-required></div>
+        <div class="tool-field"><label for="lead-weeks">Current lead time (weeks)</label><input id="lead-weeks" type="number" data-clamp="0,52" step="1" value="6"></div>
+        <div class="tool-field"><label for="safety-weeks">Safety stock (weeks)</label><input id="safety-weeks" type="number" data-clamp="0,52" step="0.5" value="3"></div>
+        <div class="tool-field"><label for="order-qty">Current order qty (units)</label><input id="order-qty" type="number" data-clamp="1,10000000" step="100" value="4000"></div>
+        <div class="tool-field"><label for="po-cost">Cost per PO ($)</label><input id="po-cost" type="number" data-clamp="0,1000" step="1" value="50"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Consignment proposal</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="cons-price">Consignment price ($/unit) <span class="hint">usually 5-15% higher</span></label><input id="cons-price" type="number" data-clamp="0,1000000" step="0.01" value="7.40" data-required></div>
+        <div class="tool-field"><label for="cons-stock">Stock kept at your facility (units)</label><input id="cons-stock" type="number" data-clamp="1,10000000" step="100" value="6000"></div>
+        <div class="tool-field"><label for="cons-insure">You insure consignment stock?</label>
+          <select id="cons-insure"><option value="0">No (supplier insures)</option><option value="1">Yes</option></select>
+        </div>
+        <div class="tool-field"><label for="count-freq">Physical count frequency</label>
+          <select id="count-freq"><option value="12" selected>Monthly</option><option value="4">Quarterly</option><option value="1">Annually</option></select>
+        </div>
+        <div class="tool-field"><label for="count-hrs">Hours per count</label><input id="count-hrs" type="number" data-clamp="0,100" step="0.1" value="2"></div>
+        <div class="tool-field"><label for="count-rate">Counting labor rate ($/hr)</label><input id="count-rate" type="number" data-clamp="0,500" step="1" value="35"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Cost assumptions</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="carry">Carrying cost rate (%/yr)</label><input id="carry" type="number" data-clamp="0,100" step="0.5" value="25"></div>
+        <div class="tool-field"><label for="coc">Cost of capital (%/yr)</label><input id="coc" type="number" data-clamp="0,30" step="0.5" value="8"></div>
+        <div class="tool-field"><label for="storage">Storage per unit/month ($)</label><input id="storage" type="number" data-clamp="0,100" step="0.01" value="0"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When consignment seems too good to be true</div>
+      <h2>SimpleGrid tracks usage to the unit and reconciles consignment automatically.</h2>
+      <p>No more manual counts, no more disputes with suppliers, no more guessing whether the consignment math is working.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="consignment_inventory_calculator_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function recalc(){
+    const usage = nn('usage');
+    const stdPrice = nn('std-price');
+    const leadW = nn('lead-weeks');
+    const safetyW = nn('safety-weeks');
+    const orderQty = Math.max(1, nn('order-qty'));
+    const poCost = nn('po-cost');
+    const consPrice = nn('cons-price');
+    const consStock = nn('cons-stock');
+    const consInsure = nn('cons-insure');
+    const countFreq = nn('count-freq');
+    const countHrs = nn('count-hrs');
+    const countRate = nn('count-rate');
+    const carry = nn('carry') / 100;
+    const coc = nn('coc') / 100;
+    const storage = nn('storage');
+
+    const warns = [];
+    if (stdPrice === 0 || consPrice === 0) warns.push('Enter both standard and consignment prices to compare.');
+    if (consPrice < stdPrice) warns.push('Consignment price is BELOW standard price - that is unusual. Verify the quote.');
+
+    // SCENARIO 1: Standard
+    const cycleStock = orderQty / 2;
+    const safetyStock = (usage / 52) * safetyW;
+    const avgInv = cycleStock + safetyStock;
+    const avgInvVal = avgInv * stdPrice;
+    const annCarry = avgInvVal * carry;
+    const ordersPerYear = Math.ceil(usage / orderQty);
+    const annOrdering = ordersPerYear * poCost;
+    const annMaterial = usage * stdPrice;
+    const annStorage = avgInv * storage * 12;
+    const totalStd = annMaterial + annCarry + annOrdering + annStorage;
+
+    // SCENARIO 2: Consignment
+    const annMaterialCons = usage * consPrice;
+    const materialPremium = annMaterialCons - annMaterial;
+    const premiumPct = sgSafeDiv(consPrice - stdPrice, stdPrice) * 100;
+    const consStorageCost = consStock * storage * 12;
+    const consInsuranceCost = consInsure > 0 ? consStock * consPrice * 0.005 : 0;
+    const annCounting = countFreq * countHrs * countRate;
+    const annOrderingCons = 4 * poCost; // quarterly blanket
+    const cashFreed = avgInvVal;
+    const annCashBenefit = cashFreed * coc;
+    const totalCons = annMaterialCons + consStorageCost + consInsuranceCost + annCounting + annOrderingCons - annCashBenefit;
+
+    // Net
+    const netDiff = totalCons - totalStd;
+    const cheaper = netDiff < 0;
+
+    // Break-even premium
+    // At what consignment price is total cost equal?
+    // totalCons (as fn of consPrice) = annMaterialCons + other_cons - cashBenefit
+    // totalStd is fixed
+    // solve for breakEvenConsPrice
+    const otherConsCosts = consStorageCost + consInsuranceCost + annCounting + annOrderingCons - annCashBenefit;
+    const breakEvenConsPrice = sgSafeDiv(totalStd - otherConsCosts, usage);
+    const breakEvenPremiumPct = sgSafeDiv(breakEvenConsPrice - stdPrice, stdPrice) * 100;
+
+    const hero = document.getElementById('hero');
+    const verdict = Math.abs(netDiff) < totalStd * 0.05 ? 'Nearly equal cost' : cheaper ? 'Consignment is cheaper' : 'Standard purchase is cheaper';
+    const cls = cheaper ? 'green' : netDiff > 0 ? 'red' : '';
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">${verdict}</div>
+      <div class="big-number ${cls}">${cheaper ? '-' : '+'}${fmt$K(Math.abs(netDiff))}<span style="font-size:24px;color:var(--fg3);font-weight:500"> / yr</span></div>
+      <div class="big-caption">Premium offered: <strong>${premiumPct.toFixed(1)}%</strong>. Break-even premium: <strong>${breakEvenPremiumPct.toFixed(1)}%</strong> (consignment price ${fmt$(breakEvenConsPrice)}).</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Standard purchase total</div><div class="value">${fmt$K(totalStd)}</div></div>
+        <div class="results-stat"><div class="label">Consignment total</div><div class="value">${fmt$K(totalCons)}</div></div>
+        <div class="results-stat"><div class="label">Cash freed (working capital)</div><div class="value green">${fmt$K(cashFreed)}</div><div class="sub">no longer tied up in inventory</div></div>
+      </div>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Side by side
+    let tbl = '<h2 style="margin-top:8px;margin-bottom:14px">Side-by-side comparison</h2><table class="results-table"><thead><tr><th>Cost</th><th class="num">Standard</th><th class="num">Consignment</th><th class="num">Diff</th></tr></thead><tbody>';
+    function row(label, std, cons) {
+      const diff = cons - std;
+      const color = diff > 0 ? '#B91C1C' : diff < 0 ? '#047857' : 'var(--fg1)';
+      tbl += `<tr><td>${label}</td><td class="num">${fmt$K(std)}</td><td class="num">${fmt$K(cons)}</td><td class="num" style="color:${color}">${diff>=0?'+':''}${fmt$K(diff)}</td></tr>`;
+    }
+    row('Material cost', annMaterial, annMaterialCons);
+    row('Carrying cost', annCarry, 0);
+    row('Ordering cost', annOrdering, annOrderingCons);
+    row('Storage', annStorage, consStorageCost);
+    row('Insurance', 0, consInsuranceCost);
+    row('Counting / reconciliation', 0, annCounting);
+    row('Cash opportunity cost', avgInvVal * coc, 0);
+    tbl += `<tr><td><strong>Total</strong></td><td class="num"><strong>${fmt$K(totalStd)}</strong></td><td class="num"><strong>${fmt$K(totalCons)}</strong></td><td class="num" style="color:${netDiff>0?'#B91C1C':'#047857'};font-weight:600">${netDiff>=0?'+':''}${fmt$K(netDiff)}</td></tr></tbody></table>`;
+
+    // Verdict + qualitative
+    let verdictBlock = '<h2 style="margin-top:32px;margin-bottom:14px">Recommendation</h2>';
+    if (cheaper) {
+      verdictBlock += `<div style="background:#ECFDF5;border:1px solid #10B981;border-left:4px solid #047857;border-radius:8px;padding:16px 18px"><p style="margin:0;font-size:15px;color:#064E3B;line-height:1.6">Consignment saves <strong>${fmt$K(Math.abs(netDiff))}/year</strong> - the carrying cost and working-capital benefits outweigh the ${premiumPct.toFixed(1)}% price premium. Recommend taking the deal.</p></div>`;
+    } else if (Math.abs(netDiff) > totalStd * 0.02) {
+      verdictBlock += `<div style="background:#FEF2F2;border:1px solid #F87171;border-left:4px solid #B91C1C;border-radius:8px;padding:16px 18px"><p style="margin:0;font-size:15px;color:#7F1D1D;line-height:1.6">Consignment costs <strong>${fmt$K(netDiff)} MORE</strong> per year. The ${premiumPct.toFixed(1)}% premium exceeds the carrying cost savings. Negotiate the consignment price down to <strong>${fmt$(breakEvenConsPrice)}</strong> (a ${breakEvenPremiumPct.toFixed(1)}% premium) to break even, or stay with standard purchase.</p></div>`;
+    } else {
+      verdictBlock += `<div style="background:#FEF3C7;border:1px solid #F59E0B;border-left:4px solid #B45309;border-radius:8px;padding:16px 18px"><p style="margin:0;font-size:15px;color:#78350F;line-height:1.6">Nearly equal cost (within 2%). Decide on non-financial factors: lead-time elimination, stockout risk reduction, simpler purchasing, supplier relationship.</p></div>`;
+    }
+
+    // Hidden benefits / risks
+    const pros = `<h2 style="margin-top:32px;margin-bottom:14px">Hidden benefits + risks of consignment</h2>
+      <ul style="font-size:15px;line-height:1.7;padding-left:20px">
+        <li><strong>+</strong> Zero lead time on material - already on your floor.</li>
+        <li><strong>+</strong> Eliminates stockout risk if supplier maintains the stock level.</li>
+        <li><strong>+</strong> Frees <strong>${fmt$K(cashFreed)}</strong> in working capital.</li>
+        <li><strong>+</strong> Fewer POs, simpler ordering process.</li>
+        <li><strong>-</strong> Higher unit price (${premiumPct.toFixed(1)}% premium here).</li>
+        <li><strong>-</strong> Space commitment - you store supplier-owned inventory.</li>
+        <li><strong>-</strong> Counting / reconciliation obligation.</li>
+        <li><strong>-</strong> Switching suppliers becomes harder once their stock is in your facility.</li>
+        <li><strong>-</strong> Obsolescence risk shifts to you if terms are not clear.</li>
+      </ul>`;
+
+    // Key contract terms
+    const contract = `<h2 style="margin-top:32px;margin-bottom:14px">Key contract terms to negotiate</h2>
+      <ol style="font-size:15px;line-height:1.7;padding-left:20px">
+        <li>Price adjustment clause - revisit consignment price annually or if standard price drops.</li>
+        <li>Min/max stock levels - supplier maintains X units min, you are not liable above Y.</li>
+        <li>Obsolescence - who bears the cost if the item becomes obsolete? (Should be supplier.)</li>
+        <li>Insurance responsibility - clearly defined; do not pay if you do not need to.</li>
+        <li>Reconciliation cadence + dispute resolution process.</li>
+        <li>Termination - what happens to existing consignment stock if the agreement ends.</li>
+        <li>Quality - reject/return process for consigned items found defective during use.</li>
+      </ol>`;
+
+    document.getElementById('detail').innerHTML = tbl + verdictBlock + pros + contract;
+    return { stdPrice, consPrice, premiumPct, totalStd, totalCons, netDiff, cheaper, cashFreed, breakEvenConsPrice, breakEvenPremiumPct };
+  }
+  document.querySelectorAll('input,select').forEach(el => el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Consignment Inventory Analysis', docNumberLabel: 'Verdict', docNumber: r.cheaper ? 'Consignment cheaper' : 'Standard cheaper',
+      date: todayISO(),
+      fromLabel: 'STANDARD', from: ['Unit price: ' + fmt$(r.stdPrice), 'Total annual: ' + fmt$K(r.totalStd)],
+      toLabel: 'CONSIGNMENT', to: ['Unit price: ' + fmt$(r.consPrice), 'Premium: +' + r.premiumPct.toFixed(1) + '%', 'Total annual: ' + fmt$K(r.totalCons), 'Net diff: ' + (r.netDiff>=0?'+':'') + fmt$K(r.netDiff), 'Break-even cons price: ' + fmt$(r.breakEvenConsPrice)],
+      itemColumns: ['Metric','Value'],
+      items: [['Standard total/yr', fmt$K(r.totalStd)], ['Consignment total/yr', fmt$K(r.totalCons)], ['Working capital freed', fmt$K(r.cashFreed)], ['Net difference', (r.netDiff>=0?'+':'')+fmt$K(r.netDiff)], ['Break-even premium', r.breakEvenPremiumPct.toFixed(1)+'%']],
+      itemRowMapper: x => x,
+      notes: 'Methodology: comparison of TCO under standard purchase vs. consignment. Includes material cost, carrying cost, ordering cost, storage, insurance, counting labor, and opportunity cost of working capital.',
+      filename: 'consignment-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Consignment is not always a good deal</h2>
+    <p>The supplier sales pitch sounds great: "we will stock the material at your facility, you only pay when you use it." Zero inventory investment, no carrying cost. The catch: consignment prices are typically 5-15% higher than standard purchase prices. Whether consignment actually saves you money depends on whether the carrying-cost savings exceed the price premium - which depends on your cost of capital, your inventory levels, and your storage costs.</p>
+    <h2>When consignment wins</h2>
+    <p>High-value items where carrying cost is large relative to total cost. Long-lead-time items where consignment eliminates stockout risk. Capital-constrained businesses where freed working capital matters more than 8% of inventory value. Items with stable usage (volatile usage destroys consignment economics).</p>
+    <h2>When standard purchase wins</h2>
+    <p>Low-cost commodity items where carrying cost is small. Volatile-price items where the consignment premium gets stuck above market. Items where obsolescence risk is real and the contract has not nailed down who bears it.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is consignment inventory?</summary><p>Supplier-owned inventory stored at the buyer facility. Buyer only pays as they consume it. Supplier retains ownership (and obsolescence risk, ideally) until use.</p></details>
+    <details><summary>What is a typical consignment price premium?</summary><p>5-15% over standard purchase price, reflecting the supplier cost of carrying inventory and the working-capital benefit they are providing the buyer.</p></details>
+    <details><summary>Who insures consignment stock?</summary><p>Contract-dependent. Best practice: supplier insures while in their ownership. Many contracts inappropriately push insurance onto the buyer - read carefully.</p></details>
+    <details><summary>What happens to consignment stock if I end the relationship?</summary><p>Contract-dependent. Best practice: supplier removes their stock at their cost. Avoid contracts that require you to buy out existing consignment inventory on termination.</p></details>
+    <details><summary>How often should I count consignment stock?</summary><p>Monthly is standard for high-velocity items. Quarterly is acceptable for stable, low-turnover items. The counting cost is real - factor it into the consignment math.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (55)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

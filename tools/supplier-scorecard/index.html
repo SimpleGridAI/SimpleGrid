@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Supplier Scorecard Generator for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Score suppliers on quality, delivery, commercial, service, and risk. Composite rating, risk flags, recommended actions. PDF report. Free.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/supplier-scorecard/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/supplier-scorecard/"><meta property="og:title" content="Supplier Scorecard Generator for Manufacturers | SimpleGrid"><meta property="og:description" content="Score suppliers on quality, delivery, commercial, service, and risk. Composite rating, risk flags, recommended actions. PDF report. Free."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Supplier Scorecard Generator for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/supplier-scorecard/","description":"Score suppliers on quality, delivery, commercial, service, and risk. Composite rating, risk flags, recommended actions. PDF report. Free.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Supplier Scorecard Generator for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/supplier-scorecard/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How often should I score suppliers?","acceptedAnswer":{"@type":"Answer","text":"Critical/high-criticality suppliers: quarterly. Standard suppliers: annually. The most-disciplined manufacturers schedule QBRs (quarterly business reviews) for tier-1 suppliers where they walk through the scorecard together."}},
+{"@type":"Question","name":"What weighting is right for my business?","acceptedAnswer":{"@type":"Answer","text":"The defaults (Q30/D25/C20/S15/R10) reflect typical mid-market manufacturing priorities. Adjust if your business is unusual - e.g., regulated industries weight Quality higher (35-40%), highly time-sensitive operations weight Delivery higher."}},
+{"@type":"Question","name":"Should I share scorecards with suppliers?","acceptedAnswer":{"@type":"Answer","text":"Yes - that is where the value compounds. A supplier who sees a B and the path to an A will work for it. A supplier who never hears feedback assumes everything is fine until you switch."}},
+{"@type":"Question","name":"What if I disagree with a sub-score?","acceptedAnswer":{"@type":"Answer","text":"Override it. The framework is a scaffold, not a verdict. The scorecard exists to make implicit judgments explicit, not to override your operational knowledge."}},
+{"@type":"Question","name":"Is this ISO 9001-compliant?","acceptedAnswer":{"@type":"Answer","text":"It satisfies Clause 8.4 (Control of Externally Provided Processes), which requires documented evaluation criteria, ratings, and re-evaluation. Keep the PDF on file as evidence; auditors typically accept this format."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Supplier Scorecard Generator.</h1>
+    <p class="lead">How good are your suppliers? Not "I think they are okay" - by the numbers. 5 dimensions, 20 sub-scores, weighted composite, ISO 9001 Clause 8.4 aligned.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Supplier information</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="sup-name">Supplier name</label><input id="sup-name" type="text" maxlength="80" placeholder="Midwest Steel Supply LLC" data-required></div>
+        <div class="tool-field"><label for="sup-cat">Category</label>
+          <select id="sup-cat"><option>Raw material</option><option>Components</option><option>Subcontractor</option><option>Packaging</option><option>MRO</option><option>Tooling</option><option>Logistics</option><option>Services</option></select>
+        </div>
+        <div class="tool-field"><label for="sup-spend">Annual spend ($)</label><input id="sup-spend" type="number" data-clamp="0,1000000000" step="1000" value="180000"></div>
+        <div class="tool-field"><label for="sup-years">Years as supplier</label><input id="sup-years" type="number" data-clamp="0,100" step="1" value="6"></div>
+        <div class="tool-field"><label for="sup-sole">Sole source?</label>
+          <select id="sup-sole"><option value="0">No</option><option value="1">Yes</option></select>
+        </div>
+        <div class="tool-field"><label for="sup-crit">Criticality</label>
+          <select id="sup-crit"><option value="0.5">Low (easy to replace)</option><option value="1.0" selected>Medium (alternatives exist)</option><option value="2.0">High (few alternatives)</option><option value="3.0">Critical (no alternative, production stops)</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Quality (weight 30%)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="q-reject">Incoming reject rate (%)</label><input id="q-reject" type="number" data-clamp="0,100" step="0.1" value="1.5"></div>
+        <div class="tool-field"><label for="q-cert">Quality certifications</label>
+          <select id="q-cert"><option value="5">ISO 9001 + industry-specific (IATF, AS, ISO 13485)</option><option value="4">ISO 9001 only</option><option value="3">In process</option><option value="2">None but good quality</option><option value="1">None and issues</option></select>
+        </div>
+        <div class="tool-field"><label for="q-capa">Corrective action response</label>
+          <select id="q-capa"><option value="5">Containment + root cause + CAPA &lt;30 days</option><option value="4">Respond but slow on root cause</option><option value="3">Replace parts, no investigation</option><option value="2">Deny or delay</option><option value="1">Unresponsive</option></select>
+        </div>
+        <div class="tool-field"><label for="q-certs">Material certs / COCs</label>
+          <select id="q-certs"><option value="5">Always provided proactively</option><option value="4">Provided on request</option><option value="3">Sometimes missing</option><option value="2">Rarely provided</option><option value="1">Never</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Delivery (weight 25%)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="d-otd">On-time delivery rate (%)</label><input id="d-otd" type="number" data-clamp="0,100" step="1" value="92"></div>
+        <div class="tool-field"><label for="d-lt">Lead-time consistency</label>
+          <select id="d-lt"><option value="5">Always matches quoted</option><option value="4">Within 1-2 days</option><option value="3">Varies +/- 1 week</option><option value="2">Unpredictable</option><option value="1">Consistently late</option></select>
+        </div>
+        <div class="tool-field"><label for="d-qty">Quantity accuracy</label>
+          <select id="d-qty"><option value="5">Always exact or small over</option><option value="4">Within 2% of ordered</option><option value="3">Occasional shorts (5-10%)</option><option value="2">Frequent shorts</option><option value="1">Unreliable</option></select>
+        </div>
+        <div class="tool-field"><label for="d-notice">Advance notice on delays</label>
+          <select id="d-notice"><option value="5">Always notify with recovery plan</option><option value="4">Usually notify</option><option value="3">Sometimes notify</option><option value="2">You find out when it does not arrive</option><option value="1">Never</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Commercial (weight 20%)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="c-price">Pricing vs. market</label>
+          <select id="c-price"><option value="5">Lowest in market</option><option value="4">Competitive (within 5%)</option><option value="3">Average</option><option value="2">Above (10-20% premium)</option><option value="1">Significantly above</option></select>
+        </div>
+        <div class="tool-field"><label for="c-stab">Price stability</label>
+          <select id="c-stab"><option value="5">No increases in 24+ months</option><option value="4">Annual, reasonable, early notice</option><option value="3">Semi-annual</option><option value="2">Frequent unannounced</option><option value="1">Erratic</option></select>
+        </div>
+        <div class="tool-field"><label for="c-terms">Payment terms</label>
+          <select id="c-terms"><option value="5">Net 60+ or consignment</option><option value="4">Net 45</option><option value="3">Net 30</option><option value="2">Net 15 or CIA</option><option value="1">Prepayment required</option></select>
+        </div>
+        <div class="tool-field"><label for="c-hidden">Hidden cost behavior</label>
+          <select id="c-hidden"><option value="5">All-in pricing, no surprises</option><option value="4">Minimal extras</option><option value="3">Moderate (tooling, setup)</option><option value="2">Significant surcharges</option><option value="1">Constant surprise charges</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Service (weight 15%)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="s-resp">Response time</label>
+          <select id="s-resp"><option value="5">&lt;4 hours</option><option value="4">Same day</option><option value="3">1-2 business days</option><option value="2">3-5 business days</option><option value="1">&gt;5 days or no response</option></select>
+        </div>
+        <div class="tool-field"><label for="s-flex">Flexibility on rush/change</label>
+          <select id="s-flex"><option value="5">Always accommodates, suggests solutions</option><option value="4">Usually accommodates</option><option value="3">Sometimes, with surcharge</option><option value="2">Rarely</option><option value="1">Completely rigid</option></select>
+        </div>
+        <div class="tool-field"><label for="s-tech">Technical support</label>
+          <select id="s-tech"><option value="5">Proactive guidance, helps optimize specs</option><option value="4">Good when asked</option><option value="3">Basic support</option><option value="2">Limited - figure it out yourself</option><option value="1">None</option></select>
+        </div>
+        <div class="tool-field"><label for="s-acct">Account management</label>
+          <select id="s-acct"><option value="5">Dedicated AM, knows your business</option><option value="4">Assigned contact, responsive</option><option value="3">Call center / general inbox</option><option value="2">Different person every time</option><option value="1">Cannot reach anyone</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Risk (weight 10%)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="r-fin">Financial stability</label>
+          <select id="r-fin"><option value="5">Large, established, no concerns</option><option value="4">Stable mid-size</option><option value="3">Small but healthy</option><option value="2">Some concerns</option><option value="1">At risk (layoffs, ownership)</option></select>
+        </div>
+        <div class="tool-field"><label for="r-geo">Geographic risk</label>
+          <select id="r-geo"><option value="5">Domestic, low risk</option><option value="4">Domestic, weather/disaster-prone</option><option value="3">Near-shore (Mexico, Canada)</option><option value="2">Overseas, stable country</option><option value="1">Overseas, geopolitical risk</option></select>
+        </div>
+        <div class="tool-field"><label for="r-bcp">Business continuity / BCP</label>
+          <select id="r-bcp"><option value="5">Documented BCP, multiple facilities</option><option value="4">Some contingency planning</option><option value="3">Single facility, no formal plan</option><option value="2">No BCP and they admit it</option><option value="1">Single facility, no plan, recent issues</option></select>
+        </div>
+        <div class="tool-field"><label for="r-cap">Available capacity for growth</label>
+          <select id="r-cap"><option value="5">Can scale 50%+ with us</option><option value="4">Some headroom (20-30%)</option><option value="3">Near capacity for our work</option><option value="2">At capacity, constrained</option><option value="1">Declining capacity</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Scorecard</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When supplier evaluation runs on memory</div>
+      <h2>SimpleGrid generates scorecards from real data - every PO, every receipt, every quality event.</h2>
+      <p>No more annual scorecard rituals. Your supplier ratings update automatically as performance happens.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="supplier_scorecard_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(id){return parseFloat(document.getElementById(id).value)||0;}
+  function mapReject(p){return p<0.5?5:p<1?4:p<3?3:p<5?2:1;}
+  function mapOtd(p){return p>98?5:p>=95?4:p>=90?3:p>=80?2:1;}
+
+  function recalc(){
+    const qReject = mapReject(nn('q-reject'));
+    const qCert = nn('q-cert');
+    const qCapa = nn('q-capa');
+    const qCerts = nn('q-certs');
+    const qScore = (qReject + qCert + qCapa + qCerts) / 4;
+
+    const dOtd = mapOtd(nn('d-otd'));
+    const dLt = nn('d-lt');
+    const dQty = nn('d-qty');
+    const dNotice = nn('d-notice');
+    const dScore = (dOtd + dLt + dQty + dNotice) / 4;
+
+    const cPrice = nn('c-price');
+    const cStab = nn('c-stab');
+    const cTerms = nn('c-terms');
+    const cHidden = nn('c-hidden');
+    const cScore = (cPrice + cStab + cTerms + cHidden) / 4;
+
+    const sResp = nn('s-resp');
+    const sFlex = nn('s-flex');
+    const sTech = nn('s-tech');
+    const sAcct = nn('s-acct');
+    const sScore = (sResp + sFlex + sTech + sAcct) / 4;
+
+    const rFin = nn('r-fin');
+    const rGeo = nn('r-geo');
+    const rBcp = nn('r-bcp');
+    const rCap = nn('r-cap');
+    const rScore = (rFin + rGeo + rBcp + rCap) / 4;
+
+    const composite = qScore * 0.30 + dScore * 0.25 + cScore * 0.20 + sScore * 0.15 + rScore * 0.10;
+    const composite100 = composite / 5 * 100;
+
+    let rating, ratingDesc, cls;
+    if (composite100 >= 90) { rating = 'A'; ratingDesc = 'Strategic partner'; cls = 'green'; }
+    else if (composite100 >= 75) { rating = 'B'; ratingDesc = 'Preferred supplier'; cls = 'green'; }
+    else if (composite100 >= 60) { rating = 'C'; ratingDesc = 'Approved supplier'; cls = 'gold'; }
+    else if (composite100 >= 45) { rating = 'D'; ratingDesc = 'Probationary - improvement required'; cls = 'gold'; }
+    else { rating = 'F'; ratingDesc = 'At risk - consider replacement'; cls = 'red'; }
+
+    const supName = document.getElementById('sup-name').value || 'Supplier';
+    const spend = nn('sup-spend');
+    const reject = nn('q-reject');
+    const otd = nn('d-otd');
+    const isSole = nn('sup-sole') > 0;
+    const critMult = nn('sup-crit');
+
+    // Cost of poor performance
+    const qualityCost = spend * reject / 100 * 1.5;
+    const deliveryCost = spend * Math.max(0, 1 - otd/100) * 0.05;
+    const totalImpact = qualityCost + deliveryCost;
+    const idealSavings = totalImpact * 0.85;
+
+    const warns = [];
+    if (isSole && composite100 < 75) warns.push('SOLE SOURCE with score below 75 - qualify a backup supplier immediately.');
+    if (critMult >= 2 && composite100 < 60) warns.push('Critical-criticality supplier underperforming - escalate to executive level.');
+    if (reject > 3) warns.push('Reject rate >3% - this supplier is regularly sending defective material.');
+    if (otd < 90) warns.push('On-time delivery <90% - unreliable on timing.');
+    if (qCert <= 2) warns.push('Limited or no quality certifications - may not meet your customer requirements.');
+    if (rBcp <= 2) warns.push('No business continuity plan - a disruption at their site stops your production.');
+    if (cStab <= 2) warns.push('Frequent unannounced price increases - budget forecasting is impossible.');
+
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">${supName}</div>
+      <div class="big-number ${cls}">${composite100.toFixed(0)} <span style="font-size:32px;color:var(--fg3);font-weight:500">/ 100</span></div>
+      <div class="big-caption"><strong>Rating ${rating}: ${ratingDesc}.</strong> Weighted composite of quality (30%), delivery (25%), commercial (20%), service (15%), risk (10%).</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Quality</div><div class="value">${qScore.toFixed(1)} / 5</div></div>
+        <div class="results-stat"><div class="label">Delivery</div><div class="value">${dScore.toFixed(1)} / 5</div></div>
+        <div class="results-stat"><div class="label">Commercial</div><div class="value">${cScore.toFixed(1)} / 5</div></div>
+        <div class="results-stat"><div class="label">Service</div><div class="value">${sScore.toFixed(1)} / 5</div></div>
+        <div class="results-stat"><div class="label">Risk</div><div class="value">${rScore.toFixed(1)} / 5</div></div>
+      </div>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Dimension breakdown
+    let bars = '<h2 style="margin-top:8px;margin-bottom:14px">Dimension breakdown</h2>';
+    const dims = [
+      { l: 'Quality', s: qScore, w: 30 },
+      { l: 'Delivery', s: dScore, w: 25 },
+      { l: 'Commercial', s: cScore, w: 20 },
+      { l: 'Service', s: sScore, w: 15 },
+      { l: 'Risk', s: rScore, w: 10 }
+    ];
+    dims.forEach(d => {
+      const pct = d.s / 5 * 100;
+      const c = d.s >= 4 ? 'green' : d.s >= 3 ? 'gold' : 'red';
+      bars += `<div class="bar-row"><span class="bar-label">${d.l} (${d.w}%)</span><div class="bar-track"><div class="bar-fill ${c}" style="width:${pct}%"></div></div><span class="bar-value">${d.s.toFixed(2)} / 5 &middot; weighted ${(d.s*d.w/100).toFixed(2)}</span></div>`;
+    });
+
+    // Cost of performance gaps
+    const costBlock = `<h2 style="margin-top:32px;margin-bottom:14px">Estimated cost of performance gaps</h2>
+      <p style="font-size:15px;color:var(--fg2);line-height:1.6">Quality issues (${reject}% reject rate): <strong>${fmt$K(qualityCost)}/year</strong>. Delivery failures (${(100-otd).toFixed(0)}% miss rate): <strong>${fmt$K(deliveryCost)}/year</strong>. <strong>Total estimated annual impact: ${fmt$K(totalImpact)}</strong>.</p>
+      ${composite100 < 90 ? `<p style="font-size:15px;color:#047857;line-height:1.6;margin-top:8px">If this supplier performed at &quot;A&quot; level: <strong>${fmt$K(idealSavings)}/year savings</strong>.</p>` : ''}`;
+
+    // Recommended actions
+    let actions = '<h2 style="margin-top:32px;margin-bottom:14px">Recommended actions</h2>';
+    if (rating === 'A') actions += '<ul style="font-size:15px;line-height:1.7;padding-left:20px"><li>Negotiate long-term agreement for price stability.</li><li>Include them in new product development.</li><li>Share forecasts for better planning.</li><li>Consider VMI (vendor-managed inventory).</li></ul>';
+    else if (rating === 'B') actions += '<ul style="font-size:15px;line-height:1.7;padding-left:20px"><li>Address 1-2 weak dimensions.</li><li>Schedule quarterly business reviews.</li><li>Set specific improvement targets for weakest area.</li></ul>';
+    else if (rating === 'C') actions += '<ul style="font-size:15px;line-height:1.7;padding-left:20px"><li>Document specific performance requirements in writing.</li><li>Set 90-day improvement plan for weakest dimension.</li><li>Begin qualifying at least one alternative.</li></ul>';
+    else if (rating === 'D') actions += '<ul style="font-size:15px;line-height:1.7;padding-left:20px"><li>Issue formal corrective action request.</li><li>Set 60-day improvement deadline with measurable targets.</li><li>Actively qualify replacement.</li><li>Split orders with alternative if possible.</li></ul>';
+    else actions += '<ul style="font-size:15px;line-height:1.7;padding-left:20px"><li>Begin replacement qualification immediately.</li><li>Communicate concerns formally in writing.</li><li>Set 30-day review.</li><li>Transition 100% of spend to qualified alternative within 90 days.</li></ul>';
+
+    document.getElementById('detail').innerHTML = bars + costBlock + actions;
+    return { supName, composite100, rating, ratingDesc, qScore, dScore, cScore, sScore, rScore, spend, totalImpact };
+  }
+  document.querySelectorAll('input,select').forEach(el => el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Supplier Scorecard', docNumberLabel: 'Supplier', docNumber: r.supName,
+      date: todayISO(),
+      fromLabel: 'OVERALL', from: [r.supName, 'Score: ' + r.composite100.toFixed(0) + ' / 100', 'Rating: ' + r.rating + ' - ' + r.ratingDesc, 'Annual spend: ' + fmt$K(r.spend)],
+      toLabel: 'IMPACT', to: ['Est. cost of performance gaps: ' + fmt$K(r.totalImpact) + '/year'],
+      itemColumns: ['Dimension','Score (1-5)','Weight','Weighted'],
+      items: [
+        ['Quality', r.qScore.toFixed(2), '30%', (r.qScore*0.30).toFixed(2)],
+        ['Delivery', r.dScore.toFixed(2), '25%', (r.dScore*0.25).toFixed(2)],
+        ['Commercial', r.cScore.toFixed(2), '20%', (r.cScore*0.20).toFixed(2)],
+        ['Service', r.sScore.toFixed(2), '15%', (r.sScore*0.15).toFixed(2)],
+        ['Risk', r.rScore.toFixed(2), '10%', (r.rScore*0.10).toFixed(2)]
+      ],
+      itemRowMapper: x => x,
+      notes: 'Methodology: APICS/ASCM Supplier Evaluation framework, ISM Supplier Performance Criteria, ISO 9001:2015 Clause 8.4 (Control of Externally Provided Processes). Composite is weighted average; weights reflect typical mid-market manufacturing priorities.',
+      filename: 'supplier-scorecard-' + r.supName.replace(/[^A-Za-z0-9_-]/g,'_') + '-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>What a supplier scorecard does that gut feel cannot</h2>
+    <p>Most manufacturers run on relationships: "I think they are reliable." A scorecard turns that into "they hit 94% on-time delivery, 0.6% reject rate, respond in same-day, ISO 9001 certified." When a critical supplier starts slipping, you see the trend in the data months before the relationship goes off the rails. ISO 9001:2015 Clause 8.4 expects you to evaluate suppliers formally - a scorecard is the lightweight way to comply.</p>
+    <h2>Five dimensions, not just two</h2>
+    <p>Quality (30%): rejects, certifications, CAPA response. Delivery (25%): on-time, lead time consistency, advance notice on delays. Commercial (20%): price, terms, hidden costs. Service (15%): responsiveness, flexibility, account management. Risk (10%): financial, geographic, BCP, capacity. Weighting puts quality and delivery at 55% of the score - because that is where most production-line damage actually happens.</p>
+    <h2>Rating tiers map to action</h2>
+    <p>A (90+): strategic partner - lock in long-term agreement. B (75-89): preferred - schedule QBRs, target weak dimensions. C (60-74): approved but needs improvement - start qualifying alternatives. D (45-59): probationary - formal CAR, 60-day improvement plan. F (&lt;45): exit plan - replace within 90 days.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>How often should I score suppliers?</summary><p>Critical/high-criticality suppliers: quarterly. Standard suppliers: annually. The most-disciplined manufacturers schedule QBRs (quarterly business reviews) for tier-1 suppliers where they walk through the scorecard together.</p></details>
+    <details><summary>What weighting is right for my business?</summary><p>The defaults (Q30/D25/C20/S15/R10) reflect typical mid-market manufacturing priorities. Adjust if your business is unusual - e.g., regulated industries weight Quality higher (35-40%), highly time-sensitive operations weight Delivery higher.</p></details>
+    <details><summary>Should I share scorecards with suppliers?</summary><p>Yes - that is where the value compounds. A supplier who sees a B and the path to an A will work for it. A supplier who never hears feedback assumes everything is fine until you switch.</p></details>
+    <details><summary>What if I disagree with a sub-score?</summary><p>Override it. The framework is a scaffold, not a verdict. The scorecard exists to make implicit judgments explicit, not to override your operational knowledge.</p></details>
+    <details><summary>Is this ISO 9001-compliant?</summary><p>It satisfies Clause 8.4 (Control of Externally Provided Processes), which requires documented evaluation criteria, ratings, and re-evaluation. Keep the PDF on file as evidence; auditors typically accept this format.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (55)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Supplier Diversification Risk Assessment | SimpleGrid</title>
+<meta name="description" content="Map your supply-chain concentration. Sole-source spend, geographic risk, financial exposure, diversification roadmap. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/supplier-diversification-risk/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/supplier-diversification-risk/"><meta property="og:title" content="Supplier Diversification Risk Assessment | SimpleGrid"><meta property="og:description" content="Map your supply-chain concentration. Sole-source spend, geographic risk, financial exposure, diversification roadmap. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Supplier Diversification Risk Assessment | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/supplier-diversification-risk/","description":"Map your supply-chain concentration. Sole-source spend, geographic risk, financial exposure, diversification roadmap. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Supplier Diversification Risk Assessment | SimpleGrid","item":"https://simplegrid.ai/tools/supplier-diversification-risk/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is sole-source spend?","acceptedAnswer":{"@type":"Answer","text":"Spend on items where you have only one qualified supplier. If that supplier fails, you cannot make the product. Most manufacturers underestimate their sole-source exposure - by spend, by criticality, and by qualification time required to recover."}},
+{"@type":"Question","name":"How much sole-source spend is too much?","acceptedAnswer":{"@type":"Answer","text":"Below 15% of total spend: acceptable. 15-30%: monitor closely, plan diversification. Above 30%: high risk - any single supplier failure is a material event for the company."}},
+{"@type":"Question","name":"What is qualification time?","acceptedAnswer":{"@type":"Answer","text":"How long it takes to identify a new supplier, run pilot/sample runs, perform quality audits, complete first-article inspection, and ramp to production volume. For commodity items: 1-3 months. For machined or engineered parts: 6-18 months. This is the actual recovery time if a sole-source fails."}},
+{"@type":"Question","name":"Should I dual-source everything?","acceptedAnswer":{"@type":"Answer","text":"No - it adds complexity and cost. Focus on critical-criticality items and items with long qualification times. Standard items with 2-week lead time and 5 qualified suppliers are not the risk."}},
+{"@type":"Question","name":"How much does it cost to qualify a backup supplier?","acceptedAnswer":{"@type":"Answer","text":"Time + sample/qual order cost + engineering review. Typically $3,000-$25,000 for standard parts, $50,000+ for engineered parts. Compared to the cost of a real disruption, this is a small insurance premium."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Supplier Diversification Risk Assessment.</h1>
+    <p class="lead">You control your floor. You do not control your supply chain. But you can measure it - and find your single points of failure before they fail.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Your key materials &amp; components (up to 12)</h2>
+      <p class="tool-note" style="margin:0 0 12px">Add the items most critical to production. Pre-filled with sample data - edit, add, or remove rows.</p>
+      <table class="results-table">
+        <thead><tr><th>Item</th><th class="num">Annual spend ($)</th><th>Criticality</th><th class="num">Qualified suppliers</th><th class="num">Primary share (%)</th><th>Country</th><th class="num">Qualification (mo)</th><th>Disruption history</th><th class="col-actions"></th></tr></thead>
+        <tbody id="item-body"></tbody>
+      </table>
+      <div class="tool-actions"><button type="button" id="add-item" class="btn-add">+ Add item</button></div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When one supplier failure stops your line</div>
+      <h2>SimpleGrid tracks supplier dependence and flags concentration risk automatically.</h2>
+      <p>Sole-source spend, geographic concentration, qualification status - updated as your supply base changes. Not an annual exercise.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="supplier_diversification_risk_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(v){return Math.max(0, parseFloat(v)||0);}
+
+  const COUNTRIES = ['US','Canada','Mexico','China','India','Vietnam','Taiwan','Germany','Japan','South Korea','Italy','Other'];
+  const GEO_RISK = {'US':1,'Canada':1.5,'Mexico':2,'Germany':1.5,'Japan':1.5,'Italy':2,'South Korea':2,'China':3.5,'India':3,'Vietnam':3,'Taiwan':4,'Other':3};
+  const CRITS = [['Standard',0.5],['Important',1.0],['Critical',2.0],['Single-source',3.0]];
+  const DISRUPT = [['Never',5],['Once (minor)',4],['Once (significant)',2],['Multiple times',1],['Ongoing',0]];
+
+  const itemBody = document.getElementById('item-body');
+  function addRow(p) {
+    p = p || {};
+    const esc = sgEscapeHtml;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" maxlength="60" data-f="name" placeholder="Item name" value="${esc(p.name||'')}"></td>
+      <td><input type="number" data-clamp="0,100000000" step="1000" data-f="spend" value="${esc(p.spend||'')}" style="width:100%"></td>
+      <td><select data-f="crit">${CRITS.map(c => `<option value="${c[1]}" ${p.crit==String(c[1])?'selected':''}>${c[0]}</option>`).join('')}</select></td>
+      <td><input type="number" data-clamp="1,50" step="1" data-f="qsup" value="${esc(p.qsup||'2')}" style="width:100%"></td>
+      <td><input type="number" data-clamp="0,100" step="1" data-f="share" value="${esc(p.share||'70')}" style="width:100%"></td>
+      <td><select data-f="ctry">${COUNTRIES.map(c => `<option ${p.ctry===c?'selected':''}>${c}</option>`).join('')}</select></td>
+      <td><input type="number" data-clamp="0,36" step="1" data-f="qual" value="${esc(p.qual||'6')}" style="width:100%"></td>
+      <td><select data-f="disrupt">${DISRUPT.map(d => `<option value="${d[1]}" ${p.disrupt==String(d[1])?'selected':''}>${d[0]}</option>`).join('')}</select></td>
+      <td class="col-actions"><button type="button" class="row-del">x</button></td>`;
+    itemBody.appendChild(tr);
+    tr.querySelector('.row-del').addEventListener('click', () => { tr.remove(); recalc(); });
+    tr.querySelectorAll('input,select').forEach(i => i.addEventListener('input', recalc));
+    if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(tr);
+  }
+  // Seed
+  [
+    ['Aluminum extrusions', 380000, '2.0', 1, 100, 'China', 12, '2'],
+    ['Steel sheet', 290000, '2.0', 3, 55, 'US', 3, '4'],
+    ['Custom castings', 220000, '3.0', 1, 100, 'India', 9, '1'],
+    ['Bearings', 95000, '1.0', 2, 65, 'Germany', 6, '5'],
+    ['Plastic resin', 145000, '1.0', 4, 35, 'US', 2, '5'],
+    ['Electronic modules', 510000, '3.0', 1, 100, 'Taiwan', 15, '2'],
+    ['Fasteners (stainless)', 28000, '0.5', 3, 50, 'Vietnam', 3, '4']
+  ].forEach(r => addRow({ name: r[0], spend: r[1], crit: r[2], qsup: r[3], share: r[4], ctry: r[5], qual: r[6], disrupt: r[7] }));
+  document.getElementById('add-item').addEventListener('click', () => addRow());
+
+  function recalc(){
+    const items = Array.from(itemBody.querySelectorAll('tr')).map(tr => {
+      const get = f => tr.querySelector(`[data-f="${f}"]`).value;
+      const spend = nn(get('spend'));
+      const crit = parseFloat(get('crit'));
+      const qsup = Math.max(1, nn(get('qsup')));
+      const share = Math.min(100, nn(get('share')));
+      const ctry = get('ctry');
+      const qual = nn(get('qual'));
+      const disrupt = parseFloat(get('disrupt'));
+      return { name: get('name'), spend, crit, qsup, share, ctry, qual, disrupt };
+    }).filter(i => i.spend > 0);
+
+    const warns = [];
+    if (!items.length) warns.push('Add at least one item to see your risk dashboard.');
+
+    items.forEach(i => {
+      // Concentration score (1-5, higher = better diversification)
+      let conc;
+      if (i.qsup === 1) conc = 1;
+      else if (i.qsup === 2 && i.share > 80) conc = 2;
+      else if (i.qsup === 2) conc = 3;
+      else if (i.qsup >= 3 && i.share > 60) conc = 3;
+      else if (i.qsup >= 3 && i.share > 40) conc = 4;
+      else conc = 5;
+      i.conc = conc;
+
+      const geo = GEO_RISK[i.ctry] || 3;
+      const geoScore = 5 - geo; // invert: lower geo risk = higher score
+      i.geoScore = Math.max(0, geoScore);
+
+      const recoveryMonths = i.qsup > 1 ? 1 : i.qual;
+      i.recoveryMonths = recoveryMonths;
+      i.recoveryScore = recoveryMonths <= 1 ? 5 : recoveryMonths <= 3 ? 4 : recoveryMonths <= 6 ? 3 : recoveryMonths <= 12 ? 2 : 1;
+
+      i.itemRisk = (i.conc + i.geoScore + i.disrupt + i.recoveryScore) / 20 * 100;
+      i.weightedRisk = (100 - i.itemRisk) * i.crit;
+      i.financialExposure = (i.spend / 12) * recoveryMonths;
+    });
+
+    const totalSpend = items.reduce((s,i) => s + i.spend, 0);
+    const soleSourceSpend = items.filter(i => i.qsup === 1).reduce((s,i) => s + i.spend, 0);
+    const soleSourcePct = sgSafeDiv(soleSourceSpend, totalSpend) * 100;
+    const totalExposure = items.reduce((s,i) => s + i.financialExposure, 0);
+
+    // Group by country
+    const byCountry = {};
+    items.forEach(i => { byCountry[i.ctry] = (byCountry[i.ctry] || 0) + i.spend; });
+    const topCountry = Object.entries(byCountry).sort((a,b) => b[1] - a[1])[0] || ['', 0];
+    const topCountryPct = sgSafeDiv(topCountry[1], totalSpend) * 100;
+
+    const overallRisk = items.length ? items.reduce((s,i) => s + i.itemRisk, 0) / items.length : 0;
+    const avgQual = items.filter(i => i.qsup === 1).reduce((s,i) => s + i.qual, 0) / Math.max(1, items.filter(i => i.qsup === 1).length);
+
+    const riskCls = overallRisk >= 70 ? 'green' : overallRisk >= 50 ? 'gold' : 'red';
+
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">Supply chain risk score</div>
+      <div class="big-number ${riskCls}">${overallRisk.toFixed(0)} <span style="font-size:24px;color:var(--fg3);font-weight:500">/ 100</span></div>
+      <div class="big-caption">Higher = more resilient. Green &gt; 70, amber 50-70, red &lt; 50.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Sole-source spend</div><div class="value ${soleSourcePct>30?'red':soleSourcePct>15?'gold':'green'}">${fmt$K(soleSourceSpend)}</div><div class="sub">${soleSourcePct.toFixed(0)}% of total</div></div>
+        <div class="results-stat"><div class="label">Total financial exposure</div><div class="value">${fmt$K(totalExposure)}</div><div class="sub">at risk if critical suppliers fail</div></div>
+        <div class="results-stat"><div class="label">Avg sole-source recovery</div><div class="value">${avgQual.toFixed(0)} mo</div><div class="sub">qualification time</div></div>
+        <div class="results-stat"><div class="label">Top country concentration</div><div class="value ${topCountryPct>40?'red':topCountryPct>25?'gold':'green'}">${topCountry[0]} ${topCountryPct.toFixed(0)}%</div></div>
+      </div>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Risk heat map - items sorted by weightedRisk
+    let table = '<h2 style="margin-top:8px;margin-bottom:14px">Risk heat map (sorted high to low)</h2><table class="results-table"><thead><tr><th>Item</th><th class="num">Spend</th><th class="num">Suppliers</th><th class="num">Primary share</th><th>Country</th><th class="num">Disruption</th><th class="num">Risk</th><th class="num">Exposure</th></tr></thead><tbody>';
+    items.sort((a,b) => b.weightedRisk - a.weightedRisk);
+    items.forEach(i => {
+      const c = i.itemRisk < 40 ? 'background:rgba(239,68,68,0.10)' : i.itemRisk < 70 ? 'background:rgba(245,158,11,0.08)' : 'background:rgba(16,185,129,0.08)';
+      const disruptLabel = DISRUPT.find(d => d[1] == i.disrupt)?.[0] || '-';
+      table += `<tr style="${c}"><td><strong>${sgEscapeHtml(i.name || 'Unnamed')}</strong></td><td class="num">${fmt$K(i.spend)}</td><td class="num">${i.qsup}</td><td class="num">${i.share}%</td><td>${i.ctry}</td><td class="num">${disruptLabel}</td><td class="num"><strong>${i.itemRisk.toFixed(0)}</strong></td><td class="num">${fmt$K(i.financialExposure)}</td></tr>`;
+    });
+    table += '</tbody></table>';
+
+    // Geographic concentration
+    let geo = '<h2 style="margin-top:32px;margin-bottom:14px">Geographic concentration</h2>';
+    const sortedCountries = Object.entries(byCountry).sort((a,b) => b[1] - a[1]);
+    sortedCountries.forEach(([country, spend]) => {
+      const pct = spend / totalSpend * 100;
+      const risk = GEO_RISK[country] || 3;
+      const cls = risk >= 3 ? 'red' : risk >= 2 ? 'gold' : 'green';
+      geo += `<div class="bar-row"><span class="bar-label">${country}</span><div class="bar-track"><div class="bar-fill ${cls}" style="width:${pct}%"></div></div><span class="bar-value">${fmt$K(spend)} (${pct.toFixed(0)}%)</span></div>`;
+    });
+    if (topCountryPct > 40) {
+      geo += `<p style="margin-top:12px;font-size:14px;color:#B91C1C">${topCountryPct.toFixed(0)}% of spend concentrated in ${topCountry[0]}. A trade disruption, tariff change, or natural event there would impact ${fmt$K(topCountry[1])} of annual spend.</p>`;
+    }
+
+    // Top vulnerabilities
+    let top5 = '<h2 style="margin-top:32px;margin-bottom:14px">Top 5 vulnerabilities</h2><table class="results-table"><thead><tr><th>#</th><th>Item</th><th>Issue</th><th class="num">Exposure</th><th>Action</th></tr></thead><tbody>';
+    items.slice(0, 5).forEach((i, idx) => {
+      let issue = '';
+      if (i.qsup === 1) issue = `Sole source, ${i.qual}-mo qualification`;
+      else if (i.share > 80) issue = `${i.share}% concentrated with primary, secondary untested`;
+      else issue = `${GEO_RISK[i.ctry] >= 3 ? 'Geopolitical risk (' + i.ctry + ')' : 'Moderate concentration'}`;
+      let action = '';
+      if (i.qsup === 1) action = 'Begin qualifying 2nd source';
+      else if (i.share > 80) action = 'Run trial order with secondary, validate quality';
+      else action = 'Evaluate alternative-country sources';
+      top5 += `<tr><td>${idx+1}</td><td>${sgEscapeHtml(i.name || 'Unnamed')}</td><td>${issue}</td><td class="num">${fmt$K(i.financialExposure)}</td><td>${action}</td></tr>`;
+    });
+    top5 += '</tbody></table>';
+
+    document.getElementById('detail').innerHTML = table + geo + top5;
+    return { items, overallRisk, soleSourceSpend, soleSourcePct, totalSpend, totalExposure, topCountry, topCountryPct };
+  }
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Supplier Diversification Risk Assessment', docNumberLabel: 'Risk score', docNumber: r.overallRisk.toFixed(0) + ' / 100',
+      date: todayISO(),
+      fromLabel: 'PORTFOLIO', from: ['Total spend: ' + fmt$K(r.totalSpend), 'Sole-source spend: ' + fmt$K(r.soleSourceSpend) + ' (' + r.soleSourcePct.toFixed(0) + '%)', 'Top country: ' + r.topCountry[0] + ' (' + r.topCountryPct.toFixed(0) + '%)'],
+      toLabel: 'EXPOSURE', to: ['Total financial exposure: ' + fmt$K(r.totalExposure)],
+      itemColumns: ['Item','Spend','Suppliers','Primary share','Country','Risk score'],
+      items: r.items.map(i => [i.name||'-', fmt$K(i.spend), i.qsup.toString(), i.share + '%', i.ctry, i.itemRisk.toFixed(0)]),
+      itemRowMapper: x => x,
+      notes: 'Methodology: HBR Resilient Supply Chain framework, McKinsey Global Institute supply chain risk reports (2020-2023), Dun & Bradstreet Supplier Risk Assessment. Risk score blends supplier concentration, geographic risk, disruption history, and recovery time, weighted by criticality.',
+      filename: 'diversification-risk-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why concentrated supply chains looked smart until they did not</h2>
+    <p>For 30 years the conventional wisdom was: consolidate to your best supplier, get volume discounts, simplify operations. COVID, the Suez Canal blockage, Section 301 tariffs, and Red Sea routing collapsed that thesis. Concentrated supply chains are now treated as a balance-sheet risk by sophisticated buyers - and increasingly, insurers and auditors are asking about it.</p>
+    <h2>Three concentrations to watch</h2>
+    <p><strong>Supplier concentration.</strong> Sole-source items with no qualified alternative. Long qualification cycles make these systemic risks - you cannot replace fast enough to survive a disruption.</p>
+    <p><strong>Geographic concentration.</strong> Too much spend in one country, one region, one port. A single trade dispute or weather event can paralyze a large chunk of your supply base.</p>
+    <p><strong>Lead-time concentration.</strong> If 60% of your bill of materials sits in 12+ week lead-time items, your responsiveness to demand changes is destroyed by inventory commitments.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is sole-source spend?</summary><p>Spend on items where you have only one qualified supplier. If that supplier fails, you cannot make the product. Most manufacturers underestimate their sole-source exposure - by spend, by criticality, and by qualification time required to recover.</p></details>
+    <details><summary>How much sole-source spend is too much?</summary><p>Below 15% of total spend: acceptable. 15-30%: monitor closely, plan diversification. Above 30%: high risk - any single supplier failure is a material event for the company.</p></details>
+    <details><summary>What is qualification time?</summary><p>How long it takes to identify a new supplier, run pilot/sample runs, perform quality audits, complete first-article inspection, and ramp to production volume. For commodity items: 1-3 months. For machined or engineered parts: 6-18 months. This is the actual recovery time if a sole-source fails.</p></details>
+    <details><summary>Should I dual-source everything?</summary><p>No - it adds complexity and cost. Focus on critical-criticality items and items with long qualification times. Standard items with 2-week lead time and 5 qualified suppliers are not the risk.</p></details>
+    <details><summary>How much does it cost to qualify a backup supplier?</summary><p>Time + sample/qual order cost + engineering review. Typically $3,000-$25,000 for standard parts, $50,000+ for engineered parts. Compared to the cost of a real disruption, this is a small insurance premium.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (55)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>
