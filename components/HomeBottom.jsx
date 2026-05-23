@@ -127,9 +127,6 @@ function FounderStory() {
             <p className="body">SimpleGrid exists because we were the customer first - multiple factories, 400-person workforce. We bought the same enterprise systems you're being pitched today. We watched them fail. We know exactly what breaks when the system can't keep up with the floor.</p>
             <p className="body">That's why we built SimpleGrid the only way that makes sense to an operator: model it on your factory, run it on your real floor for 30 days, and only charge when it earns its keep.</p>
             <p className="body">Senior engineers, deployment experts, and founder engagement on every deployment. No sales reps. No SDRs. No chatbot. You deal with the people who'll actually build your system.</p>
-            <p className="body" style={{marginTop:18}}>
-              <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" data-cta="founder_linkedin" style={{color:'var(--sg-blue)',fontWeight:600,textDecoration:'none'}}>See the team on LinkedIn →</a>
-            </p>
           </div>
         </Reveal>
       </div>

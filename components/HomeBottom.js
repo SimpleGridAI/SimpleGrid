@@ -391,16 +391,7 @@ function FounderStory() {
     className: "body"
   }, "That's why we built SimpleGrid the only way that makes sense to an operator: model it on your factory, run it on your real floor for 30 days, and only charge when it earns its keep."), /*#__PURE__*/React.createElement("p", {
     className: "body"
-  }, "Senior engineers, deployment experts, and founder engagement on every deployment. No sales reps. No SDRs. No chatbot. You deal with the people who'll actually build your system."), /*#__PURE__*/React.createElement("p", {
-    className: "body",
-    style: { marginTop: 18 }
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "https://www.linkedin.com/company/simplegridai",
-    target: "_blank",
-    rel: "noopener noreferrer",
-    "data-cta": "founder_linkedin",
-    style: { color: 'var(--sg-blue)', fontWeight: 600, textDecoration: 'none' }
-  }, "See the team on LinkedIn →"))))));
+  }, "Senior engineers, deployment experts, and founder engagement on every deployment. No sales reps. No SDRs. No chatbot. You deal with the people who'll actually build your system.")))));
 }
 window.FounderStory = FounderStory;
 function ProofSection() {
