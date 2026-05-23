@@ -28,7 +28,7 @@ function Footer() {
       { l: 'Your process, enforced', href: 'product.html#rules' },
     ]},
     { h: 'Resources', links: [
-      { l: 'Productive Tools (35)', href: 'tools/' },
+      { l: 'Productive Tools (46)', href: 'tools/' },
       { l: 'Case studies', href: 'case-studies.html' },
       { l: 'Blog', href: 'blog.html' },
     ]},

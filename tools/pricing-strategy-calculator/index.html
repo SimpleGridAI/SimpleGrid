@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Pricing Strategy Calculator for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Compare cost-plus, competitive, and value-based pricing side-by-side. See your margin under each method + the money you may be leaving on the table. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/pricing-strategy-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/pricing-strategy-calculator/"><meta property="og:title" content="Pricing Strategy Calculator for Manufacturers | SimpleGrid"><meta property="og:description" content="Compare cost-plus, competitive, and value-based pricing side-by-side. See your margin under each method + the money you may be leaving on the table. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Pricing Strategy Calculator for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/pricing-strategy-calculator/","description":"Compare cost-plus, competitive, and value-based pricing side-by-side. See your margin under each method + the money you may be leaving on the table. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Pricing Strategy Calculator for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/pricing-strategy-calculator/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is value-based pricing in manufacturing?","acceptedAnswer":{"@type":"Answer","text":"Value-based pricing means setting prices by what the customer would willingly pay based on the value you deliver - faster delivery, higher quality, customization, lower switching cost, brand reputation - rather than by your cost plus a markup. Simon-Kucher data shows it adds 2-7 margin points vs. cost-plus."}},
+{"@type":"Question","name":"How do I know if I am underpricing my products?","acceptedAnswer":{"@type":"Answer","text":"Signs you are underpricing: customers never push back on price; you win an unusually high share of quotes (over 50% with no follow-up); competitor prices are well above yours despite comparable product; your margin has shrunk over the last 3 years as costs rose but you did not pass through."}},
+{"@type":"Question","name":"What is a good margin for a manufacturing business?","acceptedAnswer":{"@type":"Answer","text":"Gross margin (per-product): 25-40% is typical for mid-market manufacturing. Below 20% is fragile - SG&A and bad debt will eat it. EBITDA margin (whole business): manufacturing median is 8-12% (Census Bureau ASM); top quartile is 16%+."}},
+{"@type":"Question","name":"Should I use cost-plus or value-based pricing?","acceptedAnswer":{"@type":"Answer","text":"Use cost-plus only as a floor check (\"am I above cost?\"). For everything else, use value-based. Cost-plus is safe but it gives you the worst margins of any method because it ignores what customers will pay."}},
+{"@type":"Question","name":"How does delivery speed affect pricing power?","acceptedAnswer":{"@type":"Answer","text":"For most manufacturing categories, customers will pay 5-15% more for faster delivery. The premium depends on how time-critical their use is. JIT customers, seasonal businesses, and project-driven buyers value speed most."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Pricing Strategy Calculator - cost-plus vs. competitive vs. value-based.</h1>
+    <p class="lead">Most manufacturers price by cost-plus and leave 10-20% on the table. This calculator shows you three ways to price the same product - and what each one means for your margin.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Your product (per unit)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="prod-name">Product / part name <span class="hint">optional</span></label><input id="prod-name" type="text" maxlength="80" placeholder="Acme widget 4mm"></div>
+        <div class="tool-field"><label for="mat-cost">Material cost / unit ($)</label><input id="mat-cost" type="number" data-clamp="0,1000000" step="0.01" value="8" data-required></div>
+        <div class="tool-field"><label for="lab-cost">Direct labor cost / unit ($)</label><input id="lab-cost" type="number" data-clamp="0,1000000" step="0.01" value="6" data-required></div>
+        <div class="tool-field"><label for="oh-cost">Overhead cost / unit ($) <span class="hint">if blank, uses 1.5x labor</span></label><input id="oh-cost" type="number" data-clamp="0,1000000" step="0.01" value="9"></div>
+        <div class="tool-field"><label for="vol">Monthly volume (units)</label><input id="vol" type="number" data-clamp="0,10000000" step="1" value="500" data-required></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Your market</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="cp-low">Lowest competitor price ($)</label><input id="cp-low" type="number" data-clamp="0,1000000" step="0.01" value="28"></div>
+        <div class="tool-field"><label for="cp-mid">Typical market price ($)</label><input id="cp-mid" type="number" data-clamp="0,1000000" step="0.01" value="36"></div>
+        <div class="tool-field"><label for="cp-high">Premium competitor price ($)</label><input id="cp-high" type="number" data-clamp="0,1000000" step="0.01" value="45"></div>
+        <div class="tool-field"><label for="cur-price">Your current price ($)</label><input id="cur-price" type="number" data-clamp="0,1000000" step="0.01" value="32" data-required></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Value signals <span class="hint" style="font-weight:400;font-size:14px;color:var(--fg3)">- what justifies a value-based premium</span></h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="v-q">Quality vs. competitors</label>
+          <select id="v-q"><option value="-0.05">Below average</option><option value="0" selected>Average</option><option value="0.08">Above average</option><option value="0.15">Significantly better</option></select>
+        </div>
+        <div class="tool-field"><label for="v-d">Delivery speed vs. competitors</label>
+          <select id="v-d"><option value="-0.05">Slower</option><option value="0" selected>Same</option><option value="0.07">Faster</option><option value="0.12">Significantly faster</option></select>
+        </div>
+        <div class="tool-field"><label for="v-c">Customization capability</label>
+          <select id="v-c"><option value="-0.03">No customization</option><option value="0" selected>Some flexibility</option><option value="0.10">Full custom</option><option value="0.18">Engineer-to-order</option></select>
+        </div>
+        <div class="tool-field"><label for="v-s">Customer switching cost</label>
+          <select id="v-s"><option value="-0.05">Easy to switch (commodity)</option><option value="0" selected>Moderate</option><option value="0.08">Hard to switch</option><option value="0.15">Very hard (certified, embedded)</option></select>
+        </div>
+        <div class="tool-field"><label for="v-r">Your reputation in the market</label>
+          <select id="v-r"><option value="-0.05">Unknown</option><option value="0" selected>Recognized</option><option value="0.07">Respected</option><option value="0.15">Premium / best-in-class</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">Confident pricing starts with knowing actual cost</div>
+      <h2>SimpleGrid tracks real cost per job - materials, labor, overhead - in real time.</h2>
+      <p>This calculator shows the price. SimpleGrid shows the cost - per order, per customer, per product. Accurate costs mean confident pricing.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="pricing_strategy_calculator_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function fmt$K(n){if(!isFinite(n)) return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function recalc(){
+    const matCost = nn('mat-cost');
+    const labCost = nn('lab-cost');
+    const ohRaw = document.getElementById('oh-cost').value;
+    const ohCost = ohRaw === '' ? labCost * 1.5 : nn('oh-cost');
+    const totalCost = matCost + labCost + ohCost;
+    const vol = nn('vol');
+    const cpLow = nn('cp-low');
+    const cpMid = nn('cp-mid');
+    const cpHigh = nn('cp-high');
+    const curPrice = nn('cur-price');
+    const vQ = parseFloat(document.getElementById('v-q').value);
+    const vD = parseFloat(document.getElementById('v-d').value);
+    const vC = parseFloat(document.getElementById('v-c').value);
+    const vS = parseFloat(document.getElementById('v-s').value);
+    const vR = parseFloat(document.getElementById('v-r').value);
+    let valuePremium = vQ + vD + vC + vS + vR;
+    valuePremium = Math.max(-0.15, Math.min(0.50, valuePremium));
+
+    const warns = [];
+    if (totalCost === 0) warns.push('All three cost inputs are $0 - enter material, labor, and overhead costs to see meaningful results.');
+    if (curPrice > 0 && curPrice < totalCost) warns.push('Your current price ($' + curPrice.toFixed(2) + ') is below your cost ($' + totalCost.toFixed(2) + ') - you lose money on every unit at this price.');
+    if (cpLow > cpMid || cpMid > cpHigh) warns.push('Competitor prices are out of order (low > mid or mid > high) - check inputs.');
+    if (cpMid === 0) warns.push('Enter at least the typical market price to compute competitive + value-based scenarios.');
+
+    // Methods
+    const cpScenarios = [0.20, 0.30, 0.40, 0.50].map(m => {
+      const p = totalCost * (1 + m);
+      const margin = sgSafeDiv(p - totalCost, p) * 100;
+      return { label: (m*100).toFixed(0)+'% markup', price: p, margin, monthlyProfit: (p-totalCost)*vol, annualProfit: (p-totalCost)*vol*12 };
+    });
+    const compScenarios = [
+      { label: 'Undercut leader (-5%)', price: cpLow * 0.95 },
+      { label: 'Match lowest', price: cpLow },
+      { label: 'Match market avg', price: cpMid },
+      { label: 'Match premium', price: cpHigh },
+      { label: 'Above premium (+10%)', price: cpHigh * 1.10 }
+    ].map(s => ({ ...s, margin: sgSafeDiv(s.price - totalCost, s.price)*100, monthlyProfit:(s.price-totalCost)*vol, annualProfit:(s.price-totalCost)*vol*12 }));
+    const vbPrice = cpMid * (1 + valuePremium);
+    const vbMargin = sgSafeDiv(vbPrice - totalCost, vbPrice) * 100;
+    const vbAnnual = (vbPrice - totalCost) * vol * 12;
+    const curMargin = sgSafeDiv(curPrice - totalCost, curPrice) * 100;
+    const curMarkup = sgSafeDiv(curPrice - totalCost, totalCost) * 100;
+    const curAnnual = (curPrice - totalCost) * vol * 12;
+
+    // Pick best method (highest annual profit, among margin >= 0)
+    const allOptions = [
+      { label: 'Cost-Plus 30%', price: cpScenarios[1].price, annual: cpScenarios[1].annualProfit, margin: cpScenarios[1].margin },
+      { label: 'Cost-Plus 40%', price: cpScenarios[2].price, annual: cpScenarios[2].annualProfit, margin: cpScenarios[2].margin },
+      { label: 'Competitive (market avg)', price: compScenarios[2].price, annual: compScenarios[2].annualProfit, margin: compScenarios[2].margin },
+      { label: 'Value-based', price: vbPrice, annual: vbAnnual, margin: vbMargin }
+    ];
+    const positive = allOptions.filter(o => o.margin > 0);
+    const best = positive.length ? positive.reduce((a,b) => a.annual > b.annual ? a : b) : allOptions[0];
+    const moneyLeftOnTable = (best.price - curPrice) * vol * 12;
+
+    const curCls = curMargin >= 25 ? 'green' : curMargin >= 15 ? 'gold' : 'red';
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">Your current position</div>
+      <div class="big-number ${curCls}">${curMargin.toFixed(1)}% <span style="font-size:24px;color:var(--fg3);font-weight:500">margin</span></div>
+      <div class="big-caption">${fmt$(curPrice)} price - ${fmt$(totalCost)} cost = ${fmt$(curPrice-totalCost)} profit per unit. Markup: ${curMarkup.toFixed(1)}%.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Unit cost</div><div class="value">${fmt$(totalCost)}</div></div>
+        <div class="results-stat"><div class="label">Current price</div><div class="value">${fmt$(curPrice)}</div></div>
+        <div class="results-stat"><div class="label">Annual profit (current)</div><div class="value ${curMargin>=15?'green':'red'}">${fmt$K(curAnnual)}</div></div>
+      </div>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Detail: comparison table + opportunity
+    let tbl = `<h2 style="margin-bottom:14px">Side-by-side comparison</h2>
+      <table class="results-table">
+        <thead><tr><th>Method</th><th class="num">Price</th><th class="num">Margin</th><th class="num">Monthly profit</th><th class="num">Annual profit</th><th class="num">vs. current</th></tr></thead><tbody>`;
+    function row(label, p, m, mp, ap, isBest){
+      const delta = ap - curAnnual;
+      const cls = isBest ? 'style="background:rgba(16,185,129,0.10)"' : '';
+      return `<tr ${cls}><td><strong>${label}</strong></td><td class="num">${fmt$(p)}</td><td class="num">${m.toFixed(1)}%</td><td class="num">${fmt$K(mp)}</td><td class="num">${fmt$K(ap)}</td><td class="num" style="color:${delta>=0?'#047857':'#B91C1C'};font-weight:600">${delta>=0?'+':''}${fmt$K(delta)}</td></tr>`;
+    }
+    cpScenarios.forEach((s,i) => tbl += row('Cost-plus ' + s.label, s.price, s.margin, s.monthlyProfit, s.annualProfit, best.label.includes(((i===1)?'30%':((i===2)?'40%':'')))));
+    tbl += row('Competitive (market avg)', compScenarios[2].price, compScenarios[2].margin, compScenarios[2].monthlyProfit, compScenarios[2].annualProfit, best.label === 'Competitive (market avg)');
+    tbl += row('Value-based', vbPrice, vbMargin, (vbPrice-totalCost)*vol, vbAnnual, best.label === 'Value-based');
+    tbl += '</tbody></table>';
+
+    let opp = '';
+    if (moneyLeftOnTable > 0) {
+      let unlock = '';
+      if (moneyLeftOnTable > 200000) unlock = ' That is more than most manufacturers\' entire annual equipment budget.';
+      else if (moneyLeftOnTable > 100000) unlock = ' That is enough to fund a new production line.';
+      else if (moneyLeftOnTable > 50000) unlock = ' That is enough to fund a new hire.';
+      opp = `<h2 style="margin-top:32px;margin-bottom:14px">The opportunity</h2>
+        <div style="background:#FEF3C7;border:1px solid #F59E0B;border-left:4px solid #B45309;border-radius:8px;padding:16px 18px">
+          <div style="font-size:13px;font-weight:700;color:#92400E;letter-spacing:0.04em;text-transform:uppercase">You are leaving ${fmt$K(moneyLeftOnTable)} on the table</div>
+          <p style="margin:8px 0 0;font-size:15px;color:#78350F;line-height:1.5">Your ${best.label.toLowerCase()} price of ${fmt$(best.price)} is ${fmt$(best.price-curPrice)} above your current ${fmt$(curPrice)}. At ${vol.toLocaleString()} units/month, that is ${fmt$K(moneyLeftOnTable)} in additional annual profit - without selling a single extra unit.${unlock}</p>
+        </div>`;
+    }
+
+    // Value premium breakdown
+    const labels = ['Quality','Delivery','Customization','Switching cost','Reputation'];
+    const vals = [vQ, vD, vC, vS, vR];
+    let bars = '<h2 style="margin-top:32px;margin-bottom:14px">Value premium breakdown</h2>';
+    bars += `<p class="tool-note" style="margin:0 0 12px">Total premium: <strong style="color:${valuePremium>0?'#047857':valuePremium<0?'#B91C1C':'var(--fg2)'}">${valuePremium>=0?'+':''}${(valuePremium*100).toFixed(1)}%</strong> above market average. Value-based price: ${fmt$(vbPrice)}.</p>`;
+    labels.forEach((l,i) => {
+      const v = vals[i] * 100;
+      const wPct = Math.min(100, Math.abs(v) / 18 * 50 + 50);
+      const cls = v > 0 ? 'green' : v < 0 ? 'red' : '';
+      bars += `<div class="bar-row"><span class="bar-label">${l}</span><div class="bar-track"><div class="bar-fill ${cls}" style="width:${wPct}%"></div></div><span class="bar-value">${v>=0?'+':''}${v.toFixed(1)}%</span></div>`;
+    });
+
+    // The 1% rule
+    const onePctIncrease = curPrice * 0.01;
+    const onePctAnnual = onePctIncrease * vol * 12;
+    const onePct = `<h2 style="margin-top:32px;margin-bottom:14px">The 1% rule</h2>
+      <p style="font-size:15px;color:var(--fg2);line-height:1.6">McKinsey research: a 1% price improvement increases operating profit by 8-11% for the average manufacturer - more than any other single lever. For your business, a 1% price increase (from ${fmt$(curPrice)} to ${fmt$(curPrice*1.01)}) would add <strong style="color:#047857">${fmt$K(onePctAnnual)}</strong> to your annual profit.</p>`;
+
+    document.getElementById('detail').innerHTML = tbl + opp + bars + onePct;
+    return { totalCost, curPrice, curMargin, curAnnual, cpScenarios, compScenarios, vbPrice, vbMargin, vbAnnual, valuePremium, best, moneyLeftOnTable };
+  }
+  document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Pricing Strategy Analysis', docNumberLabel: 'Best method', docNumber: r.best.label,
+      date: todayISO(),
+      fromLabel: 'INPUTS', from: ['Unit cost: ' + fmt$(r.totalCost), 'Current price: ' + fmt$(r.curPrice), 'Current margin: ' + r.curMargin.toFixed(1) + '%', 'Annual profit (current): ' + fmt$K(r.curAnnual)],
+      toLabel: 'RECOMMENDATION', to: [r.best.label + ' at ' + fmt$(r.best.price), 'Annual profit: ' + fmt$K(r.best.annual), 'Money left on table: ' + (r.moneyLeftOnTable>0?fmt$K(r.moneyLeftOnTable):'-')],
+      itemColumns: ['Method','Price','Margin','Annual profit'],
+      items: [
+        ['Cost-plus 20%', fmt$(r.cpScenarios[0].price), r.cpScenarios[0].margin.toFixed(1)+'%', fmt$K(r.cpScenarios[0].annualProfit)],
+        ['Cost-plus 30%', fmt$(r.cpScenarios[1].price), r.cpScenarios[1].margin.toFixed(1)+'%', fmt$K(r.cpScenarios[1].annualProfit)],
+        ['Cost-plus 40%', fmt$(r.cpScenarios[2].price), r.cpScenarios[2].margin.toFixed(1)+'%', fmt$K(r.cpScenarios[2].annualProfit)],
+        ['Cost-plus 50%', fmt$(r.cpScenarios[3].price), r.cpScenarios[3].margin.toFixed(1)+'%', fmt$K(r.cpScenarios[3].annualProfit)],
+        ['Competitive (market avg)', fmt$(r.compScenarios[2].price), r.compScenarios[2].margin.toFixed(1)+'%', fmt$K(r.compScenarios[2].annualProfit)],
+        ['Value-based', fmt$(r.vbPrice), r.vbMargin.toFixed(1)+'%', fmt$K(r.vbAnnual)]
+      ],
+      itemRowMapper: x => x,
+      notes: 'Methodology: Cost-plus from CMA/CIMA standards. Competitive from Porter (1985). Value-based from Simon-Kucher Manufacturing Pricing Study (2021). McKinsey 2019: 1% price improvement = 8-11% operating profit lift.',
+      filename: 'pricing-strategy-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why pricing is the most under-analyzed lever in manufacturing</h2>
+    <p>A 1% price improvement increases operating profit by 8-11% for the average manufacturer (McKinsey 2019) - more than a 1% reduction in variable cost, more than a 1% reduction in fixed cost, more than a 1% increase in volume. Yet pricing is the least analyzed decision in most shops. Most owners use cost-plus because it is safe. Safe pricing leaves money on the table.</p>
+    <h2>The three pricing methods, in one paragraph each</h2>
+    <p><strong>Cost-plus.</strong> Add a markup to your cost. Simple. Ignores what customers will pay and what competitors charge. The default in manufacturing because it feels rational, but it is the floor, not the right price.</p>
+    <p><strong>Competitive.</strong> Price relative to the market. Useful when products are comparable. Fails when your product or service is better than the market average - you leave value on the table.</p>
+    <p><strong>Value-based.</strong> Price by what the customer will pay based on the value you deliver. Considers quality, delivery speed, customization, switching cost, and reputation. Hardest to do; biggest upside. Simon-Kucher research shows manufacturers who move to value-based pricing improve margins by 2-7 percentage points.</p>
+    <h2>When to use which</h2>
+    <p>Use cost-plus only as a floor check ("am I above cost?"). Use competitive when you sell a true commodity with no differentiation. Use value-based everywhere else - which is most products, for most manufacturers.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is value-based pricing in manufacturing?</summary><p>Value-based pricing means setting prices by what the customer would willingly pay based on the value you deliver - faster delivery, higher quality, customization, lower switching cost, brand reputation - rather than by your cost plus a markup. Simon-Kucher data shows it adds 2-7 margin points vs. cost-plus.</p></details>
+    <details><summary>How do I know if I am underpricing my products?</summary><p>Signs you are underpricing: customers never push back on price; you win an unusually high share of quotes (over 50% with no follow-up); competitor prices are well above yours despite comparable product; your margin has shrunk over the last 3 years as costs rose but you did not pass through.</p></details>
+    <details><summary>What is a good margin for a manufacturing business?</summary><p>Gross margin (per-product): 25-40% is typical for mid-market manufacturing. Below 20% is fragile - SG&A and bad debt will eat it. EBITDA margin (whole business): manufacturing median is 8-12% (Census Bureau ASM); top quartile is 16%+.</p></details>
+    <details><summary>Should I use cost-plus or value-based pricing?</summary><p>Use cost-plus only as a floor check ("am I above cost?"). For everything else, use value-based. Cost-plus is safe but it gives you the worst margins of any method because it ignores what customers will pay.</p></details>
+    <details><summary>How does delivery speed affect pricing power?</summary><p>For most manufacturing categories, customers will pay 5-15% more for faster delivery. The premium depends on how time-critical their use is. JIT customers, seasonal businesses, and project-driven buyers value speed most.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

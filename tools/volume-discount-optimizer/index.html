@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Volume Discount Optimizer for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Build rational, profit-protecting volume discount tiers based on your actual cost curve. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/volume-discount-optimizer/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/volume-discount-optimizer/"><meta property="og:title" content="Volume Discount Optimizer for Manufacturers | SimpleGrid"><meta property="og:description" content="Build rational, profit-protecting volume discount tiers based on your actual cost curve. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Volume Discount Optimizer for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/volume-discount-optimizer/","description":"Build rational, profit-protecting volume discount tiers based on your actual cost curve. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Volume Discount Optimizer for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/volume-discount-optimizer/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How big should a volume discount be?","acceptedAnswer":{"@type":"Answer","text":"Cost-justified: give customers 50-70% of your unit-cost savings at higher volumes. If your cost drops 12% at 5x volume, a 6-8% discount is fair. Anything more is a giveaway; anything less leaves the customer feeling cheated."}},
+{"@type":"Question","name":"Should every product have volume tiers?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. Tiers make sense when there is a real cost curve - setup amortization, labor efficiency, material bulk discounts. For products where unit cost is flat regardless of quantity, volume discounts are just giveaways."}},
+{"@type":"Question","name":"How do I avoid customers gaming the tiers?","acceptedAnswer":{"@type":"Answer","text":"Set tiers based on order size, not annual volume. Or use blanket order structures where the customer commits to annual volume and you ship/invoice incrementally. Resist tier-stacking (cumulative discounts on top of quantity discounts) - it compounds quickly."}},
+{"@type":"Question","name":"What is a margin floor?","acceptedAnswer":{"@type":"Answer","text":"The minimum acceptable gross margin you will accept on a unit, regardless of volume. For mid-market manufacturing, typical floors are 18-25%. Below that, the order does not cover SG&A and you lose money even when you \"make a profit.\""}},
+{"@type":"Question","name":"Why not just give the biggest customer the biggest discount?","acceptedAnswer":{"@type":"Answer","text":"Because customer concentration risk grows with discount depth - the bigger the discount, the more dependent you are on that customer staying. Better to keep discounts modest and broad than steep and concentrated."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Volume Discount Optimizer.</h1>
+    <p class="lead">Most volume discounts are set by gut feel. This tool builds tiers based on your real cost curve - generous enough to win volume, tight enough to protect margin.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Your cost structure</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="base-price">Base unit price ($)</label><input id="base-price" type="number" data-clamp="0,1000000" step="0.01" value="42" data-required></div>
+        <div class="tool-field"><label for="setup">Setup / fixed cost per order ($)</label><input id="setup" type="number" data-clamp="0,1000000" step="1" value="350"></div>
+        <div class="tool-field"><label for="varc">Variable cost / unit ($)</label><input id="varc" type="number" data-clamp="0,1000000" step="0.01" value="24" data-required></div>
+        <div class="tool-field"><label for="floor">Minimum acceptable margin (%)</label><input id="floor" type="number" data-clamp="0,90" step="1" value="20"></div>
+        <div class="tool-field"><label for="lab-eff">Labor efficiency at higher volumes (%)</label><input id="lab-eff" type="number" data-clamp="0,30" step="0.5" value="8"></div>
+        <div class="tool-field"><label for="bulk">Material bulk discount at large volumes (%)</label><input id="bulk" type="number" data-clamp="0,25" step="0.5" value="5"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When discounts are set by feel, not math</div>
+      <h2>SimpleGrid enforces margin guardrails on every order, automatically.</h2>
+      <p>No more accidental under-pricing. Volume tiers and customer-specific pricing managed in one system with real-time margin checks.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="volume_discount_optimizer_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+  function recalc(){
+    const basePrice = nn('base-price');
+    const setup = nn('setup');
+    const varc = nn('varc');
+    const floor = nn('floor');
+    const labEff = nn('lab-eff') / 100;
+    const bulk = nn('bulk') / 100;
+
+    const warns = [];
+    if (varc >= basePrice) warns.push('Variable cost is at or above base price - you have no margin to give. Fix pricing first.');
+    if (floor >= ((basePrice - varc) / basePrice * 100)) warns.push('Minimum margin floor (' + floor + '%) is at or above your gross margin at base price - no discount possible without going below floor.');
+
+    // Cost curve at quantity Q
+    function unitCost(Q) {
+      const labFactor = 1 - Math.min(labEff, Math.max(0, labEff * Math.log10(Math.max(1, Q / 10))));
+      const bulkFactor = Q >= 250 ? (1 - bulk) : 1;
+      return varc * labFactor * bulkFactor + (setup / Q);
+    }
+
+    // Build tiers at standard breakpoints
+    const tiers = [
+      { range: '1-49',     mid: 25 },
+      { range: '50-99',    mid: 75 },
+      { range: '100-249',  mid: 175 },
+      { range: '250-499',  mid: 375 },
+      { range: '500-999',  mid: 750 },
+      { range: '1000+',    mid: 1500 }
+    ];
+    const baseCostAtQ1 = unitCost(1);
+
+    const rows = tiers.map(t => {
+      const cost = unitCost(t.mid);
+      const costSavingsPct = sgSafeDiv(baseCostAtQ1 - cost, baseCostAtQ1) * 100;
+      let discountPct = costSavingsPct * 0.60;
+      // Cap discount so margin floor is respected
+      const minPriceAtFloor = cost / (1 - floor / 100);
+      const minDiscountAllowedPct = sgSafeDiv(basePrice - minPriceAtFloor, basePrice) * 100;
+      discountPct = Math.min(discountPct, Math.max(0, minDiscountAllowedPct));
+      const recPrice = basePrice * (1 - discountPct / 100);
+      const recMargin = sgSafeDiv(recPrice - cost, recPrice) * 100;
+      return { ...t, cost, discountPct, recPrice, recMargin, profitPerUnit: recPrice - cost };
+    });
+
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">Your recommended discount tiers</div>
+      <div class="big-caption">Each tier maintains your ${floor.toFixed(0)}% margin floor while giving customers a real incentive to order more.</div>
+      <table class="results-table" style="margin-top:20px">
+        <thead><tr><th>Tier (units)</th><th class="num">Unit price</th><th class="num">Discount</th><th class="num">Your cost</th><th class="num">Margin</th><th class="num">Profit / unit</th></tr></thead>
+        <tbody>
+          ${rows.map(r => `<tr><td><strong>${r.range}</strong></td><td class="num">${fmt$(r.recPrice)}</td><td class="num">${r.discountPct.toFixed(1)}%</td><td class="num">${fmt$(r.cost)}</td><td class="num">${r.recMargin.toFixed(1)}%</td><td class="num"><strong style="color:${r.profitPerUnit>=0?'#047857':'#B91C1C'}">${fmt$(r.profitPerUnit)}</strong></td></tr>`).join('')}
+        </tbody>
+      </table>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Cost curve bars
+    let bars = '<h2 style="margin-top:8px;margin-bottom:14px">Where the savings come from</h2>';
+    bars += '<p style="font-size:14px;color:var(--fg2);line-height:1.5">Two sources of unit-cost reduction at higher volumes: setup-cost amortization (spreading the fixed setup across more pieces) and operational efficiency (labor improvement, material bulk discounts).</p>';
+    [25, 75, 175, 375, 750, 1500].forEach(Q => {
+      const c = unitCost(Q);
+      const setupPerUnit = setup / Q;
+      const ratio = setupPerUnit / c;
+      bars += `<div class="bar-row"><span class="bar-label">${Q.toLocaleString()} units</span><div class="bar-track"><div class="bar-fill gold" style="width:${ratio*100}%"></div></div><span class="bar-value">${fmt$(c)} unit cost (${fmt$(setupPerUnit)} setup)</span></div>`;
+    });
+
+    // Profit comparison
+    const small = { Q: 25, price: rows[0].recPrice, cost: rows[0].cost };
+    const large = { Q: 750, price: rows[4].recPrice, cost: rows[4].cost };
+    const smallProfit = (small.price - small.cost) * small.Q;
+    const largeProfit = (large.price - large.cost) * large.Q;
+    const ratio = sgSafeDiv(largeProfit, smallProfit);
+    const compare = `<h2 style="margin-top:32px;margin-bottom:14px">Total profit per order</h2>
+      <div style="background:#ECFDF5;border:1px solid #10B981;border-left:4px solid #047857;border-radius:8px;padding:16px 18px">
+        <p style="margin:0;font-size:15px;color:#064E3B;line-height:1.6">A 25-unit order at full price generates <strong>${fmt$(smallProfit)}</strong> in profit. A 750-unit order at ${rows[4].discountPct.toFixed(1)}% discount generates <strong>${fmt$(largeProfit)}</strong> - <strong>${ratio.toFixed(1)}x more</strong>.</p>
+        <p style="margin:8px 0 0;font-size:14px;color:#065F46">Volume discounts work when they bring meaningful incremental volume. They destroy margin when they are arbitrary giveaways.</p>
+      </div>`;
+
+    document.getElementById('detail').innerHTML = bars + compare;
+    return { basePrice, varc, setup, floor, rows };
+  }
+  document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Volume Discount Schedule', docNumberLabel: 'Base price', docNumber: fmt$(r.basePrice),
+      date: todayISO(),
+      fromLabel: 'INPUTS', from: ['Base price: ' + fmt$(r.basePrice), 'Setup cost: ' + fmt$(r.setup), 'Variable cost: ' + fmt$(r.varc), 'Min margin floor: ' + r.floor.toFixed(0) + '%'],
+      toLabel: 'POLICY', to: ['Every tier maintains margin floor', 'Customer gets ~60% of cost savings as discount', 'You retain ~40% as margin'],
+      itemColumns: ['Tier','Unit price','Discount','Margin','Profit/unit'],
+      items: r.rows.map(x => [x.range, fmt$(x.recPrice), x.discountPct.toFixed(1)+'%', x.recMargin.toFixed(1)+'%', fmt$(x.profitPerUnit)]),
+      itemRowMapper: x => x,
+      notes: 'Discount tiers are cost-justified: customer receives ~60% of unit-cost savings at higher volumes (from setup amortization, labor efficiency, material bulk discounts). Manufacturer retains ~40% as margin protection.',
+      filename: 'volume-discount-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why volume discounts often destroy margin</h2>
+    <p>The typical conversation: customer asks for 15% off for a larger order. The sales rep, scared of losing the deal, says yes. Nobody calculates whether the unit cost actually drops 15% at that volume. Usually it does not - your unit cost drops 5-10% from setup amortization, and you just gave away the rest. Repeat this on every quote and you have a margin death spiral.</p>
+    <h2>The right way to build discount tiers</h2>
+    <p>Step 1: calculate your real cost curve. Setup cost divided by quantity, plus your variable cost (with labor efficiency factored in for longer runs). Step 2: split the cost savings - give the customer 60%, keep 40% as your margin reward for the bigger order. Step 3: cap discounts at your minimum margin floor. Anything below that is no longer a discount - it is a subsidy.</p>
+    <h2>Why generous-but-bounded works</h2>
+    <p>A 5% discount on a 5x larger order is far more profitable than a 0% discount on a 1x order. Customers feel rewarded; you make multiples more total profit. The tier structure also creates a buying signal - customers know exactly what they need to order to hit a better price, which moves them up the volume curve.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>How big should a volume discount be?</summary><p>Cost-justified: give customers 50-70% of your unit-cost savings at higher volumes. If your cost drops 12% at 5x volume, a 6-8% discount is fair. Anything more is a giveaway; anything less leaves the customer feeling cheated.</p></details>
+    <details><summary>Should every product have volume tiers?</summary><p>Not necessarily. Tiers make sense when there is a real cost curve - setup amortization, labor efficiency, material bulk discounts. For products where unit cost is flat regardless of quantity, volume discounts are just giveaways.</p></details>
+    <details><summary>How do I avoid customers gaming the tiers?</summary><p>Set tiers based on order size, not annual volume. Or use blanket order structures where the customer commits to annual volume and you ship/invoice incrementally. Resist tier-stacking (cumulative discounts on top of quantity discounts) - it compounds quickly.</p></details>
+    <details><summary>What is a margin floor?</summary><p>The minimum acceptable gross margin you will accept on a unit, regardless of volume. For mid-market manufacturing, typical floors are 18-25%. Below that, the order does not cover SG&A and you lose money even when you "make a profit."</p></details>
+    <details><summary>Why not just give the biggest customer the biggest discount?</summary><p>Because customer concentration risk grows with discount depth - the bigger the discount, the more dependent you are on that customer staying. Better to keep discounts modest and broad than steep and concentrated.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

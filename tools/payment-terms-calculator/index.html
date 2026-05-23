@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Payment Terms Impact Calculator | SimpleGrid</title>
+<meta name="description" content="See the real cost of extended payment terms. Equivalent discount calculation, early-pay discount APR, line-of-credit comparison. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/payment-terms-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/payment-terms-calculator/"><meta property="og:title" content="Payment Terms Impact Calculator | SimpleGrid"><meta property="og:description" content="See the real cost of extended payment terms. Equivalent discount calculation, early-pay discount APR, line-of-credit comparison. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Payment Terms Impact Calculator | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/payment-terms-calculator/","description":"See the real cost of extended payment terms. Equivalent discount calculation, early-pay discount APR, line-of-credit comparison. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Payment Terms Impact Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/payment-terms-calculator/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much do extended payment terms actually cost?","acceptedAnswer":{"@type":"Answer","text":"At 8% cost of capital, every extra 30 days of payment terms is equivalent to a 0.66% price discount on every order. Net 60 vs Net 30 = 0.66%. Net 90 vs Net 30 = 1.33%. These are recurring annual costs."}},
+{"@type":"Question","name":"Should I offer an early-payment discount?","acceptedAnswer":{"@type":"Answer","text":"Usually no. The classic \"2/10 Net 30\" annualized = 36.5% APR. You can borrow capital cheaper than that almost anywhere. The only reason to offer early-pay discounts is if you genuinely cannot finance receivables and have no other source of working capital."}},
+{"@type":"Question","name":"What is a fair price adjustment for extended terms?","acceptedAnswer":{"@type":"Answer","text":"Cost of capital times (extra days / 365). At 8% cost of capital, Net 60 instead of Net 30 = 30/365 x 8% = 0.66%. Round up to 1% for a clean number and to cover overhead of managing the longer terms."}},
+{"@type":"Question","name":"How do I tell a customer their terms request will cost more?","acceptedAnswer":{"@type":"Answer","text":"Be matter-of-fact: \"We can do Net 60. Our standard pricing assumes Net 30; on extended terms we have to adjust by about 1%. Want me to update the quote?\" Most customers accept this - it is industry standard reasoning."}},
+{"@type":"Question","name":"What if a customer just pays late regardless of terms?","acceptedAnswer":{"@type":"Answer","text":"Then your \"Net 30\" is actually Net 45 or Net 60 in practice. Calculate your real average days to pay and use that in your pricing. Some customers respond to late fees; most need a conversation."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Payment Terms Impact Calculator.</h1>
+    <p class="lead">Net 90 at 8% cost of capital is equivalent to a 1.3% discount. Stop agreeing to extended terms without doing the math. This tool shows you the real cost.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>This customer</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="rev">Annual revenue from this customer ($)</label><input id="rev" type="number" data-clamp="0,1000000000" step="1000" value="500000" data-required></div>
+        <div class="tool-field"><label for="cur-terms">Current payment terms (days)</label><input id="cur-terms" type="number" data-clamp="0,365" step="1" value="30"></div>
+        <div class="tool-field"><label for="req-terms">Requested payment terms (days)</label><input id="req-terms" type="number" data-clamp="0,365" step="1" value="60"></div>
+        <div class="tool-field"><label for="actual-days">Actual avg days to pay</label><input id="actual-days" type="number" data-clamp="0,365" step="1" value="70"></div>
+        <div class="tool-field"><label for="coc">Your cost of capital (%)</label><input id="coc" type="number" data-clamp="0,30" step="0.5" value="8"></div>
+        <div class="tool-field"><label for="ep-disc">Early-pay discount offered (%) <span class="hint">e.g. 2 for 2/10 Net 30</span></label><input id="ep-disc" type="number" data-clamp="0,20" step="0.1" value="0"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When you say yes to extended terms without doing the math</div>
+      <h2>SimpleGrid tracks DSO by customer and flags the real cost of your AR.</h2>
+      <p>See your aging by customer in real time. Get alerted when terms slip. Stop financing your customers blindly.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="payment_terms_calculator_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{maximumFractionDigits:0});}
+  function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+  function recalc(){
+    const rev = nn('rev');
+    const curTerms = nn('cur-terms');
+    const reqTerms = nn('req-terms');
+    const actualDays = nn('actual-days');
+    const coc = nn('coc') / 100;
+    const epDisc = nn('ep-disc');
+
+    const warns = [];
+    if (rev === 0) warns.push('Enter annual revenue to see the financing impact.');
+    if (actualDays < reqTerms) warns.push('Actual pay days ('+actualDays+') is less than requested terms ('+reqTerms+'). That is unusual - check the input.');
+
+    // Daily financing cost
+    const daily = rev / 365 * coc;
+    const avgARCur = rev * actualDays / 365;
+    const avgARReq = rev * (reqTerms + 10) / 365;
+    const financingCur = avgARCur * coc;
+    const financingReq = avgARReq * coc;
+    const incrementalCost = financingReq - financingCur;
+    const equivDiscPct = sgSafeDiv(incrementalCost, rev) * 100;
+
+    // Early pay discount APR
+    let epAPR = 0;
+    if (epDisc > 0 && curTerms > 10) {
+      const period = curTerms - 10;
+      epAPR = (epDisc / (100 - epDisc)) * (365 / period) * 100;
+    }
+
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">Cost of moving from Net ${curTerms} to Net ${reqTerms}</div>
+      <div class="big-number red">${fmt$K(incrementalCost)}/year</div>
+      <div class="big-caption">Equivalent to a <strong>${equivDiscPct.toFixed(2)}% discount</strong> on every order, every year.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Current AR balance</div><div class="value">${fmt$K(avgARCur)}</div><div class="sub">at ${actualDays} actual pay days</div></div>
+        <div class="results-stat"><div class="label">Requested AR balance</div><div class="value red">${fmt$K(avgARReq)}</div><div class="sub">at ${reqTerms+10} expected pay days</div></div>
+        <div class="results-stat"><div class="label">Equivalent discount</div><div class="value red">${equivDiscPct.toFixed(2)}%</div><div class="sub">on every order, every year</div></div>
+      </div>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Terms comparison table
+    let tbl = '<h2 style="margin-top:8px;margin-bottom:14px">Terms comparison</h2><table class="results-table"><thead><tr><th>Terms</th><th class="num">Avg AR balance</th><th class="num">Annual financing cost</th><th class="num">Equivalent discount</th></tr></thead><tbody>';
+    [15, 30, 45, 60, 75, 90].forEach(t => {
+      const expectedDays = t + 10;
+      const avgAR = rev * expectedDays / 365;
+      const fin = avgAR * coc;
+      const delta = fin - financingCur;
+      const eqDisc = sgSafeDiv(delta, rev) * 100;
+      const bg = t === curTerms ? 'background:rgba(16,185,129,0.08)' : t === reqTerms ? 'background:rgba(245,158,11,0.10)' : '';
+      tbl += `<tr style="${bg}"><td><strong>Net ${t}</strong>${t===curTerms?' (current)':''}${t===reqTerms?' (requested)':''}</td><td class="num">${fmt$K(avgAR)}</td><td class="num">${fmt$K(fin)}</td><td class="num" style="color:${eqDisc>=0?'#B91C1C':'#047857'};font-weight:600">${eqDisc>=0?'+':''}${eqDisc.toFixed(2)}%</td></tr>`;
+    });
+    tbl += '</tbody></table>';
+
+    let epWarn = '';
+    if (epAPR > 0) {
+      epWarn = `<h2 style="margin-top:32px;margin-bottom:14px">Your early-pay discount, annualized</h2>
+        <div style="background:#FEF2F2;border:1px solid #F87171;border-left:4px solid #B91C1C;border-radius:8px;padding:16px 18px">
+          <p style="margin:0;font-size:15px;color:#7F1D1D;line-height:1.6">Your ${epDisc}% early-pay discount (paid in 10 days instead of ${curTerms}) is an annualized rate of <strong>${epAPR.toFixed(1)}%</strong> - more expensive than most credit cards.</p>
+          <p style="margin:8px 0 0;font-size:14px;color:#7F1D1D">If 40% of customers take the discount, you give away an estimated ${fmt$K(rev * epDisc/100 * 0.4)} per year for capital you could borrow at ${(coc*100).toFixed(1)}% APR.</p>
+        </div>`;
+    }
+
+    // Negotiation options
+    const priceAdj = equivDiscPct;
+    const negotiation = `<h2 style="margin-top:32px;margin-bottom:14px">Negotiation options instead of "yes"</h2>
+      <ol style="font-size:15px;color:var(--fg1);line-height:1.7;padding-left:20px">
+        <li><strong>Price adjustment:</strong> Increase price by ${priceAdj.toFixed(2)}% to cover the financing cost. No net change to your profitability.</li>
+        <li><strong>Volume commitment:</strong> "We can do Net ${reqTerms} if you commit to $${(rev*1.2).toLocaleString(undefined,{maximumFractionDigits:0})} annual volume."</li>
+        <li><strong>Split the difference:</strong> Net ${Math.round((curTerms + reqTerms)/2)} instead of Net ${reqTerms}. Saves you ${fmt$K(incrementalCost/2)}/year.</li>
+        <li><strong>Tiered terms:</strong> Net ${curTerms} for orders under $${(rev/12).toLocaleString(undefined,{maximumFractionDigits:0})}, Net ${reqTerms} for larger orders.</li>
+        <li><strong>Early pay incentive:</strong> Offer ${(coc*100*15/365).toFixed(2)}% for Net 15. Mathematically equivalent to your cost of capital - no economic harm, gets cash faster.</li>
+      </ol>`;
+
+    document.getElementById('detail').innerHTML = tbl + epWarn + negotiation;
+    return { rev, curTerms, reqTerms, actualDays, incrementalCost, equivDiscPct, financingCur, financingReq, epAPR };
+  }
+  document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Payment Terms Impact', docNumberLabel: 'Equivalent discount', docNumber: r.equivDiscPct.toFixed(2) + '%',
+      date: todayISO(),
+      fromLabel: 'CURRENT', from: ['Net ' + r.curTerms + ' (' + r.actualDays + ' actual)', 'Annual revenue: ' + fmt$K(r.rev), 'Financing cost: ' + fmt$K(r.financingCur)],
+      toLabel: 'REQUESTED', to: ['Net ' + r.reqTerms, 'Financing cost: ' + fmt$K(r.financingReq), 'Incremental cost: ' + fmt$K(r.incrementalCost) + '/year', 'Equivalent discount: ' + r.equivDiscPct.toFixed(2) + '%'],
+      itemColumns: ['Item','Value'],
+      items: [
+        ['Current terms', 'Net ' + r.curTerms],
+        ['Requested terms', 'Net ' + r.reqTerms],
+        ['Actual payment days', r.actualDays + ' days'],
+        ['Annual financing cost', fmt$K(r.incrementalCost)],
+        ['Equivalent price discount', r.equivDiscPct.toFixed(2) + '%']
+      ],
+      itemRowMapper: x => x,
+      notes: 'Methodology: incremental cost = (avg AR balance at requested terms - current) x cost of capital. Equivalent discount = incremental cost / annual revenue. Early pay APR = (discount / (100 - discount)) x (365 / (full terms - early pay window)).',
+      filename: 'payment-terms-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Extended payment terms are a price discount in disguise</h2>
+    <p>When a customer asks for Net 90 instead of Net 30, most manufacturers say yes without doing the math. The cost feels invisible - no line item on a P&amp;L moves immediately. But the cost is real: you are financing your customer\'s operations with your own working capital, at your cost of capital. At 8% cost of capital, every 30 extra days of payment terms is a 0.66% price discount. Forever.</p>
+    <h2>The early-pay discount trap</h2>
+    <p>The classic "2/10 Net 30" early-pay discount sounds reasonable. The annualized cost is 36.5% APR. Most manufacturers offer it because "that is what is done." But you are giving customers 36.5% APR financing while you borrow at 8%. The math is upside-down.</p>
+    <h2>Negotiation alternatives that protect your margin</h2>
+    <p>Instead of "yes" or "no" to extended terms: (1) raise price by the cost differential, (2) tie the longer terms to a volume commitment, (3) offer tiered terms based on order size, (4) split the difference. Customers expect negotiation on payment terms - most have not been challenged before, so they ask reflexively. Show them the math; they often soften.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>How much do extended payment terms actually cost?</summary><p>At 8% cost of capital, every extra 30 days of payment terms is equivalent to a 0.66% price discount on every order. Net 60 vs Net 30 = 0.66%. Net 90 vs Net 30 = 1.33%. These are recurring annual costs.</p></details>
+    <details><summary>Should I offer an early-payment discount?</summary><p>Usually no. The classic "2/10 Net 30" annualized = 36.5% APR. You can borrow capital cheaper than that almost anywhere. The only reason to offer early-pay discounts is if you genuinely cannot finance receivables and have no other source of working capital.</p></details>
+    <details><summary>What is a fair price adjustment for extended terms?</summary><p>Cost of capital times (extra days / 365). At 8% cost of capital, Net 60 instead of Net 30 = 30/365 x 8% = 0.66%. Round up to 1% for a clean number and to cover overhead of managing the longer terms.</p></details>
+    <details><summary>How do I tell a customer their terms request will cost more?</summary><p>Be matter-of-fact: "We can do Net 60. Our standard pricing assumes Net 30; on extended terms we have to adjust by about 1%. Want me to update the quote?" Most customers accept this - it is industry standard reasoning.</p></details>
+    <details><summary>What if a customer just pays late regardless of terms?</summary><p>Then your "Net 30" is actually Net 45 or Net 60 in practice. Calculate your real average days to pay and use that in your pricing. Some customers respond to late fees; most need a conversation.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

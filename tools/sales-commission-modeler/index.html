@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Sales Commission Structure Modeler for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Model 4 manufacturing sales commission plans (flat, tiered revenue, GP-based, tiered margin) and see total comp at 50-200% performance. Free.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/sales-commission-modeler/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/sales-commission-modeler/"><meta property="og:title" content="Sales Commission Structure Modeler for Manufacturers | SimpleGrid"><meta property="og:description" content="Model 4 manufacturing sales commission plans (flat, tiered revenue, GP-based, tiered margin) and see total comp at 50-200% performance. Free."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Sales Commission Structure Modeler for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/sales-commission-modeler/","description":"Model 4 manufacturing sales commission plans (flat, tiered revenue, GP-based, tiered margin) and see total comp at 50-200% performance. Free.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Sales Commission Structure Modeler for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/sales-commission-modeler/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a typical manufacturing sales commission?","acceptedAnswer":{"@type":"Answer","text":"Avg manufacturing sales rep: 3-8% commission on revenue OR 10-20% on gross profit. Outside sales: $100K-$150K OTE typical. Inside sales: $70K-$100K OTE. Top performers reach 1.5-2.5x OTE."}},
+{"@type":"Question","name":"Should I pay on revenue or gross profit?","acceptedAnswer":{"@type":"Answer","text":"Gross profit-based plans align rep behavior with company profitability - they fight for margin. Use revenue-based plans only for simple, consistent-margin product lines or for a first sales hire learning the role."}},
+{"@type":"Question","name":"What is a good base/variable split?","acceptedAnswer":{"@type":"Answer","text":"Manufacturing norm: 60% base, 40% variable (commission/bonus) at OTE. For new business hunters: shift to 50/50 or 40/60. For account management: 70/30 base-heavy. The split signals how much risk you want the rep to bear."}},
+{"@type":"Question","name":"What is OTE?","acceptedAnswer":{"@type":"Answer","text":"On-Target Earnings - the total compensation a rep earns at 100% of quota. Includes base salary plus expected commission/bonus when targets are hit. The number you advertise when recruiting."}},
+{"@type":"Question","name":"How do I set quota?","acceptedAnswer":{"@type":"Answer","text":"Standard rule: 5-10x the rep OTE in revenue (i.e., a $125K OTE rep should generate $625K-$1.25M in revenue). Below 5x, your cost-of-sales is too high. Above 10x, the quota may be unrealistic and demotivating."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Sales Commission Modeler.</h1>
+    <p class="lead">Designing your first commission plan? Or fixing one that is not motivating the right behavior? This tool models four structures so you see exactly what you will pay at every performance level.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Role + targets</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="target">Annual sales target ($)</label><input id="target" type="number" data-clamp="0,1000000000" step="10000" value="1500000" data-required></div>
+        <div class="tool-field"><label for="ote">Target OTE / total comp ($)</label><input id="ote" type="number" data-clamp="0,1000000" step="1000" value="125000" data-required></div>
+        <div class="tool-field"><label for="base">Base salary ($)</label><input id="base" type="number" data-clamp="0,1000000" step="1000" value="75000" data-required></div>
+        <div class="tool-field"><label for="margin">Avg gross margin (%)</label><input id="margin" type="number" data-clamp="0,100" step="1" value="30"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Plan A: Flat % of revenue</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="flat-rate">Commission rate (%)</label><input id="flat-rate" type="number" data-clamp="0,30" step="0.1" value="3.5"></div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Plan C: Flat % of gross profit</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="gp-rate">Commission rate (%)</label><input id="gp-rate" type="number" data-clamp="0,50" step="0.1" value="12"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When you cannot tell which commission plan is right</div>
+      <h2>Margin-based commission needs deal-level margin data, in real time.</h2>
+      <p>SimpleGrid calculates actual margin on every order from real cost data. Your rep sees their commission before the quote goes out. No more end-of-month recalculations.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="sales_commission_modeler_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+  function recalc(){
+    const target = nn('target');
+    const ote = nn('ote');
+    const base = nn('base');
+    const margin = nn('margin') / 100;
+    const flatRate = nn('flat-rate') / 100;
+    const gpRate = nn('gp-rate') / 100;
+
+    const warns = [];
+    if (base >= ote) warns.push('Base salary equal to or above OTE - rep has no incentive to sell. OTE should be 30-50% higher than base.');
+    if (margin === 0) warns.push('Enter avg gross margin to model gross-profit-based plans.');
+
+    const variableTarget = ote - base; // commission portion at target
+    const perfLevels = [0.50, 0.75, 1.00, 1.25, 1.50, 2.00];
+
+    // Plan B: Tiered revenue (auto-tuned to hit OTE at 100%)
+    // 3% up to 50%, 5% up to 100%, 7% up to 150%, 10% above 150%
+    function planB(rev) {
+      const t50 = target * 0.5, t100 = target, t150 = target * 1.5;
+      let r = rev, c = 0;
+      if (r > 0) { c += Math.min(r, t50) * 0.03; r -= Math.min(r, t50); }
+      if (r > 0) { c += Math.min(r, t100 - t50) * 0.05; r -= Math.min(r, t100 - t50); }
+      if (r > 0) { c += Math.min(r, t150 - t100) * 0.07; r -= Math.min(r, t150 - t100); }
+      if (r > 0) { c += r * 0.10; }
+      return c;
+    }
+    // Plan D: Tiered margin (deal-margin based)
+    // Simplified: weighted average rate vs deal mix
+    // Assume rep sells at avg margin (we use avg_margin); rate scales with deal mix
+    function planD(rev) {
+      const gp = rev * margin;
+      // Weighted blend: 30% below-avg deals (10% rate), 50% avg deals (15%), 20% above-avg deals (22%)
+      const blendedRate = 0.30 * 0.10 + 0.50 * 0.15 + 0.20 * 0.22;
+      return gp * blendedRate;
+    }
+
+    const hero = document.getElementById('hero');
+    const otAt100 = base + Math.max(target * flatRate, variableTarget * 0.95, target * margin * gpRate);
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">Total compensation at each performance level</div>
+      <div class="big-caption" style="margin-top:0">Target OTE: ${fmt$(ote)} = ${fmt$(base)} base + ${fmt$(variableTarget)} variable. Compare 4 plan structures below.</div>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Table
+    let tbl = '<table class="results-table" style="margin-top:24px"><thead><tr><th>Performance</th><th class="num">Revenue</th><th class="num">A: Flat rev</th><th class="num">B: Tiered rev</th><th class="num">C: Flat GP</th><th class="num">D: Tiered GP</th></tr></thead><tbody>';
+    perfLevels.forEach(perf => {
+      const rev = target * perf;
+      const a = base + rev * flatRate;
+      const b = base + planB(rev);
+      const c = base + rev * margin * gpRate;
+      const d = base + planD(rev);
+      const bg = perf === 1 ? 'background:rgba(74,123,247,0.08);font-weight:600' : '';
+      tbl += `<tr style="${bg}"><td>${(perf*100).toFixed(0)}%${perf===1?' (target)':''}</td><td class="num">${fmt$K(rev)}</td><td class="num">${fmt$K(a)}</td><td class="num">${fmt$K(b)}</td><td class="num">${fmt$K(c)}</td><td class="num">${fmt$K(d)}</td></tr>`;
+    });
+    tbl += '</tbody></table>';
+
+    // Cost-to-company table at target
+    const revT = target;
+    const gpT = revT * margin;
+    const aCost = base + revT * flatRate;
+    const bCost = base + planB(revT);
+    const cCost = base + revT * margin * gpRate;
+    const dCost = base + planD(revT);
+    const costTbl = '<h2 style="margin-top:32px;margin-bottom:14px">Cost to company (at 100% target)</h2><table class="results-table"><thead><tr><th>Plan</th><th class="num">Total comp</th><th class="num">% of revenue</th><th class="num">% of gross profit</th></tr></thead><tbody>' +
+      [['A: Flat % of revenue', aCost], ['B: Tiered revenue', bCost], ['C: Flat % of GP', cCost], ['D: Tiered GP', dCost]].map(([l,v]) =>
+        `<tr><td>${l}</td><td class="num">${fmt$(v)}</td><td class="num">${(v/revT*100).toFixed(2)}%</td><td class="num">${(v/gpT*100).toFixed(1)}%</td></tr>`
+      ).join('') + '</tbody></table>';
+
+    // What each plan incentivizes
+    const incent = `<h2 style="margin-top:32px;margin-bottom:14px">What each plan incentivizes</h2>
+      <table class="results-table">
+        <thead><tr><th>Plan</th><th>Rewards</th><th>Risks</th><th>Best for</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A. Flat revenue</strong></td><td>Volume</td><td>Margin blind - rep may discount aggressively</td><td>Simple product line, consistent margins, new rep</td></tr>
+          <tr><td><strong>B. Tiered revenue</strong></td><td>Over-performance (accelerators)</td><td>Still margin blind. Costs more at high performance.</td><td>Proven reps, growth phase</td></tr>
+          <tr><td><strong>C. Flat % of GP</strong></td><td>Profitable sales</td><td>Rep may avoid low-margin strategic deals</td><td>Variable margins across products/customers</td></tr>
+          <tr><td><strong>D. Tiered GP</strong></td><td>High-margin sales</td><td>Most complex. Needs transparent margin data.</td><td>Margin-focused businesses with mature sales</td></tr>
+        </tbody>
+      </table>`;
+
+    // Benchmarks
+    const bench = `<h2 style="margin-top:32px;margin-bottom:14px">Manufacturing sales comp benchmarks</h2>
+      <ul style="font-size:15px;color:var(--fg1);line-height:1.7;padding-left:20px">
+        <li>Avg base salary (outside sales): $65K-$85K (US BLS / MAPI)</li>
+        <li>Avg OTE: $100K-$150K</li>
+        <li>Avg commission: 3-8% of revenue OR 10-20% of gross profit</li>
+        <li>Top performers earn 1.5-2.5x OTE</li>
+        <li>Cost of sales: 4-8% of revenue (direct), 8-15% (complex/long-cycle)</li>
+        <li>Base/variable split: 60/40 typical (manufacturing norm per MAPI)</li>
+      </ul>`;
+
+    document.getElementById('detail').innerHTML = tbl + costTbl + incent + bench;
+    return { target, ote, base, margin, flatRate, gpRate, aCost, bCost, cCost, dCost };
+  }
+  document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Sales Commission Plan Comparison', docNumberLabel: 'Target', docNumber: fmt$K(r.target),
+      date: todayISO(),
+      fromLabel: 'PARAMETERS', from: ['Target: ' + fmt$K(r.target), 'OTE: ' + fmt$K(r.ote), 'Base: ' + fmt$K(r.base), 'Avg margin: ' + (r.margin*100).toFixed(0) + '%'],
+      toLabel: 'COST AT 100% TARGET', to: ['A (flat rev): ' + fmt$K(r.aCost), 'B (tiered rev): ' + fmt$K(r.bCost), 'C (flat GP): ' + fmt$K(r.cCost), 'D (tiered GP): ' + fmt$K(r.dCost)],
+      itemColumns: ['Plan','Total comp','% of revenue','% of GP'],
+      items: [
+        ['A: Flat % revenue', fmt$(r.aCost), (r.aCost/r.target*100).toFixed(2)+'%', (r.aCost/(r.target*r.margin)*100).toFixed(1)+'%'],
+        ['B: Tiered revenue', fmt$(r.bCost), (r.bCost/r.target*100).toFixed(2)+'%', (r.bCost/(r.target*r.margin)*100).toFixed(1)+'%'],
+        ['C: Flat % gross profit', fmt$(r.cCost), (r.cCost/r.target*100).toFixed(2)+'%', (r.cCost/(r.target*r.margin)*100).toFixed(1)+'%'],
+        ['D: Tiered gross profit', fmt$(r.dCost), (r.dCost/r.target*100).toFixed(2)+'%', (r.dCost/(r.target*r.margin)*100).toFixed(1)+'%']
+      ],
+      itemRowMapper: x => x,
+      notes: 'Benchmarks: MAPI Foundation + US BLS. Avg manufacturing outside sales OTE: $100K-$150K. Avg cost of sales: 4-8% of revenue (direct), 8-15% (complex). Margin-based plans align rep behavior with company profitability.',
+      filename: 'sales-commission-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Commission structure is not just a percentage - it is a behavior incentive</h2>
+    <p>The choice between flat revenue, tiered revenue, gross-profit-based, and tiered-margin commission plans is the choice of what behavior you want from your reps. Flat revenue commission rewards volume regardless of margin - reps will discount aggressively to close deals. Gross-profit-based commission aligns rep behavior with company profitability - they fight for margin because they get paid on it. Most mid-market manufacturers default to flat revenue commission, then wonder why their margins erode quarter over quarter.</p>
+    <h2>The right plan for your business</h2>
+    <p><strong>First sales hire, simple product line:</strong> flat revenue. Easy to administer, rep understands it instantly.<br>
+    <strong>Variable margins across products:</strong> margin-based. Otherwise reps cherry-pick the highest-volume, lowest-margin deals.<br>
+    <strong>Mature sales team, sophisticated buyers:</strong> tiered margin. Highest alignment with business goals; needs transparent margin data per deal.</p>
+    <h2>Benchmarks that matter</h2>
+    <p>Manufacturing sales comp: avg base $65K-$85K, avg OTE $100K-$150K, avg commission 3-8% of revenue OR 10-20% of gross profit. Top performers earn 1.5-2.5x OTE. Base/variable split: 60/40 is the manufacturing norm (MAPI). Cost of sales runs 4-8% of revenue for direct selling, 8-15% for complex/long-cycle work.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is a typical manufacturing sales commission?</summary><p>Avg manufacturing sales rep: 3-8% commission on revenue OR 10-20% on gross profit. Outside sales: $100K-$150K OTE typical. Inside sales: $70K-$100K OTE. Top performers reach 1.5-2.5x OTE.</p></details>
+    <details><summary>Should I pay on revenue or gross profit?</summary><p>Gross profit-based plans align rep behavior with company profitability - they fight for margin. Use revenue-based plans only for simple, consistent-margin product lines or for a first sales hire learning the role.</p></details>
+    <details><summary>What is a good base/variable split?</summary><p>Manufacturing norm: 60% base, 40% variable (commission/bonus) at OTE. For new business hunters: shift to 50/50 or 40/60. For account management: 70/30 base-heavy. The split signals how much risk you want the rep to bear.</p></details>
+    <details><summary>What is OTE?</summary><p>On-Target Earnings - the total compensation a rep earns at 100% of quota. Includes base salary plus expected commission/bonus when targets are hit. The number you advertise when recruiting.</p></details>
+    <details><summary>How do I set quota?</summary><p>Standard rule: 5-10x the rep OTE in revenue (i.e., a $125K OTE rep should generate $625K-$1.25M in revenue). Below 5x, your cost-of-sales is too high. Above 10x, the quota may be unrealistic and demotivating.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

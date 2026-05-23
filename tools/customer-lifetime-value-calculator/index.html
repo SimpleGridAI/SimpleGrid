@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Customer Lifetime Value (CLV) Calculator for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Calculate what a manufacturing customer is really worth over the full relationship. NPV-adjusted CLV, CAC payback, retention impact. Free, browser-based.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/customer-lifetime-value-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/customer-lifetime-value-calculator/"><meta property="og:title" content="Customer Lifetime Value (CLV) Calculator for Manufacturers | SimpleGrid"><meta property="og:description" content="Calculate what a manufacturing customer is really worth over the full relationship. NPV-adjusted CLV, CAC payback, retention impact. Free, browser-based."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Customer Lifetime Value (CLV) Calculator for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/customer-lifetime-value-calculator/","description":"Calculate what a manufacturing customer is really worth over the full relationship. NPV-adjusted CLV, CAC payback, retention impact. Free, browser-based.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Customer Lifetime Value (CLV) Calculator for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/customer-lifetime-value-calculator/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a manufacturing CLV?","acceptedAnswer":{"@type":"Answer","text":"The total profit a manufacturing customer generates across their entire relationship with you, adjusted for time value of money and probability they keep ordering. For mid-market manufacturing, typical CLV ranges from $50K (small/transactional accounts) to several million dollars (large strategic accounts)."}},
+{"@type":"Question","name":"What is a good CLV:CAC ratio?","acceptedAnswer":{"@type":"Answer","text":"Healthy: 3x or higher. Best-in-class: 5x+. Below 2x means you are spending too much to acquire customers relative to their lifetime value - either reduce CAC or increase customer value."}},
+{"@type":"Question","name":"How long should CAC payback take?","acceptedAnswer":{"@type":"Answer","text":"Manufacturing average is 6-18 months. Below 6 months is excellent (rare in capital-intensive sales). Above 18 months indicates either CAC is too high or first-year customer value is too low."}},
+{"@type":"Question","name":"How do I calculate cost to acquire?","acceptedAnswer":{"@type":"Answer","text":"Total sales and marketing cost divided by new customers acquired. Include sales rep time, travel, samples, qualification activities, marketing spend, and a portion of management time. For mid-market manufacturing, $2K-$10K per customer is typical."}},
+{"@type":"Question","name":"Why does retention matter so much?","acceptedAnswer":{"@type":"Answer","text":"Bain research: a 5% improvement in retention drives 25-95% more profit. The mechanism is compounding - each retained customer generates more lifetime value AND avoids the replacement cost. In manufacturing where CAC is high, retention is the single highest-leverage operational metric."}}
+]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>PO, invoice, BOM, job cost, 30+ calculators.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">&larr; All productive tools</a>
+    <h1>Customer Lifetime Value (CLV) Calculator.</h1>
+    <p class="lead">A $12K order from a customer who reorders quarterly for 8 years is a $384K customer. Knowing your CLV changes how much you spend to acquire, retain, and invest in relationships.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Customer behavior &amp; economics</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="aov">Avg order value ($)</label><input id="aov" type="number" data-clamp="0,10000000" step="100" value="12000" data-required></div>
+        <div class="tool-field"><label for="freq">Orders per year</label><input id="freq" type="number" data-clamp="0,1000" step="0.1" value="4" data-required></div>
+        <div class="tool-field"><label for="gm">Gross margin (%)</label><input id="gm" type="number" data-clamp="0,100" step="1" value="30"></div>
+        <div class="tool-field"><label for="lifespan">Avg customer lifespan (years)</label><input id="lifespan" type="number" data-clamp="1,50" step="1" value="8"></div>
+        <div class="tool-field"><label for="ret">Annual retention rate (%)</label><input id="ret" type="number" data-clamp="0,100" step="1" value="85"></div>
+        <div class="tool-field"><label for="svc">Annual cost to serve ($)</label><input id="svc" type="number" data-clamp="0,10000000" step="100" value="2400"></div>
+        <div class="tool-field"><label for="cac">Cost to acquire ($)</label><input id="cac" type="number" data-clamp="0,1000000" step="100" value="3000"></div>
+        <div class="tool-field"><label for="dr">Discount rate / cost of capital (%)</label><input id="dr" type="number" data-clamp="0,30" step="0.5" value="10"></div>
+      </div>
+      <details style="margin-top:14px"><summary style="cursor:pointer;font-weight:600;color:var(--fg2);font-size:14px">Advanced (revenue growth, margin improvement, referrals)</summary>
+        <div class="tool-form-grid cols-3" style="margin-top:12px">
+          <div class="tool-field"><label for="growth">Annual revenue growth per customer (%)</label><input id="growth" type="number" data-clamp="-50,100" step="0.5" value="3"></div>
+          <div class="tool-field"><label for="margin-imp">Annual margin improvement (pp)</label><input id="margin-imp" type="number" data-clamp="0,10" step="0.1" value="1"></div>
+          <div class="tool-field"><label for="ref-rate">% of customers who refer (%)</label><input id="ref-rate" type="number" data-clamp="0,100" step="1" value="15"></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+
+    <div class="tool-cta">
+      <div class="eyebrow">When every customer feels equally important</div>
+      <h2>SimpleGrid tracks customer profitability in real time.</h2>
+      <p>Revenue, margin, service cost, and retention per customer, per product line. Stop guessing which relationships to invest in.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="customer_lifetime_value_calculator_cta" class="btn btn-primary">Book a call</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+(n||0).toLocaleString(undefined,{maximumFractionDigits:0});}
+  function fmt$K(n){if(!isFinite(n))return '$0';if(Math.abs(n)>=1000000)return '$'+(n/1000000).toFixed(2)+'M';if(Math.abs(n)>=10000)return '$'+Math.round(n/1000)+'K';return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+
+  function calcCLV(aov, freq, gmPct, lifespan, retPct, svc, cac, drPct, growthPct, marginImpPP, refRate) {
+    const annualRev = aov * freq;
+    const ret = retPct / 100;
+    const dr = drPct / 100;
+    const growth = growthPct / 100;
+    let npvCLV = 0;
+    const years = [];
+    for (let y = 1; y <= 20; y++) {
+      const prob = Math.pow(ret, y);
+      if (prob < 0.02) break;
+      const yRev = annualRev * Math.pow(1 + growth, y);
+      let yMargin = gmPct + marginImpPP * y;
+      yMargin = Math.min(yMargin, gmPct + 10);
+      const yGP = yRev * yMargin / 100;
+      const yNet = yGP - svc;
+      const yExp = yNet * prob;
+      const yNPV = yExp / Math.pow(1 + dr, y);
+      npvCLV += yNPV;
+      years.push({ year: y, prob, revenue: yRev, gross: yGP, net: yNet, expected: yExp, npv: yNPV, cumNpv: npvCLV });
+    }
+    const refCLV = npvCLV * refRate / 100;
+    const totalCLV = npvCLV + refCLV;
+    return { annualRev, npvCLV, refCLV, totalCLV, years };
+  }
+
+  function recalc(){
+    const aov = nn('aov');
+    const freq = nn('freq');
+    const gm = nn('gm');
+    const lifespan = Math.max(1, nn('lifespan'));
+    const ret = Math.min(100, nn('ret'));
+    const svc = nn('svc');
+    const cac = nn('cac');
+    const dr = nn('dr');
+    const growth = parseFloat(document.getElementById('growth').value) || 0;
+    const marginImp = nn('margin-imp');
+    const refRate = nn('ref-rate');
+
+    const warns = [];
+    if (aov === 0 || freq === 0) warns.push('Enter both avg order value and orders/year to compute CLV.');
+    if (ret < 50) warns.push('Retention rate below 50% is unusually low for manufacturing - check the input. Manufacturing average is 80-90%.');
+    if (gm < 10) warns.push('Gross margin under 10% is very low for manufacturing - your annual net profit per customer may be negative after service costs.');
+
+    const annualRev = aov * freq;
+    const annualGP = annualRev * gm / 100;
+    const annualNet = annualGP - svc;
+    const simpleCLV = annualNet * lifespan;
+
+    const r = calcCLV(aov, freq, gm, lifespan, ret, svc, cac, dr, growth, marginImp, refRate);
+
+    // Acquisition metrics
+    const clvCacRatio = sgSafeDiv(r.totalCLV, cac);
+    const paybackMo = annualNet > 0 ? cac / (annualNet / 12) : Infinity;
+    const maxCac = r.totalCLV * 0.33;
+
+    // Retention impact +5pp
+    const improvedRet = Math.min(99, ret + 5);
+    const r2 = calcCLV(aov, freq, gm, lifespan, improvedRet, svc, cac, dr, growth, marginImp, refRate);
+    const retentionUplift = r2.totalCLV - r.totalCLV;
+    const retentionUpliftPct = sgSafeDiv(retentionUplift, r.totalCLV) * 100;
+
+    const lostCustomerCost = r.totalCLV + cac;
+
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
+      <div class="big-label">Each customer is worth</div>
+      <div class="big-number green">${fmt$K(r.totalCLV)}</div>
+      <div class="big-caption">Over an ~${lifespan}-year relationship at ${ret.toFixed(0)}% retention. NPV-adjusted at ${dr.toFixed(1)}% discount rate.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">CLV:CAC ratio</div><div class="value ${clvCacRatio>=3?'green':clvCacRatio>=2?'gold':'red'}">${clvCacRatio.toFixed(1)}x</div><div class="sub">healthy &gt; 3x, best-in-class &gt; 5x</div></div>
+        <div class="results-stat"><div class="label">CAC payback</div><div class="value ${paybackMo<=12?'green':paybackMo<=18?'gold':'red'}">${isFinite(paybackMo)?paybackMo.toFixed(1)+' mo':'N/A'}</div><div class="sub">manufacturing avg 6-18 mo</div></div>
+        <div class="results-stat"><div class="label">Max acquisition spend</div><div class="value">${fmt$K(maxCac)}</div><div class="sub">33% of CLV is the ceiling</div></div>
+      </div>
+    `;
+    sgWarnPanel(hero, warns);
+
+    // Year-by-year buildup
+    let yrTable = '<h2 style="margin-top:8px;margin-bottom:14px">Year-by-year value buildup (NPV)</h2><table class="results-table"><thead><tr><th>Year</th><th class="num">Prob active</th><th class="num">Expected revenue</th><th class="num">Expected profit</th><th class="num">NPV</th><th class="num">Cumulative</th></tr></thead><tbody>';
+    r.years.forEach(y => {
+      yrTable += `<tr><td>${y.year}</td><td class="num">${(y.prob*100).toFixed(0)}%</td><td class="num">${fmt$K(y.expected + svc * y.prob)}</td><td class="num">${fmt$K(y.expected)}</td><td class="num">${fmt$K(y.npv)}</td><td class="num"><strong>${fmt$K(y.cumNpv)}</strong></td></tr>`;
+    });
+    yrTable += '</tbody></table>';
+
+    // Retention multiplier
+    const retMult = `<h2 style="margin-top:32px;margin-bottom:14px">The retention multiplier</h2>
+      <div style="background:#ECFDF5;border:1px solid #10B981;border-left:4px solid #047857;border-radius:8px;padding:16px 18px">
+        <p style="margin:0;font-size:15px;color:#064E3B;line-height:1.6">If you improved retention from <strong>${ret.toFixed(0)}%</strong> to <strong>${improvedRet.toFixed(0)}%</strong> (+5 points):</p>
+        <p style="margin:8px 0 0;font-size:15px;color:#064E3B;line-height:1.6">Each customer would be worth <strong>${fmt$K(retentionUplift)} more (+${retentionUpliftPct.toFixed(0)}%)</strong>.</p>
+        <p style="margin:8px 0 0;font-size:14px;color:#065F46">Bain &amp; Company: a 5% increase in customer retention increases profits by 25-95%.</p>
+      </div>`;
+
+    // Cost of losing a customer
+    const lossBlock = `<h2 style="margin-top:32px;margin-bottom:14px">The cost of losing a customer</h2>
+      <div style="background:#FEF2F2;border:1px solid #F87171;border-left:4px solid #B91C1C;border-radius:8px;padding:16px 18px">
+        <p style="margin:0;font-size:15px;color:#7F1D1D;line-height:1.6">When you lose a customer, you do not just lose next quarter\'s order. <strong>Total value destroyed: ${fmt$K(lostCustomerCost)}</strong>.</p>
+        <p style="margin:8px 0 0;font-size:14px;color:#7F1D1D">= ${fmt$K(r.totalCLV)} in future profits + ${fmt$(cac)} to acquire a replacement.</p>
+      </div>`;
+
+    // Recommendations
+    let recs = '<h2 style="margin-top:32px;margin-bottom:14px">What this means for your business</h2><ul style="font-size:15px;color:var(--fg1);line-height:1.7;padding-left:20px">';
+    if (clvCacRatio > 5) recs += '<li><strong>Under-investing in acquisition.</strong> CLV:CAC of ' + clvCacRatio.toFixed(1) + 'x means you can afford to spend more to win customers - your unit economics justify it.</li>';
+    else if (clvCacRatio < 3) recs += '<li><strong>CAC is too high relative to CLV.</strong> Either reduce CAC (referral programs, inbound marketing) or increase customer value (upsell, cross-sell, price increase).</li>';
+    else recs += '<li><strong>Healthy economics.</strong> Focus on retention to maximize value of existing customers.</li>';
+    if (ret < 80) recs += '<li>Retention is below the manufacturing average (80-90%). Every 1% retention improvement is worth more than 1% new-customer growth.</li>';
+    if (isFinite(paybackMo) && paybackMo > 18) recs += '<li>CAC payback is over 18 months. Consider faster onboarding, first-order incentives, or tighter prospect qualification.</li>';
+    recs += '</ul>';
+
+    document.getElementById('detail').innerHTML = yrTable + retMult + lossBlock + recs;
+    return { annualRev, totalCLV: r.totalCLV, npvCLV: r.npvCLV, clvCacRatio, paybackMo, maxCac, retentionUplift, lostCustomerCost, simpleCLV };
+  }
+  document.querySelectorAll('input').forEach(el => el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title: 'Customer Lifetime Value Analysis', docNumberLabel: 'CLV', docNumber: fmt$K(r.totalCLV),
+      date: todayISO(),
+      fromLabel: 'CUSTOMER', from: ['Annual revenue: ' + fmt$K(r.annualRev), 'NPV CLV: ' + fmt$K(r.npvCLV), 'Total CLV (with referrals): ' + fmt$K(r.totalCLV)],
+      toLabel: 'ECONOMICS', to: ['CLV:CAC ratio: ' + r.clvCacRatio.toFixed(1) + 'x', 'CAC payback: ' + (isFinite(r.paybackMo)?r.paybackMo.toFixed(1)+' months':'N/A'), 'Max acquisition spend: ' + fmt$K(r.maxCac), 'Cost of losing one customer: ' + fmt$K(r.lostCustomerCost)],
+      itemColumns: ['Metric','Value'],
+      items: [
+        ['Annual revenue per customer', fmt$K(r.annualRev)],
+        ['Simple CLV', fmt$K(r.simpleCLV)],
+        ['NPV-adjusted CLV', fmt$K(r.npvCLV)],
+        ['Total CLV (+ referrals)', fmt$K(r.totalCLV)],
+        ['CLV:CAC ratio', r.clvCacRatio.toFixed(1) + 'x'],
+        ['Retention +5pp uplift', fmt$K(r.retentionUplift)]
+      ],
+      itemRowMapper: x => x,
+      notes: 'Methodology: NPV-adjusted CLV uses retention rate as probability customer is still active each year. Includes optional revenue growth and margin improvement over time. Bain & Co: 5% retention improvement = 25-95% profit increase.',
+      filename: 'customer-lifetime-value-' + todayISO() + '.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why CLV matters more in manufacturing than anywhere else</h2>
+    <p>Manufacturing customer relationships are long. The average B2B manufacturing customer relationship is 7-12 years. Once you are approved (quality audits, qualification runs, first-article inspection), switching costs are high on both sides. That means each customer is worth far more than their first order - and far more than most owners realize.</p>
+    <h2>What changes when you know your CLV</h2>
+    <p>Acquisition spending: you can rationally invest 33% of CLV up-front to land a customer. For a $200K-CLV customer, that is $66K - a real sales motion, not "we sent a sample." Retention: every 5% improvement compounds. Pricing: you stop treating each order as an isolated transaction and start pricing for the full relationship. Service: you can finally answer the question "is this customer worth special-handling?"</p>
+    <h2>The retention multiplier (Bain)</h2>
+    <p>A 5% improvement in customer retention drives a 25-95% increase in profit, depending on industry. The mechanism is compounding: each retained customer generates more lifetime value AND avoids the cost to replace them. In manufacturing the effect is typically at the high end of that range because customer acquisition cost is high relative to per-order revenue.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is a manufacturing CLV?</summary><p>The total profit a manufacturing customer generates across their entire relationship with you, adjusted for time value of money and probability they keep ordering. For mid-market manufacturing, typical CLV ranges from $50K (small/transactional accounts) to several million dollars (large strategic accounts).</p></details>
+    <details><summary>What is a good CLV:CAC ratio?</summary><p>Healthy: 3x or higher. Best-in-class: 5x+. Below 2x means you are spending too much to acquire customers relative to their lifetime value - either reduce CAC or increase customer value.</p></details>
+    <details><summary>How long should CAC payback take?</summary><p>Manufacturing average is 6-18 months. Below 6 months is excellent (rare in capital-intensive sales). Above 18 months indicates either CAC is too high or first-year customer value is too low.</p></details>
+    <details><summary>How do I calculate cost to acquire?</summary><p>Total sales and marketing cost divided by new customers acquired. Include sales rep time, travel, samples, qualification activities, marketing spend, and a portion of management time. For mid-market manufacturing, $2K-$10K per customer is typical.</p></details>
+    <details><summary>Why does retention matter so much?</summary><p>Bain research: a 5% improvement in retention drives 25-95% more profit. The mechanism is compounding - each retained customer generates more lifetime value AND avoids the replacement cost. In manufacturing where CAC is high, retention is the single highest-leverage operational metric.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+      <div>
+        <div class="footer-h">Product</div>
+        <a href="../../product.html" class="footer-link">How it works</a>
+        <a href="../../pricing.html" class="footer-link">Pricing</a>
+      </div>
+      <div>
+        <div class="footer-h">Resources</div>
+        <a href="../" class="footer-link">Productive Tools (46)</a>
+        <a href="../../case-studies.html" class="footer-link">Case studies</a>
+        <a href="../../blog.html" class="footer-link">Blog</a>
+      </div>
+      <div>
+        <div class="footer-h">Company</div>
+        <a href="../../about.html" class="footer-link">About</a>
+        <a href="../../hiring.html" class="footer-link">Careers</a>
+      </div>
+      <div>
+        <div class="footer-h">Get in touch</div>
+        <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+        <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>
