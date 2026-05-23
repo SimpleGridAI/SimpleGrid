@@ -500,20 +500,7 @@ function ProofSection() {
       fontWeight: 600,
       pointerEvents: 'none'
     }
-  }, c.anchor, " \u2192")))))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: 'center',
-      marginTop: 36
-    }
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "case-studies.html",
-    style: {
-      fontSize: 14,
-      fontWeight: 600,
-      color: 'var(--sg-blue)',
-      textDecoration: 'none'
-    }
-  }, "See both deployments side by side \u2192"))));
+  }, c.anchor, " \u2192"))))))));
 }
 window.ProofSection = ProofSection;
 function Integrations() {

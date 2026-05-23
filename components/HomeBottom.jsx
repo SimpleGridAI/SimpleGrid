@@ -175,9 +175,6 @@ function ProofSection() {
             </Reveal>
           ))}
         </div>
-        <div style={{textAlign:'center',marginTop:36}}>
-          <a href="case-studies.html" style={{fontSize:14,fontWeight:600,color:'var(--sg-blue)',textDecoration:'none'}}>See both deployments side by side →</a>
-        </div>
       </div>
     </section>
   );
