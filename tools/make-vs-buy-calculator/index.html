@@ -25,8 +25,8 @@
 {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Make vs Buy Calculator for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/make-vs-buy-calculator/"}]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 
 <script src="../../assets/js/analytics-init.js" defer></script>
@@ -108,17 +108,26 @@ document.addEventListener('DOMContentLoaded',()=>{
   function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
   function num(id){return parseFloat(document.getElementById(id).value)||0;}
   function recalc(){
+    const volRaw = parseFloat(document.getElementById('vol').value);
+    const yearsRaw = parseFloat(document.getElementById('years').value);
+    const mDefRaw = parseFloat(document.getElementById('m-def').value);
+    const bDefRaw = parseFloat(document.getElementById('b-def').value);
     const vol = nn('vol'), years = Math.max(1, nn('years'));
+    const warns = [];
+    if (!volRaw || volRaw <= 0) warns.push('Annual volume is 0 - a make-vs-buy analysis requires a non-zero quantity. The recommendation below is not meaningful.');
+    if (!yearsRaw || yearsRaw <= 0) warns.push('Years to amortize must be at least 1 - using 1. Setup costs need a time horizon to amortize over.');
+    if (mDefRaw > 100) warns.push('MAKE defect rate (' + mDefRaw + '%) exceeds 100% - capped at 100%. A defect rate above 100% is mathematically impossible.');
+    if (bDefRaw > 100) warns.push('BUY defect rate (' + bDefRaw + '%) exceeds 100% - capped at 100%.');
     const makeVar = nn('m-mat') + nn('m-lab') + nn('m-mach');
     const setup = nn('m-setup');
-    const setupAmort = (vol*years)>0 ? setup/(vol*years) : 0;
-    const makeDef = nn('m-def')/100;
+    const setupAmort = sgSafeDiv(setup, vol*years);
+    const makeDef = Math.min(100, nn('m-def'))/100;
     const makeQualityCost = vol * makeDef * makeVar;
     const makeAnnual = vol * makeVar + setup/years + makeQualityCost;
     const makePerUnit = makeVar + setupAmort + (makeDef * makeVar);
     const buyVar = nn('b-price') + nn('b-freight') + nn('b-insp');
-    const buyDef = nn('b-def')/100;
-    const buyQualityCost = vol * buyDef * (nn('b-price') + 1); // shipping + delay rough
+    const buyDef = Math.min(100, nn('b-def'))/100;
+    const buyQualityCost = vol * buyDef * (nn('b-price') + 1);
     const buyAnnual = vol * buyVar + buyQualityCost;
     const buyPerUnit = buyVar + (buyDef * buyVar);
     const diff = makeAnnual - buyAnnual;
@@ -134,9 +143,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     } else {
       rec = strategicScore >= 3 ? 'BUY - Cheaper by '+fmt$(diff)+'/year. But strategic factors favor MAKE - consider strategic premium worth paying.' : 'BUY - Saves '+fmt$(diff)+'/year and strategic factors do not justify the cost. Outsource it.';
     }
-    document.getElementById('hero').innerHTML = `
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
       <div class="big-label">Recommendation</div>
-      <div class="big-number ${advCls}">${advantage}</div>
+      <div class="big-number ${advCls}">${vol === 0 ? 'N/A' : advantage}</div>
       <div class="big-caption">${rec}</div>
       <div class="results-grid" style="margin-top:24px">
         <div class="results-stat"><div class="label">MAKE per unit</div><div class="value ${diff<0?'green':''}">${fmt$(makePerUnit)}</div><div class="sub">${fmt$(makeAnnual)} annual</div></div>
@@ -144,6 +155,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         <div class="results-stat"><div class="label">Strategic score</div><div class="value">${strategicScore>=0?'+':''}${strategicScore}/10</div><div class="sub">${strategicScore>=3?'favors MAKE':strategicScore<=-3?'favors BUY':'mixed'}</div></div>
       </div>
     `;
+    sgWarnPanel(hero, warns);
     document.getElementById('detail').innerHTML = `
       <h2 style="margin-bottom:14px">Side-by-side breakdown</h2>
       <table class="results-table">

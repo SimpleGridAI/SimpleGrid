@@ -29,8 +29,8 @@
 ]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 
 <script src="../../assets/js/analytics-init.js" defer></script>
@@ -182,24 +182,35 @@ document.addEventListener('DOMContentLoaded',()=>{
   function nn(v){return Math.max(0, parseFloat(v)||0);}
 
   function recalcC2P(){
-    const cost = nn(document.getElementById('c2p-cost').value);
-    let pct = nn(document.getElementById('c2p-pct').value);
+    const costRaw = parseFloat(document.getElementById('c2p-cost').value);
+    const pctRaw = parseFloat(document.getElementById('c2p-pct').value);
+    const cost = nn(costRaw);
+    let pct = nn(pctRaw);
     const type = document.getElementById('c2p-type').value;
     const vol = nn(document.getElementById('c2p-vol').value);
-    if (type==='margin' && pct >= 99.9) pct = 99.9;
+    const warns = [];
+    if (!isNaN(costRaw) && costRaw < 0) warns.push('Cost cannot be negative - treated as $0.');
+    if (!isNaN(pctRaw) && pctRaw < 0) warns.push((type==='markup'?'Markup':'Margin') + ' cannot be negative - treated as 0%.');
+    if (type==='margin' && pct >= 100) {
+      warns.push('Margin of 100% is mathematically impossible (price would be infinite). Capped at 99.9%.');
+      pct = 99.9;
+    }
+    if (cost === 0 && pct > 0) warns.push('Cost is $0, so markup/margin calculations are not meaningful.');
     let price, markup, margin;
     if (type === 'markup'){
       price = cost * (1 + pct/100);
       markup = pct;
-      margin = price>0 ? (price - cost) / price * 100 : 0;
+      margin = sgSafeDiv(price - cost, price) * 100;
     } else {
-      price = cost / (1 - pct/100);
+      price = pct >= 100 ? 0 : cost / (1 - pct/100);
       margin = pct;
-      markup = cost>0 ? (price - cost) / cost * 100 : 0;
+      markup = sgSafeDiv(price - cost, cost) * 100;
     }
     const profit = price - cost;
     const annualProfit = profit * vol;
-    document.getElementById('c2p-results').innerHTML = `
+    const panel = document.getElementById('c2p-results');
+    panel.innerHTML = `
+      <div data-sg-warn></div>
       <div class="big-label">Required selling price</div>
       <div class="big-number">${fmt$(price)}</div>
       <div class="big-caption">Cost of ${fmt$(cost)} + ${type==='markup'?'a '+markup.toFixed(1)+'% markup gives a '+margin.toFixed(1)+'% margin':'a '+margin.toFixed(1)+'% margin requires a '+markup.toFixed(1)+'% markup'}</div>
@@ -210,18 +221,27 @@ document.addEventListener('DOMContentLoaded',()=>{
       </div>
       ${vol>0 ? `<div class="results-stat" style="margin-top:14px"><div class="label">Annual profit at ${vol.toLocaleString()} units</div><div class="value green">${fmt$(annualProfit)}</div></div>` : ''}
     `;
+    sgWarnPanel(panel, warns);
     return {mode:'c2p', cost, price, profit, markup, margin, vol, annualProfit};
   }
 
   function recalcP2M(){
-    const price = nn(document.getElementById('p2m-price').value);
-    const cost  = nn(document.getElementById('p2m-cost').value);
+    const priceRaw = parseFloat(document.getElementById('p2m-price').value);
+    const costRaw = parseFloat(document.getElementById('p2m-cost').value);
+    const price = nn(priceRaw);
+    const cost  = nn(costRaw);
     const vol   = nn(document.getElementById('p2m-vol').value);
+    const warns = [];
+    if (!isNaN(priceRaw) && priceRaw < 0) warns.push('Price cannot be negative.');
+    if (!isNaN(costRaw) && costRaw < 0) warns.push('Cost cannot be negative.');
+    if (cost > price && price > 0) warns.push('Cost ($' + cost.toFixed(2) + ') exceeds price ($' + price.toFixed(2) + ') - you are losing money on every unit.');
     const profit = price - cost;
-    const markup = cost>0 ? profit/cost*100 : 0;
-    const margin = price>0 ? profit/price*100 : 0;
+    const markup = sgSafeDiv(profit, cost) * 100;
+    const margin = sgSafeDiv(profit, price) * 100;
     const cls = margin>=25?'green':margin>=10?'gold':'red';
-    document.getElementById('p2m-results').innerHTML = `
+    const panel = document.getElementById('p2m-results');
+    panel.innerHTML = `
+      <div data-sg-warn></div>
       <div class="big-label">Your actual margin</div>
       <div class="big-number ${cls}">${margin.toFixed(1)}%</div>
       <div class="big-caption">Selling ${fmt$(price)} at ${fmt$(cost)} cost = ${fmt$(profit)} profit per unit</div>
@@ -235,6 +255,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         ${margin<15?'<strong style="color:#B91C1C">Below 15% gross margin</strong> is generally unprofitable for mid-market manufacturing once SG&A, sales costs, and bad debt are accounted for.':margin<25?'<strong style="color:#B45309">15-25% gross margin</strong> is workable but leaves little room for shocks. Top quartile manufacturers run 30%+.':'<strong style="color:#047857">Healthy gross margin.</strong> Mid-market manufacturing top quartile is 30-40% gross margin.'}
       </div>
     `;
+    sgWarnPanel(panel, warns);
     return {mode:'p2m', cost, price, profit, markup, margin, vol, annualProfit: profit*vol};
   }
 

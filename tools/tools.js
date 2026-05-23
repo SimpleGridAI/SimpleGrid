@@ -222,6 +222,44 @@ function sgDownloadCSV(filename, rows) {
 // ===== Shared validation helpers (sg* prefix) =====
 // Use across every tool so behaviour is consistent.
 
+// Render an inline warning banner inside a result panel. The panel must have a
+// <div data-sg-warn></div> placeholder (or pass a custom selector). Pass an
+// empty array (or empty string) to clear the panel.
+function sgWarnPanel(panelEl, warnings) {
+  if (!panelEl) return;
+  let host = panelEl.querySelector('[data-sg-warn]');
+  if (!host) {
+    host = document.createElement('div');
+    host.setAttribute('data-sg-warn', '');
+    panelEl.insertBefore(host, panelEl.firstChild);
+  }
+  const list = Array.isArray(warnings) ? warnings.filter(Boolean) : (warnings ? [warnings] : []);
+  if (list.length === 0) { host.innerHTML = ''; return; }
+  host.innerHTML = '<div class="sg-warn-box">' +
+    '<div class="sg-warn-title">Heads up - these inputs need a second look:</div>' +
+    '<ul class="sg-warn-list">' +
+    list.map(w => '<li>' + sgEscapeHtml(w) + '</li>').join('') +
+    '</ul></div>';
+}
+
+// Pure numeric clamp helper. No DOM. Returns [clamped, wasChanged].
+function sgClampNum(n, min, max) {
+  let v = Number(n);
+  if (!Number.isFinite(v)) return [min != null ? min : 0, true];
+  let changed = false;
+  if (typeof min === 'number' && v < min) { v = min; changed = true; }
+  if (typeof max === 'number' && v > max) { v = max; changed = true; }
+  return [v, changed];
+}
+
+// Safe-divide: returns 0 if denominator is 0/NaN/Infinity instead of producing
+// Infinity or NaN. Math math.
+function sgSafeDiv(a, b) {
+  if (!Number.isFinite(a) || !Number.isFinite(b) || b === 0) return 0;
+  const r = a / b;
+  return Number.isFinite(r) ? r : 0;
+}
+
 // Escape a string for safe insertion into an HTML attribute or text node.
 // Prevents stored-XSS when prefill values are interpolated into innerHTML.
 function sgEscapeHtml(s) {

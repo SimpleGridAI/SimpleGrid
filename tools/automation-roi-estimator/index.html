@@ -25,8 +25,8 @@
 {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Automation ROI Estimator for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/automation-roi-estimator/"}]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 
 <script src="../../assets/js/analytics-init.js" defer></script>
@@ -78,9 +78,18 @@ document.addEventListener('DOMContentLoaded',()=>{
   function fmt$K(n){if(n>=1000000) return '$'+(n/1000000).toFixed(2)+'M'; if(n>=10000) return '$'+Math.round(n/1000)+'K'; return '$'+Math.round(n);}
   function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
   function recalc(){
-    const rev = nn('rev'); const emp = Math.max(1, nn('emp'));
+    const rev = nn('rev');
+    const empRaw = parseFloat(document.getElementById('emp').value);
+    const dataRaw = parseFloat(document.getElementById('data').value);
+    const searchRaw = parseFloat(document.getElementById('search').value);
+    const emp = Math.max(1, nn('emp'));
     const data = nn('data'); const search = nn('search'); const rate = nn('rate');
     const sysCostAnnual = nn('syscost') * 12;
+    const warns = [];
+    if (!empRaw || empRaw <= 0) warns.push('Employee count is 0 - using 1 as a placeholder. Enter your actual headcount for an accurate FTE estimate.');
+    if (dataRaw > 168) warns.push('Data-entry hours per week (' + dataRaw + ') exceed 168 (the total hours in a week). Check the input.');
+    if (searchRaw > 168) warns.push('Info-searching hours per week (' + searchRaw + ') exceed 168. Check the input.');
+    if ((dataRaw + searchRaw) > emp * 40) warns.push('Manual hours/week (' + (dataRaw + searchRaw) + ') exceed total work hours for ' + emp + ' employees at 40 hrs each (' + (emp * 40) + '). The numbers are inconsistent.');
     const dataWaste = data * rate * 52;
     const searchWaste = search * rate * 52;
     const totalWaste = dataWaste + searchWaste;
@@ -90,7 +99,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     const threeYr = totalWaste * 3 * 1.05;
     const netSaving = totalWaste - sysCostAnnual;
     const paybackMonths = (totalWaste/12) > 0 ? Math.ceil(sysCostAnnual / (totalWaste/12)) : 0;
-    document.getElementById('hero').innerHTML = `
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
       <div class="big-label">Annual cost of manual data work</div>
       <div class="big-number red">${fmt$K(totalWaste)}</div>
       <div class="big-caption"><strong>${pctRev.toFixed(1)}% of your revenue</strong> - that\'s ${fte.toFixed(1)} FTEs doing work a system could do. Mid-market manufacturing best-in-class: under 5% (Aberdeen).</div>
@@ -100,6 +111,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         <div class="results-stat"><div class="label">3-year cost if no change</div><div class="value red">${fmt$K(threeYr)}</div></div>
       </div>
     `;
+    sgWarnPanel(hero, warns);
     document.getElementById('detail').innerHTML = `
       <h2 style="margin-bottom:14px">Waste breakdown</h2>
       <div class="bar-row"><span class="bar-label">Data entry</span><div class="bar-track"><div class="bar-fill red" style="width:${totalWaste>0?dataWaste/totalWaste*100:0}%"></div></div><span class="bar-value">${fmt$K(dataWaste)}</span></div>

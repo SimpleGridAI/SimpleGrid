@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
@@ -14,57 +13,83 @@
 <meta name="theme-color" content="#4A7BF7">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://simplegrid.ai/404.html">
-<link rel="icon" type="image/svg+xml" href="assets/simplegrid-logomark.svg">
-<link rel="preconnect" href="https://unpkg.com" crossorigin>
-<link rel="dns-prefetch" href="https://us-assets.i.posthog.com">
-<link rel="stylesheet" href="colors_and_type.css">
-<link rel="stylesheet" href="styles.css">
+
+<!-- Absolute paths so this page renders correctly regardless of the URL it was served at. -->
+<link rel="icon" type="image/svg+xml" href="/assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/styles.css">
 
 <meta property="og:site_name" content="SimpleGrid">
 <meta property="og:type" content="website">
-<meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://simplegrid.ai/404.html">
 <meta property="og:title" content="Page Not Found | SimpleGrid">
-<meta property="og:description" content="The page you were looking for is not on SimpleGrid. Head back to the homepage - custom ERP for mid-market manufacturers, built at our risk and paid for after it works.">
+<meta property="og:description" content="The page you were looking for is not on SimpleGrid. Head back to the homepage - custom ERP for mid-market manufacturers.">
 <meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
-
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@simplegridai">
 <meta name="twitter:title" content="Page Not Found | SimpleGrid">
-<meta name="twitter:description" content="The page you were looking for is not on SimpleGrid. Head back to the homepage - custom ERP for mid-market manufacturers, built at our risk and paid for after it works.">
+<meta name="twitter:description" content="The page you were looking for is not on SimpleGrid.">
 <meta name="twitter:image" content="https://simplegrid.ai/assets/og-card.jpg">
 
 <style>
-  .nf-wrap { min-height: calc(100vh - 64px - 200px); display: flex; align-items: center; justify-content: center; padding: 64px 24px; }
+  body { margin: 0; font-family: var(--font-body, system-ui, -apple-system, sans-serif); color: var(--fg1, #1A1A1A); background: #fff; }
+  .nf-nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: 1px solid var(--border, #E5E8ED); }
+  .nf-nav a.brand img { height: 28px; width: auto; display: block; }
+  .nf-nav .cta { font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 8px; background: var(--sg-blue, #4A7BF7); color: #fff; text-decoration: none; }
+  .nf-wrap { min-height: calc(100vh - 200px); display: flex; align-items: center; justify-content: center; padding: 64px 24px; }
   .nf-card { max-width: 640px; text-align: center; }
-  .nf-code { font-family: var(--font-heading); font-size: 96px; font-weight: 700; color: var(--sg-blue); letter-spacing: -0.04em; line-height: 1; margin: 0 0 8px; }
-  .nf-h { font-family: var(--font-heading); font-size: 37px; font-weight: 700; color: var(--fg1); letter-spacing: -0.02em; margin: 0 0 16px; }
-  .nf-p { font-size: 18px; color: var(--fg2); line-height: 1.6; margin: 0 0 32px; }
+  .nf-code { font-family: var(--font-heading, inherit); font-size: 96px; font-weight: 700; color: var(--sg-blue, #4A7BF7); letter-spacing: -0.04em; line-height: 1; margin: 0 0 8px; }
+  .nf-h { font-family: var(--font-heading, inherit); font-size: 37px; font-weight: 700; color: var(--fg1, #1A1A1A); letter-spacing: -0.02em; margin: 0 0 16px; }
+  .nf-p { font-size: 18px; color: var(--fg2, #4A5568); line-height: 1.6; margin: 0 0 32px; }
   .nf-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .nf-links { margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; font-size: 16px; }
-  .nf-links a { color: var(--sg-blue); text-decoration: none; font-weight: 600; }
+  .nf-btn { display: inline-block; padding: 12px 22px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 16px; }
+  .nf-btn-primary { background: var(--sg-blue, #4A7BF7); color: #fff; }
+  .nf-btn-secondary { background: #fff; color: var(--sg-blue, #4A7BF7); border: 1.5px solid var(--sg-blue, #4A7BF7); }
+  .nf-links { margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--border, #E5E8ED); display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; font-size: 16px; }
+  .nf-links a { color: var(--sg-blue, #4A7BF7); text-decoration: none; font-weight: 600; }
   .nf-links a:hover { text-decoration: underline; }
+  .nf-foot { text-align: center; padding: 24px; font-size: 14px; color: var(--fg3, #9CA3AF); border-top: 1px solid var(--border, #E5E8ED); }
   @media (max-width: 600px) {
     .nf-code { font-size: 72px; }
     .nf-h { font-size: 27px; }
+    .nf-nav { padding: 14px 18px; }
   }
 </style>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-
-<!-- Analytics (PostHog + GA4) - deferred to first user interaction. See /assets/js/analytics-init.js -->
-<script src="assets/js/analytics-init.js" defer></script>
-<!-- Conversion event tracking (data-cta + form + scroll) -->
-<script src="assets/js/tracking.js" defer></script>
-<!-- Cookie consent banner -->
-<script src="assets/js/cookie-consent.js" defer></script>
+<script src="/assets/js/analytics-init.js" defer></script>
 </head>
 <body>
-<div id="root"></div>
-<script src="components/Nav.js" defer></script>
-<script src="components/LoginModal.js" defer></script>
-<script src="components/Footer.js" defer></script>
+<header class="nf-nav">
+  <a class="brand" href="/" aria-label="SimpleGrid home">
+    <img src="/assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo">
+  </a>
+  <a class="cta" href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">Book a call with the founder</a>
+</header>
 
-<script src="app/not-found.js" defer></script></body>
+<main class="nf-wrap">
+  <div class="nf-card">
+    <p class="nf-code">404</p>
+    <h1 class="nf-h">We couldn't find that page.</h1>
+    <p class="nf-p">The link may be old, or the page may have moved. Try one of these instead:</p>
+    <div class="nf-cta">
+      <a class="nf-btn nf-btn-primary" href="/">Go to homepage</a>
+      <a class="nf-btn nf-btn-secondary" href="/tools/">Browse productive tools</a>
+    </div>
+    <div class="nf-links">
+      <a href="/product.html">Product</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/case-studies.html">Case studies</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/about.html">About</a>
+      <a href="/tools/">Productive tools</a>
+    </div>
+  </div>
+</main>
+
+<footer class="nf-foot">
+  &copy; 2026 Valaya AI Technologies &middot;
+  <a href="/privacy.html" style="color:inherit">Privacy</a> &middot;
+  <a href="/terms.html" style="color:inherit">Terms</a> &middot;
+  <a href="mailto:hello@simplegrid.ai" style="color:inherit">hello@simplegrid.ai</a>
+</footer>
+</body>
 </html>

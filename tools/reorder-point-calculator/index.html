@@ -25,8 +25,8 @@
 {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Inventory Reorder Point + EOQ Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/reorder-point-calculator/"}]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 
 <script src="../../assets/js/analytics-init.js" defer></script>
@@ -86,9 +86,21 @@ document.addEventListener('DOMContentLoaded',()=>{
   function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
   function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
   function recalc(){
+    const aduRaw = parseFloat(document.getElementById('adu').value);
+    const mduRaw = parseFloat(document.getElementById('mdu').value);
+    const altRaw = parseFloat(document.getElementById('alt').value);
+    const mltRaw = parseFloat(document.getElementById('mlt').value);
+    const carryRaw = parseFloat(document.getElementById('carry').value);
     const adu = nn('adu'); const mdu = Math.max(nn('mdu'), adu);
     const alt = nn('alt'); const mlt = Math.max(nn('mlt'), alt);
     const cost = nn('cost'); const carry = nn('carry')/100; const order = nn('order');
+    const warns = [];
+    if (!isNaN(mduRaw) && !isNaN(aduRaw) && mduRaw < aduRaw) warns.push('Max daily usage (' + mduRaw + ') is less than average (' + aduRaw + ') - max raised to average so safety stock is non-negative.');
+    if (!isNaN(mltRaw) && !isNaN(altRaw) && mltRaw < altRaw) warns.push('Max lead time (' + mltRaw + ') is less than average (' + altRaw + ') - max raised to average.');
+    if (cost === 0) warns.push('Unit cost is $0 - EOQ cannot be calculated (the EOQ formula divides by cost).');
+    if (!isNaN(carryRaw) && carryRaw <= 0) warns.push('Carrying cost rate must be greater than 0% - EOQ requires a positive carry rate. Typical manufacturing is 18-25% per year.');
+    if (order === 0) warns.push('Cost per order is $0 - EOQ would be 0. Even a small ordering cost ($25-100) is realistic.');
+    if (adu === 0) warns.push('Average daily usage is 0 - reorder point cannot be calculated.');
     const z = parseFloat(document.getElementById('service').value);
     // King's method safety stock
     const sigDem = (mdu - adu) / 3.29; const sigLt = (mlt - alt) / 3.29;
@@ -103,7 +115,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     const ordersYr = eoq>0 ? annDem/eoq : 0;
     const annOrder = ordersYr * order;
     const total = annCarry + annOrder;
-    document.getElementById('hero').innerHTML = `
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
       <div class="big-label">Reorder point</div>
       <div class="big-number">${Math.round(rop).toLocaleString()} <span style="font-size:24px;color:var(--fg3);font-weight:500">units</span></div>
       <div class="big-caption">When stock hits this level, place an order. Includes <strong>${Math.round(safety).toLocaleString()} units of safety stock</strong> (${daysSafety.toFixed(1)} days at avg demand) for the selected ${Math.round(parseFloat(document.getElementById('service').selectedOptions[0].text))}% service level.</div>
@@ -113,6 +127,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         <div class="results-stat"><div class="label">Annual inventory cost</div><div class="value">${fmt$(total)}</div><div class="sub">carrying + ordering</div></div>
       </div>
     `;
+    sgWarnPanel(hero, warns);
     document.getElementById('detail').innerHTML = `
       <h2 style="margin-bottom:14px">Cost breakdown</h2>
       <table class="results-table">

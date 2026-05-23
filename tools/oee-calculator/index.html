@@ -25,8 +25,8 @@
 {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"OEE Calculator (Overall Equipment Effectiveness) | SimpleGrid","item":"https://simplegrid.ai/tools/oee-calculator/"}]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 
 <script src="../../assets/js/analytics-init.js" defer></script>
@@ -77,18 +77,32 @@ document.addEventListener('DOMContentLoaded',()=>{
   function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
   function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
   function recalc(){
+    const plannedRaw = parseFloat(document.getElementById('planned').value);
+    const runningRaw = parseFloat(document.getElementById('running').value);
+    const idealRaw = parseFloat(document.getElementById('ideal').value);
+    const actualRaw = parseFloat(document.getElementById('actual').value);
+    const goodRaw = parseFloat(document.getElementById('good').value);
     const planned = Math.max(0.1, nn('planned'));
-    const running = Math.min(nn('running'), planned);
-    const ideal = Math.max(0.01, nn('ideal'));
+    const idealValid = !isNaN(idealRaw) && idealRaw > 0;
+    const ideal = idealValid ? idealRaw : 0;
     const actual = nn('actual');
+    const warns = [];
+    if (!isNaN(runningRaw) && runningRaw > plannedRaw) warns.push('Running time (' + runningRaw + ') exceeds planned production time (' + plannedRaw + ') - capped at planned time. Check inputs.');
+    if (!idealValid) warns.push('Ideal cycle time must be greater than 0 - performance cannot be calculated. (Producing 1 unit in 0 seconds is impossible.)');
+    if (!isNaN(goodRaw) && !isNaN(actualRaw) && goodRaw > actualRaw) warns.push('Good units (' + goodRaw + ') exceed total units produced (' + actualRaw + ') - good was capped at total. Quality cannot exceed 100%.');
+    if (actualRaw === 0 && goodRaw > 0) warns.push('Total units = 0 but good units > 0 - inputs are inconsistent.');
+    const running = Math.min(nn('running'), planned);
     let good = Math.min(nn('good'), actual);
     const price = nn('price');
-    const availability = (running / planned) * 100;
+    const availability = sgSafeDiv(running, planned) * 100;
     const maxAtRunning = running * ideal;
-    let performance = maxAtRunning>0 ? (actual / maxAtRunning) * 100 : 0;
-    if (performance > 100) performance = 100;
-    const quality = actual>0 ? (good / actual) * 100 : 0;
-    const oee = (availability * performance * quality) / 10000;
+    let performance = idealValid ? sgSafeDiv(actual, maxAtRunning) * 100 : 0;
+    if (performance > 100) {
+      warns.push('Computed performance exceeded 100% (actual output > theoretical max). Cycle time may be set too long or running time too short.');
+      performance = 100;
+    }
+    const quality = actual>0 ? sgSafeDiv(good, actual) * 100 : 0;
+    const oee = idealValid ? (availability * performance * quality) / 10000 : 0;
     const theoMax = planned * ideal;
     const availLossUnits = (planned - running) * ideal;
     const perfLossUnits = maxAtRunning - actual;
@@ -100,9 +114,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     else if (oee>=60) { rating='Reasonable - room for improvement'; cls='gold'; }
     else if (oee>=40) { rating='Typical for plants without OEE tracking'; cls='gold'; }
     else { rating='Critical - significant improvement opportunity'; cls='red'; }
-    document.getElementById('hero').innerHTML = `
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
       <div class="big-label">Your OEE</div>
-      <div class="big-number ${cls}">${oee.toFixed(1)}%</div>
+      <div class="big-number ${cls}">${idealValid ? oee.toFixed(1) + '%' : 'N/A'}</div>
       <div class="big-caption"><strong>${rating}.</strong> Availability ${availability.toFixed(1)}% x Performance ${performance.toFixed(1)}% x Quality ${quality.toFixed(1)}%. World-class is 85%+ (only ~10% of plants achieve it).</div>
       <div class="results-grid" style="margin-top:24px">
         <div class="results-stat"><div class="label">Availability</div><div class="value ${availability>=90?'green':availability>=75?'gold':'red'}">${availability.toFixed(1)}%</div><div class="sub">target 90%+</div></div>
@@ -110,6 +126,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         <div class="results-stat"><div class="label">Quality</div><div class="value ${quality>=99?'green':quality>=95?'gold':'red'}">${quality.toFixed(1)}%</div><div class="sub">target 99.9%+</div></div>
       </div>
     `;
+    sgWarnPanel(hero, warns);
     document.getElementById('detail').innerHTML = `
       <h2 style="margin-bottom:14px">Where production is lost</h2>
       <table class="results-table">

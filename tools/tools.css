@@ -213,6 +213,12 @@
 /* Small inline help text */
 .tool-note { font-size: 13px; color: var(--fg3); margin-top: 4px; }
 
+/* Inline warning banner inside a results panel (sgWarnPanel). */
+.sg-warn-box { background: #FEF3C7; border: 1px solid #F59E0B; border-left: 4px solid #B45309; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+.sg-warn-title { font-weight: 700; color: #92400E; font-size: 13px; margin-bottom: 6px; letter-spacing: 0.01em; }
+.sg-warn-list { margin: 0; padding-left: 18px; color: #78350F; font-size: 14px; line-height: 1.5; }
+.sg-warn-list li { margin: 2px 0; }
+
 /* Non-blocking toast notifications (sgToast) — replaces alert() so the
    renderer never freezes on a modal dialog. */
 #sg-toast-host { position: fixed; top: 16px; right: 16px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; max-width: 360px; }

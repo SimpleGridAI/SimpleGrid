@@ -25,8 +25,8 @@
 {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Seller's Discretionary Earnings (SDE) Walkthrough | SimpleGrid","item":"https://simplegrid.ai/tools/sde-calculator/"}]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 
 <script src="../../assets/js/analytics-init.js" defer></script>
@@ -108,20 +108,22 @@ document.addEventListener('DOMContentLoaded',()=>{
     const fin = nn('int')+nn('dep')+nn('amort');
     const other = nn('onetime')+nn('rent')+nn('fam')+nn('other');
     const sde = ni + owner + fin + other;
-    const sdeMargin = rev>0 ? sde/rev*100 : 0;
+    const sdeMargin = sgSafeDiv(sde, rev) * 100;
     const addBacks = owner + fin + other;
-    const addBackPct = sde>0 ? addBacks/sde*100 : 0;
+    const addBackPct = sgSafeDiv(addBacks, sde) * 100;
     const val25 = sde*2.5, val35 = sde*3.5, val45 = sde*4.5;
-    const replacementSalary = 120000; // typical GM/CEO salary for mid-market mfg
+    const replacementSalary = 120000;
     const adjCashFlow = sde - replacementSalary;
     let warnings = [];
+    if (rev === 0 && sde !== 0) warnings.push('Revenue is $0 - SDE valuation multiples do not apply to a zero-revenue business. Enter annual revenue first.');
+    if (sde <= 0 && rev > 0) warnings.push('SDE is zero or negative - this business is not generating discretionary earnings. SDE-based valuation is not appropriate; consider asset-based valuation instead.');
     if (addBackPct > 50) warnings.push('Aggressive add-backs (over 50% of SDE) will face buyer scrutiny. Document every line item.');
     if (sdeMargin > 30) warnings.push('SDE margin over 30% is unusually high for manufacturing. Verify you are not double-counting.');
-    if (sdeMargin < 10 && sdeMargin > 0) warnings.push('SDE margin under 10% is low for a sellable business. Buyers typically want 15%+.');
+    if (rev > 0 && sdeMargin < 10 && sdeMargin > 0) warnings.push('SDE margin under 10% is low for a sellable business. Buyers typically want 15%+.');
     document.getElementById('hero').innerHTML = `
       <div class="big-label">Seller's Discretionary Earnings (SDE)</div>
       <div class="big-number">${fmt$(sde)}</div>
-      <div class="big-caption"><strong>${sdeMargin.toFixed(1)}% margin</strong> on ${fmt$(rev)} revenue. Add-backs are ${addBackPct.toFixed(0)}% of SDE.</div>
+      <div class="big-caption"><strong>${rev > 0 ? sdeMargin.toFixed(1) + '% margin' : 'margin N/A (no revenue)'}</strong>${rev > 0 ? ' on ' + fmt$(rev) + ' revenue.' : '.'} Add-backs are ${sde !== 0 ? addBackPct.toFixed(0) + '% of SDE' : 'N/A'}.</div>
       <div class="results-grid" style="margin-top:24px">
         <div class="results-stat"><div class="label">Net Income (start)</div><div class="value">${fmt$(ni)}</div></div>
         <div class="results-stat"><div class="label">SDE</div><div class="value green">${fmt$(sde)}</div></div>
@@ -136,11 +138,16 @@ document.addEventListener('DOMContentLoaded',()=>{
     run += nn('dep')+nn('amort'); walk += `<tr><td>+ Depreciation & Amortization</td><td class="num">${fmt$(nn('dep')+nn('amort'))}</td><td class="num">${fmt$(run)}</td></tr>`;
     run += other; walk += `<tr><td>+ One-time / discretionary add-backs</td><td class="num">${fmt$(other)}</td><td class="num"><strong style="color:#047857">${fmt$(run)}</strong></td></tr>`;
     walk += '</tbody></table>';
-    let val = '<h2 style="margin-top:32px;margin-bottom:14px">Valuation ranges (SDE method)</h2><table class="results-table"><thead><tr><th>Multiple</th><th class="num">Valuation</th></tr></thead><tbody>';
-    val += `<tr><td>2.5x SDE (low end of manufacturing range)</td><td class="num">${fmt$M(val25)}</td></tr>`;
-    val += `<tr><td>3.5x SDE (median)</td><td class="num"><strong>${fmt$M(val35)}</strong></td></tr>`;
-    val += `<tr><td>4.5x SDE (high end - strong fundamentals)</td><td class="num">${fmt$M(val45)}</td></tr>`;
-    val += '</tbody></table>';
+    let val;
+    if (sde <= 0) {
+      val = '<h2 style="margin-top:32px;margin-bottom:14px">Valuation ranges (SDE method)</h2><p style="color:var(--fg2);font-size:14px;line-height:1.6">SDE is ' + fmt$(sde) + ' (zero or negative). SDE-based valuation does not apply - a business with no discretionary earnings cannot be valued as a multiple of SDE. Consider asset-based or replacement-cost valuation.</p>';
+    } else {
+      val = '<h2 style="margin-top:32px;margin-bottom:14px">Valuation ranges (SDE method)</h2><table class="results-table"><thead><tr><th>Multiple</th><th class="num">Valuation</th></tr></thead><tbody>';
+      val += `<tr><td>2.5x SDE (low end of manufacturing range)</td><td class="num">${fmt$M(val25)}</td></tr>`;
+      val += `<tr><td>3.5x SDE (median)</td><td class="num"><strong>${fmt$M(val35)}</strong></td></tr>`;
+      val += `<tr><td>4.5x SDE (high end - strong fundamentals)</td><td class="num">${fmt$M(val45)}</td></tr>`;
+      val += '</tbody></table>';
+    }
     let warnHtml = '';
     if (warnings.length) {
       warnHtml = '<h2 style="margin-top:32px;margin-bottom:14px">Warning flags</h2><ul>';

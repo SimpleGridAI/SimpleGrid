@@ -25,8 +25,8 @@
 {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Customer Concentration Risk Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/customer-concentration-risk/"}]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 
 <script src="../../assets/js/analytics-init.js" defer></script>
@@ -88,6 +88,12 @@ document.addEventListener('DOMContentLoaded',()=>{
     const rs = [nn('c1r'), nn('c2r'), nn('c3r'), nn('c4r'), nn('c5r')];
     const ns = ['c1n','c2n','c3n','c4n','c5n'].map(i=>document.getElementById(i).value || 'Customer '+(['1','2','3','4','5'][['c1n','c2n','c3n','c4n','c5n'].indexOf(i)]));
     const top5sum = rs.reduce((a,b)=>a+b,0);
+    const warns = [];
+    const noData = rev === 0 && top5sum === 0;
+    if (noData) warns.push('Enter total revenue and at least one customer revenue to see concentration analysis.');
+    else if (rev === 0) warns.push('Total revenue is $0 - cannot compute percentage shares. Enter total revenue.');
+    else if (top5sum > rev) warns.push('Top 5 customer revenues (' + fmt$(top5sum) + ') exceed total revenue (' + fmt$(rev) + '). One or more customer values is too high.');
+    rs.forEach((r,i) => { if (rev > 0 && r > rev) warns.push((ns[i] || 'Customer ' + (i+1)) + ' revenue (' + fmt$(r) + ') exceeds total revenue (' + fmt$(rev) + ').'); });
     const restRev = Math.max(0, rev - top5sum);
     const restCount = Math.max(0, nn('rest'));
     const restPer = restCount>0 ? restRev/restCount : 0;
@@ -95,9 +101,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     const top1 = shares[0]||0;
     const top3 = (shares[0]||0) + (shares[1]||0) + (shares[2]||0);
     const top5 = shares.reduce((a,b)=>a+b,0);
-    const hhi = shares.reduce((sum,s)=>sum + s*s, 0) + (restCount>0?(restPer/rev*100)**2*restCount:0);
+    const hhi = rev > 0 ? shares.reduce((sum,s)=>sum + s*s, 0) + (restCount>0?(restPer/rev*100)**2*restCount:0) : 0;
     let conc, concCls;
-    if (hhi<1500) { conc='Low concentration (diversified)'; concCls='green'; }
+    if (noData) { conc='No data entered'; concCls='gold'; }
+    else if (hhi<1500) { conc='Low concentration (diversified)'; concCls='green'; }
     else if (hhi<2500) { conc='Moderate concentration'; concCls='gold'; }
     else if (hhi<5000) { conc='High concentration'; concCls='red'; }
     else { conc='Extreme concentration (dangerous)'; concCls='red'; }
@@ -110,9 +117,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     if (top1<15) valDiscount = -0.2; else if (top1<25) valDiscount = 0; else if (top1<40) valDiscount = 0.3; else valDiscount = 0.75;
     const sdeEstimate = rev * 0.10; // rough SDE proxy
     const valImpact = sdeEstimate * valDiscount * 3.5;
-    document.getElementById('hero').innerHTML = `
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
       <div class="big-label">Customer concentration risk</div>
-      <div class="big-number ${riskCls}">${risk}</div>
+      <div class="big-number ${riskCls}">${noData ? 'No data' : risk}</div>
       <div class="big-caption"><strong>HHI: ${Math.round(hhi).toLocaleString()}</strong> (${conc}). Top customer: ${top1.toFixed(1)}% of revenue.</div>
       <div class="results-grid" style="margin-top:24px">
         <div class="results-stat"><div class="label">Top customer</div><div class="value ${top1>=25?'red':'green'}">${top1.toFixed(1)}%</div></div>
@@ -120,6 +129,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         <div class="results-stat"><div class="label">Top 5 customers</div><div class="value ${top5>=80?'red':top5>=70?'gold':'green'}">${top5.toFixed(1)}%</div></div>
       </div>
     `;
+    sgWarnPanel(hero, warns);
     let tbl = '<h2 style="margin-bottom:14px">Customer breakdown</h2><table class="results-table"><thead><tr><th>Customer</th><th class="num">Revenue</th><th class="num">% of total</th></tr></thead><tbody>';
     for (let i=0; i<5; i++) if (rs[i]>0) tbl += `<tr><td>${ns[i]}</td><td class="num">${fmt$(rs[i])}</td><td class="num">${shares[i].toFixed(1)}%</td></tr>`;
     if (restRev>0) tbl += `<tr><td>${restCount} other customers</td><td class="num">${fmt$(restRev)}</td><td class="num">${(restRev/rev*100).toFixed(1)}%</td></tr>`;

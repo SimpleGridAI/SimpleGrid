@@ -31,8 +31,8 @@
 ]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 <style>
 .cost-summary { background: linear-gradient(180deg, var(--sg-blue-light) 0%, #fff 100%); border: 1px solid var(--border); border-radius: 14px; padding: 28px; margin-top: 24px; }
@@ -223,9 +223,18 @@ document.addEventListener('DOMContentLoaded',()=>{
     const ohRate=Math.min(200, nn(document.getElementById('job-overhead').value));
     const overhead=(labTotal+machTotal)*(ohRate/100);
     const totalJob=matTotal+labTotal+machTotal+sub+setup+overhead;
-    const qty=Math.max(1,parseInt(document.getElementById('job-qty').value)||1);
-    const perUnit=totalJob/qty;
-    document.getElementById('cost-summary').innerHTML=`
+    const qtyRaw = parseInt(document.getElementById('job-qty').value);
+    const qty = Math.max(1, qtyRaw || 1);
+    const perUnit = sgSafeDiv(totalJob, qty);
+    const ohRaw = parseFloat(document.getElementById('job-overhead').value);
+    const warns = [];
+    if (!isNaN(qtyRaw) && qtyRaw <= 0) warns.push('Quantity must be at least 1 - using 1 for per-unit calculations.');
+    if (!isNaN(ohRaw) && ohRaw < 0) warns.push('Overhead rate cannot be negative - treated as 0%.');
+    if (!isNaN(ohRaw) && ohRaw > 200) warns.push('Overhead rate capped at 200% - 200%+ is extremely high for manufacturing.');
+    if (totalJob === 0) warns.push('All cost inputs are zero - add materials, labor, or machine time to see a meaningful job cost.');
+    const costSummary = document.getElementById('cost-summary');
+    costSummary.innerHTML=`
+      <div data-sg-warn></div>
       <div class="cost-row"><span>Direct materials</span><strong>${money(matTotal)}</strong></div>
       <div class="cost-row"><span>Direct labor</span><strong>${money(labTotal)}</strong></div>
       <div class="cost-row"><span>Machine time</span><strong>${money(machTotal)}</strong></div>
@@ -235,6 +244,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       <div class="cost-row total"><span>TOTAL JOB COST (${qty} units)</span><strong>${money(totalJob)}</strong></div>
       <div class="cost-row" style="margin-top:8px"><span>Per-unit cost</span><strong>${money(perUnit)}</strong></div>
     `;
+    sgWarnPanel(costSummary, warns);
     // Margin / suggested price
     const sellPrice=nn(document.getElementById('job-price').value);
     let targetMargin=parseFloat(document.getElementById('job-target-margin').value);

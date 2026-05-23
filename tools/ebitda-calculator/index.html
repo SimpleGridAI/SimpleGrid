@@ -25,8 +25,8 @@
 {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"EBITDA & SDE Calculator for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/ebitda-calculator/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is EBITDA vs SDE?","acceptedAnswer":{"@type":"Answer","text":"EBITDA = Earnings before interest, taxes, depreciation, amortization. SDE adds back owner compensation. EBITDA is used for valuations above $5M EBITDA; SDE for below."}},{"@type":"Question","name":"What is a good EBITDA margin for manufacturing?","acceptedAnswer":{"@type":"Answer","text":"Manufacturing median is 8-12%. Top quartile is 16% or higher. Source: US Census Bureau Annual Survey of Manufactures."}}]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 
 <script src="../../assets/js/analytics-init.js" defer></script>
@@ -112,19 +112,26 @@ document.addEventListener('DOMContentLoaded',()=>{
     const onetime = nnn('onetime');
     const ownerTotal = owsal + owhealth + owret + owveh + owpax;
     const sde = ebitda + ownerTotal + onetime;
-    const ebitdaMargin = rev>0 ? ebitda/rev*100 : 0;
-    const sdeMargin = rev>0 ? sde/rev*100 : 0;
-    const margCls = ebitdaMargin>=12?'green':ebitdaMargin>=6?'gold':'red';
-    document.getElementById('hero').innerHTML = `
+    const ebitdaMargin = sgSafeDiv(ebitda, rev) * 100;
+    const sdeMargin = sgSafeDiv(sde, rev) * 100;
+    const margCls = rev > 0 ? (ebitdaMargin>=12?'green':ebitdaMargin>=6?'gold':'red') : 'gold';
+    const warns = [];
+    if (rev === 0) warns.push('Revenue is $0 - margin and valuation multiples cannot be computed. EBITDA/SDE absolute dollars are still valid but a margin % is undefined.');
+    if (rev > 0 && ebitda < 0) warns.push('EBITDA is negative - the business is not generating operating cash. Standard SDE/EBITDA multiples do not apply to loss-making companies.');
+    if (rev > 0 && ebitda / rev > 0.5) warns.push('EBITDA margin > 50% is unusual for manufacturing - double-check that all operating expenses are reflected in Net Income.');
+    const hero = document.getElementById('hero');
+    hero.innerHTML = `
+      <div data-sg-warn></div>
       <div class="big-label">EBITDA</div>
       <div class="big-number ${margCls}">${fmt$(ebitda)}</div>
-      <div class="big-caption">Margin: <strong>${ebitdaMargin.toFixed(1)}%</strong> on ${fmt$(rev)} revenue. Manufacturing median: 8-12% (Census Bureau ASM). Top quartile: 16%+.</div>
+      <div class="big-caption">Margin: <strong>${rev > 0 ? ebitdaMargin.toFixed(1) + '%' : 'N/A (zero revenue)'}</strong>${rev > 0 ? ' on ' + fmt$(rev) + ' revenue. Manufacturing median: 8-12% (Census Bureau ASM). Top quartile: 16%+.' : '. Enter revenue to see margin and valuation.'}</div>
       <div class="results-grid" style="margin-top:24px">
         <div class="results-stat"><div class="label">Net Income</div><div class="value">${fmt$(ni)}</div></div>
         <div class="results-stat"><div class="label">EBITDA</div><div class="value ${margCls}">${fmt$(ebitda)}</div><div class="sub">${ebitdaMargin.toFixed(1)}% margin</div></div>
-        <div class="results-stat"><div class="label">SDE</div><div class="value">${fmt$(sde)}</div><div class="sub">${sdeMargin.toFixed(1)}% margin</div></div>
+        <div class="results-stat"><div class="label">SDE</div><div class="value">${fmt$(sde)}</div><div class="sub">${rev > 0 ? sdeMargin.toFixed(1) + '% margin' : 'margin N/A'}</div></div>
       </div>
     `;
+    sgWarnPanel(hero, warns);
     const ebVal = [ebitda*4, ebitda*5.5, ebitda*7];
     const sdeVal = [sde*2.5, sde*3.5, sde*4.5];
     document.getElementById('detail').innerHTML = `

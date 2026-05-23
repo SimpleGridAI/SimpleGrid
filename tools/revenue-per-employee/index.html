@@ -25,8 +25,8 @@
 {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Revenue per Employee","item":"https://simplegrid.ai/tools/revenue-per-employee/"}]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 
 <script src="../../assets/js/analytics-init.js" defer></script>
@@ -150,20 +150,27 @@ document.addEventListener('DOMContentLoaded',()=>{
   function nn(v){return Math.max(0, parseFloat(v)||0);}
 
   function recalc(){
-    const revenue = nn(document.getElementById('rpe-revenue').value);
-    const fte = Math.max(1, parseInt(document.getElementById('rpe-fte').value)||1);
+    const revenueRaw = parseFloat(document.getElementById('rpe-revenue').value);
+    const fteRaw = parseInt(document.getElementById('rpe-fte').value);
+    const revenue = nn(revenueRaw);
+    const fte = Math.max(1, fteRaw || 1);
     const contractors = nn(document.getElementById('rpe-contractors').value);
     const vertical = document.getElementById('rpe-vertical').value;
     const country = document.getElementById('rpe-country').value;
     const adjFTE = fte + contractors * 0.75;
-    const rpe = revenue / adjFTE;
+    const noData = revenue === 0 || (!fteRaw && !contractors);
+    const warns = [];
+    if (revenue === 0 && fteRaw > 0) warns.push('Revenue is $0 with ' + fteRaw + ' employees - this looks like a startup or pre-revenue state. Revenue-per-employee benchmarks do not apply until you have revenue.');
+    if (revenue > 0 && (!fteRaw || fteRaw <= 0)) warns.push('Headcount is 0 or empty - using 1 employee as a placeholder. Enter actual FTE for a meaningful benchmark.');
+    const rpe = sgSafeDiv(revenue, adjFTE);
     const bench = BENCH[vertical];
     const adjust = country === 'india' ? 0.20 : 1.0;
     const median = bench.median * adjust;
     const top = bench.top * adjust;
     const bottom = median * 0.6; // rough P25 estimate
     let percentile, status, statusCls;
-    if (rpe >= top) { percentile = 90; status = 'Top decile - best-in-class for your vertical'; statusCls = 'green'; }
+    if (noData) { percentile = 0; status = 'Enter revenue and headcount to benchmark'; statusCls = 'gold'; }
+    else if (rpe >= top) { percentile = 90; status = 'Top decile - best-in-class for your vertical'; statusCls = 'green'; }
     else if (rpe >= top * 0.95) { percentile = 80; status = 'Top quartile - strong performance'; statusCls = 'green'; }
     else if (rpe >= median) { percentile = 50 + Math.round(((rpe - median) / (top - median)) * 25); status = 'Above median - performing well'; statusCls = 'green'; }
     else if (rpe >= bottom) { percentile = Math.round(((rpe - bottom) / (median - bottom)) * 50); status = 'Below median - room to improve'; statusCls = 'gold'; }
@@ -177,7 +184,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     const fteIfTop = revenue / top;
     const gainPer10k = 10000 * adjFTE;
 
-    document.getElementById('rpe-hero').innerHTML = `
+    const rpeHero = document.getElementById('rpe-hero');
+    rpeHero.innerHTML = `
+      <div data-sg-warn></div>
       <div class="big-label">Your revenue per employee</div>
       <div class="big-number ${statusCls}">${fmt$(rpe)}</div>
       <div class="big-caption"><strong>${status}.</strong> Vertical median for ${bench.name} (${country==='india'?'India':'US'}): ${fmt$K(median)}. Top quartile: ${fmt$K(top)}.</div>
@@ -188,8 +197,9 @@ document.addEventListener('DOMContentLoaded',()=>{
         <div class="stop ${percentile>=80?'active-4':''}"></div>
         <div class="stop ${percentile>=95?'active-5':''}"></div>
       </div>
-      <div style="font-size:12px;color:var(--fg3);margin-top:6px">You're at the <strong>${percentile}th percentile</strong> for your vertical.</div>
+      <div style="font-size:12px;color:var(--fg3);margin-top:6px">${noData?'':'You\'re at the <strong>'+percentile+'th percentile</strong> for your vertical.'}</div>
     `;
+    sgWarnPanel(rpeHero, warns);
 
     document.getElementById('rpe-detail').innerHTML = `
       <h2 style="margin-bottom:12px">How you compare</h2>

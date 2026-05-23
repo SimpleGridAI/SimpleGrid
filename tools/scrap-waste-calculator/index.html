@@ -25,8 +25,8 @@
 {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Scrap & Waste Cost Calculator","item":"https://simplegrid.ai/tools/scrap-waste-calculator/"}]}
 ]}
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
 <script src="../tools.js" defer></script>
 
 <script src="../../assets/js/analytics-init.js" defer></script>
@@ -129,16 +129,27 @@ document.addEventListener('DOMContentLoaded',()=>{
   function nn(v){return Math.max(0, parseFloat(v)||0);}
 
   function recalc(){
-    const volume = nn(document.getElementById('sw-volume').value);
-    const scrapPct = Math.min(100, nn(document.getElementById('sw-scrap').value));
-    const reworkPct = Math.min(100, nn(document.getElementById('sw-rework').value));
+    const volumeRaw = parseFloat(document.getElementById('sw-volume').value);
+    const scrapRaw = parseFloat(document.getElementById('sw-scrap').value);
+    const reworkRaw = parseFloat(document.getElementById('sw-rework').value);
+    const recoveryRaw = parseFloat(document.getElementById('sw-recovery').value);
+    const volume = nn(volumeRaw);
+    const scrapPct = Math.min(100, nn(scrapRaw));
+    const reworkPct = Math.min(100, nn(reworkRaw));
     const matCost = nn(document.getElementById('sw-mat').value);
     const labCost = nn(document.getElementById('sw-lab').value);
     let ohCost = nn(document.getElementById('sw-oh').value);
     if (ohCost === 0) ohCost = labCost * 1.5; // estimate per spec
     const price = nn(document.getElementById('sw-price').value);
     const reworkLab = nn(document.getElementById('sw-rework-cost').value);
-    const recovery = Math.min(100, nn(document.getElementById('sw-recovery').value)) / 100;
+    const recovery = Math.min(100, nn(recoveryRaw)) / 100;
+    const warns = [];
+    if (!isNaN(volumeRaw) && volumeRaw < 0) warns.push('Production volume cannot be negative.');
+    if (!isNaN(scrapRaw) && scrapRaw > 100) warns.push('Scrap rate cannot exceed 100% - capped at 100%.');
+    if (!isNaN(reworkRaw) && reworkRaw > 100) warns.push('Rework rate cannot exceed 100% - capped at 100%.');
+    if (scrapPct + reworkPct > 100) warns.push('Scrap (' + scrapPct + '%) + rework (' + reworkPct + '%) exceeds 100% - more defective units than produced. Check the inputs.');
+    if (!isNaN(recoveryRaw) && recoveryRaw > 100) warns.push('Scrap recovery rate cannot exceed 100% - capped at 100%. You cannot recover more than the original material cost.');
+    if (volume === 0) warns.push('Production volume is 0 - all costs will be $0.');
 
     const scrappedUnits = volume * scrapPct / 100;
     const reworkedUnits = volume * reworkPct / 100;
@@ -190,7 +201,9 @@ document.addEventListener('DOMContentLoaded',()=>{
       return { rate: targetPct, annualSaving, marginGain };
     }
 
-    document.getElementById('sw-hero').innerHTML = `
+    const swHero = document.getElementById('sw-hero');
+    swHero.innerHTML = `
+      <div data-sg-warn></div>
       <div class="big-label">Annual waste cost</div>
       <div class="big-number ${benchCls}">${fmt$K(annualWaste)}</div>
       <div class="big-caption"><strong>${bench}.</strong> ${fmt$K(monthlyWaste)} per month. Plus ${fmt$K(annualLostRevenue)} in lost revenue from units that never sold.</div>
@@ -200,6 +213,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         <div class="results-stat"><div class="label">True margin after waste</div><div class="value ${trueMargin>=25?'green':trueMargin>=15?'gold':'red'}">${trueMargin.toFixed(1)}%</div><div class="sub">Reported: ${reportedMargin.toFixed(1)}%</div></div>
       </div>
     `;
+    sgWarnPanel(swHero, warns);
 
     const s1 = scenario(scrapPct * 0.75);
     const s2 = scenario(scrapPct * 0.5);
