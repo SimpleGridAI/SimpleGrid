@@ -11,7 +11,6 @@ function App() {
       <HowItWorks />
       <ProofSection />
       <FounderStory />
-      <DataSecurity />
       <ComparisonTable />
       <FromTheField />
       <HomeFAQ />
