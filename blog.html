@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
@@ -16,12 +15,9 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/blog.html">
 <link rel="icon" type="image/svg+xml" href="assets/simplegrid-logomark.svg">
-<link rel="preconnect" href="https://unpkg.com" crossorigin>
-<link rel="dns-prefetch" href="https://us-assets.i.posthog.com">
 <link rel="stylesheet" href="colors_and_type.css">
 <link rel="stylesheet" href="styles.css">
 
-<!-- Open Graph -->
 <meta property="og:site_name" content="SimpleGrid">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
@@ -31,7 +27,6 @@
 <meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
 <meta property="og:image:alt" content="SimpleGrid blog - manufacturing ERP field notes">
 
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@simplegridai">
 <meta name="twitter:creator" content="@simplegridai">
@@ -70,9 +65,17 @@
   ]
 }
 </script>
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
-<script src="data/blogs.js"></script>
+
+<style>
+  .blog-filter-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 28px; }
+  .blog-filter { background: #fff; color: var(--fg2); border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 120ms ease; }
+  .blog-filter:hover { border-color: var(--sg-blue); color: var(--sg-blue); }
+  .blog-filter.active { background: var(--sg-blue); color: #fff; border-color: var(--sg-blue); }
+  @media (max-width: 720px) {
+    .blog-filter-row { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+    .blog-filter { flex-shrink: 0; }
+  }
+</style>
 
 <!-- Analytics (PostHog + GA4) - deferred to first user interaction. See /assets/js/analytics-init.js -->
 <script src="assets/js/analytics-init.js" defer></script>
@@ -82,49 +85,285 @@
 <script src="assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
-<!-- Static seed inside #root - React replaces on mount. -->
-<div id="root">
-  <a href="#main" class="skip-link">Skip to main content</a>
-  <header role="banner" style="padding:18px 32px;display:flex;justify-content:space-between;align-items:center">
-    <a href="/" aria-label="SimpleGrid home" style="text-decoration:none;color:#101418;font-weight:700;font-size:18px">SimpleGrid</a>
-    <nav aria-label="Main navigation" style="display:flex;gap:20px;font-size:14px">
-      <a href="/">Home</a>
-      <a href="/product.html">Product</a>
-      <a href="/tools/">Productive Tools</a>
-      <a href="/pricing.html">Pricing</a>
-      <a href="/case-studies.html">Case studies</a>
-      <a href="/about.html">About</a>
-      <a href="https://cal.com/simplegrid-ai" rel="noopener noreferrer">Book a call</a>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/" aria-label="SimpleGrid home" title="SimpleGrid - AI ERP for manufacturers">
+      <img src="assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async">
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/product.html" class="nav-link">Product</a>
+      <a href="/tools/" class="nav-link">Productive Tools</a>
+      <details class="nav-resources">
+        <summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+        <div class="nav-resources-menu">
+          <a href="/case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a>
+          <a href="/blog.html">Blog <span>Field notes on ERP and ops.</span></a>
+        </div>
+      </details>
     </nav>
-  </header>
-  <main id="main" style="padding:60px 32px;max-width:920px;margin:0 auto">
-    <h1 style="font-size:44px;line-height:1.1;letter-spacing:-0.025em;margin:0 0 18px">SimpleGrid Blog - field notes from operators.</h1>
-    <p style="font-size:18px;line-height:1.55;color:#3b4250;max-width:680px;margin:0 0 28px">Field notes from operators on fast-deploy ERP, factory floor software, and why most ERP rollouts fail. Read posts from the team building SimpleGrid.</p>
-    <p style="font-size:16px;line-height:1.6;color:#3b4250;max-width:680px;margin:0 0 32px">Browse all 17 posts below. Each is operator-written; most pair a product/architecture deep-dive with a concrete manufacturing example.</p>
-    <nav aria-label="All posts" style="display:flex;flex-direction:column;gap:12px;max-width:760px;margin-bottom:32px">
-      <a href="/blog/event-sourcing-why-simplegrid-stores-everything-that-ever-happened/">Event Sourcing: Why SimpleGrid Stores Every Action Forever</a>
-      <a href="/blog/sg-schema-why-your-erp-should-speak-your-language/">SG Schema: Why Your ERP Should Speak Your Language</a>
-      <a href="/blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/">Entity Roots: Building Blocks of an SG Schema ERP</a>
-      <a href="/blog/multi-tenant-architecture-how-simplegrid-runs-100-clients-on-one-platform/">Multi-Tenant Architecture: 100 Clients, One Platform</a>
-      <a href="/blog/how-simplegrid-makes-erp-customization-take-minutes-not-months/">ERP Customization in Minutes, Not Months</a>
-      <a href="/blog/module-based-erp-vs-sg-schema-erp-two-architectures-two-outcomes/">Module-Based ERP vs. SG Schema ERP</a>
-      <a href="/blog/how-we-built-an-erp-chatbot-with-claude-no-rag-and-full-context/">Building an ERP Chatbot With Claude, No RAG</a>
-      <a href="/blog/why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point/">Why Conversational UX Does Not Change Behavior</a>
-      <a href="/blog/how-to-calculate-true-landed-cost-per-sku-and-why-most-manufacturers-cannot/">True Landed Cost Per SKU (And Why Most Cannot)</a>
-      <a href="/blog/inside-simplegrid-every-factory-floor-is-different-that-is-the-whole-point/">Inside SimpleGrid: Every Factory Is Different</a>
-      <a href="/blog/why-mid-market-manufacturers-are-the-most-underserved-businesses-in-enterprise-software/">Why Mid-Market Manufacturers Are Underserved</a>
-      <a href="/blog/the-real-cost-of-running-your-factory-on-spreadsheets/">The Real Cost of Running Your Factory on Spreadsheets</a>
-      <a href="/blog/why-your-erp-vendor-charges-you-for-every-change-and-how-to-stop-paying/">Why Your ERP Vendor Charges You for Every Change</a>
-      <a href="/blog/how-ai-changed-erp-deployment-not-features-deployment/">How AI Changed ERP Deployment (Not Features)</a>
-      <a href="/blog/what-happens-when-your-erp-cannot-keep-up-with-your-business/">When Your ERP Cannot Keep Up With Your Business</a>
-      <a href="/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/">Your Warehouse Manager Should Be Your ERP's First User</a>
-      <a href="/blog/the-myth-of-erp-best-practices-your-operation-is-not-generic/">The Myth of ERP Best Practices</a>
-    </nav>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#3461e0;color:#fff;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:600">Book a demo call</a>
-  </main>
-</div>
-<script src="components/Nav.js" defer></script>
-<script src="components/LoginModal.js" defer></script>
-<script src="components/Footer.js" defer></script>
-<script src="app/blog.js" defer></script></body>
+    <div class="nav-right">
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="nav_book_call" class="btn btn-sm btn-primary">Book a call</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section" style="padding-bottom:48px">
+    <div class="container">
+      <div class="tag">BLOG</div>
+      <h1 class="h2">ERP for manufacturers - field notes from operators who built it.</h1>
+      <p class="lead" style="margin-bottom:24px">Straight talk about ERP and operations. No jargon. No "digital transformation." What works on the factory floor.</p>
+<!-- BLOG_CARDS_START -->
+        <div class="blog-filter-row" role="toolbar" aria-label="Filter posts by category">
+          <button type="button" class="blog-filter active" data-filter="All">All</button>
+          <button type="button" class="blog-filter" data-filter="Build in Public">Build in Public</button>
+          <button type="button" class="blog-filter" data-filter="Culture">Culture</button>
+          <button type="button" class="blog-filter" data-filter="Industry Critique">Industry Critique</button>
+          <button type="button" class="blog-filter" data-filter="Industry Critique / Product">Industry Critique / Product</button>
+          <button type="button" class="blog-filter" data-filter="Operator Insights">Operator Insights</button>
+          <button type="button" class="blog-filter" data-filter="Operator Insights / Product">Operator Insights / Product</button>
+          <button type="button" class="blog-filter" data-filter="Product Deep-Dive">Product Deep-Dive</button>
+          <button type="button" class="blog-filter" data-filter="Product Deep-Dive / Industry Critique">Product Deep-Dive / Industry Critique</button>
+        </div>
+        <div class="blog-grid" id="blog-grid">
+        <a class="blog-card" href="blog/the-myth-of-erp-best-practices-your-operation-is-not-generic/" data-cat="Industry Critique">
+          <div class="blog-cover" style="background:#1A1A1A;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8A8F98">Industry Critique</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><rect x="45" y="30" width="110" height="50" rx="4" fill="none" stroke="#fff" stroke-width="1.5"/><text x="100" y="52" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">BEST PRACTICES</text><text x="100" y="68" font-size="7" fill="#8A8F98" text-anchor="middle">industry average</text><line x1="55" y1="35" x2="145" y2="75" stroke="#4A7BF7" stroke-width="3"/><line x1="145" y1="35" x2="55" y2="75" stroke="#4A7BF7" stroke-width="3"/></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">The Myth of ERP Best Practices</h2>
+            <div class="meta"><time datetime="2026-05-22">May 22, 2026</time> &middot; <span>5 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/" data-cat="Operator Insights">
+          <div class="blog-cover" style="background:var(--sg-blue);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7)">Operator Insights</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><rect x="40" y="25" width="50" height="70" rx="3" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="55" y="20" width="20" height="10" rx="2" fill="#fff"/><line x1="48" y1="42" x2="82" y2="42" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/><line x1="48" y1="52" x2="82" y2="52" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/><line x1="48" y1="62" x2="82" y2="62" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/><line x1="48" y1="72" x2="82" y2="72" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/><rect x="115" y="28" width="40" height="65" rx="5" fill="#fff"/><rect x="119" y="34" width="32" height="45" fill="#fff"/><circle cx="135" cy="87" r="2.5" fill="#fff"/><text x="135" y="58" font-size="7" fill="#fff" text-anchor="middle" font-weight="700">OK</text></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">Your Warehouse Manager Should Be Your ERP's First User</h2>
+            <div class="meta"><time datetime="2026-05-17">May 17, 2026</time> &middot; <span>4 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/what-happens-when-your-erp-cannot-keep-up-with-your-business/" data-cat="Operator Insights">
+          <div class="blog-cover" style="background:var(--sg-blue-light);color:var(--sg-blue-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(30,58,138,0.6)">Operator Insights</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><path d="M25 85 Q 70 85 100 55 T 175 20" fill="none" stroke="var(--sg-blue-dark)" stroke-width="2"/><path d="M25 85 L 175 75" fill="none" stroke="rgba(30,58,138,0.6)" stroke-width="1.5" stroke-dasharray="3 3"/><text x="178" y="22" font-size="7" fill="var(--sg-blue-dark)" font-weight="700">Business</text><text x="178" y="78" font-size="7" fill="rgba(30,58,138,0.6)">ERP</text><line x1="25" y1="90" x2="175" y2="90" stroke="var(--sg-blue-dark)" stroke-width="1"/></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">When Your ERP Cannot Keep Up With Your Business</h2>
+            <div class="meta"><time datetime="2026-05-13">May 13, 2026</time> &middot; <span>5 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/how-ai-changed-erp-deployment-not-features-deployment/" data-cat="Industry Critique / Product">
+          <div class="blog-cover" style="background:#1A1A1A;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8A8F98">Industry Critique / Product</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><rect x="25" y="45" width="90" height="14" fill="#8A8F98" opacity="0.4"/><text x="70" y="70" font-size="8" fill="#8A8F98" text-anchor="middle">12 months</text><path d="M120 52 L140 52" stroke="#4A7BF7" stroke-width="1.5" marker-end="url(#a14)"/><defs><marker id="a14" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#4A7BF7"/></marker></defs><rect x="145" y="45" width="18" height="14" fill="#4A7BF7"/><text x="154" y="70" font-size="8" fill="#4A7BF7" text-anchor="middle" font-weight="700">7 days</text></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">How AI Changed ERP Deployment (Not Features)</h2>
+            <div class="meta"><time datetime="2026-05-10">May 10, 2026</time> &middot; <span>5 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/why-your-erp-vendor-charges-you-for-every-change-and-how-to-stop-paying/" data-cat="Industry Critique">
+          <div class="blog-cover" style="background:var(--sg-blue);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7)">Industry Critique</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><g><rect x="55" y="20" width="80" height="60" fill="#fff" stroke="#fff" stroke-width="1"/></g><g><rect x="59" y="24" width="80" height="60" fill="#fff" stroke="#fff" stroke-width="1"/></g><g><rect x="63" y="28" width="80" height="60" fill="#fff" stroke="#fff" stroke-width="1"/></g><g><rect x="67" y="32" width="80" height="60" fill="#fff" stroke="#fff" stroke-width="1"/></g><rect x="67" y="32" width="80" height="60" fill="#fff" stroke="#fff" stroke-width="1.5"/><line x1="73" y1="44" x2="135" y2="44" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/><line x1="73" y1="52" x2="125" y2="52" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/><line x1="73" y1="60" x2="130" y2="60" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/><text x="130" y="84" font-size="10" fill="#fff" text-anchor="end" font-weight="700" font-family="monospace">+$12K</text></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">Why Your ERP Vendor Charges You for Every Change</h2>
+            <div class="meta"><time datetime="2026-05-06">May 6, 2026</time> &middot; <span>5 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/the-real-cost-of-running-your-factory-on-spreadsheets/" data-cat="Operator Insights">
+          <div class="blog-cover" style="background:var(--sg-blue-light);color:var(--sg-blue-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(30,58,138,0.6)">Operator Insights</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><rect x="30" y="20" width="140" height="75" fill="none" stroke="var(--sg-blue-dark)" stroke-width="1.2"/><line x1="30" y1="35" x2="170" y2="35" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><line x1="30" y1="47" x2="170" y2="47" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><line x1="30" y1="59" x2="170" y2="59" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><line x1="30" y1="71" x2="170" y2="71" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><line x1="30" y1="83" x2="170" y2="83" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><line x1="30" y1="20" x2="30" y2="95" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><line x1="55" y1="20" x2="55" y2="95" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><line x1="80" y1="20" x2="80" y2="95" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><line x1="105" y1="20" x2="105" y2="95" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><line x1="130" y1="20" x2="130" y2="95" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><line x1="155" y1="20" x2="155" y2="95" stroke="rgba(30,58,138,0.6)" stroke-width="0.6"/><circle cx="80" cy="40" r="6" fill="none" stroke="var(--sg-blue-dark)" stroke-width="1.5"/><circle cx="130" cy="64" r="6" fill="none" stroke="var(--sg-blue-dark)" stroke-width="1.5"/><circle cx="55" cy="76" r="6" fill="none" stroke="var(--sg-blue-dark)" stroke-width="1.5"/></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">The Real Cost of Running Your Factory on Spreadsheets</h2>
+            <div class="meta"><time datetime="2026-05-03">May 3, 2026</time> &middot; <span>5 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/why-mid-market-manufacturers-are-the-most-underserved-businesses-in-enterprise-software/" data-cat="Industry Critique">
+          <div class="blog-cover" style="background:#1A1A1A;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8A8F98">Industry Critique</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><rect x="20" y="40" width="35" height="40" fill="#8A8F98" opacity="0.4"/><text x="37" y="64" font-size="7" fill="#fff" text-anchor="middle">SAP</text><rect x="75" y="30" width="50" height="50" fill="#4A7BF7" opacity="0.3" stroke="#4A7BF7" stroke-width="1.5" stroke-dasharray="3 2"/><text x="100" y="52" font-size="8" fill="#fff" text-anchor="middle" font-weight="700">MID</text><text x="100" y="64" font-size="7" fill="#fff" text-anchor="middle">MARKET</text><rect x="145" y="50" width="35" height="30" fill="#8A8F98" opacity="0.4"/><text x="162" y="69" font-size="7" fill="#fff" text-anchor="middle">QB</text></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">Why Mid-Market Manufacturers Are Underserved</h2>
+            <div class="meta"><time datetime="2026-04-29">Apr 29, 2026</time> &middot; <span>5 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/inside-simplegrid-every-factory-floor-is-different-that-is-the-whole-point/" data-cat="Culture">
+          <div class="blog-cover" style="background:var(--sg-blue);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7)">Culture</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><path d="M30 85 L30 55 L55 40 L55 55 L80 40 L80 55 L105 40 L105 55 L130 40 L130 85 Z" fill="none" stroke="#fff" stroke-width="1.5"/><rect x="40" y="68" width="10" height="17" fill="#fff"/><rect x="65" y="68" width="10" height="17" fill="rgba(255,255,255,0.7)" opacity="0.5"/><rect x="90" y="68" width="10" height="17" fill="rgba(255,255,255,0.7)" opacity="0.5"/><rect x="115" y="68" width="10" height="17" fill="#fff"/><line x1="140" y1="85" x2="170" y2="85" stroke="rgba(255,255,255,0.7)" stroke-width="1"/><line x1="150" y1="85" x2="150" y2="60" stroke="rgba(255,255,255,0.7)" stroke-width="1"/><path d="M150 60 L155 55 L160 60" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1"/></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">Inside SimpleGrid: Every Factory Is Different</h2>
+            <div class="meta"><time datetime="2026-04-26">Apr 26, 2026</time> &middot; <span>5 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/how-to-calculate-true-landed-cost-per-sku-and-why-most-manufacturers-cannot/" data-cat="Operator Insights">
+          <div class="blog-cover" style="background:var(--sg-blue-light);color:var(--sg-blue-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(30,58,138,0.6)">Operator Insights</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><g><rect x="40" y="35" width="45" height="10" fill="var(--sg-blue-dark)" opacity="0.3"/><text x="38" y="43" font-size="7" fill="var(--sg-blue-dark)" text-anchor="end">Wood</text></g><g><rect x="40" y="60" width="55" height="10" fill="var(--sg-blue-dark)" opacity="0.44999999999999996"/><text x="38" y="68" font-size="7" fill="var(--sg-blue-dark)" text-anchor="end">Labor</text></g><g><rect x="40" y="80" width="30" height="10" fill="var(--sg-blue-dark)" opacity="0.6"/><text x="38" y="88" font-size="7" fill="var(--sg-blue-dark)" text-anchor="end">Rework</text></g><g><rect x="40" y="100" width="25" height="10" fill="var(--sg-blue-dark)" opacity="0.75"/><text x="38" y="108" font-size="7" fill="var(--sg-blue-dark)" text-anchor="end">QC</text></g><g><rect x="40" y="115" width="40" height="10" fill="var(--sg-blue-dark)" opacity="0.8999999999999999"/><text x="38" y="123" font-size="7" fill="var(--sg-blue-dark)" text-anchor="end">Pack</text></g><line x1="40" y1="95" x2="160" y2="95" stroke="var(--sg-blue-dark)" stroke-width="1.5"/><text x="165" y="98" font-size="9" fill="var(--sg-blue-dark)" font-weight="700" font-family="monospace">$</text></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">True Landed Cost Per SKU (And Why Most Cannot)</h2>
+            <div class="meta"><time datetime="2026-04-22">Apr 22, 2026</time> &middot; <span>6 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point/" data-cat="Operator Insights / Product">
+          <div class="blog-cover" style="background:#1A1A1A;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8A8F98">Operator Insights / Product</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><rect x="30" y="20" width="110" height="20" rx="10" fill="#8A8F98" opacity="0.3"/><text x="85" y="34" font-size="8" fill="#fff" text-anchor="middle">Got 200 sheets</text><rect x="60" y="48" width="110" height="20" rx="10" fill="#4A7BF7"/><text x="115" y="62" font-size="8" fill="#fff" text-anchor="middle">&#10003; PO matched</text><rect x="30" y="76" width="90" height="20" rx="10" fill="#8A8F98" opacity="0.3"/><text x="75" y="90" font-size="8" fill="#fff" text-anchor="middle">20 rejected</text></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">Why Conversational UX Does Not Change Behavior</h2>
+            <div class="meta"><time datetime="2026-04-19">Apr 19, 2026</time> &middot; <span>5 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/how-we-built-an-erp-chatbot-with-claude-no-rag-and-full-context/" data-cat="Build in Public">
+          <div class="blog-cover" style="background:var(--sg-blue);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7)">Build in Public</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><path d="M30 30 L150 30 Q158 30 158 38 L158 62 Q158 70 150 70 L60 70 L48 82 L48 70 L38 70 Q30 70 30 62 Z" fill="#fff" opacity="0.2" stroke="#fff" stroke-width="1.2"/><text x="94" y="54" font-size="9" fill="#fff" text-anchor="middle" font-family="monospace">stock of 304?</text><rect x="162" y="46" width="2" height="14" fill="#fff"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></rect></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">Building an ERP Chatbot With Claude, No RAG</h2>
+            <div class="meta"><time datetime="2026-04-15">Apr 15, 2026</time> &middot; <span>6 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/module-based-erp-vs-sg-schema-erp-two-architectures-two-outcomes/" data-cat="Product Deep-Dive / Industry Critique">
+          <div class="blog-cover" style="background:var(--sg-blue-light);color:var(--sg-blue-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(30,58,138,0.6)">Product Deep-Dive / Industry Critique</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><rect x="25" y="25" width="60" height="14" rx="2" fill="none" stroke="rgba(30,58,138,0.6)" stroke-width="1.2"/><rect x="25" y="43" width="60" height="14" rx="2" fill="none" stroke="rgba(30,58,138,0.6)" stroke-width="1.2"/><rect x="25" y="61" width="60" height="14" rx="2" fill="none" stroke="rgba(30,58,138,0.6)" stroke-width="1.2"/><text x="55" y="92" font-size="7" fill="rgba(30,58,138,0.6)" text-anchor="middle">modules</text><path d="M115 30 Q160 25 170 55 Q175 85 135 85 Q105 82 115 55 Z" fill="none" stroke="var(--sg-blue-dark)" stroke-width="1.5"/><text x="143" y="92" font-size="7" fill="var(--sg-blue-dark)" text-anchor="middle" font-weight="600">SG Schema</text></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">Module-Based ERP vs. SG Schema ERP</h2>
+            <div class="meta"><time datetime="2026-04-12">Apr 12, 2026</time> &middot; <span>6 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/how-simplegrid-makes-erp-customization-take-minutes-not-months/" data-cat="Product Deep-Dive">
+          <div class="blog-cover" style="background:#1A1A1A;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8A8F98">Product Deep-Dive</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><rect x="30" y="25" width="140" height="60" rx="3" fill="none" stroke="#fff" stroke-width="1.5"/><line x1="30" y1="40" x2="170" y2="40" stroke="#8A8F98" stroke-width="0.8"/><line x1="30" y1="52" x2="170" y2="52" stroke="#8A8F98" stroke-width="0.8"/><line x1="30" y1="64" x2="170" y2="64" stroke="#8A8F98" stroke-width="0.8"/><line x1="30" y1="76" x2="170" y2="76" stroke="#8A8F98" stroke-width="0.8"/><line x1="75" y1="25" x2="75" y2="85" stroke="#8A8F98" stroke-width="0.8"/><line x1="120" y1="25" x2="120" y2="85" stroke="#8A8F98" stroke-width="0.8"/><rect x="30" y="52" width="140" height="12" fill="#4A7BF7" opacity="0.25"/><text x="100" y="100" font-size="8" fill="#8A8F98" text-anchor="middle" font-family="monospace">rules table</text></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">ERP Customization in Minutes, Not Months</h2>
+            <div class="meta"><time datetime="2026-04-08">Apr 8, 2026</time> &middot; <span>5 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/multi-tenant-architecture-how-simplegrid-runs-100-clients-on-one-platform/" data-cat="Product Deep-Dive">
+          <div class="blog-cover" style="background:var(--sg-blue);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7)">Product Deep-Dive</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><rect x="30" y="20" width="140" height="18" rx="3" fill="#fff" opacity="0.3"/><text x="100" y="32" font-size="8" fill="#fff" text-anchor="middle" font-weight="600">One platform</text><g><rect x="35" y="55" width="40" height="40" rx="3" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="55" cy="68" r="3" fill="#fff"/><line x1="42" y1="78" x2="68" y2="78" stroke="#fff" stroke-width="1"/><line x1="42" y1="84" x2="68" y2="84" stroke="#fff" stroke-width="1"/><line x1="42" y1="90" x2="60" y2="90" stroke="#fff" stroke-width="1"/></g><g><rect x="81" y="55" width="40" height="40" rx="3" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="101" cy="68" r="3" fill="#fff"/><line x1="88" y1="78" x2="114" y2="78" stroke="#fff" stroke-width="1"/><line x1="88" y1="84" x2="114" y2="84" stroke="#fff" stroke-width="1"/><line x1="88" y1="90" x2="106" y2="90" stroke="#fff" stroke-width="1"/></g><g><rect x="127" y="55" width="40" height="40" rx="3" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="147" cy="68" r="3" fill="#fff"/><line x1="134" y1="78" x2="160" y2="78" stroke="#fff" stroke-width="1"/><line x1="134" y1="84" x2="160" y2="84" stroke="#fff" stroke-width="1"/><line x1="134" y1="90" x2="152" y2="90" stroke="#fff" stroke-width="1"/></g></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">Multi-Tenant Architecture: 100 Clients, One Platform</h2>
+            <div class="meta"><time datetime="2026-04-05">Apr 5, 2026</time> &middot; <span>5 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/" data-cat="Product Deep-Dive">
+          <div class="blog-cover" style="background:var(--sg-blue-light);color:var(--sg-blue-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(30,58,138,0.6)">Product Deep-Dive</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><circle cx="100" cy="55" r="38" fill="none" stroke="rgba(30,58,138,0.6)" stroke-width="1" stroke-dasharray="3 3"/><circle cx="100" cy="55" r="12" fill="var(--sg-blue-dark)"/><text x="100" y="58" font-size="7" fill="#fff" text-anchor="middle" font-weight="700">ROOT</text><circle cx="70" cy="35" r="5" fill="var(--sg-blue-dark)"/><circle cx="130" cy="35" r="5" fill="var(--sg-blue-dark)"/><circle cx="70" cy="80" r="5" fill="var(--sg-blue-dark)"/><circle cx="130" cy="80" r="5" fill="var(--sg-blue-dark)"/><line x1="100" y1="55" x2="70" y2="35" stroke="rgba(30,58,138,0.6)" stroke-width="1"/><line x1="100" y1="55" x2="130" y2="35" stroke="rgba(30,58,138,0.6)" stroke-width="1"/><line x1="100" y1="55" x2="70" y2="80" stroke="rgba(30,58,138,0.6)" stroke-width="1"/><line x1="100" y1="55" x2="130" y2="80" stroke="rgba(30,58,138,0.6)" stroke-width="1"/></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">Entity Roots: Building Blocks of an SG Schema ERP</h2>
+            <div class="meta"><time datetime="2026-04-01">Apr 1, 2026</time> &middot; <span>6 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/sg-schema-why-your-erp-should-speak-your-language/" data-cat="Product Deep-Dive">
+          <div class="blog-cover" style="background:#1A1A1A;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8A8F98">Product Deep-Dive</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><rect x="20" y="35" width="70" height="40" rx="4" fill="none" stroke="#fff" stroke-width="1.5"/><text x="55" y="59" font-size="9" fill="#fff" text-anchor="middle" font-weight="600">Business</text><path d="M95 55 L125 55" stroke="#4A7BF7" stroke-width="1.5" marker-end="url(#a2)"/><defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="#4A7BF7"/></marker></defs><rect x="130" y="35" width="55" height="40" rx="4" fill="#4A7BF7" opacity="0.15"/><text x="157" y="59" font-size="9" fill="#4A7BF7" text-anchor="middle" font-weight="600">Model</text></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">SG Schema: Why Your ERP Should Speak Your Language</h2>
+            <div class="meta"><time datetime="2026-03-29">Mar 29, 2026</time> &middot; <span>6 min read</span></div>
+          </div>
+        </a>
+        <a class="blog-card" href="blog/event-sourcing-why-simplegrid-stores-everything-that-ever-happened/" data-cat="Product Deep-Dive">
+          <div class="blog-cover" style="background:var(--sg-blue);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;position:relative">
+            <div class="cat-label" style="position:absolute;top:14px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7)">Product Deep-Dive</div>
+            <svg viewBox="0 0 200 110" style="width:70%;height:auto"><line x1="20" y1="55" x2="180" y2="55" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/><g><circle cx="30" cy="55" r="4" fill="#fff"/><text x="30" y="78" font-size="7" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-family="monospace">E1</text></g><g><circle cx="70" cy="55" r="4" fill="#fff"/><text x="70" y="78" font-size="7" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-family="monospace">E2</text></g><g><circle cx="110" cy="55" r="4" fill="#fff"/><text x="110" y="78" font-size="7" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-family="monospace">E3</text></g><g><circle cx="150" cy="55" r="6" fill="#fff"/><text x="150" y="78" font-size="7" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-family="monospace">E4</text></g><text x="100" y="30" font-size="10" fill="#fff" text-anchor="middle" font-weight="600" font-family="monospace">Append only</text></svg>
+          </div>
+          <div class="blog-body">
+            <h2 class="blog-card-title">Event Sourcing: Why SimpleGrid Stores Every Action Forever</h2>
+            <div class="meta"><time datetime="2026-03-25">Mar 25, 2026</time> &middot; <span>6 min read</span></div>
+          </div>
+        </a>
+        </div>
+<!-- BLOG_CARDS_END -->
+    </div>
+  </section>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <img src="assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+        <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p>
+      </div>
+      <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+        <div>
+          <div class="footer-h">Product</div>
+          <a href="product.html" class="footer-link">How it works</a>
+          <a href="pricing.html" class="footer-link">Pricing</a>
+          <a href="case-studies.html" class="footer-link">Case studies</a>
+        </div>
+        <div>
+          <div class="footer-h">Productive tools</div>
+          <a href="tools/" class="footer-link">All tools</a>
+          <a href="tools/purchase-order-generator/" class="footer-link">PO Generator</a>
+          <a href="tools/invoice-generator/" class="footer-link">Invoice Generator</a>
+          <a href="tools/operations-health-score/" class="footer-link">Operations Health Score</a>
+        </div>
+        <div>
+          <div class="footer-h">Company</div>
+          <a href="about.html" class="footer-link">About</a>
+          <a href="hiring.html" class="footer-link">Careers</a>
+          <a href="blog.html" class="footer-link">Blog</a>
+        </div>
+        <div>
+          <div class="footer-h">Get in touch</div>
+          <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+          <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Valaya AI Technologies</div>
+      <div class="footer-legal">
+        <a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Vanilla JS filter — no React.
+(function(){
+  var buttons = document.querySelectorAll('.blog-filter');
+  var cards = document.querySelectorAll('#blog-grid .blog-card');
+  buttons.forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.getAttribute('data-filter');
+      buttons.forEach(function(x){ x.classList.toggle('active', x === b); });
+      cards.forEach(function(c){
+        var cat = c.getAttribute('data-cat') || '';
+        c.style.display = (f === 'All' || cat === f) ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+</body>
 </html>
