@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Manufacturing Business Valuation Calculator | SimpleGrid</title>
+<meta name="description" content="Free manufacturing business valuation calculator. SDE-based with vertical multiples, adjustment factors, and value unlock opportunities. PDF report.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/business-valuation-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/business-valuation-calculator/"><meta property="og:title" content="Manufacturing Business Valuation Calculator | SimpleGrid"><meta property="og:description" content="Free manufacturing business valuation calculator. SDE-based with vertical multiples, adjustment factors, and value unlock opportunities. PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Manufacturing Business Valuation Calculator | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/business-valuation-calculator/","description":"Free manufacturing business valuation calculator. SDE-based with vertical multiples, adjustment factors, and value unlock opportunities. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Manufacturing Business Valuation Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/business-valuation-calculator/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>Manufacturing Business Valuation - SDE-based with vertical-specific multiples.</h1>
+    <p class="lead">Most owners undervalue their business because they don't apply the right multiple, or overvalue it because they ignore the discount factors. This calculator uses BizBuySell + IBBA transaction data for vertical-specific multiples and applies the standard adjustment factors that drive a deal.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Your business</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="rev">Annual revenue ($)</label><input id="rev" type="number" data-clamp="0,10000000000" step="10000" value="12000000" data-required></div>
+        <div class="tool-field"><label for="np">Annual net profit ($)</label><input id="np" type="number" data-clamp="-10000000,10000000000" step="10000" value="900000" data-required></div>
+        <div class="tool-field"><label for="ow">Owner total compensation ($)</label><input id="ow" type="number" data-clamp="0,10000000" step="10000" value="250000" data-required></div>
+        <div class="tool-field"><label for="vert">Vertical</label>
+          <select id="vert">
+            <option value="furniture">Custom Furniture / Woodworking</option>
+            <option value="apparel">Apparel & Textiles</option>
+            <option value="metal-fab" selected>Metal Fabrication</option>
+            <option value="cnc">CNC / Machine Shop</option>
+            <option value="food">Food Processing</option>
+            <option value="plastics">Plastics & Rubber</option>
+            <option value="electronics">Electronics Assembly</option>
+            <option value="chemical">Chemical Processing</option>
+            <option value="packaging">Packaging</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="tool-field"><label for="years">Years in business</label><input id="years" type="number" data-clamp="0,200" step="1" value="12"></div>
+        <div class="tool-field"><label for="growth">Revenue trend (3 yr)</label>
+          <select id="growth"><option value="up15">Growing &gt;15%/yr</option><option value="up5" selected>Growing 5-15%/yr</option><option value="flat">Flat</option><option value="down">Declining</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-card"><h2>Adjustment factors (optional - increases accuracy)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="ohrs">Owner hours / week in business</label><input id="ohrs" type="number" data-clamp="0,168" step="1" value="50"></div>
+        <div class="tool-field"><label for="top1">Top customer % of revenue</label><input id="top1" type="number" data-clamp="0,100" step="1" value="20"></div>
+        <div class="tool-field"><label for="top5">Top 5 customers % of revenue</label><input id="top5" type="number" data-clamp="0,100" step="1" value="65"></div>
+        <div class="tool-field"><label for="recur">Recurring revenue %</label><input id="recur" type="number" data-clamp="0,100" step="1" value="50"></div>
+        <div class="tool-field"><label for="mgmt">Can business run without owner 30 days?</label>
+          <select id="mgmt"><option value="2">Yes, easily</option><option value="1" selected>Yes, roughly</option><option value="-1">With difficulty</option><option value="-2">No</option></select>
+        </div>
+        <div class="tool-field"><label for="equip">Equipment age</label>
+          <select id="equip"><option value="2">Under 3 yrs</option><option value="1" selected>3-7 yrs</option><option value="-1">7-15 yrs</option><option value="-2">15+ yrs</option></select>
+        </div>
+        <div class="tool-field"><label for="ip">IP / proprietary processes</label>
+          <select id="ip"><option value="2">Strong IP (patents, trade secrets)</option><option value="1" selected>Some proprietary processes</option><option value="0">Standard</option><option value="-1">Commodity</option></select>
+        </div>
+        <div class="tool-field"><label for="mkt">Geographic market</label>
+          <select id="mkt"><option value="1" selected>National / international</option><option value="0">Regional</option><option value="-1">Local only</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Valuation Report</button></div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When you want a real valuation, not a ballpark</div>
+      <h2>SimpleGrid shifts businesses from people-dependent to system-dependent - the single biggest valuation lever.</h2>
+      <p>Owner-dependent businesses sell at 1.2-1.8x lower multiples than system-driven ones (Exit Planning Institute). Documented SOPs + ERP add 0.5-1.0x to multiples (IBBA). An ERP is the fastest way to shift left on the value scale.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="val_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function fmt$M(n){if(!isFinite(n)||n<=0) return '$0'; if(n>=1000000) return '$'+(n/1000000).toFixed(2)+'M'; if(n>=10000) return '$'+Math.round(n/1000)+'K'; return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function num(id){return parseFloat(document.getElementById(id).value)||0;}
+  const MULT = {
+    'furniture':[2.0,3.5], 'apparel':[1.8,3.2], 'metal-fab':[2.5,4.0], 'cnc':[2.5,4.5],
+    'food':[2.5,4.5], 'plastics':[2.5,4.0], 'electronics':[2.0,3.5], 'chemical':[3.0,5.0],
+    'packaging':[2.5,4.0], 'other':[2.2,3.8]
+  };
+  function recalc(){
+    const rev = nn('rev'); const np = num('np'); const ow = nn('ow');
+    const vert = document.getElementById('vert').value;
+    const growth = document.getElementById('growth').value;
+    const sde = np + ow;
+    const [lo, hi] = MULT[vert];
+    let base = (lo + hi) / 2;
+    if (growth==='up15') base = hi * 1.05; else if (growth==='up5') base = (lo + hi*1.1) / 2; else if (growth==='flat') base = (lo + hi) / 2 * 0.95; else base = lo * 0.9;
+    // Adjustments
+    let adj = 0; const factors = [];
+    const ohrs = nn('ohrs');
+    if (ohrs <= 20) { adj += 0.3; factors.push(['Owner works under 20 hrs/week', '+0.3']); }
+    else if (ohrs > 50) { adj -= 0.3; factors.push(['Owner works over 50 hrs/week', '-0.3']); }
+    const top1 = nn('top1');
+    if (top1 > 40) { adj -= 0.5; factors.push(['Top customer over 40%', '-0.5']); }
+    else if (top1 > 25) { adj -= 0.3; factors.push(['Top customer 25-40%', '-0.3']); }
+    else if (top1 < 15) { adj += 0.2; factors.push(['No customer over 15%', '+0.2']); }
+    const top5 = nn('top5');
+    if (top5 > 80) { adj -= 0.3; factors.push(['Top 5 customers over 80%', '-0.3']); }
+    const recur = nn('recur');
+    if (recur > 70) { adj += 0.3; factors.push(['Recurring revenue over 70%', '+0.3']); }
+    const mgmt = num('mgmt'); if (mgmt === 2) { adj += 0.5; factors.push(['Strong management team', '+0.5']); } else if (mgmt === -2) { adj -= 0.3; factors.push(['No management team', '-0.3']); }
+    const equipAge = num('equip'); if (equipAge === 2) { adj += 0.2; factors.push(['Equipment under 3 yrs', '+0.2']); } else if (equipAge === -2) { adj -= 0.3; factors.push(['Equipment over 15 yrs', '-0.3']); }
+    const ip = num('ip'); if (ip === 2) { adj += 0.3; factors.push(['Strong IP / patents', '+0.3']); }
+    const mkt = num('mkt'); if (mkt === 1) { adj += 0.2; factors.push(['National / international market', '+0.2']); } else if (mkt === -1) { adj -= 0.2; factors.push(['Local market only', '-0.2']); }
+    if (growth==='up15') factors.push(['Growing >15%/yr', '+0.3']);
+    if (growth==='down') factors.push(['Declining revenue', '-0.5']);
+
+    const adjusted = Math.max(0.5, base + adj);
+    const valMid = sde * adjusted;
+    const valLow = valMid * 0.85; const valHigh = valMid * 1.15;
+    const revMult = rev>0 ? valMid/rev : 0;
+    let revCheck = '';
+    if (revMult > 1.0) revCheck = ' <span style="color:#B91C1C">(>1.0x revenue - check inputs)</span>';
+    else if (revMult < 0.2) revCheck = ' <span style="color:var(--fg3)">(low revenue multiple - may be undervalued)</span>';
+
+    document.getElementById('hero').innerHTML = `
+      <div class="big-label">Estimated business value</div>
+      <div class="big-number">${fmt$M(valMid)}</div>
+      <div class="big-caption"><strong>${fmt$M(valLow)} - ${fmt$M(valHigh)}</strong> range based on SDE of ${fmt$(sde)} x ${adjusted.toFixed(2)}x multiple. ${revMult.toFixed(2)}x revenue${revCheck}.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">SDE</div><div class="value">${fmt$M(sde)}</div></div>
+        <div class="results-stat"><div class="label">Base vertical multiple</div><div class="value">${base.toFixed(2)}x</div></div>
+        <div class="results-stat"><div class="label">Adjusted multiple</div><div class="value">${adjusted.toFixed(2)}x</div><div class="sub">${adj>=0?'+':''}${adj.toFixed(2)} adjustment</div></div>
+      </div>
+    `;
+    let factorsHtml = '<table class="results-table"><thead><tr><th>Factor</th><th class="num">Impact on multiple</th></tr></thead><tbody>';
+    factors.forEach(f => { factorsHtml += `<tr><td>${f[0]}</td><td class="num"><strong style="color:${f[1].startsWith('+')?'#047857':'#B91C1C'}">${f[1]}x</strong></td></tr>`; });
+    if (factors.length===0) factorsHtml += '<tr><td colspan="2" style="color:var(--fg3);text-align:center">No adjustments applied - using base vertical multiple.</td></tr>';
+    factorsHtml += '</tbody></table>';
+
+    // Value unlock opportunities
+    let unlockHtml = '<table class="results-table"><thead><tr><th>Improvement</th><th class="num">Multiple impact</th><th class="num">Value increase</th></tr></thead><tbody>';
+    let totalUnlock = 0;
+    if (ohrs > 50) { const u = sde * 0.4; totalUnlock += u; unlockHtml += `<tr><td>Reduce owner hours to under 25/week</td><td class="num">+0.4x</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
+    if (top1 > 25) { const u = sde * 0.5; totalUnlock += u; unlockHtml += `<tr><td>Diversify customer base (top under 15%)</td><td class="num">+0.5x</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
+    if (mgmt < 1) { const u = sde * 0.7; totalUnlock += u; unlockHtml += `<tr><td>Build management team that can run without you</td><td class="num">+0.7x</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
+    if (equipAge < 0) { const u = sde * 0.3; totalUnlock += u; unlockHtml += `<tr><td>Modernize equipment (under 7 yrs)</td><td class="num">+0.3x</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
+    const u_sys = sde * 0.4; totalUnlock += u_sys;
+    unlockHtml += `<tr><td>System-driven ops (ERP) vs spreadsheets</td><td class="num">+0.4x</td><td class="num"><strong style="color:#047857">+${fmt$M(u_sys)}</strong></td></tr>`;
+    unlockHtml += `<tr><td><strong>Total value unlock potential</strong></td><td class="num">-</td><td class="num"><strong style="color:#047857">+${fmt$M(totalUnlock)}</strong></td></tr>`;
+    unlockHtml += '</tbody></table>';
+
+    document.getElementById('detail').innerHTML = `
+      <h2 style="margin-bottom:14px">Adjustment factors applied</h2>
+      ${factorsHtml}
+      <h2 style="margin-top:32px;margin-bottom:14px">Value unlock opportunities (18-36 months)</h2>
+      ${unlockHtml}
+      <p class="tool-note" style="margin-top:14px">Source: BizBuySell Transaction Database, IBBA Market Pulse, Pepperdine Private Capital Markets Project. Manufacturing businesses with documented SOPs and ERP systems sell at 0.5-1.0x higher multiples than those without (IBBA).</p>
+    `;
+    return {rev,np,ow,sde,vert,base,adj,adjusted,valLow,valMid,valHigh,revMult,factors,totalUnlock};
+  }
+  document.querySelectorAll('input, select').forEach(el=>el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title:'Business Valuation Estimate', docNumberLabel:'Vertical', docNumber:r.vert,
+      date: todayISO(),
+      fromLabel:'INPUTS', from:['Revenue: '+fmt$(r.rev), 'Net profit: '+fmt$(r.np), 'Owner comp: '+fmt$(r.ow), 'SDE: '+fmt$(r.sde)],
+      toLabel:'VALUATION', to:['Range: '+fmt$M(r.valLow)+' - '+fmt$M(r.valHigh), 'Midpoint: '+fmt$M(r.valMid), 'Multiple: '+r.adjusted.toFixed(2)+'x SDE', 'Revenue multiple: '+r.revMult.toFixed(2)+'x'],
+      itemColumns:['Adjustment factor','Multiple impact'],
+      items: r.factors.length ? r.factors.map(f=>[f[0], f[1]+'x']) : [['No adjustments applied','base only']],
+      itemRowMapper: x=>x,
+      notes:'Methodology: SDE x adjusted multiple. Multiple range per vertical from BizBuySell + IBBA. This is a directional estimate, not a formal appraisal. For a formal valuation, engage a CPA/business broker with manufacturing experience.
+
+Total value unlock potential from operational improvements: +'+fmt$M(r.totalUnlock)+' over 18-36 months.',
+      filename:'business-valuation-'+todayISO()+'.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>How manufacturing businesses get valued</h2>
+    <p>Mid-market manufacturers below $5M EBITDA trade on Seller's Discretionary Earnings (SDE) multiples. Above $5M EBITDA, the multiple shifts to EBITDA. Both methods start with the same idea: a buyer pays a multiple of cash flow, adjusted for the riskiness and quality of the business.</p>
+    <h2>What moves the multiple</h2>
+    <ul><li>Customer concentration (top customer over 25% = significant discount)</li><li>Owner dependency (over 50 hrs/week = discount; under 20 hrs/week = premium)</li><li>Management team (can it run without you?)</li><li>Recurring revenue (over 70% = premium)</li><li>Equipment age (under 3 yrs = premium; over 15 yrs = discount)</li><li>IP / proprietary processes (strong = premium)</li><li>Geographic reach (national = premium over local)</li><li>Documented SOPs + ERP system (premium)</li></ul>
+    <h2>FAQ</h2>
+    <details><summary>This says my business is worth less than I thought. What now?</summary><p>The discount is real and the lift is achievable. Most of the value-killing factors (owner hours, customer concentration, no management team) are correctable in 18-36 months. Start with the biggest discount factor you have - that's where the highest IRR is on operational improvement.</p></details>
+    <details><summary>How accurate is this?</summary><p>Directional. The true value of a private business is whatever a specific buyer will pay in a specific deal. Use this to know the ballpark, not the exact number. For a real valuation, engage a CPA or business broker with manufacturing experience and recent transaction comps in your vertical.</p></details>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>ERP Readiness Scorecard for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Free 20-question ERP readiness diagnostic. 5 dimensions (Process, Data, Organization, Tech, Change Capacity). McKinsey + Panorama methodology. PDF report.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/erp-readiness-scorecard/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/erp-readiness-scorecard/"><meta property="og:title" content="ERP Readiness Scorecard for Manufacturers | SimpleGrid"><meta property="og:description" content="Free 20-question ERP readiness diagnostic. 5 dimensions (Process, Data, Organization, Tech, Change Capacity). McKinsey + Panorama methodology. PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"ERP Readiness Scorecard for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/erp-readiness-scorecard/","description":"Free 20-question ERP readiness diagnostic. 5 dimensions (Process, Data, Organization, Tech, Change Capacity). McKinsey + Panorama methodology. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"ERP Readiness Scorecard for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/erp-readiness-scorecard/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>ERP Readiness Scorecard - diagnose before you evaluate.</h1>
+    <p class="lead">55-75% of ERP implementations fail. The #1 cause is organizational unpreparedness, not software. This 20-question scorecard surfaces your gaps so you can close them BEFORE evaluating vendors.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <p class="tool-note" style="margin:0 0 20px">20 questions across 5 dimensions. McKinsey + Panorama Consulting research: 55-75% of ERP implementations fail. The #1 cause is organizational unpreparedness, not software. Diagnose before you evaluate.</p>
+    <form id="readiness-form">
+      <div class="q-card"><div class="q-num">PROCESS MATURITY</div><div class="q-text" style="margin-top:12px">1. Are your core processes (order-to-cash, procure-to-pay) documented?</div><div class="q-options" data-q="pm1"><label class="q-option"><input type="radio" name="pm1" value="5">Fully + current</label><label class="q-option"><input type="radio" name="pm1" value="3">Documented but outdated</label><label class="q-option"><input type="radio" name="pm1" value="2">Partially</label><label class="q-option"><input type="radio" name="pm1" value="0">In peoples heads</label></div><div class="q-text" style="margin-top:12px">2. How standardized are processes across shifts/lines?</div><div class="q-options" data-q="pm2"><label class="q-option"><input type="radio" name="pm2" value="5">Fully standard</label><label class="q-option"><input type="radio" name="pm2" value="3">Mostly</label><label class="q-option"><input type="radio" name="pm2" value="1">Varies by shift</label><label class="q-option"><input type="radio" name="pm2" value="0">Everyone does differently</label></div><div class="q-text" style="margin-top:12px">3. Defined approval workflows (POs, holds, ECN)?</div><div class="q-options" data-q="pm3"><label class="q-option"><input type="radio" name="pm3" value="5">Yes formal</label><label class="q-option"><input type="radio" name="pm3" value="3">Informal but consistent</label><label class="q-option"><input type="radio" name="pm3" value="1">Ad hoc</label><label class="q-option"><input type="radio" name="pm3" value="0">Everything goes through me</label></div><div class="q-text" style="margin-top:12px">4. How often do process exceptions occur?</div><div class="q-options" data-q="pm4"><label class="q-option"><input type="radio" name="pm4" value="5"><5% of orders</label><label class="q-option"><input type="radio" name="pm4" value="3">5-15%</label><label class="q-option"><input type="radio" name="pm4" value="2">15-30%</label><label class="q-option"><input type="radio" name="pm4" value="1">>30%</label></div></div><div class="q-card"><div class="q-num">DATA READINESS</div><div class="q-text" style="margin-top:12px">5. Single consistent item/SKU numbering?</div><div class="q-options" data-q="dr1"><label class="q-option"><input type="radio" name="dr1" value="5">Yes structured + enforced</label><label class="q-option"><input type="radio" name="dr1" value="3">Yes but inconsistent</label><label class="q-option"><input type="radio" name="dr1" value="1">Multiple systems</label><label class="q-option"><input type="radio" name="dr1" value="0">No formal system</label></div><div class="q-text" style="margin-top:12px">6. BOM accuracy?</div><div class="q-options" data-q="dr2"><label class="q-option"><input type="radio" name="dr2" value="5">>95%</label><label class="q-option"><input type="radio" name="dr2" value="3">80-95%</label><label class="q-option"><input type="radio" name="dr2" value="1">60-80%</label><label class="q-option"><input type="radio" name="dr2" value="0"><60% or no formal BOMs</label></div><div class="q-text" style="margin-top:12px">7. Clean customer/vendor master data?</div><div class="q-options" data-q="dr3"><label class="q-option"><input type="radio" name="dr3" value="5">Clean deduplicated</label><label class="q-option"><input type="radio" name="dr3" value="3">Mostly clean</label><label class="q-option"><input type="radio" name="dr3" value="1">Many duplicates</label><label class="q-option"><input type="radio" name="dr3" value="0">Scattered across files</label></div><div class="q-text" style="margin-top:12px">8. Historical data exportable for migration?</div><div class="q-options" data-q="dr4"><label class="q-option"><input type="radio" name="dr4" value="5">Yes structured</label><label class="q-option"><input type="radio" name="dr4" value="3">Yes but messy</label><label class="q-option"><input type="radio" name="dr4" value="1">Partial</label><label class="q-option"><input type="radio" name="dr4" value="0">In paper/email</label></div></div><div class="q-card"><div class="q-num">ORGANIZATIONAL READINESS</div><div class="q-text" style="margin-top:12px">9. Single decision-maker for ERP choice?</div><div class="q-options" data-q="or1"><label class="q-option"><input type="radio" name="or1" value="5">Yes one person</label><label class="q-option"><input type="radio" name="or1" value="3">Two aligned</label><label class="q-option"><input type="radio" name="or1" value="2">Committee</label><label class="q-option"><input type="radio" name="or1" value="0">Unclear</label></div><div class="q-text" style="margin-top:12px">10. Can dedicate 10-15 hrs/week to ERP setup?</div><div class="q-options" data-q="or2"><label class="q-option"><input type="radio" name="or2" value="5">Yes named person</label><label class="q-option"><input type="radio" name="or2" value="3">Probably</label><label class="q-option"><input type="radio" name="or2" value="1">Itll be tough</label><label class="q-option"><input type="radio" name="or2" value="0">No way</label></div><div class="q-text" style="margin-top:12px">11. Floor team reaction to new system?</div><div class="q-options" data-q="or3"><label class="q-option"><input type="radio" name="or3" value="5">Eager</label><label class="q-option"><input type="radio" name="or3" value="3">Open</label><label class="q-option"><input type="radio" name="or3" value="1">Skeptical</label><label class="q-option"><input type="radio" name="or3" value="0">Resistant</label></div><div class="q-text" style="margin-top:12px">12. Previous ERP implementation attempt?</div><div class="q-options" data-q="or4"><label class="q-option"><input type="radio" name="or4" value="3">No</label><label class="q-option"><input type="radio" name="or4" value="5">Yes successful</label><label class="q-option"><input type="radio" name="or4" value="2">Yes partial</label><label class="q-option"><input type="radio" name="or4" value="1">Yes failed</label></div></div><div class="q-card"><div class="q-num">TECHNICAL INFRASTRUCTURE</div><div class="q-text" style="margin-top:12px">13. Internet connectivity?</div><div class="q-options" data-q="ti1"><label class="q-option"><input type="radio" name="ti1" value="5">Reliable broadband</label><label class="q-option"><input type="radio" name="ti1" value="3">Adequate w/ issues</label><label class="q-option"><input type="radio" name="ti1" value="1">Spotty</label><label class="q-option"><input type="radio" name="ti1" value="0">Minimal</label></div><div class="q-text" style="margin-top:12px">14. Team uses computers/tablets daily?</div><div class="q-options" data-q="ti2"><label class="q-option"><input type="radio" name="ti2" value="5">Yes everyone</label><label class="q-option"><input type="radio" name="ti2" value="3">Most do</label><label class="q-option"><input type="radio" name="ti2" value="1">Some</label><label class="q-option"><input type="radio" name="ti2" value="0">Mostly paper</label></div><div class="q-text" style="margin-top:12px">15. Current tech stack?</div><div class="q-options" data-q="ti3"><label class="q-option"><input type="radio" name="ti3" value="5">Cloud + accounting</label><label class="q-option"><input type="radio" name="ti3" value="4">Accounting + Excel</label><label class="q-option"><input type="radio" name="ti3" value="2">Just Excel</label><label class="q-option"><input type="radio" name="ti3" value="0">Paper + calculator</label></div><div class="q-text" style="margin-top:12px">16. IT person/vendor?</div><div class="q-options" data-q="ti4"><label class="q-option"><input type="radio" name="ti4" value="5">In-house IT</label><label class="q-option"><input type="radio" name="ti4" value="4">Outsourced vendor</label><label class="q-option"><input type="radio" name="ti4" value="2">One tech-savvy person</label><label class="q-option"><input type="radio" name="ti4" value="1">Nobody</label></div></div><div class="q-card"><div class="q-num">CHANGE CAPACITY</div><div class="q-text" style="margin-top:12px">17. Hours you can personally invest in 1st month?</div><div class="q-options" data-q="cc1"><label class="q-option"><input type="radio" name="cc1" value="5">10+ hrs/wk</label><label class="q-option"><input type="radio" name="cc1" value="4">5-10 hrs/wk</label><label class="q-option"><input type="radio" name="cc1" value="2">2-5 hrs/wk</label><label class="q-option"><input type="radio" name="cc1" value="0">Cant spare any</label></div><div class="q-text" style="margin-top:12px">18. Annual ERP budget?</div><div class="q-options" data-q="cc2"><label class="q-option"><input type="radio" name="cc2" value="5">>$50K</label><label class="q-option"><input type="radio" name="cc2" value="4">$20-50K</label><label class="q-option"><input type="radio" name="cc2" value="2">$10-20K</label><label class="q-option"><input type="radio" name="cc2" value="1"><$10K or unsure</label></div><div class="q-text" style="margin-top:12px">19. Timeline expectation?</div><div class="q-options" data-q="cc3"><label class="q-option"><input type="radio" name="cc3" value="4">No rush want it right</label><label class="q-option"><input type="radio" name="cc3" value="5">3-6 months</label><label class="q-option"><input type="radio" name="cc3" value="2">1-3 months</label><label class="q-option"><input type="radio" name="cc3" value="1">Yesterday</label></div><div class="q-text" style="margin-top:12px">20. Biggest worry?</div><div class="q-options" data-q="cc4"><label class="q-option"><input type="radio" name="cc4" value="4">Wrong system</label><label class="q-option"><input type="radio" name="cc4" value="3">Takes too long</label><label class="q-option"><input type="radio" name="cc4" value="2">Team wont use it</label><label class="q-option"><input type="radio" name="cc4" value="1">Disrupts production</label></div></div>
+    </form>
+    <div class="results-hero" id="hero" style="display:none"></div>
+    <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button></div>
+    <div class="tool-cta">
+      <div class="eyebrow">When readiness is the question, not vendor selection</div>
+      <h2>SimpleGrid asks readiness questions during the founder call - not after the contract.</h2>
+      <p>We turn down 30%+ of inquiries because the timing isnt right. The cost of not being ready is higher than the cost of waiting.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="readiness_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:6px}.q-card .q-text{font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--fg1);margin:0 0 10px;letter-spacing:-0.005em;line-height:1.3}.q-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}@media(max-width:600px){.q-options{grid-template-columns:1fr}}.q-option{padding:10px 14px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;color:var(--fg1);transition:all 120ms ease;background:#fff}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:600}.q-option input{display:none}</style>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  const dimensions = [
+    {key:'pm', name:'Process Maturity', qs:['pm1','pm2','pm3','pm4']},
+    {key:'dr', name:'Data Readiness', qs:['dr1','dr2','dr3','dr4']},
+    {key:'or', name:'Organizational Readiness', qs:['or1','or2','or3','or4']},
+    {key:'ti', name:'Technical Infrastructure', qs:['ti1','ti2','ti3','ti4']},
+    {key:'cc', name:'Change Capacity', qs:['cc1','cc2','cc3','cc4']}
+  ];
+  const allQs = dimensions.flatMap(d=>d.qs);
+  document.querySelectorAll('.q-options').forEach(group=>{
+    group.querySelectorAll('label.q-option').forEach(lbl=>{
+      lbl.addEventListener('click',()=>{group.querySelectorAll('label.q-option').forEach(l=>l.classList.remove('selected'));lbl.classList.add('selected');setTimeout(recalc,30);});
+    });
+  });
+  function answered(){return allQs.every(q=>document.querySelector('input[name="'+q+'"]:checked'));}
+  function val(q){const el=document.querySelector('input[name="'+q+'"]:checked');return el?parseInt(el.value):0;}
+  function recalc(){
+    if (!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
+    const dimScores = dimensions.map(d=>{
+      const sum = d.qs.reduce((s,q)=>s+val(q),0);
+      const pct = sum/20*100;
+      return {...d, sum, pct, cls: pct>=70?'green':pct>=50?'gold':'red'};
+    });
+    const total = dimScores.reduce((s,d)=>s+d.sum,0);
+    const composite = Math.round(total/100*100);
+    let band, bandCls, summary;
+    if (composite>=80){band='Ready - start evaluating immediately';bandCls='green';summary='Strong readiness across all dimensions. The biggest risk now is wrong vendor selection, not internal preparedness. Take the Do I Need an ERP diagnostic if you havent quantified the need yet.';}
+    else if (composite>=60){band='Almost ready - close these gaps first';bandCls='gold';summary='Most dimensions are workable but 1-2 have material gaps. Address them in the next 60-90 days before vendor conversations. The gap-closure cost is much lower than the failed-implementation cost.';}
+    else if (composite>=40){band='Not quite - 60-day readiness plan needed';bandCls='gold';summary='Significant prep work required. Most failed implementations skip this step and then blame the software. Spend the next quarter on readiness; you will save 6-12 months on implementation.';}
+    else{band='Important groundwork first';bandCls='red';summary='Three specific actions to start: document your top 5 processes, clean your item master, assign one internal owner who can dedicate 10+ hrs/week. ERP comes after these.';}
+    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
+    document.getElementById('hero').innerHTML=`<div class="big-label">ERP readiness score</div><div class="big-number ${bandCls}">${composite} <span style="font-size:24px;color:var(--fg3);font-weight:500">/ 100</span></div><div class="big-caption"><strong>${band}.</strong> ${summary}</div>`;
+    let bench = '<h2 style="margin-bottom:14px">Dimension scores</h2>';
+    dimScores.forEach(d=>{
+      bench += `<div class="bar-row"><span class="bar-label">${d.name}</span><div class="bar-track"><div class="bar-fill ${d.cls}" style="width:${d.pct}%"></div></div><span class="bar-value">${d.sum}/20 (${Math.round(d.pct)}%)</span></div>`;
+    });
+    let actions = '<h2 style="margin-top:32px;margin-bottom:14px">Gap-closure action items</h2><table class="results-table"><thead><tr><th>Dimension</th><th>Action required</th></tr></thead><tbody>';
+    const advice = {pm:'Document your top 5 processes starting with order-to-cash. Use any tool - even a Word doc - just write them down.',dr:'Clean your item master first. Dedupe customer + vendor records. Structure your BOMs. ERPs amplify data quality - good in, good out; bad in, disaster.',or:'Assign one internal champion who can dedicate 10-15 hrs/week. Brief the floor team early on why change is coming.',ti:'Upgrade internet to reliable broadband. Get tablets for floor supervisors. This is not expensive but its prerequisite.',cc:'Block 2 hours every morning for the first 2 weeks of go-live. This single discipline is the strongest predictor of implementation success.'};
+    dimScores.filter(d=>d.pct<60).forEach(d=>{actions += `<tr><td><strong>${d.name}</strong> (${Math.round(d.pct)}%)</td><td>${advice[d.key]}</td></tr>`;});
+    if (dimScores.every(d=>d.pct>=60)) actions += '<tr><td colspan="2" style="text-align:center;color:#047857">All dimensions above 60% - no critical gaps. Begin vendor conversations.</td></tr>';
+    actions += '</tbody></table>';
+    document.getElementById('detail').innerHTML = bench + actions;
+    return {composite, band, summary, dimScores};
+  }
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    const r = recalc(); if (!r){alert('Answer all 20 questions first.');return;}
+    sgBuildPdf({
+      title:'ERP Readiness Scorecard', docNumberLabel:'Readiness', docNumber:r.composite+' / 100',
+      date: todayISO(),
+      fromLabel:'STATUS', from:[r.band],
+      toLabel:'SUMMARY', to:[r.summary],
+      itemColumns:['Dimension','Score','%','Status'],
+      items: r.dimScores.map(d=>[d.name, d.sum+'/20', Math.round(d.pct)+'%', d.cls==='green'?'Ready':d.cls==='gold'?'Workable - close gaps':'Major gap']),
+      itemRowMapper: x=>x,
+      notes:'Methodology: McKinsey Digital Manufacturing Readiness framework + Panorama Consulting ERP Reports. 55-75% of ERP implementations fail or are challenged. The #1 cause is organizational unpreparedness, not software.',
+      filename:'erp-readiness-'+todayISO()+'.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>Why ERP implementations fail</h2>
+    <p>Panorama Consulting tracks this every year. 55-75% of ERP implementations are "challenged" - over budget, over schedule, or under-delivering. The reasons in order: (1) organizational unpreparedness, (2) poor data quality, (3) under-resourced internal team, (4) scope creep, (5) wrong vendor for the situation. Only #5 is a vendor problem. The rest is preparation.</p>
+    <h2>Read the dimensions honestly</h2>
+    <p>Process maturity, data readiness, organizational readiness, technical infrastructure, change capacity. Any dimension below 60% is a gap that will hurt your implementation. Below 40% is a gap that will likely cause failure. Fix these BEFORE you talk to vendors - the gap-closure cost is 10x lower than the failed-implementation cost.</p>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

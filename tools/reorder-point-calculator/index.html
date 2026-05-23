@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Inventory Reorder Point + EOQ Calculator | SimpleGrid</title>
+<meta name="description" content="Free reorder point and economic order quantity calculator for manufacturers. APICS methodology. Safety stock with service level. PDF export.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/reorder-point-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/reorder-point-calculator/"><meta property="og:title" content="Inventory Reorder Point + EOQ Calculator | SimpleGrid"><meta property="og:description" content="Free reorder point and economic order quantity calculator for manufacturers. APICS methodology. Safety stock with service level. PDF export."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Inventory Reorder Point + EOQ Calculator | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/reorder-point-calculator/","description":"Free reorder point and economic order quantity calculator for manufacturers. APICS methodology. Safety stock with service level. PDF export.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Inventory Reorder Point + EOQ Calculator | SimpleGrid","item":"https://simplegrid.ai/tools/reorder-point-calculator/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>Reorder Point + EOQ Calculator - never run out, never tie up cash.</h1>
+    <p class="lead">Most mid-market manufacturers either order too late (stockouts) or too early (excess cash tied up). Reorder Point + Economic Order Quantity fix both. This calculator uses APICS-standard formulas with safety stock calibrated to your chosen service level.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Demand + lead time</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="item">Item name (optional)</label><input id="item" type="text" placeholder="e.g. 16-gauge steel sheet"></div>
+        <div class="tool-field"><label for="adu">Avg daily usage (units)</label><input id="adu" type="number" data-clamp="0,1000000" step="0.1" value="80" data-required></div>
+        <div class="tool-field"><label for="mdu">Max daily usage (peak)</label><input id="mdu" type="number" data-clamp="0,1000000" step="0.1" value="140"></div>
+        <div class="tool-field"><label for="alt">Avg lead time (days)</label><input id="alt" type="number" data-clamp="0,365" step="0.5" value="14" data-required></div>
+        <div class="tool-field"><label for="mlt">Max lead time (worst case days)</label><input id="mlt" type="number" data-clamp="0,365" step="0.5" value="21"></div>
+        <div class="tool-field"><label for="cost">Unit cost ($)</label><input id="cost" type="number" data-clamp="0,1000000" step="0.01" value="12"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>Cost parameters</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="carry">Carrying cost % per year</label><input id="carry" type="number" data-clamp="0,100" step="0.5" value="25"></div>
+        <div class="tool-field"><label for="order">Cost per order ($)</label><input id="order" type="number" data-clamp="0,10000" step="1" value="50"></div>
+        <div class="tool-field"><label for="service">Desired service level</label>
+          <select id="service"><option value="1.28">90% (Z=1.28)</option><option value="1.65" selected>95% (Z=1.65)</option><option value="1.96">97.5% (Z=1.96)</option><option value="2.33">99% (Z=2.33)</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When reorder is a feeling, not a calculation</div>
+      <h2>SimpleGrid sets reorder points from actual consumption + supplier lead time history.</h2>
+      <p>Demand signals + supplier reliability + service level. Reorder alerts fire automatically. No more stockouts from "we should have ordered last week" or excess inventory from "we ordered too much, just in case."</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="rop_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function recalc(){
+    const adu = nn('adu'); const mdu = Math.max(nn('mdu'), adu);
+    const alt = nn('alt'); const mlt = Math.max(nn('mlt'), alt);
+    const cost = nn('cost'); const carry = nn('carry')/100; const order = nn('order');
+    const z = parseFloat(document.getElementById('service').value);
+    // King's method safety stock
+    const sigDem = (mdu - adu) / 3.29; const sigLt = (mlt - alt) / 3.29;
+    const sigLTD = Math.sqrt(alt * sigDem*sigDem + adu*adu * sigLt*sigLt);
+    const safety = z * sigLTD;
+    const rop = adu * alt + safety;
+    const annDem = adu * 250; // working days
+    const eoq = (cost>0 && carry>0) ? Math.sqrt(2 * annDem * order / (cost * carry)) : 0;
+    const daysSafety = adu>0 ? safety/adu : 0;
+    const avgInv = (eoq/2) + safety;
+    const annCarry = avgInv * cost * carry;
+    const ordersYr = eoq>0 ? annDem/eoq : 0;
+    const annOrder = ordersYr * order;
+    const total = annCarry + annOrder;
+    document.getElementById('hero').innerHTML = `
+      <div class="big-label">Reorder point</div>
+      <div class="big-number">${Math.round(rop).toLocaleString()} <span style="font-size:24px;color:var(--fg3);font-weight:500">units</span></div>
+      <div class="big-caption">When stock hits this level, place an order. Includes <strong>${Math.round(safety).toLocaleString()} units of safety stock</strong> (${daysSafety.toFixed(1)} days at avg demand) for the selected ${Math.round(parseFloat(document.getElementById('service').selectedOptions[0].text))}% service level.</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">Economic order qty (EOQ)</div><div class="value">${Math.round(eoq).toLocaleString()}</div><div class="sub">optimal order size</div></div>
+        <div class="results-stat"><div class="label">Orders per year</div><div class="value">${ordersYr.toFixed(1)}</div><div class="sub">at avg demand</div></div>
+        <div class="results-stat"><div class="label">Annual inventory cost</div><div class="value">${fmt$(total)}</div><div class="sub">carrying + ordering</div></div>
+      </div>
+    `;
+    document.getElementById('detail').innerHTML = `
+      <h2 style="margin-bottom:14px">Cost breakdown</h2>
+      <table class="results-table">
+        <thead><tr><th>Component</th><th class="num">Annual cost</th></tr></thead>
+        <tbody>
+          <tr><td>Carrying cost (avg inventory ${Math.round(avgInv)} units x ${fmt$(cost)} x ${(carry*100).toFixed(0)}%)</td><td class="num">${fmt$(annCarry)}</td></tr>
+          <tr><td>Ordering cost (${ordersYr.toFixed(1)} orders x ${fmt$(order)})</td><td class="num">${fmt$(annOrder)}</td></tr>
+          <tr><td><strong>Total annual inventory cost</strong></td><td class="num"><strong>${fmt$(total)}</strong></td></tr>
+        </tbody>
+      </table>
+      <h2 style="margin-top:32px;margin-bottom:14px">Sensitivity analysis</h2>
+      <table class="results-table">
+        <thead><tr><th>Scenario</th><th class="num">New ROP</th><th class="num">Safety stock change</th></tr></thead>
+        <tbody>
+          <tr><td>Lead time +5 days</td><td class="num">${Math.round((adu*(alt+5))+safety)}</td><td class="num">+${Math.round(adu*5)} units</td></tr>
+          <tr><td>Demand +20%</td><td class="num">${Math.round((adu*1.2*alt)+safety*1.2)}</td><td class="num">+${Math.round(safety*0.2)} units</td></tr>
+          <tr><td>Service level to 99%</td><td class="num">${Math.round(adu*alt + (2.33*sigLTD))}</td><td class="num">+${Math.round((2.33-z)*sigLTD)} units</td></tr>
+        </tbody>
+      </table>
+      <p class="tool-note" style="margin-top:14px">Methodology: APICS/ASCM Body of Knowledge. Reorder Point = demand during lead time + safety stock. Safety stock uses Kings method for variable demand and variable lead time. EOQ from Harris (1913).</p>
+    `;
+    return {adu,mdu,alt,mlt,cost,carry,z,safety,rop,eoq,daysSafety,annCarry,annOrder,total};
+  }
+  document.querySelectorAll('input, select').forEach(el=>el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title:'Reorder Point + EOQ Calculation', docNumberLabel:'Item', docNumber:document.getElementById('item').value||'(unnamed)',
+      date: todayISO(),
+      fromLabel:'INPUTS', from:['Avg daily usage: '+r.adu, 'Max daily: '+r.mdu, 'Avg lead time: '+r.alt+' days', 'Max lead time: '+r.mlt+' days', 'Unit cost: '+fmt$(r.cost)],
+      toLabel:'RESULT', to:['Reorder point: '+Math.round(r.rop)+' units', 'Safety stock: '+Math.round(r.safety)+' units ('+r.daysSafety.toFixed(1)+' days)', 'EOQ: '+Math.round(r.eoq)+' units', 'Annual carry: '+fmt$(r.annCarry), 'Annual order: '+fmt$(r.annOrder)],
+      itemColumns:['Metric','Value'],
+      items:[['Reorder point', Math.round(r.rop)+' units'],['Safety stock', Math.round(r.safety)+' units'],['Economic order qty', Math.round(r.eoq)+' units'],['Annual carrying cost', fmt$(r.annCarry)],['Annual ordering cost', fmt$(r.annOrder)],['Total annual inventory cost', fmt$(r.total)]],
+      itemRowMapper: x=>x,
+      notes:'APICS/ASCM methodology. EOQ from Harris (1913). Safety stock via Kings method.',
+      filename:'reorder-point-'+todayISO()+'.pdf'
+    });
+  });
+});
+</script>
+
+
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

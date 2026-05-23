@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Make vs Buy Calculator for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Free make vs buy calculator with strategic factors. Compares full unit economics including setup, defects, and strategic fit. PDF report.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/make-vs-buy-calculator/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/make-vs-buy-calculator/"><meta property="og:title" content="Make vs Buy Calculator for Manufacturers | SimpleGrid"><meta property="og:description" content="Free make vs buy calculator with strategic factors. Compares full unit economics including setup, defects, and strategic fit. PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Make vs Buy Calculator for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/make-vs-buy-calculator/","description":"Free make vs buy calculator with strategic factors. Compares full unit economics including setup, defects, and strategic fit. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Make vs Buy Calculator for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/make-vs-buy-calculator/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>Make vs Buy Calculator - cost + strategic factors in one decision.</h1>
+    <p class="lead">Most make-vs-buy decisions get made on gut feel. This calculator combines full unit economics (material, labor, overhead, setup amortization, defect costs) with strategic factors (core competency, quality, IP, supplier risk). Get a recommendation, not just a number.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>Volume + part info</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="part">Component / process (optional)</label><input id="part" type="text" placeholder="e.g. powder coating"></div>
+        <div class="tool-field"><label for="vol">Annual volume (units)</label><input id="vol" type="number" data-clamp="0,10000000" step="1" value="50000" data-required></div>
+        <div class="tool-field"><label for="years">Expected production years</label><input id="years" type="number" data-clamp="1,20" step="1" value="5"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>MAKE (in-house)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="m-mat">Material cost / unit ($)</label><input id="m-mat" type="number" data-clamp="0,1000000" step="0.01" value="2.50"></div>
+        <div class="tool-field"><label for="m-lab">Labor cost / unit (burdened, $)</label><input id="m-lab" type="number" data-clamp="0,1000000" step="0.01" value="1.80"></div>
+        <div class="tool-field"><label for="m-mach">Machine + overhead / unit ($)</label><input id="m-mach" type="number" data-clamp="0,1000000" step="0.01" value="1.20"></div>
+        <div class="tool-field"><label for="m-setup">One-time setup / tooling cost ($)</label><input id="m-setup" type="number" data-clamp="0,10000000" step="1000" value="75000"></div>
+        <div class="tool-field"><label for="m-def">Defect rate (%)</label><input id="m-def" type="number" data-clamp="0,100" step="0.1" value="2"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>BUY (outsource)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="b-price">Purchase price / unit ($)</label><input id="b-price" type="number" data-clamp="0,1000000" step="0.01" value="7.20"></div>
+        <div class="tool-field"><label for="b-freight">Freight / unit ($)</label><input id="b-freight" type="number" data-clamp="0,10000" step="0.01" value="0.35"></div>
+        <div class="tool-field"><label for="b-insp">Inspection cost / unit ($)</label><input id="b-insp" type="number" data-clamp="0,10000" step="0.01" value="0.10"></div>
+        <div class="tool-field"><label for="b-def">Defect rate from vendor (%)</label><input id="b-def" type="number" data-clamp="0,100" step="0.1" value="1.5"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>Strategic factors</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="s-core">Is this a core competency?</label>
+          <select id="s-core"><option value="2">Yes - core</option><option value="0" selected>Partial</option><option value="-2">No</option></select>
+        </div>
+        <div class="tool-field"><label for="s-qual">Quality control criticality?</label>
+          <select id="s-qual"><option value="2">Critical</option><option value="1" selected>Important</option><option value="0">Standard</option></select>
+        </div>
+        <div class="tool-field"><label for="s-ip">IP / proprietary?</label>
+          <select id="s-ip"><option value="2">Yes - IP-sensitive</option><option value="0" selected>No</option></select>
+        </div>
+        <div class="tool-field"><label for="s-sup">Supplier alternatives?</label>
+          <select id="s-sup"><option value="-1">Many</option><option value="0" selected>Few</option><option value="2">Single source (risky)</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When the make-vs-buy decision drives capex and headcount</div>
+      <h2>SimpleGrid runs the full unit economics - including overhead that spreadsheets miss.</h2>
+      <p>True make cost includes loaded labor, machine depreciation, defect waste, and setup amortization. True buy cost includes freight, inspection, MOQ premium, and working capital impact. SimpleGrid posts every cost to the right job - so future make-vs-buy decisions use real data, not estimates.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="mvb_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function num(id){return parseFloat(document.getElementById(id).value)||0;}
+  function recalc(){
+    const vol = nn('vol'), years = Math.max(1, nn('years'));
+    const makeVar = nn('m-mat') + nn('m-lab') + nn('m-mach');
+    const setup = nn('m-setup');
+    const setupAmort = (vol*years)>0 ? setup/(vol*years) : 0;
+    const makeDef = nn('m-def')/100;
+    const makeQualityCost = vol * makeDef * makeVar;
+    const makeAnnual = vol * makeVar + setup/years + makeQualityCost;
+    const makePerUnit = makeVar + setupAmort + (makeDef * makeVar);
+    const buyVar = nn('b-price') + nn('b-freight') + nn('b-insp');
+    const buyDef = nn('b-def')/100;
+    const buyQualityCost = vol * buyDef * (nn('b-price') + 1); // shipping + delay rough
+    const buyAnnual = vol * buyVar + buyQualityCost;
+    const buyPerUnit = buyVar + (buyDef * buyVar);
+    const diff = makeAnnual - buyAnnual;
+    const breakEvenVol = (buyVar - makeVar)>0 ? setup / (buyVar - makeVar) : 0;
+    const strategicScore = num('s-core')+num('s-qual')+num('s-ip')+num('s-sup');
+    const advantage = diff < 0 ? 'MAKE' : 'BUY';
+    const advCls = diff<0 ? 'green' : 'red';
+    let rec;
+    if (Math.abs(diff/makeAnnual) < 0.1) {
+      rec = strategicScore >= 3 ? 'CLOSE CALL - Cost is within 10%. Strategic factors favor MAKE.' : 'CLOSE CALL - Cost is within 10%. Strategic factors are mixed - revisit with more data.';
+    } else if (diff < 0) {
+      rec = strategicScore >= 0 ? 'MAKE - Cost + strategic favor it. Save '+fmt$(-diff)+'/year.' : 'MAKE - Cost advantage of '+fmt$(-diff)+'/year. Strategic case for outsourcing exists but cost wins.';
+    } else {
+      rec = strategicScore >= 3 ? 'BUY - Cheaper by '+fmt$(diff)+'/year. But strategic factors favor MAKE - consider strategic premium worth paying.' : 'BUY - Saves '+fmt$(diff)+'/year and strategic factors do not justify the cost. Outsource it.';
+    }
+    document.getElementById('hero').innerHTML = `
+      <div class="big-label">Recommendation</div>
+      <div class="big-number ${advCls}">${advantage}</div>
+      <div class="big-caption">${rec}</div>
+      <div class="results-grid" style="margin-top:24px">
+        <div class="results-stat"><div class="label">MAKE per unit</div><div class="value ${diff<0?'green':''}">${fmt$(makePerUnit)}</div><div class="sub">${fmt$(makeAnnual)} annual</div></div>
+        <div class="results-stat"><div class="label">BUY per unit</div><div class="value ${diff>=0?'green':''}">${fmt$(buyPerUnit)}</div><div class="sub">${fmt$(buyAnnual)} annual</div></div>
+        <div class="results-stat"><div class="label">Strategic score</div><div class="value">${strategicScore>=0?'+':''}${strategicScore}/10</div><div class="sub">${strategicScore>=3?'favors MAKE':strategicScore<=-3?'favors BUY':'mixed'}</div></div>
+      </div>
+    `;
+    document.getElementById('detail').innerHTML = `
+      <h2 style="margin-bottom:14px">Side-by-side breakdown</h2>
+      <table class="results-table">
+        <thead><tr><th>Component</th><th class="num">MAKE</th><th class="num">BUY</th></tr></thead>
+        <tbody>
+          <tr><td>Variable cost per unit</td><td class="num">${fmt$(makeVar)}</td><td class="num">${fmt$(buyVar)}</td></tr>
+          <tr><td>Setup amortization per unit</td><td class="num">${fmt$(setupAmort)}</td><td class="num">$0</td></tr>
+          <tr><td>Quality cost per unit</td><td class="num">${fmt$(makeDef*makeVar)}</td><td class="num">${fmt$(buyDef*buyVar)}</td></tr>
+          <tr><td><strong>Total per unit</strong></td><td class="num"><strong>${fmt$(makePerUnit)}</strong></td><td class="num"><strong>${fmt$(buyPerUnit)}</strong></td></tr>
+          <tr><td><strong>Annual cost (${vol.toLocaleString()} units)</strong></td><td class="num"><strong>${fmt$(makeAnnual)}</strong></td><td class="num"><strong>${fmt$(buyAnnual)}</strong></td></tr>
+          <tr><td>Setup investment (one-time)</td><td class="num">${fmt$(setup)}</td><td class="num">$0</td></tr>
+        </tbody>
+      </table>
+      ${breakEvenVol>0 && breakEvenVol<vol*10 ? `<p class="tool-note" style="margin-top:14px"><strong>Break-even volume:</strong> MAKE becomes cheaper than BUY above <strong>${Math.round(breakEvenVol).toLocaleString()} units</strong>. You're at ${vol.toLocaleString()} units.</p>` : ''}
+    `;
+    return {vol,years,makePerUnit,buyPerUnit,makeAnnual,buyAnnual,setup,diff,strategicScore,advantage,rec,breakEvenVol};
+  }
+  document.querySelectorAll('input, select').forEach(el=>el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title:'Make vs Buy Analysis', docNumberLabel:'Part', docNumber:document.getElementById('part').value||'(unnamed)',
+      date: todayISO(),
+      fromLabel:'RECOMMENDATION', from:[r.advantage, r.rec],
+      toLabel:'COST', to:['MAKE: '+fmt$(r.makePerUnit)+'/unit, '+fmt$(r.makeAnnual)+'/yr', 'BUY: '+fmt$(r.buyPerUnit)+'/unit, '+fmt$(r.buyAnnual)+'/yr', 'Strategic score: '+r.strategicScore+'/10'],
+      itemColumns:['Component','MAKE','BUY'],
+      items:[['Per unit', fmt$(r.makePerUnit), fmt$(r.buyPerUnit)],['Annual ('+r.vol.toLocaleString()+' units)', fmt$(r.makeAnnual), fmt$(r.buyAnnual)],['Setup investment', fmt$(r.setup), '$0']],
+      itemRowMapper: x=>x,
+      notes:'Methodology: Transaction Cost Economics (Williamson, Nobel 2009). Combines unit economics + strategic factors (core competency, quality criticality, IP sensitivity, supplier risk).',
+      filename:'make-vs-buy-'+todayISO()+'.pdf'
+    });
+  });
+});
+</script>
+
+
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

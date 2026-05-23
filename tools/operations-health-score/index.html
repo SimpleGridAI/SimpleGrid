@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Manufacturing Operations Health Score | SimpleGrid</title>
+<meta name="description" content="Free composite manufacturing operations health score. 5 dimensions, ~15 inputs, 10 minutes. McKinsey OHI methodology adapted for mid-market manufacturing. PDF report.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/operations-health-score/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/operations-health-score/"><meta property="og:title" content="Manufacturing Operations Health Score | SimpleGrid"><meta property="og:description" content="Free composite manufacturing operations health score. 5 dimensions, ~15 inputs, 10 minutes. McKinsey OHI methodology adapted for mid-market manufacturing. PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Manufacturing Operations Health Score | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/operations-health-score/","description":"Free composite manufacturing operations health score. 5 dimensions, ~15 inputs, 10 minutes. McKinsey OHI methodology adapted for mid-market manufacturing. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Manufacturing Operations Health Score | SimpleGrid","item":"https://simplegrid.ai/tools/operations-health-score/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>Manufacturing Operations Health Score - one number for your whole operation.</h1>
+    <p class="lead">The flagship. 5 dimensions (production efficiency, quality, delivery, inventory, workforce), ~15 inputs, 10 minutes. A single score 0-100 with grade A-F, dimension breakdown, and the $ value of closing your biggest gaps. Modeled on McKinseys Organizational Health Index.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <p class="tool-note" style="margin:0 0 20px">The flagship composite. 5 dimensions, ~15 inputs, 10 minutes. Synthesizes OEE, scrap, on-time delivery, inventory turns, revenue/employee into a single score with peer comparison. Modeled on McKinseys Organizational Health Index, adapted for manufacturing.</p>
+    <div class="tool-card"><h2>1. Production Efficiency (OEE)</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="planned">Planned production hours / shift</label><input id="planned" type="number" data-clamp="0.1,24" step="0.1" value="8" data-required></div>
+        <div class="tool-field"><label for="running">Actual running hours / shift</label><input id="running" type="number" data-clamp="0,24" step="0.1" value="6.5"></div>
+        <div class="tool-field"><label for="ideal">Ideal output units/hr</label><input id="ideal" type="number" data-clamp="0.01,1000000" step="0.1" value="100"></div>
+        <div class="tool-field"><label for="actual">Actual output (incl defects)</label><input id="actual" type="number" data-clamp="0,10000000" step="1" value="520"></div>
+        <div class="tool-field"><label for="good">Good units (pass inspection)</label><input id="good" type="number" data-clamp="0,10000000" step="1" value="495"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>2. Quality Performance</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="scrap">Scrap rate (%)</label><input id="scrap" type="number" data-clamp="0,100" step="0.1" value="4.2" data-required></div>
+        <div class="tool-field"><label for="rework">Rework rate (%)</label><input id="rework" type="number" data-clamp="0,100" step="0.1" value="2.5"></div>
+        <div class="tool-field"><label for="returns">Customer return rate (%)</label><input id="returns" type="number" data-clamp="0,100" step="0.1" value="1.2"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>3. Delivery Performance</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="otd">On-time delivery (%)</label><input id="otd" type="number" data-clamp="0,100" step="0.1" value="86" data-required></div>
+        <div class="tool-field"><label for="qlead">Quoted lead time (days)</label><input id="qlead" type="number" data-clamp="0,365" step="1" value="14"></div>
+        <div class="tool-field"><label for="alead">Actual lead time (days)</label><input id="alead" type="number" data-clamp="0,365" step="1" value="17"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>4. Inventory Health</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="cogs">Annual COGS ($)</label><input id="cogs" type="number" data-clamp="0,10000000000" step="10000" value="6000000" data-required></div>
+        <div class="tool-field"><label for="inv">Average inventory value ($)</label><input id="inv" type="number" data-clamp="0,10000000000" step="10000" value="1200000"></div>
+        <div class="tool-field"><label for="stockouts">Stockouts last 3 months</label><input id="stockouts" type="number" data-clamp="0,10000" step="1" value="4"></div>
+      </div>
+    </div>
+    <div class="tool-card"><h2>5. Workforce Productivity</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="rev">Annual revenue ($)</label><input id="rev" type="number" data-clamp="0,10000000000" step="10000" value="10000000" data-required></div>
+        <div class="tool-field"><label for="emp">Total FTE</label><input id="emp" type="number" data-clamp="1,100000" step="1" value="50" data-required></div>
+        <div class="tool-field"><label for="turnover">Employee turnover rate (%)</label><input id="turnover" type="number" data-clamp="0,100" step="1" value="22"></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When you want all 5 dimensions live, not from a quarterly all-hands</div>
+      <h2>SimpleGrid scores your operation live from the event ledger.</h2>
+      <p>OEE from production cycles. Quality from NCR events. Delivery from ship events. Inventory from consumption events. Workforce from labor postings. One source of truth, no manual compilation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="ohs_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function fmt$K(n){if(n>=1000000) return '$'+(n/1000000).toFixed(2)+'M'; if(n>=1000) return '$'+Math.round(n/1000)+'K'; return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  function recalc(){
+    // 1. Production efficiency
+    const planned = Math.max(0.1, nn('planned')); const running = Math.min(nn('running'), planned);
+    const ideal = Math.max(0.01, nn('ideal')); const actual = nn('actual'); const good = Math.min(nn('good'), actual);
+    const avail = running/planned*100; const perf = Math.min(100, (running*ideal)>0 ? actual/(running*ideal)*100 : 0);
+    const qual = actual>0 ? good/actual*100 : 0; const oee = avail*perf*qual/10000;
+    const oeeScore = Math.min(100, oee/85*100);
+    // 2. Quality
+    const scrap = nn('scrap'); const rework = nn('rework'); const returns = nn('returns');
+    const fpy = Math.max(0, 100 - scrap - rework);
+    const qScore = Math.min(100, (fpy/95)*70 + Math.max(0, (5-returns)/5*30));
+    // 3. Delivery
+    const otd = nn('otd'); const qlead = nn('qlead'); const alead = nn('alead');
+    const leadAccuracy = qlead>0 ? Math.max(0, 1 - Math.abs(alead-qlead)/qlead) * 100 : 100;
+    const dScore = otd * 0.7 + leadAccuracy * 0.3;
+    // 4. Inventory
+    const cogs = nn('cogs'); const inv = Math.max(1, nn('inv')); const stockouts = nn('stockouts');
+    const turns = cogs/inv;
+    const iScore = Math.min(100, turns/9.2*70 + Math.max(0, (10-stockouts)/10*30));
+    // 5. Workforce
+    const rev = nn('rev'); const emp = Math.max(1, nn('emp')); const turnover = nn('turnover');
+    const rpe = rev/emp;
+    const wScore = Math.min(100, rpe/380000*70 + Math.max(0, (35-turnover)/35*30));
+    // Composite
+    const composite = Math.round(oeeScore*0.25 + qScore*0.25 + dScore*0.20 + iScore*0.15 + wScore*0.15);
+    let grade, gradeCls, gradeBand;
+    if (composite>=85) { grade='A'; gradeCls='green'; gradeBand='World-Class Operations - top 10%'; }
+    else if (composite>=70) { grade='B'; gradeCls='green'; gradeBand='Strong Operations - above average'; }
+    else if (composite>=55) { grade='C'; gradeCls='gold'; gradeBand='Average Operations - competitive but vulnerable'; }
+    else if (composite>=40) { grade='D'; gradeCls='red'; gradeBand='Below Average - gaps likely costing customers and margin'; }
+    else { grade='F'; gradeCls='red'; gradeBand='Critical - operations are a business risk'; }
+    document.getElementById('hero').innerHTML = `
+      <div class="big-label">Manufacturing Operations Health Score</div>
+      <div class="big-number ${gradeCls}">${composite} <span style="font-size:24px;color:var(--fg3);font-weight:500">/ 100</span></div>
+      <div class="big-caption"><strong>Grade ${grade}: ${gradeBand}.</strong></div>
+    `;
+    const dims = [
+      {name:'Production Efficiency (OEE)', score: Math.round(oeeScore), w:25, detail: 'OEE: '+oee.toFixed(1)+'% vs 85% target'},
+      {name:'Quality Performance', score: Math.round(qScore), w:25, detail: 'First-pass yield '+fpy.toFixed(1)+'%'},
+      {name:'Delivery Performance', score: Math.round(dScore), w:20, detail: 'On-time '+otd.toFixed(0)+'%, lead-time variance '+Math.abs(alead-qlead)+' days'},
+      {name:'Inventory Health', score: Math.round(iScore), w:15, detail: 'Turns '+turns.toFixed(1)+'x vs 5.8 median'},
+      {name:'Workforce Productivity', score: Math.round(wScore), w:15, detail: 'Rev/FTE '+fmt$K(rpe)+', turnover '+turnover+'%'}
+    ];
+    let bench = '<h2 style="margin-bottom:14px">Dimension scores</h2>';
+    dims.forEach(d=>{const cls=d.score>=70?'green':d.score>=40?'gold':'red'; bench += `<div class="bar-row"><span class="bar-label">${d.name}</span><div class="bar-track"><div class="bar-fill ${cls}" style="width:${d.score}%"></div></div><span class="bar-value">${d.score}/100 (${d.w}%)</span></div><div style="font-size:12px;color:var(--fg3);margin:0 0 8px 174px">${d.detail}</div>`;});
+    // Improvement opportunity
+    const oeeOpp = Math.max(0, 85 - oee)/100 * rev * 0.05; // crude proxy: each pt of OEE = 5% of revenue capacity
+    const qOpp = Math.max(0, scrap-1) * 0.6 * rev/100;
+    const otdOpp = Math.max(0, 97-otd) * 0.02 * rev/100 * 100; // 2%/pt
+    const totalOpp = oeeOpp + qOpp + otdOpp;
+    let opp = '<h2 style="margin-top:32px;margin-bottom:14px">If you closed your biggest gaps</h2><table class="results-table"><thead><tr><th>Gap</th><th class="num">If improved to top quartile</th></tr></thead><tbody>';
+    if (oeeOpp>0) opp += `<tr><td>OEE: ${oee.toFixed(1)}% to 85%</td><td class="num"><strong style="color:#047857">${fmt$K(oeeOpp)}/yr</strong></td></tr>`;
+    if (qOpp>0) opp += `<tr><td>Scrap: ${scrap}% to 1%</td><td class="num"><strong style="color:#047857">${fmt$K(qOpp)}/yr</strong></td></tr>`;
+    if (otdOpp>0) opp += `<tr><td>On-time: ${otd}% to 97%</td><td class="num"><strong style="color:#047857">${fmt$K(otdOpp)}/yr</strong></td></tr>`;
+    opp += `<tr><td><strong>Total annual opportunity</strong></td><td class="num"><strong style="color:#047857">${fmt$K(totalOpp)}</strong></td></tr></tbody></table>`;
+    document.getElementById('detail').innerHTML = bench + opp;
+    return {composite, grade, gradeBand, dims, oee, totalOpp};
+  }
+  document.querySelectorAll('input').forEach(el=>el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title:'Manufacturing Operations Health Score', docNumberLabel:'Score', docNumber:r.composite+'/100 (Grade '+r.grade+')',
+      date: todayISO(),
+      fromLabel:'STATUS', from:[r.gradeBand],
+      toLabel:'OPPORTUNITY', to:['Estimated annual value of closing your gaps: '+fmt$K(r.totalOpp)],
+      itemColumns:['Dimension','Score','Weight','Detail'],
+      items: r.dims.map(d=>[d.name, d.score+'/100', d.w+'%', d.detail]),
+      itemRowMapper: x=>x,
+      notes:'Methodology: Composite weighted average of 5 dimensions. Modeled on McKinseys Organizational Health Index (applied to 1500+ organizations globally), adapted for manufacturing using APICS SCOR + Census Bureau benchmarks.',
+      filename:'operations-health-score-'+todayISO()+'.pdf'
+    });
+  });
+});
+</script>
+
+
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

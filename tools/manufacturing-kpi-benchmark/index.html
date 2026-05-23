@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Manufacturing KPI Benchmark Tool | SimpleGrid</title>
+<meta name="description" content="Free 5-KPI manufacturing benchmark. On-time delivery, scrap, turns, margin, revenue/employee. Composite score + $ opportunity. PDF export.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/manufacturing-kpi-benchmark/">
+<link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/manufacturing-kpi-benchmark/"><meta property="og:title" content="Manufacturing KPI Benchmark Tool | SimpleGrid"><meta property="og:description" content="Free 5-KPI manufacturing benchmark. On-time delivery, scrap, turns, margin, revenue/employee. Composite score + $ opportunity. PDF export."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"Manufacturing KPI Benchmark Tool | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/manufacturing-kpi-benchmark/","description":"Free 5-KPI manufacturing benchmark. On-time delivery, scrap, turns, margin, revenue/employee. Composite score + $ opportunity. PDF export.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Manufacturing KPI Benchmark Tool | SimpleGrid","item":"https://simplegrid.ai/tools/manufacturing-kpi-benchmark/"}]}
+]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><a href="../" class="nav-link active">Productive Tools</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call with the founder</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>Manufacturing KPI Benchmark - 5 essential metrics, scored vs industry.</h1>
+    <p class="lead">You can't improve what you don't measure, and you can't know if you're good unless you compare. These 5 KPIs capture the operation. Scored against industry benchmarks with a composite score and a real $ opportunity number.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <div class="tool-card"><h2>The 5 essential manufacturing KPIs</h2>
+      <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="rev">Annual revenue ($)</label><input id="rev" type="number" data-clamp="0,10000000000" step="100000" value="15000000" data-required></div>
+        <div class="tool-field"><label for="emp">Employees</label><input id="emp" type="number" data-clamp="1,100000" step="1" value="75" data-required></div>
+        <div class="tool-field"><label for="otd">On-time delivery rate (%)</label><input id="otd" type="number" data-clamp="0,100" step="0.1" value="88" data-required></div>
+        <div class="tool-field"><label for="scrap">Scrap + rework rate (%)</label><input id="scrap" type="number" data-clamp="0,100" step="0.1" value="4.5" data-required></div>
+        <div class="tool-field"><label for="turns">Inventory turns (annual)</label><input id="turns" type="number" data-clamp="0,100" step="0.1" value="5.2" data-required></div>
+        <div class="tool-field"><label for="gm">Gross margin (%)</label><input id="gm" type="number" data-clamp="0,100" step="0.1" value="29" data-required></div>
+      </div>
+    </div>
+
+    <div class="results-hero" id="hero"></div>
+    <div class="tool-card" id="detail" style="margin-top:24px"></div>
+
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Report</button></div>
+
+    <div class="tool-cta">
+      <div class="eyebrow">When you want all 5 KPIs live, not from a monthly spreadsheet</div>
+      <h2>SimpleGrid surfaces every KPI from the event ledger - real-time, no manual compilation.</h2>
+      <p>On-time delivery from shipment events. Scrap rate from NCR events. Turns from inventory and consumption events. Margin from job costing events. One source, no reconciliation.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="kpi_cta" class="btn btn-primary">Book a call with the founder</a>
+    </div>
+  </div></section>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
+  function fmt$K(n){if(n>=1000000) return '$'+(n/1000000).toFixed(2)+'M'; if(n>=1000) return '$'+Math.round(n/1000)+'K'; return '$'+Math.round(n);}
+  function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  const BENCH = [
+    {key:'otd', name:'On-Time Delivery', unit:'%', med:87, top:97, higher:true, src:'APICS'},
+    {key:'scrap', name:'Scrap + Rework Rate', unit:'%', med:4.2, top:1.1, higher:false, src:'IndustryWeek'},
+    {key:'turns', name:'Inventory Turns', unit:'x', med:5.8, top:9.2, higher:true, src:'ASCM'},
+    {key:'gm', name:'Gross Margin', unit:'%', med:28, top:38, higher:true, src:'Census Bureau ASM'},
+    {key:'rpe', name:'Revenue per Employee', unit:'K', med:240, top:380, higher:true, src:'Census Bureau ASM'}
+  ];
+  function score(val, b){
+    if (b.higher){
+      if (val >= b.top) return 95;
+      if (val >= b.med) return 50 + (val - b.med) / (b.top - b.med) * 45;
+      return Math.max(5, (val / b.med) * 50);
+    } else {
+      if (val <= b.top) return 95;
+      if (val <= b.med) return 50 + (b.med - val) / (b.med - b.top) * 45;
+      return Math.max(5, 50 - (val - b.med) / b.med * 50);
+    }
+  }
+  function star(s){const full = Math.round(s/20); return '★'.repeat(full)+'☆'.repeat(5-full);}
+  function recalc(){
+    const rev = nn('rev'), emp = Math.max(1, nn('emp'));
+    const rpe = rev/emp/1000; // in $K
+    const vals = {otd: nn('otd'), scrap: nn('scrap'), turns: nn('turns'), gm: nn('gm'), rpe: rpe};
+    let totalScore = 0;
+    const rows = BENCH.map(b=>{
+      const v = vals[b.key];
+      const s = Math.round(score(v, b));
+      totalScore += s;
+      const display = b.key==='rpe' ? '$'+Math.round(v)+'K' : v.toFixed(1)+b.unit;
+      const medDisp = b.key==='rpe' ? '$'+b.med+'K' : b.med+b.unit;
+      const topDisp = b.key==='rpe' ? '$'+b.top+'K' : b.top+b.unit;
+      const cls = s>=70?'green':s>=40?'gold':'red';
+      return {b, v, s, display, medDisp, topDisp, cls};
+    });
+    const composite = Math.round(totalScore / BENCH.length);
+    const cCls = composite>=70?'green':composite>=40?'gold':'red';
+    const cBand = composite>=80?'Best-in-class':composite>=65?'Above average':composite>=45?'Average':composite>=25?'Below average':'Critical';
+    document.getElementById('hero').innerHTML = `
+      <div class="big-label">Operations Score</div>
+      <div class="big-number ${cCls}">${composite} <span style="font-size:24px;color:var(--fg3);font-weight:500">/ 100</span></div>
+      <div class="big-caption"><strong>${cBand}.</strong> Weighted composite of 5 essential manufacturing KPIs vs. industry benchmarks.</div>
+    `;
+    let bench = '<h2 style="margin-bottom:14px">KPI scorecard</h2><table class="results-table"><thead><tr><th>KPI</th><th class="num">You</th><th class="num">Industry median</th><th class="num">Top quartile</th><th class="num">Rating</th></tr></thead><tbody>';
+    rows.forEach(r=>{
+      bench += `<tr><td><strong>${r.b.name}</strong><div style="font-size:11px;color:var(--fg3)">Source: ${r.b.src}</div></td><td class="num ${r.cls}">${r.display}</td><td class="num">${r.medDisp}</td><td class="num">${r.topDisp}</td><td class="num">${star(r.s)}</td></tr>`;
+    });
+    bench += '</tbody></table>';
+
+    // Top quartile gap analysis
+    let gap = '<h2 style="margin-top:32px;margin-bottom:14px">If you hit top quartile</h2><table class="results-table"><thead><tr><th>KPI</th><th class="num">Gap to top quartile</th><th class="num">Estimated annual value</th></tr></thead><tbody>';
+    let totalOpp = 0;
+    const otdGap = Math.max(0, 97 - nn('otd'));
+    if (otdGap>0) { const v = rev * 0.02 * otdGap; totalOpp += v; gap += `<tr><td>On-Time Delivery (97% target)</td><td class="num">+${otdGap.toFixed(1)} pts</td><td class="num"><strong style="color:#047857">${fmt$K(v)}</strong></td></tr>`; }
+    const scrapGap = Math.max(0, nn('scrap') - 1.1);
+    if (scrapGap>0) { const v = rev * 0.55 * (scrapGap/100); totalOpp += v; gap += `<tr><td>Scrap Rate (1.1% target)</td><td class="num">-${scrapGap.toFixed(1)} pts</td><td class="num"><strong style="color:#047857">${fmt$K(v)}</strong></td></tr>`; }
+    const turnsGap = Math.max(0, 9.2 - nn('turns'));
+    if (turnsGap>0 && nn('turns')>0) { const wc = (rev * 0.55) / nn('turns') - (rev * 0.55) / 9.2; const v = wc * 0.15; totalOpp += v; gap += `<tr><td>Inventory Turns (9.2x target)</td><td class="num">+${turnsGap.toFixed(1)}x</td><td class="num"><strong style="color:#047857">${fmt$K(v)} freed working capital × 15%</strong></td></tr>`; }
+    const gmGap = Math.max(0, 38 - nn('gm'));
+    if (gmGap>0) { const v = rev * (gmGap/100); totalOpp += v; gap += `<tr><td>Gross Margin (38% target)</td><td class="num">+${gmGap.toFixed(1)} pts</td><td class="num"><strong style="color:#047857">${fmt$K(v)}</strong></td></tr>`; }
+    const rpeGap = Math.max(0, 380 - rpe);
+    if (rpeGap>0) { const v = rpeGap * 1000 * emp; totalOpp += v; gap += `<tr><td>Revenue per Employee ($380K target)</td><td class="num">+$${Math.round(rpeGap)}K/FTE</td><td class="num"><strong style="color:#047857">${fmt$K(v)} revenue capacity</strong></td></tr>`; }
+    if (totalOpp===0) gap += '<tr><td colspan="3" style="text-align:center;color:var(--fg3)">All KPIs at or above top quartile - excellent operations.</td></tr>';
+    else gap += `<tr><td><strong>Total opportunity</strong></td><td class="num">-</td><td class="num"><strong style="color:#047857">${fmt$K(totalOpp)}</strong></td></tr>`;
+    gap += '</tbody></table><p class="tool-note" style="margin-top:14px">Sources: APICS/ASCM SCOR model, IndustryWeek Best Plants benchmarking, US Census Bureau Annual Survey of Manufactures, Aberdeen Group.</p>';
+
+    document.getElementById('detail').innerHTML = bench + gap;
+    return {composite, cBand, rows, totalOpp};
+  }
+  document.querySelectorAll('input').forEach(el=>el.addEventListener('input', recalc));
+  if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
+  recalc();
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    if (typeof sgValidateRequired==='function' && !sgValidateRequired(document)) return;
+    const r = recalc();
+    sgBuildPdf({
+      title:'Manufacturing KPI Benchmark', docNumberLabel:'Composite score', docNumber:r.composite+' / 100',
+      date: todayISO(),
+      fromLabel:'STATUS', from:[r.cBand],
+      toLabel:'TOTAL OPPORTUNITY', to:['Annual value if all KPIs reach top quartile: '+fmt$(r.totalOpp)],
+      itemColumns:['KPI','You','Median','Top quartile','Score'],
+      items: r.rows.map(row=>[row.b.name, row.display, row.medDisp, row.topDisp, row.s+'/100']),
+      itemRowMapper: x=>x,
+      notes:'Sources: APICS/ASCM SCOR model, IndustryWeek Best Plants benchmarking, US Census Bureau Annual Survey of Manufactures, Aberdeen Group.',
+      filename:'kpi-benchmark-'+todayISO()+'.pdf'
+    });
+  });
+});
+</script>
+
+<section class="tool-seo"><div class="container-sm">
+    <h2>The 5 KPIs that tell you everything</h2>
+    <p>Manufacturers track dozens of metrics. These 5 capture the operation: on-time delivery (customer-facing), scrap rate (quality + cost), inventory turns (cash efficiency), gross margin (financial health), revenue per employee (operational productivity). Score against industry benchmarks and you know where you stand in 3 minutes.</p>
+    <h2>Benchmark sources</h2>
+    <ul><li>APICS/ASCM SCOR model - on-time delivery, inventory turns</li><li>IndustryWeek Best Plants - scrap rate</li><li>US Census Bureau Annual Survey of Manufactures - gross margin, revenue per employee</li><li>Aberdeen Group - cross-cutting mid-market manufacturing data</li></ul>
+  </div></section>
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px">
+      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a><a href="../../case-studies.html" class="footer-link">Case studies</a></div>
+      <div><div class="footer-h">Productive tools</div><a href="../purchase-order-generator/" class="footer-link">PO Generator</a><a href="../invoice-generator/" class="footer-link">Invoice Generator</a><a href="../quote-generator/" class="footer-link">Quote Generator</a><a href="../job-cost-calculator/" class="footer-link">Job Cost Calculator</a><a href="../bill-of-materials-template/" class="footer-link">BOM Builder</a><a href="../production-schedule-template/" class="footer-link">Production Schedule</a><a href="../quality-inspection-checklist/" class="footer-link">Quality Inspection</a><a href="../markup-vs-margin/" class="footer-link">Markup vs Margin</a><a href="../revenue-per-employee/" class="footer-link">Revenue per Employee</a><a href="../scrap-waste-calculator/" class="footer-link">Scrap & Waste Cost</a><a href="../erp-needs-assessment/" class="footer-link">Do I Need an ERP?</a></div>
+      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a><a href="../../blog.html" class="footer-link">Blog</a></div>
+      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call with the founder</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
+</body>
+</html>

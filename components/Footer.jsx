@@ -44,6 +44,12 @@ function Footer() {
       { l: 'Labor Burden Rate', href: 'tools/burden-rate-calculator/' },
       { l: 'Downtime Cost', href: 'tools/downtime-cost-calculator/' },
       { l: 'Break-Even', href: 'tools/break-even-calculator/' },
+      { l: 'Business Valuation', href: 'tools/business-valuation-calculator/' },
+      { l: 'KPI Benchmark', href: 'tools/manufacturing-kpi-benchmark/' },
+      { l: 'ERP Readiness', href: 'tools/erp-readiness-scorecard/' },
+      { l: 'Reorder Point + EOQ', href: 'tools/reorder-point-calculator/' },
+      { l: 'Make vs Buy', href: 'tools/make-vs-buy-calculator/' },
+      { l: 'Operations Health Score', href: 'tools/operations-health-score/' },
     ]},
     { h: 'Resources', links: [
       { l: 'Case studies', href: 'case-studies.html' },
