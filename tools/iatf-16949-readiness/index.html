@@ -2,124 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<title>IATF 16949 Readiness Assessment (Automotive QMS) | SimpleGrid</title>
-<meta name="description" content="30-question IATF 16949:2016 readiness assessment for automotive suppliers. APQP, PPAP, FMEA, MSA, SPC, customer-specific requirements.">
+<title>IATF 16949:2016 readiness - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/iatf-16949-readiness/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css"><link rel="stylesheet" href="../../styles.css"><link rel="stylesheet" href="../tools.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"IATF 16949 Readiness","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/iatf-16949-readiness/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>IATF 16949:2016 readiness - automotive quality system.</h1>
-  <p class="lead">IATF 16949 is required to supply most automotive OEMs and Tier 1s. Without it, you cannot bid on new programs. This assessment scores the 6 areas inspectors review.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <p class="tool-note" style="margin:0 0 20px">Prerequisite: ISO 9001 certification. IATF 16949 builds on top. 5 questions per area; rate 1-5.</p>
-  <form id="iatf-form"></form>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download IATF PDF</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">No cert, no automotive program</div>
-    <h2>Average certification timeline: 12-18 months. Cost: $25K-$75K including consulting.</h2>
-    <p>If you're an automotive supplier and not certified, start now. The OEMs will not wait.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="iatf_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:6px}.q-text{font-family:var(--font-heading);font-size:14px;font-weight:600;color:var(--fg1);margin:12px 0 6px}.q-options{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.q-option{padding:8px 4px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--fg1);transition:all 120ms ease;background:#fff;text-align:center}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:700}.q-option input{display:none}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  const cats = [
-    {key:'apqp',name:'1. APQP - Advanced Product Quality Planning',qs:['APQP process documented and used for new products','Cross-functional team approach to new product launches','Design FMEA performed for new designs','Process FMEA performed for new processes','Customer-specific requirements integrated into APQP']},
-    {key:'ppap',name:'2. PPAP - Production Part Approval Process',qs:['Standard PPAP submission process exists','Level 3 PPAP package (most common requirement) achievable','Run-at-rate / significant production run completed','Process flow, PFMEA, control plan submitted','Initial process studies (Ppk/Cpk) included']},
-    {key:'fmea',name:'3. FMEA - Failure Mode and Effects Analysis',qs:['Design FMEAs maintained and current','Process FMEAs maintained and current','RPN (or AIAG-VDA action priority) calculated and reviewed','High-RPN items have action plans','FMEAs updated for product / process changes']},
-    {key:'msa',name:'4. MSA - Measurement Systems Analysis',qs:['Gage R&R studies completed on critical measurements','Bias and linearity studied for variable gages','Attribute gage studies completed for go/no-go','Measurement system risk reviewed at PPAP','Calibration tied to measurement uncertainty']},
-    {key:'spc',name:'5. SPC - Statistical Process Control',qs:['Control charts active on critical characteristics','Process capability (Cpk) tracked over time','Out-of-control reactions documented','SPC training for operators','Capability sustained > 1.33 for special characteristics']},
-    {key:'csr',name:'6. Customer-Specific Requirements (CSRs)',qs:['CSR register maintained for each customer','CSRs flowed down to relevant processes','OEM portals monitored (NLF, GP-12, etc.)','Customer-specific reporting (Q1, ASES, MMOG/LE) maintained','CSRs included in internal audit scope']}
-  ];
-  buildAndWire(cats,'iatf-form',150,'IATF 16949 Readiness Assessment','iatf-16949-readiness',['IATF 16949 certification is required to supply most automotive OEMs and Tier 1s.','Prerequisite: ISO 9001 certification first.','Most common audit failure: PPAP. Most automotive auditors will fail a supplier on inadequate process capability or missing PPAP elements.']);
-});
-function buildAndWire(cats, formId, maxTotal, title, filename, footerNotes){
-  const form = document.getElementById(formId); let n=0;
-  cats.forEach(c=>{const card=document.createElement('div'); card.className='q-card'; card.innerHTML=`<div class="q-num">${c.name}</div>`;
-    c.qs.forEach(q=>{n++; const qid='q'+n; const div=document.createElement('div');
-      div.innerHTML=`<div class="q-text">${n}. ${q}</div><div class="q-options" data-q="${qid}" data-cat="${c.key}"><label class="q-option"><input type="radio" name="${qid}" value="1">1</label><label class="q-option"><input type="radio" name="${qid}" value="2">2</label><label class="q-option"><input type="radio" name="${qid}" value="3">3</label><label class="q-option"><input type="radio" name="${qid}" value="4">4</label><label class="q-option"><input type="radio" name="${qid}" value="5">5</label></div>`;
-      card.appendChild(div);});
-    form.appendChild(card);});
-  document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
-  function answered(){for(let q of document.querySelectorAll('.q-options')){if(!q.querySelector('input:checked'))return false;}return true;}
-  function recalc(){
-    if(!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const catScore={};
-    cats.forEach(c=>{const inputs=document.querySelectorAll(`[data-cat="${c.key}"] input:checked`); const sum=Array.from(inputs).reduce((a,i)=>a+parseInt(i.value),0); const max=c.qs.length*5; catScore[c.key]={name:c.name,score:sum,max,pct:sum/max*100};});
-    const total = Object.values(catScore).reduce((a,b)=>a+b.score,0); const score = Math.round(total/maxTotal*100);
-    const sorted = Object.values(catScore).sort((a,b)=>a.pct-b.pct);
-    let band,cls,summary;
-    if(score>=80){band='Certification-ready';cls='green';summary='Strong implementation. Engage your registrar; Stage 1 + Stage 2 within 8-12 weeks.';}
-    else if(score>=60){band='6-9 months focused work';cls='gold';summary='Workable; address weakest area first. Consultant can shorten timeline.';}
-    else if(score>=40){band='12-15 months - consider consultant';cls='gold';summary='Significant gaps. Consultant first pass saves months.';}
-    else{band='18+ months foundation work';cls='red';summary='Build foundation: ISO 9001 first, then layer IATF requirements.';}
-    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
-    document.getElementById('hero').innerHTML=`<div class="big-label">Readiness</div><div class="big-number ${cls}">${score}<span style="font-size:24px;color:var(--fg3);font-weight:500"> / 100</span></div><div class="big-caption"><strong>${band}.</strong> ${summary}</div>`;
-    let body='<h2 style="margin-bottom:10px">Score by area</h2>';
-    Object.values(catScore).forEach(c=>{const p=c.pct; const bcls=p>=70?'green':p>=40?'gold':'red'; body += `<div class="bar-row"><span class="bar-label">${c.name}</span><div class="bar-track"><div class="bar-fill ${bcls}" style="width:${p}%"></div></div><span class="bar-value">${c.score}/${c.max} (${Math.round(p)}%)</span></div>`;});
-    body += '<p class="tool-note" style="margin-top:14px"><strong>Weakest area:</strong> '+sorted[0].name+'. '+footerNotes.join(' ')+'</p>';
-    document.getElementById('detail').innerHTML = body;
-    return {score,band,catScore,sorted,summary};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title, docNumberLabel:'Readiness', docNumber:r.score+'/100', date:todayISO(),
-      fromLabel:'STATUS', from:[r.band], toLabel:'WEAKEST', to:[r.sorted[0].name+' ('+Math.round(r.sorted[0].pct)+'%)'],
-      itemColumns:['Area','Score','%'], items:Object.values(r.catScore).map(c=>[c.name,c.score+'/'+c.max,Math.round(c.pct)+'%']), itemRowMapper:x=>x,
-      notes:footerNotes.join(' '),
-      filename:filename+'-'+todayISO()+'.pdf'});
-  });
-}
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>The 5 AIAG core tools - and why all are required</h2>
-  <p>IATF 16949 requires implementation of all five AIAG core tools: APQP, PPAP, FMEA, MSA, and SPC. Each tool is essentially a separate body of knowledge - and most automotive auditors will fail a supplier on any one of them. APQP plans quality into new products. PPAP proves the parts meet spec. FMEA forces risk analysis. MSA validates the measurements. SPC monitors process stability. Together, they're the difference between making a part that works once and making a part that works for 8 years in 50,000 vehicles.</p>
-  <h2>How to get certified - realistic path</h2>
-  <p>Step 1: ISO 9001 certified (required prerequisite). Step 2: Train your team on the 5 core tools (AIAG workshops, ~$1,500/seat). Step 3: Implement and run for 3-6 months minimum (auditors look for evidence of operation, not just documentation). Step 4: Internal audit + management review. Step 5: Engage registrar for Stage 1 (gap assessment) and Stage 2 (full audit). Total realistic timeline: 12-18 months for a company starting from scratch.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>IATF 16949:2016 readiness</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

@@ -29,15 +29,7 @@
   <url><loc>https://simplegrid.ai/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/the-myth-of-erp-best-practices-your-operation-is-not-generic/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/tools/</loc><lastmod>2026-05-22</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/purchase-order-generator/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/invoice-generator/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/quote-generator/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/job-cost-calculator/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/bill-of-materials-template/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/production-schedule-template/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/quality-inspection-checklist/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://simplegrid.ai/tools/markup-vs-margin/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/revenue-per-employee/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://simplegrid.ai/tools/scrap-waste-calculator/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://simplegrid.ai/tools/erp-needs-assessment/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://simplegrid.ai/tools/ebitda-calculator/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
@@ -49,113 +41,7 @@
   <url><loc>https://simplegrid.ai/tools/manufacturing-kpi-benchmark/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://simplegrid.ai/tools/erp-readiness-scorecard/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://simplegrid.ai/tools/reorder-point-calculator/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/make-vs-buy-calculator/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://simplegrid.ai/tools/operations-health-score/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://simplegrid.ai/tools/customer-concentration-risk/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/sde-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/automation-roi-estimator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/cost-of-poor-quality/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/digital-maturity-assessment/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://simplegrid.ai/tools/exit-readiness-scorecard/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/capacity-planning-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/hire-vs-overtime/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/lease-vs-buy-equipment/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/expansion-roi-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/osha-compliance-checklist/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/iso-9001-readiness/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/insurance-coverage-checklist/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/pricing-strategy-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/quote-win-rate-analyzer/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/customer-lifetime-value-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/moq-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/price-increase-impact/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/volume-discount-optimizer/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/rfq-response-generator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/sales-forecast-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/customer-profitability-analyzer/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/payment-terms-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/sales-commission-modeler/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/supplier-scorecard/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/total-cost-of-ownership/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/landed-cost-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/supplier-diversification-risk/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/freight-cost-estimator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/ppv-tracker/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/vendor-comparison-matrix/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/import-duty-lookup/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/consignment-inventory-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/abc-analysis/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/inventory-carrying-cost/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/dead-stock-identifier/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/inventory-valuation/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/cycle-count-planner/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/warehouse-utilization/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/inventory-turnover-optimizer/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/takt-time-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/line-balancing/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/smed-analyzer/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/batch-size-optimizer/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/wip-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/machine-hour-rate/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/standard-time-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/kanban-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/vsm-data-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/5s-audit/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/labor-efficiency-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/bottleneck-profitability/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/turnover-cost-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/training-roi-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/shift-schedule-generator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/labor-utilization/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/wage-benchmarking/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/workers-comp-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/overtime-policy-modeler/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/succession-planning/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/energy-cost-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/carbon-footprint/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/energy-efficiency-roi/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/water-usage-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/esg-readiness/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/freight-class-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://simplegrid.ai/tools/packing-optimizer/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/incoterms-guide/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://simplegrid.ai/tools/shipping-cost-ratio/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/customs-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://simplegrid.ai/tools/dfm-checklist/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/eco-impact/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/prototype-cost/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/tolerance-stackup/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/material-selection/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/cash-flow-forecast/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://simplegrid.ai/tools/working-capital/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/dso-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/ar-aging/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/dscr-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://simplegrid.ai/tools/capex-planner/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/rd-tax-credit/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/section-179-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://simplegrid.ai/tools/cost-allocation/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/gross-margin-analyzer/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/nda-generator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://simplegrid.ai/tools/supply-agreement-checklist/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/contract-risk-checklist/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/ip-protection-audit/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/competitor-analysis/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://simplegrid.ai/tools/market-sizing/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/go-no-go/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/bcp-assessment/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/aop-generator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/erp-tco-comparison/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/cybersecurity-readiness/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/data-migration-estimator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/fda-food-safety-readiness/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/iatf-16949-readiness/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/as9100-readiness/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/ce-marking-checker/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/reach-rohs-checker/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/gmp-audit/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/warranty-cost-analyzer/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://simplegrid.ai/tools/nps-calculator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://simplegrid.ai/tools/onboarding-cost/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://simplegrid.ai/tools/sla-generator/</loc><lastmod>2026-05-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 </urlset>

@@ -2,144 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<title>Warranty Cost Analyzer | SimpleGrid</title>
-<meta name="description" content="Track warranty claims by product, calculate cost as % of revenue, identify top failure modes. Manufacturing avg: 1-3% of revenue. Above 3% = problem.">
+<title>Warranty cost analyzer - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/warranty-cost-analyzer/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css"><link rel="stylesheet" href="../../styles.css"><link rel="stylesheet" href="../tools.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Warranty Cost Analyzer","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/warranty-cost-analyzer/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>Warranty cost analyzer - where the quiet margin loss lives.</h1>
-  <p class="lead">Warranty cost is often the biggest expense nobody tracks. Manufacturing average: 1-3% of revenue. If you don't know your number, it's probably worse than you think.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <div class="tool-card">
-    <h2 style="margin-bottom:14px">Inputs</h2>
-    <div class="tool-grid">
-      <div class="tool-field"><label>Annual revenue ($)</label><input type="number" id="rev" step="1000" placeholder="10000000"></div>
-      <div class="tool-field"><label>Average gross margin (%)</label><input type="number" id="gm" min="0" max="100" step="0.5" placeholder="32"></div>
-    </div>
-    <h3 style="margin-top:18px;margin-bottom:10px">Products + claims (last 12 months)</h3>
-    <div style="overflow-x:auto"><table class="tool-table" id="prod-table"><thead><tr><th>Product</th><th>Units sold</th><th>Claims</th><th>Avg claim cost ($)</th><th>Top failure mode</th><th></th></tr></thead><tbody id="prod-body"></tbody></table></div>
-    <div style="margin-top:10px"><button type="button" id="add-row" class="btn">+ Add product</button></div>
-  </div>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="results" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download Warranty Report</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">Each claim costs more than just the part</div>
-    <h2>Avg claim cost includes parts, labor, shipping, admin - and customer goodwill damage you can't measure.</h2>
-    <p>Cutting warranty rate in half on your top failure mode often saves more than your annual continuous improvement budget.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="warranty_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>#prod-body input{width:100%;padding:4px;font-size:13px;border:1px solid var(--border);border-radius:4px}#prod-body td{padding:5px;border-bottom:1px solid var(--border)}.row-del{padding:4px 8px;background:#fdecea;border:1px solid #f5b8b1;border-radius:6px;cursor:pointer;font-size:12px;color:#922}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  const body = document.getElementById('prod-body');
-  function addRow(d){d=d||{};
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td><input type="text" maxlength="50" data-f="prod" value="${sgEscapeHtml?sgEscapeHtml(d.prod||''):(d.prod||'')}" placeholder="Product"></td><td><input type="number" data-f="sold" min="0" step="1" value="${d.sold||''}" placeholder="0"></td><td><input type="number" data-f="claims" min="0" step="1" value="${d.claims||''}" placeholder="0"></td><td><input type="number" data-f="cost" min="0" step="1" value="${d.cost||''}" placeholder="0"></td><td><input type="text" maxlength="60" data-f="fail" value="${sgEscapeHtml?sgEscapeHtml(d.fail||''):(d.fail||'')}" placeholder="e.g., seal leak"></td><td><button type="button" class="row-del">×</button></td>`;
-    body.appendChild(tr);
-    tr.querySelector('.row-del').addEventListener('click',()=>{tr.remove();setTimeout(recalc,10);});
-    tr.querySelectorAll('input').forEach(i=>i.addEventListener('input',()=>setTimeout(recalc,30)));
-  }
-  addRow({prod:'Product A',sold:1000,claims:30,cost:250,fail:'Seal leak'}); addRow(); addRow();
-  document.getElementById('add-row').addEventListener('click',()=>addRow());
-  ['rev','gm'].forEach(id=>document.getElementById(id).addEventListener('input',()=>setTimeout(recalc,30)));
-  function rows(){return Array.from(body.querySelectorAll('tr')).map(tr=>({prod:tr.querySelector('[data-f="prod"]').value,sold:parseFloat(tr.querySelector('[data-f="sold"]').value)||0,claims:parseFloat(tr.querySelector('[data-f="claims"]').value)||0,cost:parseFloat(tr.querySelector('[data-f="cost"]').value)||0,fail:tr.querySelector('[data-f="fail"]').value})).filter(r=>r.prod||r.sold||r.claims);}
-  function recalc(){
-    const rev = parseFloat(document.getElementById('rev').value)||0;
-    const gm = parseFloat(document.getElementById('gm').value)||0;
-    const rs = rows();
-    const totalClaims = rs.reduce((s,r)=>s+r.claims,0);
-    const totalCost = rs.reduce((s,r)=>s+r.claims*r.cost,0);
-    if(!rev || !rs.length || !totalClaims){document.getElementById('hero').style.display='none';document.getElementById('results').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const pctOfRev = totalCost/rev*100;
-    const pctOfGm = gm>0 ? totalCost/(rev*gm/100)*100 : 0;
-    let band,cls;
-    if(pctOfRev<=1){band='Below average - good';cls='green';}
-    else if(pctOfRev<=3){band='Industry average';cls='gold';}
-    else if(pctOfRev<=5){band='Above average - problem';cls='red';}
-    else{band='Critical - margin emergency';cls='red';}
-    const withRates = rs.filter(r=>r.sold>0).map(r=>({...r,rate:r.claims/r.sold*100,totalCost:r.claims*r.cost})).sort((a,b)=>b.totalCost-a.totalCost);
-    const top = withRates[0];
-    document.getElementById('hero').style.display='block';
-    document.getElementById('hero').innerHTML=`<div class="big-label">Warranty cost</div><div class="big-number ${cls}">${pctOfRev.toFixed(2)}%<span style="font-size:24px;color:var(--fg3);font-weight:500"> of revenue</span></div><div class="big-caption"><strong>${money(totalCost)}</strong> total &middot; <strong>${band}.</strong> Manufacturing avg: 1-3%. Above 3% = quality problem hiding in plain sight.${gm>0?' This is '+pctOfGm.toFixed(1)+'% of gross profit.':''}</div>`;
-    let bodyHtml = '<h2 style="margin-bottom:10px">Claims by product (sorted by total cost)</h2>';
-    bodyHtml += `<table class="tool-table"><thead><tr><th>Product</th><th style="text-align:right">Units sold</th><th style="text-align:right">Claims</th><th style="text-align:right">Rate %</th><th style="text-align:right">Total cost</th><th>Top failure</th></tr></thead><tbody>`;
-    withRates.forEach(r=>{const cls2 = r.rate>=10?'red':r.rate>=3?'gold':'green'; bodyHtml += `<tr><td>${r.prod}</td><td style="text-align:right">${num(r.sold)}</td><td style="text-align:right">${r.claims}</td><td style="text-align:right" class="${cls2}">${r.rate.toFixed(2)}%</td><td style="text-align:right">${money(r.totalCost)}</td><td>${r.fail||''}</td></tr>`;});
-    bodyHtml += `</tbody></table>`;
-    if(top){
-      const halfSavings = top.totalCost/2;
-      bodyHtml += `<p class="tool-note" style="margin-top:14px"><strong>Highest cost product:</strong> ${top.prod} at ${top.rate.toFixed(2)}% claim rate, ${money(top.totalCost)} total. If you cut claims on ${top.prod} by 50% (typical result of addressing the top failure mode "${top.fail||'unknown'}"): annual savings of <strong>${money(halfSavings)}</strong>.</p>`;
-    }
-    bodyHtml += `<p class="tool-note" style="margin-top:8px"><strong>Warranty reserve recommendation:</strong> ${money(totalCost)} based on trailing 12 months. Hold this on the balance sheet against future claims from goods already shipped.</p>`;
-    document.getElementById('results').innerHTML = bodyHtml;
-    document.getElementById('results').style.display='block';
-    document.getElementById('generate-pdf').disabled=false;
-    return {totalCost,pctOfRev,pctOfGm,band,withRates,top};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title:'Warranty Cost Analysis',
-      docNumberLabel:'Warranty cost % of revenue', docNumber:r.pctOfRev.toFixed(2)+'%',
-      date:todayISO(),
-      fromLabel:'TOTAL', from:[money(r.totalCost)+' last 12 months', r.band],
-      toLabel:'TOP COST PRODUCT', to:r.top?[r.top.prod, r.top.rate.toFixed(2)+'% claim rate', money(r.top.totalCost)]:['n/a'],
-      itemColumns:['Product','Sold','Claims','Rate','Cost','Top fail'],
-      items:r.withRates.map(p=>[p.prod, p.sold, p.claims, p.rate.toFixed(2)+'%', money(p.totalCost), p.fail||'']),
-      itemRowMapper:x=>x,
-      notes:'Manufacturing benchmark: 1-3% of revenue. Above 3% indicates quality problems hiding in plain sight. Fixing the top failure mode typically halves total warranty cost on that product.',
-      filename:'warranty-cost-'+todayISO()+'.pdf'});
-  });
-});
-function sgEscapeHtml(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>Why warranty is the most under-tracked cost in manufacturing</h2>
-  <p>Warranty hits as cash outflow weeks or months after the sale - by which time the original transaction is closed, the salesperson is paid, and nobody on the floor associates today's rework with last quarter's job. It shows up in COGS as "rework" or "field service" but rarely traces back to specific products or failure modes. The result: warranty cost ages quietly and is often invisible to the people who could fix the root cause.</p>
-  <h2>What "cost per claim" actually includes</h2>
-  <p>Parts: typically 20-30% of total claim cost. Labor (technician time, troubleshooting, repair, paperwork): 30-40%. Shipping (inbound, outbound, sometimes expedited): 10-20%. Admin (logging, customer service, RMA processing): 10-20%. Customer goodwill damage: not in the number but real - the customer who got a defective part once thinks twice before reordering. The full cost of a warranty claim is typically 4-7x the cost of the part itself.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>Warranty cost analyzer</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

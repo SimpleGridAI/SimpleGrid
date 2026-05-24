@@ -2,190 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<title>Supply Agreement Terms Checklist (32 Clauses) | SimpleGrid</title>
-<meta name="description" content="32-clause checklist for manufacturer supply and customer agreements. Pricing, quality, delivery, liability, IP, tooling. Score your contract gaps. PDF download.">
+<title>Supply agreement checklist - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/supply-agreement-checklist/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css">
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../tools.css">
-<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/supply-agreement-checklist/"><meta property="og:title" content="Supply Agreement Terms Checklist | SimpleGrid"><meta property="og:description" content="32-clause checklist for manufacturer supply and customer agreements. Score your contract gaps. PDF download."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Supply Agreement Terms Checklist","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/supply-agreement-checklist/","description":"32-clause checklist for manufacturer supply and customer agreements.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Supply Agreement Checklist","item":"https://simplegrid.ai/tools/supply-agreement-checklist/"}]}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>Supply agreement checklist - the 32 terms that protect you.</h1>
-  <p class="lead">Most mid-market manufacturers operate on POs or handshake deals. When the relationship goes sideways, the missing clauses cost real money. This checklist scores what's in your current agreement and flags the dangerous gaps.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <p class="tool-note" style="margin:0 0 20px">Industry best practice: 85%+ coverage. Check each clause as Included, Missing, or Needs Review based on your current contract.</p>
-  <form id="agreement-form"></form>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">Find your gaps before your attorney does</div>
-    <h2>This checklist identifies what to include. Your attorney drafts the language.</h2>
-    <p>Budget $2,000-$5,000 for a solid supply agreement template you can reuse for the next decade. The 3 most dangerous gaps - liability cap, IP ownership, and termination for convenience - have cost manufacturers seven-figure losses.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="supply_agreement_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:6px}.q-text{font-family:var(--font-heading);font-size:14px;font-weight:600;color:var(--fg1);margin:14px 0 8px}.q-options{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}@media(max-width:700px){.q-options{grid-template-columns:1fr}}.q-option{padding:8px 10px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--fg1);transition:all 120ms ease;background:#fff;text-align:center}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:600}.q-option input{display:none}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  const cats = [
-    {key:'commercial',name:'Commercial Terms',items:[
-      ['Pricing & price-adjustment mechanism','high'],
-      ['Payment terms & late-payment penalties','high'],
-      ['Min / max order quantities','med'],
-      ['Volume commitments & rebates','med'],
-      ['Currency / FX risk (if international)','med'],
-      ['Price validity period','med'],
-      ['Annual price review process','low'],
-      ['Cost breakdown transparency','low']
-    ]},
-    {key:'quality',name:'Quality Terms',items:[
-      ['Quality specifications & acceptance criteria','high'],
-      ['Inspection rights (incoming & at supplier)','med'],
-      ['Non-conforming material procedure','high'],
-      ['Quality certifications required (ISO, CoC, test)','med'],
-      ['Change notification (process, material, location)','high'],
-      ['Warranty terms & claim process','high']
-    ]},
-    {key:'delivery',name:'Delivery Terms',items:[
-      ['Delivery schedule & lead time commitments','high'],
-      ['On-time delivery KPI & penalties / incentives','med'],
-      ['Expedite policy & costs','med'],
-      ['Incoterms (if international)','high'],
-      ['Force majeure definition & notification','high']
-    ]},
-    {key:'liability',name:'Liability & Risk',items:[
-      ['Limitation of liability (cap)','high'],
-      ['Indemnification (mutual or one-way)','high'],
-      ['Product liability & recall responsibility','high'],
-      ['Insurance requirements (types, minimums)','med'],
-      ['Intellectual property ownership','high']
-    ]},
-    {key:'relationship',name:'Relationship Management',items:[
-      ['Term & renewal (auto vs renegotiate)','med'],
-      ['Termination for convenience (notice period)','high'],
-      ['Termination for cause','high'],
-      ['Dispute resolution (mediation / arbitration)','med']
-    ]},
-    {key:'tooling',name:'Tooling & IP (if applicable)',items:[
-      ['Tooling ownership (customer vs supplier)','high'],
-      ['Tooling maintenance responsibility','med'],
-      ['Tooling insurance & replacement','med'],
-      ['Design / drawing ownership & restrictions','high']
-    ]}
-  ];
-  const form = document.getElementById('agreement-form');
-  let qIdx = 0;
-  cats.forEach(cat=>{
-    const card = document.createElement('div'); card.className = 'q-card';
-    card.innerHTML = `<div class="q-num">${cat.name}</div>`;
-    cat.items.forEach(([label,risk])=>{
-      qIdx++;
-      const qid = 'q'+qIdx;
-      const div = document.createElement('div');
-      div.innerHTML = `<div class="q-text">${qIdx}. ${label} <span style="color:${risk==='high'?'#c0392b':risk==='med'?'#b8821a':'#888'};font-size:11px;font-weight:500;text-transform:uppercase;margin-left:6px">${risk} risk</span></div><div class="q-options" data-q="${qid}" data-risk="${risk}" data-cat="${cat.key}"><label class="q-option"><input type="radio" name="${qid}" value="2">Included</label><label class="q-option"><input type="radio" name="${qid}" value="1">Needs Review</label><label class="q-option"><input type="radio" name="${qid}" value="0">Missing</label></div>`;
-      card.appendChild(div);
-    });
-    form.appendChild(card);
-  });
-  document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
-  const total = qIdx;
-  function val(q){const el=document.querySelector('input[name="'+q+'"]:checked');return el?parseInt(el.value):null;}
-  function answered(){for(let i=1;i<=total;i++){if(val('q'+i)===null)return false;}return true;}
-  function recalc(){
-    if(!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    let included=0, review=0, missing=0, highMissing=[];
-    const catScore = {};
-    cats.forEach(c=>catScore[c.key]={inc:0,total:0});
-    let i=0;
-    cats.forEach(cat=>{
-      cat.items.forEach(([label,risk])=>{
-        i++; const v=val('q'+i);
-        catScore[cat.key].total++;
-        if(v===2){included++;catScore[cat.key].inc++;}
-        else if(v===1)review++;
-        else {missing++; if(risk==='high')highMissing.push(label);}
-      });
-    });
-    const pct = Math.round(included/total*100);
-    let band,cls,summary;
-    if(pct>=85){band='Strong protection - industry best practice';cls='green';summary='Your agreement covers the critical clauses. Review the few gaps with your attorney.';}
-    else if(pct>=65){band='Material gaps to close';cls='gold';summary='Functional contract with meaningful exposure on a few clauses. Update at next renewal.';}
-    else if(pct>=40){band='Significant gaps - update soon';cls='gold';summary='Multiple high-risk clauses missing. Pull this in for an attorney review within 30 days.';}
-    else{band='Operating on a handshake - this is dangerous';cls='red';summary='Your "agreement" is mostly PO terms. A single dispute can wipe out years of profit.';}
-    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
-    document.getElementById('hero').innerHTML=`<div class="big-label">Supply agreement coverage</div><div class="big-number ${cls}">${included}<span style="font-size:24px;color:var(--fg3);font-weight:500"> / ${total} (${pct}%)</span></div><div class="big-caption"><strong>${band}.</strong> ${summary}</div>`;
-    let bars = '<h2 style="margin-bottom:14px">Coverage by category</h2>';
-    cats.forEach(c=>{const s=catScore[c.key]; const p=Math.round(s.inc/s.total*100); const bcls=p>=80?'green':p>=50?'gold':'red'; bars += `<div class="bar-row"><span class="bar-label">${c.name}</span><div class="bar-track"><div class="bar-fill ${bcls}" style="width:${p}%"></div></div><span class="bar-value">${s.inc}/${s.total} (${p}%)</span></div>`;});
-    if(highMissing.length){bars += '<h2 style="margin-top:20px;margin-bottom:10px">High-risk gaps - close these first</h2><ul style="margin:0;padding-left:20px">'+highMissing.map(g=>`<li style="margin-bottom:6px"><strong>${g}</strong></li>`).join('')+'</ul>';}
-    bars += `<p class="tool-note" style="margin-top:14px"><strong>${missing}</strong> clauses missing &middot; <strong>${review}</strong> need review &middot; <strong>${included}</strong> included. The most dangerous misses are typically: liability cap, IP ownership, termination for convenience, and tooling ownership.</p>`;
-    document.getElementById('detail').innerHTML = bars;
-    return {pct,included,total,catScore,highMissing};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title:'Supply Agreement Coverage Report',
-      docNumberLabel:'Coverage', docNumber:r.pct+'%',
-      date:todayISO(),
-      fromLabel:'INCLUDED', from:[r.included+' of '+r.total+' clauses covered'],
-      toLabel:'GAPS', to:r.highMissing.length?r.highMissing.slice(0,5):['No high-risk gaps'],
-      itemColumns:['Category','Included','Total','%'], items:cats.map(c=>[c.name,r.catScore[c.key].inc,r.catScore[c.key].total,Math.round(r.catScore[c.key].inc/r.catScore[c.key].total*100)+'%']), itemRowMapper:x=>x,
-      notes:'Industry best practice: 85%+ clause coverage. Bring this to your attorney with notes on what to add. Typical cost of a reusable supply agreement template: $2,000-$5,000.',
-      filename:'supply-agreement-checklist-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>The 3 clauses that cost manufacturers the most</h2>
-  <p><strong>1. Limitation of liability.</strong> Without a cap, a single defective batch can expose you to the customer's full lost profits, recall costs, and customer's customer claims. Standard: cap at 12 months of purchases or insurance limits.</p>
-  <p><strong>2. IP and tooling ownership.</strong> If you build the tooling and the contract is silent, the customer may walk with your tooling - or worse, claim ownership of your process improvements. Make it explicit.</p>
-  <p><strong>3. Termination for convenience.</strong> 30-day termination clauses can leave you with $500K of dedicated inventory and idle capacity. 90 days is standard for custom production; longer for capital-intensive arrangements.</p>
-  <h2>What about a PO with terms on the back?</h2>
-  <p>That's a contract. Sometimes the back-of-PO terms are reasonable; often they're one-sided and the buyer is counting on you not reading them. Run them through the Customer Contract Risk Checklist - <a href="../contract-risk-checklist/">/tools/contract-risk-checklist/</a>.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>Supply agreement checklist</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

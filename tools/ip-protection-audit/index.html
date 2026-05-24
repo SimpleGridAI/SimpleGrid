@@ -2,143 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<title>IP Protection Audit for Manufacturers (15 Questions) | SimpleGrid</title>
-<meta name="description" content="Assess trade secret, patent, trademark, and copyright protection across 15 dimensions. Unprotected IP reduces business valuation. Action plan PDF.">
+<title>IP protection audit - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/ip-protection-audit/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css">
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../tools.css">
-<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/ip-protection-audit/"><meta property="og:title" content="IP Protection Audit | SimpleGrid"><meta property="og:description" content="Assess trade secret, patent, trademark, and copyright protection across 15 dimensions."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"IP Protection Audit","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/ip-protection-audit/","description":"Assess IP protection across 4 categories and 15 questions.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"IP Protection Audit","item":"https://simplegrid.ai/tools/ip-protection-audit/"}]}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>IP protection audit - is your competitive advantage actually protected?</h1>
-  <p class="lead">Most mid-market manufacturers have proprietary processes, designs, or trade secrets - but no formal protection. One employee departure can transfer your competitive advantage straight to a competitor. This audit scores 15 protection points across trade secrets, patents, trademarks, and design.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <form id="ip-form"></form>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download Action Plan PDF</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">IP discounts your valuation</div>
-    <h2>Buyers reduce multiples when competitive advantage can walk out the door.</h2>
-    <p>In due diligence, the first question after financials is "what proprietary IP do you own and how is it protected?" If the answer is "we don't really know," the offer drops by 0.5x to 1.0x EBITDA.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="ip_audit_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:6px}.q-text{font-family:var(--font-heading);font-size:14px;font-weight:600;color:var(--fg1);margin:14px 0 8px}.q-options{display:grid;grid-template-columns:1fr 1fr;gap:6px}@media(max-width:600px){.q-options{grid-template-columns:1fr}}.q-option{padding:8px 10px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--fg1);transition:all 120ms ease;background:#fff;text-align:center}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:600}.q-option input{display:none}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  const cats = [
-    {key:'trade',name:'Trade Secrets',items:['Proprietary manufacturing processes, formulas, or techniques exist','Documented and marked "Confidential"','Employees sign NDAs / confidentiality agreements','Access to trade secret info restricted (physical + digital)','Departing employees reminded of confidentiality obligations in exit interviews']},
-    {key:'patent',name:'Patents',items:['Products or processes are novel and non-obvious','Patents filed (at least provisional)','Invention disclosure process exists for employees']},
-    {key:'tm',name:'Trademarks',items:['Company name / brand trademarked','Product names / logos trademarked','Monitoring for trademark infringement']},
-    {key:'copy',name:'Copyrights & Design',items:['Original product designs, drawings, or software exist','Design files stored securely with access controls','Employee / contractor agreements include "work for hire" / IP assignment','Customer designs kept separate from your proprietary designs']}
-  ];
-  const form = document.getElementById('ip-form');
-  let n=0;
-  cats.forEach(cat=>{
-    const card=document.createElement('div'); card.className='q-card';
-    card.innerHTML=`<div class="q-num">${cat.name}</div>`;
-    cat.items.forEach(label=>{
-      n++; const qid='q'+n;
-      const div=document.createElement('div');
-      div.innerHTML=`<div class="q-text">${n}. ${label}</div><div class="q-options" data-q="${qid}"><label class="q-option"><input type="radio" name="${qid}" value="2">Yes - established</label><label class="q-option"><input type="radio" name="${qid}" value="1">Partial / informal</label><label class="q-option"><input type="radio" name="${qid}" value="0">No</label></div>`;
-      card.appendChild(div);
-    });
-    form.appendChild(card);
-  });
-  document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
-  const total=n;
-  function val(q){const el=document.querySelector('input[name="'+q+'"]:checked');return el?parseInt(el.value):null;}
-  function answered(){for(let i=1;i<=total;i++){if(val('q'+i)===null)return false;}return true;}
-  function recalc(){
-    if(!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const catScore={}; cats.forEach(c=>catScore[c.key]={s:0,m:c.items.length*2,n:c.items.length});
-    let i=0,sum=0;
-    cats.forEach(c=>{c.items.forEach(()=>{i++;const v=val('q'+i);sum+=v;catScore[c.key].s+=v;});});
-    const score = Math.round(sum/(total*2)*100);
-    let band,cls,summary;
-    if(score>=80){band='Strong IP posture';cls='green';summary='Your IP is genuinely protected. Maintain the program; review with counsel annually.';}
-    else if(score>=55){band='Moderate - close the gaps';cls='gold';summary='Foundation in place but real exposure remains. Highest ROI: NDAs for everyone and "work for hire" language in all contractor agreements.';}
-    else if(score>=30){band='Weak - your moat can walk';cls='red';summary='Your competitive advantage is largely undocumented and unprotected. Buyer discount: 0.5-1.0x EBITDA in any sale process.';}
-    else{band='Unprotected - urgent';cls='red';summary='Anything you consider proprietary today could end up at a competitor tomorrow with zero legal recourse.';}
-    const actions = [];
-    if(catScore.trade.s/catScore.trade.m < 0.6) actions.push({title:'Implement employee NDAs',cost:'$500 one-time attorney fee for a reusable template',why:'Without an NDA, an ex-employee carrying your process knowledge to a competitor has no legal exposure.'});
-    if(catScore.trade.s/catScore.trade.m < 0.6) actions.push({title:'Mark proprietary documents "Confidential"',cost:'$0 - process change',why:'Trade secret protection requires "reasonable efforts to maintain secrecy." Marking is the basic evidence.'});
-    if(catScore.patent.s/catScore.patent.m < 0.5) actions.push({title:'File provisional patents on novel processes/products',cost:'$1,500-$3,000 per filing',why:'Buys 12 months of "Patent Pending" protection while you decide on full filing.'});
-    if(catScore.tm.s/catScore.tm.m < 0.5) actions.push({title:'Trademark company name + key product brands',cost:'$1,000-$2,000 per mark',why:'Common law rights are weak. Federal registration gives nationwide protection and serious damages.'});
-    if(catScore.copy.s/catScore.copy.m < 0.6) actions.push({title:'Add "work for hire" + IP assignment to all contractor agreements',cost:'$500 attorney fee for template',why:'Without this, your contractor owns the IP they create for you.'});
-    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
-    document.getElementById('hero').innerHTML=`<div class="big-label">IP protection score</div><div class="big-number ${cls}">${score}<span style="font-size:24px;color:var(--fg3);font-weight:500"> / 100</span></div><div class="big-caption"><strong>${band}.</strong> ${summary}</div>`;
-    let body='<h2 style="margin-bottom:14px">Score by category</h2>';
-    cats.forEach(c=>{const s=catScore[c.key]; const p=Math.round(s.s/s.m*100); const bcls=p>=70?'green':p>=40?'gold':'red'; body += `<div class="bar-row"><span class="bar-label">${c.name}</span><div class="bar-track"><div class="bar-fill ${bcls}" style="width:${p}%"></div></div><span class="bar-value">${s.s}/${s.m} (${p}%)</span></div>`;});
-    if(actions.length){body += '<h2 style="margin-top:20px;margin-bottom:10px">Priority actions</h2>';actions.forEach((a,i)=>{body += `<div style="background:#f6f8fc;border-left:4px solid var(--sg-blue);padding:12px 14px;margin-bottom:8px;border-radius:6px"><div style="font-weight:700">${i+1}. ${a.title}</div><div style="font-size:13px;color:#444;margin-top:4px"><strong>Cost:</strong> ${a.cost}</div><div style="font-size:13px;color:#444;margin-top:2px"><strong>Why:</strong> ${a.why}</div></div>`;});}
-    body += '<p class="tool-note" style="margin-top:14px">Unprotected IP reduces business valuation. In due diligence, buyers ask: "what is proprietary and how is it protected?" If the answer is unclear, the offer drops.</p>';
-    document.getElementById('detail').innerHTML = body;
-    return {score,band,summary,catScore,actions};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title:'IP Protection Audit', docNumberLabel:'IP Score', docNumber:r.score+'/100',
-      date:todayISO(),
-      fromLabel:'STATUS', from:[r.band], toLabel:'SUMMARY', to:[r.summary],
-      itemColumns:['Category','Score','%'], items:cats.map(c=>[c.name, r.catScore[c.key].s+'/'+r.catScore[c.key].m, Math.round(r.catScore[c.key].s/r.catScore[c.key].m*100)+'%']), itemRowMapper:x=>x,
-      notes:'Priority actions: '+r.actions.map((a,i)=>(i+1)+'. '+a.title+' ('+a.cost+')').join(' | '),
-      filename:'ip-protection-audit-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>The four protections every manufacturer should have</h2>
-  <p><strong>NDAs with every employee and contractor.</strong> Costs $0 incrementally. Without one, you have almost no legal recourse if someone walks with your process knowledge.</p>
-  <p><strong>"Work for hire" + IP assignment language in contractor agreements.</strong> Otherwise the consultant who designed your fixture owns the design - not you.</p>
-  <p><strong>Document control on drawings, BOMs, and process documents.</strong> Trade secret protection requires "reasonable efforts to maintain secrecy." Marking documents Confidential and restricting access is the basic evidence.</p>
-  <p><strong>Federal trademark on your name and key product brands.</strong> Common law rights are local and weak. Federal registration gives nationwide protection and statutory damages.</p>
-  <h2>When to file a patent vs keep a trade secret</h2>
-  <p>Patent: when the innovation is visible in the final product (a customer or competitor can reverse-engineer it). Trade secret: when the innovation is in your process and stays inside your walls. Coca-Cola has kept its formula as a trade secret for over 100 years - patents expire in 20.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>IP protection audit</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

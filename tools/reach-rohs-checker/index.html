@@ -2,155 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<title>REACH and RoHS Compliance Checker | SimpleGrid</title>
-<meta name="description" content="Identify your REACH and RoHS obligations for products sold in EU. Restricted substances, SVHC list, role-based obligations, test cost ranges.">
+<title>REACH and RoHS - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/reach-rohs-checker/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css"><link rel="stylesheet" href="../../styles.css"><link rel="stylesheet" href="../tools.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"REACH RoHS Checker","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/reach-rohs-checker/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>REACH and RoHS - what applies to your product?</h1>
-  <p class="lead">For manufacturers of electronics, chemicals, and consumer / industrial products sold in the EU. Both regimes apply broadly; both have stiff penalties. This tool maps your situation to specific obligations.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <div class="tool-card">
-    <h2 style="margin-bottom:14px">Product details</h2>
-    <div class="tool-grid">
-      <div class="tool-field full"><label>Product description</label><input type="text" id="desc" maxlength="200" placeholder="e.g., Electronic motor controller assembly"></div>
-      <div class="tool-field"><label>Product type</label><select id="ptype"><option value="">Select...</option><option>Electronic / electrical equipment (EEE)</option><option>Chemical product / formulation</option><option>Consumer product with chemical components</option><option>Industrial product (non-EEE)</option><option>Article (manufactured object, no chemical release)</option></select></div>
-      <div class="tool-field"><label>Sells to EU?</label><select id="eu"><option value="yes">Yes</option><option value="no">No - US only (but customers may still require)</option></select></div>
-      <div class="tool-field"><label>Your role</label><select id="role"><option>Manufacturer (you make the product)</option><option>Importer (you import into the EU)</option><option>Distributor (you resell in EU)</option><option>Downstream user (you use chemicals to make products)</option></select></div>
-      <div class="tool-field full"><label>Contains any of these (check all you know about or suspect)</label>
-        <div class="q-options" id="subs" style="grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px">
-          <label class="q-option"><input type="checkbox" value="lead">Lead</label>
-          <label class="q-option"><input type="checkbox" value="mercury">Mercury</label>
-          <label class="q-option"><input type="checkbox" value="cadmium">Cadmium</label>
-          <label class="q-option"><input type="checkbox" value="hex">Hexavalent chromium</label>
-          <label class="q-option"><input type="checkbox" value="pbb">PBB / PBDE flame retardants</label>
-          <label class="q-option"><input type="checkbox" value="phth">Phthalates (DEHP, BBP, DBP, DIBP)</label>
-          <label class="q-option"><input type="checkbox" value="dont">Don't know</label>
-          <label class="q-option"><input type="checkbox" value="none">None of these</label>
-        </div>
-      </div>
-    </div>
-    <div class="tool-actions" style="justify-content:flex-end;margin-top:14px"><button type="button" id="check" class="btn btn-primary">Check obligations</button></div>
-  </div>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="results" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download Compliance Plan</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">REACH and RoHS aren't optional in the EU</div>
-    <h2>And US customers are increasingly requiring them as a global default.</h2>
-    <p>Testing costs $500-$10,000 depending on scope. Non-compliance penalties + market access loss cost far more.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="reach_rohs_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>.q-option{padding:8px 10px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--fg1);transition:all 120ms ease;background:#fff;text-align:center}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:600}.q-option input{display:none}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelectorAll('#subs .q-option').forEach(l=>{const cb=l.querySelector('input');function sync(){l.classList.toggle('selected',cb.checked);}sync();cb.addEventListener('change',sync);});
-  document.getElementById('check').addEventListener('click',recalc);
-  function recalc(){
-    const t = document.getElementById('ptype').value;
-    if(!t){document.getElementById('hero').style.display='none';document.getElementById('results').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const eu = document.getElementById('eu').value;
-    const role = document.getElementById('role').value;
-    const subs = Array.from(document.querySelectorAll('#subs input:checked')).map(c=>c.value);
-    const isEEE = t.includes('Electronic');
-    const rohsApplies = isEEE && eu==='yes';
-    const reachApplies = eu==='yes' || subs.some(s=>['lead','mercury','cadmium','hex','phth','pbb'].includes(s));
-    const hasRestricted = subs.some(s=>['lead','mercury','cadmium','hex','phth','pbb'].includes(s));
-    const dontKnow = subs.includes('dont');
-    document.getElementById('hero').style.display='block';
-    const status = rohsApplies && reachApplies ? 'BOTH apply' : rohsApplies ? 'RoHS applies' : reachApplies ? 'REACH applies' : 'Neither clearly applies - confirm with counsel';
-    const cls = rohsApplies||reachApplies ? (hasRestricted||dontKnow?'gold':'green') : 'green';
-    document.getElementById('hero').innerHTML=`<div class="big-label">Compliance status</div><div class="big-number ${cls}" style="font-size:36px">${status}</div><div class="big-caption">${hasRestricted?'<strong>Restricted substances flagged.</strong> Confirm levels via XRF or full analytical testing.':dontKnow?'<strong>Unknown materials - test before assuming clear.</strong> XRF screening: $500-$2,000.':'No flagged restricted substances - confirm in supply chain via material declarations.'}</div>`;
-    let body='';
-    if(rohsApplies){
-      body += '<h2 style="margin-bottom:10px">RoHS Directive 2011/65/EU</h2>';
-      body += '<p>Restricts 10 substances in electrical / electronic equipment (EEE) sold in EU. Maximum allowable thresholds (% by weight in homogeneous material):</p>';
-      body += '<ul style="padding-left:20px;margin:6px 0"><li>Lead: 0.1%</li><li>Mercury: 0.1%</li><li>Cadmium: 0.01%</li><li>Hexavalent chromium: 0.1%</li><li>PBB / PBDE: 0.1% each</li><li>Phthalates (DEHP, BBP, DBP, DIBP): 0.1% each</li></ul>';
-      body += '<p><strong>Compliance steps:</strong> 1) Collect declarations from suppliers (IPC-1752A / IEC 62474). 2) XRF screening of critical materials. 3) Full analytical testing where needed. 4) Technical Documentation File. 5) Declaration of Conformity. 6) CE mark.</p>';
-      body += '<p><strong>Testing cost:</strong> $500-$2,000 for XRF screening; $2,000-$10,000 for full analytical.</p>';
-    }
-    if(reachApplies){
-      body += '<h2 style="margin-top:18px;margin-bottom:10px">REACH Regulation (EC) 1907/2006</h2>';
-      const obligations = [];
-      if(role.includes('Manufacturer') && eu==='no'){obligations.push('As a non-EU manufacturer, you have no direct REACH registration obligation - but your EU importer or Only Representative does. Coordinate with them.');}
-      if(role.includes('Importer')){obligations.push('Importers into EU must register substances >1 tonne/year with ECHA. Costs: 1,700-33,000+ EUR per substance depending on tonnage band.');}
-      obligations.push('SVHC (Substances of Very High Concern) - currently 200+ substances. Updated semi-annually by ECHA.');
-      obligations.push('Articles >0.1% SVHC by weight: notify ECHA + communicate down supply chain. Consumers can request info on demand.');
-      obligations.push('Restrictions (Annex XVII) - 70+ entries banning or limiting specific substance uses.');
-      body += '<ul style="padding-left:20px;margin:6px 0">'+obligations.map(o=>`<li>${o}</li>`).join('')+'</ul>';
-      body += '<p><strong>Testing cost for REACH compliance verification:</strong> $2,000-$10,000+ depending on supply chain complexity. Most cost is in collecting + verifying supplier declarations.</p>';
-    }
-    if(!rohsApplies && !reachApplies){body += '<p>Based on your inputs, RoHS and REACH may not directly apply. However, US customers (esp. aerospace, automotive, large consumer brands) increasingly require RoHS-compliant supply chains as a global default. Plan accordingly.</p>';}
-    body += '<h2 style="margin-top:18px;margin-bottom:10px">Practical next steps</h2><ol style="margin:0;padding-left:20px"><li>Request material declarations (IPC-1752A or equivalent) from all suppliers.</li><li>XRF-screen any high-risk components (solder, plating, plastics).</li><li>Build a substance/material library in your ERP.</li><li>Document compliance in a Technical File per product.</li><li>Re-verify annually + when SVHC list updates (every 6 months).</li></ol>';
-    document.getElementById('results').innerHTML = body;
-    document.getElementById('results').style.display='block';
-    document.getElementById('generate-pdf').disabled=false;
-    return {status,rohsApplies,reachApplies,hasRestricted,dontKnow};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    const desc = document.getElementById('desc').value || 'Product';
-    sgBuildPdf({title:'REACH and RoHS Compliance Plan',
-      docNumberLabel:'Status', docNumber:r.status,
-      date:todayISO(),
-      fromLabel:'PRODUCT', from:[desc],
-      toLabel:'APPLIES', to:[r.rohsApplies?'RoHS: YES':'RoHS: not directly',r.reachApplies?'REACH: YES':'REACH: not directly'],
-      itemColumns:['Step','Action'],
-      items:[['1','Request material declarations (IPC-1752A) from suppliers'],['2','XRF-screen high-risk components'],['3','Build substance / material library in ERP'],['4','Document compliance in Technical File per product'],['5','Re-verify annually + when SVHC list updates (every 6 months)']],
-      itemRowMapper:x=>x,
-      notes:'RoHS restricts 10 substances in EEE. REACH SVHC list now exceeds 200 substances - updated every 6 months. Testing cost: $500-$2K for XRF screening; $2K-$10K for full REACH analysis.',
-      filename:'reach-rohs-plan-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>The difference between REACH and RoHS</h2>
-  <p>RoHS is product-focused and narrow: 10 specific substances, EEE only, fixed thresholds. REACH is substance-focused and broad: any substance, any product, evolving list. RoHS has clear compliance criteria; REACH has obligations that depend on your role (manufacturer, importer, distributor, downstream user) and the quantities involved. Most manufacturers of EEE need both. Most chemical companies and chemical-product manufacturers need REACH only. Most pure mechanical / article manufacturers need REACH "communication in supply chain" only.</p>
-  <h2>SVHC list - why it matters and how to track it</h2>
-  <p>The Candidate List of Substances of Very High Concern grows every 6 months. Once a substance is on the SVHC list, articles containing >0.1% by weight trigger notification + communication obligations - and may eventually be banned outright under Annex XIV. The list is at echa.europa.eu/candidate-list-table; subscribe to ECHA newsletter for updates. Build the list into your ERP and re-screen each release.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>REACH and RoHS</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

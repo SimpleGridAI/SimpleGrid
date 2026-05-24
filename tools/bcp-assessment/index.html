@@ -2,142 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<title>Business Continuity Plan Assessment (8 Scenarios) | SimpleGrid</title>
-<meta name="description" content="Score your BCP readiness across 8 disruption scenarios: fire, equipment failure, key person loss, cyber, supplier failure, utility outage, pandemic, customer loss.">
+<title>Business continuity - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/bcp-assessment/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css">
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../tools.css">
-<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/bcp-assessment/"><meta property="og:title" content="BCP Assessment | SimpleGrid"><meta property="og:description" content="Score BCP readiness across 8 disruption scenarios."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"BCP Assessment","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/bcp-assessment/","description":"Business continuity readiness across 8 scenarios.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"BCP Assessment","item":"https://simplegrid.ai/tools/bcp-assessment/"}]}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>Business continuity - are you ready for the 8 things that can stop your shop?</h1>
-  <p class="lead">Most mid-market manufacturers have zero BCP. Insurance covers the financial loss; BCP covers the operational recovery. You need both. A basic plan takes 8-16 hours; the cost of not having one is potentially the entire business.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <p class="tool-note" style="margin:0 0 20px">For each of the 8 scenarios, answer four questions: Do you have a plan? Is it documented? Has it been tested? Do you have insurance / backup?</p>
-  <form id="bcp-form"></form>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download BCP Report</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">A basic BCP takes 8-16 hours to create</div>
-    <h2>The cost of not having one: potentially your entire business.</h2>
-    <p>The average manufacturing recovery time for a major fire or flood is 12-18 months. Without a plan, add 50%. Without insurance review aligned to your BCP, multiply again.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="bcp_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:6px}.q-text{font-family:var(--font-heading);font-size:13px;font-weight:600;color:var(--fg1);margin:10px 0 6px}.q-options{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}@media(max-width:700px){.q-options{grid-template-columns:repeat(5,1fr)}}.q-option{padding:6px 4px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:11px;color:var(--fg1);transition:all 120ms ease;background:#fff;text-align:center}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:700}.q-option input{display:none}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  const scenarios = [
-    {key:'fire',name:'1. Facility damage (fire, flood, severe weather)'},
-    {key:'equip',name:'2. Key equipment catastrophic failure'},
-    {key:'person',name:'3. Key person loss (death, disability, sudden departure)'},
-    {key:'supplier',name:'4. Major supplier failure'},
-    {key:'cyber',name:'5. Cyber attack / ransomware'},
-    {key:'utility',name:'6. Utility outage (power, water, gas - extended)'},
-    {key:'pandemic',name:'7. Pandemic / 25%+ workforce unavailable'},
-    {key:'customer',name:'8. Top customer loss / exit'}
-  ];
-  const qs = ['Do you have a plan?','Is it documented?','Has it been tested?','Do you have insurance / backup?'];
-  const form = document.getElementById('bcp-form');
-  let idx = 0;
-  scenarios.forEach(s=>{
-    const card=document.createElement('div'); card.className='q-card';
-    card.innerHTML=`<div class="q-num">${s.name}</div>`;
-    qs.forEach(q=>{
-      idx++; const qid=s.key+'_'+idx;
-      const div=document.createElement('div');
-      div.innerHTML=`<div class="q-text">${q}</div><div class="q-options" data-q="${qid}" data-scenario="${s.key}"><label class="q-option"><input type="radio" name="${qid}" value="1">1 - No</label><label class="q-option"><input type="radio" name="${qid}" value="2">2</label><label class="q-option"><input type="radio" name="${qid}" value="3">3</label><label class="q-option"><input type="radio" name="${qid}" value="4">4</label><label class="q-option"><input type="radio" name="${qid}" value="5">5 - Yes</label></div>`;
-      card.appendChild(div);
-    });
-    form.appendChild(card);
-  });
-  document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
-  function answered(){for(let q of document.querySelectorAll('.q-options')){if(!q.querySelector('input:checked'))return false;}return true;}
-  function recalc(){
-    if(!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const sScore = {};
-    scenarios.forEach(s=>{const inputs = document.querySelectorAll(`[data-scenario="${s.key}"] input:checked`); const sum = Array.from(inputs).reduce((a,i)=>a+parseInt(i.value),0); sScore[s.key]={name:s.name,score:sum,pct:sum/20*100};});
-    const total = Object.values(sScore).reduce((a,b)=>a+b.score,0);
-    const score = Math.round(total/160*100);
-    const sortedScens = Object.values(sScore).sort((a,b)=>a.score-b.score);
-    const worst3 = sortedScens.slice(0,3);
-    let band, cls, summary;
-    if(score>=75){band='Solid preparedness';cls='green';summary='Above-average BCP coverage. Maintain documentation and run tabletop drills annually.';}
-    else if(score>=50){band='Partial - close the worst gaps';cls='gold';summary='Real plans for some scenarios, nothing for others. Prioritize the 3 worst.';}
-    else if(score>=25){band='Weak - urgent improvement needed';cls='red';summary='Most scenarios have no plan. A single bad event could be existential. Start with documented plans for the top 3 risks.';}
-    else{band='None - one bad day from disaster';cls='red';summary='You have effectively no BCP. The cost of not having one is potentially the entire business. Block 16 hours this quarter.';}
-    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
-    document.getElementById('hero').innerHTML=`<div class="big-label">BCP readiness</div><div class="big-number ${cls}">${score}<span style="font-size:24px;color:var(--fg3);font-weight:500"> / 100</span></div><div class="big-caption"><strong>${band}.</strong> ${summary}</div>`;
-    let body='<h2 style="margin-bottom:10px">Preparedness by scenario</h2>';
-    Object.values(sScore).forEach(s=>{const p=s.pct; const bcls=p>=70?'green':p>=40?'gold':'red'; body += `<div class="bar-row"><span class="bar-label">${s.name}</span><div class="bar-track"><div class="bar-fill ${bcls}" style="width:${p}%"></div></div><span class="bar-value">${s.score}/20</span></div>`;});
-    body += '<h2 style="margin-top:18px;margin-bottom:10px">Top 3 vulnerabilities</h2><ol style="margin:0;padding-left:20px">'+worst3.map(s=>`<li style="margin-bottom:8px"><strong>${s.name}</strong> - ${s.score}/20. Action: document the response procedure, name the responsible person, identify the backup resources, and review insurance coverage.</li>`).join('')+'</ol>';
-    body += '<p class="tool-note" style="margin-top:14px">Average manufacturing recovery time for a major fire or flood: 12-18 months. Without a BCP, add 50%. With one, customers stay through the recovery. Without one, they switch suppliers and never come back.</p>';
-    document.getElementById('detail').innerHTML = body;
-    return {score,band,summary,sScore,worst3};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title:'Business Continuity Plan Assessment',
-      docNumberLabel:'Readiness', docNumber:r.score+'/100',
-      date:todayISO(),
-      fromLabel:'STATUS', from:[r.band], toLabel:'SUMMARY', to:[r.summary],
-      itemColumns:['Scenario','Score','%'],
-      items:Object.values(r.sScore).map(s=>[s.name, s.score+'/20', Math.round(s.pct)+'%']), itemRowMapper:x=>x,
-      notes:'Top 3 vulnerabilities: '+r.worst3.map(s=>s.name).join(' | ')+'. A basic BCP takes 8-16 hours. Block the time. Most insurance reviews discover gaps once the plan is written.',
-      filename:'bcp-assessment-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>The 8 scenarios every BCP should cover</h2>
-  <p><strong>Facility damage</strong> - fire, flood, severe weather. Even with insurance, recovery takes 12-18 months. <strong>Equipment failure</strong> - what happens when your CNC, oven, or press dies on a Wednesday? <strong>Key person loss</strong> - one founder hit by a bus is the most underrated BCP scenario in manufacturing. <strong>Supplier failure</strong> - sole-source suppliers are bigger risk than most owners admit. <strong>Cyber attack</strong> - manufacturing is the #1 ransomware target. <strong>Utility outage</strong> - extended power loss in winter has shut down whole regions. <strong>Pandemic</strong> - we just lived through this; surprisingly few companies updated their plans. <strong>Customer loss</strong> - if your top customer is 30%+ of revenue, the BCP is "how do we survive losing them."</p>
-  <h2>Cross-link this with the rest of your risk program</h2>
-  <p>Run the <a href="../insurance-coverage-checklist/">Insurance Coverage Audit</a> alongside this - the gaps usually correlate. Cyber insurance won't pay if you don't have basic controls; business interruption coverage won't help if you can't prove you had a recovery plan in place.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>Business continuity</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

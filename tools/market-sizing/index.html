@@ -2,155 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<title>Market Sizing Calculator (TAM / SAM / SOM) | SimpleGrid</title>
-<meta name="description" content="TAM, SAM, SOM estimator for manufacturers entering new markets, products, or geographies. Realistic 3-year revenue + break-even.">
+<title>Market sizing - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/market-sizing/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css">
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../tools.css">
-<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/market-sizing/"><meta property="og:title" content="Market Sizing Calculator | SimpleGrid"><meta property="og:description" content="TAM, SAM, SOM estimator with break-even math."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Market Sizing Calculator","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/market-sizing/","description":"TAM, SAM, SOM with break-even math.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Market Sizing","item":"https://simplegrid.ai/tools/market-sizing/"}]}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>Market sizing - TAM, SAM, SOM for manufacturers.</h1>
-  <p class="lead">Before you invest in a new market, product, or geography, do the math. This tool turns "feels big" into a realistic 3-year revenue number you can compare against the investment required.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <div class="tool-card">
-    <h2 style="margin-bottom:14px">Market inputs</h2>
-    <div class="tool-grid">
-      <div class="tool-field full"><label>Target market description</label><input type="text" id="desc" maxlength="200" placeholder="e.g., Custom furniture for hospitality industry in Southeast US"></div>
-      <div class="tool-field"><label>Estimated number of potential customers</label><input type="number" id="customers" min="0" step="1" placeholder="2500"></div>
-      <div class="tool-field"><label>Avg annual spend per customer ($)</label><input type="number" id="spend" min="0" step="100" placeholder="40000"></div>
-      <div class="tool-field"><label>Annual market growth rate (%)</label><input type="number" id="growth" min="-20" max="50" step="0.1" placeholder="4"></div>
-      <div class="tool-field"><label>Serviceable % (geo + capability)</label><input type="number" id="serv" min="0" max="100" step="1" value="30"></div>
-      <div class="tool-field"><label>Realistic 3-year share (%)</label><input type="number" id="share" min="0" max="100" step="0.5" value="5"></div>
-      <div class="tool-field"><label>Investment to enter ($)</label><input type="number" id="invest" min="0" step="1000" placeholder="100000"></div>
-      <div class="tool-field"><label>Gross margin in this market (%)</label><input type="number" id="margin" min="0" max="100" step="1" value="30"></div>
-      <div class="tool-field"><label>Current company revenue ($)</label><input type="number" id="current-rev" min="0" step="10000" placeholder="10000000"></div>
-    </div>
-  </div>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="results" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download Sizing PDF</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">A 5% share of a $4M market is $200K - is that worth a year of distraction?</div>
-    <h2>Most "exciting new markets" fail the math test.</h2>
-    <p>The TAM looks big; the realistic capture is small; the investment is real. Doing this analysis up front kills the bad ideas and accelerates the good ones.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="market_sizing_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  ['customers','spend','growth','serv','share','invest','margin','current-rev','desc'].forEach(id=>{
-    document.getElementById(id).addEventListener('input',()=>setTimeout(recalc,30));
-  });
-  function recalc(){
-    const cust = parseFloat(document.getElementById('customers').value)||0;
-    const spend = parseFloat(document.getElementById('spend').value)||0;
-    const growth = parseFloat(document.getElementById('growth').value)||0;
-    const serv = parseFloat(document.getElementById('serv').value)||0;
-    const share = parseFloat(document.getElementById('share').value)||0;
-    const invest = parseFloat(document.getElementById('invest').value)||0;
-    const margin = parseFloat(document.getElementById('margin').value)||0;
-    const curRev = parseFloat(document.getElementById('current-rev').value)||0;
-    if(!cust || !spend){document.getElementById('hero').style.display='none';document.getElementById('results').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const tam = cust * spend;
-    const sam = tam * (serv/100);
-    const som = sam * (share/100);
-    const g = 1 + growth/100;
-    const y1 = som * 0.33;
-    const y3 = som;
-    const y5 = som * g * g;
-    const profit = som * (margin/100);
-    const payback = profit>0 ? (invest/profit) : Infinity;
-    const pctOfBiz = curRev>0 ? (som/curRev*100) : 0;
-    let band, cls, summary;
-    if(profit>=invest && pctOfBiz>=10){band='Strong opportunity';cls='green';summary='SOM is meaningful relative to your current business and the payback works.';}
-    else if(profit>=invest){band='Workable but small';cls='gold';summary='Pays back, but the opportunity is small relative to your current business. Worth pursuing only if it builds strategic capability.';}
-    else if(payback<3){band='Marginal';cls='gold';summary='Slow payback. Only invest if you have a strategic reason beyond ROI.';}
-    else{band='Walk away - the math does not work';cls='red';summary='Investment exceeds realistic 3-year profit. Either rescope or skip.';}
-    document.getElementById('hero').style.display='block';
-    document.getElementById('hero').innerHTML=`<div class="big-label">3-year obtainable revenue (SOM)</div><div class="big-number ${cls}">${money(som)}</div><div class="big-caption"><strong>${band}.</strong> ${summary}</div>`;
-    let body = '<h2 style="margin-bottom:10px">Market funnel</h2>';
-    body += `<div class="bar-row"><span class="bar-label">TAM (total market)</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#3461E0"></div></div><span class="bar-value">${money(tam)}</span></div>`;
-    body += `<div class="bar-row"><span class="bar-label">SAM (serviceable)</span><div class="bar-track"><div class="bar-fill" style="width:${serv}%;background:#3461E0"></div></div><span class="bar-value">${money(sam)} (${serv}%)</span></div>`;
-    body += `<div class="bar-row"><span class="bar-label">SOM (obtainable, 3 yr)</span><div class="bar-track"><div class="bar-fill" style="width:${serv*share/100}%;background:#3461E0"></div></div><span class="bar-value">${money(som)} (${(serv*share/100).toFixed(1)}% of TAM)</span></div>`;
-    body += '<h2 style="margin-top:18px;margin-bottom:10px">Trajectory</h2>';
-    body += `<table class="tool-table"><thead><tr><th>Period</th><th style="text-align:right">Revenue</th><th style="text-align:right">Profit @ ${margin}%</th></tr></thead><tbody>`;
-    body += `<tr><td>Year 1</td><td style="text-align:right">${money(y1)}</td><td style="text-align:right">${money(y1*margin/100)}</td></tr>`;
-    body += `<tr><td>Year 3 (SOM)</td><td style="text-align:right">${money(y3)}</td><td style="text-align:right">${money(y3*margin/100)}</td></tr>`;
-    body += `<tr><td>Year 5</td><td style="text-align:right">${money(y5)}</td><td style="text-align:right">${money(y5*margin/100)}</td></tr>`;
-    body += `</tbody></table>`;
-    body += '<h2 style="margin-top:18px;margin-bottom:10px">Investment + reality check</h2>';
-    body += `<p>Investment to enter: <strong>${money(invest)}</strong>. Annual profit at SOM: <strong>${money(profit)}</strong>. Payback period: <strong>${payback===Infinity?'never':payback.toFixed(1)+' years'}</strong>.</p>`;
-    if(curRev>0) body += `<p>SOM as % of current revenue: <strong>${pctOfBiz.toFixed(1)}%</strong>. ${pctOfBiz<5?'This is small. Make sure the strategic value justifies the distraction.':pctOfBiz>30?'Material - this would meaningfully change your business mix.':'Meaningful contribution if you can execute.'}</p>`;
-    document.getElementById('results').innerHTML = body;
-    document.getElementById('results').style.display='block';
-    document.getElementById('generate-pdf').disabled=false;
-    return {tam,sam,som,y1,y3,y5,profit,payback,pctOfBiz,band,summary,invest,margin};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    const desc = document.getElementById('desc').value || 'New market';
-    sgBuildPdf({title:'Market Sizing Analysis',
-      docNumberLabel:'SOM', docNumber:money(r.som),
-      date:todayISO(),
-      fromLabel:'MARKET', from:[desc],
-      toLabel:'VERDICT', to:[r.band,r.summary],
-      itemColumns:['Metric','Value'],
-      items:[['TAM',money(r.tam)],['SAM',money(r.sam)],['SOM (3 yr)',money(r.som)],['Year 1 revenue',money(r.y1)],['Year 5 revenue',money(r.y5)],['Annual profit @ SOM',money(r.profit)],['Investment to enter',money(r.invest)],['Payback period',r.payback===Infinity?'never':r.payback.toFixed(1)+' yrs'],['% of current biz',r.pctOfBiz.toFixed(1)+'%']],
-      itemRowMapper:x=>x,
-      notes:'TAM = total customers x avg spend. SAM = TAM x serviceable %. SOM = SAM x realistic share. Realistic shares for new market entry: 1-10% in first 3 years. Anything higher needs a unique advantage.',
-      filename:'market-sizing-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>TAM, SAM, SOM in one paragraph</h2>
-  <p><strong>TAM</strong> is the total addressable market - everyone who could conceivably buy the product. <strong>SAM</strong> is the serviceable addressable market - the slice you can actually reach given your geography, capabilities, and capacity. <strong>SOM</strong> is the serviceable obtainable market - the share of SAM you can realistically win in your planning horizon. The number that matters for the decision is SOM, not TAM. A $500M TAM with a 1% capture is a $5M opportunity - not a $500M one.</p>
-  <h2>How to pick a realistic share</h2>
-  <p>1-5% is normal for a new entrant in three years. 5-15% if you have a clear advantage (lower cost, faster delivery, unique capability). Above 15% only if you're effectively the only viable supplier - sole-source qualification, deep regulatory moat, or unique technology. Anything higher and you're fooling yourself.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>Market sizing</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

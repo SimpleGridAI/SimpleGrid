@@ -2,153 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<title>Customer Onboarding Cost Calculator | SimpleGrid</title>
-<meta name="description" content="Calculate the true cost of onboarding a new manufacturing customer: samples, qualification, FAI / PPAP, tooling, certification. Break-even order count.">
+<title>Customer onboarding cost - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/onboarding-cost/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css"><link rel="stylesheet" href="../../styles.css"><link rel="stylesheet" href="../tools.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Customer Onboarding Cost","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/onboarding-cost/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>Customer onboarding cost - how many orders before you break even?</h1>
-  <p class="lead">Onboarding a new manufacturing customer takes real money: samples, qualification, FAI / PPAP, tooling, certification. Most companies don't track it. This tool surfaces the number and the break-even order count.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <div class="tool-card">
-    <h2 style="margin-bottom:14px">Onboarding costs</h2>
-    <div class="tool-grid">
-      <div class="tool-field"><label>Sample / prototype cost ($)</label><input type="number" id="sample" min="0" step="50" placeholder="500"></div>
-      <div class="tool-field"><label>Sample shipping ($)</label><input type="number" id="ship" min="0" step="10" placeholder="50"></div>
-      <div class="tool-field"><label>Qualification / testing hours</label><input type="number" id="qual-h" min="0" step="1" placeholder="20"></div>
-      <div class="tool-field"><label>Engineering support hours</label><input type="number" id="eng-h" min="0" step="1" placeholder="16"></div>
-      <div class="tool-field"><label>Quality documentation hours (FAI, PPAP, control plan)</label><input type="number" id="qd-h" min="0" step="1" placeholder="24"></div>
-      <div class="tool-field"><label>Sales / account setup hours</label><input type="number" id="sales-h" min="0" step="1" placeholder="12"></div>
-      <div class="tool-field"><label>Administrative setup hours</label><input type="number" id="admin-h" min="0" step="1" placeholder="6"></div>
-      <div class="tool-field"><label>Average loaded hourly rate ($)</label><input type="number" id="rate" min="0" step="1" placeholder="90"></div>
-      <div class="tool-field"><label>Customer-specific tooling ($)</label><input type="number" id="tool" min="0" step="100" placeholder="0"></div>
-      <div class="tool-field"><label>Certification / audit cost ($)</label><input type="number" id="cert" min="0" step="100" placeholder="0"></div>
-      <div class="tool-field"><label>Average profit per order from this customer ($)</label><input type="number" id="profit" min="0" step="50" placeholder="800"></div>
-      <div class="tool-field"><label>Expected orders per month</label><input type="number" id="opm" min="0" step="0.1" placeholder="2"></div>
-    </div>
-  </div>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="results" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download Onboarding Analysis</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">For complex customers (auto, aero, medical)</div>
-    <h2>Onboarding can cost $10K-$50K. Factor it into pricing.</h2>
-    <p>This is your acquisition cost. CLV is the return. The CLV:CAC ratio tells you whether customer mix is healthy.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="onboarding_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  ['sample','ship','qual-h','eng-h','qd-h','sales-h','admin-h','rate','tool','cert','profit','opm'].forEach(id=>document.getElementById(id).addEventListener('input',()=>setTimeout(recalc,30)));
-  function recalc(){
-    const sample = parseFloat(document.getElementById('sample').value)||0;
-    const ship = parseFloat(document.getElementById('ship').value)||0;
-    const qual = parseFloat(document.getElementById('qual-h').value)||0;
-    const eng = parseFloat(document.getElementById('eng-h').value)||0;
-    const qd = parseFloat(document.getElementById('qd-h').value)||0;
-    const sales = parseFloat(document.getElementById('sales-h').value)||0;
-    const admin = parseFloat(document.getElementById('admin-h').value)||0;
-    const rate = parseFloat(document.getElementById('rate').value)||0;
-    const tool = parseFloat(document.getElementById('tool').value)||0;
-    const cert = parseFloat(document.getElementById('cert').value)||0;
-    const profit = parseFloat(document.getElementById('profit').value)||0;
-    const opm = parseFloat(document.getElementById('opm').value)||0;
-    const totalHours = qual+eng+qd+sales+admin;
-    const laborCost = totalHours*rate;
-    const total = sample+ship+laborCost+tool+cert;
-    if(!total){document.getElementById('hero').style.display='none';document.getElementById('results').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const breakEvenOrders = profit>0 ? Math.ceil(total/profit) : Infinity;
-    const breakEvenMonths = opm>0 ? breakEvenOrders/opm : Infinity;
-    let band, cls;
-    if(breakEvenMonths<=6){band='Fast payback - good investment';cls='green';}
-    else if(breakEvenMonths<=18){band='Reasonable payback';cls='gold';}
-    else if(breakEvenMonths<=36){band='Slow payback - confirm long-term commitment';cls='red';}
-    else{band='Onboarding cost > 3 years of profit - rethink';cls='red';}
-    document.getElementById('hero').style.display='block';
-    document.getElementById('hero').innerHTML=`<div class="big-label">Total onboarding cost</div><div class="big-number ${cls}">${money(total)}</div><div class="big-caption"><strong>${band}.</strong> Break-even: ${breakEvenOrders===Infinity?'never':breakEvenOrders+' orders'}${opm>0?' (~'+breakEvenMonths.toFixed(1)+' months at '+opm+' orders/mo)':''}.</div>`;
-    let body='<h2 style="margin-bottom:10px">Cost breakdown</h2>';
-    body += `<table class="tool-table"><thead><tr><th>Category</th><th style="text-align:right">Cost</th><th style="text-align:right">% of total</th></tr></thead><tbody>`;
-    const items = [
-      ['Samples + shipping',sample+ship],
-      ['Labor ('+totalHours+' hrs @ '+money(rate)+'/hr)',laborCost],
-      ['Customer-specific tooling',tool],
-      ['Certification / audit',cert]
-    ];
-    items.forEach(([n,v])=>{body += `<tr><td>${n}</td><td style="text-align:right">${money(v)}</td><td style="text-align:right">${total>0?(v/total*100).toFixed(0):0}%</td></tr>`;});
-    body += `<tr style="font-weight:700"><td>Total</td><td style="text-align:right">${money(total)}</td><td style="text-align:right">100%</td></tr>`;
-    body += `</tbody></table>`;
-    body += '<h2 style="margin-top:18px;margin-bottom:10px">Labor hour breakdown</h2>';
-    body += `<table class="tool-table"><thead><tr><th>Activity</th><th style="text-align:right">Hours</th><th style="text-align:right">Cost</th></tr></thead><tbody>`;
-    [['Qualification / testing',qual],['Engineering support',eng],['Quality documentation',qd],['Sales / account setup',sales],['Administrative setup',admin]].forEach(([n,h])=>{body += `<tr><td>${n}</td><td style="text-align:right">${h}</td><td style="text-align:right">${money(h*rate)}</td></tr>`;});
-    body += `</tbody></table>`;
-    body += `<p class="tool-note" style="margin-top:14px"><strong>Pricing implication:</strong> Your first ${breakEvenOrders===Infinity?'X':breakEvenOrders} orders from this customer are paying back the onboarding investment - not generating profit. If the customer leaves before order ${breakEvenOrders}, you lose money on the relationship.</p>`;
-    body += `<p class="tool-note" style="margin-top:6px"><strong>How to reduce onboarding cost:</strong> standardize qualification packages; create template PPAP / FAI submissions; maintain a sample library; build a customer setup checklist that any team member can run.</p>`;
-    document.getElementById('results').innerHTML = body;
-    document.getElementById('results').style.display='block';
-    document.getElementById('generate-pdf').disabled=false;
-    return {total,laborCost,totalHours,breakEvenOrders,breakEvenMonths,band};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title:'Customer Onboarding Cost Analysis',
-      docNumberLabel:'Total onboarding', docNumber:money(r.total),
-      date:todayISO(),
-      fromLabel:'STATUS', from:[r.band],
-      toLabel:'BREAK-EVEN', to:[r.breakEvenOrders===Infinity?'never':r.breakEvenOrders+' orders', r.breakEvenMonths===Infinity?'':'~'+r.breakEvenMonths.toFixed(1)+' months'],
-      itemColumns:['Category','Amount'],
-      items:[['Samples + shipping',money(parseFloat(document.getElementById('sample').value)||0 + parseFloat(document.getElementById('ship').value)||0)],['Labor ('+r.totalHours+' hrs)',money(r.laborCost)],['Customer-specific tooling',money(parseFloat(document.getElementById('tool').value)||0)],['Certification / audit',money(parseFloat(document.getElementById('cert').value)||0)],['TOTAL',money(r.total)]],
-      itemRowMapper:x=>x,
-      notes:'Onboarding cost is the acquisition investment for this customer. CLV is the return. For complex customers (auto, aero, medical): onboarding $10K-$50K is normal. Factor into pricing or first-order minimum.',
-      filename:'onboarding-cost-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>Why most manufacturers underprice new customers</h2>
-  <p>The first PO from a new customer feels like found revenue. It isn't - the onboarding work that came before it cost real money, and that money has to be recovered from future orders. If the customer churns after order 3 and your break-even was order 12, you lost money on the relationship even though every order you delivered looked profitable on the surface. The fix is either (a) charge an onboarding/setup fee, (b) require minimum order commitment, or (c) bake the recovery into the first-order pricing.</p>
-  <h2>How to make onboarding cheaper</h2>
-  <p>Standardize the package. The same PPAP template, the same FAI report format, the same control plan structure for every new customer. Maintain a sample library (one of every part you've ever made, cleanly labeled, easy to grab). Build a "new customer setup" checklist with named owners and time estimates. Every new customer that fits your standard process onboards in half the time of a custom one - and onboarding cost is mostly time.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>Customer onboarding cost</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

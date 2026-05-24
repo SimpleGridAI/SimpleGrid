@@ -2,132 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<title>FDA 21 CFR Part 117 Food Safety Readiness | SimpleGrid</title>
-<meta name="description" content="25-question readiness assessment for FDA Preventive Controls for Human Food (21 CFR Part 117). Hazard analysis, preventive controls, monitoring, recordkeeping.">
+<title>FDA 21 CFR Part 117 readiness - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/fda-food-safety-readiness/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css"><link rel="stylesheet" href="../../styles.css"><link rel="stylesheet" href="../tools.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"FDA Food Safety Readiness","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/fda-food-safety-readiness/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>FDA 21 CFR Part 117 readiness - Preventive Controls for Human Food.</h1>
-  <p class="lead">For food processors. Score your readiness across the 5 areas FDA inspectors focus on: hazard analysis, preventive controls, monitoring, corrective actions, and verification / recordkeeping.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <p class="tool-note" style="margin:0 0 20px">5 areas, 5 questions each. Rate 1 (not started) to 5 (fully implemented).</p>
-  <form id="fda-form"></form>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download FDA Readiness PDF</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">FDA inspections, recalls, and Warning Letters are public</div>
-    <h2>Compliance is cheaper than a recall.</h2>
-    <p>Average cost of a food recall: $10M+ direct, plus permanent customer loss. Average cost of a credible food safety program: $25K-$75K/year.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="fda_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:6px}.q-text{font-family:var(--font-heading);font-size:14px;font-weight:600;color:var(--fg1);margin:12px 0 6px}.q-options{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.q-option{padding:8px 4px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--fg1);transition:all 120ms ease;background:#fff;text-align:center}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:700}.q-option input{display:none}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  const cats = [
-    {key:'ha',name:'1. Hazard Analysis (HARPC)',qs:['Written hazard analysis covering biological, chemical, physical, and economically motivated adulteration','Hazards evaluated for severity + probability','Hazard analysis reviewed when ingredients, process, or facility change','Trained Preventive Controls Qualified Individual (PCQI) on staff','Records of hazard analysis maintained per 21 CFR 117 subpart F']},
-    {key:'pc',name:'2. Preventive Controls (Process, Allergen, Sanitation, Supply Chain)',qs:['Process controls (CCPs) identified and operating','Allergen controls (segregation, labeling, cleaning) in place','Sanitation controls (cleaning procedures, environmental monitoring)','Supply chain controls for ingredients with hazards needing preventive controls upstream','Recall plan documented and tested']},
-    {key:'mn',name:'3. Monitoring Procedures',qs:['Monitoring procedures documented for each preventive control','Monitoring frequency adequate to detect failures','Monitoring records reviewed within 7 working days by qualified person','Calibrated instruments used for monitoring','Out-of-spec results trigger immediate action']},
-    {key:'ca',name:'4. Corrective Actions',qs:['Written corrective action procedures','Root cause analysis performed for deviations','Affected product evaluated for disposition (release, rework, destroy)','Reanalysis of food safety plan when needed','Corrective action records maintained']},
-    {key:'vr',name:'5. Verification & Recordkeeping',qs:['Verification activities (calibration, product testing, environmental monitoring)','Annual reanalysis of food safety plan','Records retained for 2 years (perishable: 3 years some categories)','Records available within 24 hours of FDA request','Internal audit program in place']}
-  ];
-  buildAndWire(cats,'fda-form',125,'FDA 21 CFR Part 117 Readiness Assessment','fda-readiness',['FDA inspections focus on food safety plan documentation, preventive controls implementation, and corrective action records.','Non-compliance: Warning Letter (public), Import Alert (if exporting), Consent Decree (forced shutdown). Average recall cost: $10M+.']);
-});
-function buildAndWire(cats, formId, maxTotal, title, filename, footerNotes){
-  const form = document.getElementById(formId);
-  let n=0;
-  cats.forEach(c=>{
-    const card=document.createElement('div'); card.className='q-card';
-    card.innerHTML=`<div class="q-num">${c.name}</div>`;
-    c.qs.forEach(q=>{
-      n++; const qid='q'+n;
-      const div=document.createElement('div');
-      div.innerHTML=`<div class="q-text">${n}. ${q}</div><div class="q-options" data-q="${qid}" data-cat="${c.key}"><label class="q-option"><input type="radio" name="${qid}" value="1">1</label><label class="q-option"><input type="radio" name="${qid}" value="2">2</label><label class="q-option"><input type="radio" name="${qid}" value="3">3</label><label class="q-option"><input type="radio" name="${qid}" value="4">4</label><label class="q-option"><input type="radio" name="${qid}" value="5">5</label></div>`;
-      card.appendChild(div);
-    });
-    form.appendChild(card);
-  });
-  document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
-  function answered(){for(let q of document.querySelectorAll('.q-options')){if(!q.querySelector('input:checked'))return false;}return true;}
-  function recalc(){
-    if(!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const catScore={};
-    cats.forEach(c=>{const inputs=document.querySelectorAll(`[data-cat="${c.key}"] input:checked`); const sum=Array.from(inputs).reduce((a,i)=>a+parseInt(i.value),0); const max=c.qs.length*5; catScore[c.key]={name:c.name,score:sum,max,pct:sum/max*100};});
-    const total = Object.values(catScore).reduce((a,b)=>a+b.score,0);
-    const score = Math.round(total/maxTotal*100);
-    const sorted = Object.values(catScore).sort((a,b)=>a.pct-b.pct);
-    let band,cls,summary;
-    if(score>=80){band='Audit-ready';cls='green';summary='Strong implementation. Maintain documentation and run mock inspections.';}
-    else if(score>=60){band='Material gaps - close in 90 days';cls='gold';summary='Workable; focus on the lowest-scoring area first.';}
-    else if(score>=40){band='Significant exposure';cls='red';summary='Multiple weak areas. Consultant or internal owner needed to drive remediation.';}
-    else{band='Not ready';cls='red';summary='Foundation work needed before any audit. Start with hazard analysis + a trained PCQI.';}
-    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
-    document.getElementById('hero').innerHTML=`<div class="big-label">Readiness</div><div class="big-number ${cls}">${score}<span style="font-size:24px;color:var(--fg3);font-weight:500"> / 100</span></div><div class="big-caption"><strong>${band}.</strong> ${summary}</div>`;
-    let body='<h2 style="margin-bottom:10px">Score by area</h2>';
-    Object.values(catScore).forEach(c=>{const p=c.pct; const bcls=p>=70?'green':p>=40?'gold':'red'; body += `<div class="bar-row"><span class="bar-label">${c.name}</span><div class="bar-track"><div class="bar-fill ${bcls}" style="width:${p}%"></div></div><span class="bar-value">${c.score}/${c.max} (${Math.round(p)}%)</span></div>`;});
-    body += '<p class="tool-note" style="margin-top:14px"><strong>Weakest area:</strong> '+sorted[0].name+'. Address first.</p>';
-    body += '<p class="tool-note" style="margin-top:6px">'+footerNotes.join(' ')+'</p>';
-    document.getElementById('detail').innerHTML = body;
-    return {score,band,catScore,sorted,summary};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title, docNumberLabel:'Readiness', docNumber:r.score+'/100',
-      date:todayISO(), fromLabel:'STATUS', from:[r.band], toLabel:'WEAKEST', to:[r.sorted[0].name+' ('+Math.round(r.sorted[0].pct)+'%)'],
-      itemColumns:['Area','Score','%'], items:Object.values(r.catScore).map(c=>[c.name,c.score+'/'+c.max,Math.round(c.pct)+'%']), itemRowMapper:x=>x,
-      notes:footerNotes.join(' '),
-      filename:filename+'-'+todayISO()+'.pdf'});
-  });
-}
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>What FDA inspectors actually check</h2>
-  <p>The Food Safety Modernization Act (FSMA) Preventive Controls rule shifted FDA inspections from "look at the facility" to "look at the documentation." Inspectors want to see: a written food safety plan signed by a PCQI, monitoring records that prove the controls actually ran, corrective action records when they didn't, and verification records (calibration, product testing, environmental monitoring). The facility itself matters less than your ability to prove the system works.</p>
-  <h2>Cost of a 483 vs cost of compliance</h2>
-  <p>FDA Form 483 (observations) are public. Warning Letters are public and Google-indexed. Import Alerts shut down exports. Consent Decrees can force a temporary shutdown. The cumulative cost of a single bad inspection - lost customers, increased insurance, mandatory consultant remediation, legal fees - typically exceeds $250K for mid-market processors. A well-run food safety program costs $25K-$75K/year ongoing.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>FDA 21 CFR Part 117 readiness</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

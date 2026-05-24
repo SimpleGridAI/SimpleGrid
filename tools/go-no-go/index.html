@@ -2,147 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<title>Go / No-Go Decision Framework (16 Questions) | SimpleGrid</title>
-<meta name="description" content="Structured 16-question framework to evaluate new customers, products, markets, or RFQs. 4 dimensions: Fit, Financial, Strategic, Risk. 1-page decision memo PDF.">
+<title>Go / no-go - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/go-no-go/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css">
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../tools.css">
-<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/go-no-go/"><meta property="og:title" content="Go / No-Go Decision Framework | SimpleGrid"><meta property="og:description" content="16-question framework. 4 dimensions. 1-page decision memo PDF."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Go / No-Go Decision","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/go-no-go/","description":"16-question structured decision tool.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Go / No-Go","item":"https://simplegrid.ai/tools/go-no-go/"}]}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>Go / no-go - disciplined evaluation in 5 minutes.</h1>
-  <p class="lead">Most manufacturers say yes to everything and spread too thin. This 16-question framework forces a real evaluation across Fit, Financial, Strategic, and Risk dimensions before you commit.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <div class="tool-card"><div class="tool-field full"><label>Opportunity description</label><input type="text" id="opp" maxlength="200" placeholder="e.g., $400K annual contract with Tier 1 automotive supplier for machined housings"></div></div>
-  <form id="gng-form"></form>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download Decision Memo</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">Saying no is a strategic skill</div>
-    <h2>The opportunities you turn down create capacity for the ones worth winning.</h2>
-    <p>Every "yes" to a poor-fit opportunity is a "no" to the one you'll be too busy to bid on next month. Use this tool when the gut says yes and you want to make sure the head agrees.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="go_no_go_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:6px}.q-text{font-family:var(--font-heading);font-size:14px;font-weight:600;color:var(--fg1);margin:14px 0 8px}.q-options{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}@media(max-width:800px){.q-options{grid-template-columns:repeat(5,1fr);gap:4px}}.q-option{padding:8px 4px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--fg1);transition:all 120ms ease;background:#fff;text-align:center}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue)}.q-option input{display:none}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  const dims = [
-    {key:'fit',name:'Fit - do we match this work?',items:['Do we have the equipment / processes to produce this?','Do we have the skills / expertise?','Does it fit our current capacity?','Have we done similar work before?']},
-    {key:'fin',name:'Financial - does the math work?',items:['Is the margin acceptable (>= target)?','Is the volume / revenue worth the effort?','Are payment terms acceptable?','Upfront investment vs return reasonable?']},
-    {key:'strat',name:'Strategic - does this advance our goals?',items:['Does this align with our growth strategy?','Would this be a referenceable win?','Does this diversify our customer base?','Does this build capabilities we want?']},
-    {key:'risk',name:'Risk - what could go wrong?',items:['Technical complexity is manageable','Timeline is achievable','Penalty for failure (financial / reputational) is tolerable','Customer is reasonable to work with']}
-  ];
-  const form = document.getElementById('gng-form');
-  let n=0;
-  dims.forEach(d=>{
-    const card=document.createElement('div'); card.className='q-card';
-    card.innerHTML=`<div class="q-num">${d.name}</div>`;
-    d.items.forEach(label=>{
-      n++; const qid='q'+n;
-      const div=document.createElement('div');
-      div.innerHTML=`<div class="q-text">${n}. ${label}</div><div class="q-options" data-q="${qid}" data-dim="${d.key}"><label class="q-option"><input type="radio" name="${qid}" value="1">1</label><label class="q-option"><input type="radio" name="${qid}" value="2">2</label><label class="q-option"><input type="radio" name="${qid}" value="3">3</label><label class="q-option"><input type="radio" name="${qid}" value="4">4</label><label class="q-option"><input type="radio" name="${qid}" value="5">5</label></div>`;
-      card.appendChild(div);
-    });
-    form.appendChild(card);
-  });
-  document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
-  function val(q){const el=document.querySelector('input[name="'+q+'"]:checked');return el?parseInt(el.value):0;}
-  function answered(){for(let i=1;i<=n;i++){if(val('q'+i)===0)return false;}return true;}
-  function recalc(){
-    if(!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const dimScore = {}; let i=0;
-    dims.forEach(d=>{let s=0; d.items.forEach(()=>{i++;s+=val('q'+i);}); dimScore[d.key]={name:d.name,score:s};});
-    const total = Object.values(dimScore).reduce((s,d)=>s+d.score,0);
-    const min = Math.min(...Object.values(dimScore).map(d=>d.score));
-    const minDim = Object.values(dimScore).find(d=>d.score===min);
-    const maxDim = Object.values(dimScore).reduce((a,b)=>a.score>b.score?a:b);
-    let band, cls, summary;
-    const finScore = dimScore.fin.score;
-    if(total>=64 && min>=15) {band='STRONG GO';cls='green';summary='Solid across all four dimensions. Proceed with confidence.';}
-    else if(min<8) {band='NO-GO';cls='red';summary='Critical weakness in '+minDim.name.split(' - ')[0]+' ('+min+'/20). Address this first or skip the opportunity.';}
-    else if(finScore<10) {band='NO-GO';cls='red';summary='Financial math does not work ('+finScore+'/20). The other dimensions cannot rescue a deal that loses money.';}
-    else if(total>=48 && min>=12) {band='GO with caution';cls='gold';summary='Workable opportunity, mitigate the weakest dimension: '+minDim.name.split(' - ')[0]+'.';}
-    else if(total>=32) {band='Needs discussion';cls='gold';summary='Mixed signals. Get a second opinion before committing. The lead question: how do we strengthen '+minDim.name.split(' - ')[0]+'?';}
-    else {band='NO-GO';cls='red';summary='Low scores across the board. Save your capacity for better opportunities.';}
-    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
-    document.getElementById('hero').innerHTML=`<div class="big-label">Decision recommendation</div><div class="big-number ${cls}" style="font-size:42px">${band}</div><div class="big-caption">${total}/80 &middot; ${summary}</div>`;
-    let body='<h2 style="margin-bottom:10px">Dimension scores</h2>';
-    dims.forEach(d=>{const s=dimScore[d.key].score; const p=s/20*100; const bcls=p>=75?'green':p>=60?'gold':'red'; body += `<div class="bar-row"><span class="bar-label">${d.name.split(' - ')[0]}</span><div class="bar-track"><div class="bar-fill ${bcls}" style="width:${p}%"></div></div><span class="bar-value">${s}/20</span></div>`;});
-    body += `<p class="tool-note" style="margin-top:12px"><strong>Strongest:</strong> ${maxDim.name.split(' - ')[0]} (${maxDim.score}/20). <strong>Weakest:</strong> ${minDim.name.split(' - ')[0]} (${minDim.score}/20). <strong>Decision rule:</strong> Strong Go = all dims >= 15. Go with Caution = one dim 12-14. No-Go = any dim < 8 OR Financial < 10.</p>`;
-    document.getElementById('detail').innerHTML = body;
-    return {total,band,summary,dimScore,minDim,maxDim};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    const opp = document.getElementById('opp').value || '(no description)';
-    sgBuildPdf({title:'Go / No-Go Decision Memo',
-      docNumberLabel:'Recommendation', docNumber:r.band+' ('+r.total+'/80)',
-      date:todayISO(),
-      fromLabel:'OPPORTUNITY', from:[opp],
-      toLabel:'SUMMARY', to:[r.summary],
-      itemColumns:['Dimension','Score'],
-      items:Object.values(r.dimScore).map(d=>[d.name,d.score+'/20']), itemRowMapper:x=>x,
-      notes:'Strongest dimension: '+r.maxDim.name+' ('+r.maxDim.score+'/20). Weakest: '+r.minDim.name+' ('+r.minDim.score+'/20). Decision rule: Strong Go = all dims >= 15. Go with Caution = one dim 12-14. No-Go = any dim < 8 OR Financial < 10.',
-      filename:'go-no-go-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>The four dimensions and why all four matter</h2>
-  <p><strong>Fit</strong> - can we actually do this work? A great deal you can't deliver is a worse deal than no deal. <strong>Financial</strong> - does the math work? The most common failure mode is winning unprofitable work because volume looked good. <strong>Strategic</strong> - does this advance the company? Building capability or diversifying customers can justify a marginal deal. <strong>Risk</strong> - what's the downside? A complex job with a difficult customer at a tight deadline can damage other customer relationships when things slip.</p>
-  <h2>Decision rules</h2>
-  <ul>
-    <li><strong>Strong Go</strong> - all four dimensions score 15+/20. Proceed.</li>
-    <li><strong>Go with Caution</strong> - one dimension at 12-14. Mitigate that dimension explicitly.</li>
-    <li><strong>Needs Discussion</strong> - mixed scores. Get a second opinion.</li>
-    <li><strong>No-Go</strong> - any dimension below 8, OR financial below 10. The math has to work; the rest is upside.</li>
-  </ul>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>Go / no-go</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

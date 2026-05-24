@@ -2,144 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<title>Customer Contract Risk Checklist (12 Red Flags) | SimpleGrid</title>
-<meta name="description" content="Score the 12 most dangerous clauses in a customer contract: unlimited liability, broad indemnification, IP ownership, audit rights. PDF risk report with negotiation language.">
+<title>Customer contract risk - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/contract-risk-checklist/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css">
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../tools.css">
-<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/contract-risk-checklist/"><meta property="og:title" content="Customer Contract Risk Checklist | SimpleGrid"><meta property="og:description" content="Score the 12 most dangerous clauses in a customer contract. PDF risk report with negotiation language."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Customer Contract Risk Checklist","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/contract-risk-checklist/","description":"Score the 12 most dangerous clauses in a customer contract.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Contract Risk Checklist","item":"https://simplegrid.ai/tools/contract-risk-checklist/"}]}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>Customer contract risk - score the 12 red flags before you sign.</h1>
-  <p class="lead">When a big customer sends 20 pages of legal terms, most manufacturers sign. This checklist flags the dangerous clauses and gives you exact counter-language to push back with.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <p class="tool-note" style="margin:0 0 20px">For each clause below, mark the answer that best describes what the customer's contract says. The higher your risk score, the more you should push back before signing.</p>
-  <form id="cr-form"></form>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download Risk Report</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">These clauses are negotiable - even with large customers</div>
-    <h2>Never accept unlimited liability, consequential damages, or IP ownership of your processes.</h2>
-    <p>"This is our standard contract" is a negotiating position, not a fact. The supplier who pushes back politely with specific counter-language gets the changes. The one who signs and complains later doesn't.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="contract_risk_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:6px}.q-text{font-family:var(--font-heading);font-size:14px;font-weight:600;color:var(--fg1);margin:0 0 8px}.q-options{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}@media(max-width:700px){.q-options{grid-template-columns:1fr}}.q-option{padding:8px 10px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--fg1);transition:all 120ms ease;background:#fff}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:600}.q-option input{display:none}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  const items = [
-    {id:'liability',label:'Limitation of liability',red:'Unlimited liability',green:'Capped at contract value or $X',mid:'Capped but very high (>5x contract value)',counter:'Liability capped at 12 months of purchases or $X, whichever is less. Caps apply to all theories of liability.'},
-    {id:'indem',label:'Indemnification',red:'Broad indemnification including their negligence',green:'Mutual, limited to your acts/omissions',mid:'One-way but limited to your products',counter:'Indemnification mutual, limited to third-party claims arising from each party\'s acts or omissions. No indemnity for the indemnitee\'s own negligence.'},
-    {id:'warr',label:'Warranty period',red:'Greater than 24 months or "lifetime"',green:'12 months standard',mid:'18-24 months',counter:'12-month warranty from delivery, limited to repair, replacement, or refund at supplier\'s option.'},
-    {id:'pay',label:'Payment terms',red:'Net 75+',green:'Net 30',mid:'Net 45-60',counter:'Net 30 from date of invoice. Late payments incur 1.5%/month or maximum permitted by law.'},
-    {id:'price',label:'Price changes',red:'Prices subject to adjustment at customer discretion',green:'Firm pricing for term',mid:'Firm for 12 months, then annual review',counter:'Pricing firm for first year. Annual review allowing pass-through of material cost changes >5% with 60 days notice.'},
-    {id:'cancel',label:'Cancellation',red:'Cancel anytime, no cost',green:'Cancellation charges for WIP + materials',mid:'30-60 day notice, no other costs',counter:'90 days notice for termination for convenience. Customer pays for WIP, completed inventory, and committed raw materials at agreed prices.'},
-    {id:'ip',label:'IP ownership',red:'All IP becomes customer property',green:'Your processes remain yours; product IP follows the deal',mid:'Customer owns deliverables; you keep general know-how',counter:'Customer owns product designs and customer-specific deliverables. Supplier retains all rights in pre-existing IP, general manufacturing know-how, and process improvements.'},
-    {id:'qual',label:'Quality acceptance',red:'At customer\'s sole discretion',green:'Measurable specs on drawing',mid:'Specs reasonable; rejection rights vague',counter:'Acceptance based on measurable specifications on approved drawings. Rejection within 30 days of receipt or product deemed accepted.'},
-    {id:'tool',label:'Tooling',red:'Customer owns; you maintain at your cost',green:'Clear ownership + maintenance terms',mid:'Customer owns; maintenance shared',counter:'Tooling owned by paying party. Routine maintenance at user\'s cost. Replacement at owner\'s cost. Insurance by current possessor.'},
-    {id:'ins',label:'Insurance requirements',red:'$10M+ requirements',green:'Matches your existing coverage',mid:'$2-5M, doable but expensive',counter:'GL $1M/$2M, Auto $1M, WC statutory, Product Liability $2M. Customer named as additional insured.'},
-    {id:'audit',label:'Audit rights',red:'Customer may audit at any time without notice',green:'Reasonable notice, limited frequency',mid:'Notice required but unlimited frequency',counter:'Audit rights with 30 days notice, once per 12 months, during normal business hours, at customer\'s expense. NDA required for auditors.'},
-    {id:'conseq',label:'Consequential damages',red:'You\'re liable for their lost profits',green:'Excluded (consequential / incidental)',mid:'Excluded except for IP, confidentiality',counter:'In no event shall either party be liable for consequential, incidental, special, indirect, punitive, or exemplary damages, or for lost profits.'}
-  ];
-  const form = document.getElementById('cr-form');
-  items.forEach((it,i)=>{
-    const card = document.createElement('div'); card.className='q-card';
-    card.innerHTML = `<div class="q-num">${i+1}. ${it.label}</div><div class="q-text">What does the customer's contract say?</div><div class="q-options" data-q="${it.id}"><label class="q-option" style="border-color:#c0392b"><input type="radio" name="${it.id}" value="5">❌ ${it.red}</label><label class="q-option" style="border-color:#b8821a"><input type="radio" name="${it.id}" value="3">⚠️ ${it.mid}</label><label class="q-option" style="border-color:#1f8f4d"><input type="radio" name="${it.id}" value="0">✅ ${it.green}</label></div>`;
-    form.appendChild(card);
-  });
-  document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
-  function answered(){return items.every(it=>document.querySelector('input[name="'+it.id+'"]:checked'));}
-  function val(id){const el=document.querySelector('input[name="'+id+'"]:checked');return el?parseInt(el.value):0;}
-  function recalc(){
-    if(!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const score = items.reduce((s,it)=>s+val(it.id),0);
-    const max = items.length*5;
-    let band,cls,summary;
-    if(score>=40){band='Extreme risk - do not sign without major redlines';cls='red';summary='This contract is heavily one-sided. Push back hard or walk away. The math on a single dispute does not work in your favor.';}
-    else if(score>=25){band='High risk - multiple critical issues';cls='red';summary='At least three high-risk clauses. Get an attorney involved before signing. The redline list below is your starting point.';}
-    else if(score>=12){band='Moderate risk - negotiate the top issues';cls='gold';summary='Workable with revisions. Push back on the red-flagged clauses; you will likely win on most.';}
-    else{band='Low risk - typical commercial terms';cls='green';summary='Standard commercial contract. Confirm any remaining yellow items match your insurance and operations.';}
-    const reds = items.filter(it=>val(it.id)>=5);
-    const meds = items.filter(it=>val(it.id)===3);
-    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
-    document.getElementById('hero').innerHTML=`<div class="big-label">Contract risk score</div><div class="big-number ${cls}">${score}<span style="font-size:24px;color:var(--fg3);font-weight:500"> / ${max}</span></div><div class="big-caption"><strong>${band}.</strong> ${summary}</div>`;
-    let body='';
-    if(reds.length){body += '<h2 style="margin-bottom:14px">Red flags - push back with this language</h2>';reds.forEach(it=>{body += `<div style="background:#fdecea;border-left:4px solid #c0392b;padding:12px 14px;margin-bottom:10px;border-radius:6px"><div style="font-weight:700;color:#922">${it.label}</div><div style="font-size:13px;color:#444;margin-top:6px"><strong>Counter-language:</strong> "${it.counter}"</div></div>`;});}
-    if(meds.length){body += '<h2 style="margin-top:18px;margin-bottom:10px">Yellow flags - worth reviewing</h2><ul style="margin:0;padding-left:20px">'+meds.map(it=>`<li style="margin-bottom:4px">${it.label}</li>`).join('')+'</ul>';}
-    body += '<p class="tool-note" style="margin-top:14px">Print this risk report and bring it to your attorney for contract markup. Average cost: $1,500-$3,000 for a thorough review and redline package.</p>';
-    document.getElementById('detail').innerHTML = body || '<p>No issues identified.</p>';
-    return {score,max,band,summary,reds,meds};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title:'Customer Contract Risk Report',
-      docNumberLabel:'Risk Score', docNumber:r.score+'/'+r.max,
-      date:todayISO(),
-      fromLabel:'STATUS', from:[r.band],
-      toLabel:'SUMMARY', to:[r.summary],
-      itemColumns:['Clause','Status','Counter-language'], items:items.map(it=>{const v=val(it.id); return [it.label, v>=5?'❌ Red':v===3?'⚠️ Yellow':'✅ OK', v>0?it.counter:'']; }), itemRowMapper:x=>x,
-      itemColumnStyles:{0:{cellWidth:110},1:{cellWidth:60},2:{cellWidth:260}},
-      notes:'Never accept: unlimited liability, consequential damages, unilateral price changes, or IP ownership of your processes. These are negotiable - even with large customers.',
-      filename:'contract-risk-report-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>Why suppliers rarely push back - and why they should</h2>
-  <p>The fear is losing the contract. The reality is that large customers expect supplier markups. Procurement teams budget for redlines. The contract you receive is a starting position, not a final offer. The clauses they care about most are different from the clauses they put in the document - the document is written by an outside law firm trying to protect against every possible scenario; what procurement actually cares about is price, lead time, and quality.</p>
-  <h2>The five clauses worth fighting hardest on</h2>
-  <ol>
-    <li><strong>Limitation of liability</strong> - cap at 12 months of purchases. Unlimited liability is a deal-breaker; insurance does not cover everything.</li>
-    <li><strong>Consequential damages</strong> - exclude them. Your $50K part should not expose you to their $5M lost profits.</li>
-    <li><strong>IP ownership</strong> - they own the product; you keep the process. Process improvements are how you stay competitive.</li>
-    <li><strong>Termination for convenience</strong> - 90 days minimum, plus WIP and dedicated inventory protection.</li>
-    <li><strong>Audit rights</strong> - reasonable notice, limited frequency. Open-ended audit rights are an operational nightmare.</li>
-  </ol>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>Customer contract risk</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

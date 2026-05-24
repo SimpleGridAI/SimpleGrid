@@ -2,154 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<title>ERP Total Cost of Ownership (5-Year TCO Comparison) | SimpleGrid</title>
-<meta name="description" content="Compare the real 5-year cost of ERP options. License, implementation, training, internal time, customization, ongoing maintenance. The 'cheapest' is rarely the cheapest.">
+<title>ERP total cost of ownership - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/erp-tco-comparison/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css">
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../tools.css">
-<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/erp-tco-comparison/"><meta property="og:title" content="ERP TCO Comparison | SimpleGrid"><meta property="og:description" content="5-year true cost of ERP options including hidden costs."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"ERP TCO Comparison","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/erp-tco-comparison/","description":"5-year ERP total cost of ownership comparison.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"ERP TCO","item":"https://simplegrid.ai/tools/erp-tco-comparison/"}]}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>ERP total cost of ownership - 5-year comparison.</h1>
-  <p class="lead">The "cheapest" ERP is often the most expensive over 5 years. Sticker price hides implementation, customization, training, internal time, and ongoing maintenance. This tool surfaces the real number.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <p class="tool-note" style="margin:0 0 20px">Enter what each vendor has quoted. Internal resource hours (your team's time during implementation) is the line vendors never mention - and it's typically the largest hidden cost.</p>
-  <div style="overflow-x:auto"><table class="tool-table" id="tco-table"><thead><tr><th style="min-width:240px">Line item</th><th style="min-width:120px">Vendor A</th><th style="min-width:120px">Vendor B</th><th style="min-width:120px">Vendor C</th></tr></thead><tbody></tbody></table></div>
-  <div class="results-hero" id="hero" style="display:none;margin-top:20px"></div>
-  <div class="tool-card" id="results" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download TCO Report</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">SimpleGrid TCO: $0 deployment cost</div>
-    <h2>Built at our risk. Pay only if it works. 7-day deployment.</h2>
-    <p>No multi-month implementation project. No six-figure consulting bill. The math speaks for itself.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="erp_tco_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>#tco-table input{width:100%;padding:4px;text-align:right;border:1px solid var(--border);border-radius:4px;font-size:13px}#tco-table input[type=text]{text-align:left}#tco-table td{padding:6px;border-bottom:1px solid var(--border)}#tco-table th{padding:8px;text-align:left;background:#f6f8fc;font-size:12px}.row-label{font-size:13px;color:var(--fg2)}.row-sub{font-size:11px;color:var(--fg3);margin-top:2px}.tco-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}@media(max-width:700px){.tco-summary{grid-template-columns:1fr}}.tco-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px}.tco-card .name{font-family:var(--font-heading);font-weight:700;font-size:16px;margin-bottom:6px}.tco-card .total{font-size:28px;font-weight:700;color:var(--sg-blue);margin:6px 0}.tco-card .sub{font-size:12px;color:var(--fg3)}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  const fields = [
-    {id:'name',label:'Vendor name',type:'text',sub:''},
-    {id:'users',label:'Number of users',type:'number',sub:''},
-    {id:'sub_monthly',label:'Monthly subscription per user ($)',type:'number',sub:'For SaaS - blank if perpetual license'},
-    {id:'license',label:'Perpetual license cost ($)',type:'number',sub:'If applicable - blank if SaaS'},
-    {id:'impl',label:'Implementation cost ($)',type:'number',sub:'Vendor professional services'},
-    {id:'custom',label:'Customization cost ($)',type:'number',sub:'Modifications beyond standard'},
-    {id:'data_mig',label:'Data migration cost ($)',type:'number',sub:''},
-    {id:'integ',label:'Integration cost ($)',type:'number',sub:'Connecting to other systems'},
-    {id:'hw',label:'Hardware / infrastructure ($)',type:'number',sub:'$0 for cloud SaaS'},
-    {id:'training',label:'Training cost (initial) ($)',type:'number',sub:''},
-    {id:'int_hours',label:'Internal resource hours (implementation)',type:'number',sub:'Your team time - often the biggest hidden cost'},
-    {id:'int_rate',label:'Internal loaded hourly rate ($)',type:'number',sub:''},
-    {id:'maint',label:'Annual maintenance / support ($)',type:'number',sub:'Perpetual: 18-22% of license. SaaS: often $0.'},
-    {id:'upgrade',label:'Annual upgrade / version cost ($)',type:'number',sub:'Perpetual only typically'},
-    {id:'ongoing_custom',label:'Annual customization budget ($)',type:'number',sub:'Post go-live changes'},
-    {id:'consult',label:'Annual consulting retainer ($)',type:'number',sub:''}
-  ];
-  const vendors = ['a','b','c'];
-  const tbody = document.querySelector('#tco-table tbody');
-  fields.forEach(f=>{
-    const tr=document.createElement('tr');
-    let html=`<td class="row-label">${f.label}${f.sub?`<div class="row-sub">${f.sub}</div>`:''}</td>`;
-    vendors.forEach(v=>{ html += `<td><input type="${f.type}" data-v="${v}" data-f="${f.id}" ${f.type==='number'?'step="0.01"':''} ${f.id==='name'?'placeholder="Vendor name"':'placeholder="0"'}></td>`; });
-    tr.innerHTML=html;
-    tbody.appendChild(tr);
-  });
-  document.querySelectorAll('#tco-table input').forEach(i=>i.addEventListener('input',()=>setTimeout(recalc,30)));
-  function val(v,f){const el=document.querySelector(`[data-v="${v}"][data-f="${f}"]`); return el?(f==='name'?el.value:parseFloat(el.value)||0):0;}
-  function recalc(){
-    const data = vendors.map(v=>{
-      const users = val(v,'users');
-      const yr0 = val(v,'impl') + val(v,'custom') + val(v,'data_mig') + val(v,'integ') + val(v,'hw') + val(v,'training') + (val(v,'int_hours')*val(v,'int_rate')) + val(v,'license');
-      const annual = (val(v,'sub_monthly')*users*12) + val(v,'maint') + val(v,'upgrade') + val(v,'ongoing_custom') + val(v,'consult');
-      const tco5 = yr0 + annual*5;
-      return {key:v,name:val(v,'name')||('Vendor '+v.toUpperCase()),yr0,annual,tco5,users};
-    });
-    const valid = data.filter(d=>d.tco5>0);
-    if(valid.length<2){document.getElementById('hero').style.display='none';document.getElementById('results').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const sorted = [...valid].sort((a,b)=>a.tco5-b.tco5);
-    const cheapest = sorted[0];
-    const mostExpensive = sorted[sorted.length-1];
-    document.getElementById('hero').style.display='block';
-    document.getElementById('hero').innerHTML=`<div class="big-label">Lowest 5-year TCO</div><div class="big-number green">${money(cheapest.tco5)}</div><div class="big-caption"><strong>${cheapest.name}</strong> &middot; ${money(mostExpensive.tco5 - cheapest.tco5)} less than ${mostExpensive.name}</div>`;
-    let body='<div class="tco-summary">';
-    sorted.forEach(d=>{
-      const perUserMo = d.users>0 ? d.tco5/(d.users*60) : 0;
-      body += `<div class="tco-card"><div class="name">${d.name}</div><div class="total">${money(d.tco5)}</div><div class="sub">5-year TCO &middot; ${money(d.yr0)} Year 0 + ${money(d.annual)}/yr</div>${perUserMo>0?`<div class="sub" style="margin-top:6px">${money(perUserMo)}/user/month effective</div>`:''}</div>`;
-    });
-    body += '</div>';
-    body += '<h2 style="margin-top:20px;margin-bottom:10px">5-year cost stack</h2>';
-    sorted.forEach(d=>{ const p = d.tco5/mostExpensive.tco5*100; body += `<div class="bar-row"><span class="bar-label">${d.name}</span><div class="bar-track"><div class="bar-fill" style="width:${p}%;background:var(--sg-blue)"></div></div><span class="bar-value">${money(d.tco5)}</span></div>`;});
-    body += `<p class="tool-note" style="margin-top:14px"><strong>Hidden cost callout:</strong> Internal resource cost is often larger than the implementation fee - and vendors never mention it. Panorama Consulting 2023: average ERP implementation $150K-$750K. Average timeline: 12-18 months. 55% exceed budget.</p>`;
-    document.getElementById('results').innerHTML = body;
-    document.getElementById('results').style.display='block';
-    document.getElementById('generate-pdf').disabled=false;
-    return {sorted,cheapest,mostExpensive};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title:'ERP 5-Year TCO Comparison',
-      docNumberLabel:'Cheapest', docNumber:r.cheapest.name+' '+money(r.cheapest.tco5),
-      date:todayISO(),
-      fromLabel:'WINNER', from:[r.cheapest.name, money(r.cheapest.tco5)+' 5-year TCO'],
-      toLabel:'SAVINGS VS HIGHEST', to:[r.mostExpensive.name, 'Difference: '+money(r.mostExpensive.tco5 - r.cheapest.tco5)],
-      itemColumns:['Vendor','Year 0','Annual','5-yr TCO'],
-      items:r.sorted.map(d=>[d.name, money(d.yr0), money(d.annual), money(d.tco5)]),
-      itemRowMapper:x=>x,
-      notes:'TCO formula: Year 0 (impl + custom + data + integ + hw + training + internal hours) + 5 years of (subscription/license + maintenance + upgrades + ongoing customization + consulting). The sticker price is rarely the real price.',
-      filename:'erp-tco-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>The hidden costs every ERP TCO needs to capture</h2>
-  <p><strong>Internal resource time.</strong> 1,000+ hours of your team's time during implementation is normal for mid-market. At $80/hour loaded, that's $80,000 vendors never mention. <strong>Customization.</strong> The vendor's "standard" rarely matches your shop floor. Modifications start at $150/hour and run 6-12 months past go-live. <strong>Data migration.</strong> Your data is messier than you think; cleanup is the #1 cause of timeline slip. <strong>Ongoing customization budget.</strong> Software needs adjustment every quarter. Budget $25K-$75K/year minimum. <strong>Annual maintenance.</strong> For perpetual licenses, 18-22% of license cost every year - forever.</p>
-  <h2>How to use this with your finance team</h2>
-  <p>Run TCO before signing anything. Bring it to your CFO/banker. Compare against expected ROI (productivity, error reduction, working capital release). If 5-year TCO > 3-year expected benefit, the math doesn't work no matter how good the demo was.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>ERP total cost of ownership</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

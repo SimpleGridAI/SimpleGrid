@@ -2,143 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<title>NPS Calculator (Net Promoter Score) for Manufacturers | SimpleGrid</title>
-<meta name="description" content="Calculate Net Promoter Score from customer survey responses. Paste scores or enter counts. Industry benchmarks. PDF report.">
+<title>Net Promoter Score - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/nps-calculator/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css"><link rel="stylesheet" href="../../styles.css"><link rel="stylesheet" href="../tools.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"NPS Calculator","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/nps-calculator/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>Net Promoter Score - how loyal are your customers, really?</h1>
-  <p class="lead">NPS asks one question: "How likely are you to recommend us to a colleague or peer?" One number, simple math, strong correlation with growth. Manufacturing average: +30 to +40. World-class: +60.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <div class="tool-card">
-    <h2 style="margin-bottom:14px">Enter survey responses (0-10 scale)</h2>
-    <div class="tool-grid">
-      <div class="tool-field full"><label>Option A: Paste raw scores (one per line, 0-10)</label><textarea id="paste" rows="6" placeholder="9&#10;8&#10;10&#10;7&#10;..."></textarea></div>
-    </div>
-    <h3 style="margin-top:18px;margin-bottom:10px">Option B: Enter counts per score</h3>
-    <div style="overflow-x:auto"><table class="tool-table"><thead><tr><th>Score</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead><tbody><tr><td>Count</td><td><input type="number" min="0" step="1" data-score="0" style="width:55px;padding:4px;text-align:center"></td><td><input type="number" min="0" step="1" data-score="1" style="width:55px;padding:4px;text-align:center"></td><td><input type="number" min="0" step="1" data-score="2" style="width:55px;padding:4px;text-align:center"></td><td><input type="number" min="0" step="1" data-score="3" style="width:55px;padding:4px;text-align:center"></td><td><input type="number" min="0" step="1" data-score="4" style="width:55px;padding:4px;text-align:center"></td><td><input type="number" min="0" step="1" data-score="5" style="width:55px;padding:4px;text-align:center"></td><td><input type="number" min="0" step="1" data-score="6" style="width:55px;padding:4px;text-align:center"></td><td><input type="number" min="0" step="1" data-score="7" style="width:55px;padding:4px;text-align:center"></td><td><input type="number" min="0" step="1" data-score="8" style="width:55px;padding:4px;text-align:center"></td><td><input type="number" min="0" step="1" data-score="9" style="width:55px;padding:4px;text-align:center"></td><td><input type="number" min="0" step="1" data-score="10" style="width:55px;padding:4px;text-align:center"></td></tr></tbody></table></div>
-    <div class="tool-actions" style="justify-content:flex-end;margin-top:14px"><button type="button" id="calc" class="btn btn-primary">Calculate NPS</button></div>
-  </div>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="results" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download NPS Report</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">NPS correlates with growth</div>
-    <h2>Companies with NPS &gt; 50 grow 2.5x faster than those below 20 (Bain).</h2>
-    <p>Promoters refer; detractors complain. Every detractor you convert is worth the lifetime value of the customer they referred to a competitor.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="nps_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('calc').addEventListener('click',recalc);
-  document.getElementById('paste').addEventListener('input',()=>setTimeout(recalc,30));
-  document.querySelectorAll('[data-score]').forEach(i=>i.addEventListener('input',()=>setTimeout(recalc,30)));
-  function recalc(){
-    const counts = Array(11).fill(0);
-    document.querySelectorAll('[data-score]').forEach(i=>{counts[parseInt(i.dataset.score)] += parseInt(i.value)||0;});
-    const paste = document.getElementById('paste').value.split('\n').map(s=>s.trim()).filter(s=>s!=='').map(s=>parseFloat(s)).filter(n=>!isNaN(n) && n>=0 && n<=10);
-    paste.forEach(n=>{const i=Math.round(n); if(i>=0&&i<=10) counts[i]++;});
-    const total = counts.reduce((a,b)=>a+b,0);
-    if(total<5){document.getElementById('hero').style.display='none';document.getElementById('results').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const promoters = counts.slice(9).reduce((a,b)=>a+b,0);
-    const passives = counts.slice(7,9).reduce((a,b)=>a+b,0);
-    const detractors = counts.slice(0,7).reduce((a,b)=>a+b,0);
-    const promPct = promoters/total*100;
-    const passPct = passives/total*100;
-    const detPct = detractors/total*100;
-    const nps = Math.round(promPct - detPct);
-    let band, cls;
-    if(nps>=60){band='World-class';cls='green';}
-    else if(nps>=30){band='Good - manufacturing benchmark';cls='green';}
-    else if(nps>=0){band='Below average - room to improve';cls='gold';}
-    else{band='Negative - more detractors than promoters';cls='red';}
-    document.getElementById('hero').style.display='block';
-    document.getElementById('hero').innerHTML=`<div class="big-label">Net Promoter Score</div><div class="big-number ${cls}">${nps>=0?'+':''}${nps}</div><div class="big-caption"><strong>${band}.</strong> Based on ${total} responses. Manufacturing average: +30 to +40. World-class: +60.</div>`;
-    let body = '<h2 style="margin-bottom:10px">Distribution</h2>';
-    body += `<div style="display:flex;border-radius:8px;overflow:hidden;height:40px;margin:10px 0;font-size:12px;font-weight:600;color:#fff">`;
-    body += `<div style="flex:${detPct};background:#c0392b;text-align:center;line-height:40px">${detPct.toFixed(0)}% Detractors</div>`;
-    body += `<div style="flex:${passPct};background:#888;text-align:center;line-height:40px">${passPct.toFixed(0)}% Passives</div>`;
-    body += `<div style="flex:${promPct};background:#1f8f4d;text-align:center;line-height:40px">${promPct.toFixed(0)}% Promoters</div>`;
-    body += `</div>`;
-    body += `<table class="tool-table"><thead><tr><th>Segment</th><th>Scores</th><th style="text-align:right">Count</th><th style="text-align:right">%</th></tr></thead><tbody>`;
-    body += `<tr><td style="color:#1f8f4d"><strong>Promoters</strong></td><td>9-10</td><td style="text-align:right">${promoters}</td><td style="text-align:right">${promPct.toFixed(1)}%</td></tr>`;
-    body += `<tr><td>Passives</td><td>7-8</td><td style="text-align:right">${passives}</td><td style="text-align:right">${passPct.toFixed(1)}%</td></tr>`;
-    body += `<tr><td style="color:#c0392b"><strong>Detractors</strong></td><td>0-6</td><td style="text-align:right">${detractors}</td><td style="text-align:right">${detPct.toFixed(1)}%</td></tr>`;
-    body += `</tbody></table>`;
-    body += '<h2 style="margin-top:20px;margin-bottom:10px">What to do with this number</h2>';
-    body += `<ul style="margin:0;padding-left:20px">`;
-    if(promoters>0) body += `<li><strong>${promoters} promoters</strong> - ask each for a referral and a testimonial. They will say yes more often than you expect.</li>`;
-    if(detractors>0) body += `<li><strong>${detractors} detractors</strong> - call each personally within 7 days. Listen, fix, follow up. Every detractor converted is multi-year retention.</li>`;
-    body += `<li><strong>Score breakdown by individual</strong> - track NPS per customer + per account team. NPS-by-segment surfaces problems faster than the company aggregate.</li>`;
-    body += `</ul>`;
-    body += `<p class="tool-note" style="margin-top:14px">Industry benchmarks (Bain / Satmetrix 2022): manufacturing avg +30 to +40, B2B avg +33, top-quartile B2B +50+, world-class +60+. The trend over time matters more than the absolute number.</p>`;
-    document.getElementById('results').innerHTML = body;
-    document.getElementById('results').style.display='block';
-    document.getElementById('generate-pdf').disabled=false;
-    return {nps,band,total,promoters,passives,detractors,promPct,passPct,detPct};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title:'Net Promoter Score Report',
-      docNumberLabel:'NPS', docNumber:(r.nps>=0?'+':'')+r.nps,
-      date:todayISO(),
-      fromLabel:'STATUS', from:[r.band, r.total+' responses'],
-      toLabel:'NEXT STEPS', to:['Call all '+r.detractors+' detractors within 7 days','Ask all '+r.promoters+' promoters for referrals + testimonials'],
-      itemColumns:['Segment','Scores','Count','%'],
-      items:[['Promoters','9-10',r.promoters,r.promPct.toFixed(1)+'%'],['Passives','7-8',r.passives,r.passPct.toFixed(1)+'%'],['Detractors','0-6',r.detractors,r.detPct.toFixed(1)+'%']],
-      itemRowMapper:x=>x,
-      notes:'NPS = % Promoters - % Detractors (range -100 to +100). Manufacturing avg: +30 to +40. World-class: +60+. Companies with NPS > 50 grow 2.5x faster (Bain).',
-      filename:'nps-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>Why NPS works for manufacturing</h2>
-  <p>NPS strips away survey complexity - one question, one number, anyone can compute. The reason it works is the asymmetry of word-of-mouth: in B2B, a single referral from a satisfied customer drives more new revenue than 100 outbound emails. NPS captures the "would they refer?" propensity in a way that customer satisfaction scores don't. The cutoff at 9 is deliberate - 7s and 8s feel positive but rarely actually refer. Only 9s and 10s do the work for you.</p>
-  <h2>How to actually use NPS - it's the follow-up, not the score</h2>
-  <p>The score itself is just diagnostic. The value comes from the follow-up. Promoters get asked for referrals and testimonials - this is your cheapest growth channel. Detractors get called personally - this is your cheapest retention move. Passives get asked an open-ended "what would have made it a 9 or 10" - that's your next product improvement list. Track NPS by customer, by salesperson, by region; you'll see your strengths and weaknesses faster than any other tool.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>Net Promoter Score</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

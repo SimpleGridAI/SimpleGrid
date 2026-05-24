@@ -2,132 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<title>CE Marking Compliance Checker (EU Directives) | SimpleGrid</title>
-<meta name="description" content="Determine which EU directives apply to your product (machinery, LVD, EMC, RoHS, REACH, RED, MDR). Self-cert vs Notified Body. UKCA notes for UK market.">
+<title>CE marking - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/ce-marking-checker/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css"><link rel="stylesheet" href="../../styles.css"><link rel="stylesheet" href="../tools.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"CE Marking Checker","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/ce-marking-checker/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>CE marking - which EU directives apply to your product?</h1>
-  <p class="lead">For US manufacturers selling into the EU. CE marking is not optional - products without it get stopped at customs. This tool maps your product to the directives, the conformity path, and rough cost.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <div class="tool-card">
-    <h2 style="margin-bottom:14px">Product details</h2>
-    <div class="tool-grid">
-      <div class="tool-field full"><label>Product description</label><input type="text" id="desc" maxlength="200" placeholder="e.g., Industrial CNC milling machine"></div>
-      <div class="tool-field"><label>Primary product type</label><select id="ptype"><option value="">Select...</option><option>Machinery</option><option>Electrical equipment (general)</option><option>Electronic device (consumer/IT)</option><option>Medical device</option><option>PPE (Personal Protective Equipment)</option><option>Pressure equipment</option><option>Construction product</option><option>Toy</option><option>In-vitro diagnostic</option><option>Other</option></select></div>
-      <div class="tool-field"><label>Voltage</label><select id="voltage"><option value="na">Not electrical / N/A</option><option value="below50">Below 50V DC</option><option value="lvd">50-1000V AC or 75-1500V DC (LVD range)</option><option value="hv">Above 1000V AC</option><option value="batt">Battery powered</option></select></div>
-      <div class="tool-field"><label>Intended use</label><select id="use"><option>Industrial</option><option>Consumer</option><option>Both</option></select></div>
-      <div class="tool-field"><label>Contains radio / wireless?</label><select id="radio"><option>No</option><option>Yes</option></select></div>
-      <div class="tool-field"><label>Selling to UK as well as EU?</label><select id="uk"><option>EU only</option><option>EU + UK</option></select></div>
-    </div>
-    <div class="tool-actions" style="justify-content:flex-end;margin-top:14px"><button type="button" id="check" class="btn btn-primary">Check applicable directives</button></div>
-  </div>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="results" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download CE Compliance PDF</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">CE is not optional</div>
-    <h2>Products without CE marking are stopped at EU customs.</h2>
-    <p>Testing and documentation typically cost $5K-$25K. Lost EU market access costs much more.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="ce_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('check').addEventListener('click',recalc);
-  ['desc','ptype','voltage','use','radio','uk'].forEach(id=>document.getElementById(id).addEventListener('change',recalc));
-  function recalc(){
-    const t = document.getElementById('ptype').value;
-    if(!t){document.getElementById('hero').style.display='none';document.getElementById('results').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const v = document.getElementById('voltage').value;
-    const radio = document.getElementById('radio').value;
-    const uk = document.getElementById('uk').value;
-    const dirs = [];
-    let nb = false;
-    if(t==='Machinery'){dirs.push({code:'2006/42/EC',name:'Machinery Directive',notes:'Conformity assessment - typically self-certification unless Annex IV machinery (then Notified Body required).'}); if(t==='Machinery' && false) nb=true;}
-    if(v==='lvd' || (t==='Electrical equipment (general)' && v!=='below50') ){dirs.push({code:'2014/35/EU',name:'Low Voltage Directive (LVD)',notes:'Required for equipment 50-1000V AC / 75-1500V DC. Self-cert with harmonized standards (EN 60204 for machinery, EN 60335 for household, etc.).'});}
-    if(t==='Machinery' || v==='lvd' || v==='hv' || t.includes('Electronic') || t==='Electrical equipment (general)' || radio==='Yes'){dirs.push({code:'2014/30/EU',name:'EMC Directive',notes:'Electromagnetic compatibility. Self-cert with EN 61000 series tests.'});}
-    if(radio==='Yes'){dirs.push({code:'2014/53/EU',name:'Radio Equipment Directive (RED)',notes:'Required for any radio / wireless. Self-cert with harmonized standards.'});}
-    if(t==='Medical device'){dirs.push({code:'(EU) 2017/745',name:'Medical Device Regulation (MDR)',notes:'Most classes require Notified Body. Class I self-cert with limited exceptions.'}); nb=true;}
-    if(t==='In-vitro diagnostic'){dirs.push({code:'(EU) 2017/746',name:'In-Vitro Diagnostic Regulation (IVDR)',notes:'Most require Notified Body.'}); nb=true;}
-    if(t==='Pressure equipment'){dirs.push({code:'2014/68/EU',name:'Pressure Equipment Directive (PED)',notes:'Category I-IV; II-IV require Notified Body involvement.'}); nb=true;}
-    if(t==='PPE (Personal Protective Equipment)'){dirs.push({code:'(EU) 2016/425',name:'PPE Regulation',notes:'Category II and III require Notified Body.'});}
-    if(t==='Construction product'){dirs.push({code:'(EU) 305/2011',name:'Construction Products Regulation',notes:'Declaration of Performance + CE marking.'});}
-    if(t==='Toy'){dirs.push({code:'2009/48/EC',name:'Toy Safety Directive',notes:'Self-cert if harmonized standards applied; otherwise Notified Body.'});}
-    if(t.includes('Electronic') || v!=='na'){dirs.push({code:'2011/65/EU',name:'RoHS Directive',notes:'Restricts 10 hazardous substances. Self-cert with material declarations.'});}
-    dirs.push({code:'EC 1907/2006',name:'REACH Regulation',notes:'Applies to substances. SVHC list updated semi-annually. Communication in supply chain required.'});
-    document.getElementById('hero').style.display='block';
-    document.getElementById('hero').innerHTML=`<div class="big-label">Applicable EU directives</div><div class="big-number" style="font-size:42px">${dirs.length}<span style="font-size:24px;color:var(--fg3);font-weight:500"> directives identified</span></div><div class="big-caption">${nb?'<strong>Notified Body involvement required</strong> for at least one directive.':'<strong>Self-certification path</strong> likely for all identified directives - subject to confirmation.'}</div>`;
-    let body='<h2 style="margin-bottom:10px">Applicable directives</h2>';
-    body += `<table class="tool-table"><thead><tr><th>Code</th><th>Name</th><th>Notes</th></tr></thead><tbody>` + dirs.map(d=>`<tr><td><strong>${d.code}</strong></td><td>${d.name}</td><td style="font-size:13px">${d.notes}</td></tr>`).join('') + `</tbody></table>`;
-    body += '<h2 style="margin-top:20px;margin-bottom:10px">Conformity assessment steps</h2><ol style="margin:0;padding-left:20px"><li>Identify all applicable directives (above).</li><li>Apply harmonized standards (EN 60204, EN 60335, EN 61000, etc. - directive-specific).</li><li>Perform conformity assessment (self-cert or Notified Body, depending on directive + risk class).</li><li>Prepare Technical File (design, risk analysis, test reports, manuals).</li><li>Draft Declaration of Conformity (DoC) signed by authorized representative.</li><li>Affix CE mark to product + packaging.</li><li>Appoint Authorized Representative in EU (required for non-EU manufacturers under most directives).</li></ol>';
-    body += '<p class="tool-note" style="margin-top:14px">Estimated cost: <strong>$5,000-$25,000</strong> for testing + documentation depending on product complexity. Higher for Notified Body involvement.</p>';
-    if(uk==='EU + UK'){body += '<p class="tool-note" style="margin-top:8px"><strong>UK market (post-Brexit):</strong> UKCA marking is required separately from CE. Until further notice, CE is still accepted in Great Britain; UKCA timeline keeps shifting. Northern Ireland uses UKNI alongside CE.</p>';}
-    document.getElementById('results').innerHTML = body;
-    document.getElementById('results').style.display='block';
-    document.getElementById('generate-pdf').disabled=false;
-    return {dirs,nb,uk};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    const desc = document.getElementById('desc').value || 'Product';
-    sgBuildPdf({title:'CE Marking Compliance Plan',
-      docNumberLabel:'Directives identified', docNumber:r.dirs.length+'',
-      date:todayISO(),
-      fromLabel:'PRODUCT', from:[desc],
-      toLabel:'CONFORMITY PATH', to:[r.nb?'Notified Body involvement required':'Self-certification path likely',r.uk==='EU + UK'?'EU + UK markets - UKCA separate':'EU only'],
-      itemColumns:['Code','Name'], items:r.dirs.map(d=>[d.code,d.name]), itemRowMapper:x=>x,
-      notes:'Steps: 1) Identify directives. 2) Apply harmonized standards. 3) Conformity assessment. 4) Technical File. 5) Declaration of Conformity. 6) Affix CE mark. 7) Appoint EU Authorized Representative. Estimated cost: $5K-$25K.',
-      filename:'ce-marking-plan-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>What CE marking actually means</h2>
-  <p>CE is not a quality mark or a safety mark - it's a manufacturer's self-declaration that the product complies with all applicable EU directives. The CE mark goes on the product after the manufacturer (or its EU Authorized Representative) signs the Declaration of Conformity. For most directives the manufacturer can self-certify after applying harmonized standards; for higher-risk products (most medical devices, pressure equipment Cat II+, certain machinery in Annex IV) a Notified Body must perform conformity assessment. EU customs can and does stop products without proper CE marking.</p>
-  <h2>The biggest mistakes US manufacturers make</h2>
-  <p><strong>Assuming UL = CE.</strong> UL is North American; CE is European. They're not interchangeable. <strong>Skipping the Authorized Representative.</strong> Non-EU manufacturers must appoint an EU AR for most directives - your distributor doesn't count unless contracted. <strong>Forgetting RoHS.</strong> Almost any electrical product needs RoHS even if not "electronic." <strong>Outdated technical files.</strong> The file must reflect the current product - design changes require updates and often re-test.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>CE marking</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

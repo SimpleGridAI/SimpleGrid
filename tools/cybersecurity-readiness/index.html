@@ -2,145 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<title>Cybersecurity Readiness Assessment for Manufacturers | SimpleGrid</title>
-<meta name="description" content="30-question cybersecurity assessment across 10 dimensions. Manufacturing is the #1 ransomware target. Average incident cost: $1.27M. PDF report with priorities.">
+<title>Cybersecurity readiness - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/cybersecurity-readiness/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css">
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../tools.css">
-<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/cybersecurity-readiness/"><meta property="og:title" content="Cybersecurity Readiness | SimpleGrid"><meta property="og:description" content="30-question cybersecurity assessment for manufacturers."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Cybersecurity Readiness","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/cybersecurity-readiness/","description":"30-question cybersecurity readiness across 10 dimensions.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"Cybersecurity Readiness","item":"https://simplegrid.ai/tools/cybersecurity-readiness/"}]}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>Cybersecurity readiness - score 10 dimensions.</h1>
-  <p class="lead">Manufacturing is the #1 ransomware target. The average cost of an incident is $1.27M (IBM 2023). Most mid-market manufacturers have minimal protection. This assessment surfaces the quick wins and the dangerous gaps.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <p class="tool-note" style="margin:0 0 20px">3 questions per dimension. Rate each: 1 (not done) to 5 (fully implemented).</p>
-  <form id="cs-form"></form>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download Cyber Report</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">Your cyber insurance probably requires basic controls</div>
-    <h2>A claim can be denied if MFA, backups, and endpoint protection aren't in place.</h2>
-    <p>Verify with your insurer before you need to. Run the <a href="../insurance-coverage-checklist/">Insurance Coverage Audit</a> alongside this.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="cyber_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:6px}.q-text{font-family:var(--font-heading);font-size:14px;font-weight:600;color:var(--fg1);margin:14px 0 8px}.q-options{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.q-option{padding:8px 4px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--fg1);transition:all 120ms ease;background:#fff;text-align:center}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:600}.q-option input{display:none}</style>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  const dims = [
-    {key:'pw',name:'1. Password & Access Management',qs:['MFA enabled on email, ERP, and critical systems','Strong password policy + manager','Privileged accounts (admin) reviewed quarterly'],fixes:['Enable MFA on all accounts via Microsoft/Google admin ($0)','Roll out 1Password or LastPass business ($3-5/user/mo)','Audit admin access; remove unused accounts']},
-    {key:'bk',name:'2. Data Backup & Recovery',qs:['Daily automated backups of critical data','Backups stored off-site / immutable','Restore tested within last 90 days'],fixes:['Implement 3-2-1 backup rule (3 copies, 2 media, 1 off-site)','Move to immutable backup (Veeam, Datto, Wasabi)','Schedule quarterly restore tests']},
-    {key:'nw',name:'3. Network Security',qs:['Business-grade firewall in place + patched','Guest WiFi separated from production / office network','VPN required for remote access'],fixes:['Replace consumer router with business firewall (Fortinet, SonicWall $1-3K)','Configure VLANs to segment networks','Deploy VPN (WireGuard, Cisco AnyConnect)']},
-    {key:'em',name:'4. Email Security',qs:['Email filtering / anti-phishing in place','SPF, DKIM, DMARC configured','Suspicious email reporting process'],fixes:['Enable Microsoft Defender / Google Advanced Protection','Configure SPF/DKIM/DMARC (free, 2 hours)','Add "Report phishing" button in Outlook/Gmail']},
-    {key:'ep',name:'5. Endpoint Protection',qs:['EDR / next-gen antivirus on all computers','Disk encryption (BitLocker / FileVault) enforced','Automatic OS + software patches'],fixes:['Deploy CrowdStrike, SentinelOne, or Defender for Business','Enable BitLocker on all Windows; FileVault on Mac','Configure WSUS or Intune for automated patching']},
-    {key:'tr',name:'6. Employee Training & Awareness',qs:['Annual security awareness training','Phishing simulation campaigns','New-hire security onboarding'],fixes:['Subscribe to KnowBe4 or Hoxhunt ($2-5/user/mo)','Run monthly phishing tests','Add security to new-hire checklist']},
-    {key:'ir',name:'7. Incident Response Plan',qs:['Written incident response plan exists','Plan tested in tabletop exercise','24/7 emergency contact list current'],fixes:['Document 5-step IR plan: detect, contain, eradicate, recover, learn','Run a 1-hour tabletop with leadership','Pre-engage incident response firm for retainer']},
-    {key:'vd',name:'8. Vendor / Third-Party Risk',qs:['Inventory of vendors with access to your data','Vendor security questionnaire / SOC 2 review','Contract clauses on data protection + breach notification'],fixes:['Build a list of every SaaS vendor + their data access','Request SOC 2 reports from top 10 vendors','Add data breach notification (72-hour) to contracts']},
-    {key:'ph',name:'9. Physical Security',qs:['Server / network closet locked + access logged','Visitor / contractor badge system','Building access reviewed regularly'],fixes:['Lock and log access to server room','Implement visitor badge system','Audit door access cards quarterly']},
-    {key:'cp',name:'10. Compliance & Insurance',qs:['Cyber insurance policy in force','Insurance minimum-controls requirements verified','CMMC / NIST 800-171 assessed if DoD supply chain'],fixes:['Get cyber insurance quote ($1K-$5K/yr for $1M-$5M coverage)','Verify your controls match insurance requirements','If DoD: start CMMC Level 2 preparation now']}
-  ];
-  const form = document.getElementById('cs-form');
-  let n=0;
-  dims.forEach(d=>{
-    const card=document.createElement('div'); card.className='q-card';
-    card.innerHTML=`<div class="q-num">${d.name}</div>`;
-    d.qs.forEach(q=>{
-      n++; const qid='q'+n;
-      const div=document.createElement('div');
-      div.innerHTML=`<div class="q-text">${q}</div><div class="q-options" data-q="${qid}" data-dim="${d.key}"><label class="q-option"><input type="radio" name="${qid}" value="1">1</label><label class="q-option"><input type="radio" name="${qid}" value="2">2</label><label class="q-option"><input type="radio" name="${qid}" value="3">3</label><label class="q-option"><input type="radio" name="${qid}" value="4">4</label><label class="q-option"><input type="radio" name="${qid}" value="5">5</label></div>`;
-      card.appendChild(div);
-    });
-    form.appendChild(card);
-  });
-  document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
-  function answered(){for(let q of document.querySelectorAll('.q-options')){if(!q.querySelector('input:checked'))return false;}return true;}
-  function recalc(){
-    if(!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const dimScore={};
-    dims.forEach(d=>{const inputs=document.querySelectorAll(`[data-dim="${d.key}"] input:checked`); const sum=Array.from(inputs).reduce((a,i)=>a+parseInt(i.value),0); dimScore[d.key]={name:d.name,score:sum,pct:sum/15*100,fixes:d.fixes};});
-    const total=Object.values(dimScore).reduce((a,b)=>a+b.score,0);
-    const score=Math.round(total/150*100);
-    const sortedDims=Object.values(dimScore).sort((a,b)=>a.score-b.score);
-    let band,cls;
-    if(score>=80){band='Strong - manufacturing best practice';cls='green';}
-    else if(score>=60){band='Moderate - close the worst 3 gaps';cls='gold';}
-    else if(score>=40){band='Weak - significant exposure';cls='red';}
-    else{band='Critical - high probability of incident within 12 months';cls='red';}
-    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
-    document.getElementById('hero').innerHTML=`<div class="big-label">Cybersecurity readiness</div><div class="big-number ${cls}">${score}<span style="font-size:24px;color:var(--fg3);font-weight:500"> / 100</span></div><div class="big-caption"><strong>${band}.</strong> Manufacturing is the #1 ransomware target. Average incident cost: $1.27M.</div>`;
-    let body='<h2 style="margin-bottom:10px">Score by dimension</h2>';
-    Object.values(dimScore).forEach(d=>{const p=d.pct; const bcls=p>=70?'green':p>=40?'gold':'red'; body += `<div class="bar-row"><span class="bar-label">${d.name}</span><div class="bar-track"><div class="bar-fill ${bcls}" style="width:${p}%"></div></div><span class="bar-value">${d.score}/15 (${Math.round(p)}%)</span></div>`;});
-    body += '<h2 style="margin-top:20px;margin-bottom:10px">Top 5 priority actions</h2>';
-    const allFixes = [];
-    sortedDims.slice(0,5).forEach(d=>{ d.fixes.forEach(f=>allFixes.push({dim:d.name,fix:f})); });
-    body += '<ol style="margin:0;padding-left:20px">'+allFixes.slice(0,5).map(f=>`<li style="margin-bottom:6px"><strong>${f.fix}</strong> <span style="color:#777">(${f.dim})</span></li>`).join('')+'</ol>';
-    body += '<p class="tool-note" style="margin-top:14px"><strong>Quick wins (under $500/yr):</strong> MFA, SPF/DKIM/DMARC, BitLocker, backup verification. <strong>Medium ($1K-$10K):</strong> business firewall, EDR, phishing training. <strong>If selling to DoD:</strong> CMMC Level 2 is becoming required - start preparing now.</p>';
-    document.getElementById('detail').innerHTML = body;
-    return {score,band,dimScore,sortedDims,allFixes};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    sgBuildPdf({title:'Cybersecurity Readiness Assessment',
-      docNumberLabel:'Readiness', docNumber:r.score+'/100',
-      date:todayISO(),
-      fromLabel:'STATUS', from:[r.band],
-      toLabel:'TOP PRIORITIES', to:r.allFixes.slice(0,5).map(f=>f.fix),
-      itemColumns:['Dimension','Score','%'], items:Object.values(r.dimScore).map(d=>[d.name,d.score+'/15',Math.round(d.pct)+'%']), itemRowMapper:x=>x,
-      notes:'Manufacturing is the #1 ransomware target. Average cost of a manufacturing cyber incident: $1.27M (IBM 2023). Cyber insurance may require minimum controls - verify before you need to claim.',
-      filename:'cybersecurity-readiness-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>Why manufacturing is the #1 ransomware target</h2>
-  <p>Manufacturers can't afford downtime. A bakery loses one day of orders; a manufacturer with $50M revenue and a 30-day outage loses $4M of revenue plus customers permanently switched to backup suppliers. Ransomware gangs know this and price accordingly - the average ransom for mid-market manufacturers is $850K (Coveware, 2023). The combination of legacy OT systems, flat networks, weak access controls, and high pressure to pay quickly makes manufacturing the most lucrative ransomware target on earth.</p>
-  <h2>The cheapest controls give the biggest risk reduction</h2>
-  <p><strong>MFA</strong> alone blocks 99.9% of automated account compromise (Microsoft). <strong>Immutable backups</strong> turn ransomware from "pay or close" into "restore in 48 hours." <strong>SPF/DKIM/DMARC</strong> prevent email spoofing that drives most initial access. All three combined cost less than $500/year for most mid-market manufacturers. Do these first.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>Cybersecurity readiness</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>

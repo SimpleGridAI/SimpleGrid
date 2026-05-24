@@ -2,171 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<title>Annual Operating Plan (AOP) Generator | SimpleGrid</title>
-<meta name="description" content="Generate a 1-page Annual Operating Plan for manufacturers: revenue bridge, P&L forecast, headcount, capex, KPIs, priorities, risks. PDF for banker and team review.">
+<title>Annual operating plan - retired | SimpleGrid</title>
+<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/aop-generator/">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://simplegrid.ai/tools/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<link rel="stylesheet" href="../../colors_and_type.css">
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../tools.css">
-<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/aop-generator/"><meta property="og:title" content="AOP Generator | SimpleGrid"><meta property="og:description" content="1-page Annual Operating Plan for manufacturers."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Annual Operating Plan Generator","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/aop-generator/","description":"1-page AOP template for manufacturers.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"AOP Generator","item":"https://simplegrid.ai/tools/aop-generator/"}]}]}</script>
-<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
-<script src="../tools.js" defer></script>
-<script src="../../assets/js/analytics-init.js" defer></script>
-<script src="../../assets/js/tracking.js" defer></script>
-<script src="../../assets/js/cookie-consent.js" defer></script>
+<meta http-equiv="refresh" content="0; url=../">
+<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
-<header class="nav" role="banner"><div class="nav-inner">
-  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools</a><a href="../../case-studies.html">Case studies</a><a href="../../blog.html">Blog</a></div></details></nav>
-  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a call</a></div>
-</div></header>
-
-<main id="main">
-<section class="tool-header"><div class="container-sm">
-  <a href="../" class="back-link">← All productive tools</a>
-  <h1>Annual operating plan - the simplest version that's still useful.</h1>
-  <p class="lead">Most mid-market manufacturers run without a formal plan. Revenue targets in the founder's head; no expense budget; no tracked KPIs. This generates a clean one-page AOP your accountant and banker will respect.</p>
-</div></section>
-
-<section class="tool-app"><div class="container-sm">
-  <div class="tool-card">
-    <h2 style="margin-bottom:14px">Prior year actuals</h2>
-    <div class="tool-grid">
-      <div class="tool-field"><label>Prior year revenue ($)</label><input type="number" id="py-rev" step="1000" placeholder="10000000"></div>
-      <div class="tool-field"><label>Prior year COGS ($)</label><input type="number" id="py-cogs" step="1000" placeholder="6500000"></div>
-      <div class="tool-field"><label>Prior year operating expenses ($)</label><input type="number" id="py-opex" step="1000" placeholder="2200000"></div>
-    </div>
-  </div>
-  <div class="tool-card" style="margin-top:14px">
-    <h2 style="margin-bottom:14px">This year plan</h2>
-    <div class="tool-grid">
-      <div class="tool-field"><label>Company name</label><input type="text" id="company" maxlength="100" placeholder="Acme Manufacturing"></div>
-      <div class="tool-field"><label>Plan year</label><input type="number" id="plan-year" min="2024" max="2035" value="2026"></div>
-      <div class="tool-field"><label>Revenue target ($)</label><input type="number" id="ty-rev" step="1000" placeholder="11500000"></div>
-      <div class="tool-field"><label>Target gross margin (%)</label><input type="number" id="ty-gm" min="0" max="100" step="0.5" placeholder="36"></div>
-      <div class="tool-field"><label>Target operating expense ($)</label><input type="number" id="ty-opex" step="1000" placeholder="2400000"></div>
-      <div class="tool-field"><label>Growth source</label><select id="growth-source"><option>Existing customers (volume)</option><option>New customers</option><option>New products</option><option>Price increases</option><option>Combination</option></select></div>
-      <div class="tool-field"><label>Planned new hires (#)</label><input type="number" id="hires" min="0" step="1" placeholder="5"></div>
-      <div class="tool-field"><label>Planned capex ($)</label><input type="number" id="capex" step="1000" placeholder="250000"></div>
-      <div class="tool-field full"><label>Top 3 priorities (one per line)</label><textarea id="priorities" rows="3" maxlength="400" placeholder="Reduce scrap to <3%&#10;Launch new product line&#10;Implement ERP"></textarea></div>
-      <div class="tool-field full"><label>Top 3 risks (one per line)</label><textarea id="risks" rows="3" maxlength="400" placeholder="Top customer accounts for 35% of revenue&#10;Material cost volatility&#10;Key operator retirement"></textarea></div>
-    </div>
-  </div>
-  <div class="results-hero" id="hero" style="display:none"></div>
-  <div class="tool-card" id="results" style="display:none;margin-top:24px"></div>
-  <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download 1-page AOP PDF</button></div>
-  <div class="tool-cta">
-    <div class="eyebrow">A written plan, even simple, beats the plan in your head</div>
-    <h2>Review monthly. Update quarterly. Bring this to your banker.</h2>
-    <p>It's not the spreadsheet that matters - it's the conversation it forces. Most owners can't articulate where revenue will grow or what the top 3 risks are. The act of writing it down is the value.</p>
-    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="aop_cta" class="btn btn-primary">Book a call</a>
-  </div>
-</div></section>
-
-<script defer>
-document.addEventListener('DOMContentLoaded',()=>{
-  ['py-rev','py-cogs','py-opex','ty-rev','ty-gm','ty-opex','hires','capex','company','plan-year','growth-source','priorities','risks'].forEach(id=>{
-    document.getElementById(id).addEventListener('input',()=>setTimeout(recalc,30));
-    document.getElementById(id).addEventListener('change',()=>setTimeout(recalc,30));
-  });
-  function recalc(){
-    const pyRev = parseFloat(document.getElementById('py-rev').value)||0;
-    const pyCogs = parseFloat(document.getElementById('py-cogs').value)||0;
-    const pyOpex = parseFloat(document.getElementById('py-opex').value)||0;
-    const tyRev = parseFloat(document.getElementById('ty-rev').value)||0;
-    const tyGm = parseFloat(document.getElementById('ty-gm').value)||0;
-    const tyOpex = parseFloat(document.getElementById('ty-opex').value)||0;
-    if(!pyRev || !tyRev) {document.getElementById('hero').style.display='none';document.getElementById('results').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
-    const pyGm = pyRev - pyCogs;
-    const pyEbitda = pyGm - pyOpex;
-    const tyCogs = tyRev * (1 - tyGm/100);
-    const tyGmDol = tyRev - tyCogs;
-    const tyEbitda = tyGmDol - tyOpex;
-    const growth = ((tyRev - pyRev)/pyRev*100);
-    const ebitdaPctPy = pyRev>0 ? pyEbitda/pyRev*100 : 0;
-    const ebitdaPctTy = tyRev>0 ? tyEbitda/tyRev*100 : 0;
-    document.getElementById('hero').style.display='block';
-    document.getElementById('hero').innerHTML=`<div class="big-label">Plan summary</div><div class="big-number ${growth>=10?'green':growth>=0?'gold':'red'}">${growth>=0?'+':''}${growth.toFixed(1)}% <span style="font-size:24px;color:var(--fg3);font-weight:500">revenue growth</span></div><div class="big-caption">EBITDA: <strong>${money(pyEbitda)}</strong> → <strong>${money(tyEbitda)}</strong> (${ebitdaPctPy.toFixed(1)}% → ${ebitdaPctTy.toFixed(1)}% of revenue)</div>`;
-    const months = Array.from({length:12},(_,i)=>{const d=new Date(parseInt(document.getElementById('plan-year').value)||new Date().getFullYear(),i,1); return d.toLocaleDateString('en-US',{month:'short'});});
-    const monthlyRev = tyRev/12;
-    let body='<h2 style="margin-bottom:10px">P&L forecast</h2>';
-    body += `<table class="tool-table"><thead><tr><th>Line</th><th style="text-align:right">Prior year</th><th style="text-align:right">This year plan</th><th style="text-align:right">% Δ</th></tr></thead><tbody>`;
-    body += `<tr><td>Revenue</td><td style="text-align:right">${money(pyRev)}</td><td style="text-align:right">${money(tyRev)}</td><td style="text-align:right">${growth>=0?'+':''}${growth.toFixed(1)}%</td></tr>`;
-    body += `<tr><td>COGS</td><td style="text-align:right">${money(pyCogs)}</td><td style="text-align:right">${money(tyCogs)}</td><td></td></tr>`;
-    body += `<tr><td><strong>Gross profit</strong></td><td style="text-align:right"><strong>${money(pyGm)}</strong></td><td style="text-align:right"><strong>${money(tyGmDol)}</strong></td><td></td></tr>`;
-    body += `<tr><td>Gross margin %</td><td style="text-align:right">${pyRev>0?(pyGm/pyRev*100).toFixed(1):0}%</td><td style="text-align:right">${tyGm.toFixed(1)}%</td><td></td></tr>`;
-    body += `<tr><td>Operating expense</td><td style="text-align:right">${money(pyOpex)}</td><td style="text-align:right">${money(tyOpex)}</td><td></td></tr>`;
-    body += `<tr><td><strong>EBITDA</strong></td><td style="text-align:right"><strong>${money(pyEbitda)}</strong></td><td style="text-align:right"><strong>${money(tyEbitda)}</strong></td><td></td></tr>`;
-    body += `<tr><td>EBITDA % of revenue</td><td style="text-align:right">${ebitdaPctPy.toFixed(1)}%</td><td style="text-align:right">${ebitdaPctTy.toFixed(1)}%</td><td></td></tr>`;
-    body += `</tbody></table>`;
-    body += '<h2 style="margin-top:18px;margin-bottom:10px">Monthly revenue target (straight-line)</h2>';
-    body += `<p>${months.map(m=>`<strong>${m}:</strong> ${money(monthlyRev)}`).slice(0,3).join(' &middot; ')} &hellip; (and so on)</p>`;
-    body += `<p>Use this as your monthly check-in. Variance > 10% in any month is the signal to dig in.</p>`;
-    const prio = (document.getElementById('priorities').value||'').split('\n').filter(s=>s.trim()).slice(0,3);
-    const risk = (document.getElementById('risks').value||'').split('\n').filter(s=>s.trim()).slice(0,3);
-    if(prio.length){body += '<h2 style="margin-top:18px;margin-bottom:6px">Top priorities</h2><ol style="margin:0;padding-left:20px">'+prio.map(p=>`<li>${p}</li>`).join('')+'</ol>';}
-    if(risk.length){body += '<h2 style="margin-top:14px;margin-bottom:6px">Top risks</h2><ol style="margin:0;padding-left:20px">'+risk.map(p=>`<li>${p}</li>`).join('')+'</ol>';}
-    document.getElementById('results').innerHTML = body;
-    document.getElementById('results').style.display='block';
-    document.getElementById('generate-pdf').disabled=false;
-    return {pyRev,pyCogs,pyGm,pyOpex,pyEbitda,tyRev,tyCogs,tyGmDol,tyOpex,tyEbitda,growth,monthlyRev,prio,risk};
-  }
-  document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r=recalc(); if(!r) return;
-    const company = document.getElementById('company').value || 'Company';
-    const year = document.getElementById('plan-year').value || new Date().getFullYear();
-    const src = document.getElementById('growth-source').value;
-    const hires = document.getElementById('hires').value || '0';
-    const capex = parseFloat(document.getElementById('capex').value)||0;
-    const items = [
-      ['Revenue', money(r.pyRev), money(r.tyRev), (r.growth>=0?'+':'')+r.growth.toFixed(1)+'%'],
-      ['COGS', money(r.pyCogs), money(r.tyCogs), ''],
-      ['Gross profit', money(r.pyGm), money(r.tyGmDol), ''],
-      ['Operating expense', money(r.pyOpex), money(r.tyOpex), ''],
-      ['EBITDA', money(r.pyEbitda), money(r.tyEbitda), '']
-    ];
-    sgBuildPdf({title:year+' Annual Operating Plan - '+company,
-      docNumberLabel:'Revenue growth', docNumber:(r.growth>=0?'+':'')+r.growth.toFixed(1)+'%',
-      date:todayISO(),
-      fromLabel:'GROWTH SOURCE', from:[src, 'Planned hires: '+hires, 'Planned capex: '+money(capex)],
-      toLabel:'TARGETS', to:['Revenue: '+money(r.tyRev), 'EBITDA: '+money(r.tyEbitda), 'Monthly revenue: '+money(r.monthlyRev)],
-      itemColumns:['Line','Prior year','This year','% Δ'], items, itemRowMapper:x=>x,
-      notes:'Top priorities: '+(r.prio.length?r.prio.join(' | '):'(not specified)')+'. Top risks: '+(r.risk.length?r.risk.join(' | '):'(not specified)')+'. Review monthly. Update quarterly. Bring to your banker.',
-      filename:'aop-'+year+'-'+todayISO()+'.pdf'});
-  });
-});
-</script>
-
-<section class="tool-seo"><div class="container-sm">
-  <h2>Why most manufacturers skip the AOP - and why they shouldn't</h2>
-  <p>Most owners feel like "the plan is in my head" is enough. It isn't, for two reasons. First, the team can't help you hit a target they can't see. Second, you can't measure variance without a baseline - and without measured variance, you don't know which months are problems until quarter-end. A one-page AOP fixes both. The math is simple. The discipline is hard.</p>
-  <h2>Use this alongside the rest of the financial suite</h2>
-  <p><a href="../cash-flow-forecast/">Cash flow forecast</a> takes the AOP and shows you the bank balance month by month. <a href="../break-even-calculator/">Break-even</a> tells you the minimum revenue floor. <a href="../manufacturing-kpi-benchmark/">KPI benchmarks</a> show whether the targets you're setting are aggressive, realistic, or sandbagged.</p>
-</div></section>
-</main>
-
-<footer class="footer" role="contentinfo"><div class="container">
-  <div class="footer-top">
-    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
-      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
-      <div><div class="footer-h">Product</div><a href="../../product.html" class="footer-link">How it works</a><a href="../../pricing.html" class="footer-link">Pricing</a></div>
-      <div><div class="footer-h">Resources</div><a href="../" class="footer-link">Productive Tools</a><a href="../../case-studies.html" class="footer-link">Case studies</a><a href="../../blog.html" class="footer-link">Blog</a></div>
-      <div><div class="footer-h">Company</div><a href="../../about.html" class="footer-link">About</a><a href="../../hiring.html" class="footer-link">Careers</a></div>
-      <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
-</div></footer>
-</body></html>
+<p><strong>Annual operating plan</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
+<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
+<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
+<script>window.location.replace('../');</script>
+</body>
+</html>
