@@ -849,8 +849,6 @@ function FinalCTA() {
     target: "_blank",
     rel: "noopener noreferrer",
     className: "btn btn-lg btn-primary"
-  }, "Book a call"), /*#__PURE__*/React.createElement("p", {
-    className: "note"
-  }, "Founder-led. Limited slots each quarter. We onboard selectively - only when we know we can win for you."))));
+  }, "Book a call"))));
 }
 window.FinalCTA = FinalCTA;
