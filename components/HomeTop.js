@@ -918,10 +918,12 @@ function ProblemSection() {
     className: "section"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
+    className: "tag"
+  }, "WHY ERP KEEPS FAILING MID-MARKET")), /*#__PURE__*/React.createElement("div", {
     className: "problem-grid",
     style: {
-      marginTop: 8
+      marginTop: 24
     },
     ref: chatRef
   }, problems.map((p, i) => /*#__PURE__*/React.createElement(Reveal, {
