@@ -39,7 +39,7 @@ function Nav({ page = 'home', onLoginClick }) {
     { id: 'product', label: 'Product', href: 'product.html', title: 'How SimpleGrid manufacturing ERP works' },
   ];
   const resourceLinks = [
-    { id: 'tools', label: 'Productive Tools', href: 'tools/', desc: '15 high-impact calculators & diagnostics for manufacturers.', title: 'Productive tools for manufacturers' },
+    { id: 'tools', label: 'Productive Tools', href: 'tools/', desc: '22 productive tools & calculators for manufacturers.', title: 'Productive tools for manufacturers' },
     { id: 'cases', label: 'Case studies', href: 'case-studies.html', desc: 'Real deployments. Real numbers.', title: 'SimpleGrid manufacturing ERP case studies' },
     { id: 'blog', label: 'Blog', href: 'blog.html', desc: 'Field notes on ERP and ops.', title: 'SimpleGrid blog for manufacturers' },
   ];

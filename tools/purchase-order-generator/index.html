@@ -2,20 +2,670 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Free Purchase Order Generator - retired | SimpleGrid</title>
-<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
+<!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Free Purchase Order Generator - PDF Download in 30 Seconds | SimpleGrid</title>
+<meta name="description" content="Free browser-based purchase order generator for US manufacturers. Fill in vendor and line items, download a branded PDF PO. Saves vendors locally. No signup.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/purchase-order-generator/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<meta http-equiv="refresh" content="0; url=../">
-<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<link rel="stylesheet" href="../../vendor/jspdf/cropper.min.css">
+
+<meta property="og:site_name" content="SimpleGrid">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simplegrid.ai/tools/purchase-order-generator/">
+<meta property="og:title" content="Free Purchase Order Generator - PDF Download in 30 Seconds">
+<meta property="og:description" content="Free browser-based purchase order generator for US manufacturers. PDF download, no signup.">
+<meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Purchase Order Generator - SimpleGrid">
+<meta name="twitter:description" content="Free PO generator for US manufacturers. PDF download, no signup.">
+<meta name="twitter:image" content="https://simplegrid.ai/assets/og-card.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Free Purchase Order Generator",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://simplegrid.ai/tools/purchase-order-generator/",
+      "description": "Free browser-based purchase order generator that creates a branded PDF PO for US mid-market manufacturers. Saves vendor library locally.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@id": "https://simplegrid.ai/#org" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://simplegrid.ai/" },
+        { "@type": "ListItem", "position": 2, "name": "Productive Tools", "item": "https://simplegrid.ai/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "Purchase Order Generator", "item": "https://simplegrid.ai/tools/purchase-order-generator/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is a purchase order?", "acceptedAnswer": { "@type": "Answer", "text": "A purchase order (PO) is the buyer's formal commitment to a vendor to purchase specific items at agreed prices, quantities, and delivery terms. Issuing a PO before goods arrive gives both sides a written record of what was ordered." }},
+        { "@type": "Question", "name": "Is this PO generator free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Fill the form in your browser, click Download PDF, done. No signup, no email wall, no watermark on the PDF (other than a small SimpleGrid credit line at the bottom)." }},
+        { "@type": "Question", "name": "Where does my data go?", "acceptedAnswer": { "@type": "Answer", "text": "Nowhere. Everything runs in your browser. Your buyer info, vendor library, and recent POs are saved to your browser's localStorage only - never to our servers." }},
+        { "@type": "Question", "name": "Can I save my vendors for next time?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the Save Vendor button next to the vendor block. The next time you open this tool from the same browser, your saved vendors appear in the Load Vendor dropdown." }},
+        { "@type": "Question", "name": "What if I need 50 POs a week?", "acceptedAnswer": { "@type": "Answer", "text": "You've probably outgrown a generator. At that volume you want vendor history, receipt tracking, inventory updates triggered by the PO, and the ability to consolidate POs across multiple jobs. SimpleGrid does this in one configured ERP that ships in 7–21 days." }}
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- jsPDF + autotable + Cropper.js (logo cropping) -->
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../../vendor/jspdf/cropper.min.js" defer></script>
+
+<script src="../tools.js" defer></script>
+
+<!-- Analytics (PostHog + GA4) - deferred to first user interaction. See /assets/js/analytics-init.js -->
+<script src="../../assets/js/analytics-init.js" defer></script>
+<!-- Conversion event tracking (data-cta + form + scroll) -->
+<script src="../../assets/js/tracking.js" defer></script>
+<!-- Cookie consent banner -->
+<script src="../../assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
-<p><strong>Free Purchase Order Generator</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
-<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
-<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
-<script>window.location.replace('../');</script>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner">
+  <div class="nav-inner">
+    <a class="nav-logo" href="../../" aria-label="SimpleGrid home" title="SimpleGrid - AI ERP for manufacturers">
+      <img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async">
+    </a>
+    <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>22 high-impact calculators & diagnostics for manufacturers.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+    <div class="nav-right">
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a demo</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="tool-header">
+    <div class="container-sm">
+      <a href="../" class="back-link">← All productive tools</a>
+      <h1>Free Purchase Order Generator - PDF in 30 seconds.</h1>
+      <p class="lead">Fill in your company, your vendor, and the line items. Download a branded PDF purchase order ready to email. Saves your vendors locally for next time. No signup, no email wall, nothing leaves your browser.</p>
+    </div>
+  </section>
+
+  <section class="tool-app">
+    <div class="container-sm">
+      <div class="tool-card">
+        <h2>Your company (buyer)</h2>
+        <div class="tool-form-grid">
+          <div class="tool-field"><label for="buyer-name">Company name</label><input id="buyer-name" type="text" maxlength="120" placeholder="Acme Manufacturing Inc."></div>
+          <div class="tool-field"><label for="buyer-phone">Phone <span class="hint">optional</span></label><input id="buyer-phone" type="text" maxlength="30" placeholder="(330) 555-0188"></div>
+          <div class="tool-field full"><label for="buyer-address">Address</label><input id="buyer-address" type="text" maxlength="200" placeholder="1200 Industrial Way, Akron, OH 44310"></div>
+          <div class="tool-field"><label for="buyer-email">Email</label><input id="buyer-email" type="email" maxlength="120" placeholder="purchasing@acme.com"></div>
+          <div class="tool-field"><label for="buyer-contact">Buyer (your name)</label><input id="buyer-contact" type="text" maxlength="80" placeholder="Sarah Mitchell"></div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <h2>Branding <span style="font-weight:400;font-size:14px;color:var(--fg3);margin-left:8px">optional · saved to your browser</span></h2>
+        <div style="display:grid;grid-template-columns:1fr 200px;gap:24px;align-items:start" id="brand-grid">
+          <div>
+            <label style="font-size:13px;font-weight:600;color:var(--fg2);display:block;margin-bottom:6px" for="logo-upload">Company logo</label>
+            <input id="logo-upload" type="file" accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml" style="font-size:14px">
+            <div id="logo-preview" style="display:none;margin-top:14px;padding:14px;background:var(--sg-off-white);border:1px solid var(--border);border-radius:8px">
+              <div style="background:#fff;padding:10px;border-radius:6px;display:inline-block">
+                <img id="logo-preview-img" alt="Logo preview" style="max-height:64px;max-width:240px;display:block">
+              </div>
+              <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+                <button id="logo-recrop" type="button" class="btn-secondary" style="font-size:13px;padding:6px 12px">Re-crop</button>
+                <button id="logo-clear" type="button" class="btn-secondary" style="font-size:13px;padding:6px 12px">Remove logo</button>
+              </div>
+            </div>
+            <p class="tool-note">PNG, JPG, WebP, or SVG. Will be cropped before embedding. Lives only in your browser (~5 MB localStorage limit).</p>
+          </div>
+          <div>
+            <label style="font-size:13px;font-weight:600;color:var(--fg2);display:block;margin-bottom:6px" for="vendor-name">Brand color</label>
+            <div style="display:flex;align-items:center;gap:10px">
+              <input id="brand-color" type="color" value="#3461E0" style="width:60px;height:40px;border:1px solid var(--border);border-radius:6px;padding:3px;cursor:pointer;background:#fff">
+              <input id="brand-color-hex" type="text" value="#3461E0" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" style="width:90px;font-family:var(--font-mono,monospace);font-size:14px;padding:9px 10px;border:1px solid var(--border);border-radius:6px">
+            </div>
+            <p class="tool-note">Used for the header band + table-header color on the PDF.</p>
+            <button id="brand-reset" type="button" class="btn-secondary" style="font-size:13px;padding:6px 12px;margin-top:6px">Reset to default</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <h2>Vendor</h2>
+        <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+          <select id="vendor-load" class="tool-field" style="flex:1;min-width:180px;padding:9px 12px;border-radius:8px;border:1px solid var(--border);font-size:15px">
+            <option value="">- Load saved vendor -</option>
+          </select>
+          <button id="vendor-save" type="button" class="btn-secondary">Save current vendor</button>
+          <button id="vendor-clear" type="button" class="btn-secondary">Clear vendor</button>
+        </div>
+        <div class="tool-form-grid">
+          <div class="tool-field"><label>Vendor name</label><input data-required id="vendor-name" type="text" maxlength="120" placeholder="Midwest Steel Supply LLC"></div>
+          <div class="tool-field"><label for="vendor-contact">Vendor contact</label><input id="vendor-contact" type="text" maxlength="80" placeholder="Tom Reed"></div>
+          <div class="tool-field full"><label for="vendor-address">Vendor address</label><input id="vendor-address" type="text" maxlength="200" placeholder="8400 W. Industrial Blvd, Cleveland, OH 44114"></div>
+          <div class="tool-field"><label for="vendor-phone">Phone</label><input id="vendor-phone" type="text" maxlength="30" placeholder="(216) 555-0142"></div>
+          <div class="tool-field"><label for="vendor-email">Email</label><input id="vendor-email" type="email" maxlength="120" placeholder="orders@midweststeel.com"></div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <h2>PO details</h2>
+        <div class="tool-form-grid cols-3">
+          <div class="tool-field"><label for="po-number">PO number</label><input data-required id="po-number" type="text" maxlength="40" placeholder="PO-2026-0001"></div>
+          <div class="tool-field"><label for="po-date">Date</label><input data-required id="po-date" type="date"></div>
+          <div class="tool-field"><label for="po-delivery">Expected delivery</label><input id="po-delivery" type="date"></div>
+          <div class="tool-field"><label for="po-terms">Payment terms</label>
+            <select id="po-terms">
+              <option>Net 30</option><option>Net 15</option><option>Net 45</option><option>Net 60</option>
+              <option>Due on receipt</option><option>2/10 Net 30</option><option>COD</option>
+            </select>
+          </div>
+          <div class="tool-field"><label for="po-ship-via">Ship via <span class="hint">optional</span></label><input id="po-ship-via" type="text" maxlength="60" placeholder="Vendor's truck / UPS / etc."></div>
+          <div class="tool-field"><label for="po-fob">FOB <span class="hint">optional</span></label><input id="po-fob" type="text" maxlength="40" placeholder="Origin / Destination"></div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <h2>Line items</h2>
+        <table class="tool-items" id="items-table">
+          <thead>
+            <tr>
+              <th scope="col" style="width:80px">SKU</th>
+              <th scope="col">Description</th>
+              <th scope="col" class="num" style="width:80px">Qty</th>
+              <th scope="col" style="width:70px">Unit</th>
+              <th scope="col" class="num" style="width:110px">Unit price</th>
+              <th scope="col" class="num" style="width:120px">Amount</th>
+              <th scope="col" class="col-actions"></th>
+            </tr>
+          </thead>
+          <tbody id="items-body"></tbody>
+          <tfoot id="items-foot"></tfoot>
+        </table>
+        <div class="tool-actions">
+          <button type="button" id="add-row" class="btn-add">＋ Add line item</button>
+        </div>
+
+        <div class="tool-form-grid cols-3" style="margin-top:20px">
+          <div class="tool-field"><label for="po-tax">Tax rate (%)</label><input data-clamp="0,100" id="po-tax" type="number" step="0.01" min="0" max="100" value="0"></div>
+          <div class="tool-field"><label for="po-shipping">Shipping ($)</label><input data-clamp="0,1000000" id="po-shipping" type="number" step="0.01" min="0" value="0"></div>
+          <div class="tool-field"><label for="po-other">Other / handling ($)</label><input data-clamp="0,1000000" id="po-other" type="number" step="0.01" min="0" value="0"></div>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <h2>Notes & terms</h2>
+        <div class="tool-field">
+          <textarea id="po-notes" rows="4" maxlength="1500" placeholder="Standard terms. Quality must conform to spec sheet rev B. Late delivery may forfeit 2% per week."></textarea>
+        </div>
+      </div>
+
+      <div class="tool-actions" style="justify-content:space-between">
+        <div style="font-size:14px;color:var(--fg3)">Saved locally · auto-fills your company next visit</div>
+        <button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px">Download PDF Purchase Order</button>
+      </div>
+
+      <div class="tool-cta">
+        <div class="eyebrow">When you outgrow this</div>
+        <h2>50 open POs across 12 vendors stops being a one-form problem.</h2>
+        <p>SimpleGrid keeps every PO, every receipt against it, every payment, every vendor's history - in one configured ERP. AI fills the PO from a sentence ("Order 200 sheets of 16-gauge from Midwest"). Built at our risk. Paid for after it works.</p>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book a demo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool-seo">
+    <div class="container-sm">
+      <h2>How to use this purchase order generator</h2>
+      <p>Three steps and you're done:</p>
+      <ol>
+        <li><strong>Fill in your company once.</strong> Your buyer info is saved to your browser, so next time the form is pre-filled.</li>
+        <li><strong>Add the vendor.</strong> Click "Save current vendor" to add to your local vendor library. Next time, pick from the dropdown.</li>
+        <li><strong>Add line items.</strong> SKU, description, quantity, unit, unit price. Amount and grand total compute automatically.</li>
+      </ol>
+      <p>Click <strong>Download PDF</strong>. The PO is generated in your browser and saved to your Downloads folder. Email it to your vendor.</p>
+
+      <h2>What goes on a purchase order - quick reference</h2>
+      <p>Every PO should have:</p>
+      <ul>
+        <li><strong>PO number</strong> - your internal reference. The generator suggests a sequential format (<code>PO-2026-0001</code>).</li>
+        <li><strong>Date</strong> issued and <strong>expected delivery date</strong>.</li>
+        <li><strong>Buyer information</strong> - your company name, address, and the contact responsible for this order.</li>
+        <li><strong>Vendor information</strong> - name, address, and primary contact.</li>
+        <li><strong>Line items</strong> - what you're ordering. SKU/part number, description, quantity, unit (each, lbs, ft, etc.), unit price.</li>
+        <li><strong>Tax and shipping</strong> if applicable.</li>
+        <li><strong>Payment terms</strong> - Net 30 is the manufacturing default.</li>
+        <li><strong>Special instructions</strong> - quality spec references, delivery windows, packaging requirements.</li>
+      </ul>
+
+      <h2>Frequently asked questions</h2>
+      <details><summary>Is this purchase order generator free?</summary>
+        <p>Yes. No signup, no email wall, no usage limit. Generate as many POs as you need.</p>
+      </details>
+      <details><summary>Where does my data go?</summary>
+        <p>Nowhere. Everything runs in your browser. The PDF is built locally and downloaded to your computer. Your buyer info, vendor library, and recent POs save to your browser's localStorage - never to a server.</p>
+      </details>
+      <details><summary>Can I save my vendors so I don't retype them?</summary>
+        <p>Yes. After typing a vendor, click "Save current vendor" - it's added to your local library. Next time, pick from the dropdown at the top of the Vendor section.</p>
+      </details>
+      <details><summary>How is the PO number generated?</summary>
+        <p>The generator suggests a sequential number per year (e.g. PO-2026-0001, PO-2026-0002, etc.) saved per-browser. You can edit it to whatever scheme your company uses.</p>
+      </details>
+      <details><summary>What if I need different payment terms than Net 30?</summary>
+        <p>The dropdown includes Net 15 / 30 / 45 / 60, Due on receipt, 2/10 Net 30, and COD. If you need something else, type it in the Notes & terms field at the bottom.</p>
+      </details>
+      <details><summary>What's the point of issuing POs at all?</summary>
+        <p>A PO is your written commitment to a vendor at agreed terms. When the goods arrive, you compare the receipt against the PO. When the invoice arrives, the three-way match (PO + receipt + invoice) protects you from being overcharged or paying for goods you didn't get. It's the cheapest fraud protection in manufacturing.</p>
+      </details>
+      <details><summary>What if I want my logo on the PDF?</summary>
+        <p>The current version uses a standard SimpleGrid-styled PDF layout. Logo upload isn't supported in this free tool - when you outgrow it, SimpleGrid renders fully-branded PDFs from your live data.</p>
+      </details>
+      <details><summary>I'm generating 30+ POs a week. Is this the right tool for me?</summary>
+        <p>Probably not. At that volume you want vendor history, receipt tracking against the PO, automatic inventory updates when goods arrive, and the ability to roll up POs across multiple jobs. SimpleGrid does this in one system - built at our risk; you pay only after it works. <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">Book a demo →</a></p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<!-- Logo crop modal - hidden until a logo is being cropped -->
+<div id="crop-modal" style="display:none;position:fixed;inset:0;background:rgba(15,18,25,0.7);z-index:1000;align-items:center;justify-content:center;padding:24px" role="dialog" aria-modal="true" aria-labelledby="crop-modal-title">
+  <div style="background:#fff;border-radius:14px;padding:24px;max-width:640px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 24px 60px rgba(0,0,0,0.3)">
+    <h3 id="crop-modal-title" style="margin:0 0 6px;font-family:var(--font-heading);font-size:20px;letter-spacing:-0.015em">Crop your logo</h3>
+    <p style="margin:0 0 16px;font-size:14px;color:var(--fg3)">Drag the handles to choose what's included. Aspect ratio is free - logos come in all shapes.</p>
+    <div style="max-height:60vh;overflow:hidden;background:var(--sg-off-white);border-radius:8px"><img id="crop-target" alt="Logo to crop" style="max-width:100%;display:block"></div>
+    <div style="display:flex;gap:10px;margin-top:18px;justify-content:space-between;flex-wrap:wrap">
+      <button id="crop-reset" type="button" class="btn-secondary">Reset crop</button>
+      <div style="display:flex;gap:10px">
+        <button id="crop-cancel" type="button" class="btn-secondary">Cancel</button>
+        <button id="crop-apply" type="button" class="btn btn-primary" style="padding:10px 22px">Apply crop</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+        <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p>
+      </div>
+      <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+        <div>
+          <div class="footer-h">Product</div>
+          <a href="../../product.html" class="footer-link">How it works</a>
+          <a href="../../pricing.html" class="footer-link">Pricing</a>
+        </div>
+        <div>
+          <div class="footer-h">Resources</div>
+          <a href="../" class="footer-link">Productive Tools (22)</a>
+          <a href="../../case-studies.html" class="footer-link">Case studies</a>
+          <a href="../../blog.html" class="footer-link">Blog</a>
+        </div>
+        <div>
+          <div class="footer-h">Company</div>
+          <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../hiring.html" class="footer-link">Careers</a>
+        </div>
+        <div>
+          <div class="footer-h">Get in touch</div>
+          <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+          <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Valaya AI Technologies</div>
+      <div class="footer-legal">
+        <a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script defer>
+document.addEventListener('DOMContentLoaded', () => {
+  // -----------------------------------------------------------------
+  // Initial defaults
+  // -----------------------------------------------------------------
+  document.getElementById('po-date').value = todayISO();
+  document.getElementById('po-delivery').value = addDays(todayISO(), 14);
+  document.getElementById('po-number').value = nextDocNumber('PO', 'po');
+
+  // -----------------------------------------------------------------
+  // Branding: logo upload + crop, brand color
+  // -----------------------------------------------------------------
+  const LOGO_KEY = 'po_brand_logo';
+  const COLOR_KEY = 'po_brand_color';
+  const DEFAULT_COLOR = '#3461E0';
+
+  const logoUpload = document.getElementById('logo-upload');
+  const logoPreview = document.getElementById('logo-preview');
+  const logoPreviewImg = document.getElementById('logo-preview-img');
+  const colorInput = document.getElementById('brand-color');
+  const colorHex = document.getElementById('brand-color-hex');
+
+  // Load saved color
+  const savedColor = sgLoad(COLOR_KEY, DEFAULT_COLOR);
+  colorInput.value = savedColor;
+  colorHex.value = savedColor;
+  function syncColor(v) {
+    if (!/^#[0-9A-Fa-f]{6}$/.test(v)) return;
+    colorInput.value = v;
+    colorHex.value = v;
+    sgSave(COLOR_KEY, v);
+  }
+  colorInput.addEventListener('input', () => syncColor(colorInput.value));
+  colorHex.addEventListener('input', () => syncColor(colorHex.value));
+  document.getElementById('brand-reset').addEventListener('click', () => syncColor(DEFAULT_COLOR));
+
+  // Show saved logo
+  function showLogo(dataUrl) {
+    if (dataUrl) {
+      logoPreviewImg.src = dataUrl;
+      logoPreview.style.display = 'block';
+    } else {
+      logoPreviewImg.src = '';
+      logoPreview.style.display = 'none';
+    }
+  }
+  showLogo(sgLoad(LOGO_KEY));
+
+  // Crop modal
+  const cropModal = document.getElementById('crop-modal');
+  const cropTarget = document.getElementById('crop-target');
+  let cropper = null;
+  let originalForCrop = null; // remember the pre-crop original so user can re-crop
+
+  function openCropper(dataUrl) {
+    if (!window.Cropper) {
+      sgToast('Logo crop tool is still loading - wait a moment and try again.', { type: 'error' });
+      return;
+    }
+    originalForCrop = dataUrl;
+    cropTarget.src = dataUrl;
+    cropModal.style.display = 'flex';
+    if (cropper) { cropper.destroy(); cropper = null; }
+    // Wait for img to load before initializing Cropper (Cropper needs naturalWidth)
+    cropTarget.onload = () => {
+      cropper = new Cropper(cropTarget, {
+        aspectRatio: NaN,      // free
+        viewMode: 1,
+        background: false,
+        autoCropArea: 1,
+        zoomable: true,
+        movable: true,
+        responsive: true
+      });
+    };
+    // If src is already the same (re-crop case), onload may not fire - kick it
+    if (cropTarget.complete) cropTarget.onload();
+  }
+  function closeCropper() {
+    cropModal.style.display = 'none';
+    if (cropper) { cropper.destroy(); cropper = null; }
+    originalForCrop = null;
+  }
+
+  logoUpload.addEventListener('change', (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    if (f.size > 8 * 1024 * 1024) {
+      sgToast('Image is over 8 MB. Please resize before uploading.', { type: 'error' });
+      logoUpload.value = '';
+      return;
+    }
+    const fr = new FileReader();
+    fr.onload = ev => openCropper(ev.target.result);
+    fr.onerror = () => sgToast('Could not read the file. Try a different image.', { type: 'error' });
+    fr.readAsDataURL(f);
+  });
+
+  document.getElementById('crop-cancel').addEventListener('click', closeCropper);
+  document.getElementById('crop-reset').addEventListener('click', () => { if (cropper) cropper.reset(); });
+  document.getElementById('crop-apply').addEventListener('click', () => {
+    if (!cropper) return;
+    // Cropped output: cap to a reasonable size for localStorage. PNG preserves alpha.
+    const canvas = cropper.getCroppedCanvas({
+      maxWidth: 800,
+      maxHeight: 320,
+      imageSmoothingEnabled: true,
+      imageSmoothingQuality: 'high'
+    });
+    if (!canvas) { sgToast('Could not crop. Try again.', { type: 'error' }); return; }
+    const cropped = canvas.toDataURL('image/png');
+    sgSave(LOGO_KEY, cropped);
+    showLogo(cropped);
+    closeCropper();
+    logoUpload.value = '';
+    sgToast('Logo saved.', { type: 'success', duration: 2000 });
+  });
+
+  document.getElementById('logo-recrop').addEventListener('click', () => {
+    // Use the SAVED logo as the source for re-crop (allows iterative refinement)
+    const saved = sgLoad(LOGO_KEY);
+    if (saved) openCropper(saved);
+  });
+  document.getElementById('logo-clear').addEventListener('click', () => {
+    try { localStorage.removeItem('sg_tools_' + LOGO_KEY); } catch(e){}
+    showLogo(null);
+    logoUpload.value = '';
+  });
+
+  // Close modal on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cropModal.style.display === 'flex') closeCropper();
+  });
+
+  // Bind buyer fields to persistent storage so they save across visits
+  sgBindFields({
+    'buyer-name': 'po_buyer_name',
+    'buyer-phone': 'po_buyer_phone',
+    'buyer-address': 'po_buyer_address',
+    'buyer-email': 'po_buyer_email',
+    'buyer-contact': 'po_buyer_contact'
+  });
+
+  // -----------------------------------------------------------------
+  // Line items
+  // -----------------------------------------------------------------
+  const itemsBody = document.getElementById('items-body');
+  const itemsFoot = document.getElementById('items-foot');
+
+  function addItem(prefill) {
+    prefill = prefill || {};
+    const esc = sgEscapeHtml;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" maxlength="40" data-f="sku" placeholder="STL-16-48" value="${esc(prefill.sku || '')}"></td>
+      <td><input type="text" maxlength="200" data-f="desc" placeholder="16-gauge steel sheet 4ft x 8ft" value="${esc(prefill.desc || '')}"></td>
+      <td><input data-clamp="0,1000000" type="number" class="num" data-f="qty" step="1" min="0" max="1000000" value="${esc(prefill.qty != null ? prefill.qty : '')}" placeholder="0"></td>
+      <td><input type="text" maxlength="12" data-f="unit" placeholder="sheet" value="${esc(prefill.unit || '')}"></td>
+      <td><input data-clamp="0,1000000" type="number" class="num" data-f="price" step="0.01" min="0" max="1000000" value="${esc(prefill.price != null ? prefill.price : '')}" placeholder="0.00"></td>
+      <td class="col-line-total" data-f="line">$0.00</td>
+      <td class="col-actions"><button type="button" class="row-del" title="Remove">x</button></td>
+    `;
+    itemsBody.appendChild(tr);
+    tr.querySelector('.row-del').addEventListener('click', () => { tr.remove(); recalc(); });
+    tr.querySelectorAll('input').forEach(i => i.addEventListener('input', recalc));
+    if (typeof sgWireNumericClamps === 'function') sgWireNumericClamps(tr);
+    recalc();
+  }
+
+  function items() {
+    return Array.from(itemsBody.querySelectorAll('tr')).map(tr => ({
+      sku: tr.querySelector('[data-f="sku"]').value,
+      desc: tr.querySelector('[data-f="desc"]').value,
+      qty: parseFloat(tr.querySelector('[data-f="qty"]').value) || 0,
+      unit: tr.querySelector('[data-f="unit"]').value,
+      price: parseFloat(tr.querySelector('[data-f="price"]').value) || 0
+    }));
+  }
+
+  function recalc() {
+    const nn = v => Math.max(0, parseFloat(v) || 0);
+    let subtotal = 0;
+    Array.from(itemsBody.querySelectorAll('tr')).forEach(tr => {
+      const q = nn(tr.querySelector('[data-f="qty"]').value);
+      const p = nn(tr.querySelector('[data-f="price"]').value);
+      const line = q * p;
+      subtotal += line;
+      tr.querySelector('[data-f="line"]').textContent = money(line);
+    });
+    const taxPct = Math.min(100, nn(document.getElementById('po-tax').value));
+    const shipping = nn(document.getElementById('po-shipping').value);
+    const other = nn(document.getElementById('po-other').value);
+    const tax = subtotal * (taxPct / 100);
+    const grand = subtotal + tax + shipping + other;
+    itemsFoot.innerHTML = `
+      <tr class="totals"><td colspan="5" class="label">Subtotal</td><td class="value">${money(subtotal)}</td><td></td></tr>
+      <tr class="totals"><td colspan="5" class="label">Tax (${taxPct}%)</td><td class="value">${money(tax)}</td><td></td></tr>
+      <tr class="totals"><td colspan="5" class="label">Shipping</td><td class="value">${money(shipping)}</td><td></td></tr>
+      <tr class="totals"><td colspan="5" class="label">Other</td><td class="value">${money(other)}</td><td></td></tr>
+      <tr class="totals grand-total"><td colspan="5" class="label">Grand total</td><td class="value">${money(grand)}</td><td></td></tr>
+    `;
+    return { subtotal, tax, taxPct, shipping, other, grand };
+  }
+
+  document.getElementById('add-row').addEventListener('click', () => addItem());
+  document.getElementById('po-tax').addEventListener('input', recalc);
+  document.getElementById('po-shipping').addEventListener('input', recalc);
+  document.getElementById('po-other').addEventListener('input', recalc);
+
+  // Seed with two empty lines for a friendly UX
+  addItem({ sku: '', desc: '', qty: '', unit: '', price: '' });
+  addItem({ sku: '', desc: '', qty: '', unit: '', price: '' });
+  if (typeof sgWireNumericClamps === 'function') sgWireNumericClamps(document);
+
+  // -----------------------------------------------------------------
+  // Vendor library
+  // -----------------------------------------------------------------
+  const VKEY = 'po_vendors';
+  const vendorFields = ['vendor-name', 'vendor-contact', 'vendor-address', 'vendor-phone', 'vendor-email'];
+  const vendorLoad = document.getElementById('vendor-load');
+
+  function refreshVendorList() {
+    const list = sgLoad(VKEY, []);
+    vendorLoad.innerHTML = '<option value="">- Load saved vendor -</option>';
+    list.forEach((v, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = v.name || '(unnamed vendor)';
+      vendorLoad.appendChild(opt);
+    });
+  }
+
+  vendorLoad.addEventListener('change', () => {
+    const i = vendorLoad.value;
+    if (i === '') return;
+    const v = sgLoad(VKEY, [])[i];
+    if (!v) return;
+    document.getElementById('vendor-name').value = v.name || '';
+    document.getElementById('vendor-contact').value = v.contact || '';
+    document.getElementById('vendor-address').value = v.address || '';
+    document.getElementById('vendor-phone').value = v.phone || '';
+    document.getElementById('vendor-email').value = v.email || '';
+  });
+
+  document.getElementById('vendor-save').addEventListener('click', () => {
+    const v = {
+      name: document.getElementById('vendor-name').value.trim(),
+      contact: document.getElementById('vendor-contact').value.trim(),
+      address: document.getElementById('vendor-address').value.trim(),
+      phone: document.getElementById('vendor-phone').value.trim(),
+      email: document.getElementById('vendor-email').value.trim()
+    };
+    if (!v.name) { sgToast('Add a vendor name first.', { type: 'error' }); return; }
+    const list = sgLoad(VKEY, []);
+    const existingIdx = list.findIndex(x => x.name === v.name);
+    if (existingIdx >= 0) list[existingIdx] = v;
+    else list.push(v);
+    sgSave(VKEY, list);
+    refreshVendorList();
+    sgToast('Vendor "' + v.name + '" saved.', { type: 'success' });
+  });
+
+  document.getElementById('vendor-clear').addEventListener('click', () => {
+    vendorFields.forEach(id => document.getElementById(id).value = '');
+    vendorLoad.value = '';
+  });
+
+  refreshVendorList();
+
+  // -----------------------------------------------------------------
+  // Generate PDF
+  // -----------------------------------------------------------------
+  document.getElementById('generate-pdf').addEventListener('click', () => {
+    if (typeof sgValidateRequired === 'function' && !sgValidateRequired(document)) return;
+    if (typeof sgValidateDateOrder === 'function' && !sgValidateDateOrder(document.getElementById('po-date'), document.getElementById('po-delivery'), 'Expected delivery date')) return;
+    if (typeof sgValidateEmail === 'function') {
+      if (!sgValidateEmail(document.getElementById('buyer-email'))) return;
+      if (!sgValidateEmail(document.getElementById('vendor-email'))) return;
+    }
+    const t = recalc();
+    const lines = items().filter(i => i.sku || i.desc || i.qty || i.price);
+    if (lines.length === 0) { sgToast('Add at least one line item.', { type: 'error' }); return; }
+    const poNum = document.getElementById('po-number').value || 'PO';
+    sgBuildPdf({
+      title: 'Purchase Order',
+      brandColor: sgLoad(COLOR_KEY, DEFAULT_COLOR),
+      logoDataUrl: sgLoad(LOGO_KEY) || null,
+      docNumberLabel: 'PO #',
+      docNumber: poNum,
+      date: document.getElementById('po-date').value,
+      dueDateLabel: 'Expected delivery',
+      dueDate: document.getElementById('po-delivery').value,
+      terms: document.getElementById('po-terms').value,
+      fromLabel: 'BUYER',
+      from: [
+        document.getElementById('buyer-name').value,
+        document.getElementById('buyer-address').value,
+        document.getElementById('buyer-phone').value,
+        document.getElementById('buyer-email').value,
+        'Buyer: ' + (document.getElementById('buyer-contact').value || '')
+      ],
+      toLabel: 'VENDOR',
+      to: [
+        document.getElementById('vendor-name').value,
+        document.getElementById('vendor-address').value,
+        document.getElementById('vendor-phone').value,
+        document.getElementById('vendor-email').value,
+        document.getElementById('vendor-contact').value ? ('Attn: ' + document.getElementById('vendor-contact').value) : ''
+      ],
+      itemColumns: ['SKU', 'Description', 'Qty', 'Unit', 'Unit price', 'Amount'],
+      items: lines,
+      itemRowMapper: it => [it.sku, it.desc, num(it.qty), it.unit, money(it.price), money(it.qty * it.price)],
+      itemColumnStyles: { 0: { cellWidth: 70 }, 2: { halign: 'right', cellWidth: 45 }, 3: { cellWidth: 50 }, 4: { halign: 'right', cellWidth: 75 }, 5: { halign: 'right', cellWidth: 75 } },
+      totals: [
+        { label: 'Subtotal', value: t.subtotal },
+        ...(t.taxPct ? [{ label: 'Tax (' + t.taxPct + '%)', value: t.tax }] : []),
+        ...(t.shipping ? [{ label: 'Shipping', value: t.shipping }] : []),
+        ...(t.other ? [{ label: 'Other', value: t.other }] : []),
+        { label: 'Grand total', value: t.grand, bold: true }
+      ],
+      notes: document.getElementById('po-notes').value,
+      filename: poNum.replace(/\W+/g, '_') + '.pdf'
+    });
+  });
+});
+</script>
 </body>
 </html>
