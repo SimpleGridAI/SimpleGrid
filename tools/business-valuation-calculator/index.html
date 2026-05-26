@@ -205,9 +205,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       itemColumns:['Adjustment factor','Multiple impact'],
       items: r.factors.length ? r.factors.map(f=>[f[0], f[1]+'x']) : [['No adjustments applied','base only']],
       itemRowMapper: x=>x,
-      notes:'Methodology: SDE x adjusted multiple. Multiple range per vertical from BizBuySell + IBBA. This is a directional estimate, not a formal appraisal. For a formal valuation, engage a CPA/business broker with manufacturing experience.
-
-Total value unlock potential from operational improvements: +'+fmt$M(r.totalUnlock)+' over 18-36 months.',
+      notes:'Methodology: SDE x adjusted multiple. Multiple range per vertical from BizBuySell + IBBA. This is a directional estimate, not a formal appraisal. For a formal valuation, engage a CPA/business broker with manufacturing experience. Total value unlock potential from operational improvements: +'+fmt$M(r.totalUnlock)+' over 18-36 months.',
       filename:'business-valuation-'+todayISO()+'.pdf'
     });
   });

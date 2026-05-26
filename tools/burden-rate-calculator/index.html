@@ -141,8 +141,8 @@ document.addEventListener('DOMContentLoaded',()=>{
       <div class="bar-row"><span class="bar-label">Benefits + PTO</span><div class="bar-track"><div class="bar-fill green" style="width:${(benefits/total*100)}%"></div></div><span class="bar-value">${fmt$(benefits)} (${(benefits/total*100).toFixed(0)}%)</span></div>
       <div class="bar-row"><span class="bar-label">Overhead</span><div class="bar-track"><div class="bar-fill red" style="width:${(overhead/total*100)}%"></div></div><span class="bar-value">${fmt$(overhead)} (${(overhead/total*100).toFixed(0)}%)</span></div>
 
-      <h2 style="margin-top:32px;margin-bottom:14px">Pricing impact</h2>
-      <p style="font-size:15px;color:var(--fg1);line-height:1.6">If you quote labor at the base rate ${fmt$(rate)}/hr instead of the burdened rate ${fmt$(burdenRate)}/hr, you underprice by <strong style="color:#B91C1C">${fmt$(burdenRate-rate)}/hr</strong> - that's <strong>${((burdenRate-rate)/rate*100).toFixed(0)}%</strong>. On a 100-hour job you leave ${fmt$((burdenRate-rate)*100)} on the table. This is the single most common pricing error in manufacturing.</p>
+      ${rate > 0 ? `<h2 style="margin-top:32px;margin-bottom:14px">Pricing impact</h2>
+      <p style="font-size:15px;color:var(--fg1);line-height:1.6">If you quote labor at the base rate ${fmt$(rate)}/hr instead of the burdened rate ${fmt$(burdenRate)}/hr, you underprice by <strong style="color:#B91C1C">${fmt$(burdenRate-rate)}/hr</strong> - that's <strong>${((burdenRate-rate)/rate*100).toFixed(0)}%</strong>. On a 100-hour job you leave ${fmt$((burdenRate-rate)*100)} on the table. This is the single most common pricing error in manufacturing.</p>` : ''}
     `;
     return {rate, hours, productiveHours, base, statutory, benefits, overhead, total, burdenRate, mult};
   }

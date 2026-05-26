@@ -215,7 +215,10 @@ document.addEventListener('DOMContentLoaded',()=>{
       const newScrapTotal = newScrapMat + newScrapLab + newScrapOh;
       const newMonthly = newScrapTotal + reworkTotal;
       const annualSaving = (monthlyWaste - newMonthly) * 12;
-      const marginGain = price>0 ? (wastePerGood - (newMonthly / (volume - newScrapped))) / price * 100 : 0;
+      const goodAfter = volume - newScrapped;
+      const marginGain = (price > 0 && goodAfter > 0)
+        ? (wastePerGood - (newMonthly / goodAfter)) / price * 100
+        : 0;
       return { rate: targetPct, annualSaving, marginGain };
     }
 
@@ -238,13 +241,14 @@ document.addEventListener('DOMContentLoaded',()=>{
     const s3 = scenario(Math.min(scrapPct, 3));
     const s4 = scenario(Math.min(scrapPct, 1));
 
+    const barPct = (part) => monthlyWaste > 0 ? Math.min(100, part/monthlyWaste*100) : 0;
     document.getElementById('sw-detail').innerHTML = `
       <h2 style="margin-bottom:16px">Where the money goes</h2>
-      <div class="bar-row"><span class="bar-label">Scrap material</span><div class="bar-track"><div class="bar-fill red" style="width:${Math.min(100, scrapMat/monthlyWaste*100)}%"></div></div><span class="bar-value">${fmt$K(scrapMat*12)}</span></div>
-      <div class="bar-row"><span class="bar-label">Scrap labor</span><div class="bar-track"><div class="bar-fill red" style="width:${Math.min(100, scrapLab/monthlyWaste*100)}%"></div></div><span class="bar-value">${fmt$K(scrapLab*12)}</span></div>
-      <div class="bar-row"><span class="bar-label">Scrap overhead</span><div class="bar-track"><div class="bar-fill red" style="width:${Math.min(100, scrapOh/monthlyWaste*100)}%"></div></div><span class="bar-value">${fmt$K(scrapOh*12)}</span></div>
-      <div class="bar-row"><span class="bar-label">Rework labor</span><div class="bar-track"><div class="bar-fill gold" style="width:${Math.min(100, reworkLabTotal/monthlyWaste*100)}%"></div></div><span class="bar-value">${fmt$K(reworkLabTotal*12)}</span></div>
-      <div class="bar-row"><span class="bar-label">Rework material</span><div class="bar-track"><div class="bar-fill gold" style="width:${Math.min(100, reworkMat/monthlyWaste*100)}%"></div></div><span class="bar-value">${fmt$K(reworkMat*12)}</span></div>
+      <div class="bar-row"><span class="bar-label">Scrap material</span><div class="bar-track"><div class="bar-fill red" style="width:${barPct(scrapMat)}%"></div></div><span class="bar-value">${fmt$K(scrapMat*12)}</span></div>
+      <div class="bar-row"><span class="bar-label">Scrap labor</span><div class="bar-track"><div class="bar-fill red" style="width:${barPct(scrapLab)}%"></div></div><span class="bar-value">${fmt$K(scrapLab*12)}</span></div>
+      <div class="bar-row"><span class="bar-label">Scrap overhead</span><div class="bar-track"><div class="bar-fill red" style="width:${barPct(scrapOh)}%"></div></div><span class="bar-value">${fmt$K(scrapOh*12)}</span></div>
+      <div class="bar-row"><span class="bar-label">Rework labor</span><div class="bar-track"><div class="bar-fill gold" style="width:${barPct(reworkLabTotal)}%"></div></div><span class="bar-value">${fmt$K(reworkLabTotal*12)}</span></div>
+      <div class="bar-row"><span class="bar-label">Rework material</span><div class="bar-track"><div class="bar-fill gold" style="width:${barPct(reworkMat)}%"></div></div><span class="bar-value">${fmt$K(reworkMat*12)}</span></div>
 
       <h2 style="margin-top:32px;margin-bottom:12px">If you cut scrap rate to...</h2>
       <table class="results-table">
@@ -256,7 +260,7 @@ document.addEventListener('DOMContentLoaded',()=>{
           <tr><td>${s4.rate.toFixed(1)}% (world-class)</td><td class="num"><strong style="color:#047857">${fmt$K(s4.annualSaving)}</strong></td><td class="num">+${s4.marginGain.toFixed(1)} pts</td></tr>
         </tbody>
       </table>
-      <p class="tool-note" style="margin-top:14px">Every dollar saved on scrap drops straight to operating profit. At your current margin, ${fmt$K(annualWaste)} of waste is equivalent to about ${fmt$K(annualWaste / Math.max(0.01, reportedMargin/100))} in new revenue you'd have to generate to net the same profit.</p>
+      <p class="tool-note" style="margin-top:14px">Every dollar saved on scrap drops straight to operating profit.${reportedMargin > 0 ? ' At your current margin, ' + fmt$K(annualWaste) + ' of waste is equivalent to about ' + fmt$K(annualWaste / (reportedMargin/100)) + " in new revenue you'd have to generate to net the same profit." : ''}</p>
     `;
 
     return {volume, scrapPct, reworkPct, matCost, labCost, ohCost, price, monthlyWaste, annualWaste, annualLostRevenue, wastePctRev, wastePctCOGS, trueMargin, reportedMargin, bench, s1, s2, s3, s4};

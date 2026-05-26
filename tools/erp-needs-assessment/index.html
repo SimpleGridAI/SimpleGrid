@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   document.getElementById('generate-pdf').addEventListener('click',()=>{
     const r = recalc();
-    if (!r) { alert('Answer all 8 questions first.'); return; }
+    if (!r) { if (typeof sgToast==='function') sgToast('Answer all 8 questions first.', { type:'error' }); return; }
     sgBuildPdf({
       title:'Do I Need an ERP? - Diagnostic Result', docNumberLabel:'Score', docNumber:r.score + ' / 185',
       date: todayISO(),

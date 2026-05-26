@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     return {composite, band, summary, pScores};
   }
   document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r = recalc(); if (!r){alert('Answer all 20 questions first.');return;}
+    const r = recalc(); if (!r){ if (typeof sgToast==='function') sgToast('Answer all 20 questions first.', { type:'error' }); return; }
     sgBuildPdf({title:'Exit Readiness Scorecard', docNumberLabel:'Score', docNumber:r.composite+'/100', date:todayISO(),
       fromLabel:'STATUS', from:[r.band], toLabel:'SUMMARY', to:[r.summary],
       itemColumns:['Pillar','Score'], items:r.pScores.map(p=>[p.name, p.sum+'/20 ('+Math.round(p.pct)+'%)']), itemRowMapper:x=>x,

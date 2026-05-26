@@ -52,8 +52,8 @@ function Nav({
     id: 'tools',
     label: 'Productive Tools',
     href: 'tools/',
-    desc: 'PO, invoice, BOM, job cost, 30+ calculators.',
-    title: 'Productive tools for manufacturers - PO, invoice, BOM, job cost'
+    desc: '15 high-impact calculators & diagnostics for manufacturers.',
+    title: 'Productive tools for manufacturers'
   }, {
     id: 'cases',
     label: 'Case studies',

@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     return {composite, band, summary, dimScores};
   }
   document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r = recalc(); if (!r){alert('Answer all 20 questions first.');return;}
+    const r = recalc(); if (!r){ if (typeof sgToast==='function') sgToast('Answer all 20 questions first.', { type:'error' }); return; }
     sgBuildPdf({
       title:'ERP Readiness Scorecard', docNumberLabel:'Readiness', docNumber:r.composite+' / 100',
       date: todayISO(),
