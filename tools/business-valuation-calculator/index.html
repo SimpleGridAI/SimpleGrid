@@ -77,6 +77,7 @@
 
     <div class="tool-card"><h2>Adjustment factors (optional - increases accuracy)</h2>
       <div class="tool-form-grid cols-3">
+        <div class="tool-field"><label for="ebitda">EBITDA ($) <span class="hint">if &gt; $5M, switches to EBITDA-multiple methodology</span></label><input id="ebitda" type="number" data-clamp="0,1000000000" step="10000" value="0"></div>
         <div class="tool-field"><label for="ohrs">Owner hours / week in business</label><input id="ohrs" type="number" data-clamp="0,168" step="1" value="50"></div>
         <div class="tool-field"><label for="top1">Top customer % of revenue</label><input id="top1" type="number" data-clamp="0,100" step="1" value="20"></div>
         <div class="tool-field"><label for="top5">Top 5 customers % of revenue</label><input id="top5" type="number" data-clamp="0,100" step="1" value="65"></div>
@@ -93,6 +94,12 @@
         <div class="tool-field"><label for="mkt">Geographic market</label>
           <select id="mkt"><option value="1" selected>National / international</option><option value="0">Regional</option><option value="-1">Local only</option></select>
         </div>
+        <div class="tool-field"><label for="re">Real estate situation</label>
+          <select id="re"><option value="0.2">Owned, included in sale</option><option value="0">Owned, excluded</option><option value="0" selected>Leased (long-term)</option><option value="-0.2">Leased (short-term &lt;2 yrs)</option></select>
+        </div>
+        <div class="tool-field"><label for="equip-cost">Equipment replacement cost ($) <span class="hint">for asset-value floor</span></label><input id="equip-cost" type="number" data-clamp="0,1000000000" step="10000" value="800000"></div>
+        <div class="tool-field"><label for="inventory">Inventory value ($)</label><input id="inventory" type="number" data-clamp="0,1000000000" step="10000" value="600000"></div>
+        <div class="tool-field"><label for="ar-ap">AR minus AP (net, $)</label><input id="ar-ap" type="number" data-clamp="-1000000000,1000000000" step="10000" value="400000"></div>
       </div>
     </div>
 
@@ -119,12 +126,22 @@ document.addEventListener('DOMContentLoaded',()=>{
     'food':[2.5,4.5], 'plastics':[2.5,4.0], 'electronics':[2.0,3.5], 'chemical':[3.0,5.0],
     'packaging':[2.5,4.0], 'other':[2.2,3.8]
   };
+  // EBITDA-based multiples for businesses > $5M EBITDA (mid-market M&A range, BizBuySell + Pepperdine PCMR)
+  const EBITDA_MULT = {
+    'furniture':[3.5,5.5], 'apparel':[3.0,5.0], 'metal-fab':[4.0,6.0], 'cnc':[4.5,7.0],
+    'food':[5.0,7.5], 'plastics':[4.0,6.5], 'electronics':[4.0,6.0], 'chemical':[5.5,8.0],
+    'packaging':[4.5,6.5], 'other':[4.0,6.0]
+  };
   function recalc(){
     const rev = nn('rev'); const np = num('np'); const ow = nn('ow');
     const vert = document.getElementById('vert').value;
     const growth = document.getElementById('growth').value;
     const sde = np + ow;
-    const [lo, hi] = MULT[vert];
+    const ebitda = nn('ebitda');
+    const useEbitda = ebitda > 5000000;
+    const earnings = useEbitda ? ebitda : sde;
+    const earningsLabel = useEbitda ? 'EBITDA' : 'SDE';
+    const [lo, hi] = useEbitda ? EBITDA_MULT[vert] : MULT[vert];
     let base = (lo + hi) / 2;
     if (growth==='up15') base = hi * 1.05; else if (growth==='up5') base = (lo + hi*1.1) / 2; else if (growth==='flat') base = (lo + hi) / 2 * 0.95; else base = lo * 0.9;
     // Adjustments
@@ -144,13 +161,20 @@ document.addEventListener('DOMContentLoaded',()=>{
     const equipAge = num('equip'); if (equipAge === 2) { adj += 0.2; factors.push(['Equipment under 3 yrs', '+0.2']); } else if (equipAge === -2) { adj -= 0.3; factors.push(['Equipment over 15 yrs', '-0.3']); }
     const ip = num('ip'); if (ip === 2) { adj += 0.3; factors.push(['Strong IP / patents', '+0.3']); }
     const mkt = num('mkt'); if (mkt === 1) { adj += 0.2; factors.push(['National / international market', '+0.2']); } else if (mkt === -1) { adj -= 0.2; factors.push(['Local market only', '-0.2']); }
+    const re = num('re'); if (re === 0.2) { adj += 0.2; factors.push(['Real estate owned, included', '+0.2']); } else if (re === -0.2) { adj -= 0.2; factors.push(['Short-term lease (<2 yrs)', '-0.2']); }
     if (growth==='up15') factors.push(['Growing >15%/yr', '+0.3']);
     if (growth==='down') factors.push(['Declining revenue', '-0.5']);
 
     const adjusted = Math.max(0.5, base + adj);
-    const valMid = sde * adjusted;
+    const valMid = earnings * adjusted;
     const valLow = valMid * 0.85; const valHigh = valMid * 1.15;
     const revMult = rev>0 ? valMid/rev : 0;
+
+    // Asset Value Floor: equipment + inventory + (AR - AP)
+    const equipCost = nn('equip-cost');
+    const inventory = nn('inventory');
+    const arAp = num('ar-ap');
+    const assetFloor = equipCost + inventory + arAp;
     let revCheck = '';
     if (revMult > 1.0) revCheck = ' <span style="color:#B91C1C">(>1.0x revenue - check inputs)</span>';
     else if (revMult < 0.2) revCheck = ' <span style="color:var(--fg3)">(low revenue multiple - may be undervalued)</span>';
@@ -158,11 +182,12 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('hero').innerHTML = `
       <div class="big-label">Estimated business value</div>
       <div class="big-number">${fmt$M(valMid)}</div>
-      <div class="big-caption"><strong>${fmt$M(valLow)} - ${fmt$M(valHigh)}</strong> range based on SDE of ${fmt$(sde)} x ${adjusted.toFixed(2)}x multiple. ${revMult.toFixed(2)}x revenue${revCheck}.</div>
+      <div class="big-caption"><strong>${fmt$M(valLow)} - ${fmt$M(valHigh)}</strong> range based on ${earningsLabel} of ${fmt$(earnings)} × ${adjusted.toFixed(2)}× multiple. ${revMult.toFixed(2)}× revenue${revCheck}.${useEbitda ? ' <em style="color:var(--fg3);font-style:normal;font-size:13px">EBITDA-multiple methodology applied (EBITDA &gt; $5M).</em>' : ''}</div>
       <div class="results-grid" style="margin-top:24px">
-        <div class="results-stat"><div class="label">SDE</div><div class="value">${fmt$M(sde)}</div></div>
-        <div class="results-stat"><div class="label">Base vertical multiple</div><div class="value">${base.toFixed(2)}x</div></div>
-        <div class="results-stat"><div class="label">Adjusted multiple</div><div class="value">${adjusted.toFixed(2)}x</div><div class="sub">${adj>=0?'+':''}${adj.toFixed(2)} adjustment</div></div>
+        <div class="results-stat"><div class="label">${earningsLabel}</div><div class="value">${fmt$M(earnings)}</div>${useEbitda?'<div class="sub">SDE: '+fmt$M(sde)+'</div>':''}</div>
+        <div class="results-stat"><div class="label">Base vertical multiple</div><div class="value">${base.toFixed(2)}×</div><div class="sub">${earningsLabel} range ${lo}-${hi}×</div></div>
+        <div class="results-stat"><div class="label">Adjusted multiple</div><div class="value">${adjusted.toFixed(2)}×</div><div class="sub">${adj>=0?'+':''}${adj.toFixed(2)} adjustment</div></div>
+        <div class="results-stat"><div class="label">Asset value floor</div><div class="value">${fmt$M(assetFloor)}</div><div class="sub">equipment + inv + (AR-AP)</div></div>
       </div>
     `;
     let factorsHtml = '<table class="results-table"><thead><tr><th>Factor</th><th class="num">Impact on multiple</th></tr></thead><tbody>';
@@ -170,15 +195,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     if (factors.length===0) factorsHtml += '<tr><td colspan="2" style="color:var(--fg3);text-align:center">No adjustments applied - using base vertical multiple.</td></tr>';
     factorsHtml += '</tbody></table>';
 
-    // Value unlock opportunities
+    // Value unlock opportunities — applied to the earnings figure being used (SDE or EBITDA)
     let unlockHtml = '<table class="results-table"><thead><tr><th>Improvement</th><th class="num">Multiple impact</th><th class="num">Value increase</th></tr></thead><tbody>';
     let totalUnlock = 0;
-    if (ohrs > 50) { const u = sde * 0.4; totalUnlock += u; unlockHtml += `<tr><td>Reduce owner hours to under 25/week</td><td class="num">+0.4x</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
-    if (top1 > 25) { const u = sde * 0.5; totalUnlock += u; unlockHtml += `<tr><td>Diversify customer base (top under 15%)</td><td class="num">+0.5x</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
-    if (mgmt < 1) { const u = sde * 0.7; totalUnlock += u; unlockHtml += `<tr><td>Build management team that can run without you</td><td class="num">+0.7x</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
-    if (equipAge < 0) { const u = sde * 0.3; totalUnlock += u; unlockHtml += `<tr><td>Modernize equipment (under 7 yrs)</td><td class="num">+0.3x</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
-    const u_sys = sde * 0.4; totalUnlock += u_sys;
-    unlockHtml += `<tr><td>System-driven ops (ERP) vs spreadsheets</td><td class="num">+0.4x</td><td class="num"><strong style="color:#047857">+${fmt$M(u_sys)}</strong></td></tr>`;
+    if (ohrs > 50) { const u = earnings * 0.4; totalUnlock += u; unlockHtml += `<tr><td>Reduce owner hours to under 25/week</td><td class="num">+0.4×</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
+    if (top1 > 25) { const u = earnings * 0.5; totalUnlock += u; unlockHtml += `<tr><td>Diversify customer base (top under 15%)</td><td class="num">+0.5×</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
+    if (mgmt < 1) { const u = earnings * 0.7; totalUnlock += u; unlockHtml += `<tr><td>Build management team that can run without you</td><td class="num">+0.7×</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
+    if (equipAge < 0) { const u = earnings * 0.3; totalUnlock += u; unlockHtml += `<tr><td>Modernize equipment (under 7 yrs)</td><td class="num">+0.3×</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
+    const u_sys = earnings * 0.4; totalUnlock += u_sys;
+    unlockHtml += `<tr><td>System-driven ops (ERP) vs spreadsheets</td><td class="num">+0.4×</td><td class="num"><strong style="color:#047857">+${fmt$M(u_sys)}</strong></td></tr>`;
     unlockHtml += `<tr><td><strong>Total value unlock potential</strong></td><td class="num">-</td><td class="num"><strong style="color:#047857">+${fmt$M(totalUnlock)}</strong></td></tr>`;
     unlockHtml += '</tbody></table>';
 
@@ -189,7 +214,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       ${unlockHtml}
       <p class="tool-note" style="margin-top:14px">Source: BizBuySell Transaction Database, IBBA Market Pulse, Pepperdine Private Capital Markets Project. Manufacturing businesses with documented SOPs and ERP systems sell at 0.5-1.0x higher multiples than those without (IBBA).</p>
     `;
-    return {rev,np,ow,sde,vert,base,adj,adjusted,valLow,valMid,valHigh,revMult,factors,totalUnlock};
+    return {rev,np,ow,sde,ebitda,useEbitda,earnings,earningsLabel,vert,base,adj,adjusted,valLow,valMid,valHigh,revMult,factors,totalUnlock,assetFloor};
   }
   document.querySelectorAll('input, select').forEach(el=>el.addEventListener('input', recalc));
   if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
@@ -200,12 +225,12 @@ document.addEventListener('DOMContentLoaded',()=>{
     sgBuildPdf({
       title:'Business Valuation Estimate', docNumberLabel:'Vertical', docNumber:r.vert,
       date: todayISO(),
-      fromLabel:'INPUTS', from:['Revenue: '+fmt$(r.rev), 'Net profit: '+fmt$(r.np), 'Owner comp: '+fmt$(r.ow), 'SDE: '+fmt$(r.sde)],
-      toLabel:'VALUATION', to:['Range: '+fmt$M(r.valLow)+' - '+fmt$M(r.valHigh), 'Midpoint: '+fmt$M(r.valMid), 'Multiple: '+r.adjusted.toFixed(2)+'x SDE', 'Revenue multiple: '+r.revMult.toFixed(2)+'x'],
+      fromLabel:'INPUTS', from:['Revenue: '+fmt$(r.rev), 'Net profit: '+fmt$(r.np), 'Owner comp: '+fmt$(r.ow), r.earningsLabel+': '+fmt$(r.earnings), 'Asset value floor: '+fmt$(r.assetFloor)],
+      toLabel:'VALUATION', to:['Range: '+fmt$M(r.valLow)+' - '+fmt$M(r.valHigh), 'Midpoint: '+fmt$M(r.valMid), 'Multiple: '+r.adjusted.toFixed(2)+'× '+r.earningsLabel, 'Revenue multiple: '+r.revMult.toFixed(2)+'×'],
       itemColumns:['Adjustment factor','Multiple impact'],
-      items: r.factors.length ? r.factors.map(f=>[f[0], f[1]+'x']) : [['No adjustments applied','base only']],
+      items: r.factors.length ? r.factors.map(f=>[f[0], f[1]+'×']) : [['No adjustments applied','base only']],
       itemRowMapper: x=>x,
-      notes:'Methodology: SDE x adjusted multiple. Multiple range per vertical from BizBuySell + IBBA. This is a directional estimate, not a formal appraisal. For a formal valuation, engage a CPA/business broker with manufacturing experience. Total value unlock potential from operational improvements: +'+fmt$M(r.totalUnlock)+' over 18-36 months.',
+      notes:'Methodology: ' + r.earningsLabel + ' × adjusted multiple. ' + (r.useEbitda ? 'EBITDA-multiple methodology (BizBuySell + Pepperdine PCMR for $5M+ EBITDA businesses).' : 'SDE-multiple methodology (BizBuySell + IBBA Market Pulse for sub-$5M EBITDA businesses).') + ' This is a directional estimate, not a formal appraisal. For a formal valuation, engage a CPA/business broker with manufacturing experience. Total value unlock potential from operational improvements: +'+fmt$M(r.totalUnlock)+' over 18-36 months. Asset value floor (equipment + inventory + AR - AP) acts as a minimum-value sanity check.',
       filename:'business-valuation-'+todayISO()+'.pdf'
     });
   });
