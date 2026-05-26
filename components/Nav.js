@@ -52,7 +52,7 @@ function Nav({
     id: 'tools',
     label: 'Productive Tools',
     href: 'tools/',
-    desc: '22 productive tools & calculators for manufacturers.',
+    desc: '23 productive tools & calculators for manufacturers.',
     title: 'Productive tools for manufacturers'
   }, {
     id: 'cases',

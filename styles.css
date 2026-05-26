@@ -170,7 +170,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 
 .h2 { font-family: var(--font-heading); font-size: 37px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; margin: 0 0 14px; color: var(--fg1); }
 .section-dark .h2 { color: #fff; }
-.lead { font-size: 18px; color: var(--fg2); max-width: 640px; margin: 0 0 40px; line-height: 1.6; }
+.lead { font-size: 18px; color: var(--fg2); max-width: 100%; margin: 0 0 40px; line-height: 1.6; }
 .section-dark .lead { color: rgba(255,255,255,0.6); }
 
 /* ===== SITE-WIDE ANIMATED GRID ===== */
