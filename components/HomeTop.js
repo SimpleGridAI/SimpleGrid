@@ -918,14 +918,10 @@ function ProblemSection() {
     className: "section"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
-  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
-    className: "tag"
-  }, "WHY ERP KEEPS FAILING MID-MARKET"), /*#__PURE__*/React.createElement("h2", {
-    className: "h2"
-  }, "You wouldn't buy a t-shirt without trying it on. Why are you buying ERP that way?")), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "problem-grid",
     style: {
-      marginTop: 32
+      marginTop: 8
     },
     ref: chatRef
   }, problems.map((p, i) => /*#__PURE__*/React.createElement(Reveal, {
