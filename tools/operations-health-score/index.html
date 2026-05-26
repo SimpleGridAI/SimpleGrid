@@ -142,26 +142,114 @@ document.addEventListener('DOMContentLoaded',()=>{
       <div class="big-caption"><strong>Grade ${grade}: ${gradeBand}.</strong></div>
     `;
     const dims = [
-      {name:'Production Efficiency (OEE)', score: Math.round(oeeScore), w:25, detail: 'OEE: '+oee.toFixed(1)+'% vs 85% target'},
-      {name:'Quality Performance', score: Math.round(qScore), w:25, detail: 'First-pass yield '+fpy.toFixed(1)+'%'},
-      {name:'Delivery Performance', score: Math.round(dScore), w:20, detail: 'On-time '+otd.toFixed(0)+'%, lead-time variance '+Math.abs(alead-qlead)+' days'},
-      {name:'Inventory Health', score: Math.round(iScore), w:15, detail: 'Turns '+turns.toFixed(1)+'x vs 5.8 median'},
-      {name:'Workforce Productivity', score: Math.round(wScore), w:15, detail: 'Rev/FTE '+fmt$K(rpe)+', turnover '+turnover+'%'}
+      {name:'Production Efficiency (OEE)', short:'Production', score: Math.round(oeeScore), w:25, detail: 'OEE: '+oee.toFixed(1)+'% vs 85% target'},
+      {name:'Quality Performance', short:'Quality', score: Math.round(qScore), w:25, detail: 'First-pass yield '+fpy.toFixed(1)+'%'},
+      {name:'Delivery Performance', short:'Delivery', score: Math.round(dScore), w:20, detail: 'On-time '+otd.toFixed(0)+'%, lead-time variance '+Math.abs(alead-qlead)+' days'},
+      {name:'Inventory Health', short:'Inventory', score: Math.round(iScore), w:15, detail: 'Turns '+turns.toFixed(1)+'x vs 5.8 median'},
+      {name:'Workforce Productivity', short:'Workforce', score: Math.round(wScore), w:15, detail: 'Rev/FTE '+fmt$K(rpe)+', turnover '+turnover+'%'}
     ];
-    let bench = '<h2 style="margin-bottom:14px">Dimension scores</h2>';
+
+    // Radar chart SVG — your score vs industry median (50) overlay
+    const W=380, H=380, cx=W/2, cy=H/2, R=130;
+    const angle = i => (Math.PI*2*i/dims.length) - Math.PI/2;
+    function ptStr(values){
+      return values.map((s,i)=>{
+        const r = (s/100)*R;
+        return (cx + r*Math.cos(angle(i))).toFixed(1)+','+(cy + r*Math.sin(angle(i))).toFixed(1);
+      }).join(' ');
+    }
+    let svg = '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:420px;height:auto;display:block;margin:0 auto" aria-label="Radar chart of 5 dimensions">';
+    for (let k=1;k<=5;k++){
+      const r = R*k/5; let poly='';
+      for (let i=0;i<dims.length;i++){ const a=angle(i); poly += (cx+r*Math.cos(a)).toFixed(1)+','+(cy+r*Math.sin(a)).toFixed(1)+' '; }
+      svg += '<polygon points="'+poly+'" fill="none" stroke="#e2e8f0" stroke-width="1"/>';
+    }
+    for (let i=0;i<dims.length;i++){
+      const a=angle(i);
+      svg += '<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+R*Math.cos(a)).toFixed(1)+'" y2="'+(cy+R*Math.sin(a)).toFixed(1)+'" stroke="#cbd5e1" stroke-width="1"/>';
+    }
+    // Industry median 50 overlay
+    svg += '<polygon points="'+ptStr(dims.map(()=>50))+'" fill="rgba(148,163,184,0.18)" stroke="#94a3b8" stroke-dasharray="4 3" stroke-width="1"/>';
+    // Their score
+    svg += '<polygon points="'+ptStr(dims.map(d=>d.score))+'" fill="rgba(52,97,224,0.30)" stroke="#3461E0" stroke-width="2"/>';
+    dims.forEach((d,i)=>{
+      const r=(d.score/100)*R;
+      svg += '<circle cx="'+(cx+r*Math.cos(angle(i))).toFixed(1)+'" cy="'+(cy+r*Math.sin(angle(i))).toFixed(1)+'" r="4" fill="#3461E0"/>';
+    });
+    dims.forEach((d,i)=>{
+      const a=angle(i);
+      const lx=cx+(R+22)*Math.cos(a);
+      const ly=cy+(R+22)*Math.sin(a);
+      const anchor = Math.abs(Math.cos(a))<0.2 ? 'middle' : (Math.cos(a)>0?'start':'end');
+      svg += '<text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" text-anchor="'+anchor+'" font-size="12" font-weight="600" fill="#1f2937" dominant-baseline="middle">'+d.short+' <tspan font-weight="700" fill="#3461E0">'+d.score+'</tspan></text>';
+    });
+    svg += '</svg>';
+
+    let bench = '<h2 style="margin-bottom:14px">Dimension scores</h2>' + svg + '<p class="tool-note" style="text-align:center;margin-top:6px">Blue = your score · Gray dashed = industry median (50)</p><div style="margin-top:18px">';
     dims.forEach(d=>{const cls=d.score>=70?'green':d.score>=40?'gold':'red'; bench += `<div class="bar-row"><span class="bar-label">${d.name}</span><div class="bar-track"><div class="bar-fill ${cls}" style="width:${d.score}%"></div></div><span class="bar-value">${d.score}/100 (${d.w}%)</span></div><div style="font-size:12px;color:var(--fg3);margin:0 0 8px 174px">${d.detail}</div>`;});
+    bench += '</div>';
+
     // Improvement opportunity
-    const oeeOpp = Math.max(0, 85 - oee)/100 * rev * 0.05; // crude proxy: each pt of OEE = 5% of revenue capacity
+    const oeeOpp = Math.max(0, 85 - oee)/100 * rev * 0.05;
     const qOpp = Math.max(0, scrap-1) * 0.6 * rev/100;
-    const otdOpp = Math.max(0, 97-otd) * 0.02 * rev/100 * 100; // 2%/pt
+    const otdOpp = Math.max(0, 97-otd) * 0.02 * rev/100 * 100;
     const totalOpp = oeeOpp + qOpp + otdOpp;
     let opp = '<h2 style="margin-top:32px;margin-bottom:14px">If you closed your biggest gaps</h2><table class="results-table"><thead><tr><th>Gap</th><th class="num">If improved to top quartile</th></tr></thead><tbody>';
     if (oeeOpp>0) opp += `<tr><td>OEE: ${oee.toFixed(1)}% to 85%</td><td class="num"><strong style="color:#047857">${fmt$K(oeeOpp)}/yr</strong></td></tr>`;
     if (qOpp>0) opp += `<tr><td>Scrap: ${scrap}% to 1%</td><td class="num"><strong style="color:#047857">${fmt$K(qOpp)}/yr</strong></td></tr>`;
     if (otdOpp>0) opp += `<tr><td>On-time: ${otd}% to 97%</td><td class="num"><strong style="color:#047857">${fmt$K(otdOpp)}/yr</strong></td></tr>`;
     opp += `<tr><td><strong>Total annual opportunity</strong></td><td class="num"><strong style="color:#047857">${fmt$K(totalOpp)}</strong></td></tr></tbody></table>`;
-    document.getElementById('detail').innerHTML = bench + opp;
-    return {composite, grade, gradeBand, dims, oee, totalOpp};
+
+    // 90-day playbook per weakest dimension
+    const weakest = dims.reduce((w,d)=> d.score < w.score ? d : w, dims[0]);
+    const PLAYBOOK = {
+      'Production':[
+        'Implement daily OEE tracking at each workstation - just measuring tends to lift it 10-15% (Hawthorne effect).',
+        'Identify your #1 bottleneck. Set up a structured changeover-reduction (SMED) program.',
+        'Rerun this Health Score in 60-90 days to track progress against this baseline.'
+      ],
+      'Quality':[
+        'Stand up a daily defect log at each station - count + type + cause. No analysis yet, just data.',
+        'Run a Pareto on weeks 3-4 of data. Pick the top 2 defect modes and root-cause them (5-Why).',
+        'Pilot one mistake-proofing intervention (poka-yoke) on your highest-defect process.'
+      ],
+      'Delivery':[
+        'Audit lead-time accuracy by job class. If quoted vs actual variance is >20% on >40% of orders, you are quoting on guesswork, not data.',
+        'Add explicit promise-date capacity check before order acceptance for top 20% of customers.',
+        'Build a daily ship-against-promise board visible on the floor. Variance shrinks when it is visible.'
+      ],
+      'Inventory':[
+        'Pick top 20 SKUs (will cover ~80% of consumption). Set explicit reorder points + safety stock.',
+        'Cycle-count one shelf per day - in 90 days you have inventoried everything without a shutdown.',
+        'Track stockouts/week. The first month exposes which suppliers are pretending to be reliable.'
+      ],
+      'Workforce':[
+        'Audit your overtime hours by employee for the last 90 days. Sustained >15 hrs/wk OT predicts turnover.',
+        'Cross-train your 2 most critical employees so coverage is no longer a single-person risk.',
+        'Run stay-interviews on top quartile performers. The reasons they stay are usually fixable for the others.'
+      ]
+    };
+    const playSteps = PLAYBOOK[weakest.short] || PLAYBOOK['Production'];
+    let playbook = `
+      <h2 style="margin-top:32px;margin-bottom:12px">90-day improvement playbook</h2>
+      <p style="font-size:15px;color:var(--fg1);line-height:1.6;margin-bottom:14px">Your weakest dimension is <strong>${weakest.name}</strong> (score ${weakest.score}/100). Focus there first - it is where the operational cost is concentrated.</p>
+      <ol style="font-size:15px;color:var(--fg1);line-height:1.7;padding-left:24px;margin:0">
+        ${playSteps.map((s,i)=>'<li style="margin-bottom:8px"><strong>Weeks '+(i===0?'1-3':i===1?'4-8':'9-12')+':</strong> '+s+'</li>').join('')}
+      </ol>
+    `;
+
+    // Shareable summary block (text only - shareable copy)
+    const shareLine = `My Manufacturing Operations Health Score: ${composite}/100 (Grade ${grade}). Take yours at simplegrid.ai/tools/operations-health-score`;
+    let share = `
+      <div style="margin-top:32px;padding:16px;background:var(--sg-blue-light);border-radius:10px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:8px">Share your score</div>
+        <p style="margin:0 0 10px;font-family:var(--font-mono,monospace);font-size:13px;color:var(--fg1);background:#fff;padding:10px 14px;border-radius:6px;border:1px solid var(--border);user-select:all">${shareLine}</p>
+        <p class="tool-note" style="margin:0">Founders share these scores competitively. Want a shareable LinkedIn card? Download the PDF below.</p>
+      </div>
+    `;
+
+    document.getElementById('detail').innerHTML = bench + opp + playbook + share;
+    return {composite, grade, gradeBand, dims, oee, totalOpp, weakest, playSteps};
   }
   document.querySelectorAll('input').forEach(el=>el.addEventListener('input', recalc));
   if (typeof sgWireNumericClamps==='function') sgWireNumericClamps(document);
@@ -172,12 +260,12 @@ document.addEventListener('DOMContentLoaded',()=>{
     sgBuildPdf({
       title:'Manufacturing Operations Health Score', docNumberLabel:'Score', docNumber:r.composite+'/100 (Grade '+r.grade+')',
       date: todayISO(),
-      fromLabel:'STATUS', from:[r.gradeBand],
-      toLabel:'OPPORTUNITY', to:['Estimated annual value of closing your gaps: '+fmt$K(r.totalOpp)],
+      fromLabel:'STATUS', from:[r.gradeBand, 'Weakest dimension: ' + r.weakest.name + ' (' + r.weakest.score + '/100)'],
+      toLabel:'OPPORTUNITY', to:['Estimated annual value of closing gaps: '+fmt$K(r.totalOpp), '90-day playbook attached below'],
       itemColumns:['Dimension','Score','Weight','Detail'],
       items: r.dims.map(d=>[d.name, d.score+'/100', d.w+'%', d.detail]),
       itemRowMapper: x=>x,
-      notes:'Methodology: Composite weighted average of 5 dimensions. Modeled on McKinseys Organizational Health Index (applied to 1500+ organizations globally), adapted for manufacturing using APICS SCOR + Census Bureau benchmarks.',
+      notes:'Weakest dimension: ' + r.weakest.name + '. 90-day playbook: ' + r.playSteps.map((s,i)=>'(Wks '+(i===0?'1-3':i===1?'4-8':'9-12')+') '+s).join('  |  ') + '\n\nMethodology: Composite weighted average of 5 dimensions. Modeled on McKinsey Organizational Health Index, adapted for manufacturing using APICS SCOR + Census Bureau ASM benchmarks.',
       filename:'operations-health-score-'+todayISO()+'.pdf'
     });
   });
