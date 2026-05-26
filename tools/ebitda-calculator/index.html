@@ -37,7 +37,7 @@
 <a href="#main" class="skip-link">Skip to main content</a>
 <header class="nav" role="banner"><div class="nav-inner">
   <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>23 productive tools &amp; calculators for manufacturers.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>24 productive tools &amp; calculators for manufacturers.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
   <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a demo</a></div>
 </div></header>
 
@@ -96,6 +96,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
   function nn(id,defv){const v=parseFloat(document.getElementById(id).value);return isNaN(v)?defv||0:v;}
   function nnn(id){return Math.max(0, nn(id));}
+  // Cap margin display so near-zero revenue doesn't yield 5,000% noise. Returns 'N/A' when revenue is zero or input is non-finite.
+  function fmtMarginPct(margin, rev){if(!Number.isFinite(margin)||rev<=0) return 'N/A'; if(margin>999) return '>999%'; if(margin<-999) return '<-999%'; return margin.toFixed(1)+'%';}
   function recalc(){
     const rev = nnn('rev');
     const ni = nn('ni');
@@ -119,16 +121,17 @@ document.addEventListener('DOMContentLoaded',()=>{
     if (rev === 0) warns.push('Revenue is $0 - margin and valuation multiples cannot be computed. EBITDA/SDE absolute dollars are still valid but a margin % is undefined.');
     if (rev > 0 && ebitda < 0) warns.push('EBITDA is negative - the business is not generating operating cash. Standard SDE/EBITDA multiples do not apply to loss-making companies.');
     if (rev > 0 && ebitda / rev > 0.5) warns.push('EBITDA margin > 50% is unusual for manufacturing - double-check that all operating expenses are reflected in Net Income.');
+    if (rev > 0 && Math.abs(ebitdaMargin) > 999) warns.push('EBITDA margin is extreme (' + ebitdaMargin.toFixed(0) + '%) - revenue is very small relative to addbacks. Double-check that revenue reflects the full period.');
     const hero = document.getElementById('hero');
     hero.innerHTML = `
       <div data-sg-warn></div>
       <div class="big-label">EBITDA</div>
       <div class="big-number ${margCls}">${fmt$(ebitda)}</div>
-      <div class="big-caption">Margin: <strong>${rev > 0 ? ebitdaMargin.toFixed(1) + '%' : 'N/A (zero revenue)'}</strong>${rev > 0 ? ' on ' + fmt$(rev) + ' revenue. Manufacturing median: 8-12% (Census Bureau ASM). Top quartile: 16%+.' : '. Enter revenue to see margin and valuation.'}</div>
+      <div class="big-caption">Margin: <strong>${rev > 0 ? fmtMarginPct(ebitdaMargin, rev) : 'N/A (zero revenue)'}</strong>${rev > 0 ? ' on ' + fmt$(rev) + ' revenue. Manufacturing median: 8-12% (Census Bureau ASM). Top quartile: 16%+.' : '. Enter revenue to see margin and valuation.'}</div>
       <div class="results-grid" style="margin-top:24px">
         <div class="results-stat"><div class="label">Net Income</div><div class="value">${fmt$(ni)}</div></div>
-        <div class="results-stat"><div class="label">EBITDA</div><div class="value ${margCls}">${fmt$(ebitda)}</div><div class="sub">${ebitdaMargin.toFixed(1)}% margin</div></div>
-        <div class="results-stat"><div class="label">SDE</div><div class="value">${fmt$(sde)}</div><div class="sub">${rev > 0 ? sdeMargin.toFixed(1) + '% margin' : 'margin N/A'}</div></div>
+        <div class="results-stat"><div class="label">EBITDA</div><div class="value ${margCls}">${fmt$(ebitda)}</div><div class="sub">${fmtMarginPct(ebitdaMargin, rev)} margin</div></div>
+        <div class="results-stat"><div class="label">SDE</div><div class="value">${fmt$(sde)}</div><div class="sub">${rev > 0 ? fmtMarginPct(sdeMargin, rev) + ' margin' : 'margin N/A'}</div></div>
       </div>
     `;
     sgWarnPanel(hero, warns);
@@ -209,7 +212,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (23)</a>
+          <a href="../" class="footer-link">Productive Tools (24)</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>

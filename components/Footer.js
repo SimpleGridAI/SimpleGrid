@@ -85,7 +85,7 @@ function Footer() {
   }, {
     h: 'Resources',
     links: [{
-      l: 'Productive Tools (23)',
+      l: 'Productive Tools (24)',
       href: 'tools/'
     }, {
       l: 'Case studies',

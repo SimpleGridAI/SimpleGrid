@@ -37,7 +37,7 @@
 <a href="#main" class="skip-link">Skip to main content</a>
 <header class="nav" role="banner"><div class="nav-inner">
   <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>23 productive tools &amp; calculators for manufacturers.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>24 productive tools &amp; calculators for manufacturers.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
   <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a demo</a></div>
 </div></header>
 
@@ -83,6 +83,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   function fmt$(n){return '$'+Math.round(n||0).toLocaleString();}
   function fmt$K(n){if(n>=1000000) return '$'+(n/1000000).toFixed(2)+'M'; if(n>=10000) return '$'+Math.round(n/1000)+'K'; return '$'+Math.round(n);}
   function nn(id){return Math.max(0, parseFloat(document.getElementById(id).value)||0);}
+  // Cap percentage display so impossible inputs (customer rev > total rev) don't render as "150%".
+  function fmtPct(p){if(!Number.isFinite(p)) return 'N/A'; if(p>100) return '>100%'; if(p<-100) return '<-100%'; return p.toFixed(1)+'%';}
   function recalc(){
     const rev = nn('rev');
     const rs = [nn('c1r'), nn('c2r'), nn('c3r'), nn('c4r'), nn('c5r')];
@@ -122,21 +124,21 @@ document.addEventListener('DOMContentLoaded',()=>{
       <div data-sg-warn></div>
       <div class="big-label">Customer concentration risk</div>
       <div class="big-number ${riskCls}">${noData ? 'No data' : risk}</div>
-      <div class="big-caption"><strong>HHI: ${Math.round(hhi).toLocaleString()}</strong> (${conc}). Top customer: ${top1.toFixed(1)}% of revenue.</div>
+      <div class="big-caption"><strong>HHI: ${Math.round(hhi).toLocaleString()}</strong> (${conc}). Top customer: ${fmtPct(top1)} of revenue.</div>
       <div class="results-grid" style="margin-top:24px">
-        <div class="results-stat"><div class="label">Top customer</div><div class="value ${top1>=25?'red':'green'}">${top1.toFixed(1)}%</div></div>
-        <div class="results-stat"><div class="label">Top 3 customers</div><div class="value">${top3.toFixed(1)}%</div></div>
-        <div class="results-stat"><div class="label">Top 5 customers</div><div class="value ${top5>=80?'red':top5>=70?'gold':'green'}">${top5.toFixed(1)}%</div></div>
+        <div class="results-stat"><div class="label">Top customer</div><div class="value ${top1>=25?'red':'green'}">${fmtPct(top1)}</div></div>
+        <div class="results-stat"><div class="label">Top 3 customers</div><div class="value">${fmtPct(top3)}</div></div>
+        <div class="results-stat"><div class="label">Top 5 customers</div><div class="value ${top5>=80?'red':top5>=70?'gold':'green'}">${fmtPct(top5)}</div></div>
       </div>
     `;
     sgWarnPanel(hero, warns);
     let tbl = '<h2 style="margin-bottom:14px">Customer breakdown</h2><table class="results-table"><thead><tr><th>Customer</th><th class="num">Revenue</th><th class="num">% of total</th></tr></thead><tbody>';
-    for (let i=0; i<5; i++) if (rs[i]>0) tbl += `<tr><td>${ns[i]}</td><td class="num">${fmt$(rs[i])}</td><td class="num">${shares[i].toFixed(1)}%</td></tr>`;
-    if (restRev>0) tbl += `<tr><td>${restCount} other customers</td><td class="num">${fmt$(restRev)}</td><td class="num">${(restRev/rev*100).toFixed(1)}%</td></tr>`;
+    for (let i=0; i<5; i++) if (rs[i]>0) tbl += `<tr><td>${ns[i]}</td><td class="num">${fmt$(rs[i])}</td><td class="num">${fmtPct(shares[i])}</td></tr>`;
+    if (restRev>0) tbl += `<tr><td>${restCount} other customers</td><td class="num">${fmt$(restRev)}</td><td class="num">${fmtPct(restRev/rev*100)}</td></tr>`;
     tbl += '</tbody></table>';
     let scen = '<h2 style="margin-top:32px;margin-bottom:14px">Scenario analysis - if you lose key customers</h2><table class="results-table"><thead><tr><th>Scenario</th><th class="num">Revenue lost</th><th class="num">% of total</th></tr></thead><tbody>';
-    scen += `<tr><td>Lose top customer</td><td class="num">-${fmt$(rs[0])}</td><td class="num">-${shares[0].toFixed(1)}%</td></tr>`;
-    scen += `<tr><td>Lose top 3</td><td class="num">-${fmt$(rs[0]+rs[1]+rs[2])}</td><td class="num">-${top3.toFixed(1)}%</td></tr>`;
+    scen += `<tr><td>Lose top customer</td><td class="num">-${fmt$(rs[0])}</td><td class="num">-${fmtPct(shares[0])}</td></tr>`;
+    scen += `<tr><td>Lose top 3</td><td class="num">-${fmt$(rs[0]+rs[1]+rs[2])}</td><td class="num">-${fmtPct(top3)}</td></tr>`;
     scen += '</tbody></table>';
     let valHtml = '';
     if (valImpact !== 0) {
@@ -181,7 +183,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (23)</a>
+          <a href="../" class="footer-link">Productive Tools (24)</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
