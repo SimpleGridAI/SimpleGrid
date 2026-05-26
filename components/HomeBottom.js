@@ -783,7 +783,7 @@ function HomeFAQ() {
     a: "You walk. No invoice. No clawback. We've still done the migration and the build at our cost. You get a clean data export and your spreadsheets back. That's the whole point - the risk lives with us until you've seen it run on your real floor."
   }, {
     q: "How much does it cost after the 30-day trial?",
-    a: "Before you decide, we agree on a number together based on the size of your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees. We are not free and not cheap. We are priced like an operator who has carried the build for you."
+    a: "Before you decide, we agree on a number together based on the size of your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees. We are priced like an operator who has carried the build for you."
   }, {
     q: "Who runs the deployment - sales reps, or actual engineers?",
     a: "Senior engineers, deployment experts, and founder engagement. No SDRs, no sales reps, no chatbot, no offshored implementation partner you also have to pay. You work directly with the team that builds the system."
