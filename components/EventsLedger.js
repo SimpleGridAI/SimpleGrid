@@ -737,7 +737,7 @@ function HankChat() {
   }, {
     role: 'hank',
     body: [{
-      line: 'Mar 31 – Apr 6: ',
+      line: 'Mar 31 - Apr 6: ',
       strong: '47 dispatches · $480k invoiced.'
     }, {
       line: 'Top buyer: ',
@@ -909,7 +909,7 @@ function HankChat() {
     }, {
       line: '· Walnut veneer - 6 days'
     }, {
-      line: 'All 3 auto-reordered Apr 24. Vendor ETA Apr 29 – May 1.'
+      line: 'All 3 auto-reordered Apr 24. Vendor ETA Apr 29 - May 1.'
     }]
   }, {
     role: 'user',

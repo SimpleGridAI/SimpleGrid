@@ -166,25 +166,25 @@ function ManufacturingProcessSection() {
   const stages = [{
     letter: 'A',
     title: 'Components',
-    range: '01–06',
+    range: '01-06',
     color: 'var(--sg-blue)',
     desc: 'Wood in, machined parts out. Tracking is per component, per SKU.'
   }, {
     letter: 'B',
     title: 'Assembly',
-    range: '07–09',
+    range: '07-09',
     color: 'var(--sg-purple)',
     desc: 'Components merge into a SKU. From here, tracking is per SKU.'
   }, {
     letter: 'C',
     title: 'Finishing',
-    range: '10–15',
+    range: '10-15',
     color: 'var(--sg-gold)',
     desc: 'Sand, finish, hardware. The most error-prone window.'
   }, {
     letter: 'D',
     title: 'Dispatch',
-    range: '16–19',
+    range: '16-19',
     color: 'var(--sg-green)',
     desc: 'Final QC, pack, ship. Buyer-spec compliance enforced.'
   }];

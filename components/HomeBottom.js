@@ -422,7 +422,7 @@ function ProofSection() {
     kind: 'image',
     img: 'url(assets/elite-factory.jpeg) center/cover',
     name: 'Furniture Manufacturer & Exporter',
-    desc: '12+ countries (NA, Europe, Asia). 600–800 employees. ~1 million sq ft. Excel + group chats → live ERP.',
+    desc: '12+ countries (NA, Europe, Asia). 600-800 employees. ~1 million sq ft. Excel + group chats → live ERP.',
     stats: '64 tracked · 72 triggers · 21 days',
     quote: '"SimpleGrid feels like our system. My stores manager was comfortable on day one."',
     attr: '- The founder',
@@ -431,9 +431,9 @@ function ProofSection() {
   }, {
     kind: 'apparel',
     name: 'Apparel Contract Manufacturer',
-    desc: 'Apparel manufacturer · 80–100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.',
+    desc: 'Apparel manufacturer · 80-100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.',
     stats: '34 tracked · 44 triggers · 12 days',
-    quote: '"Working demo in 24 hours - 60–70% accurate. No vendor we\'ve worked with has done that."',
+    quote: '"Working demo in 24 hours - 60-70% accurate. No vendor we\'ve worked with has done that."',
     attr: '- Founder (reference available on request)',
     link: 'case-apex.html',
     anchor: 'How they went live in 12 days'
@@ -581,7 +581,7 @@ function Integrations() {
       margin: '24px auto 0'
     }
   }, "Don't see yours? Email ", /*#__PURE__*/React.createElement("a", {
-    href: "mailto:hello@simplegrid.ai?subject=Integration%20request%20%E2%80%94%20SimpleGrid&body=Hi%20SimpleGrid%2C%0D%0A%0D%0AWe%27d%20like%20SimpleGrid%20to%20integrate%20with%3A%20%5Btool%20name%5D%0D%0A%0D%0ABrief%20note%20on%20what%20we%20need%3A%0D%0A%5BWhat%20it%20syncs%2C%20how%20often%2C%20any%20auth%20notes%5D%0D%0A%0D%0AThanks%21",
+    href: "mailto:hello@simplegrid.ai?subject=Integration%20request%20-%20SimpleGrid&body=Hi%20SimpleGrid%2C%0D%0A%0D%0AWe%27d%20like%20SimpleGrid%20to%20integrate%20with%3A%20%5Btool%20name%5D%0D%0A%0D%0ABrief%20note%20on%20what%20we%20need%3A%0D%0A%5BWhat%20it%20syncs%2C%20how%20often%2C%20any%20auth%20notes%5D%0D%0A%0D%0AThanks%21",
     style: {
       color: 'var(--sg-blue)',
       fontWeight: 600,
@@ -683,14 +683,14 @@ function ComparisonTable() {
     sg: 'Model your factory, ship in days, prove value before you pay'
   }, {
     label: 'Time to value',
-    sap: '12–18+ months',
-    epicor: '9–12 months',
+    sap: '12-18+ months',
+    epicor: '9-12 months',
     qb: 'Same day for books - but breaks as you scale ops',
-    sg: 'Live in 7–21 days on your real data'
+    sg: 'Live in 7-21 days on your real data'
   }, {
     label: 'Up-front cost',
     sap: '$500K+',
-    epicor: '$150K–$300K',
+    epicor: '$150K-$300K',
     qb: 'Low monthly fee',
     sg: '$0. You pay only after it works.'
   }, {

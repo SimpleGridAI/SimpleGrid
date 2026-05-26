@@ -4,7 +4,7 @@ const TIERS = [{
   price: '$0',
   priceUnit: 'For the build. For the migration. For the 30 days on your real floor.',
   accent: 'var(--sg-blue)',
-  features: ['We build a custom ERP modelled on your factory', 'Live in 7–21 days, at our cost and our risk', 'You run it on your real floor for 30 days', 'All your data migrated for you', 'If it doesn\'t move the business, you walk. No invoice.'],
+  features: ['We build a custom ERP modelled on your factory', 'Live in 7-21 days, at our cost and our risk', 'You run it on your real floor for 30 days', 'All your data migrated for you', 'If it doesn\'t move the business, you walk. No invoice.'],
   cta: 'Book a call',
   ctaHref: 'https://cal.com/simplegrid-ai',
   highlight: true
@@ -27,20 +27,20 @@ const COMPARE = [{
   qbe: 'Bookkeeping for small businesses'
 }, {
   metric: 'Time to value',
-  us: 'Live in 7–21 days',
-  sap: '12–18 months',
-  netsuite: '6–12 months',
+  us: 'Live in 7-21 days',
+  sap: '12-18 months',
+  netsuite: '6-12 months',
   qbe: 'Same day for books - breaks as ops scale'
 }, {
   metric: 'Up-front cost',
   us: '$0',
-  sap: '$150K–$500K+',
-  netsuite: '$25K–$100K implementation',
+  sap: '$150K-$500K+',
+  netsuite: '$25K-$100K implementation',
   qbe: '$1.7K/yr/user + add-ons'
 }, {
   metric: 'Change-order fees',
   us: 'None. Ever.',
-  sap: '$8K–$20K each',
+  sap: '$8K-$20K each',
   netsuite: '$200+/hr consultant',
   qbe: 'Per add-on / SuiteApp'
 }, {
@@ -346,7 +346,7 @@ function PricingPage() {
     a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk. No invoice. No clawback. No data ransom - you get a clean export.'
   }, {
     q: 'Do you charge for changes to the ERP - today or tomorrow?',
-    a: 'No. New approval rule, new production stage, new QC gate, new report, new integration - every change is included, at go-live and forever. Most ERPs charge $8K–$20K per change order. We never do.'
+    a: 'No. New approval rule, new production stage, new QC gate, new report, new integration - every change is included, at go-live and forever. Most ERPs charge $8K-$20K per change order. We never do.'
   }, {
     q: 'Are there feature tiers or add-on fees?',
     a: 'No. Every customer gets every feature. No Pro plan, no Enterprise tier, no per-feature licensing. When we ship something new, it is automatically yours.'

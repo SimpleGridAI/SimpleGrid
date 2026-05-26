@@ -3,11 +3,11 @@ function RadialBurst({
 }) {
   // Visual spec (strict):
   //   - Background: radial gradient #D6E4FF (inner, bottom-center) → #FFFFFF (outer)
-  //   - 100 thin lines (1–1.5px) radiating from bottom-center in upper 180° arc
+  //   - 100 thin lines (1-1.5px) radiating from bottom-center in upper 180° arc
   //   - All lines blue: lerp from #2956C4 (deep) to #4A7BF7 (SimpleGrid blue)
-  //   - Per-line opacity 30–80%, with shorter lines more opaque, longer more transparent
-  //   - Tip nodes 2–4px, #2956C4 at 60–90% opacity
-  //   - Animation: subtle "breathing" - opacity oscillates over a 4–8s period
+  //   - Per-line opacity 30-80%, with shorter lines more opaque, longer more transparent
+  //   - Tip nodes 2-4px, #2956C4 at 60-90% opacity
+  //   - Animation: subtle "breathing" - opacity oscillates over a 4-8s period
   //   - No particles, no fireworks, no orange/purple/yellow
   //   - <5% CPU, requestAnimationFrame
   const canvasRef = React.useRef(null);
@@ -39,24 +39,24 @@ function RadialBurst({
       for (let i = 0; i < COUNT; i++) {
         // Angle in upper 180° arc: -π (left) to 0 (right), with -π/2 = straight up
         const a = -Math.PI + Math.random() * Math.PI;
-        // Length: 40–90% of canvas height
+        // Length: 40-90% of canvas height
         const lenRatio = 0.4 + Math.random() * 0.5;
         // tone 0 = deep blue #2956C4, 1 = SimpleGrid blue #4A7BF7
         const tone = Math.random();
-        // shorter lines are more opaque (depth effect) - bumped from 0.3–0.8
-        // to 0.45–0.95 so the burst reads as eye-catching, not whispery.
-        const baseAlpha = 0.95 - (lenRatio - 0.4) * 0.5 / 0.5 * 0.5; // ~0.45–0.95
+        // shorter lines are more opaque (depth effect) - bumped from 0.3-0.8
+        // to 0.45-0.95 so the burst reads as eye-catching, not whispery.
+        const baseAlpha = 0.95 - (lenRatio - 0.4) * 0.5 / 0.5 * 0.5; // ~0.45-0.95
 
-        // Breathing oscillation: opacity sways over a 3–6s period
+        // Breathing oscillation: opacity sways over a 3-6s period
         const phase = Math.random() * Math.PI * 2;
         const period = 3 + Math.random() * 3;
         const freq = Math.PI * 2 / (period * 60);
 
-        // Angle sway: gently rotate this line by ±0.04 rad (~2.3°) over 8–14s
+        // Angle sway: gently rotate this line by ±0.04 rad (~2.3°) over 8-14s
         const swayPhase = Math.random() * Math.PI * 2;
         const swayPeriod = 8 + Math.random() * 6;
         const swayFreq = Math.PI * 2 / (swayPeriod * 60);
-        const swayAmp = 0.025 + Math.random() * 0.025; // 0.025–0.05 rad
+        const swayAmp = 0.025 + Math.random() * 0.025; // 0.025-0.05 rad
 
         // Length sway: lines also extend/contract by ±2% over a slow period
         const lenPhase = Math.random() * Math.PI * 2;
@@ -342,18 +342,18 @@ function Hero() {
     delay: 400
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-cta"
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "https://cal.com/simplegrid-ai",
-    target: "_blank",
-    rel: "noopener noreferrer",
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
     "data-cta": "hero",
     className: "btn btn-lg btn-invite",
     style: {
       boxShadow: '0 0 0 0 rgba(74,123,247,0.45), 0 6px 20px rgba(74,123,247,0.18)',
-      animation: 'sgBuildPulse 1.8s ease-in-out infinite',
-      textDecoration: 'none'
+      animation: 'sgBuildPulse 1.8s ease-in-out infinite'
     },
-    onClick: () => window.sgTrack && window.sgTrack('cta_clicked', {location: 'hero'})
+    onClick: () => {
+      setShowInvite(true);
+      if (window.sgTrack) window.sgTrack('cta_clicked', {location: 'hero'});
+    }
   }, /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "16",
@@ -366,7 +366,7 @@ function Hero() {
   }, /*#__PURE__*/React.createElement("path", {
     d: "M12 2l2.39 5.84L20 10l-5.61 2.16L12 18l-2.39-5.84L4 10l5.61-2.16L12 2z",
     fill: "currentColor"
-  })), "Book a call")))), /*#__PURE__*/React.createElement(Reveal, {
+  })), "Request an invite")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: 300
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-stat-box",
@@ -1711,7 +1711,7 @@ function HowItWorks() {
       text: "Your products, your stages, your approval rules, and your buyers are modeled in. You and your team click around: create a PO, run an order through, log a receipt, see the inventory move."
     }, {
       kind: 'list',
-      items: ["60–70% accuracy on the first pass is typical - the rest gets fixed in step 3.", "Private URL, sign-in protected. Only your team sees it.", "Works in any browser. No app installs needed.", "This is the moment most operators tell us, “I've never seen a vendor do this.”"]
+      items: ["60-70% accuracy on the first pass is typical - the rest gets fixed in step 3.", "Private URL, sign-in protected. Only your team sees it.", "Works in any browser. No app installs needed.", "This is the moment most operators tell us, “I've never seen a vendor do this.”"]
     }],
     visual: /*#__PURE__*/React.createElement("svg", {
       viewBox: "0 0 220 160",

@@ -1115,7 +1115,7 @@
     }, /*#__PURE__*/React.createElement("div", {
       className: 'pi-ss-stage pi-ss-' + phase
     }, phase === 'chaos' && tabs.map((t, i) => {
-      // Position tabs by their CENTER inside a safe inner box (10% – 90% × 12% – 78%)
+      // Position tabs by their CENTER inside a safe inner box (10% - 90% × 12% - 78%)
       // so the 110×78px card never clips the right or bottom edge.
       const cx = 10 + (i * 47 + shake * 11) % 80;
       const cy = 12 + (i * 31 + shake * 7) % 66;
@@ -1147,7 +1147,7 @@
       className: "pi-ss-replace-stats"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "1"), "system"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "0"), "reconciliations"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "500h"), "/yr saved")))), /*#__PURE__*/React.createElement("div", {
       className: "pi-ss-caption"
-    }, phase === 'chaos' ? 'Most factories run on 12–20 interlocking spreadsheets.' : 'One live system. Same data. Without the chaos.'));
+    }, phase === 'chaos' ? 'Most factories run on 12-20 interlocking spreadsheets.' : 'One live system. Same data. Without the chaos.'));
   }
 
   // ===== Blog 13 - Change-order counter =====
@@ -1297,7 +1297,7 @@
       n: 1,
       h: 'Workarounds begin',
       color: 'gold',
-      detail: '5–10 manual processes outside the ERP'
+      detail: '5-10 manual processes outside the ERP'
     }, {
       n: 2,
       h: 'Spreadsheets come back',

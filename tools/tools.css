@@ -246,7 +246,7 @@
 .sg-warn-list { margin: 0; padding-left: 18px; color: #78350F; font-size: 14px; line-height: 1.5; }
 .sg-warn-list li { margin: 2px 0; }
 
-/* Non-blocking toast notifications (sgToast) — replaces alert() so the
+/* Non-blocking toast notifications (sgToast) - replaces alert() so the
    renderer never freezes on a modal dialog. */
 #sg-toast-host { position: fixed; top: 16px; right: 16px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; max-width: 360px; }
 .sg-toast { background: #1A1A1A; color: #fff; padding: 12px 16px; border-radius: 8px; font-size: 14px; line-height: 1.4; box-shadow: 0 6px 24px rgba(0,0,0,0.18); opacity: 0; transform: translateY(-6px); transition: opacity 0.18s ease, transform 0.18s ease; pointer-events: auto; }
