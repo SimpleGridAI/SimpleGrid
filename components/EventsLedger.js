@@ -664,7 +664,7 @@ function ProductHeroNew() {
     style: {
       animation: 'sgBuildPulse 1.8s ease-in-out infinite'
     }
-  }, "Request an Invite \u2192")), /*#__PURE__*/React.createElement("div", {
+  }, "Book a demo \u2192")), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 36,
       display: 'flex',
@@ -1416,7 +1416,7 @@ function TriggerCTA() {
     style: {
       animation: 'sgBuildPulse 1.8s ease-in-out infinite'
     }
-  }, "Request an Invite \u2192")), /*#__PURE__*/React.createElement("p", {
+  }, "Book a demo \u2192")), /*#__PURE__*/React.createElement("p", {
     className: "note",
     style: {
       color: 'rgba(255,255,255,0.5)',

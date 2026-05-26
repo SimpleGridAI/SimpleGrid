@@ -82,7 +82,7 @@ function InviteModal({ onClose }) {
   return React.createElement('div', { className: 'modal-overlay', onClick: overlayClick },
     React.createElement('form', { className: 'modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'invite-h', 'data-form-name': 'invite', onSubmit: submit, style: { position: 'relative' } },
       React.createElement('button', { type: 'button', 'aria-label': 'Close invite request', onClick: onClose, style: { position: 'absolute', top: 14, right: 16, background: 'none', border: 'none', fontSize: 22, color: 'var(--fg3)', cursor: 'pointer', lineHeight: 1 } }, '×'),
-      React.createElement('h2', { id: 'invite-h' }, 'Request an invite'),
+      React.createElement('h2', { id: 'invite-h' }, 'Book a demo'),
       React.createElement('p', { className: 'sub' }, 'A few partner slots open each cycle. Tell us about you.'),
       React.createElement('input', { type: 'hidden', name: '_subject', value: 'New invite request - SimpleGrid' }),
       React.createElement('input', { type: 'hidden', name: '_template', value: 'table' }),
@@ -103,7 +103,7 @@ function InviteModal({ onClose }) {
       React.createElement('div', { 'aria-live': 'polite', role: 'status' },
         state === 'error' && React.createElement('div', { style: { padding: '10px 12px', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: 'var(--radius-md)', color: '#B91C1C', fontSize: 13, marginBottom: 12, lineHeight: 1.45 } }, errorMsg)
       ),
-      React.createElement('button', { type: 'submit', className: 'btn btn-primary', disabled: state === 'submitting', style: { width: '100%', justifyContent: 'center', marginTop: 4, opacity: state === 'submitting' ? 0.7 : 1 } }, state === 'submitting' ? 'Sending…' : 'Request an Invite →'),
+      React.createElement('button', { type: 'submit', className: 'btn btn-primary', disabled: state === 'submitting', style: { width: '100%', justifyContent: 'center', marginTop: 4, opacity: state === 'submitting' ? 0.7 : 1 } }, state === 'submitting' ? 'Sending…' : 'Book a demo →'),
       React.createElement('p', { style: { fontSize: 11, color: 'var(--fg3)', textAlign: 'center', marginTop: 14, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600 } }, 'We respond within 48 hours · Your data is used only for your deployment - see ', React.createElement('a', { href: '/privacy.html', style: { color: 'var(--sg-blue)' } }, 'Privacy'))
     )
   );

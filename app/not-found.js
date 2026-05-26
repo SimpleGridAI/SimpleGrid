@@ -24,7 +24,7 @@ function NotFoundPage() {
     target: "_blank",
     rel: "noopener noreferrer",
     className: "btn btn-secondary"
-  }, "Book a call")), /*#__PURE__*/React.createElement("div", {
+  }, "Book a demo")), /*#__PURE__*/React.createElement("div", {
     className: "nf-links"
   }, /*#__PURE__*/React.createElement("a", {
     href: "product.html",

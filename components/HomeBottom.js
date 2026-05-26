@@ -849,6 +849,6 @@ function FinalCTA() {
     target: "_blank",
     rel: "noopener noreferrer",
     className: "btn btn-lg btn-primary"
-  }, "Book a call"))));
+  }, "Book a demo"))));
 }
 window.FinalCTA = FinalCTA;

@@ -131,7 +131,7 @@ function CaseStudiesPage() {
     target: "_blank",
     rel: "noopener noreferrer",
     className: "btn btn-lg btn-primary"
-  }, "Book a call - See how we'd model your operations")))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, "Book a demo - See how we'd model your operations")))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }));
 }

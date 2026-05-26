@@ -32,6 +32,6 @@ function ProductPage() {
     type: "button",
     onClick: () => setShowInvite(true),
     className: "btn btn-invite"
-  }, "Request an invite")));
+  }, "Book a demo")));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(ProductPage, null));

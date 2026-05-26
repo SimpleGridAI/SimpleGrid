@@ -587,7 +587,7 @@ function ApexCaseStudy() {
     style: {
       marginTop: 16
     }
-  }, "Book a call - See how we'd model your operations"), /*#__PURE__*/React.createElement("div", {
+  }, "Book a demo - See how we'd model your operations"), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 20,
       fontSize: 14

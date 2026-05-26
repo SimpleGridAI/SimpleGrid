@@ -5,7 +5,7 @@ const TIERS = [{
   priceUnit: 'For the build. For the migration. For the 30 days on your real floor.',
   accent: 'var(--sg-blue)',
   features: ['We build a custom ERP modelled on your factory', 'Live in 7-21 days, at our cost and our risk', 'You run it on your real floor for 30 days', 'All your data migrated for you', 'If it doesn\'t move the business, you walk. No invoice.'],
-  cta: 'Book a call',
+  cta: 'Book a demo',
   ctaHref: 'https://cal.com/simplegrid-ai',
   highlight: true
 }, {
@@ -392,7 +392,7 @@ function PricingPage() {
     target: "_blank",
     rel: "noopener noreferrer",
     className: "btn btn-lg btn-primary"
-  }, "Book a call")))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, "Book a demo")))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)
@@ -402,7 +402,7 @@ function PricingPage() {
     type: "button",
     onClick: () => setShowInvite(true),
     className: "btn btn-invite"
-  }, "Request an invite")), /*#__PURE__*/React.createElement("style", null, `
+  }, "Book a demo")), /*#__PURE__*/React.createElement("style", null, `
       @media (max-width: 900px) {
         .tier-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
         .incl-grid { grid-template-columns: 1fr 1fr !important; }

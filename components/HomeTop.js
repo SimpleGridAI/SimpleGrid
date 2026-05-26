@@ -320,7 +320,7 @@ function Hero() {
   }, /*#__PURE__*/React.createElement("path", {
     d: "M12 2l2.39 5.84L20 10l-5.61 2.16L12 18l-2.39-5.84L4 10l5.61-2.16L12 2z",
     fill: "currentColor"
-  })), "Request an invite")))), /*#__PURE__*/React.createElement(Reveal, {
+  })), "Book a demo")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: 300
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-stat-box",
@@ -1458,7 +1458,7 @@ function WhatWeDo() {
   }, /*#__PURE__*/React.createElement("path", {
     d: "M12 2l2.39 5.84L20 10l-5.61 2.16L12 18l-2.39-5.84L4 10l5.61-2.16L12 2z",
     fill: "currentColor"
-  })), "Request an Invite"), /*#__PURE__*/React.createElement("div", {
+  })), "Book a demo"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 10,
       color: 'rgba(255,255,255,0.42)',
