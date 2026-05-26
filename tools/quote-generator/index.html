@@ -198,7 +198,7 @@
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (24)</a>
+          <a href="../" class="footer-link">Productive Tools (35)</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
@@ -365,6 +365,14 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('cust-save').addEventListener('click',()=>{const v={name:document.getElementById('cust-name').value.trim(),contact:document.getElementById('cust-contact').value.trim(),address:document.getElementById('cust-address').value.trim(),phone:document.getElementById('cust-phone').value.trim(),email:document.getElementById('cust-email').value.trim()};if(!v.name){sgToast('Add a name first.',{type:'error'});return;}const list=sgLoad(CKEY,[]);const idx=list.findIndex(x=>x.name===v.name);if(idx>=0)list[idx]=v;else list.push(v);sgSave(CKEY,list);refreshC();sgToast('Saved "'+v.name+'".',{type:'success'});});
   document.getElementById('cust-clear').addEventListener('click',()=>{['cust-name','cust-contact','cust-address','cust-phone','cust-email'].forEach(id=>document.getElementById(id).value='');cLoad.value='';});
   refreshC();
+
+  // Live date-order check: flag valid-until earlier than quote date immediately.
+  ['q-date','q-valid'].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', ()=>{
+      if (typeof sgValidateDateOrder === 'function') sgValidateDateOrder(document.getElementById('q-date'), document.getElementById('q-valid'), 'Valid-until date');
+    });
+  });
 
   document.getElementById('generate-pdf').addEventListener('click',()=>{
     if (typeof sgValidateRequired === 'function' && !sgValidateRequired(document)) return;

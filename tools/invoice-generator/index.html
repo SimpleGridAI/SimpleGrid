@@ -235,7 +235,7 @@
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (24)</a>
+          <a href="../" class="footer-link">Productive Tools (35)</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
@@ -456,6 +456,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const t = e.target.value;
     const daysMap = { 'Net 15': 15, 'Net 30': 30, 'Net 45': 45, 'Net 60': 60, '2/10 Net 30': 30, 'Due on receipt': 0, 'COD': 0 };
     if (daysMap[t] != null) document.getElementById('inv-due').value = addDays(document.getElementById('inv-date').value, daysMap[t]);
+  });
+
+  // Live date-order check: flag inverted dates immediately, not just on PDF generate.
+  ['inv-date','inv-due'].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', ()=>{
+      if (typeof sgValidateDateOrder === 'function') sgValidateDateOrder(document.getElementById('inv-date'), document.getElementById('inv-due'), 'Due date');
+    });
   });
 
   document.getElementById('generate-pdf').addEventListener('click', () => {

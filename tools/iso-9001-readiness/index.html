@@ -2,20 +2,143 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>ISO 9001 Readiness - retired | SimpleGrid</title>
-<meta name="description" content="This SimpleGrid tool has been retired. Browse the current set of productive tools for manufacturers.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>ISO 9001 Readiness Assessment for Manufacturers | SimpleGrid</title>
+<meta name="description" content="Free 28-question ISO 9001 readiness assessment. 7 clauses, scored 0-100, gap analysis per clause. Based on ISO 9001:2015. PDF report.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
-<meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://simplegrid.ai/tools/">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://simplegrid.ai/tools/iso-9001-readiness/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
-<meta http-equiv="refresh" content="0; url=../">
-<style>body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;color:#1f2937}a{color:#3461E0}</style>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../tools.css">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/iso-9001-readiness/"><meta property="og:title" content="ISO 9001 Readiness Assessment for Manufacturers | SimpleGrid"><meta property="og:description" content="Free 28-question ISO 9001 readiness assessment. 7 clauses, scored 0-100, gap analysis per clause. Based on ISO 9001:2015. PDF report."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","name":"ISO 9001 Readiness Assessment for Manufacturers | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/iso-9001-readiness/","description":"Free 28-question ISO 9001 readiness assessment. 7 clauses, scored 0-100, gap analysis per clause. Based on ISO 9001:2015. PDF report.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"ISO 9001 Readiness Assessment for Manufacturers | SimpleGrid","item":"https://simplegrid.ai/tools/iso-9001-readiness/"}]}
+]}
+</script>
+<script src="../../vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../../vendor/jspdf/jspdf.plugin.autotable.min.js" defer></script>
+<script src="../tools.js" defer></script>
+
+<script src="../../assets/js/analytics-init.js" defer></script>
+<script src="../../assets/js/tracking.js" defer></script>
+<script src="../../assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
-<p><strong>ISO 9001 Readiness</strong> has been retired. We've focused the toolkit on a smaller set of high-impact calculators.</p>
-<p>You're being redirected to the <a href="../">SimpleGrid productive tools hub</a>.</p>
-<p>If you're not redirected automatically, <a href="../">click here</a>.</p>
-<script>window.location.replace('../');</script>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="nav" role="banner"><div class="nav-inner">
+  <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>35 productive tools & calculators for manufacturers.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a demo</a></div>
+</div></header>
+
+<main id="main">
+  <section class="tool-header"><div class="container-sm">
+    <a href="../" class="back-link">← All productive tools</a>
+    <h1>ISO 9001 Readiness - clause-by-clause gap analysis.</h1>
+    <p class="lead">68% of large OEMs now require ISO 9001 certification from suppliers. This 28-question assessment walks every clause and tells you which gaps to close first.</p>
+  </div></section>
+
+<section class="tool-app"><div class="container-sm">
+    <p class="tool-note" style="margin:0 0 20px">ISO 9001:2015 clause-by-clause readiness. 68% of large OEMs require supplier certification (ISO Survey 2023). This diagnostic identifies your gaps before audit.</p>
+    <form id="iso-form"><div class="q-card"><div class="q-num">Clause 4: Context</div><div class="q-text" style="margin-top:12px">1. External factors identified</div><div class="q-options" data-q="c41"><label class="q-option"><input type="radio" name="c41" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c41" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c41" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c41" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c41" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">2. Interested parties + requirements identified</div><div class="q-options" data-q="c42"><label class="q-option"><input type="radio" name="c42" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c42" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c42" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c42" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c42" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">3. QMS scope defined</div><div class="q-options" data-q="c43"><label class="q-option"><input type="radio" name="c43" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c43" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c43" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c43" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c43" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">4. Key processes mapped</div><div class="q-options" data-q="c44"><label class="q-option"><input type="radio" name="c44" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c44" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c44" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c44" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c44" value="5">5 - Fully implemented</label></div></div><div class="q-card"><div class="q-num">Clause 5: Leadership</div><div class="q-text" style="margin-top:12px">5. Top management actively promotes QMS</div><div class="q-options" data-q="c55"><label class="q-option"><input type="radio" name="c55" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c55" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c55" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c55" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c55" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">6. Quality Policy documented</div><div class="q-options" data-q="c56"><label class="q-option"><input type="radio" name="c56" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c56" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c56" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c56" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c56" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">7. Quality responsibilities defined per role</div><div class="q-options" data-q="c57"><label class="q-option"><input type="radio" name="c57" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c57" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c57" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c57" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c57" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">8. Quality Manager named with authority</div><div class="q-options" data-q="c58"><label class="q-option"><input type="radio" name="c58" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c58" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c58" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c58" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c58" value="5">5 - Fully implemented</label></div></div><div class="q-card"><div class="q-num">Clause 6: Planning</div><div class="q-text" style="margin-top:12px">9. Risks + opportunities identified</div><div class="q-options" data-q="c69"><label class="q-option"><input type="radio" name="c69" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c69" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c69" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c69" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c69" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">10. Measurable quality objectives</div><div class="q-options" data-q="c610"><label class="q-option"><input type="radio" name="c610" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c610" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c610" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c610" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c610" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">11. Action plans for objectives</div><div class="q-options" data-q="c611"><label class="q-option"><input type="radio" name="c611" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c611" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c611" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c611" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c611" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">12. Change management process</div><div class="q-options" data-q="c612"><label class="q-option"><input type="radio" name="c612" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c612" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c612" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c612" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c612" value="5">5 - Fully implemented</label></div></div><div class="q-card"><div class="q-num">Clause 7: Support</div><div class="q-text" style="margin-top:12px">13. Adequate resources (people, equipment, environment)</div><div class="q-options" data-q="c713"><label class="q-option"><input type="radio" name="c713" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c713" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c713" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c713" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c713" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">14. Skills/training matrix maintained</div><div class="q-options" data-q="c714"><label class="q-option"><input type="radio" name="c714" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c714" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c714" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c714" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c714" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">15. Document control system</div><div class="q-options" data-q="c715"><label class="q-option"><input type="radio" name="c715" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c715" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c715" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c715" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c715" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">16. Measurement equipment calibrated</div><div class="q-options" data-q="c716"><label class="q-option"><input type="radio" name="c716" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c716" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c716" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c716" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c716" value="5">5 - Fully implemented</label></div></div><div class="q-card"><div class="q-num">Clause 8: Operation</div><div class="q-text" style="margin-top:12px">17. Documented work instructions / SOPs</div><div class="q-options" data-q="c817"><label class="q-option"><input type="radio" name="c817" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c817" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c817" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c817" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c817" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">18. Contract review process for customer orders</div><div class="q-options" data-q="c818"><label class="q-option"><input type="radio" name="c818" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c818" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c818" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c818" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c818" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">19. Supplier evaluation + monitoring</div><div class="q-options" data-q="c819"><label class="q-option"><input type="radio" name="c819" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c819" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c819" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c819" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c819" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">20. Lot/batch traceability</div><div class="q-options" data-q="c820"><label class="q-option"><input type="radio" name="c820" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c820" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c820" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c820" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c820" value="5">5 - Fully implemented</label></div></div><div class="q-card"><div class="q-num">Clause 9: Performance</div><div class="q-text" style="margin-top:12px">21. KPIs systematically monitored</div><div class="q-options" data-q="c921"><label class="q-option"><input type="radio" name="c921" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c921" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c921" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c921" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c921" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">22. Customer satisfaction measured</div><div class="q-options" data-q="c922"><label class="q-option"><input type="radio" name="c922" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c922" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c922" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c922" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c922" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">23. Internal audits conducted</div><div class="q-options" data-q="c923"><label class="q-option"><input type="radio" name="c923" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c923" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c923" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c923" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c923" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">24. Annual management review</div><div class="q-options" data-q="c924"><label class="q-option"><input type="radio" name="c924" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c924" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c924" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c924" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c924" value="5">5 - Fully implemented</label></div></div><div class="q-card"><div class="q-num">Clause 10: Improvement</div><div class="q-text" style="margin-top:12px">25. NCR process with quarantine + disposition</div><div class="q-options" data-q="c1025"><label class="q-option"><input type="radio" name="c1025" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c1025" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c1025" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c1025" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c1025" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">26. Root cause analysis for quality issues</div><div class="q-options" data-q="c1026"><label class="q-option"><input type="radio" name="c1026" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c1026" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c1026" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c1026" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c1026" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">27. Corrective action tracking + verification</div><div class="q-options" data-q="c1027"><label class="q-option"><input type="radio" name="c1027" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c1027" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c1027" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c1027" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c1027" value="5">5 - Fully implemented</label></div><div class="q-text" style="margin-top:12px">28. Continual improvement culture</div><div class="q-options" data-q="c1028"><label class="q-option"><input type="radio" name="c1028" value="1">1 - Not started</label><label class="q-option"><input type="radio" name="c1028" value="2">2 - Minimal</label><label class="q-option"><input type="radio" name="c1028" value="3">3 - Partial</label><label class="q-option"><input type="radio" name="c1028" value="4">4 - Mostly</label><label class="q-option"><input type="radio" name="c1028" value="5">5 - Fully implemented</label></div></div></form>
+    <div class="results-hero" id="hero" style="display:none"></div>
+    <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button></div>
+    <div class="tool-cta">
+      <div class="eyebrow">When ISO certification is a requirement, not a nice-to-have</div>
+      <h2>SimpleGrid solves 60-70% of ISO documentation requirements natively.</h2>
+      <p>Document control, traceability, KPI monitoring, NCR workflow - the clauses where manufacturers fail audits most are exactly the ones an ERP makes trivial. Get to certified faster, stay certified easier.</p>
+      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="iso_cta" class="btn btn-primary">Book a demo</a>
+    </div>
+  </div></section>
+<style>.q-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px}.q-card .q-num{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sg-blue);margin-bottom:6px}.q-card .q-text{font-family:var(--font-heading);font-size:15px;font-weight:600;color:var(--fg1);margin:0 0 10px}.q-options{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}@media(max-width:800px){.q-options{grid-template-columns:1fr}}.q-option{padding:8px 10px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--fg1);transition:all 120ms ease;background:#fff;text-align:center}.q-option:hover{border-color:var(--sg-blue)}.q-option.selected{background:var(--sg-blue-light);border-color:var(--sg-blue);color:var(--sg-blue);font-weight:600}.q-option input{display:none}</style>
+<script defer>
+document.addEventListener('DOMContentLoaded',()=>{
+  const clauses = [
+    {key:'c4',name:'Clause 4: Context',qs:['c41','c42','c43','c44']},
+    {key:'c5',name:'Clause 5: Leadership',qs:['c55','c56','c57','c58']},
+    {key:'c6',name:'Clause 6: Planning',qs:['c69','c610','c611','c612']},
+    {key:'c7',name:'Clause 7: Support',qs:['c713','c714','c715','c716']},
+    {key:'c8',name:'Clause 8: Operation',qs:['c817','c818','c819','c820']},
+    {key:'c9',name:'Clause 9: Performance',qs:['c921','c922','c923','c924']},
+    {key:'c10',name:'Clause 10: Improvement',qs:['c1025','c1026','c1027','c1028']}
+  ];
+  const allQs = clauses.flatMap(c=>c.qs);
+  document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
+  function answered(){return allQs.every(q=>document.querySelector('input[name="'+q+'"]:checked'));}
+  function val(q){const el=document.querySelector('input[name="'+q+'"]:checked');return el?parseInt(el.value):0;}
+  function recalc(){
+    if (!answered()){document.getElementById('hero').style.display='none';document.getElementById('detail').style.display='none';document.getElementById('generate-pdf').disabled=true;return null;}
+    const cScores = clauses.map(c=>{const sum=c.qs.reduce((s,q)=>s+val(q),0); return {...c, sum, pct:sum/20*100};});
+    const total = cScores.reduce((s,c)=>s+c.sum,0);
+    const composite = Math.round(total/140*100);
+    let band, cls, summary;
+    if (composite>=80){band='Ready for certification - contact a registrar';cls='green';summary='Strong implementation. Stage 1 + Stage 2 audits in 6-8 weeks.';}
+    else if (composite>=60){band='3-6 months focused work';cls='gold';summary='Most clauses workable, key gaps in specific areas. ISO consultant can shorten timeline.';}
+    else if (composite>=40){band='6-12 months - consider consultant ($5-15K)';cls='gold';summary='Significant gaps. A consultants first pass saves months of trial and error.';}
+    else{band='12-18 months foundation work first';cls='red';summary='Build the quality foundation: document top 5 processes, write quality policy, set 3 measurable objectives.';}
+    document.getElementById('hero').style.display='block';document.getElementById('detail').style.display='block';document.getElementById('generate-pdf').disabled=false;
+    document.getElementById('hero').innerHTML=`<div class="big-label">ISO 9001 readiness</div><div class="big-number ${cls}">${composite} <span style="font-size:24px;color:var(--fg3);font-weight:500">/ 100</span></div><div class="big-caption"><strong>${band}.</strong> ${summary}</div>`;
+    let bars = '<h2 style="margin-bottom:14px">Clause-by-clause readiness</h2>';
+    cScores.forEach(c=>{const cls=c.pct>=70?'green':c.pct>=50?'gold':'red'; bars += `<div class="bar-row"><span class="bar-label">${c.name}</span><div class="bar-track"><div class="bar-fill ${cls}" style="width:${c.pct}%"></div></div><span class="bar-value">${c.sum}/20 (${Math.round(c.pct)}%)</span></div>`;});
+    document.getElementById('detail').innerHTML = bars + '<p class="tool-note" style="margin-top:14px">Source: ISO 9001:2015 standard structure (Clauses 4-10). Stage 1 audit typically $2-12K, Stage 2 typically 1.5-2x Stage 1. Annual surveillance audits required to maintain certification.</p>';
+    return {composite, band, summary, cScores};
+  }
+  document.getElementById('generate-pdf').addEventListener('click',()=>{
+    const r = recalc(); if (!r) return;
+    sgBuildPdf({title:'ISO 9001 Readiness Assessment', docNumberLabel:'Readiness', docNumber:r.composite+'/100', date:todayISO(),
+      fromLabel:'STATUS', from:[r.band], toLabel:'SUMMARY', to:[r.summary],
+      itemColumns:['Clause','Score','%'], items:r.cScores.map(c=>[c.name, c.sum+'/20', Math.round(c.pct)+'%']), itemRowMapper:x=>x,
+      notes:'ISO 9001:2015 structure. SimpleGrid solves 60-70% of documentation requirements natively (clauses 7.5 doc control, 8.5.2 traceability, 9.1 KPIs, 10.2 NCR).',
+      filename:'iso-9001-readiness-'+todayISO()+'.pdf'});
+  });
+});
+</script>
+
+
+</main>
+
+<footer class="footer" role="contentinfo"><div class="container">
+  <div class="footer-top">
+    <div><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async">
+      <p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
+    <div class="footer-cols" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px">
+        <div>
+          <div class="footer-h">Product</div>
+          <a href="../../product.html" class="footer-link">How it works</a>
+          <a href="../../pricing.html" class="footer-link">Pricing</a>
+        </div>
+        <div>
+          <div class="footer-h">Resources</div>
+          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../../case-studies.html" class="footer-link">Case studies</a>
+          <a href="../../blog.html" class="footer-link">Blog</a>
+        </div>
+        <div>
+          <div class="footer-h">Company</div>
+          <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../hiring.html" class="footer-link">Careers</a>
+        </div>
+        <div>
+          <div class="footer-h">Get in touch</div>
+          <a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a>
+          <a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div>(c) 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+</div></footer>
+
 </body>
 </html>

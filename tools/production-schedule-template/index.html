@@ -168,7 +168,7 @@
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (24)</a>
+          <a href="../" class="footer-link">Productive Tools (35)</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
@@ -305,6 +305,12 @@ document.addEventListener('DOMContentLoaded',()=>{
       // Reset internal scroll position so long values don't render left-truncated.
       i.addEventListener('blur', ()=>{ i.scrollLeft = 0; });
     });
+    // Live per-row validation: flash inputs when end < start so the user sees the problem at edit time.
+    const startEl = tr.querySelector('[data-f="start"]');
+    const endEl = tr.querySelector('[data-f="end"]');
+    [startEl, endEl].forEach(el => el.addEventListener('change', ()=>{
+      if (typeof sgValidateDateOrder === 'function') sgValidateDateOrder(startEl, endEl, 'Job end date');
+    }));
   }
   function jobs(){return Array.from(tbody.querySelectorAll('tr')).map(tr=>({name:tr.querySelector('[data-f="name"]').value,start:tr.querySelector('[data-f="start"]').value,end:tr.querySelector('[data-f="end"]').value,status:tr.querySelector('[data-f="status"]').value,who:tr.querySelector('[data-f="who"]').value}));}
   function save(){sgSave(SKEY,jobs());}

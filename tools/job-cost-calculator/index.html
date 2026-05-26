@@ -224,7 +224,7 @@
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (24)</a>
+          <a href="../" class="footer-link">Productive Tools (35)</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
@@ -424,10 +424,12 @@ document.addEventListener('DOMContentLoaded',()=>{
         const margin=sellTotal>0?(profit/sellTotal)*100:0;
         const markup=totalJob>0?(profit/totalJob)*100:0;
         const cls=margin>=20?'positive':margin>=0?'':'negative';
+        // Bracket extreme margins/markups so a $1 sell price on a $500 cost doesn't print "-49,900%".
+        const fmtPctCapped=(p)=>{if(!Number.isFinite(p)) return 'N/A'; if(p>999) return '>999%'; if(p<-999) return '<-999%'; return p.toFixed(1)+'%';};
         html=`
-          <div class="margin-stat"><div class="label">Gross margin</div><div class="value ${cls}">${margin.toFixed(1)}%</div></div>
+          <div class="margin-stat"><div class="label">Gross margin</div><div class="value ${cls}">${fmtPctCapped(margin)}</div></div>
           <div class="margin-stat"><div class="label">Profit on job</div><div class="value ${cls}">${money(profit)}</div></div>
-          <div class="margin-stat"><div class="label">Markup over cost</div><div class="value ${cls}">${markup.toFixed(1)}%</div></div>`;
+          <div class="margin-stat"><div class="label">Markup over cost</div><div class="value ${cls}">${fmtPctCapped(markup)}</div></div>`;
       } else {
         // No selling price yet, but a target margin IS set. Tell the user what we need
         // instead of showing a blank block.
