@@ -239,7 +239,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 @media (prefers-reduced-motion: reduce) {
   .hero-title-tile { display: none; }
 }
-.hero-sub { font-size: 15px; line-height: 1.55; color: rgba(255,255,255,0.72); max-width: 560px; margin: 0 0 32px; }
+.hero-sub { font-size: 15px; font-weight: 500; line-height: 1.55; color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 0 32px; }
 .hero.hero-light .hero-sub { color: var(--fg2); }
 
 /* Hero theme toggle (top-right of hero) */
