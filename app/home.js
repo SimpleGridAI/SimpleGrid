@@ -12,7 +12,6 @@ function App() {
     /*#__PURE__*/React.createElement(HowItWorks, null),
     /*#__PURE__*/React.createElement(ProofSection, null),
     /*#__PURE__*/React.createElement(FounderStory, null),
-    /*#__PURE__*/React.createElement(ComparisonTable, null),
     /*#__PURE__*/React.createElement(HomeFAQ, null),
     /*#__PURE__*/React.createElement(FinalCTA, null)
   ), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
