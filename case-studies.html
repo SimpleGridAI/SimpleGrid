@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -73,6 +73,10 @@
   ]
 }
 </script>
+<!-- No-flash boot: fade #root in once React replaces the seed (or after 1.2s failsafe) -->
+<style>html.js #root{opacity:0}html.js #root.sg-mounted{opacity:1;transition:opacity 180ms ease-out}</style>
+<script>(function(){var h=document.documentElement;h.classList.add('js');function s(){var r=document.getElementById('root');if(!r)return;var m=new MutationObserver(function(){r.classList.add('sg-mounted');m.disconnect()});m.observe(r,{childList:true});setTimeout(function(){r.classList.add('sg-mounted');m.disconnect()},1200)}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',s)}else{s()}})();</script>
+
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous" defer></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous" defer></script>
 
