@@ -12,7 +12,7 @@ const TIERS = [{
   name: 'After it works',
   sub: 'Monthly subscription · one number, all in',
   price: 'Custom-quoted',
-  priceUnit: 'We are not free and we are not cheap. We are priced like an operator who has carried the build for you.',
+  priceUnit: 'Priced like an operator who has carried the build for you.',
   accent: 'var(--sg-purple)',
   features: ['One monthly subscription. That is the entire bill.', 'All features included. No tiers. No add-ons. No per-seat fees.', 'Every change to your ERP, now and forever, included.', 'New features ship regularly - yours automatically.', 'Direct line to the founding team. No account-manager middle layer.'],
   cta: 'Talk to the founder',
@@ -108,7 +108,7 @@ function PricingPage() {
       fontWeight: 600,
       color: 'var(--fg1)'
     }
-  }, "We are not free. We are not cheap. We're priced like an operator who has carried the build for you - and earned the right to charge for what it does."))), /*#__PURE__*/React.createElement("section", {
+  }, "We're priced like an operator who has carried the build for you - and earned the right to charge for what it does."))), /*#__PURE__*/React.createElement("section", {
     className: "section section-alt",
     style: {
       paddingTop: 48
