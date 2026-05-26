@@ -230,56 +230,10 @@ function RadialBurst({
 }
 window.RadialBurst = RadialBurst;
 function CycleHeadline() {
-  const HEADLINES = [/*#__PURE__*/React.createElement(React.Fragment, {
-    key: "b"
-  }, "Custom ERP. Built at our risk.", /*#__PURE__*/React.createElement("br", null), "Paid for after it works."), /*#__PURE__*/React.createElement(React.Fragment, {
-    key: "e"
-  }, "The only ERP you", /*#__PURE__*/React.createElement("br", null), "try on before you buy"), /*#__PURE__*/React.createElement(React.Fragment, {
-    key: "c"
-  }, "We build it. You run it", /*#__PURE__*/React.createElement("br", null), "30 days on your real floor.", /*#__PURE__*/React.createElement("br", null), "If it doesn't move the business, you walk.")];
-  const TX = 8,
-    TY = 3;
-  const TILES = React.useMemo(() => Array.from({
-    length: TX * TY
-  }, (_, idx) => {
-    const x = idx % TX,
-      y = Math.floor(idx / TX);
-    return {
-      idx,
-      delay: (x + y) * 70
-    };
-  }), []);
-  // Primary (index 0) holds 10s; the rest hold 3s each.
-  const holdFor = idx => idx === 0 ? 10000 : 3000;
-  const TRANSITION = 1300;
-  const [i, setI] = React.useState(0);
-  const [phase, setPhase] = React.useState('reveal');
-  React.useEffect(() => {
-    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const cover = setTimeout(() => setPhase('cover'), holdFor(i));
-    const swap = setTimeout(() => {
-      setI(x => (x + 1) % HEADLINES.length);
-      setPhase('reveal');
-    }, holdFor(i) + TRANSITION);
-    return () => {
-      clearTimeout(cover);
-      clearTimeout(swap);
-    };
-  }, [i]);
-  return /*#__PURE__*/React.createElement("div", {
-    className: 'hero-title-stage hero-title-' + phase
-  }, /*#__PURE__*/React.createElement("h1", {
+  // Static hero headline - no rotation.
+  return /*#__PURE__*/React.createElement("h1", {
     className: "hero-title"
-  }, HEADLINES[i]), /*#__PURE__*/React.createElement("div", {
-    className: "hero-title-tiles",
-    "aria-hidden": "true"
-  }, TILES.map(t => /*#__PURE__*/React.createElement("span", {
-    key: t.idx,
-    className: "hero-title-tile",
-    style: {
-      transitionDelay: t.delay + 'ms'
-    }
-  }))));
+  }, "Custom ERP. Built at our risk.", /*#__PURE__*/React.createElement("br", null), "Paid for after it works.");
 }
 function Hero() {
   const count = 7;
