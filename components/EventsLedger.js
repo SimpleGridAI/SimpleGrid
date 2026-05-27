@@ -9,7 +9,7 @@ function EventsLedger() {
     verb: 'CANCEL_LINE',
     entity: 'SO-4521 · Line 3',
     from: 'In Production',
-    to: 'Cancelled',
+    to: 'Canceled',
     impact: 'WIP returned · Buyer notified'
   }, {
     t: '11:46:58',
@@ -650,7 +650,7 @@ function ProductHeroNew() {
       maxWidth: 760,
       marginTop: 18
     }
-  }, "Your stages, your contractors, your approvals, your costing logic - modelled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs."), /*#__PURE__*/React.createElement("div", {
+  }, "Your stages, your contractors, your approvals, your costing logic - modeled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28,
       display: 'flex',
@@ -1328,7 +1328,7 @@ function AbilitySection() {
     t: 'No training day',
     p: 'Day one, your floor is logging in. The interface is a sentence.'
   }, {
-    t: 'No menus to memorise',
+    t: 'No menus to memorize',
     p: 'No SKU codes, no transaction codes, no eight-tab forms. The model knows what you mean.'
   }, {
     t: 'No data lost in chat threads',

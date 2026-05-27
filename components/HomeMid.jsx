@@ -24,7 +24,7 @@ function RolesVisual() {
 
 function LedgerVisual() {
   const events = [
-    { time: 'Apr 19 10:47 PM', entity: 'SO-4521 Line Item', event: 'CANCEL LINE', from: 'In Production', to: 'Cancelled', by: 'Sarah' },
+    { time: 'Apr 19 10:47 PM', entity: 'SO-4521 Line Item', event: 'CANCEL LINE', from: 'In Production', to: 'Canceled', by: 'Sarah' },
     { time: 'Apr 18 05:40 PM', entity: 'JO for KEN MIR...', event: 'START STAGE', from: 'Material Issued', to: 'In Progress', by: 'Mike' },
     { time: 'Apr 18 05:35 PM', entity: 'Assembly - JO Door', event: 'START CJ', from: 'Assigned', to: 'In Progress', by: 'Raj' },
     { time: 'Apr 18 05:32 PM', entity: 'Machining - JO SUN', event: 'START CJ', from: 'Assigned', to: 'In Progress', by: 'Mike' },

@@ -104,7 +104,7 @@ FOOTER_HTML = '''<footer class="footer" role="contentinfo">
           <a href="../../about.html" class="footer-link">About</a>
           <a href="../../pricing.html" class="footer-link">Pricing</a>
           <a href="../../about.html#architecture" class="footer-link">Architecture</a>
-          <a href="../../hiring.html" class="footer-link">Hiring</a>
+          <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>
           <div class="footer-h">Get in touch</div>

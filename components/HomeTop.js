@@ -488,7 +488,7 @@ function ProblemSection() {
   const problems = [{
     n: '01',
     t: 'You pay before you ever see what works',
-    b: 'Six figures, often before you see a working screen. Three possible systems come out. You only find out which one you got after the cheque clears.',
+    b: 'Six figures, often before you see a working screen. Three possible systems come out. You only find out which one you got after the check clears.',
     footer: 'With SimpleGrid, you see and use it first. Then you pay.',
     visual: /*#__PURE__*/React.createElement("svg", {
       viewBox: "0 0 400 200",

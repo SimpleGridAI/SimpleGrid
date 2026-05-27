@@ -249,7 +249,7 @@ function sgDownloadCSV(filename, rows) {
 }
 
 // ===== Shared validation helpers (sg* prefix) =====
-// Use across every tool so behaviour is consistent.
+// Use across every tool so behavior is consistent.
 
 // Render an inline warning banner inside a result panel. The panel must have a
 // <div data-sg-warn></div> placeholder (or pass a custom selector). Pass an

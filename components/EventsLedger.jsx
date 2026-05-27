@@ -4,7 +4,7 @@
 function EventsLedger() {
   // Realistic event stream that types in over time
   const allEvents = [
-    { t: '11:47:02', actor: 'Sarah · Sales', verb: 'CANCEL_LINE',     entity: 'SO-4521 · Line 3',         from: 'In Production', to: 'Cancelled',     impact: 'WIP returned · Buyer notified' },
+    { t: '11:47:02', actor: 'Sarah · Sales', verb: 'CANCEL_LINE',     entity: 'SO-4521 · Line 3',         from: 'In Production', to: 'Canceled',      impact: 'WIP returned · Buyer notified' },
     { t: '11:46:58', actor: 'System',        verb: 'TRIGGER_FIRED',   entity: 'Inventory rule R-204',     from: '-',             to: 'Reorder draft', impact: 'PO-8821 prepared for approval' },
     { t: '11:46:51', actor: 'Mike · Floor',  verb: 'START_STAGE',     entity: 'JO-KEN-MIRROR · Assembly', from: 'Issued',        to: 'In progress',   impact: 'Stage clock started' },
     { t: '11:46:44', actor: 'Raj · QC',      verb: 'REJECT_BATCH',    entity: 'Batch B-7710 · 12 pcs',    from: 'Pending',       to: 'Rejected',      impact: 'Auto-routed to original contractor' },
@@ -361,7 +361,7 @@ function ProductHeroNew() {
           We don't sell software. We build a custom ERP around your factory.
         </h1>
         <p className="lead" style={{ color: leadColor, maxWidth: 760, marginTop: 18 }}>
-          Your stages, your contractors, your approvals, your costing logic - modelled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs.
+          Your stages, your contractors, your approvals, your costing logic - modeled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs.
         </p>
         <div style={{ marginTop: 28, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>Request an Invite →</button>
@@ -763,7 +763,7 @@ function AbilitySection() {
               <div style={{ display: 'grid', gap: 18 }}>
                 {[
                   { t: 'No training day', p: 'Day one, your floor is logging in. The interface is a sentence.' },
-                  { t: 'No menus to memorise', p: 'No SKU codes, no transaction codes, no eight-tab forms. The model knows what you mean.' },
+                  { t: 'No menus to memorize', p: 'No SKU codes, no transaction codes, no eight-tab forms. The model knows what you mean.' },
                   { t: 'No data lost in chat threads', p: 'Every "received this," "approved that," "QC rejected" becomes a permanent event with a name and a timestamp.' },
                 ].map((x, i) => (
                   <div key={i} style={{ display: 'grid', gridTemplateColumns: '28px 1fr', gap: 14, alignItems: 'start' }}>

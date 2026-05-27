@@ -38,7 +38,7 @@ function PrivacyPage() {
       <p>We use collected information to:</p>
       <ul>
         <li>Provide, operate, and maintain the Platform</li>
-        <li>Configure and personalise your workflows and system structure</li>
+        <li>Configure and personalize your workflows and system structure</li>
         <li>Process uploaded documents using AI/ML models</li>
         <li>Enable real-time updates, approvals, and status tracking</li>
         <li>Communicate about your account, onboarding, and support</li>
@@ -51,7 +51,7 @@ function PrivacyPage() {
       <h2>3. Data Storage and Security</h2>
       <p><strong>3.1 Storage:</strong> Data is primarily stored on secure cloud infrastructure located in India, in compliance with applicable Indian data protection laws.</p>
       <p><strong>3.2 Security Measures:</strong> We use encryption in transit (TLS/SSL) and at rest, role-based access controls, regular security assessments, and audit trails for all Platform activity. No system is completely secure; we cannot guarantee absolute security.</p>
-      <p><strong>3.3 Retention:</strong> Data is retained while your account is active. Upon termination, data is held for 90 days for export/recovery requests, then deleted or anonymised unless law requires otherwise.</p>
+      <p><strong>3.3 Retention:</strong> Data is retained while your account is active. Upon termination, data is held for 90 days for export/recovery requests, then deleted or anonymized unless law requires otherwise.</p>
 
       <h2>4. Sharing of Information</h2>
       <p>We may share information with:</p>

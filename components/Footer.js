@@ -53,7 +53,7 @@ function FIcon({
   return null;
 }
 function Footer() {
-  // Honour the prefix the blog generator sets so internal links work from
+  // Honor the prefix the blog generator sets so internal links work from
   // nested pages like /blog/{slug}/index.html.
   const prefix = typeof window !== 'undefined' && window.__SG_BLOG_ASSET_PREFIX__ || '';
   const px = href => {
@@ -109,7 +109,7 @@ function Footer() {
       l: 'Competitors',
       href: 'competitors.html'
     }, {
-      l: 'Hiring',
+      l: 'Careers',
       href: 'hiring.html'
     }]
   }];

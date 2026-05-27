@@ -4,7 +4,7 @@ const TIERS = [{
   price: '$0',
   priceUnit: 'For the build. For the migration. For the 30 days on your real floor.',
   accent: 'var(--sg-blue)',
-  features: ['We build a custom ERP modelled on your factory', 'Live in 7-21 days, at our cost and our risk', 'You run it on your real floor for 30 days', 'All your data migrated for you', 'If it doesn\'t move the business, you walk. No invoice.'],
+  features: ['We build a custom ERP modeled on your factory', 'Live in 7-21 days, at our cost and our risk', 'You run it on your real floor for 30 days', 'All your data migrated for you', 'If it doesn\'t move the business, you walk. No invoice.'],
   cta: 'Book a demo',
   ctaHref: 'https://cal.com/simplegrid-ai',
   highlight: true

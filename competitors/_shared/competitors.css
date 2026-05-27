@@ -1,0 +1,316 @@
+/*
+ * Shared styles for /competitors/* detail pages and the /competitors.html hub.
+ * Uses SimpleGrid brand tokens from colors_and_type.css - no new colors.
+ * Light-first: dark used sparingly (final CTA + quadrant container only).
+ */
+
+/* ------ Back link ------ */
+.cd-back { padding: 26px 0 0; }
+.cd-back a {
+  color: var(--sg-blue);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.cd-back a:hover { text-decoration: underline; }
+
+/* ------ Hero (LIGHT, brand) ------ */
+.cd-hero {
+  padding: 56px 0 72px;
+  background: linear-gradient(180deg, var(--sg-blue-light) 0%, var(--sg-white) 80%);
+}
+.cd-hero .container { max-width: 980px; }
+.cd-hero .eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  margin: 12px 0 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.cd-hero .pill-logo,
+.cd-table .pill-logo,
+.cd-hub-tile .pill-logo {
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--sg-white);
+}
+.cd-hero .pill-logo { width: 32px; height: 32px; font-size: 11px; }
+.cd-hero h1 {
+  font-family: var(--font-heading);
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--fg1);
+  margin: 0 0 18px;
+}
+.cd-hero .lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--fg2);
+  max-width: 740px;
+  margin: 0 0 28px;
+}
+.cd-hero .ticks { display: flex; gap: 24px; flex-wrap: wrap; margin: 0 0 30px; }
+.cd-hero .tick {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--fg1);
+  font-weight: 600;
+}
+.cd-hero .tick svg { color: var(--sg-green-dark); flex-shrink: 0; }
+
+/* ------ 2x2 Positioning map ------ */
+.cd-vs {
+  padding: 80px 0 72px;
+  background: var(--sg-white);
+}
+.cd-vs .container { max-width: 980px; }
+.cd-vs .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg3); text-align: center; margin-bottom: 10px; }
+.cd-vs h2 {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  color: var(--fg1);
+  text-align: center;
+  margin: 0 0 12px;
+  line-height: 1.1;
+}
+.cd-vs .sub { color: var(--fg2); text-align: center; max-width: 680px; margin: 0 auto 36px; font-size: 16px; line-height: 1.55; }
+.cd-quadrant-wrap {
+  background: var(--sg-charcoal);
+  border-radius: var(--radius-xl);
+  padding: 22px;
+}
+.cd-quadrant { width: 100%; height: auto; display: block; }
+
+/* ------ Comparison table ------ */
+.cd-table-section {
+  padding: 72px 0;
+  background: var(--sg-off-white);
+}
+.cd-table-section .container { max-width: 980px; }
+.cd-table-section h2 {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg1);
+  text-align: center;
+  margin: 0 0 32px;
+  line-height: 1.2;
+}
+.cd-table {
+  width: 100%;
+  background: var(--sg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.cd-table th, .cd-table td {
+  padding: 16px 20px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.cd-table tr:last-child th, .cd-table tr:last-child td { border-bottom: none; }
+.cd-table thead th {
+  font-size: 12px;
+  color: var(--fg3);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--sg-off-white);
+}
+.cd-table thead th .col-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--fg1);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.cd-table .pill-logo { width: 22px; height: 22px; font-size: 9px; }
+.cd-table tbody th { font-weight: 500; color: var(--fg2); width: 28%; }
+.cd-table td { color: var(--fg1); }
+.cd-table .ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.cd-table .ico-good {
+  background: color-mix(in srgb, var(--sg-green) 18%, transparent);
+  color: var(--sg-green-dark);
+}
+.cd-table .ico-mid {
+  background: color-mix(in srgb, var(--sg-mid-gray) 18%, transparent);
+  color: var(--sg-mid-gray);
+}
+.cd-table .ico-bad {
+  background: color-mix(in srgb, var(--sg-red) 14%, transparent);
+  color: var(--sg-red-dark);
+}
+
+/* ------ 3 short reason blocks ------ */
+.cd-reasons {
+  padding: 72px 0;
+  background: var(--sg-white);
+}
+.cd-reasons .container { max-width: 980px; }
+.cd-reasons .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg3); text-align: center; margin-bottom: 10px; }
+.cd-reasons h2 {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg1);
+  text-align: center;
+  margin: 0 0 36px;
+  line-height: 1.2;
+}
+.cd-reasons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.cd-reason {
+  padding: 24px 22px;
+  background: var(--sg-off-white);
+  border-radius: var(--radius-lg);
+  border-top: 3px solid var(--sg-blue);
+}
+.cd-reason h3 {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--fg1);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.cd-reason p {
+  font-size: 14px;
+  color: var(--fg2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ------ Final CTA (DARK accent, brand) ------ */
+.cd-final {
+  padding: 80px 0 96px;
+  background: var(--sg-black);
+  text-align: center;
+}
+.cd-final .eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--sg-white) 55%, transparent);
+  margin-bottom: 12px;
+}
+.cd-final h2 {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--sg-white);
+  margin: 0 0 12px;
+  line-height: 1.1;
+}
+.cd-final p {
+  color: color-mix(in srgb, var(--sg-white) 75%, transparent);
+  font-size: 16px;
+  margin: 0 auto 24px;
+  max-width: 520px;
+}
+
+/* ------ Hub tile grid (used by /competitors.html) ------ */
+.cd-hub-hero {
+  padding: 64px 0 56px;
+  background: linear-gradient(180deg, var(--sg-blue-light) 0%, var(--sg-white) 90%);
+}
+.cd-hub-hero .container { max-width: 1100px; }
+.cd-hub-hero .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 14px; }
+.cd-hub-hero h1 {
+  font-family: var(--font-heading);
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--fg1);
+  margin: 0 0 18px;
+}
+.cd-hub-hero .lead { font-size: 18px; line-height: 1.6; color: var(--fg2); max-width: 760px; margin: 0 0 28px; }
+
+.cd-hub-intro { padding: 48px 0 16px; background: var(--sg-white); }
+.cd-hub-intro .container { max-width: 1100px; }
+.cd-hub-intro h2 {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg1);
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+.cd-hub-intro p { font-size: 16px; line-height: 1.65; color: var(--fg2); max-width: 760px; margin: 0; }
+
+.cd-hub-list { padding: 24px 0 64px; background: var(--sg-white); }
+.cd-hub-list .container { max-width: 1100px; }
+.cd-hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 22px; }
+.cd-hub-tile { display: block; text-decoration: none; color: inherit; transition: transform 0.15s ease; }
+.cd-hub-tile:hover { transform: translateY(-2px); }
+.cd-hub-img {
+  background: var(--sg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 170px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cd-hub-tile:hover .cd-hub-img { border-color: var(--sg-blue); box-shadow: 0 8px 24px rgba(52,97,224,0.10); }
+.cd-hub-tile .pill-logo { width: 84px; height: 84px; font-size: 18px; border-radius: 14px; }
+.cd-hub-meta { padding: 14px 4px 0; }
+.cd-hub-label { font-size: 13px; color: var(--fg3); margin: 0 0 4px; font-weight: 500; }
+.cd-hub-name { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--fg1); letter-spacing: -0.01em; }
+
+/* ------ Responsive ------ */
+@media (max-width: 880px) {
+  .cd-hero h1, .cd-hub-hero h1 { font-size: 36px; }
+  .cd-vs h2 { font-size: 26px; }
+  .cd-table-section h2, .cd-reasons h2 { font-size: 24px; }
+  .cd-final h2 { font-size: 28px; }
+  .cd-table th, .cd-table td { padding: 12px 14px; font-size: 13px; }
+  .cd-reasons-grid { grid-template-columns: 1fr; }
+  .cd-hub-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+  .cd-hub-grid { grid-template-columns: 1fr; }
+}

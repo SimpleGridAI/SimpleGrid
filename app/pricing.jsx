@@ -6,7 +6,7 @@ const TIERS = [
     priceUnit: 'For the build. For the migration. For the 30 days on your real floor.',
     accent: 'var(--sg-blue)',
     features: [
-      'We build a custom ERP modelled on your factory',
+      'We build a custom ERP modeled on your factory',
       'Live in 7–21 days, at our cost and our risk',
       'You run it on your real floor for 30 days',
       'All your data migrated for you',

@@ -71,7 +71,7 @@ function LedgerVisual() {
     entity: 'SO-4521 Line Item',
     event: 'CANCEL LINE',
     from: 'In Production',
-    to: 'Cancelled',
+    to: 'Canceled',
     by: 'Sarah'
   }, {
     time: 'Apr 18 05:40 PM',

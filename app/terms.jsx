@@ -15,7 +15,7 @@ function TermsPage() {
         <li>You must be at least 18 years of age with legal capacity to contract.</li>
         <li>You must provide accurate, current business and account information.</li>
         <li>You are responsible for all activity under your account and the confidentiality of your credentials.</li>
-        <li>Report suspected unauthorised access immediately to <a href="mailto:hello@simplegrid.ai" style={{color:'var(--sg-blue)'}}>hello@simplegrid.ai</a>.</li>
+        <li>Report suspected unauthorized access immediately to <a href="mailto:hello@simplegrid.ai" style={{color:'var(--sg-blue)'}}>hello@simplegrid.ai</a>.</li>
       </ul>
 
       <h2>2. Platform Access and Use</h2>
@@ -26,8 +26,8 @@ function TermsPage() {
         <li>Use the Platform for any unlawful purpose</li>
         <li>Upload fraudulent or rights-infringing content</li>
         <li>Reverse-engineer or decompile any part of the Platform</li>
-        <li>Use automated scraping tools without authorisation</li>
-        <li>Share credentials with unauthorised parties</li>
+        <li>Use automated scraping tools without authorization</li>
+        <li>Share credentials with unauthorized parties</li>
         <li>Introduce malware or malicious code</li>
         <li>Interfere with Platform performance or security</li>
         <li>Resell or white-label the Platform without written consent</li>

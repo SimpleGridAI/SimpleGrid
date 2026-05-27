@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   makeRow(document.getElementById('lab-body'),labCols);
   makeRow(document.getElementById('lab-body'),labCols);
   makeRow(document.getElementById('mach-body'),machCols);
-  // Wire shared clamp behaviour for static + dynamic inputs.
+  // Wire shared clamp behavior for static + dynamic inputs.
   if (typeof sgWireNumericClamps === 'function') sgWireNumericClamps(document);
   recalc();
 
@@ -501,5 +501,5 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 </script>
-</body>
+<script src="../../components/BookDemoModal.js" defer></script></body>
 </html>
