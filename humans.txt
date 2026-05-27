@@ -1,0 +1,29 @@
+/* TEAM */
+
+Founder & operator: Mukund Agarwal
+Contact: hello [at] simplegrid.ai
+Twitter / X: @simplegridai
+LinkedIn: linkedin.com/company/simplegridai
+Site: simplegrid.ai
+Operated by: Valaya AI Technologies Pvt. Ltd. (Bengaluru, IN)
+
+/* THANKS */
+
+Built for the mid-market US manufacturer who has outgrown QuickBooks + Excel
+and cannot stomach a $500K, 18-month SAP deployment.
+
+NVIDIA Inception Program member.
+AWS Activate Startups member.
+
+/* SITE */
+
+Last update: 2026/05/27
+Language: English
+Doctype: HTML5
+Standards: HTML5, CSS3, JS (ES2015+), JSON-LD, WCAG 2.1 AA target
+Components: React 18 (UMD, CDN), jsPDF + autoTable (for tools)
+Software: no framework, no build step, no npm, deployed to GitHub Pages
+Source of truth: github.com/SimpleGridAI/SimpleGrid (main branch)
+
+If you read this far, you might be the kind of person who would build with us.
+See /hiring.html.

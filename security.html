@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+
+<title>Security &amp; Responsible Disclosure | SimpleGrid</title>
+<meta name="description" content="How to report a security issue in SimpleGrid (Valaya AI Technologies). Our responsible-disclosure policy, scope, and contact.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3461E0">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://simplegrid.ai/security.html">
+<link rel="icon" type="image/svg+xml" href="assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="assets/simplegrid-logomark.svg">
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="styles.css">
+
+<meta property="og:site_name" content="SimpleGrid">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://simplegrid.ai/security.html">
+<meta property="og:title" content="Security &amp; Responsible Disclosure | SimpleGrid">
+<meta property="og:description" content="How to report a security issue in SimpleGrid. Responsible-disclosure policy, scope, and contact.">
+<meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<meta property="og:image:alt" content="SimpleGrid security and responsible disclosure">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://simplegrid.ai/security.html#webpage",
+      "url": "https://simplegrid.ai/security.html",
+      "name": "Security & Responsible Disclosure | SimpleGrid",
+      "isPartOf": { "@id": "https://simplegrid.ai/#website" },
+      "publisher": { "@id": "https://simplegrid.ai/#org" },
+      "description": "SimpleGrid's responsible-disclosure policy and how to report a security issue.",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://simplegrid.ai/" },
+        { "@type": "ListItem", "position": 2, "name": "Security", "item": "https://simplegrid.ai/security.html" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+.legal-page { max-width: 820px; margin: 0 auto; padding: 80px 32px 64px; }
+.legal-page h2 { font-family: var(--font-heading); font-size: 25px; font-weight: 700; color: var(--fg1); letter-spacing: -0.01em; margin: 36px 0 12px; }
+.legal-page h3 { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--fg1); margin: 24px 0 8px; }
+.legal-page p, .legal-page li { font-size: 18px; color: var(--fg2); line-height: 1.7; }
+.legal-page ul { padding-left: 20px; margin: 8px 0 16px; }
+.legal-page li { margin-bottom: 6px; }
+.legal-page strong { color: var(--fg1); font-weight: 600; }
+.legal-page code { background: var(--sg-off-white); padding: 1px 6px; border-radius: 4px; font-size: 0.94em; }
+.legal-meta { font-size: 15px; color: var(--fg3); margin-top: 8px; }
+</style>
+
+<script src="assets/js/analytics-init.js" defer></script>
+<script src="assets/js/tracking.js" defer></script>
+<script src="assets/js/cookie-consent.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header role="banner" style="padding:18px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)">
+  <a href="/" aria-label="SimpleGrid home" style="text-decoration:none;color:var(--fg1);font-weight:600">SimpleGrid</a>
+  <nav aria-label="Main navigation" style="display:flex;gap:20px;font-size:14px">
+    <a href="/product.html">Product</a>
+    <a href="/pricing.html">Pricing</a>
+    <a href="/case-studies.html">Case studies</a>
+    <a href="/blog.html">Blog</a>
+    <a href="/about.html">About</a>
+    <a href="/tools/">Productive Tools</a>
+    <a href="https://cal.com/simplegrid-ai" rel="noopener noreferrer">Book a demo</a>
+  </nav>
+</header>
+
+<main id="main" class="legal-page">
+  <h1 class="h1" style="margin:4px 0 8px">Security &amp; Responsible Disclosure</h1>
+  <div class="legal-meta">Effective Date: May 27, 2026 &middot; Operated by Valaya AI Technologies</div>
+
+  <h2>Contact</h2>
+  <p>Send security reports to <a href="mailto:hello@simplegrid.ai">hello@simplegrid.ai</a> with the subject line beginning <code>[security]</code>. The machine-readable contact is published at <a href="/.well-known/security.txt">/.well-known/security.txt</a>.</p>
+
+  <h2>Scope</h2>
+  <ul>
+    <li><code>simplegrid.ai</code> and all sub-paths (this marketing site).</li>
+    <li>The SimpleGrid product platform served from customer-specific subdomains.</li>
+    <li>The free productive tools at <code>/tools/</code> (everything runs in the browser; we still want to hear about XSS, mixed-content, or CSP-bypass findings).</li>
+  </ul>
+  <p>Out of scope: third-party hosted dependencies (PostHog, GA4, cal.com, GitHub Pages, Cloudflare) - please report those to their respective programs.</p>
+
+  <h2>What we ask</h2>
+  <ul>
+    <li>Give us a reasonable window (we target 14 days for initial triage) before public disclosure.</li>
+    <li>Don't run automated scans that generate &gt;100 requests/minute against our origins.</li>
+    <li>Don't access, modify, or exfiltrate data belonging to anyone but yourself.</li>
+    <li>Don't social-engineer SimpleGrid employees, partners, or customers.</li>
+  </ul>
+
+  <h2>What you can expect</h2>
+  <ul>
+    <li>Acknowledgement of your report within 2 business days.</li>
+    <li>An initial severity assessment + remediation plan within 14 days.</li>
+    <li>Credit in our release notes if you'd like attribution.</li>
+    <li>For valid findings on the SimpleGrid product, a bounty paid in USD via the channel of your choice. Amount scales with severity (CVSS) and impact.</li>
+  </ul>
+
+  <h2>Hardening posture</h2>
+  <p>Documented for transparency:</p>
+  <ul>
+    <li>HTTPS everywhere with HSTS (max-age = 1 year).</li>
+    <li>Strict Content-Security-Policy declared on every page (default-src 'self', explicit allowlist for analytics + form-submit + CDN).</li>
+    <li>X-Content-Type-Options: nosniff via meta http-equiv (GitHub Pages constraint).</li>
+    <li>Referrer-Policy: strict-origin-when-cross-origin.</li>
+    <li>Permissions-Policy disabling geolocation, microphone, camera, and payment.</li>
+    <li>Analytics is deferred to first user interaction; nothing fires before consent.</li>
+    <li>The product platform uses per-tenant isolated PostgreSQL databases (no shared multi-tenant table).</li>
+  </ul>
+
+  <h2>Past disclosures</h2>
+  <p>None published yet. As soon as we close a reported issue with attribution, it lands here.</p>
+</main>
+
+<footer class="footer" role="contentinfo" style="border-top:1px solid var(--border);margin-top:64px;padding:32px">
+  <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;font-size:14px;color:var(--fg3);flex-wrap:wrap;gap:16px">
+    <div>&copy; 2026 Valaya AI Technologies</div>
+    <div style="display:flex;gap:18px">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/accessibility.html">Accessibility</a>
+      <a href="/security.html">Security</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
