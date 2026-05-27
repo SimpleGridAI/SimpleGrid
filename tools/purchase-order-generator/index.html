@@ -60,7 +60,7 @@
       "mainEntity": [
         { "@type": "Question", "name": "What is a purchase order?", "acceptedAnswer": { "@type": "Answer", "text": "A purchase order (PO) is the buyer's formal commitment to a vendor to purchase specific items at agreed prices, quantities, and delivery terms. Issuing a PO before goods arrive gives both sides a written record of what was ordered." }},
         { "@type": "Question", "name": "Is this PO generator free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Fill the form in your browser, click Download PDF, done. No signup, no email wall, no watermark on the PDF (other than a small SimpleGrid credit line at the bottom)." }},
-        { "@type": "Question", "name": "Where does my data go?", "acceptedAnswer": { "@type": "Answer", "text": "Nowhere. Everything runs in your browser. Your buyer info, vendor library, and recent POs are saved to your browser's localStorage only - never to our servers." }},
+        { "@type": "Question", "name": "Where does my data go?", "acceptedAnswer": { "@type": "Answer", "text": "Form values stay in your browser. Your buyer info, vendor library, and recent POs are saved to your browser's localStorage only - never to our servers. Anonymous page analytics (which page you viewed, not what you typed) fire only if you accept the cookie banner." }},
         { "@type": "Question", "name": "Can I save my vendors for next time?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the Save Vendor button next to the vendor block. The next time you open this tool from the same browser, your saved vendors appear in the Load Vendor dropdown." }},
         { "@type": "Question", "name": "What if I need 50 POs a week?", "acceptedAnswer": { "@type": "Answer", "text": "You've probably outgrown a generator. At that volume you want vendor history, receipt tracking, inventory updates triggered by the PO, and the ability to consolidate POs across multiple jobs. SimpleGrid does this in one configured ERP that ships in 7-21 days." }}
       ]
@@ -111,9 +111,9 @@
       <div class="tool-card">
         <h2>Your company (buyer)</h2>
         <div class="tool-form-grid">
-          <div class="tool-field"><label for="buyer-name">Company name</label><input id="buyer-name" type="text" maxlength="120" placeholder="Acme Manufacturing Inc."></div>
+          <div class="tool-field"><label for="buyer-name">Company name</label><input data-required id="buyer-name" type="text" maxlength="120" placeholder="Acme Manufacturing Inc."></div>
           <div class="tool-field"><label for="buyer-phone">Phone <span class="hint">optional</span></label><input id="buyer-phone" type="text" maxlength="30" placeholder="(330) 555-0188"></div>
-          <div class="tool-field full"><label for="buyer-address">Address</label><input id="buyer-address" type="text" maxlength="200" placeholder="1200 Industrial Way, Akron, OH 44310"></div>
+          <div class="tool-field full"><label for="buyer-address">Address</label><input data-required id="buyer-address" type="text" maxlength="200" placeholder="1200 Industrial Way, Akron, OH 44310"></div>
           <div class="tool-field"><label for="buyer-email">Email</label><input id="buyer-email" type="email" maxlength="120" placeholder="purchasing@acme.com"></div>
           <div class="tool-field"><label for="buyer-contact">Buyer (your name)</label><input id="buyer-contact" type="text" maxlength="80" placeholder="Sarah Mitchell"></div>
         </div>
@@ -137,7 +137,7 @@
             <p class="tool-note">PNG, JPG, WebP, or SVG. Will be cropped before embedding. Lives only in your browser (~5 MB localStorage limit).</p>
           </div>
           <div>
-            <label style="font-size:13px;font-weight:600;color:var(--fg2);display:block;margin-bottom:6px" for="vendor-name">Brand color</label>
+            <label style="font-size:13px;font-weight:600;color:var(--fg2);display:block;margin-bottom:6px" for="brand-color-hex">Brand color</label>
             <div style="display:flex;align-items:center;gap:10px">
               <input id="brand-color" type="color" value="#3461E0" style="width:60px;height:40px;border:1px solid var(--border);border-radius:6px;padding:3px;cursor:pointer;background:#fff">
               <input id="brand-color-hex" type="text" value="#3461E0" maxlength="7" pattern="^#[0-9A-Fa-f]{6}$" style="width:90px;font-family:var(--font-mono,monospace);font-size:14px;padding:9px 10px;border:1px solid var(--border);border-radius:6px">
@@ -158,9 +158,9 @@
           <button id="vendor-clear" type="button" class="btn-secondary">Clear vendor</button>
         </div>
         <div class="tool-form-grid">
-          <div class="tool-field"><label>Vendor name</label><input data-required id="vendor-name" type="text" maxlength="120" placeholder="Midwest Steel Supply LLC"></div>
+          <div class="tool-field"><label for="vendor-name">Vendor name</label><input data-required id="vendor-name" type="text" maxlength="120" placeholder="Midwest Steel Supply LLC"></div>
           <div class="tool-field"><label for="vendor-contact">Vendor contact</label><input id="vendor-contact" type="text" maxlength="80" placeholder="Tom Reed"></div>
-          <div class="tool-field full"><label for="vendor-address">Vendor address</label><input id="vendor-address" type="text" maxlength="200" placeholder="8400 W. Industrial Blvd, Cleveland, OH 44114"></div>
+          <div class="tool-field full"><label for="vendor-address">Vendor address</label><input data-required id="vendor-address" type="text" maxlength="200" placeholder="8400 W. Industrial Blvd, Cleveland, OH 44114"></div>
           <div class="tool-field"><label for="vendor-phone">Phone</label><input id="vendor-phone" type="text" maxlength="30" placeholder="(216) 555-0142"></div>
           <div class="tool-field"><label for="vendor-email">Email</label><input id="vendor-email" type="email" maxlength="120" placeholder="orders@midweststeel.com"></div>
         </div>
@@ -261,7 +261,7 @@
         <p>Yes. No signup, no email wall, no usage limit. Generate as many POs as you need.</p>
       </details>
       <details><summary>Where does my data go?</summary>
-        <p>Nowhere. Everything runs in your browser. The PDF is built locally and downloaded to your computer. Your buyer info, vendor library, and recent POs save to your browser's localStorage - never to a server.</p>
+        <p>Form values stay in your browser. The PDF is built locally and downloaded to your computer. Your buyer info, vendor library, and recent POs save to your browser's localStorage - never to a server. The one caveat: anonymous page analytics (which page you viewed, not what you typed) fire if you accept the cookie banner, and not otherwise.</p>
       </details>
       <details><summary>Can I save my vendors so I don't retype them?</summary>
         <p>Yes. After typing a vendor, click "Save current vendor" - it's added to your local library. Next time, pick from the dropdown at the top of the Vendor section.</p>
@@ -435,10 +435,10 @@ document.addEventListener('DOMContentLoaded', () => {
       logoUpload.value = '';
       return;
     }
-    const fr = new FileReader();
-    fr.onload = ev => openCropper(ev.target.result);
-    fr.onerror = () => sgToast('Could not read the file. Try a different image.', { type: 'error' });
-    fr.readAsDataURL(f);
+    sgReadImageFile(f,
+      dataUrl => openCropper(dataUrl),
+      msg => { sgToast(msg, { type: 'error' }); logoUpload.value = ''; }
+    );
   });
 
   document.getElementById('crop-cancel').addEventListener('click', closeCropper);
@@ -503,7 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <td><input type="text" maxlength="12" data-f="unit" placeholder="sheet" value="${esc(prefill.unit || '')}"></td>
       <td><input data-clamp="0,1000000" type="number" class="num" data-f="price" step="0.01" min="0" max="1000000" value="${esc(prefill.price != null ? prefill.price : '')}" placeholder="0.00"></td>
       <td class="col-line-total" data-f="line">$0.00</td>
-      <td class="col-actions"><button type="button" class="row-del" title="Remove">x</button></td>
+      <td class="col-actions"><button type="button" class="row-del" title="Remove" aria-label="Remove line item">×</button></td>
     `;
     itemsBody.appendChild(tr);
     tr.querySelector('.row-del').addEventListener('click', () => { tr.remove(); recalc(); });

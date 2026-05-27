@@ -230,7 +230,8 @@
     <div class="results-hero" id="diag-hero" style="display:none"></div>
     <div class="tool-card" id="diag-detail" style="display:none;margin-top:24px"></div>
 
-    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px;gap:10px">
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px;gap:14px;align-items:center">
+      <span id="answer-progress-hint" style="font-size:13px;color:var(--fg3, #6b7280)" aria-live="polite"></span>
       <button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button>
     </div>
 
@@ -342,7 +343,24 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('diag-detail').style.display = 'none';
     document.getElementById('generate-pdf').disabled = true;
     recalc();
+    updateProgressHint();
   }
+
+  function updateProgressHint(){
+    const host = document.getElementById('answer-progress-hint');
+    if (!host) return;
+    const list = (mode === 'deep') ? DEEP_FIELDS : fields;
+    let answered = 0;
+    for (const n of list) if (document.querySelector('input[name="'+n+'"]:checked')) answered++;
+    const total = list.length;
+    const complete = answered >= total;
+    host.textContent = answered + ' of ' + total + ' questions answered' +
+      (complete ? ' — ready to download.' : ' — answer all to enable the PDF.');
+    host.style.color = complete ? '#15803d' : 'var(--fg3, #6b7280)';
+  }
+  document.addEventListener('change', e => {
+    if (e.target && e.target.matches && e.target.matches('input[type="radio"]')) updateProgressHint();
+  });
   modeQuick.addEventListener('click', ()=>setMode('quick'));
   modeDeep.addEventListener('click', ()=>setMode('deep'));
 

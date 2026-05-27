@@ -59,7 +59,7 @@
     </div>
     <div class="results-hero" id="hero" style="display:none"></div>
     <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button></div>
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px;align-items:center;gap:14px"><span id="answer-progress-hint" style="font-size:13px;color:var(--fg3, #6b7280)" aria-live="polite"></span><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button></div>
     <div class="tool-cta">
       <div class="eyebrow">When the difference between selling and not selling is 12 months of work</div>
       <h2>SimpleGrid takes exit-readiness from years to quarters.</h2>
@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     {key:'ls',name:'Legal & Structural',qs:['ls17','ls18','ls19','ls20']}
   ];
   const allQs = pillars.flatMap(p=>p.qs);
+  if (typeof sgScorecardProgress === 'function') sgScorecardProgress('answer-progress-hint', allQs, 'generate-pdf', 'questions');
   // Listen on the radio inputs (covers click, tap, and keyboard) so score updates on every selection.
   document.querySelectorAll('.q-options').forEach(g=>{
     g.querySelectorAll('input[type="radio"]').forEach(input=>{

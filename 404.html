@@ -71,6 +71,10 @@
     <p class="nf-code">404</p>
     <h1 class="nf-h">We couldn't find that page.</h1>
     <p class="nf-p">The link may be old, or the page may have moved. Try one of these instead:</p>
+    <div id="nf-suggest" style="display:none;margin:0 0 28px;padding:16px 18px;background:#F4F7FB;border:1px solid #D6DEEE;border-radius:10px;text-align:left">
+      <div style="font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3461E0;margin-bottom:6px">Did you mean</div>
+      <div id="nf-suggest-list" style="display:flex;flex-direction:column;gap:6px"></div>
+    </div>
     <div class="nf-cta">
       <a class="nf-btn nf-btn-primary" href="/">Go to homepage</a>
       <a class="nf-btn nf-btn-secondary" href="/tools/">Browse productive tools</a>
@@ -85,6 +89,50 @@
     </div>
   </div>
 </main>
+<script>
+(function(){
+  var TOOLS = ['automation-roi-estimator','bill-of-materials-template','break-even-calculator','burden-rate-calculator','business-valuation-calculator','capacity-planning-calculator','cost-of-poor-quality','customer-concentration-risk','digital-maturity-assessment','downtime-cost-calculator','ebitda-calculator','erp-needs-assessment','erp-readiness-scorecard','exit-readiness-scorecard','expansion-roi-calculator','hire-vs-overtime','insurance-coverage-checklist','invoice-generator','iso-9001-readiness','job-cost-calculator','lease-vs-buy-equipment','make-vs-buy-calculator','manufacturing-kpi-benchmark','markup-vs-margin','oee-calculator','operations-health-score','osha-compliance-checklist','production-schedule-template','purchase-order-generator','quality-inspection-checklist','quote-generator','reorder-point-calculator','revenue-per-employee','scrap-waste-calculator','sde-calculator'];
+  var TOP = ['product','pricing','about','case-studies','hiring','blog','competitors','privacy','terms'];
+  var path = (location.pathname || '').toLowerCase().replace(/\/+$/,'');
+  var last = path.split('/').filter(Boolean).pop() || '';
+  if (!last) return;
+  // Strip common file extensions / trailing punctuation.
+  var stub = last.replace(/\.(html?|php|aspx?)$/,'');
+  function score(target, q){
+    if (target === q) return 100;
+    if (target.indexOf(q) === 0) return 80 - (target.length - q.length);
+    if (target.indexOf(q) >= 0) return 60 - (target.length - q.length);
+    if (q.indexOf(target) === 0) return 50;
+    // Fallback: count shared chars
+    var t = target.replace(/-/g,''), c = q.replace(/-/g,''), n = 0;
+    for (var i=0;i<c.length;i++) if (t.indexOf(c[i]) >= 0) n++;
+    return Math.floor(20 * n / Math.max(c.length, 1));
+  }
+  var pool = [];
+  if (path.indexOf('/tools/') === 0) {
+    TOOLS.forEach(function(s){ pool.push({slug:s, url:'/tools/'+s+'/'}); });
+  } else {
+    TOP.forEach(function(s){ pool.push({slug:s, url:'/'+s+'.html'}); });
+    TOOLS.forEach(function(s){ pool.push({slug:s, url:'/tools/'+s+'/'}); });
+  }
+  pool.forEach(function(p){ p.score = score(p.slug, stub); });
+  pool.sort(function(a,b){ return b.score - a.score; });
+  var top = pool.filter(function(p){ return p.score >= 30; }).slice(0, 3);
+  if (!top.length) return;
+  var host = document.getElementById('nf-suggest');
+  var list = document.getElementById('nf-suggest-list');
+  top.forEach(function(p){
+    var a = document.createElement('a');
+    a.href = p.url;
+    a.textContent = p.slug.replace(/-/g,' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+    a.style.cssText = 'font-size:15px;font-weight:600;color:#3461E0;text-decoration:none';
+    a.onmouseover = function(){ a.style.textDecoration = 'underline'; };
+    a.onmouseout = function(){ a.style.textDecoration = 'none'; };
+    list.appendChild(a);
+  });
+  host.style.display = 'block';
+})();
+</script>
 
 <footer class="nf-foot">
   &copy; 2026 Valaya AI Technologies &middot;

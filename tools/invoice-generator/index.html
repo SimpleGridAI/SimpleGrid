@@ -325,10 +325,10 @@ document.addEventListener('DOMContentLoaded', () => {
         logoUpload.value = '';
         return;
       }
-      const fr = new FileReader();
-      fr.onload = ev => openCropper(ev.target.result);
-      fr.onerror = () => { if (typeof sgToast === 'function') sgToast('Could not read the file. Try a different image.', { type: 'error' }); };
-      fr.readAsDataURL(f);
+      sgReadImageFile(f,
+        dataUrl => openCropper(dataUrl),
+        msg => { if (typeof sgToast === 'function') sgToast(msg, { type: 'error' }); logoUpload.value = ''; }
+      );
     });
 
     document.getElementById('crop-cancel').addEventListener('click', closeCropper);
@@ -376,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <td><input data-clamp="0,1000000" type="number" class="num" data-f="qty" step="0.01" min="0" max="1000000" value="${esc(p.qty!=null?p.qty:'')}" placeholder="0"></td>
       <td><input data-clamp="0,1000000" type="number" class="num" data-f="price" step="0.01" min="0" max="1000000" value="${esc(p.price!=null?p.price:'')}" placeholder="0.00"></td>
       <td class="col-line-total" data-f="line">$0.00</td>
-      <td class="col-actions"><button type="button" class="row-del">x</button></td>`;
+      <td class="col-actions"><button type="button" class="row-del" title="Remove" aria-label="Remove line item">×</button></td>`;
     itemsBody.appendChild(tr);
     tr.querySelector('.row-del').addEventListener('click', () => { tr.remove(); recalc(); });
     tr.querySelectorAll('input').forEach(i => i.addEventListener('input', recalc));

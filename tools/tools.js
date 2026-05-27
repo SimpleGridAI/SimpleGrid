@@ -355,7 +355,13 @@ function sgClampInput(el, min, max, opts) {
   if (typeof max === 'number' && clamped > max) clamped = max;
   if (clamped !== v) {
     el.value = clamped;
-    if (!opts.silent) sgFlashField(el);
+    if (!opts.silent) {
+      sgFlashField(el);
+      const rangeLo = typeof min === 'number' ? min : '−∞';
+      const rangeHi = typeof max === 'number' ? max : '∞';
+      const label = (el.labels && el.labels[0] ? el.labels[0].textContent.trim() : (el.placeholder || el.name || 'value'));
+      sgToast(label + ': adjusted to ' + clamped + ' (allowed range ' + rangeLo + '–' + rangeHi + ')', { type: 'info' });
+    }
   }
   return clamped;
 }
@@ -371,7 +377,8 @@ function sgFlashField(el) {
 // Apply min/max to every input matching a selector. Selector defaults to
 // all number/text inputs with a data-clamp attribute. The data-clamp value is
 // "min,max" (either side optional, e.g. "0,100" or "0," or ",100").
-// On 'blur' the value is clamped. On 'input' the field is just flagged.
+// On 'input' the value is clamped silently and the pre-clamp raw is recorded;
+// on 'blur' a single toast fires if the raw differed from the clamped value.
 function sgWireNumericClamps(scope) {
   scope = scope || document;
   scope.querySelectorAll('[data-clamp]').forEach(el => {
@@ -387,13 +394,28 @@ function sgWireNumericClamps(scope) {
     if (typeof max === 'number' && !el.getAttribute('maxlength')) {
       el.setAttribute('maxlength', String(Math.max(10, String(Math.floor(max)).length + 4)));
     }
-    el.addEventListener('blur', () => sgClampInput(el, min, max));
-    // Also clamp on input so values entered without a subsequent blur (mouse
-    // straight to submit button) cannot pass through unbounded. Use capture
-    // phase so the clamp lands BEFORE any tool-specific recalc listener reads
-    // the value - otherwise listeners fire in registration order and recalc
-    // can see an unclamped value on the very first input event.
-    el.addEventListener('input', () => sgClampInput(el, min, max, { silent: true }), true);
+    // Clamp on input (silent), but record the pre-clamp raw so blur can
+    // explain it. Capture phase so the clamp lands BEFORE tool-specific recalc.
+    el.addEventListener('input', () => {
+      const raw = parseFloat(el.value);
+      const clamped = sgClampInput(el, min, max, { silent: true });
+      if (Number.isFinite(raw) && raw !== clamped) el.dataset.sgRawOob = String(raw);
+      else delete el.dataset.sgRawOob;
+    }, true);
+    el.addEventListener('blur', () => {
+      if (el.dataset.sgRawOob != null) {
+        const raw = parseFloat(el.dataset.sgRawOob);
+        const clamped = sgClampInput(el, min, max, { silent: true });
+        const rangeLo = typeof min === 'number' ? min : '−∞';
+        const rangeHi = typeof max === 'number' ? max : '∞';
+        const label = (el.labels && el.labels[0] ? el.labels[0].textContent.trim() : (el.placeholder || el.name || 'value'));
+        sgFlashField(el);
+        sgToast(label + ': "' + raw + '" adjusted to ' + clamped + ' (allowed range ' + rangeLo + '–' + rangeHi + ')', { type: 'info' });
+        delete el.dataset.sgRawOob;
+      } else {
+        sgClampInput(el, min, max, { silent: true });
+      }
+    });
   });
 }
 
@@ -445,14 +467,85 @@ function sgGuardFreeText(scope) {
   const TEXT_DEFAULT = 1000;
   scope.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input:not([type])').forEach(el => {
     if (!el.hasAttribute('maxlength')) el.setAttribute('maxlength', String(TEXT_DEFAULT));
+    sgEnforceMaxLen(el);
   });
   scope.querySelectorAll('textarea').forEach(el => {
     if (!el.hasAttribute('maxlength')) el.setAttribute('maxlength', '5000');
+    sgEnforceMaxLen(el);
+  });
+}
+
+// Read an uploaded file and verify the bytes actually decode as an image
+// before handing the data URL to the caller. Defends against a file that
+// lies about its MIME type (e.g. .exe served as image/png). Calls
+// onOk(dataUrl) on a successful image decode, onErr(message) otherwise.
+function sgReadImageFile(file, onOk, onErr) {
+  if (!file) { onErr && onErr('No file selected.'); return; }
+  const fr = new FileReader();
+  fr.onload = ev => {
+    const dataUrl = ev.target.result;
+    const probe = new Image();
+    probe.onload = () => {
+      if (!probe.naturalWidth || !probe.naturalHeight) {
+        onErr && onErr('That file does not decode as an image. Use a PNG, JPG, WebP, or SVG.');
+      } else {
+        onOk && onOk(dataUrl);
+      }
+    };
+    probe.onerror = () => onErr && onErr('That file is not a valid image. Use a PNG, JPG, WebP, or SVG.');
+    probe.src = dataUrl;
+  };
+  fr.onerror = () => onErr && onErr('Could not read the file. Try a different image.');
+  fr.readAsDataURL(file);
+}
+
+// Hard-truncate on the input event so a paste or programmatic value=... that
+// slips past the browser's maxlength enforcement can't bloat downstream PDFs
+// or localStorage. The browser usually catches typing but not paste in every
+// engine, and never catches el.value = ....
+function sgEnforceMaxLen(el) {
+  if (!el || el.dataset.sgMaxlenWired) return;
+  el.dataset.sgMaxlenWired = '1';
+  el.addEventListener('input', () => {
+    const max = parseInt(el.getAttribute('maxlength'), 10);
+    if (max > 0 && (el.value || '').length > max) {
+      el.value = el.value.slice(0, max);
+      sgFlashField(el);
+    }
   });
 }
 // Run once at DOM ready so every tool gets the cap without needing per-page
 // wiring. Idempotent: if a field already has a maxlength, it's left alone.
 document.addEventListener('DOMContentLoaded', () => { try { sgGuardFreeText(document); } catch (e) {} });
+
+// Wire a "X of N answered" progress hint for a scorecard/diagnostic. Pass:
+//   - hintId: id of the host element (<span> or <div>) that will receive text
+//   - radioNames: array of radio-group names that must each have a selection
+//   - btnId: id of the submit/PDF button to enable when all are answered
+//   - label: optional noun for the message ("questions", "items"); default "questions"
+// Updates on any radio change in the document. Idempotent per page.
+function sgScorecardProgress(hintId, radioNames, btnId, label) {
+  const host = document.getElementById(hintId);
+  const btn = document.getElementById(btnId);
+  if (!host || !radioNames || !radioNames.length) return;
+  const noun = label || 'questions';
+  const total = radioNames.length;
+  const update = () => {
+    let answered = 0;
+    for (const n of radioNames) {
+      if (document.querySelector('input[name="' + n + '"]:checked')) answered++;
+    }
+    const complete = answered >= total;
+    host.textContent = answered + ' of ' + total + ' ' + noun + ' answered' +
+      (complete ? ' — ready to download.' : ' — answer all to enable the PDF.');
+    host.style.color = complete ? '#15803d' : 'var(--fg3, #6b7280)';
+    if (btn) btn.disabled = !complete;
+  };
+  document.addEventListener('change', e => {
+    if (e.target && e.target.matches && e.target.matches('input[type="radio"]')) update();
+  });
+  update();
+}
 
 // ----- Reusable: hook up "Save my company" pattern -----
 function sgBindFields(fieldIdsToStorageKey) {

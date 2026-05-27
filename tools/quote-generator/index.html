@@ -288,10 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
         logoUpload.value = '';
         return;
       }
-      const fr = new FileReader();
-      fr.onload = ev => openCropper(ev.target.result);
-      fr.onerror = () => { if (typeof sgToast === 'function') sgToast('Could not read the file. Try a different image.', { type: 'error' }); };
-      fr.readAsDataURL(f);
+      sgReadImageFile(f,
+        dataUrl => openCropper(dataUrl),
+        msg => { if (typeof sgToast === 'function') sgToast(msg, { type: 'error' }); logoUpload.value = ''; }
+      );
     });
 
     document.getElementById('crop-cancel').addEventListener('click', closeCropper);
@@ -381,6 +381,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('generate-pdf').addEventListener('click',()=>{
     if (typeof sgValidateRequired === 'function' && !sgValidateRequired(document)) return;
     if (typeof sgValidateDateOrder === 'function' && !sgValidateDateOrder(document.getElementById('q-date'), document.getElementById('q-valid'), 'Valid-until date')) return;
+    if (typeof sgValidateEmail === 'function') {
+      if (!sgValidateEmail(document.getElementById('seller-email'))) return;
+      if (!sgValidateEmail(document.getElementById('cust-email'))) return;
+    }
     const t=recalc();
     const lines=lineItems().filter(i=>i.sku||i.desc||i.qty||i.price);
     if(lines.length===0){sgToast('Add at least one line item.',{type:'error'});return;}

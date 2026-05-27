@@ -116,15 +116,29 @@ document.addEventListener('DOMContentLoaded',()=>{
         <tbody>`;
     function scen(name, newFixed, newVar, newPrice){
       const nCm = newPrice - newVar;
-      const nBe = nCm>0 ? newFixed/nCm : 0;
+      if (nCm <= 0) {
+        return `<tr><td>${name}</td><td class="num">N/A</td><td class="num" style="color:var(--fg3, #6b7280)">no break-even (variable ≥ price)</td></tr>`;
+      }
+      const nBe = newFixed/nCm;
+      if (!validCM) {
+        return `<tr><td>${name}</td><td class="num">${Math.round(nBe).toLocaleString()}</td><td class="num" style="color:var(--fg3, #6b7280)">n/a (no baseline)</td></tr>`;
+      }
       const delta = nBe - beUnits;
-      return `<tr><td>${name}</td><td class="num">${Math.round(nBe).toLocaleString()}</td><td class="num">${delta>0?'+':''}${Math.round(delta)} (${delta>0?'+':''}${beUnits>0?(delta/beUnits*100).toFixed(0):0}%)</td></tr>`;
+      const pct = beUnits > 0 ? (delta/beUnits*100).toFixed(0) : 'n/a';
+      const pctStr = (pct === 'n/a') ? '(n/a)' : '(' + (delta>0?'+':'') + pct + '%)';
+      return `<tr><td>${name}</td><td class="num">${Math.round(nBe).toLocaleString()}</td><td class="num">${delta>0?'+':''}${Math.round(delta).toLocaleString()} ${pctStr}</td></tr>`;
     }
     scenarioTable += scen('Price +10%', fixed, varc, price*1.1);
     scenarioTable += scen('Price -10%', fixed, varc, price*0.9);
     scenarioTable += scen('Variable cost +15%', fixed, varc*1.15, price);
     scenarioTable += scen('Fixed costs +$10K/month', fixed+10000, varc, price);
-    if (target>0) scenarioTable += `<tr><td>For ${fmt$(target)}/month profit</td><td class="num"><strong>${Math.round(targetUnits).toLocaleString()}</strong></td><td class="num">+${Math.round(targetUnits-beUnits)} above break-even</td></tr>`;
+    if (target>0) {
+      if (validCM) {
+        scenarioTable += `<tr><td>For ${fmt$(target)}/month profit</td><td class="num"><strong>${Math.round(targetUnits).toLocaleString()}</strong></td><td class="num">+${Math.round(targetUnits-beUnits).toLocaleString()} above break-even</td></tr>`;
+      } else {
+        scenarioTable += `<tr><td>For ${fmt$(target)}/month profit</td><td class="num">N/A</td><td class="num" style="color:var(--fg3, #6b7280)">requires positive contribution margin</td></tr>`;
+      }
+    }
     scenarioTable += '</tbody></table>';
     document.getElementById('detail').innerHTML = scenarioTable + `
       <p class="tool-note" style="margin-top:14px">Healthy margin of safety for manufacturing: 20%+ (you can lose 20% of volume and still break even). Below 10% is fragile. Negative means you're already operating at a loss.</p>

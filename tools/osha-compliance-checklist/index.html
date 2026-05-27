@@ -59,7 +59,7 @@
     </div>
     <div class="results-hero" id="hero" style="display:none"></div>
     <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button></div>
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px;align-items:center;gap:14px"><span id="answer-progress-hint" style="font-size:13px;color:var(--fg3, #6b7280)" aria-live="polite"></span><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button></div>
     <div class="tool-cta">
       <div class="eyebrow">When safety is a binder, not a system</div>
       <h2>SimpleGrid turns safety checklists into recurring events with assignment + verification.</h2>
@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   const ITEMS = [["Aisles + passageways clear, no obstructions", "Critical"], ["Floor surfaces dry, free from oil/water", "Critical"], ["Elevated platforms have guardrails (42-inch top, 21-inch mid)", "Critical"], ["Written Emergency Action Plan posted (>10 employees)", "Critical"], ["Fire extinguishers mounted within 75 ft, inspected monthly", "Critical"], ["Emergency exits open outward, not blocked", "Critical"], ["Electrical panels have 36-inch clearance, not blocked", "Critical"], ["No exposed wiring, no frayed cords", "Critical"], ["Machine guards on all point-of-operation hazards", "Critical"], ["Power transmission fully enclosed (belts, pulleys)", "Critical"], ["E-stops accessible at each machine, tested monthly", "Critical"], ["PPE Hazard Assessment documented", "Critical"], ["Eye protection where flying particles exist", "Critical"], ["Written HazCom program maintained", "Critical"], ["SDS for all hazardous chemicals, accessible", "Critical"], ["All containers labeled (incl. secondary)", "Critical"], ["Written LOTO procedures per equipment type", "Critical"], ["Each authorized employee has personal lock", "Critical"], ["Annual LOTO procedure inspection documented", "Critical"], ["Noise survey done (areas over 85 dBA TWA)", "Important"], ["Hearing Conservation Program for over-85 dBA exposures", "Critical"], ["Forklift operators trained + certified (3-yr recert)", "Critical"], ["Forklift daily pre-use inspection logged", "Important"], ["Overhead cranes inspected annually", "Critical"], ["Capacity posted on cranes/hoists", "Important"]];
   const total = ITEMS.length;
   const allQs = Array.from({length:total}, (_,i)=>'q'+(i+1));
+  if (typeof sgScorecardProgress === 'function') sgScorecardProgress('answer-progress-hint', allQs, 'generate-pdf', 'items');
   document.querySelectorAll('.q-options').forEach(g=>{g.querySelectorAll('label.q-option').forEach(l=>{l.addEventListener('click',()=>{g.querySelectorAll('label.q-option').forEach(x=>x.classList.remove('selected'));l.classList.add('selected');setTimeout(recalc,30);});});});
   function answered(){return allQs.every(q=>document.querySelector('input[name="'+q+'"]:checked'));}
   function val(q){const el=document.querySelector('input[name="'+q+'"]:checked');return el?parseInt(el.value):null;}
@@ -112,7 +113,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     return {pct, band, compliant, partial, nc, ncCritical, penaltyExposure};
   }
   document.getElementById('generate-pdf').addEventListener('click',()=>{
-    const r = recalc(); if (!r) return;
+    const r = recalc(); if (!r){ if (typeof sgToast==='function') sgToast('Answer all ' + total + ' items first.', { type:'error' }); return; }
     sgBuildPdf({title:'OSHA Compliance Self-Audit', docNumberLabel:'Score', docNumber:r.pct+'%', date:todayISO(),
       fromLabel:'STATUS', from:[r.band, r.ncCritical+' critical non-compliance items', 'Penalty exposure: $'+r.penaltyExposure.toLocaleString()],
       toLabel:'BREAKDOWN', to:['Compliant: '+r.compliant, 'Partial: '+r.partial, 'Non-compliant: '+r.nc],

@@ -61,7 +61,7 @@
     </div>
     <div class="results-hero" id="hero" style="display:none"></div>
     <div class="tool-card" id="detail" style="display:none;margin-top:24px"></div>
-    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px"><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button></div>
+    <div class="tool-actions" style="justify-content:flex-end;margin-top:16px;align-items:center;gap:14px"><span id="answer-progress-hint" style="font-size:13px;color:var(--fg3, #6b7280)" aria-live="polite"></span><button type="button" id="generate-pdf" class="btn btn-primary" style="padding:12px 28px;font-size:16px" disabled>Download PDF Report</button></div>
     <div class="tool-cta">
       <div class="eyebrow">When readiness is the question, not vendor selection</div>
       <h2>SimpleGrid asks readiness questions during the founder call - not after the contract.</h2>
@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     {key:'cc', name:'Change Capacity', qs:['cc1','cc2','cc3','cc4']}
   ];
   const allQs = dimensions.flatMap(d=>d.qs);
+  if (typeof sgScorecardProgress === 'function') sgScorecardProgress('answer-progress-hint', allQs, 'generate-pdf', 'questions');
   // Listen on the radio inputs themselves (covers click, tap, and keyboard) so the
   // score updates on every selection. The label click-handler alone missed keyboard
   // interactions and could race with radio-state changes on some browsers.
