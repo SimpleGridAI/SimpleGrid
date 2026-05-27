@@ -63,7 +63,7 @@
 <a href="#main" class="skip-link">Skip to main content</a>
 <header class="nav" role="banner"><div class="nav-inner">
   <a class="nav-logo" href="../../" aria-label="SimpleGrid home"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>22 high-impact calculators & diagnostics for manufacturers.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
+  <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link active" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../" class="active">Productive Tools <span>35 productive tools & calculators for manufacturers.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details></nav>
   <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a demo</a></div>
 </div></header>
 
@@ -118,7 +118,7 @@
         <tbody id="mat-body"></tbody>
       </table>
       <div class="tool-actions"><button type="button" id="add-mat" class="btn-add">＋ Add material</button></div>
-      <p class="tool-note">Include only materials directly consumed in the job. Add a 2–5 % allowance for normal scrap if your costing doesn't already include it.</p>
+      <p class="tool-note">Include only materials directly consumed in the job. Add a 2-5 % allowance for normal scrap if your costing doesn't already include it.</p>
     </div>
 
     <div class="tool-card"><h2>Direct labor</h2>
@@ -127,7 +127,7 @@
         <tbody id="lab-body"></tbody>
       </table>
       <div class="tool-actions"><button type="button" id="add-lab" class="btn-add">＋ Add labor line</button></div>
-      <p class="tool-note">Loaded rate = wage + payroll taxes + benefits + worker's-comp. US mid-market machining/assembly typically $28–$45 loaded.</p>
+      <p class="tool-note">Loaded rate = wage + payroll taxes + benefits + worker's-comp. US mid-market machining/assembly typically $28-$45 loaded.</p>
     </div>
 
     <div class="tool-card"><h2>Machine time</h2>
@@ -136,7 +136,7 @@
         <tbody id="mach-body"></tbody>
       </table>
       <div class="tool-actions"><button type="button" id="add-mach" class="btn-add">＋ Add machine line</button></div>
-      <p class="tool-note">Machine rate = depreciation + power + tooling + maintenance per hour. CNC mill typically $25–$80/hr; press brake $40–$120/hr; injection mold $60–$200/hr.</p>
+      <p class="tool-note">Machine rate = depreciation + power + tooling + maintenance per hour. CNC mill typically $25-$80/hr; press brake $40-$120/hr; injection mold $60-$200/hr.</p>
     </div>
 
     <div class="tool-card"><h2>Other costs</h2>
@@ -145,7 +145,7 @@
         <div class="tool-field"><label for="job-setup">Tooling / setup ($)</label><input id="job-setup" type="number" step="0.01" data-clamp="0,10000000" value="0"></div>
         <div class="tool-field"><label for="job-overhead">Overhead rate (%)</label><input id="job-overhead" type="number" step="0.1" data-clamp="0,200" value="25"></div>
       </div>
-      <p class="tool-note">Overhead = facility cost + indirect labor + utilities + QC + admin allocated to production. 15–40 % is the typical mid-market range.</p>
+      <p class="tool-note">Overhead = facility cost + indirect labor + utilities + QC + admin allocated to production. 15-40 % is the typical mid-market range.</p>
     </div>
 
     <div class="tool-card"><h2>Selling price + margin</h2>
@@ -187,12 +187,12 @@
     <p>Add all five = total job cost. Divide by units produced = per-unit cost. Subtract from selling price = gross margin.</p>
 
     <h2>What overhead rate should I use?</h2>
-    <p>For US mid-market manufacturers, the typical overhead rate is 15–40 % of direct labor + machine. The honest way: take your trailing 12 months of indirect production costs (rent, utilities, indirect supervision, QC, depreciation, maintenance) and divide by direct labor + machine hours. Don't use industry averages - yours is probably different, and that difference matters when you quote a custom job.</p>
+    <p>For US mid-market manufacturers, the typical overhead rate is 15-40 % of direct labor + machine. The honest way: take your trailing 12 months of indirect production costs (rent, utilities, indirect supervision, QC, depreciation, maintenance) and divide by direct labor + machine hours. Don't use industry averages - yours is probably different, and that difference matters when you quote a custom job.</p>
 
     <h2>FAQ</h2>
     <details><summary>What's the difference between direct labor and indirect labor?</summary><p>Direct = hands on the job (operator, assembler). Indirect = supervisor, scheduler, QC inspector, warehouse staff. Indirect labor is part of overhead, not direct labor.</p></details>
-    <details><summary>How do I handle scrap and rework?</summary><p>Two options: (1) include a 2–5 % scrap allowance in your material cost; OR (2) cost the job assuming 100% yield, then add a separate "rework / rejection" line. SimpleGrid's event-sourced costing handles this automatically - every rejection event posts the consumed cost to that job.</p></details>
-    <details><summary>What's a healthy gross margin for manufacturing?</summary><p>25–40 % gross margin (selling price minus total job cost, divided by selling price) is healthy for US mid-market discrete manufacturers. Below 15 % is usually unprofitable after you account for sales, admin, bad debt, and the cost of capital.</p></details>
+    <details><summary>How do I handle scrap and rework?</summary><p>Two options: (1) include a 2-5 % scrap allowance in your material cost; OR (2) cost the job assuming 100% yield, then add a separate "rework / rejection" line. SimpleGrid's event-sourced costing handles this automatically - every rejection event posts the consumed cost to that job.</p></details>
+    <details><summary>What's a healthy gross margin for manufacturing?</summary><p>25-40 % gross margin (selling price minus total job cost, divided by selling price) is healthy for US mid-market discrete manufacturers. Below 15 % is usually unprofitable after you account for sales, admin, bad debt, and the cost of capital.</p></details>
     <details><summary>I want to see margin live during production, not after the job is done.</summary><p>That's what an event-sourced ERP gives you. Every cost-generating event (material issued, hour logged, contractor settlement, rejection) posts to the job in real time. SimpleGrid does this. <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer">Book a demo →</a></p></details>
   </div></section>
 </main>
