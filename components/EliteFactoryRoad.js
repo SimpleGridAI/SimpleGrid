@@ -47,7 +47,7 @@ function EliteFactoryRoad({
     p: 'Buyer PO arrives. AI parses any format and creates a sales order.',
     kind: 'so',
     pricing: null,
-    color: '#4A7BF7'
+    color: '#3461E0'
   }, {
     id: 2,
     short: 'PLAN',
@@ -191,7 +191,7 @@ function EliteFactoryRoad({
     p: '40-foot container loaded, sealed, and on its way. Multi-SO consolidation; partial dispatch supported.',
     kind: 'ship',
     pricing: null,
-    color: '#4A7BF7'
+    color: '#3461E0'
   }];
   const cur = STAGES[stage];
 
@@ -925,7 +925,7 @@ function EliteFactoryRoad({
         width: "22",
         height: "14",
         rx: "1.5",
-        fill: "#4A7BF7",
+        fill: "#3461E0",
         stroke: "#1e4dd9",
         strokeWidth: "0.9"
       }), /*#__PURE__*/React.createElement("path", {
@@ -963,7 +963,7 @@ function EliteFactoryRoad({
         width: "11",
         height: "11",
         rx: "1.5",
-        fill: "#4A7BF7",
+        fill: "#3461E0",
         stroke: "#1e4dd9",
         strokeWidth: "0.9"
       }), /*#__PURE__*/React.createElement("polygon", {

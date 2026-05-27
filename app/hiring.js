@@ -64,10 +64,7 @@ function HiringHero() {
   }, /*#__PURE__*/React.createElement("a", {
     href: "#roles",
     className: "btn btn-lg btn-primary"
-  }, "See open roles"), /*#__PURE__*/React.createElement("a", {
-    href: "mailto:hello@simplegrid.ai?subject=Joining%20SimpleGrid",
-    className: "btn btn-lg btn-outline-white"
-  }, "Email the founder"))));
+  }, "See open roles"))));
 }
 function WhyThis() {
   return /*#__PURE__*/React.createElement("section", {
@@ -498,11 +495,6 @@ function HiringPage() {
     }
   }, "hello@simplegrid.ai"), " with how you'd contribute."))))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "mobile-cta"
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "mailto:hello@simplegrid.ai",
-    className: "btn btn-primary"
-  }, "Email the founder")), /*#__PURE__*/React.createElement("style", null, `@media (max-width:760px){.role-row{grid-template-columns:1fr !important}.hire-grid{grid-template-columns:1fr !important}}`));
+  }), /*#__PURE__*/React.createElement("style", null, `@media (max-width:760px){.role-row{grid-template-columns:1fr !important}.hire-grid{grid-template-columns:1fr !important}}`));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(HiringPage, null));

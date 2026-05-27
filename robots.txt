@@ -1,3 +1,11 @@
+# NOTE: Cloudflare's "Block AI Bots" feature, if enabled in the dashboard, may
+# prepend an additional "Cloudflare managed content" block above the rules below
+# with Disallow directives for GPTBot / ClaudeBot / CCBot / Bytespider /
+# Amazonbot / Applebot-Extended / Google-Extended / meta-externalagent.
+# That block CONTRADICTS the explicit Allow rules below and should be turned off
+# in the Cloudflare dashboard (Security -> Bots -> AI Bots) so our policy is
+# the only source of truth. Last verified: 2026-05-27.
+
 User-agent: *
 Allow: /
 Disallow: /admin
@@ -9,6 +17,7 @@ Disallow: /internal
 Disallow: /preview
 Disallow: /staging
 Disallow: /seo-audit/
+Disallow: /seo-research/
 
 # Legacy query-string router redirects to /blog/{slug}/ which is canonical.
 Disallow: /post.html

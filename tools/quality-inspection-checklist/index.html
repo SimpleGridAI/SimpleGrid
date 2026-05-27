@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -16,6 +16,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/quality-inspection-checklist/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../../vendor/jspdf/cropper.min.css">
@@ -182,13 +183,14 @@
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>
@@ -337,8 +339,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     const fail=rs.filter(r=>r.pf==='Fail').length;
     const na=rs.filter(r=>r.pf==='N/A').length;
     const passPct=total>0?Math.round((pass/(total-na||1))*100):0;
-    const PASS_GREEN = '#047857';
-    const FAIL_RED = '#B91C1C';
+    const PASS_GREEN = 'var(--sg-green-dark)';
+    const FAIL_RED = 'var(--sg-red-dark)';
     document.getElementById('qc-summary').innerHTML=`
       <div style="padding:14px;background:#fff;border-radius:10px;text-align:center"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg3)">Total items</div><div style="font-family:var(--font-heading);font-size:28px;font-weight:700">${total}</div></div>
       <div style="padding:14px;background:#fff;border-radius:10px;text-align:center"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg3)">Pass</div><div style="font-family:var(--font-heading);font-size:28px;font-weight:700;color:${PASS_GREEN}">${pass}</div></div>
@@ -351,7 +353,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       box = document.createElement('div');
       box.id = 'disp-warn';
       box.setAttribute('role','alert');
-      box.style.cssText = 'margin-top:14px;padding:12px 14px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.30);border-radius:10px;color:#B91C1C;font-weight:600;font-size:14px;line-height:1.45';
+      box.style.cssText = 'margin-top:14px;padding:12px 14px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.30);border-radius:10px;color:var(--sg-red-dark);font-weight:600;font-size:14px;line-height:1.45';
       document.getElementById('qc-summary').after(box);
     }
     if (warn) { box.textContent = warn; box.style.display = 'block'; }

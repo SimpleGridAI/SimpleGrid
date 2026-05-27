@@ -2,7 +2,7 @@ const coverStyles = [{
   bg: '#1A1A1A',
   fg: '#fff',
   sub: '#8A8F98',
-  accent: '#4A7BF7'
+  accent: '#3461E0'
 }, {
   bg: 'var(--sg-blue)',
   fg: '#fff',

@@ -85,7 +85,7 @@ function Footer() {
   }, {
     h: 'Resources',
     links: [{
-      l: 'Productive Tools (35)',
+      l: 'Productive Tools',
       href: 'tools/'
     }, {
       l: 'Case studies',
@@ -106,6 +106,9 @@ function Footer() {
       l: 'Architecture',
       href: 'about.html#architecture'
     }, {
+      l: 'Competitors',
+      href: 'competitors.html'
+    }, {
       l: 'Hiring',
       href: 'hiring.html'
     }]
@@ -121,7 +124,7 @@ function Footer() {
     external: true
   }, {
     kind: 'calendar',
-    l: 'Book a demo',
+    l: 'Book a call',
     href: 'https://cal.com/simplegrid-ai',
     external: true
   }];

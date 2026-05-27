@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/downtime-cost-calculator/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -76,7 +77,7 @@
     <div class="tool-cta">
       <div class="eyebrow">When downtime is a hidden tax, not a managed cost</div>
       <h2>SimpleGrid tracks every minute - planned, unplanned, changeover - and ties it to revenue impact.</h2>
-      <p>The 80:20 planned-to-unplanned ratio is the world-class benchmark (SMRP). Most plants run 30:70 the wrong way. A CMMS layered on event-sourced data flips this in 6-12 months.</p>
+      <p>The 80:20 planned-to-unplanned ratio is the top-decile benchmark (SMRP). Most plants run 30:70 the wrong way. A CMMS layered on event-sourced data flips this in 6-12 months.</p>
       <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="downtime_cta" class="btn btn-primary">Book a demo</a>
     </div>
   </div></section>
@@ -116,7 +117,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       <div data-sg-warn></div>
       <div class="big-label">Total annual downtime cost</div>
       <div class="big-number red">${fmt$K(totalCost)}</div>
-      <div class="big-caption">${Math.round(up).toLocaleString()} hours of unplanned downtime + ${Math.round(change).toLocaleString()} hours of changeover. Planned-to-unplanned ratio: <strong>${plannedRatio.toFixed(0)}:${(100-plannedRatio).toFixed(0)}</strong>. World-class target: 80:20.</div>
+      <div class="big-caption">${Math.round(up).toLocaleString()} hours of unplanned downtime + ${Math.round(change).toLocaleString()} hours of changeover. Planned-to-unplanned ratio: <strong>${plannedRatio.toFixed(0)}:${(100-plannedRatio).toFixed(0)}</strong>. Top-decile target: 80:20.</div>
       <div class="results-grid" style="margin-top:24px">
         <div class="results-stat"><div class="label">Lost production value</div><div class="value red">${fmt$K(lostRevenue)}</div></div>
         <div class="results-stat"><div class="label">OT recovery cost</div><div class="value">${fmt$K(otCost)}</div></div>
@@ -129,10 +130,10 @@ document.addEventListener('DOMContentLoaded',()=>{
       <table class="results-table">
         <thead><tr><th>Scenario</th><th class="num">Action</th><th class="num">Estimated annual saving</th></tr></thead>
         <tbody>
-          <tr><td>Reduce unplanned downtime 30%</td><td class="num">PM program + CMMS</td><td class="num"><strong style="color:#047857">${fmt$K(lostRevenue*0.3 + otCost*0.3)}</strong></td></tr>
-          <tr><td>Reduce changeover 50%</td><td class="num">SMED methodology</td><td class="num"><strong style="color:#047857">${fmt$K(changeOpportunity)}</strong></td></tr>
-          <tr><td>Shift to 80:20 planned:unplanned</td><td class="num">CMMS + scheduled PM</td><td class="num"><strong style="color:#047857">${fmt$K(lostRevenue*0.5)}</strong></td></tr>
-          <tr><td><strong>All three combined</strong></td><td class="num">Maintenance transformation</td><td class="num"><strong style="color:#047857">${fmt$K(lostRevenue*0.5 + otCost*0.3 + changeOpportunity)}</strong></td></tr>
+          <tr><td>Reduce unplanned downtime 30%</td><td class="num">PM program + CMMS</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(lostRevenue*0.3 + otCost*0.3)}</strong></td></tr>
+          <tr><td>Reduce changeover 50%</td><td class="num">SMED methodology</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(changeOpportunity)}</strong></td></tr>
+          <tr><td>Shift to 80:20 planned:unplanned</td><td class="num">CMMS + scheduled PM</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(lostRevenue*0.5)}</strong></td></tr>
+          <tr><td><strong>All three combined</strong></td><td class="num">Maintenance transformation</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(lostRevenue*0.5 + otCost*0.3 + changeOpportunity)}</strong></td></tr>
         </tbody>
       </table>
       <p class="tool-note" style="margin-top:14px">Sources: SMRP (Society for Maintenance & Reliability Professionals), Deloitte Future of Maintenance 2022, ARC Advisory Group. Average emergency repair cost $15,000 vs. planned $3,500 - planned maintenance is 3-4x cheaper.</p>
@@ -168,7 +169,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     <h2>What downtime really costs</h2>
     <p>Most mid-market manufacturers don't quantify downtime because it shows up as overtime, expedite shipping, and missed deliveries rather than a single line item. ARC Advisory Group estimates $50B in annual downtime cost across US industrial manufacturers. The average plant loses 800 hours per year to unplanned downtime (Deloitte 2022).</p>
     <h2>The 80:20 rule for maintenance</h2>
-    <p>World-class maintenance organizations target 80% planned downtime, 20% unplanned (SMRP standard). Most mid-market plants run 30:70 the wrong way. Emergency repairs cost 3-4x more than planned maintenance. The shift from reactive to planned typically pays back in 6-12 months.</p>
+    <p>Top-decile maintenance organizations target 80% planned downtime, 20% unplanned (SMRP standard). Most mid-market plants run 30:70 the wrong way. Emergency repairs cost 3-4x more than planned maintenance. The shift from reactive to planned typically pays back in 6-12 months.</p>
     <h2>FAQ</h2>
     <details><summary>What's a CMMS and do I need one?</summary><p>Computerized Maintenance Management System - basically work-order software for equipment. Tracks PM schedules, parts inventory, downtime causes, technician time. If you have more than 5 critical machines and no CMMS, you're losing money you can't see. Standalone CMMS is $30-150/month; integrated ERP includes it.</p></details>
     <details><summary>What is SMED?</summary><p>Single-Minute Exchange of Dies - a structured methodology to reduce changeover time. Originally developed at Toyota, typically reduces changeover by 40-60% within 90 days. The most cost-effective ops improvement available.</p></details>
@@ -187,13 +188,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>

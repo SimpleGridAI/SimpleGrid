@@ -13,7 +13,7 @@ function RolesVisual() {
     entities: ['Quality checks', 'Rejections']
   }, {
     name: 'Founder',
-    color: '#4A7BF7',
+    color: '#3461E0',
     entities: ['Everything', '', '']
   }];
   return /*#__PURE__*/React.createElement("div", {

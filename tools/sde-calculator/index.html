@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/sde-calculator/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -136,7 +137,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     run += owner; walk += `<tr><td>+ Owner compensation (salary + benefits + perks)</td><td class="num">${fmt$(owner)}</td><td class="num">${fmt$(run)}</td></tr>`;
     run += nn('int'); walk += `<tr><td>+ Interest</td><td class="num">${fmt$(nn('int'))}</td><td class="num">${fmt$(run)}</td></tr>`;
     run += nn('dep')+nn('amort'); walk += `<tr><td>+ Depreciation & Amortization</td><td class="num">${fmt$(nn('dep')+nn('amort'))}</td><td class="num">${fmt$(run)}</td></tr>`;
-    run += other; walk += `<tr><td>+ One-time / discretionary add-backs</td><td class="num">${fmt$(other)}</td><td class="num"><strong style="color:#047857">${fmt$(run)}</strong></td></tr>`;
+    run += other; walk += `<tr><td>+ One-time / discretionary add-backs</td><td class="num">${fmt$(other)}</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$(run)}</strong></td></tr>`;
     walk += '</tbody></table>';
     let val;
     if (sde <= 0) {
@@ -151,7 +152,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     let warnHtml = '';
     if (warnings.length) {
       warnHtml = '<h2 style="margin-top:32px;margin-bottom:14px">Warning flags</h2><ul>';
-      warnings.forEach(w => warnHtml += `<li style="color:#B91C1C;margin-bottom:6px">${w}</li>`);
+      warnings.forEach(w => warnHtml += `<li style="color:var(--sg-red-dark);margin-bottom:6px">${w}</li>`);
       warnHtml += '</ul>';
     }
     document.getElementById('detail').innerHTML = walk + val + warnHtml;
@@ -188,13 +189,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>

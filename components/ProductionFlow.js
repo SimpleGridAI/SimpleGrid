@@ -23,7 +23,7 @@ function ProductionFlow() {
     label: 'Sales order received',
     icon: '📋',
     detail: 'Buyer PO arrives. AI parses it instantly.',
-    color: '#4A7BF7'
+    color: '#3461E0'
   }, {
     id: 'plan',
     label: 'Planning & allocation',
@@ -65,7 +65,7 @@ function ProductionFlow() {
     label: 'Dispatch',
     icon: '🚛',
     detail: 'Shipped. Invoice triggered. Dashboard updated.',
-    color: '#4A7BF7'
+    color: '#3461E0'
   }];
   const activeStage = Math.min(Math.floor(progress * stages.length), stages.length - 1);
   const stageProgress = progress * stages.length - activeStage;

@@ -39,7 +39,7 @@
       '</div>' +
       '<div style="display:flex;gap:8px;flex-shrink:0">' +
       '<button type="button" id="sg-cc-decline" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.35);padding:8px 14px;border-radius:8px;cursor:pointer;font:inherit">Decline</button>' +
-      '<button type="button" id="sg-cc-accept" style="background:#4A7BF7;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600">Accept</button>' +
+      '<button type="button" id="sg-cc-accept" style="background:#3461E0;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600">Accept</button>' +
       '</div>';
 
     document.body.appendChild(bar);

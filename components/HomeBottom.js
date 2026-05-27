@@ -30,14 +30,14 @@ function ApparelVisual() {
     x2: "1"
   }, /*#__PURE__*/React.createElement("stop", {
     offset: "0",
-    stopColor: "#4A7BF7",
+    stopColor: "#3461E0",
     stopOpacity: "0"
   }), /*#__PURE__*/React.createElement("stop", {
     offset: "0.5",
-    stopColor: "#4A7BF7"
+    stopColor: "#3461E0"
   }), /*#__PURE__*/React.createElement("stop", {
     offset: "1",
-    stopColor: "#4A7BF7",
+    stopColor: "#3461E0",
     stopOpacity: "0"
   })), /*#__PURE__*/React.createElement("linearGradient", {
     id: "apxFabric",
@@ -47,11 +47,11 @@ function ApparelVisual() {
     y2: "1"
   }, /*#__PURE__*/React.createElement("stop", {
     offset: "0",
-    stopColor: "#4A7BF7",
+    stopColor: "#3461E0",
     stopOpacity: "0.45"
   }), /*#__PURE__*/React.createElement("stop", {
     offset: "1",
-    stopColor: "#4A7BF7",
+    stopColor: "#3461E0",
     stopOpacity: "0.05"
   })), /*#__PURE__*/React.createElement("linearGradient", {
     id: "apxFabric2",
@@ -219,7 +219,7 @@ function ApparelVisual() {
     y2: "30",
     stroke: "rgba(167,139,250,0.3)"
   })), /*#__PURE__*/React.createElement("g", {
-    stroke: "#4A7BF7",
+    stroke: "#3461E0",
     strokeWidth: "0.8",
     fill: "none",
     opacity: "0.45"
@@ -253,7 +253,7 @@ function ApparelVisual() {
   }))), [{
     x: 264,
     y: 60,
-    color: '#4A7BF7',
+    color: '#3461E0',
     label: 'CMT'
   }, {
     x: 286,
@@ -523,7 +523,7 @@ function Integrations() {
     { name: 'Bill.com', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#006FFF"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">BILL</text></svg>' },
     { name: 'TikTok Shop', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#000"/><text x="12" y="16" text-anchor="middle" fill="#FE2C55" font-family="sans-serif" font-weight="700" font-size="11">TT</text></svg>' },
     { name: 'SFTP', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#4A5568"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">SFTP</text></svg>' },
-    { name: '+ Build custom', status: 'custom', custom: true, svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-dasharray="3 2"/><line x1="12" y1="7" x2="12" y2="17" stroke="#4A7BF7" stroke-width="2" stroke-linecap="round"/><line x1="7" y1="12" x2="17" y2="12" stroke="#4A7BF7" stroke-width="2" stroke-linecap="round"/></svg>' }
+    { name: '+ Build custom', status: 'custom', custom: true, svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="none" stroke="#3461E0" stroke-width="1.5" stroke-dasharray="3 2"/><line x1="12" y1="7" x2="12" y2="17" stroke="#3461E0" stroke-width="2" stroke-linecap="round"/><line x1="7" y1="12" x2="17" y2="12" stroke="#3461E0" stroke-width="2" stroke-linecap="round"/></svg>' }
   ];
   // Duplicate the list so the loop is seamless when the track translates by -50%.
   const doubled = [...items, ...items];
@@ -782,6 +782,9 @@ function HomeFAQ() {
     q: "What happens if it doesn't work after 30 days?",
     a: "You walk. No invoice. No clawback. We've still done the migration and the build at our cost. You get a clean data export and your spreadsheets back. That's the whole point - the risk lives with us until you've seen it run on your real floor."
   }, {
+    q: "Do we have to migrate our data ourselves?",
+    a: "No. We do the migration. Whatever you're running on - QuickBooks, spreadsheets, paper, group chats, an old ERP - we pull it out, clean it, structure it, and load it. Migration is included in the build, not a separate line item. You don't touch the data."
+  }, {
     q: "How much does it cost after the 30-day trial?",
     a: "Before you decide, we agree on a number together based on the size of your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees. We are priced like an operator who has carried the build for you."
   }, {
@@ -805,7 +808,7 @@ function HomeFAQ() {
   }, "BEFORE YOU DECIDE"), /*#__PURE__*/React.createElement("h2", {
     className: "h2",
     style: { textAlign: 'center' }
-  }, "Four questions every buyer asks us.")), /*#__PURE__*/React.createElement("div", {
+  }, "Five questions every buyer asks us.")), /*#__PURE__*/React.createElement("div", {
     style: { marginTop: 32, display: 'flex', flexDirection: 'column', gap: 12 }
   }, items.map(function (it, i) {
     return /*#__PURE__*/React.createElement(Reveal, { key: i, delay: i * 80 },
@@ -836,6 +839,7 @@ function HomeFAQ() {
 }
 window.HomeFAQ = HomeFAQ;
 function FinalCTA() {
+  const [showInvite, setShowInvite] = React.useState(false);
   return /*#__PURE__*/React.createElement("section", {
     className: "section section-dark final-cta"
   }, /*#__PURE__*/React.createElement("div", {
@@ -844,11 +848,12 @@ function FinalCTA() {
     className: "h2"
   }, "Try it on. Then decide."), /*#__PURE__*/React.createElement("p", {
     className: "sub"
-  }, "We build a custom ERP around your factory at our cost. You run it on your real floor for 30 days. If it doesn't move the business, you walk. We earn nothing."), /*#__PURE__*/React.createElement("a", {
-    href: "https://cal.com/simplegrid-ai",
-    target: "_blank",
-    rel: "noopener noreferrer",
+  }, "We build a custom ERP around your factory at our cost. You run it on your real floor for 30 days. If it doesn't move the business, you walk. We earn nothing."), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => setShowInvite(true),
     className: "btn btn-lg btn-primary"
-  }, "Book a demo"))));
+  }, "Book a demo"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
+    onClose: () => setShowInvite(false)
+  }));
 }
 window.FinalCTA = FinalCTA;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/erp-needs-assessment/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -274,13 +275,14 @@
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>
@@ -405,7 +407,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const overall = Math.round((totalRaw / totalMax) * 100);
     const revenue = Math.max(0, parseFloat(document.getElementById('deep-rev').value) || 0);
     const hrs = Math.max(0, parseFloat(document.getElementById('deep-hrs').value) || 0);
-    // Cost-of-not-having-ERP — 5 buckets per spec
+    // Cost-of-not-having-ERP - 5 buckets per spec
     const dataEntryWaste = hrs * 38 * 52;
     const otdGap = (dimScores['Quality & Compliance'].normalized + dimScores['Operational Complexity'].normalized) / 200 * 10; // ~0-10 pts
     const missedDeliveryCost = revenue * otdGap * 0.02;
@@ -508,7 +510,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             const s = dimScores[d].normalized;
             const cls = s<=25?'green':s<=50?'gold':s<=75?'gold':'red';
             const label = s<=25?'Strong':s<=50?'Watch':s<=75?'Painful':'Critical';
-            return '<tr><td>'+d+'</td><td class="num"><strong style="color:'+(cls==='green'?'#047857':cls==='gold'?'#B45309':'#B91C1C')+'">'+s+'</strong></td><td>'+label+'</td></tr>';
+            return '<tr><td>'+d+'</td><td class="num"><strong style="color:'+(cls==='green'?'var(--sg-green-dark)':cls==='gold'?'var(--sg-gold-dark)':'var(--sg-red-dark)')+'">'+s+'</strong></td><td>'+label+'</td></tr>';
           }).join('')}
         </tbody>
       </table>

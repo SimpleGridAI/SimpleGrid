@@ -1422,7 +1422,7 @@ function TriggerCTA() {
       color: 'rgba(255,255,255,0.5)',
       marginTop: 14
     }
-  }, "Founder-led \xB7 Migration included \xB7 Limited capacity each quarter"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
+  }, "Migration included \xB7 Limited capacity each quarter"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)
   }));
 }

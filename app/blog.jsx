@@ -1,5 +1,5 @@
 const coverStyles = [
-  { bg: '#1A1A1A', fg: '#fff', sub: '#8A8F98', accent: '#4A7BF7' },
+  { bg: '#1A1A1A', fg: '#fff', sub: '#8A8F98', accent: '#3461E0' },
   { bg: 'var(--sg-blue)', fg: '#fff', sub: 'rgba(255,255,255,0.7)', accent: '#fff' },
   { bg: 'var(--sg-blue-light)', fg: 'var(--sg-blue-dark)', sub: 'rgba(30,58,138,0.6)', accent: 'var(--sg-blue-dark)' },
 ];

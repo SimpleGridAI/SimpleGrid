@@ -33,28 +33,12 @@
     document.head.appendChild(s);
   }
 
-  // Microsoft Clarity - free heatmap + session replay, GDPR-friendly.
-  // TODO: sign up at https://clarity.microsoft.com, create a project,
-  // replace the placeholder below with the real project ID.
-  var SG_CLARITY_ID = 'CLARITY_PROJECT_ID';
-  function loadClarity() {
-    if (window.__sgClarityLoaded) return;
-    if (!SG_CLARITY_ID || SG_CLARITY_ID === 'CLARITY_PROJECT_ID') return; // not configured yet
-    window.__sgClarityLoaded = true;
-    (function (c, l, a, r, i, t, y) {
-      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-    })(window, document, "clarity", "script", SG_CLARITY_ID);
-  }
-
   function load() {
     try {
       if (localStorage.getItem('sg_ph_opt_out') === '1') return;
     } catch (e) { /* ignore */ }
     loadPostHog();
     loadGA4();
-    loadClarity();
   }
 
   // Defer until first user interaction (privacy-friendlier + faster TBT).

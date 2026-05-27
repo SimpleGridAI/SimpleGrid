@@ -12,7 +12,7 @@ const TIERS = [
       'All your data migrated for you',
       'If it doesn\'t move the business, you walk. No invoice.',
     ],
-    cta: 'Book a call',
+    cta: 'Book a demo',
     ctaHref: 'https://cal.com/simplegrid-ai',
     highlight: true,
   },
@@ -205,7 +205,7 @@ function PricingPage() {
       <div className="container">
         <h2 className="h2">You carry nothing until you see it run.</h2>
         <p className="sub">Custom ERP, built at our risk. Paid for after it works. Founder-led onboarding, limited capacity each quarter.</p>
-        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a call</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a demo</a>
       </div>
     </section>
     </main>

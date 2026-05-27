@@ -3,7 +3,7 @@ function RolesVisual() {
     { name: 'Warehouse Mgr', color: '#10B981', entities: ['Inventory', 'Receipts', 'Issuances'] },
     { name: 'Planner', color: '#F59E0B', entities: ['Orders', 'Production', 'Scheduling'] },
     { name: 'QC Inspector', color: '#EF4444', entities: ['Quality checks', 'Rejections'] },
-    { name: 'Founder', color: '#4A7BF7', entities: ['Everything', '', ''] },
+    { name: 'Founder', color: '#3461E0', entities: ['Everything', '', ''] },
   ];
   return (
     <div style={{background:'var(--sg-off-white)',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:20,fontSize:13}}>

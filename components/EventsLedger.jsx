@@ -801,7 +801,7 @@ function TriggerCTA() {
           <div style={{ marginTop: 28, display: 'flex', justifyContent: 'center' }}>
             <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>Request an Invite →</button>
           </div>
-          <p className="note" style={{ color: 'rgba(255,255,255,0.5)', marginTop: 14 }}>Founder-led · Migration included · Limited capacity each quarter</p>
+          <p className="note" style={{ color: 'rgba(255,255,255,0.5)', marginTop: 14 }}>Migration included · Limited capacity each quarter</p>
         </Reveal>
       </div>
       {showInvite && <InviteModal onClose={() => setShowInvite(false)} />}

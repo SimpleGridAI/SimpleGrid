@@ -19,14 +19,14 @@ function ProductionFlow() {
   }, []);
 
   const stages = [
-    { id: 'order', label: 'Sales order received', icon: '📋', detail: 'Buyer PO arrives. AI parses it instantly.', color: '#4A7BF7' },
+    { id: 'order', label: 'Sales order received', icon: '📋', detail: 'Buyer PO arrives. AI parses it instantly.', color: '#3461E0' },
     { id: 'plan', label: 'Planning & allocation', icon: '📐', detail: 'Planner allocates: in-house vs vendor. Auto-calculated.', color: '#7C3AED' },
     { id: 'procure', label: 'Material procurement', icon: '📦', detail: 'POs auto-generated. Consolidated by species/type.', color: '#0EA5E9' },
     { id: 'receive', label: 'Material received', icon: '🏭', detail: 'Warehouse logs receipt. Inventory updates live.', color: '#10B981' },
     { id: 'produce', label: 'Production', icon: '⚙️', detail: 'Material moves through stages. Each tracked.', color: '#F59E0B' },
     { id: 'qc', label: 'Quality check', icon: '✓', detail: 'QC gate enforced. Rejects caught at source.', color: '#EF4444' },
     { id: 'pack', label: 'Packaging', icon: '📦', detail: 'Packed to buyer specs. Packing list auto-generated.', color: '#10B981' },
-    { id: 'ship', label: 'Dispatch', icon: '🚛', detail: 'Shipped. Invoice triggered. Dashboard updated.', color: '#4A7BF7' },
+    { id: 'ship', label: 'Dispatch', icon: '🚛', detail: 'Shipped. Invoice triggered. Dashboard updated.', color: '#3461E0' },
   ];
 
   const activeStage = Math.min(Math.floor(progress * stages.length), stages.length - 1);

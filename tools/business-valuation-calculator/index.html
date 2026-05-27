@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/business-valuation-calculator/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -176,7 +177,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const arAp = num('ar-ap');
     const assetFloor = equipCost + inventory + arAp;
     let revCheck = '';
-    if (revMult > 1.0) revCheck = ' <span style="color:#B91C1C">(>1.0x revenue - check inputs)</span>';
+    if (revMult > 1.0) revCheck = ' <span style="color:var(--sg-red-dark)">(>1.0x revenue - check inputs)</span>';
     else if (revMult < 0.2) revCheck = ' <span style="color:var(--fg3)">(low revenue multiple - may be undervalued)</span>';
     // Invariant checks. Profit shouldn't exceed revenue, EBITDA shouldn't
     // exceed revenue, and SDE (net profit + owner comp) shouldn't either.
@@ -199,20 +200,20 @@ document.addEventListener('DOMContentLoaded',()=>{
       </div>
     `;
     let factorsHtml = '<table class="results-table"><thead><tr><th>Factor</th><th class="num">Impact on multiple</th></tr></thead><tbody>';
-    factors.forEach(f => { factorsHtml += `<tr><td>${f[0]}</td><td class="num"><strong style="color:${f[1].startsWith('+')?'#047857':'#B91C1C'}">${f[1]}x</strong></td></tr>`; });
+    factors.forEach(f => { factorsHtml += `<tr><td>${f[0]}</td><td class="num"><strong style="color:${f[1].startsWith('+')?'var(--sg-green-dark)':'var(--sg-red-dark)'}">${f[1]}x</strong></td></tr>`; });
     if (factors.length===0) factorsHtml += '<tr><td colspan="2" style="color:var(--fg3);text-align:center">No adjustments applied - using base vertical multiple.</td></tr>';
     factorsHtml += '</tbody></table>';
 
-    // Value unlock opportunities — applied to the earnings figure being used (SDE or EBITDA)
+    // Value unlock opportunities - applied to the earnings figure being used (SDE or EBITDA)
     let unlockHtml = '<table class="results-table"><thead><tr><th>Improvement</th><th class="num">Multiple impact</th><th class="num">Value increase</th></tr></thead><tbody>';
     let totalUnlock = 0;
-    if (ohrs > 50) { const u = earnings * 0.4; totalUnlock += u; unlockHtml += `<tr><td>Reduce owner hours to under 25/week</td><td class="num">+0.4×</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
-    if (top1 > 25) { const u = earnings * 0.5; totalUnlock += u; unlockHtml += `<tr><td>Diversify customer base (top under 15%)</td><td class="num">+0.5×</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
-    if (mgmt < 1) { const u = earnings * 0.7; totalUnlock += u; unlockHtml += `<tr><td>Build management team that can run without you</td><td class="num">+0.7×</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
-    if (equipAge < 0) { const u = earnings * 0.3; totalUnlock += u; unlockHtml += `<tr><td>Modernize equipment (under 7 yrs)</td><td class="num">+0.3×</td><td class="num"><strong style="color:#047857">+${fmt$M(u)}</strong></td></tr>`; }
+    if (ohrs > 50) { const u = earnings * 0.4; totalUnlock += u; unlockHtml += `<tr><td>Reduce owner hours to under 25/week</td><td class="num">+0.4×</td><td class="num"><strong style="color:var(--sg-green-dark)">+${fmt$M(u)}</strong></td></tr>`; }
+    if (top1 > 25) { const u = earnings * 0.5; totalUnlock += u; unlockHtml += `<tr><td>Diversify customer base (top under 15%)</td><td class="num">+0.5×</td><td class="num"><strong style="color:var(--sg-green-dark)">+${fmt$M(u)}</strong></td></tr>`; }
+    if (mgmt < 1) { const u = earnings * 0.7; totalUnlock += u; unlockHtml += `<tr><td>Build management team that can run without you</td><td class="num">+0.7×</td><td class="num"><strong style="color:var(--sg-green-dark)">+${fmt$M(u)}</strong></td></tr>`; }
+    if (equipAge < 0) { const u = earnings * 0.3; totalUnlock += u; unlockHtml += `<tr><td>Modernize equipment (under 7 yrs)</td><td class="num">+0.3×</td><td class="num"><strong style="color:var(--sg-green-dark)">+${fmt$M(u)}</strong></td></tr>`; }
     const u_sys = earnings * 0.4; totalUnlock += u_sys;
-    unlockHtml += `<tr><td>System-driven ops (ERP) vs spreadsheets</td><td class="num">+0.4×</td><td class="num"><strong style="color:#047857">+${fmt$M(u_sys)}</strong></td></tr>`;
-    unlockHtml += `<tr><td><strong>Total value unlock potential</strong></td><td class="num">-</td><td class="num"><strong style="color:#047857">+${fmt$M(totalUnlock)}</strong></td></tr>`;
+    unlockHtml += `<tr><td>System-driven ops (ERP) vs spreadsheets</td><td class="num">+0.4×</td><td class="num"><strong style="color:var(--sg-green-dark)">+${fmt$M(u_sys)}</strong></td></tr>`;
+    unlockHtml += `<tr><td><strong>Total value unlock potential</strong></td><td class="num">-</td><td class="num"><strong style="color:var(--sg-green-dark)">+${fmt$M(totalUnlock)}</strong></td></tr>`;
     unlockHtml += '</tbody></table>';
 
     document.getElementById('detail').innerHTML = `
@@ -269,13 +270,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>

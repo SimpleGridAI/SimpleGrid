@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/operations-health-score/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -131,7 +132,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     // Composite
     const composite = Math.round(oeeScore*0.25 + qScore*0.25 + dScore*0.20 + iScore*0.15 + wScore*0.15);
     let grade, gradeCls, gradeBand;
-    if (composite>=85) { grade='A'; gradeCls='green'; gradeBand='World-Class Operations - top 10%'; }
+    if (composite>=85) { grade='A'; gradeCls='green'; gradeBand='Top-decile Operations - top 10%'; }
     else if (composite>=70) { grade='B'; gradeCls='green'; gradeBand='Strong Operations - above average'; }
     else if (composite>=55) { grade='C'; gradeCls='gold'; gradeBand='Average Operations - competitive but vulnerable'; }
     else if (composite>=40) { grade='D'; gradeCls='red'; gradeBand='Below Average - gaps likely costing customers and margin'; }
@@ -158,7 +159,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       {name:'Workforce Productivity', short:'Workforce', score: Math.round(wScore), w:15, detail: 'Rev/FTE '+fmt$K(rpe)+', turnover '+turnover+'%'}
     ];
 
-    // Radar chart SVG — your score vs industry median (50) overlay
+    // Radar chart SVG - your score vs industry median (50) overlay
     const W=380, H=380, cx=W/2, cy=H/2, R=130;
     const angle = i => (Math.PI*2*i/dims.length) - Math.PI/2;
     function ptStr(values){
@@ -204,10 +205,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     const otdOpp = Math.max(0, 97-otd) * 0.02 * rev/100 * 100;
     const totalOpp = oeeOpp + qOpp + otdOpp;
     let opp = '<h2 style="margin-top:32px;margin-bottom:14px">If you closed your biggest gaps</h2><table class="results-table"><thead><tr><th>Gap</th><th class="num">If improved to top quartile</th></tr></thead><tbody>';
-    if (oeeOpp>0) opp += `<tr><td>OEE: ${oee.toFixed(1)}% to 85%</td><td class="num"><strong style="color:#047857">${fmt$K(oeeOpp)}/yr</strong></td></tr>`;
-    if (qOpp>0) opp += `<tr><td>Scrap: ${scrap}% to 1%</td><td class="num"><strong style="color:#047857">${fmt$K(qOpp)}/yr</strong></td></tr>`;
-    if (otdOpp>0) opp += `<tr><td>On-time: ${otd}% to 97%</td><td class="num"><strong style="color:#047857">${fmt$K(otdOpp)}/yr</strong></td></tr>`;
-    opp += `<tr><td><strong>Total annual opportunity</strong></td><td class="num"><strong style="color:#047857">${fmt$K(totalOpp)}</strong></td></tr></tbody></table>`;
+    if (oeeOpp>0) opp += `<tr><td>OEE: ${oee.toFixed(1)}% to 85%</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(oeeOpp)}/yr</strong></td></tr>`;
+    if (qOpp>0) opp += `<tr><td>Scrap: ${scrap}% to 1%</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(qOpp)}/yr</strong></td></tr>`;
+    if (otdOpp>0) opp += `<tr><td>On-time: ${otd}% to 97%</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(otdOpp)}/yr</strong></td></tr>`;
+    opp += `<tr><td><strong>Total annual opportunity</strong></td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(totalOpp)}</strong></td></tr></tbody></table>`;
 
     // 90-day playbook per weakest dimension
     const weakest = dims.reduce((w,d)=> d.score < w.score ? d : w, dims[0]);
@@ -296,13 +297,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>

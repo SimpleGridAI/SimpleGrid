@@ -4,6 +4,7 @@ function Nav({
 }) {
   const [openResources, setOpenResources] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
+  const [showInvite, setShowInvite] = React.useState(false);
   const resourcesRef = React.useRef(null);
 
   // On nested pages (e.g. /blog/{slug}/) the generator sets
@@ -206,12 +207,11 @@ function Nav({
   }, /*#__PURE__*/React.createElement("button", {
     className: "btn btn-sm btn-secondary desktop-only",
     onClick: onLoginClick
-  }, "Log in"), /*#__PURE__*/React.createElement("a", {
-    href: "https://cal.com/simplegrid-ai",
-    target: "_blank",
-    rel: "noopener noreferrer",
+  }, "Log in"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => setShowInvite(true),
     className: "btn btn-sm btn-primary",
-    title: "Book a SimpleGrid demo call"
+    title: "Book a SimpleGrid demo"
   }, "Book a demo"), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: 'nav-burger' + (openMenu ? ' is-open' : ''),
@@ -249,6 +249,8 @@ function Nav({
       setOpenMenu(false);
       onLoginClick && onLoginClick();
     }
-  }, "Log in")))));
+  }, "Log in")))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
+    onClose: () => setShowInvite(false)
+  }));
 }
 window.Nav = Nav;

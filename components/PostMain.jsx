@@ -195,7 +195,7 @@ function BlogPost() {
         {/* CTA */}
         <div style={{ background: 'var(--sg-blue-light)', borderRadius: 'var(--radius-lg)', padding: '32px', marginTop: 40, textAlign: 'center' }}>
           <p style={{ fontFamily: 'var(--font-heading)', fontSize: 18, fontWeight: 700, color: 'var(--fg1)', margin: '0 0 12px' }}>See how this works for your operation.</p>
-          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book a call</a>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book a demo</a>
         </div>
 
         {/* Prev/Next */}

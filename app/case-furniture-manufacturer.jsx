@@ -342,7 +342,7 @@ function EliteCaseStudy() {
       <div className="case-bottom-line">
         <div className="big">64 things tracked. 72 automatic triggers. 21 days to deploy. $0 upfront.</div>
         <p>Before SimpleGrid, the founder knew the company made money. Now he knows which products make money, and which ones do not. Planning dropped from 20 hours to 2. Wastage dropped to negligible. Delivery improved 15%. And 30 floor staff who had rejected every previous ERP now use this one daily.</p>
-        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{marginTop:16}}>Book a call - See how we'd model your operations</a>
+        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{marginTop:16}}>Book a demo - See how we'd model your operations</a>
         <div style={{marginTop:20,fontSize:14}}>
           <a href="case-apex.html" style={{color:'var(--sg-blue)',fontWeight:600,textDecoration:'none'}}>See an apparel manufacturer's deployment - live in 12 days →</a>
         </div>

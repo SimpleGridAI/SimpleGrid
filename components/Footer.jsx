@@ -36,6 +36,7 @@ function Footer() {
       { l: 'About', href: 'about.html' },
       { l: 'Pricing', href: 'pricing.html' },
       { l: 'Architecture', href: 'about.html#architecture' },
+      { l: 'Competitors', href: 'competitors.html' },
       { l: 'Hiring', href: 'hiring.html' },
     ]},
   ];

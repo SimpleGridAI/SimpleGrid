@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -16,6 +16,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/production-schedule-template/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../../vendor/jspdf/cropper.min.css">
@@ -168,13 +169,14 @@
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>
@@ -333,7 +335,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const js = all.filter(j => j.end >= j.start);
     let invalidBanner = '';
     if (invalid.length) {
-      invalidBanner = `<div role="alert" style="margin-bottom:12px;padding:10px 12px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.30);border-radius:8px;color:#B91C1C;font-size:14px;font-weight:600">⚠ ${invalid.length} job${invalid.length>1?'s have':' has'} an end date before the start date and ${invalid.length>1?'are':'is'} not shown on the chart: ${invalid.map(j=>'<em style="font-style:normal;font-weight:400">' + esc(j.name||'(unnamed)') + ' (' + esc(j.start) + ' → ' + esc(j.end) + ')</em>').join(', ')}. Fix the dates to include ${invalid.length>1?'them':'it'}.</div>`;
+      invalidBanner = `<div role="alert" style="margin-bottom:12px;padding:10px 12px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.30);border-radius:8px;color:var(--sg-red-dark);font-size:14px;font-weight:600">⚠ ${invalid.length} job${invalid.length>1?'s have':' has'} an end date before the start date and ${invalid.length>1?'are':'is'} not shown on the chart: ${invalid.map(j=>'<em style="font-style:normal;font-weight:400">' + esc(j.name||'(unnamed)') + ' (' + esc(j.start) + ' → ' + esc(j.end) + ')</em>').join(', ')}. Fix the dates to include ${invalid.length>1?'them':'it'}.</div>`;
     }
     if(js.length===0){wrap.innerHTML=invalidBanner+'<div style="padding:32px;color:var(--fg3);font-size:14px;text-align:center">Add at least one job with start and end dates.</div>';return;}
     const minStart=js.reduce((a,j)=>a<j.start?a:j.start,js[0].start);

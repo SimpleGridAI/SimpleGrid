@@ -34,6 +34,13 @@
   --sg-gold:         #F59E0B;  /* Traction stats, timeline accents */
   --sg-purple:       #7C3AED;  /* Tech/AI category, roadmap */
 
+  /* ----- WCAG-DARK SEMANTIC VARIANTS -----
+     Use these for small text + large numbers on white where the base
+     semantic colours fail AA contrast (e.g. results panels, toast text). */
+  --sg-green-dark:   #047857;  /* AA-safe positive text on white */
+  --sg-red-dark:     #B91C1C;  /* AA-safe negative text on white */
+  --sg-gold-dark:    #B45309;  /* AA-safe caution text on white */
+
   /* ----- SEMANTIC TOKENS ----- */
   --bg:              var(--sg-white);
   --bg-alt:          var(--sg-off-white);

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/manufacturing-kpi-benchmark/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -113,7 +114,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
     const composite = Math.round(totalScore / BENCH.length);
     const cCls = composite>=70?'green':composite>=40?'gold':'red';
-    const cBand = composite>=80?'Best-in-class':composite>=65?'Above average':composite>=45?'Average':composite>=25?'Below average':'Critical';
+    const cBand = composite>=80?'Top quartile':composite>=65?'Above average':composite>=45?'Average':composite>=25?'Below average':'Critical';
     document.getElementById('hero').innerHTML = `
       <div data-sg-warn></div>
       <div class="big-label">Operations Score</div>
@@ -139,17 +140,17 @@ document.addEventListener('DOMContentLoaded',()=>{
     let gap = '<h2 style="margin-top:32px;margin-bottom:14px">If you hit top quartile</h2><table class="results-table"><thead><tr><th>KPI</th><th class="num">Gap to top quartile</th><th class="num">Estimated annual value</th></tr></thead><tbody>';
     let totalOpp = 0;
     const otdGap = Math.max(0, 97 - nn('otd'));
-    if (otdGap>0) { const v = rev * 0.02 * otdGap; totalOpp += v; gap += `<tr><td>On-Time Delivery (97% target)</td><td class="num">+${otdGap.toFixed(1)} pts</td><td class="num"><strong style="color:#047857">${fmt$K(v)}</strong></td></tr>`; }
+    if (otdGap>0) { const v = rev * 0.02 * otdGap; totalOpp += v; gap += `<tr><td>On-Time Delivery (97% target)</td><td class="num">+${otdGap.toFixed(1)} pts</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(v)}</strong></td></tr>`; }
     const scrapGap = Math.max(0, nn('scrap') - 1.1);
-    if (scrapGap>0) { const v = rev * 0.55 * (scrapGap/100); totalOpp += v; gap += `<tr><td>Scrap Rate (1.1% target)</td><td class="num">-${scrapGap.toFixed(1)} pts</td><td class="num"><strong style="color:#047857">${fmt$K(v)}</strong></td></tr>`; }
+    if (scrapGap>0) { const v = rev * 0.55 * (scrapGap/100); totalOpp += v; gap += `<tr><td>Scrap Rate (1.1% target)</td><td class="num">-${scrapGap.toFixed(1)} pts</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(v)}</strong></td></tr>`; }
     const turnsGap = Math.max(0, 9.2 - nn('turns'));
-    if (turnsGap>0 && nn('turns')>0) { const wc = (rev * 0.55) / nn('turns') - (rev * 0.55) / 9.2; const v = wc * 0.15; totalOpp += v; gap += `<tr><td>Inventory Turns (9.2x target)</td><td class="num">+${turnsGap.toFixed(1)}x</td><td class="num"><strong style="color:#047857">${fmt$K(v)} freed working capital × 15%</strong></td></tr>`; }
+    if (turnsGap>0 && nn('turns')>0) { const wc = (rev * 0.55) / nn('turns') - (rev * 0.55) / 9.2; const v = wc * 0.15; totalOpp += v; gap += `<tr><td>Inventory Turns (9.2x target)</td><td class="num">+${turnsGap.toFixed(1)}x</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(v)} freed working capital × 15%</strong></td></tr>`; }
     const gmGap = Math.max(0, 38 - nn('gm'));
-    if (gmGap>0) { const v = rev * (gmGap/100); totalOpp += v; gap += `<tr><td>Gross Margin (38% target)</td><td class="num">+${gmGap.toFixed(1)} pts</td><td class="num"><strong style="color:#047857">${fmt$K(v)}</strong></td></tr>`; }
+    if (gmGap>0) { const v = rev * (gmGap/100); totalOpp += v; gap += `<tr><td>Gross Margin (38% target)</td><td class="num">+${gmGap.toFixed(1)} pts</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(v)}</strong></td></tr>`; }
     const rpeGap = Math.max(0, 380 - rpe);
-    if (rpeGap>0) { const v = rpeGap * 1000 * emp; totalOpp += v; gap += `<tr><td>Revenue per Employee ($380K target)</td><td class="num">+$${Math.round(rpeGap)}K/FTE</td><td class="num"><strong style="color:#047857">${fmt$K(v)} revenue capacity</strong></td></tr>`; }
+    if (rpeGap>0) { const v = rpeGap * 1000 * emp; totalOpp += v; gap += `<tr><td>Revenue per Employee ($380K target)</td><td class="num">+$${Math.round(rpeGap)}K/FTE</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(v)} revenue capacity</strong></td></tr>`; }
     if (totalOpp===0) gap += '<tr><td colspan="3" style="text-align:center;color:var(--fg3)">All KPIs at or above top quartile - excellent operations.</td></tr>';
-    else gap += `<tr><td><strong>Total opportunity</strong></td><td class="num">-</td><td class="num"><strong style="color:#047857">${fmt$K(totalOpp)}</strong></td></tr>`;
+    else gap += `<tr><td><strong>Total opportunity</strong></td><td class="num">-</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(totalOpp)}</strong></td></tr>`;
     gap += '</tbody></table><p class="tool-note" style="margin-top:14px">Sources: APICS/ASCM SCOR model, IndustryWeek Best Plants benchmarking, US Census Bureau Annual Survey of Manufactures, Aberdeen Group.</p>';
 
     document.getElementById('detail').innerHTML = bench + gap;
@@ -196,13 +197,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/scrap-waste-calculator/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -89,7 +90,7 @@
 
     <h2>The benchmarks</h2>
     <ul>
-      <li>World-class scrap rate (Six Sigma): under 1%</li>
+      <li>Top decile (Six Sigma): under 1%</li>
       <li>Top quartile mid-market manufacturers: 1-2%</li>
       <li>Median: 3-5%</li>
       <li>Bottom quartile: 6%+</li>
@@ -115,13 +116,14 @@
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>
@@ -200,7 +202,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     // Benchmark category
     let bench, benchCls;
-    if (scrapPct < 1)      { bench = 'World-class (<1%, Six Sigma territory)'; benchCls = 'green'; }
+    if (scrapPct < 1)      { bench = 'Top decile (<1%, Six Sigma territory)'; benchCls = 'green'; }
     else if (scrapPct < 2) { bench = 'Top quartile (1-2%)'; benchCls = 'green'; }
     else if (scrapPct < 5) { bench = 'Industry median (2-5%)'; benchCls = 'gold'; }
     else if (scrapPct < 8) { bench = 'Below median (5-8%)'; benchCls = 'gold'; }
@@ -229,7 +231,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       <div class="big-number ${benchCls}">${fmt$K(annualWaste)}</div>
       <div class="big-caption"><strong>${bench}.</strong> ${fmt$K(monthlyWaste)} per month. Plus ${fmt$K(annualLostRevenue)} in lost revenue from units that never sold.</div>
       <div class="results-grid" style="margin-top:24px">
-        <div class="results-stat"><div class="label">Waste as % of revenue</div><div class="value ${wastePctRev<2?'green':wastePctRev<5?'gold':'red'}">${wastePctRev.toFixed(1)}%</div><div class="sub">World-class: &lt;1%</div></div>
+        <div class="results-stat"><div class="label">Waste as % of revenue</div><div class="value ${wastePctRev<2?'green':wastePctRev<5?'gold':'red'}">${wastePctRev.toFixed(1)}%</div><div class="sub">Top decile: &lt;1%</div></div>
         <div class="results-stat"><div class="label">Waste as % of COGS</div><div class="value">${wastePctCOGS.toFixed(1)}%</div></div>
         <div class="results-stat"><div class="label">True margin after waste</div><div class="value ${trueMargin>=25?'green':trueMargin>=15?'gold':'red'}">${price<=0?'N/A':(trueMargin<-999?'<-999%':trueMargin>999?'>999%':trueMargin.toFixed(1)+'%')}</div><div class="sub">Reported: ${price<=0?'N/A':(reportedMargin<-999?'<-999%':reportedMargin>999?'>999%':reportedMargin.toFixed(1)+'%')}</div></div>
       </div>
@@ -254,10 +256,10 @@ document.addEventListener('DOMContentLoaded',()=>{
       <table class="results-table">
         <thead><tr><th>New scrap rate</th><th class="num">Annual savings</th><th class="num">Margin gain</th></tr></thead>
         <tbody>
-          <tr><td>${s1.rate.toFixed(1)}% (25% reduction)</td><td class="num"><strong style="color:#047857">${fmt$K(s1.annualSaving)}</strong></td><td class="num">+${s1.marginGain.toFixed(1)} pts</td></tr>
-          <tr><td>${s2.rate.toFixed(1)}% (50% reduction)</td><td class="num"><strong style="color:#047857">${fmt$K(s2.annualSaving)}</strong></td><td class="num">+${s2.marginGain.toFixed(1)} pts</td></tr>
-          <tr><td>${s3.rate.toFixed(1)}% (industry median)</td><td class="num"><strong style="color:#047857">${fmt$K(s3.annualSaving)}</strong></td><td class="num">+${s3.marginGain.toFixed(1)} pts</td></tr>
-          <tr><td>${s4.rate.toFixed(1)}% (world-class)</td><td class="num"><strong style="color:#047857">${fmt$K(s4.annualSaving)}</strong></td><td class="num">+${s4.marginGain.toFixed(1)} pts</td></tr>
+          <tr><td>${s1.rate.toFixed(1)}% (25% reduction)</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(s1.annualSaving)}</strong></td><td class="num">+${s1.marginGain.toFixed(1)} pts</td></tr>
+          <tr><td>${s2.rate.toFixed(1)}% (50% reduction)</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(s2.annualSaving)}</strong></td><td class="num">+${s2.marginGain.toFixed(1)} pts</td></tr>
+          <tr><td>${s3.rate.toFixed(1)}% (industry median)</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(s3.annualSaving)}</strong></td><td class="num">+${s3.marginGain.toFixed(1)} pts</td></tr>
+          <tr><td>${s4.rate.toFixed(1)}% (top decile)</td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$K(s4.annualSaving)}</strong></td><td class="num">+${s4.marginGain.toFixed(1)} pts</td></tr>
         </tbody>
       </table>
       <p class="tool-note" style="margin-top:14px">Every dollar saved on scrap drops straight to operating profit.${reportedMargin > 0 ? ' At your current margin, ' + fmt$K(annualWaste) + ' of waste is equivalent to about ' + fmt$K(annualWaste / (reportedMargin/100)) + " in new revenue you'd have to generate to net the same profit." : ''}</p>
@@ -283,7 +285,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         ['25% reduction ('+r.s1.rate.toFixed(1)+'%)', fmt$(r.s1.annualSaving), '+'+r.s1.marginGain.toFixed(1)+' pts'],
         ['50% reduction ('+r.s2.rate.toFixed(1)+'%)', fmt$(r.s2.annualSaving), '+'+r.s2.marginGain.toFixed(1)+' pts'],
         ['Industry median ('+r.s3.rate.toFixed(1)+'%)', fmt$(r.s3.annualSaving), '+'+r.s3.marginGain.toFixed(1)+' pts'],
-        ['World-class ('+r.s4.rate.toFixed(1)+'%)', fmt$(r.s4.annualSaving), '+'+r.s4.marginGain.toFixed(1)+' pts']
+        ['Top decile ('+r.s4.rate.toFixed(1)+'%)', fmt$(r.s4.annualSaving), '+'+r.s4.marginGain.toFixed(1)+' pts']
       ],
       itemRowMapper: x=>x,
       filename:'scrap-waste-report-'+todayISO()+'.pdf'

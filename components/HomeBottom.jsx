@@ -7,13 +7,13 @@ function ApparelVisual() {
             <path d="M0 3 H6 M3 0 V6" stroke="rgba(255,255,255,0.04)" strokeWidth="0.6"/>
           </pattern>
           <linearGradient id="apxThread" x1="0" x2="1">
-            <stop offset="0" stopColor="#4A7BF7" stopOpacity="0"/>
-            <stop offset="0.5" stopColor="#4A7BF7"/>
-            <stop offset="1" stopColor="#4A7BF7" stopOpacity="0"/>
+            <stop offset="0" stopColor="#3461E0" stopOpacity="0"/>
+            <stop offset="0.5" stopColor="#3461E0"/>
+            <stop offset="1" stopColor="#3461E0" stopOpacity="0"/>
           </linearGradient>
           <linearGradient id="apxFabric" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#4A7BF7" stopOpacity="0.45"/>
-            <stop offset="1" stopColor="#4A7BF7" stopOpacity="0.05"/>
+            <stop offset="0" stopColor="#3461E0" stopOpacity="0.45"/>
+            <stop offset="1" stopColor="#3461E0" stopOpacity="0.05"/>
           </linearGradient>
           <linearGradient id="apxFabric2" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#F59E0B" stopOpacity="0.4"/>
@@ -61,7 +61,7 @@ function ApparelVisual() {
         </g>
 
         {/* Thread lines flowing from fabrics to shirts (production flow) */}
-        <g stroke="#4A7BF7" strokeWidth="0.8" fill="none" opacity="0.45">
+        <g stroke="#3461E0" strokeWidth="0.8" fill="none" opacity="0.45">
           <path d="M 188 110 Q 230 90 270 78" strokeDasharray="3 3">
             <animate attributeName="stroke-dashoffset" from="0" to="-12" dur="1.5s" repeatCount="indefinite"/>
           </path>
@@ -75,7 +75,7 @@ function ApparelVisual() {
 
         {/* Three finished shirts on hangers (representing 3 streams) */}
         {[
-          { x: 264, y: 60, color: '#4A7BF7', label: 'CMT' },
+          { x: 264, y: 60, color: '#3461E0', label: 'CMT' },
           { x: 286, y: 116, color: '#F59E0B', label: 'BRAND' },
           { x: 296, y: 162, color: '#A78BFA', label: 'TRADE' },
         ].map((s, i) => (
@@ -207,7 +207,7 @@ function Integrations() {
     { name: 'Bill.com', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#006FFF"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">BILL</text></svg>' },
     { name: 'TikTok Shop', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#000"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="11">TT</text></svg>' },
     { name: 'SFTP', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#4A5568"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">SFTP</text></svg>' },
-    { name: '+ Build custom', status: 'custom', custom: true, svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="none" stroke="#4A7BF7" stroke-width="1.5" stroke-dasharray="3 2"/><line x1="12" y1="7" x2="12" y2="17" stroke="#4A7BF7" stroke-width="2" stroke-linecap="round"/><line x1="7" y1="12" x2="17" y2="12" stroke="#4A7BF7" stroke-width="2" stroke-linecap="round"/></svg>' },
+    { name: '+ Build custom', status: 'custom', custom: true, svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="none" stroke="#3461E0" stroke-width="1.5" stroke-dasharray="3 2"/><line x1="12" y1="7" x2="12" y2="17" stroke="#3461E0" stroke-width="2" stroke-linecap="round"/><line x1="7" y1="12" x2="17" y2="12" stroke="#3461E0" stroke-width="2" stroke-linecap="round"/></svg>' },
   ];
   // Duplicate the list so the loop is seamless when the track translates by -50%.
   const doubled = [...items, ...items];
@@ -413,6 +413,10 @@ function HomeFAQ() {
       a: "You walk. No invoice. No clawback. We've still done the migration and the build at our cost. You get a clean data export and your spreadsheets back. That's the whole point - the risk lives with us until you've seen it run on your real floor."
     },
     {
+      q: "Do we have to migrate our data ourselves?",
+      a: "No. We do the migration. Whatever you're running on - QuickBooks, spreadsheets, paper, group chats, an old ERP - we pull it out, clean it, structure it, and load it. Migration is included in the build, not a separate line item. You don't touch the data."
+    },
+    {
       q: "How much does it cost after the 30-day trial?",
       a: "Before you decide, we agree on a number together based on the size of your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees. We are not free and not cheap. We are priced like an operator who has carried the build for you."
     },
@@ -431,7 +435,7 @@ function HomeFAQ() {
       <div className="container" style={{maxWidth:880}}>
         <Reveal>
           <div className="tag" style={{textAlign:'center'}}>BEFORE YOU DECIDE</div>
-          <h2 className="h2" style={{textAlign:'center'}}>Four questions every buyer asks us.</h2>
+          <h2 className="h2" style={{textAlign:'center'}}>Five questions every buyer asks us.</h2>
         </Reveal>
         <div style={{marginTop:32,display:'flex',flexDirection:'column',gap:12}}>
           {items.map((it,i) => (
@@ -461,16 +465,18 @@ function HomeFAQ() {
 window.HomeFAQ = HomeFAQ;
 
 function FinalCTA() {
+  const [showInvite, setShowInvite] = React.useState(false);
   return (
     <section className="section section-dark final-cta">
       <div className="container">
         <Reveal>
           <h2 className="h2">Try it on. Then decide.</h2>
           <p className="sub">We build a custom ERP around your factory at our cost. You run it on your real floor for 30 days. If it doesn't move the business, you walk. We earn nothing.</p>
-          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a call</a>
+          <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-primary">Book a demo</button>
           <p className="note">Founder-led. Limited slots each quarter. We onboard selectively - only when we know we can win for you.</p>
         </Reveal>
       </div>
+      {showInvite && <InviteModal onClose={() => setShowInvite(false)} />}
     </section>
   );
 }

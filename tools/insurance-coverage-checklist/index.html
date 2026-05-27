@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/insurance-coverage-checklist/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -87,8 +88,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('hero').innerHTML=`<div class="big-label">Coverage adequacy</div><div class="big-number ${cls}">${pct}% <span style="font-size:24px;color:var(--fg3);font-weight:500">${have + partial*0.5}/${effective} items</span></div><div class="big-caption"><strong>${band}.</strong> Critical gaps: ${criticalGaps}.</div>`;
     let gaps = '<h2 style="margin-bottom:14px">Coverage gaps</h2><table class="results-table"><thead><tr><th>Item</th><th>Priority</th><th>Status</th></tr></thead><tbody>';
     let added=0;
-    for (let i=0; i<total; i++){const v=val('i'+(i+1)); if (v===0 || v===1){gaps += `<tr><td>${ITEMS[i][0]}</td><td><strong style="color:${ITEMS[i][1]==='Critical'?'#B91C1C':'#B45309'}">${ITEMS[i][1]}</strong></td><td>${v===0?'Missing':'Partial / Underlimited'}</td></tr>`; added++;}}
-    if (added===0) gaps += '<tr><td colspan="3" style="text-align:center;color:#047857">All coverage in place - excellent.</td></tr>';
+    for (let i=0; i<total; i++){const v=val('i'+(i+1)); if (v===0 || v===1){gaps += `<tr><td>${ITEMS[i][0]}</td><td><strong style="color:${ITEMS[i][1]==='Critical'?'var(--sg-red-dark)':'var(--sg-gold-dark)'}">${ITEMS[i][1]}</strong></td><td>${v===0?'Missing':'Partial / Underlimited'}</td></tr>`; added++;}}
+    if (added===0) gaps += '<tr><td colspan="3" style="text-align:center;color:var(--sg-green-dark)">All coverage in place - excellent.</td></tr>';
     gaps += '</tbody></table>';
     document.getElementById('detail').innerHTML = gaps;
     return {pct, band, have, partial, dont, dontCritical, criticalGaps};
@@ -120,13 +121,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>

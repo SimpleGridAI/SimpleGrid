@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/revenue-per-employee/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -119,13 +120,14 @@
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>
@@ -188,7 +190,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const bottom = median * 0.6; // rough P25 estimate
     let percentile, status, statusCls;
     if (noData) { percentile = 0; status = 'Enter revenue and headcount to benchmark'; statusCls = 'gold'; }
-    else if (rpe >= top) { percentile = 90; status = 'Top decile - best-in-class for your vertical'; statusCls = 'green'; }
+    else if (rpe >= top) { percentile = 90; status = 'Top decile - Top decile for your vertical'; statusCls = 'green'; }
     else if (rpe >= top * 0.95) { percentile = 80; status = 'Top quartile - strong performance'; statusCls = 'green'; }
     else if (rpe >= median) { percentile = 50 + Math.round(((rpe - median) / (top - median)) * 25); status = 'Above median - performing well'; statusCls = 'green'; }
     else if (rpe >= bottom) { percentile = Math.round(((rpe - bottom) / (median - bottom)) * 50); status = 'Below median - room to improve'; statusCls = 'gold'; }
@@ -223,7 +225,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       <h2 style="margin-bottom:12px">How you compare</h2>
       <div class="bar-row"><span class="bar-label">You</span><div class="bar-track"><div class="bar-fill ${statusCls}" style="width:${Math.min(100, pct(rpe, top*1.1))}%"></div></div><span class="bar-value">${fmt$K(rpe)}</span></div>
       <div class="bar-row"><span class="bar-label" style="color:var(--fg3)">Vertical median</span><div class="bar-track"><div class="bar-fill" style="background:var(--fg3);width:${Math.min(100, pct(median, top*1.1))}%"></div></div><span class="bar-value" style="color:var(--fg3)">${fmt$K(median)}</span></div>
-      <div class="bar-row"><span class="bar-label" style="color:#047857">Top quartile</span><div class="bar-track"><div class="bar-fill green" style="width:${Math.min(100, pct(top, top*1.1))}%"></div></div><span class="bar-value" style="color:#047857">${fmt$K(top)}</span></div>
+      <div class="bar-row"><span class="bar-label" style="color:var(--sg-green-dark)">Top quartile</span><div class="bar-track"><div class="bar-fill green" style="width:${Math.min(100, pct(top, top*1.1))}%"></div></div><span class="bar-value" style="color:var(--sg-green-dark)">${fmt$K(top)}</span></div>
 
       <h2 style="margin-top:32px;margin-bottom:12px">What the gap is worth</h2>
       <div class="results-grid">

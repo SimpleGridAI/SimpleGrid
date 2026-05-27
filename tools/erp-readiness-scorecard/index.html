@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/erp-readiness-scorecard/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -125,7 +126,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     let actions = '<h2 style="margin-top:32px;margin-bottom:14px">Gap-closure action items</h2><table class="results-table"><thead><tr><th>Dimension</th><th>Action required</th></tr></thead><tbody>';
     const advice = {pm:'Document your top 5 processes starting with order-to-cash. Use any tool - even a Word doc - just write them down.',dr:'Clean your item master first. Dedupe customer + vendor records. Structure your BOMs. ERPs amplify data quality - good in, good out; bad in, disaster.',or:'Assign one internal champion who can dedicate 10-15 hrs/week. Brief the floor team early on why change is coming.',ti:'Upgrade internet to reliable broadband. Get tablets for floor supervisors. This is not expensive but its prerequisite.',cc:'Block 2 hours every morning for the first 2 weeks of go-live. This single discipline is the strongest predictor of implementation success.'};
     dimScores.filter(d=>d.pct<60).forEach(d=>{actions += `<tr><td><strong>${d.name}</strong> (${Math.round(d.pct)}%)</td><td>${advice[d.key]}</td></tr>`;});
-    if (dimScores.every(d=>d.pct>=60)) actions += '<tr><td colspan="2" style="text-align:center;color:#047857">All dimensions above 60% - no critical gaps. Begin vendor conversations.</td></tr>';
+    if (dimScores.every(d=>d.pct>=60)) actions += '<tr><td colspan="2" style="text-align:center;color:var(--sg-green-dark)">All dimensions above 60% - no critical gaps. Begin vendor conversations.</td></tr>';
     actions += '</tbody></table>';
     document.getElementById('detail').innerHTML = bench + actions;
     return {composite, band, summary, dimScores};
@@ -167,13 +168,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>

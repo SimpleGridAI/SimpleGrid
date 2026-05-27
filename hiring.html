@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <!-- Security meta (GitHub Pages can't set HTTP headers; these are the next-best-thing) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -16,6 +16,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/hiring.html">
 <link rel="icon" type="image/svg+xml" href="assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="assets/simplegrid-logomark.svg">
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link rel="dns-prefetch" href="https://us-assets.i.posthog.com">
 <link rel="stylesheet" href="colors_and_type.css">
@@ -59,6 +60,48 @@
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://simplegrid.ai/" },
         { "@type": "ListItem", "position": 2, "name": "Careers", "item": "https://simplegrid.ai/hiring.html" }
       ]
+    },
+    {
+      "@type": "JobPosting",
+      "@id": "https://simplegrid.ai/hiring.html#fractional-cro-cso-us",
+      "title": "Fractional CRO / CSO - US Market",
+      "description": "Open the US market for a custom ERP that ships in days and gets paid for only after it works. Own US pipeline end-to-end, lead the first 5-10 US deals alongside the founder, and stand up a repeatable motion (messaging, sequences, demo flow, pricing tiers). Bring 15+ years in B2B SaaS GTM, with at least one CRO or VP Sales seat at a Series A-C company.",
+      "datePosted": "2026-03-15",
+      "validThrough": "2026-12-31",
+      "employmentType": "PART_TIME",
+      "hiringOrganization": { "@id": "https://simplegrid.ai/#org" },
+      "jobLocationType": "TELECOMMUTE",
+      "applicantLocationRequirements": { "@type": "Country", "name": "United States" },
+      "directApply": false,
+      "url": "https://simplegrid.ai/hiring.html#fractional-cro-cso-us",
+      "baseSalary": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": { "@type": "QuantitativeValue", "value": 5000, "unitText": "MONTH" }
+      },
+      "industry": "Enterprise Software / Manufacturing ERP"
+    },
+    {
+      "@type": "JobPosting",
+      "@id": "https://simplegrid.ai/hiring.html#founders-office-intern",
+      "title": "Founder's Office Intern",
+      "description": "Six months of unfair access to how a B2B startup is actually built. Own customer ops, deployment trackers, sales ops, content, and internal tooling. Final-year undergrad, recent grad, or pre-MBA / pre-grad-school. In-person in Bangalore.",
+      "datePosted": "2026-04-10",
+      "validThrough": "2026-12-31",
+      "employmentType": "INTERN",
+      "hiringOrganization": { "@id": "https://simplegrid.ai/#org" },
+      "jobLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Bangalore",
+          "addressRegion": "Karnataka",
+          "addressCountry": "IN"
+        }
+      },
+      "directApply": false,
+      "url": "https://simplegrid.ai/hiring.html#founders-office-intern",
+      "industry": "Enterprise Software / Manufacturing ERP"
     }
   ]
 }
@@ -105,6 +148,7 @@
 
 <script src="components/Nav.js" defer></script>
 <script src="components/LoginModal.js" defer></script>
+<script src="components/InviteModal.js" defer></script>
 <script src="components/Interactive.js" defer></script>
 <script src="components/Footer.js" defer></script>
 

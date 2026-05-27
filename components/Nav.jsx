@@ -1,6 +1,7 @@
 function Nav({ page = 'home', onLoginClick }) {
   const [openResources, setOpenResources] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
+  const [showInvite, setShowInvite] = React.useState(false);
   const resourcesRef = React.useRef(null);
 
   // On nested pages (e.g. /blog/{slug}/) the generator sets
@@ -96,7 +97,7 @@ function Nav({ page = 'home', onLoginClick }) {
         </nav>
         <div className="nav-right">
           <button className="btn btn-sm btn-secondary desktop-only" onClick={onLoginClick}>Log in</button>
-          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-primary" title="Book a SimpleGrid demo call">Book a call</a>
+          <button type="button" onClick={() => setShowInvite(true)} className="btn btn-sm btn-primary" title="Book a SimpleGrid demo">Book a demo</button>
           <button
             type="button"
             className={'nav-burger' + (openMenu ? ' is-open' : '')}
@@ -133,6 +134,7 @@ function Nav({ page = 'home', onLoginClick }) {
         </div>
       )}
     </header>
+    {showInvite && <InviteModal onClose={() => setShowInvite(false)} />}
     </>
   );
 }

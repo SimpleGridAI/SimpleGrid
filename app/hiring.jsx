@@ -88,7 +88,6 @@ function HiringHero() {
         </p>
         <div style={{marginTop:28,display:'flex',gap:12,flexWrap:'wrap'}}>
           <a href="#roles" className="btn btn-lg btn-primary">See open roles</a>
-          <a href="mailto:hello@simplegrid.ai?subject=Joining%20SimpleGrid" className="btn btn-lg btn-outline-white">Email the founder</a>
         </div>
       </div>
     </section>
@@ -284,9 +283,6 @@ function HiringPage() {
 
     <Footer />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
-    <div className="mobile-cta">
-      <a href="mailto:hello@simplegrid.ai" className="btn btn-primary">Email the founder</a>
-    </div>
     <style>{`@media (max-width:760px){.role-row{grid-template-columns:1fr !important}.hire-grid{grid-template-columns:1fr !important}}`}</style>
   </>);
 }

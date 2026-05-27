@@ -4,7 +4,7 @@ function RadialBurst({
   // Visual spec (strict):
   //   - Background: radial gradient #D6E4FF (inner, bottom-center) → #FFFFFF (outer)
   //   - 100 thin lines (1-1.5px) radiating from bottom-center in upper 180° arc
-  //   - All lines blue: lerp from #2956C4 (deep) to #4A7BF7 (SimpleGrid blue)
+  //   - All lines blue: lerp from #2956C4 (deep) to #3461E0 (SimpleGrid blue)
   //   - Per-line opacity 30-80%, with shorter lines more opaque, longer more transparent
   //   - Tip nodes 2-4px, #2956C4 at 60-90% opacity
   //   - Animation: subtle "breathing" - opacity oscillates over a 4-8s period
@@ -41,7 +41,7 @@ function RadialBurst({
         const a = -Math.PI + Math.random() * Math.PI;
         // Length: 40-90% of canvas height
         const lenRatio = 0.4 + Math.random() * 0.5;
-        // tone 0 = deep blue #2956C4, 1 = SimpleGrid blue #4A7BF7
+        // tone 0 = deep blue #2956C4, 1 = SimpleGrid blue #3461E0
         const tone = Math.random();
         // shorter lines are more opaque (depth effect) - bumped from 0.3-0.8
         // to 0.45-0.95 so the burst reads as eye-catching, not whispery.
@@ -101,7 +101,7 @@ function RadialBurst({
 
     // Two palettes - picked at draw time so the burst recolors when theme flips.
     // Dark: deep #3461D1 → medium-blue #6E97FF (saturated, both clearly blue)
-    // Light: deep blue #2956C4 → SG blue #4A7BF7 (visible on white)
+    // Light: deep blue #2956C4 → SG blue #3461E0 (visible on white)
     const lineRGBA = (tone, alpha) => {
       let r, g, b;
       if (theme === 'light') {
@@ -292,7 +292,7 @@ function Hero() {
     delay: 200
   }, /*#__PURE__*/React.createElement("p", {
     className: "hero-sub"
-  }, "We don't sell software. We build a custom ERP modelled on how your factory actually runs - your stages, your contractors, your approvals, your costing logic.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "We don't sell software. We build a custom ERP that fits how your factory actually runs - your stages, your contractors, your approvals, your costing logic.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 400
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-cta"
@@ -301,8 +301,9 @@ function Hero() {
     "data-cta": "hero",
     className: "btn btn-lg btn-invite",
     style: {
-      boxShadow: '0 0 0 0 rgba(74,123,247,0.45), 0 6px 20px rgba(74,123,247,0.18)',
-      animation: 'sgBuildPulse 1.8s ease-in-out infinite'
+      boxShadow: '0 0 0 0 rgba(74,123,247,0.28), 0 6px 20px rgba(74,123,247,0.10)',
+      animation: 'sgBuildPulse 1.8s ease-in-out infinite',
+      opacity: 0.85
     },
     onClick: () => {
       setShowInvite(true);
@@ -874,7 +875,7 @@ function ProblemSection() {
       width: "80",
       height: "22",
       rx: "4",
-      fill: "#4A7BF7"
+      fill: "#3461E0"
     }), /*#__PURE__*/React.createElement("text", {
       x: "60",
       y: "168",
@@ -1105,7 +1106,7 @@ function WhatWeDo() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const accent = getComputedStyle(document.documentElement).getPropertyValue('--sg-blue').trim() || '#4A7BF7';
+    const accent = getComputedStyle(document.documentElement).getPropertyValue('--sg-blue').trim() || '#3461E0';
     const RING_LIFE_MS = 5500;
     const SPAWN_INTERVAL_MS = 1000;
     const rings = [];
@@ -1566,7 +1567,7 @@ function HowItWorks() {
     title: "A live video call with the founder.",
     details: [{
       kind: 'p',
-      text: "Day 1 is a 3-hour live video call with our founders and lead engineer - not a sales rep, not an SDR. We walk through your operations end-to-end: how orders come in, who approves what, your production stages, vendor relationships, QC rules, dispatch, and the exceptions every floor has."
+      text: "Day 1 is a 3-hour live video call with our founders and lead engineer - not a sales rep, not an SDR. We walk through your operations from order intake to dispatch: how orders come in, who approves what, your production stages, vendor relationships, QC rules, dispatch, and the exceptions every floor has."
     }, {
       kind: 'p',
       text: "Bring whoever should be in the room - your COO, plant manager, a couple of floor leads. The more voices, the sharper the model. We map your core workflows live on the call, asking the questions only an operator would think to ask."
@@ -1585,7 +1586,7 @@ function HowItWorks() {
       cx: "22",
       cy: "36",
       r: "11",
-      fill: "#4A7BF7"
+      fill: "#3461E0"
     }), /*#__PURE__*/React.createElement("text", {
       x: "22",
       y: "40",
@@ -1878,14 +1879,14 @@ function HowItWorks() {
       transform: "translate(70, 56)"
     }, /*#__PURE__*/React.createElement("path", {
       d: "M0 0 L0 12 L4 8 L7 14 L9 13 L6 7 L11 7 Z",
-      fill: "#4A7BF7"
+      fill: "#3461E0"
     }), /*#__PURE__*/React.createElement("rect", {
       x: "11",
       y: "-1",
       width: "50",
       height: "13",
       rx: "3",
-      fill: "#4A7BF7"
+      fill: "#3461E0"
     }), /*#__PURE__*/React.createElement("text", {
       x: "36",
       y: "9",
@@ -2131,7 +2132,7 @@ function HowItWorks() {
       cx: "146",
       cy: "127",
       r: "5",
-      fill: "#4A7BF7"
+      fill: "#3461E0"
     }))
   }];
   React.useEffect(() => {

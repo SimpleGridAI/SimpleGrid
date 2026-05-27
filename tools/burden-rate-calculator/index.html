@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/burden-rate-calculator/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -142,7 +143,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       <div class="bar-row"><span class="bar-label">Overhead</span><div class="bar-track"><div class="bar-fill red" style="width:${(overhead/total*100)}%"></div></div><span class="bar-value">${fmt$(overhead)} (${(overhead/total*100).toFixed(0)}%)</span></div>
 
       ${rate > 0 ? `<h2 style="margin-top:32px;margin-bottom:14px">Pricing impact</h2>
-      <p style="font-size:15px;color:var(--fg1);line-height:1.6">If you quote labor at the base rate ${fmt$(rate)}/hr instead of the burdened rate ${fmt$(burdenRate)}/hr, you underprice by <strong style="color:#B91C1C">${fmt$(burdenRate-rate)}/hr</strong> - that's <strong>${((burdenRate-rate)/rate*100).toFixed(0)}%</strong>. On a 100-hour job you leave ${fmt$((burdenRate-rate)*100)} on the table. This is the single most common pricing error in manufacturing.</p>` : ''}
+      <p style="font-size:15px;color:var(--fg1);line-height:1.6">If you quote labor at the base rate ${fmt$(rate)}/hr instead of the burdened rate ${fmt$(burdenRate)}/hr, you underprice by <strong style="color:var(--sg-red-dark)">${fmt$(burdenRate-rate)}/hr</strong> - that's <strong>${((burdenRate-rate)/rate*100).toFixed(0)}%</strong>. On a 100-hour job you leave ${fmt$((burdenRate-rate)*100)} on the table. This is the single most common pricing error in manufacturing.</p>` : ''}
     `;
     return {rate, hours, productiveHours, base, statutory, benefits, overhead, total, burdenRate, mult};
   }
@@ -190,13 +191,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -15,6 +15,7 @@
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/automation-roi-estimator/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
@@ -105,7 +106,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       <div data-sg-warn></div>
       <div class="big-label">Annual cost of manual data work</div>
       <div class="big-number red">${fmt$K(totalWaste)}</div>
-      <div class="big-caption"><strong>${pctRev.toFixed(1)}% of your revenue</strong> - that\'s ${fte.toFixed(1)} FTEs doing work a system could do. Mid-market manufacturing best-in-class: under 5% (Aberdeen).</div>
+      <div class="big-caption"><strong>${pctRev.toFixed(1)}% of your revenue</strong> - that\'s ${fte.toFixed(1)} FTEs doing work a system could do. Mid-market manufacturing top decile: under 5% (Aberdeen).</div>
       <div class="results-grid" style="margin-top:24px">
         <div class="results-stat"><div class="label">Recoverable hours / year</div><div class="value">${Math.round(totalHours).toLocaleString()}</div></div>
         <div class="results-stat"><div class="label">FTE equivalent</div><div class="value">${fte.toFixed(1)}</div></div>
@@ -122,11 +123,11 @@ document.addEventListener('DOMContentLoaded',()=>{
       <table class="results-table"><thead><tr><th>Metric</th><th class="num">Value</th></tr></thead><tbody>
         <tr><td>Annual savings</td><td class="num">${fmt$(totalWaste)}</td></tr>
         <tr><td>Annual system cost</td><td class="num">${fmt$(sysCostAnnual)}</td></tr>
-        <tr><td><strong>Net annual saving</strong></td><td class="num"><strong style="color:#047857">${fmt$(netSaving)}</strong></td></tr>
+        <tr><td><strong>Net annual saving</strong></td><td class="num"><strong style="color:var(--sg-green-dark)">${fmt$(netSaving)}</strong></td></tr>
         <tr><td>Payback period</td><td class="num">${paybackMonths} months</td></tr>
         <tr><td>3-year ROI</td><td class="num"><strong>${sysCostAnnual>0?Math.round((netSaving*3/sysCostAnnual/3)*100):0}%</strong></td></tr>
       </tbody></table>
-      <p class="tool-note" style="margin-top:14px">Source: McKinsey Global Institute (50% of manufacturing work is automatable), Aberdeen Group (best-in-class spends under 5% of labor hours on manual data work; median 12-18%).</p>
+      <p class="tool-note" style="margin-top:14px">Source: McKinsey Global Institute (50% of manufacturing work is automatable), Aberdeen Group (top decile spends under 5% of labor hours on manual data work; median 12-18%).</p>
     `;
     return {rev,totalWaste,totalHours,fte,pctRev,threeYr,netSaving,paybackMonths,sysCostAnnual};
   }
@@ -140,7 +141,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       fromLabel:'TODAY', from:[fmt$(r.totalWaste)+' annual cost of manual data work', r.fte.toFixed(1)+' FTE equivalent', r.pctRev.toFixed(1)+'% of revenue'],
       toLabel:'IF AUTOMATED', to:['Annual saving: '+fmt$(r.netSaving), 'Payback: '+r.paybackMonths+' months', '3-yr ROI: '+(r.sysCostAnnual>0?Math.round((r.netSaving*3/r.sysCostAnnual/3)*100)+'%':'-')],
       itemColumns:['Metric','Value'], items:[['Recoverable hours/yr',Math.round(r.totalHours)],['FTE equivalent',r.fte.toFixed(1)],['Annual labor waste',fmt$(r.totalWaste)],['3-yr cost if no change',fmt$(r.threeYr)]], itemRowMapper:x=>x,
-      notes:'McKinsey Global Institute 2017: 50% of manufacturing work activities are automatable. Aberdeen: best-in-class under 5% of labor on manual data; median 12-18%.',
+      notes:'McKinsey Global Institute 2017: 50% of manufacturing work activities are automatable. Aberdeen: top decile under 5% of labor on manual data; median 12-18%.',
       filename:'automation-roi-'+todayISO()+'.pdf'});
   });
 });
@@ -161,13 +162,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>

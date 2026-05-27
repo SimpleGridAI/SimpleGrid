@@ -2,26 +2,27 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://www.clarity.ms https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com https://*.clarity.ms; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://us-assets.i.posthog.com https://www.googletagmanager.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://us.i.posthog.com https://formsubmit.co https://www.google-analytics.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta name="permissions-policy" content="geolocation=(), microphone=(), camera=(), payment=()">
 
 <title>OEE Calculator (Overall Equipment Effectiveness) | SimpleGrid</title>
-<meta name="description" content="Free OEE calculator for manufacturers. Availability x Performance x Quality. World-class 85%. Find the biggest production loss with $ impact. PDF export.">
+<meta name="description" content="Free OEE calculator for manufacturers. Availability x Performance x Quality. Top-decile 85%. Find the biggest production loss with $ impact. PDF export.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#3461E0">
 <meta name="robots" content="index, follow">
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="canonical" href="https://simplegrid.ai/tools/oee-calculator/">
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
+<link rel="apple-touch-icon" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../tools.css">
-<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/oee-calculator/"><meta property="og:title" content="OEE Calculator (Overall Equipment Effectiveness) | SimpleGrid"><meta property="og:description" content="Free OEE calculator for manufacturers. Availability x Performance x Quality. World-class 85%. Find the biggest production loss with $ impact. PDF export."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
+<meta property="og:site_name" content="SimpleGrid"><meta property="og:type" content="website"><meta property="og:url" content="https://simplegrid.ai/tools/oee-calculator/"><meta property="og:title" content="OEE Calculator (Overall Equipment Effectiveness) | SimpleGrid"><meta property="og:description" content="Free OEE calculator for manufacturers. Availability x Performance x Quality. Top-decile 85%. Find the biggest production loss with $ impact. PDF export."><meta property="og:image" content="https://simplegrid.ai/assets/og-card.jpg">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"SoftwareApplication","name":"OEE Calculator (Overall Equipment Effectiveness) | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/oee-calculator/","description":"Free OEE calculator for manufacturers. Availability x Performance x Quality. World-class 85%. Find the biggest production loss with $ impact. PDF export.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
+{"@type":"SoftwareApplication","name":"OEE Calculator (Overall Equipment Effectiveness) | SimpleGrid","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://simplegrid.ai/tools/oee-calculator/","description":"Free OEE calculator for manufacturers. Availability x Performance x Quality. Top-decile 85%. Find the biggest production loss with $ impact. PDF export.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://simplegrid.ai/#org"}},
 {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://simplegrid.ai/"},{"@type":"ListItem","position":2,"name":"Productive Tools","item":"https://simplegrid.ai/tools/"},{"@type":"ListItem","position":3,"name":"OEE Calculator (Overall Equipment Effectiveness) | SimpleGrid","item":"https://simplegrid.ai/tools/oee-calculator/"}]}
 ]}
 </script>
@@ -45,7 +46,7 @@
   <section class="tool-header"><div class="container-sm">
     <a href="../" class="back-link">← All productive tools</a>
     <h1>OEE Calculator - what your equipment actually produces vs what it could.</h1>
-    <p class="lead">OEE is the gold-standard metric for manufacturing productivity. It rolls availability, speed, and quality into one number. Most plants without OEE tracking score 40-60%. World-class is 85%+. This tool shows you exactly where the gap is.</p>
+    <p class="lead">OEE is the gold-standard metric for manufacturing productivity. It rolls availability, speed, and quality into one number. Most plants without OEE tracking score 40-60%. Top decile is 85%+. This tool shows you exactly where the gap is.</p>
   </div></section>
 
 <section class="tool-app"><div class="container-sm">
@@ -109,8 +110,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     const qualLossUnits = actual - good;
     const totalLossUnits = availLossUnits + perfLossUnits + qualLossUnits;
     let rating, cls;
-    if (oee>=85) { rating='World-class (top 10% of plants)'; cls='green'; }
-    else if (oee>=72) { rating='Good - approaching world-class'; cls='green'; }
+    if (oee>=85) { rating='Top decile (top 10% of plants)'; cls='green'; }
+    else if (oee>=72) { rating='Good - approaching top decile'; cls='green'; }
     else if (oee>=60) { rating='Reasonable - room for improvement'; cls='gold'; }
     else if (oee>=40) { rating='Typical for plants without OEE tracking'; cls='gold'; }
     else { rating='Critical - significant improvement opportunity'; cls='red'; }
@@ -119,7 +120,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       <div data-sg-warn></div>
       <div class="big-label">Your OEE</div>
       <div class="big-number ${cls}">${idealValid ? oee.toFixed(1) + '%' : 'N/A'}</div>
-      <div class="big-caption"><strong>${rating}.</strong> Availability ${availability.toFixed(1)}% x Performance ${performance.toFixed(1)}% x Quality ${quality.toFixed(1)}%. World-class is 85%+ (only ~10% of plants achieve it).</div>
+      <div class="big-caption"><strong>${rating}.</strong> Availability ${availability.toFixed(1)}% x Performance ${performance.toFixed(1)}% x Quality ${quality.toFixed(1)}%. Top decile is 85%+ (only ~10% of plants achieve it).</div>
       <div class="results-grid" style="margin-top:24px">
         <div class="results-stat"><div class="label">Availability</div><div class="value ${availability>=90?'green':availability>=75?'gold':'red'}">${availability.toFixed(1)}%</div><div class="sub">target 90%+</div></div>
         <div class="results-stat"><div class="label">Performance</div><div class="value ${performance>=95?'green':performance>=80?'gold':'red'}">${performance.toFixed(1)}%</div><div class="sub">target 95%+</div></div>
@@ -135,7 +136,7 @@ document.addEventListener('DOMContentLoaded',()=>{
           <tr><td>Availability (breakdowns + changeovers)</td><td class="num">${Math.round(availLossUnits)}</td>${price>0?'<td class="num">'+fmt$(availLossUnits*price)+'</td><td class="num">'+fmt$(availLossUnits*price*250)+'</td>':''}</tr>
           <tr><td>Performance (slow running + minor stops)</td><td class="num">${Math.round(perfLossUnits)}</td>${price>0?'<td class="num">'+fmt$(perfLossUnits*price)+'</td><td class="num">'+fmt$(perfLossUnits*price*250)+'</td>':''}</tr>
           <tr><td>Quality (defects + startup rejects)</td><td class="num">${Math.round(qualLossUnits)}</td>${price>0?'<td class="num">'+fmt$(qualLossUnits*price)+'</td><td class="num">'+fmt$(qualLossUnits*price*250)+'</td>':''}</tr>
-          <tr><td><strong>Total</strong></td><td class="num"><strong>${Math.round(totalLossUnits)}</strong></td>${price>0?'<td class="num"><strong>'+fmt$(totalLossUnits*price)+'</strong></td><td class="num"><strong style="color:#B91C1C">'+fmt$(totalLossUnits*price*250)+'</strong></td>':''}</tr>
+          <tr><td><strong>Total</strong></td><td class="num"><strong>${Math.round(totalLossUnits)}</strong></td>${price>0?'<td class="num"><strong>'+fmt$(totalLossUnits*price)+'</strong></td><td class="num"><strong style="color:var(--sg-red-dark)">'+fmt$(totalLossUnits*price*250)+'</strong></td>':''}</tr>
         </tbody>
       </table>
       <p class="tool-note" style="margin-top:14px">Producing ${good} good units out of a theoretical max of ${Math.round(theoMax)} (${theoMax>0?(good/theoMax*100).toFixed(1)+'%':'N/A'} utilization of theoretical capacity).</p>
@@ -160,7 +161,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         ['Quality', Math.round(r.qualLossUnits), r.price>0?fmt$(r.qualLossUnits*r.price):'', r.price>0?fmt$(r.qualLossUnits*r.price*250):''].filter(x=>x!=='')
       ],
       itemRowMapper: x=>x,
-      notes:'OEE methodology from Seiichi Nakajima (TPM, 1960s, Nippondenso). World-class threshold of 85% per industry standard. Most plants without OEE tracking score 40-60%.',
+      notes:'OEE methodology from Seiichi Nakajima (TPM, 1960s, Nippondenso). Top-decile threshold of 85% per industry standard. Most plants without OEE tracking score 40-60%.',
       filename:'oee-report-'+todayISO()+'.pdf'
     });
   });
@@ -175,8 +176,8 @@ document.addEventListener('DOMContentLoaded',()=>{
       <li><strong>Performance</strong>: actual output / (running time x ideal cycle time). Target 95%+.</li>
       <li><strong>Quality</strong>: good units / actual output. Target 99.9%+.</li>
     </ul>
-    <h2>The 85% world-class threshold</h2>
-    <p>OEE of 85% (often shown as 90% x 95% x 99.9%) is achievable but rare - only about 10% of manufacturing plants hit it. Most plants without active OEE tracking sit in the 40-60% range. The gap between current and world-class is usually 20-40 percentage points - which translates to 25-65% more output from the same equipment.</p>
+    <h2>The 85% top-decile threshold</h2>
+    <p>OEE of 85% (often shown as 90% x 95% x 99.9%) is the top decile - only about 10% of manufacturing plants hit it. Most plants without active OEE tracking sit in the 40-60% range. The gap between current and the top decile is usually 20-40 percentage points - which translates to 25-65% more output from the same equipment.</p>
     <h2>FAQ</h2>
     <details><summary>My Performance % is over 100. What does that mean?</summary><p>Your "ideal cycle time" is too conservative. Either you're under-stating what the machine can do, or your operators have learned to beat the nameplate speed. Recalibrate ideal cycle time - use the fastest sustained pace you've ever achieved.</p></details>
     <details><summary>Should I track OEE per machine or per line?</summary><p>Start at the bottleneck. OEE on a non-bottleneck machine is interesting but doesn't change throughput. Track the constraint first - it's the only metric that moves the system.</p></details>
@@ -195,13 +196,14 @@ document.addEventListener('DOMContentLoaded',()=>{
         </div>
         <div>
           <div class="footer-h">Resources</div>
-          <a href="../" class="footer-link">Productive Tools (35)</a>
+          <a href="../" class="footer-link">Productive Tools</a>
           <a href="../../case-studies.html" class="footer-link">Case studies</a>
           <a href="../../blog.html" class="footer-link">Blog</a>
         </div>
         <div>
           <div class="footer-h">Company</div>
           <a href="../../about.html" class="footer-link">About</a>
+          <a href="../../competitors.html" class="footer-link">Competitors</a>
           <a href="../../hiring.html" class="footer-link">Careers</a>
         </div>
         <div>

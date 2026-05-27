@@ -41,7 +41,7 @@ function EliteFactoryRoad({ compact = false } = {}) {
   const subProg = Math.max(0, Math.min(1, t - stage));
 
   const STAGES = [
-    { id: 1,  short:'SO',    h:'Sales order received',  p:'Buyer PO arrives. AI parses any format and creates a sales order.', kind:'so',     pricing:null,                                                  color:'#4A7BF7' },
+    { id: 1,  short:'SO',    h:'Sales order received',  p:'Buyer PO arrives. AI parses any format and creates a sales order.', kind:'so',     pricing:null,                                                  color:'#3461E0' },
     { id: 2,  short:'PLAN',  h:'Planning & wood aggregated',  p:'Planner allocates per SKU. All component-level wood needs aggregated across orders.', kind:'plan',  pricing:null,                                  color:'#7C3AED' },
     { id: 3,  short:'PO',    h:'Wood ordered',          p:'One PO per species + thickness, multi-vendor.',                    kind:'po',     pricing:'Quoted by species + thickness',                       color:'#0EA5E9' },
     { id: 4,  short:'RECV',  h:'Wood received',         p:'Seasoned vs unseasoned check at receipt. Inventory live.',         kind:'recv',   pricing:null,                                                  color:'#10B981' },
@@ -59,7 +59,7 @@ function EliteFactoryRoad({ compact = false } = {}) {
     { id:16,  short:'HW',    h:'Hardware fitting',      p:'Hinges, slides, handles, screws fitted to spec.',                  kind:'hw',     pricing:'# fittings × screw size',                             color:'#F59E0B' },
     { id:17,  short:'QC4',   h:'Final QC',              p:'Buyer-spec gate. Photo, moisture, dimensions. Block on fail.',     kind:'qc',     pricing:null,                                                  color:'#EF4444' },
     { id:18,  short:'PACK',  h:'Packaging',             p:'Crate / carton per buyer spec. CBM auto-calculated.',              kind:'pack',   pricing:'Per CBM packed',                                      color:'#10B981' },
-    { id:19,  short:'SHIP',  h:'Dispatch - container',  p:'40-foot container loaded, sealed, and on its way. Multi-SO consolidation; partial dispatch supported.', kind:'ship', pricing:null,               color:'#4A7BF7' },
+    { id:19,  short:'SHIP',  h:'Dispatch - container',  p:'40-foot container loaded, sealed, and on its way. Multi-SO consolidation; partial dispatch supported.', kind:'ship', pricing:null,               color:'#3461E0' },
   ];
 
   const cur = STAGES[stage];
@@ -263,7 +263,7 @@ function EliteFactoryRoad({ compact = false } = {}) {
         {/* shadow */}
         <ellipse cx="0" cy="11" rx="22" ry="1.6" fill="#000" opacity="0.1"/>
         {/* cargo box body */}
-        <rect x="-6" y="-12" width="22" height="14" rx="1.5" fill="#4A7BF7" stroke="#1e4dd9" strokeWidth="0.9"/>
+        <rect x="-6" y="-12" width="22" height="14" rx="1.5" fill="#3461E0" stroke="#1e4dd9" strokeWidth="0.9"/>
         {/* canvas-tarp top arch */}
         <path d="M -6 -12 Q 5 -17 16 -12" fill="#fff" stroke="#1e4dd9" strokeWidth="0.7"/>
         {/* table peeking out under tarp */}
@@ -272,7 +272,7 @@ function EliteFactoryRoad({ compact = false } = {}) {
         <rect x="-4" y="-7" width="18" height="5" fill="#fff" stroke="#1e4dd9" strokeWidth="0.4"/>
         <text x="5" y="-3.3" textAnchor="middle" fill="#1e4dd9" fontSize="3.2" fontWeight="800" fontFamily="ui-sans-serif,system-ui" letterSpacing="0.04em">TRANSFER</text>
         {/* cab */}
-        <rect x="-17" y="-9" width="11" height="11" rx="1.5" fill="#4A7BF7" stroke="#1e4dd9" strokeWidth="0.9"/>
+        <rect x="-17" y="-9" width="11" height="11" rx="1.5" fill="#3461E0" stroke="#1e4dd9" strokeWidth="0.9"/>
         {/* windshield */}
         <polygon points="-15.5,-8 -7.5,-8 -7.5,-3 -15.5,-3" fill="#7CB7E5" stroke="#1e4dd9" strokeWidth="0.4"/>
         {/* door line */}

@@ -14,11 +14,6 @@
         window.gtag('event', name, props);
       }
     } catch (e) { /* gtag not ready yet */ }
-    try {
-      if (typeof window.clarity === 'function') {
-        window.clarity('event', name);
-      }
-    } catch (e) { /* clarity not ready yet */ }
   }
 
   // Expose a single global hook.
