@@ -168,5 +168,13 @@ const BLOG_DATA = [
     "readTime": "5 min",
     "slug": "the-myth-of-erp-best-practices-your-operation-is-not-generic",
     "datePublished": "2026-05-22"
+  },
+  {
+    "id": 18,
+    "title": "Dynamics GP Sunset: Switch to SimpleGrid",
+    "cat": "Industry Critique / Product",
+    "readTime": "6 min",
+    "slug": "dynamics-gp-sunset-switch-to-simplegrid",
+    "datePublished": "2026-05-26"
   }
 ];
