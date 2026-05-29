@@ -2,7 +2,8 @@ function PrivacyPage() {
   const [showLogin, setShowLogin] = React.useState(false);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
     onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", { id: "main",
+  }), /*#__PURE__*/React.createElement("main", {
+    id: "main",
     className: "legal-page"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag"
@@ -18,7 +19,17 @@ function PrivacyPage() {
     style: {
       color: 'var(--sg-blue)'
     }
-  }, "hello@simplegrid.ai"), " to exercise these rights."), /*#__PURE__*/React.createElement("h2", null, "6. Cookies"), /*#__PURE__*/React.createElement("p", null, "The Platform uses cookies to maintain sessions and gather analytics. You may control cookies via your browser settings; disabling some may affect functionality."), /*#__PURE__*/React.createElement("h2", null, "7. Children's Privacy"), /*#__PURE__*/React.createElement("p", null, "The Platform is for businesses and not directed at individuals under 18. We do not knowingly collect data from minors."), /*#__PURE__*/React.createElement("h2", null, "8. Changes to This Policy"), /*#__PURE__*/React.createElement("p", null, "Material changes will be notified by email or Platform notice. Continued use after the effective date of a revised policy constitutes acceptance."), /*#__PURE__*/React.createElement("h2", null, "9. Contact"), /*#__PURE__*/React.createElement("p", null, "Email: ", /*#__PURE__*/React.createElement("a", {
+  }, "hello@simplegrid.ai"), " to exercise these rights."), /*#__PURE__*/React.createElement("h2", null, "6. Cookies and Marketing-Site Tracking"), /*#__PURE__*/React.createElement("p", null, "The SimpleGrid marketing website (simplegrid.ai) uses cookies and similar technologies for site functionality, analytics, and measuring the effectiveness of our marketing. This section covers the marketing website only; Platform Customer Data is governed by Sections 3 and 4 above."), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "6.1 Cookie categories:")), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Necessary"), " \u2014 site security and core functionality"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Functional"), " \u2014 preferences (including your cookie consent choice)"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Analytics"), " \u2014 measure how visitors use the site so we can improve it")), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "6.2 Third-party services on the marketing website:")), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "PostHog"), " \u2014 product analytics"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Google Analytics 4"), " \u2014 aggregate traffic and campaign measurement"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Cal.com"), " \u2014 used when you book a demo call")), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "6.3 Consent and your preferences:"), " Analytics cookies do not load until you click ", /*#__PURE__*/React.createElement("strong", null, "Accept"), " on our cookie banner. If you click ", /*#__PURE__*/React.createElement("strong", null, "Decline"), ", or never interact with the banner, no analytics are loaded. You can revoke a previous acceptance at any time by clearing site data in your browser, or by emailing ", /*#__PURE__*/React.createElement("a", {
+    href: "mailto:hello@simplegrid.ai",
+    style: {
+      color: 'var(--sg-blue)'
+    }
+  }, "hello@simplegrid.ai"), "."), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "6.4 Regional rights:"), " If you are in the European Economic Area (GDPR), the United Kingdom (UK GDPR), California (CPRA), or India (DPDP Act 2023), you may have additional rights including access, correction, deletion, restriction, data portability, and opt-out of certain processing. Contact ", /*#__PURE__*/React.createElement("a", {
+    href: "mailto:hello@simplegrid.ai",
+    style: {
+      color: 'var(--sg-blue)'
+    }
+  }, "hello@simplegrid.ai"), " to exercise these rights."), /*#__PURE__*/React.createElement("h2", null, "7. Children's Privacy"), /*#__PURE__*/React.createElement("p", null, "The Platform is for businesses and not directed at individuals under 18. We do not knowingly collect data from minors."), /*#__PURE__*/React.createElement("h2", null, "8. Changes to This Policy"), /*#__PURE__*/React.createElement("p", null, "Material changes will be notified by email or Platform notice. Continued use after the effective date of a revised policy constitutes acceptance."), /*#__PURE__*/React.createElement("h2", null, "9. Contact"), /*#__PURE__*/React.createElement("p", null, "Email: ", /*#__PURE__*/React.createElement("a", {
     href: "mailto:hello@simplegrid.ai",
     style: {
       color: 'var(--sg-blue)'

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#3461E0">
+
+  <title>An ERP that actually knows furniture | SimpleGrid</title>
+  <meta name="description" content="Cut list to finished order, tracked in one place. Built for furniture and cabinet manufacturers. Live in 7–14 days.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://simplegrid.ai/furniture-erp/">
+
+  <!-- Favicon: omitted for standalone build -->
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="An ERP that actually knows furniture | SimpleGrid">
+  <meta property="og:description" content="Cut list to finished order, tracked in one place. Built for furniture and cabinet manufacturers. Live in 7–14 days.">
+  <meta property="og:url" content="https://simplegrid.ai/furniture-erp/">
+  <meta property="og:site_name" content="SimpleGrid">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="An ERP that actually knows furniture | SimpleGrid">
+  <meta name="twitter:description" content="Cut list to finished order, tracked in one place. Built for furniture and cabinet manufacturers. Live in 7–14 days."><style>/* =========================================================================
+   SimpleGrid · Landing Page Styles
+   White theme + blue particle burst behind the hero.
+   Shared across all 7 paid-traffic pages.
+   ========================================================================= */
+
+:root {
+  --bg:            #ffffff;
+  --bg-alt:        #fafbfc;
+  --bg-card:       #ffffff;
+  --border:        #e5e8ed;
+  --border-strong: #d3d8e0;
+  --fg:            #1a1a1a;
+  --fg-body:       #4a5568;
+  --fg-muted:      #9ca3af;
+  --accent:        #3461E0;
+  --accent-hover:  #2A52BD;
+  --accent-bg:     #EBF0FF;
+  --error:         #ef4444;
+  --success:       #10b981;
+
+  --font:          'Inter', Calibri, -apple-system, 'Segoe UI', sans-serif;
+
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+
+  --ease:          cubic-bezier(0.16, 1, 0.3, 1);
+  --dur:           180ms;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg-body);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+
+main, header, footer { position: relative; z-index: 1; }
+
+/* ------------------ LAYOUT ------------------ */
+
+.container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ------------------ HEADER ------------------ */
+
+.site-header {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: saturate(180%) blur(8px);
+  -webkit-backdrop-filter: saturate(180%) blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Center the wordmark on every breakpoint.
+   Landing page has no nav, so a centered logo reads as a focused
+   single-CTA page rather than "the nav got deleted". */
+.site-header .container {
+  display: flex;
+  justify-content: center;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--fg);
+}
+
+.wordmark img {
+  display: block;
+  height: 28px;
+  width: auto;
+}
+
+/* ------------------ HERO + BURST ------------------ */
+
+.hero {
+  position: relative;
+  padding: 96px 0 80px;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: calc(100vh - 64px);
+  min-height: calc(100dvh - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #FCFCFD;
+}
+
+/* Drifting grid pattern behind the burst — matches the home page hero. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,26,26,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,26,26,0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  pointer-events: none;
+  animation: sg-grid-drift 14s linear infinite;
+  z-index: 0;
+}
+
+@keyframes sg-grid-drift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 56px 56px, 56px 56px; }
+}
+
+.hero > .container { position: relative; z-index: 2; }
+
+.hero-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  /* Match the home page's linear fade-from-top mask so the burst dominates
+     the section without a visible cut/ellipse boundary. */
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,1) 88%);
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,1) 88%);
+  /* (legacy mask kept commented in case we want to revert to the ellipse look)
+     -webkit-mask-image: radial-gradient(ellipse 75% 80% at 50% 95%, #000 35%, transparent 78%);
+          mask-image: radial-gradient(ellipse 75% 80% at 50% 95%, #000 35%, transparent 78%); */
+}
+
+.hero-burst img,
+.hero-burst svg,
+.hero-burst canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: bottom center;
+}
+
+.hero h1 {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(38px, 6.4vw, 60px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--fg);
+  margin: 0 0 20px;
+  text-wrap: balance;
+}
+
+.hero h1 .accent { color: var(--accent); }
+
+.hero .subhead {
+  font-size: clamp(17px, 2.1vw, 19px);
+  line-height: 1.5;
+  color: var(--fg-body);
+  margin: 0 0 32px;
+  max-width: 600px;
+  text-wrap: pretty;
+}
+
+/* ------------------ BUTTON ------------------ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  padding: 15px 28px;
+  border: none;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 6px 20px -6px rgba(74,123,247,0.55);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 10px 26px -8px rgba(74,123,247,0.65);
+  outline: none;
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+.btn-primary[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary .arrow { transition: transform var(--dur) var(--ease); }
+.btn-primary:hover .arrow { transform: translateX(3px); }
+
+/* ------------------ SECTIONS ------------------ */
+
+.section { padding: 56px 0; }
+
+.section + .section {
+  border-top: 1px solid var(--border);
+}
+
+.section h2 {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: clamp(24px, 3.6vw, 30px);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--fg);
+  margin: 0 0 28px;
+  text-wrap: balance;
+}
+
+/* ------------------ PAIN LIST ------------------ */
+
+.pain-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 20px;
+}
+
+.pain-list li {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 14px;
+  align-items: start;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--fg-body);
+  text-wrap: pretty;
+}
+
+.pain-list li::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin-top: 11px;
+  margin-left: 9px;
+  background: var(--fg);
+  border-radius: 50%;
+  opacity: 0.85;
+}
+
+/* ------------------ BODY BLOCK (used on /compare) ------------------ */
+
+.body-block {
+  display: grid;
+  gap: 18px;
+}
+
+.body-block p {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--fg-body);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ------------------ VALUE PROP / HOW IT WORKS ------------------ */
+
+.value-prop {
+  position: relative;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px 24px;
+  overflow: hidden;
+}
+
+.value-prop::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+.value-prop .tag {
+  display: inline-block;
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+.how-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.how-list li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 14px;
+  align-items: start;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--fg-body);
+  text-wrap: pretty;
+}
+
+.how-list li svg {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  color: var(--fg);
+  flex-shrink: 0;
+}
+
+.how-list li strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.value-prop .note {
+  font-size: 14px;
+  color: var(--fg-muted);
+  margin: 20px 0 0;
+  padding-top: 18px;
+  border-top: 1px dashed var(--border);
+  line-height: 1.5;
+}
+
+/* ------------------ FORM ------------------ */
+
+.form-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 32px 28px;
+  box-shadow: 0 2px 6px rgba(26,26,26,0.03), 0 12px 32px -12px rgba(26,26,26,0.06);
+}
+
+.form-wrap h2 {
+  margin-bottom: 6px;
+  font-size: clamp(22px, 3vw, 26px);
+}
+
+.form-wrap .form-intro {
+  font-size: 15px;
+  color: var(--fg-body);
+  margin: 0 0 24px;
+}
+
+.field { display: block; margin-bottom: 18px; }
+
+.field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fg);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.field input,
+.field textarea {
+  display: block;
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 16px; /* 16px on mobile prevents iOS zoom */
+  line-height: 1.45;
+  padding: 12px 14px;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.field input::placeholder,
+.field textarea::placeholder { color: #b8bcc4; }
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(74,123,247,0.18);
+}
+
+.field textarea { min-height: 110px; resize: vertical; }
+
+.field.has-error input,
+.field.has-error textarea { border-color: var(--error); }
+
+.field-error {
+  display: none;
+  font-size: 13px;
+  color: var(--error);
+  margin-top: 6px;
+}
+
+.field.has-error .field-error { display: block; }
+
+.form-actions { margin-top: 24px; }
+.form-actions .btn-primary { width: 100%; padding: 16px 28px; }
+
+.form-meta {
+  font-size: 13px;
+  color: var(--fg-muted);
+  margin-top: 14px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.form-error {
+  display: none;
+  background: rgba(239,68,68,0.06);
+  border: 1px solid rgba(239,68,68,0.35);
+  color: #b91c1c;
+  font-size: 14px;
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  margin-top: 16px;
+}
+.form-error.show { display: block; }
+
+/* Success state */
+.form-success {
+  display: none;
+  text-align: left;
+  padding: 20px 0;
+}
+
+.form-success.show { display: block; }
+
+.form-success .check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(16,185,129,0.12);
+  color: var(--success);
+  margin-bottom: 16px;
+}
+
+.form-success h3 {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin: 0 0 8px;
+}
+
+.form-success p {
+  font-size: 16px;
+  color: var(--fg-body);
+  margin: 0;
+}
+
+/* ------------------ FOOTER ------------------ */
+
+.site-footer {
+  margin-top: 64px;
+  padding: 28px 0 36px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--fg-muted);
+}
+
+.site-footer .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.site-footer a {
+  color: var(--fg-muted);
+  text-decoration: none;
+  transition: color var(--dur) var(--ease);
+}
+.site-footer a:hover { color: var(--fg); }
+
+/* ------------------ RESPONSIVE ------------------ */
+
+@media (min-width: 768px) {
+  .container { padding: 0 32px; }
+  .hero { padding: 100px 0 120px; }
+  .section { padding: 72px 0; }
+  .value-prop { padding: 36px 32px; }
+  .form-wrap { padding: 40px 36px; }
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  background: var(--accent);
+  color: white;
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  z-index: 100;
+}
+.skip-link:focus { left: 8px; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+</style>
+  <script>
+    window.SG_PAGE     = "furniture";
+    window.SG_CAMPAIGN = "Vertical-Furniture";
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="../assets/simplegrid-logomark.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://us-assets.i.posthog.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+  <!-- Sitewide analytics stack — same three scripts every other page loads.
+       Consent-gated: analytics-init.js does nothing until cookie-consent.js
+       fires the `sg:consent-accepted` window event. tracking.js exposes
+       window.sgTrack and auto-instruments [data-cta] / form submissions. -->
+  <script src="../assets/js/analytics-init.js" defer></script>
+  <script src="../assets/js/tracking.js" defer></script>
+  <script src="../assets/js/cookie-consent.js" defer></script>
+
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="wordmark" href="../" aria-label="SimpleGrid home">
+        <img src="../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid" width="128" height="28">
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO with animated particle burst (vanilla JS port of components/HomeTop.jsx RadialBurst) -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-burst" data-sg-burst data-theme="light" aria-hidden="true"></div>
+      <div class="container">
+        <h1 id="hero-heading">An ERP that actually knows <span class="accent">furniture</span>.</h1>
+        <p class="subhead">Cut list to finished order, tracked in one place. Built for furniture and cabinet manufacturers. Live in 7–14 days.</p>
+        <a class="btn-primary" href="#lead-form" data-cta="furniture_hero">
+          <span class="label">Build mine</span>
+          <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- PROBLEM (pain list or body block) -->
+    <section class="section" aria-labelledby="pain-heading">
+      <div class="container">
+        <h2 id="pain-heading">If this is your shop:</h2>
+        <ul class="pain-list">
+          <li>Jobs move from cutting to finishing to assembly, and you’re tracking them on a whiteboard and three spreadsheets.</li>
+          <li>You don’t know the real cost of a job until it’s already shipped.</li>
+          <li>Contractor payments are a monthly guessing game.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- VALUE PROPOSITION (identical on all 7) -->
+    <section class="section" aria-labelledby="value-heading">
+      <div class="container">
+        <h2 id="value-heading">How it works.</h2>
+        <div class="value-prop">
+          <span class="tag">The process</span>
+          <ul class="how-list">
+            <li>
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l3.5 3.5L16 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <div><strong>60-minute scoping call.</strong> We learn how your operation actually runs. Your stages, your contractors, your costing logic.</div>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l3.5 3.5L16 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <div><strong>Fixed quote.</strong> You know exactly what it costs before we write a line of code.</div>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l3.5 3.5L16 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <div><strong>Built and deployed in 7–14 days.</strong> At our cost. At our risk.</div>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l3.5 3.5L16 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <div><strong>30 days on your real floor.</strong> Real team. Real orders. Real data.</div>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l3.5 3.5L16 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <div><strong>Keep it or walk.</strong> You only pay the quote if you decide to keep it.</div>
+            </li>
+          </ul>
+          <p class="note">The quote is fixed at day one. Nothing changes on day 31.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM -->
+    <section class="section" id="lead-form-section" aria-labelledby="form-heading">
+      <div class="container">
+        <div class="form-wrap">
+          <h2 id="form-heading">Fill this in.</h2>
+          <p class="form-intro">We’ll reach out to you.</p>
+
+          <form id="lead-form" novalidate="">
+            <!-- Honeypot: hidden from humans, filled by bots, checked in form.js -->
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" aria-hidden="true">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required="">
+              <div class="field-error" role="alert"></div>
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required="">
+              <div class="field-error" role="alert"></div>
+            </div>
+
+            <div class="field">
+              <label for="description">In a sentence or two, what’s the messiest part of running your shop right now?</label>
+              <textarea id="description" name="description" rows="4" required=""></textarea>
+              <div class="field-error" role="alert"></div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">
+                <span class="label">Build mine</span>
+                <svg class="arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </button>
+            </div>
+
+            <div id="form-error" class="form-error" role="alert" aria-live="polite"></div>
+
+            <p class="form-meta">We reply within 48 hours.</p>
+          </form>
+
+          <div id="form-success" class="form-success" aria-live="polite">
+            <div class="check" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M5 10.5l3.5 3.5L15 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <h3>Got it.</h3>
+            <p>We’ll review and get back to you within 48 hours.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT CHANGES (concrete outcomes — reads after the form to reward
+         visitors who didn't convert with a clear "what you get" preview).
+         Each <li>'s content is wrapped in a single <span> so .pain-list's
+         2-column grid (bullet + 1fr text) doesn't push subsequent text
+         into the narrow bullet column. -->
+    <section class="section" aria-labelledby="changes-heading">
+      <div class="container">
+        <h2 id="changes-heading">What changes:</h2>
+        <ul class="pain-list">
+          <li><span><strong>Job stages match your shop.</strong> Cutting, machining, sanding, finishing, hardware, packaging — whatever you actually do, in your order.</span></li>
+          <li><span><strong>Materials drop from inventory the moment a stage consumes them.</strong> No end-of-month reconciliation.</span></li>
+          <li><span><strong>Contractor pay is what they earned this week,</strong> computed off completed jobs. No more spreadsheet guesswork.</span></li>
+          <li><span><strong>You see real cost-per-piece while the job is still on the floor.</strong></span></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div><a href="https://simplegrid.ai">simplegrid.ai</a></div>
+        <div><a href="../privacy.html">Privacy</a> · © 2026 SimpleGrid</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="form.js" defer=""></script>
+  <script src="../assets/landing/radial-burst.js" defer></script>
+
+  <!-- Splash thumbnail used by the bundler while assets unpack and as a no-JS fallback -->
+  
+
+
+
+</body></html>
