@@ -343,3 +343,44 @@
 @media (max-width: 540px) {
   .cd-hub-grid { grid-template-columns: 1fr; }
 }
+
+/* ------ Mobile nav + visualization fixes ------
+   These pages are STATIC HTML and have no hamburger menu, so the global
+   `.nav-links { display:none }` mobile rule in styles.css would leave the nav
+   with no links at all. Instead, keep the links and let them wrap onto a second
+   row beneath the logo + CTA. competitors.css loads after styles.css, so these
+   overrides win without touching the shared stylesheet or the React pages. */
+@media (max-width: 960px) {
+  .nav-inner {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 52px;
+    gap: 8px 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .nav .nav-links {
+    display: flex !important;
+    flex: 1 0 100%;
+    order: 3;
+    flex-wrap: wrap;
+    gap: 2px 4px;
+    align-items: center;
+  }
+  .nav .nav-link { padding: 6px 10px; font-size: 15px; }
+  /* Open the Resources dropdown left-aligned so it can't run off-screen. */
+  .nav-resources-menu { left: 0; transform: none; min-width: 240px; max-width: calc(100vw - 32px); }
+}
+
+/* The positioning quadrant is a wide SVG; below tablet it scales down until its
+   labels are unreadable. Let it keep a legible minimum width and scroll
+   horizontally instead of shrinking into a smear. */
+@media (max-width: 760px) {
+  .cd-quadrant-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px;
+  }
+  .cd-quadrant { min-width: 640px; }
+}
