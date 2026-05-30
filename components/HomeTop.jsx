@@ -1,13 +1,12 @@
-function RadialBurst({ theme = 'dark' }) {
-  // Visual spec (strict):
-  //   - Background: radial gradient #D6E4FF (inner, bottom-center) → #FFFFFF (outer)
-  //   - 100 thin lines (1-1.5px) radiating from bottom-center in upper 180° arc
-  //   - All lines blue: lerp from #2956C4 (deep) to #3461E0 (SimpleGrid blue)
-  //   - Per-line opacity 30-80%, with shorter lines more opaque, longer more transparent
-  //   - Tip nodes 2-4px, #2956C4 at 60-90% opacity
-  //   - Animation: subtle "breathing" - opacity oscillates over a 4-8s period
-  //   - No particles, no fireworks, no orange/purple/yellow
-  //   - <5% CPU, requestAnimationFrame
+function RadialBurst({ palette }) {
+  // A dense 360° splatter of fine rays radiating from the centre, filling the
+  // whole band. Tip nodes are small and "blink inward" - each diffuses to zero
+  // and swells back on its own slow cycle. Colours come from `palette` (the
+  // nature presets in BurstBand) and can change live without re-seeding.
+  const DEFAULT = { deep: [41, 86, 196], bright: [52, 97, 224] };
+  const pal = palette || DEFAULT;
+  const palRef = React.useRef(pal);
+  palRef.current = pal;
   const canvasRef = React.useRef(null);
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -33,19 +32,13 @@ function RadialBurst({ theme = 'dark' }) {
     let lines = [];
     const seed = () => {
       lines = [];
-      // Slightly fewer rays on phones - same visual density on a smaller canvas,
-      // ~40% less per-frame canvas work.
-      const COUNT = (typeof window !== 'undefined' && window.innerWidth < 768) ? 60 : 100;
+      // Dense splatter; trimmed on phones to hold ~5% CPU.
+      const COUNT = (typeof window !== 'undefined' && window.innerWidth < 768) ? 130 : 220;
       for (let i = 0; i < COUNT; i++) {
-        // Angle in upper 180° arc: -π (left) to 0 (right), with -π/2 = straight up
-        const a = -Math.PI + Math.random() * Math.PI;
-        // Length: 40-90% of canvas height
-        const lenRatio = 0.4 + Math.random() * 0.5;
-        // tone 0 = deep blue #2956C4, 1 = SimpleGrid blue #3461E0
+        const a = Math.random() * Math.PI * 2;            // full 360°
+        const lenRatio = 0.32 + Math.random() * 0.72;     // reach toward the corners
         const tone = Math.random();
-        // shorter lines are more opaque (depth effect) - bumped from 0.3-0.8
-        // to 0.45-0.95 so the burst reads as eye-catching, not whispery.
-        const baseAlpha = 0.95 - (lenRatio - 0.4) * 0.5 / 0.5 * 0.5; // ~0.45-0.95
+        const baseAlpha = 0.4 + Math.random() * 0.45;     // 0.4-0.85
 
         // Breathing oscillation: opacity sways over a 3-6s period
         const phase = Math.random() * Math.PI * 2;
@@ -63,48 +56,38 @@ function RadialBurst({ theme = 'dark' }) {
         const lenPeriod = 6 + Math.random() * 6;
         const lenFreq = (Math.PI * 2) / (lenPeriod * 60);
 
-        // Twinkle: ~1 in 8 lines occasionally brightens its tip node
-        const twinkles = Math.random() < 0.12;
-        const twinklePhase = Math.random() * Math.PI * 2;
-        const twinklePeriod = 4 + Math.random() * 5;
-        const twinkleFreq = (Math.PI * 2) / (twinklePeriod * 60);
+        // Node "blink inward": diffuses to ~0 and swells back, each on its own cycle.
+        const nodePhase = Math.random() * Math.PI * 2;
+        const nodePeriod = 2.4 + Math.random() * 3.4;
+        const nodeFreq = (Math.PI * 2) / (nodePeriod * 60);
 
-        const lw = 1 + Math.random() * 0.5;
-        const nodeSize = 2 + Math.random() * 2;
+        const lw = 0.7 + Math.random() * 0.7;             // fine lines
+        const nodeSize = 1.1 + Math.random() * 1.4;       // small tips
         lines.push({
           a, lenRatio, tone, baseAlpha,
           phase, freq,
           swayPhase, swayFreq, swayAmp,
           lenPhase, lenFreq,
-          twinkles, twinklePhase, twinkleFreq,
+          nodePhase, nodeFreq,
           lw, nodeSize,
         });
       }
     };
     seed();
 
-    const onResize = () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { resize(); }, 150); };
+    const onResize = () => { clearTimeout(resizeTimeout); resizeTimeout = setTimeout(() => { resize(); seed(); }, 150); };
     window.addEventListener('resize', onResize);
 
-    // Two palettes - picked at draw time so the burst recolors when theme flips.
-    // Dark: deep #3461D1 → medium-blue #6E97FF (saturated, both clearly blue)
-    // Light: deep blue #2956C4 → SG blue #3461E0 (visible on white)
+    // Ray colour, lerped from the active palette's deep→bright. Read live from
+    // palRef so a palette swap recolours the splatter without re-seeding.
+    const lerp = (a, b, t) => Math.round(a + (b - a) * t);
     const lineRGBA = (tone, alpha) => {
-      let r, g, b;
-      if (theme === 'light') {
-        r = Math.round(41 + (74 - 41) * tone);
-        g = Math.round(86 + (123 - 86) * tone);
-        b = Math.round(196 + (247 - 196) * tone);
-      } else {
-        r = Math.round(52 + (110 - 52) * tone);
-        g = Math.round(97 + (151 - 97) * tone);
-        b = Math.round(209 + (255 - 209) * tone);
-      }
+      const p = palRef.current;
+      const r = lerp(p.deep[0], p.bright[0], tone);
+      const g = lerp(p.deep[1], p.bright[1], tone);
+      const b = lerp(p.deep[2], p.bright[2], tone);
       return `rgba(${r},${g},${b},${alpha})`;
     };
-    // Tip-node base RGB switches on theme too - saturated SG blue on dark
-    const nodeRGB = theme === 'light' ? '41,86,196' : '74,123,247';
-    const haloRGB = theme === 'light' ? '74,123,247' : '110,151,255';
 
     // Pause loop when canvas scrolls off-screen or the tab is hidden so we don't
     // keep burning CPU drawing 100 lines/frame for nothing.
@@ -118,7 +101,9 @@ function RadialBurst({ theme = 'dark' }) {
     );
     if (canvas) observer.observe(canvas);
 
-    let frame = 0;
+    // Start the splatter 5s into its cycle - the first ~5s reads as the burst
+    // "growing in"; skipping past it means it opens already settled and dense.
+    let frame = 300;
     const draw = () => {
       if (!isVisible || !isTabActive) {
         animFrame = requestAnimationFrame(draw);
@@ -126,9 +111,11 @@ function RadialBurst({ theme = 'dark' }) {
       }
       const w = W(), h = H();
       const cx = w / 2;
-      const cy = h + 4; // origin slightly off the bottom edge so the seed point is hidden
+      const cy = h / 2; // origin at centre - splatter radiates the full 360°
+      const reach = Math.sqrt(w * w + h * h) / 2; // far corner
       ctx.clearRect(0, 0, w, h);
 
+      const p = palRef.current;
       lines.forEach(l => {
         // Breathing on opacity (±15% - visible but soft)
         const breath = 0.85 + 0.15 * Math.sin(frame * l.freq + l.phase);
@@ -137,9 +124,8 @@ function RadialBurst({ theme = 'dark' }) {
         // Sway: angle drifts ±swayAmp over the sway period
         const angleNow = l.a + l.swayAmp * Math.sin(frame * l.swayFreq + l.swayPhase);
 
-        // Length sway: ±2% length oscillation
-        const lenMul = 1 + 0.02 * Math.sin(frame * l.lenFreq + l.lenPhase);
-        const len = h * l.lenRatio * lenMul;
+        const lenMul = 1 + 0.03 * Math.sin(frame * l.lenFreq + l.lenPhase);
+        const len = reach * l.lenRatio * lenMul;
 
         const x = cx + Math.cos(angleNow) * len;
         const y = cy + Math.sin(angleNow) * len;
@@ -147,8 +133,8 @@ function RadialBurst({ theme = 'dark' }) {
         // Line: gradient from origin (transparent) → tip (full color)
         const g = ctx.createLinearGradient(cx, cy, x, y);
         g.addColorStop(0, lineRGBA(l.tone, 0));
-        g.addColorStop(0.5, lineRGBA(l.tone, alpha * 0.45));
-        g.addColorStop(1, lineRGBA(l.tone, alpha));
+        g.addColorStop(0.55, lineRGBA(l.tone, alpha * 0.4));
+        g.addColorStop(1, lineRGBA(l.tone, alpha * 0.8));
         ctx.strokeStyle = g;
         ctx.lineWidth = l.lw;
         ctx.beginPath();
@@ -156,29 +142,16 @@ function RadialBurst({ theme = 'dark' }) {
         ctx.lineTo(x, y);
         ctx.stroke();
 
-        // Tip node base: bright on dark - light blue/white, modulated by breath
-        let nodeAlpha = 0.7 + 0.3 * breath;
-        let nodeRadius = l.nodeSize;
-
-        // Twinkle: a small subset of nodes pulse brighter on a slow cycle
-        if (l.twinkles) {
-          const t = (Math.sin(frame * l.twinkleFreq + l.twinklePhase) + 1) * 0.5; // 0..1
-          const twinkleStrength = Math.pow(t, 3); // sharp peak, soft trough
-          nodeAlpha = Math.min(1, nodeAlpha + twinkleStrength * 0.3);
-          nodeRadius = l.nodeSize * (1 + twinkleStrength * 0.7);
-          // Soft halo for the twinkle peak
-          if (twinkleStrength > 0.3) {
-            ctx.fillStyle = `rgba(${haloRGB},${twinkleStrength * 0.22})`;
-            ctx.beginPath();
-            ctx.arc(x, y, nodeRadius * 2.4, 0, Math.PI * 2);
-            ctx.fill();
-          }
+        // Tip node blinks inward: diffuses to 0, then swells back to full.
+        const pulse = (1 - Math.cos(frame * l.nodeFreq + l.nodePhase)) / 2; // 0..1
+        const nodeAlpha = pulse * pulse * 0.9; // sharp at the peak, gone at the trough
+        if (nodeAlpha > 0.01) {
+          const nodeRadius = l.nodeSize * (0.15 + 0.85 * pulse);
+          ctx.fillStyle = `rgba(${p.bright[0]},${p.bright[1]},${p.bright[2]},${nodeAlpha})`;
+          ctx.beginPath();
+          ctx.arc(x, y, nodeRadius, 0, Math.PI * 2);
+          ctx.fill();
         }
-
-        ctx.fillStyle = `rgba(${nodeRGB},${nodeAlpha})`;
-        ctx.beginPath();
-        ctx.arc(x, y, nodeRadius, 0, Math.PI * 2);
-        ctx.fill();
       });
 
       frame++;
@@ -192,13 +165,16 @@ function RadialBurst({ theme = 'dark' }) {
       document.removeEventListener('visibilitychange', onVisibility);
       observer.disconnect();
     };
-  }, [theme]);
+  }, []);
 
-  // Fade burst toward the top so it stays subtly behind the hero copy.
-  const mask = 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.85) 65%, rgba(0,0,0,1) 88%)';
-  const backdrop = theme === 'light'
-    ? 'radial-gradient(ellipse 85% 65% at 50% 100%, #D6E4FF 0%, rgba(214,228,255,0.55) 35%, #FFFFFF 70%)'
-    : 'radial-gradient(ellipse 80% 65% at 50% 100%, rgba(74,123,247,0.18) 0%, rgba(74,123,247,0.06) 35%, rgba(0,0,0,0) 70%)';
+  // Soft radial vignette so the splatter feathers into the section edges.
+  const mask = 'radial-gradient(circle at center, #000 58%, rgba(0,0,0,0.25) 100%)';
+  // Backdrop: a strong colour core at the centre that eases out to white, so the
+  // middle of the burst reads dense and the edges stay light.
+  const [bR, bG, bB] = pal.bright;
+  // Dark palettes (Night) stay pitch black - no backdrop glow, so the only
+  // colour on screen comes from the rays themselves.
+  const backdrop = pal.dark ? 'none' : `radial-gradient(circle at center, rgba(${bR},${bG},${bB},0.34) 0%, rgba(${bR},${bG},${bB},0.18) 18%, rgba(${bR},${bG},${bB},0.06) 42%, rgba(255,255,255,0) 70%)`;
   return (
     <div style={{
       position: 'absolute',
@@ -220,6 +196,76 @@ function RadialBurst({ theme = 'dark' }) {
   );
 }
 window.RadialBurst = RadialBurst;
+
+// Nature presets for the splatter. `deep`/`bright` are the ray gradient
+// endpoints and `bg` is the band background - white for all but Night, which
+// goes dark with a blue burst.
+const BURST_PALETTES = [
+  { name: 'Ocean',    deep: [41, 86, 196],   bright: [52, 97, 224],   bg: '#fff',    icon: '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1C7 13 7 11 9.5 11c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1C7 19 7 17 9.5 17c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>' },
+  { name: 'Sky',      deep: [14, 116, 200],  bright: [56, 189, 248],  bg: '#fff',    icon: '<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>' },
+  { name: 'Lagoon',   deep: [15, 118, 110],  bright: [45, 212, 191],  bg: '#fff',    icon: '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>' },
+  { name: 'Forest',   deep: [6, 59, 40],     bright: [21, 128, 61],   bg: '#fff',    icon: '<path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7Z"/><path d="M12 22v-3"/>' },
+  { name: 'Sunset',   deep: [194, 65, 12],   bright: [251, 146, 60],  bg: '#fff',    icon: '<path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/>' },
+  { name: 'Sunrise',  deep: [180, 83, 9],    bright: [251, 191, 36],  bg: '#fff',    icon: '<path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/>' },
+  { name: 'Mountain', deep: [51, 65, 85],    bright: [148, 163, 184], bg: '#fff',    icon: '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>' },
+  { name: 'Night',    deep: [29, 78, 240],   bright: [80, 150, 255],  bg: '#000', dark: true, icon: '<path d="M12 3a6.4 6.4 0 0 0 9 9 9 9 0 1 1-9-9Z"/><path d="M18.5 3.5v3"/><path d="M17 5h3"/>' },
+];
+
+// A small nature icon (waves, pine, sun...) in the palette's own colour, used
+// both on the picker button and in each menu row.
+function BurstIcon({ p, size }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke={`rgb(${p.bright[0]},${p.bright[1]},${p.bright[2]})`}
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+      style={{ flexShrink: 0 }} dangerouslySetInnerHTML={{ __html: p.icon }} />
+  );
+}
+
+// Standalone burst band between the "Why ERP Keeps Failing" and "Selective
+// Onboarding" sections. The splatter fills the whole section; a top-right
+// dropdown (default Ocean) recolours it live, each option icon-tagged.
+function BurstBand() {
+  const [idx, setIdx] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
+  const [hover, setHover] = React.useState(-1);
+  const menuRef = React.useRef(null);
+  const pal = BURST_PALETTES[idx];
+  React.useEffect(() => {
+    if (!open) return;
+    const onDoc = (e) => { if (menuRef.current && !menuRef.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', onDoc);
+    return () => document.removeEventListener('mousedown', onDoc);
+  }, [open]);
+  return (
+    <section className="burst-band" style={{ position: 'relative', overflow: 'hidden', height: 'calc(100dvh - 52px)', minHeight: 'calc(100vh - 52px)', background: pal.bg, transition: 'background 200ms ease' }}>
+      <RadialBurst palette={pal} />
+      <div aria-hidden="true" className="burst-fade-top" style={{ position: 'absolute', left: 0, right: 0, top: 0, height: '46%', background: `linear-gradient(180deg, ${pal.bg} 0%, color-mix(in srgb, ${pal.bg} 85%, transparent) 28%, color-mix(in srgb, ${pal.bg} 40%, transparent) 62%, transparent 100%)`, pointerEvents: 'none', zIndex: 1 }} />
+      <div aria-hidden="true" className="burst-fade-bottom" style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '46%', background: `linear-gradient(0deg, ${pal.bg} 0%, color-mix(in srgb, ${pal.bg} 85%, transparent) 28%, color-mix(in srgb, ${pal.bg} 40%, transparent) 62%, transparent 100%)`, pointerEvents: 'none', zIndex: 1 }} />
+      <div ref={menuRef} className="burst-picker" style={{ position: 'absolute', top: 18, right: 18, zIndex: 4 }}>
+        <button type="button" onClick={() => setOpen(o => !o)} aria-haspopup="listbox" aria-expanded={open} aria-label={`Splatter colour: ${pal.name}`}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: 9, padding: '8px 12px', borderRadius: 10, cursor: 'pointer', background: 'rgba(255,255,255,0.82)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid var(--border)', boxShadow: '0 6px 20px rgba(15,20,25,0.08)', fontSize: 13, fontWeight: 600, color: 'var(--fg1)' }}>
+          <BurstIcon p={pal} size={16} />
+          <span style={{ minWidth: 60, textAlign: 'left' }}>{pal.name}</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 160ms' }}><path d="M6 9l6 6 6-6" /></svg>
+        </button>
+        {open && (
+          <ul role="listbox" aria-label="Splatter colour" style={{ position: 'absolute', top: 'calc(100% + 6px)', right: 0, margin: 0, padding: 6, listStyle: 'none', minWidth: 170, borderRadius: 12, background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid var(--border)', boxShadow: '0 14px 36px rgba(15,20,25,0.16)' }}>
+            {BURST_PALETTES.map((p, i) => (
+              <li key={p.name} role="option" aria-selected={i === idx} onClick={() => { setIdx(i); setOpen(false); }} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(-1)}
+                style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 8, cursor: 'pointer', fontSize: 13, fontWeight: i === idx ? 700 : 500, color: 'var(--fg1)', background: i === idx ? 'var(--bg-alt)' : i === hover ? 'rgba(0,0,0,0.04)' : 'transparent' }}>
+                <BurstIcon p={p} size={16} />
+                <span style={{ flex: 1 }}>{p.name}</span>
+                {i === idx && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sg-blue)" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  );
+}
+window.BurstBand = BurstBand;
 
 function CycleHeadline() {
   const HEADLINES = [
@@ -292,7 +338,6 @@ function Hero() {
           </svg>
         )}
       </button>
-      <RadialBurst theme={theme} />
       <div className="container">
         <div className="hero-inner">
           <div>
@@ -419,7 +464,7 @@ function ProblemSection() {
         const t = setInterval(() => {
           step++;
           setActiveChatStep(step);
-          if (step >= 7) clearInterval(t);
+          if (step >= 3) clearInterval(t);
         }, 800);
         return () => clearInterval(t);
       }
@@ -528,7 +573,7 @@ function ProblemSection() {
       )
     },
     {
-      n: '03', t: 'UI built for accountants, not operators', b: 'Seven tabs. Twelve fields. Nothing gets done.',
+      n: '03', t: 'UI built for you, not for everyone', b: 'Other ERPs feel complex because they are built for a thousand businesses at once - seven tabs, twelve fields. Yours has only what your floor needs. Nothing extra, nothing you do not want.',
       footer: 'The ERP slows the floor, so teams go around it.',
       visual: (
         <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}} aria-hidden="true">
@@ -571,35 +616,28 @@ function ProblemSection() {
   ];
 
   return (
-    <section className="section">
+    <section className="section" style={{paddingTop:44,paddingBottom:44}}>
       <div className="container">
         <Reveal>
-          <div className="tag">WHY ERP KEEPS FAILING MID-MARKET</div>
-          <h2 className="h2">You wouldn't buy a t-shirt without trying it on. Why are you buying ERP that way?</h2>
+          <div className="tag" style={{marginBottom:0}}>WHY ERP KEEPS FAILING MID-MARKET</div>
+          <h2 className="h2">Every ERP vendor makes you pay first and hope it works. We flipped it. Why are you buying ERP that way?</h2>
         </Reveal>
-        <div className="problem-grid" style={{marginTop:32}} ref={chatRef}>
+        <div className="problem-grid" style={{marginTop:14}} ref={chatRef}>
           {problems.map((p,i) => (
             <Reveal key={p.n} delay={i * 100}>
-              <div style={{background:'#fff',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:24,height:'100%',display:'flex',flexDirection:'column'}}>
-                <div style={{display:'flex',alignItems:'baseline',gap:12,marginBottom:14}}>
+              <div style={{background:'#fff',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:16,height:'100%',display:'flex',flexDirection:'column'}}>
+                <div style={{display:'flex',alignItems:'baseline',gap:12,marginBottom:8}}>
                   <div style={{fontFamily:'var(--font-heading)',fontSize:22,fontWeight:700,color:'var(--sg-blue)',letterSpacing:'-0.02em'}}>{p.n}</div>
                   <h3 style={{fontFamily:'var(--font-heading)',fontSize:17,fontWeight:700,color:'var(--fg1)',margin:0,letterSpacing:'-0.01em',lineHeight:1.3}}>{p.t}</h3>
                 </div>
-                <p style={{fontSize:13,color:'var(--fg2)',lineHeight:1.5,margin:'0 0 14px'}}>{p.b}</p>
+                <p style={{fontSize:13,color:'var(--fg2)',lineHeight:1.5,margin:'0 0 10px'}}>{p.b}</p>
                 <div className={'problem-visual' + (p.isChatDemo ? ' problem-visual-chat' : ' problem-visual-svg')}>
                   {p.isChatDemo ? (
                     <div style={{width:'100%',fontFamily:'var(--font-mono)',fontSize:13.5,lineHeight:1.7}}>
                       <div style={{color:'var(--fg3)',fontSize:11,marginBottom:10,fontFamily:'var(--font-body)',fontWeight:600,letterSpacing:'0.08em',textTransform:'uppercase'}}>Warehouse manager types:</div>
                       <div style={{color:'var(--fg1)',opacity:activeChatStep>=1?1:0.2,transition:'opacity 0.3s'}}>&gt; Received 2,200 units of grade-A material from Midwest Supply</div>
                       <div style={{color:'var(--sg-green)',marginTop:6,opacity:activeChatStep>=2?1:0.2,transition:'opacity 0.3s'}}>✓ PO matched. Inventory updated.</div>
-                      <div style={{marginTop:14,paddingTop:12,borderTop:'1px dashed var(--border)',color:'var(--fg3)',fontSize:11,marginBottom:8,fontFamily:'var(--font-body)',fontWeight:600,letterSpacing:'0.08em',textTransform:'uppercase',opacity:activeChatStep>=3?1:0.2,transition:'opacity 0.3s'}}>Sales drops a PDF in chat:</div>
-                      <div style={{display:'inline-flex',alignItems:'center',gap:8,padding:'6px 10px',border:'1px solid var(--border)',borderRadius:8,background:'#fff',opacity:activeChatStep>=3?1:0.2,transition:'opacity 0.3s'}}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sg-red)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0}} aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                        <span style={{color:'var(--fg1)',fontSize:12}}>SO_4521_BuyerPO.pdf</span>
-                      </div>
-                      <div style={{color:'var(--sg-green)',marginTop:8,opacity:activeChatStep>=4?1:0.2,transition:'opacity 0.3s'}}>✓ AI parsed. 23 line items matched to BOM.</div>
-                      <div style={{color:'var(--sg-blue)',marginTop:4,opacity:activeChatStep>=5?1:0.2,transition:'opacity 0.3s'}}>→ Routed to founder for approval.</div>
-                      <div style={{marginTop:12,fontFamily:'var(--font-body)',fontSize:13,color:'var(--fg3)',fontStyle:'italic',opacity:activeChatStep>=6?1:0.2,transition:'opacity 0.3s'}}>No training. Same habit as texting.</div>
+                      <div style={{marginTop:12,fontFamily:'var(--font-body)',fontSize:13,color:'var(--fg3)',fontStyle:'italic',opacity:activeChatStep>=3?1:0.2,transition:'opacity 0.3s'}}>No training. Same habit as texting.</div>
                     </div>
                   ) : p.visual}
                 </div>
@@ -751,7 +789,7 @@ function WhatWeDo() {
 
             {/* Subtext */}
             <p style={{fontSize:15,color:'rgba(255,255,255,0.6)',lineHeight:1.55,maxWidth:640,margin:'0 auto 22px'}}>
-              Our senior engineers and founders are on every deployment. We run tight to keep the experience exceptional.
+              Our senior engineers and deployment leads are on every deployment. We run tight to keep the experience exceptional.
             </p>
           </div>
         </Reveal>
@@ -811,7 +849,7 @@ function WhatWeDo() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{marginRight:2}} aria-hidden="true">
                 <path d="M12 2l2.39 5.84L20 10l-5.61 2.16L12 18l-2.39-5.84L4 10l5.61-2.16L12 2z" fill="currentColor"/>
               </svg>
-              Request an Invite
+              Book a demo
             </button>
             <div style={{fontSize:10,color:'rgba(255,255,255,0.42)',marginTop:10,letterSpacing:'0.18em',textTransform:'uppercase',fontWeight:600}}>
               We reply within 24 hours · Select partners only
@@ -920,10 +958,10 @@ function HowItWorks() {
 
   const cards = [
     {
-      body: "A real 3-hour conversation with our founder. We map your core workflows.",
-      title: "A live video call with the founder.",
+      body: "A real 3-hour conversation with our team. We map your core workflows.",
+      title: "A live video call with the team that builds it.",
       details: [
-        { kind: 'p', text: "Day 1 is a 3-hour live video call with our founders and lead engineer - not a sales rep, not an SDR. We walk through your operations from order intake to dispatch: how orders come in, who approves what, your production stages, vendor relationships, QC rules, dispatch, and the exceptions every floor has." },
+        { kind: 'p', text: "Day 1 is a 3-hour live video call with our senior engineers and lead deployment expert - not a sales rep, not an SDR. We walk through your operations from order intake to dispatch: how orders come in, who approves what, your production stages, vendor relationships, QC rules, dispatch, and the exceptions every floor has." },
         { kind: 'p', text: "Bring whoever should be in the room - your COO, plant manager, a couple of floor leads. The more voices, the sharper the model. We map your core workflows live on the call, asking the questions only an operator would think to ask." },
         { kind: 'list', items: [
           "Live video call (Zoom or Google Meet - whichever you prefer).",
@@ -1112,6 +1150,8 @@ function HowItWorks() {
   return (
     <section className="section section-alt" id="how-it-works">
       <style dangerouslySetInnerHTML={{__html:`
+        /* Full-viewport section, sized like the hero, content centered. */
+        #how-it-works{min-height:calc(100vh - 64px);display:flex;flex-direction:column;justify-content:center}
         .hiw-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:32px}
         @media(max-width:1100px){.hiw-grid{grid-template-columns:repeat(3,1fr)}}
         @media(max-width:720px){.hiw-grid{grid-template-columns:1fr}}
