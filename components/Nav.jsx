@@ -36,7 +36,7 @@ function Nav({ page = 'home', onLoginClick }) {
   }, [openMenu]);
 
   const links = [
-    { id: 'home', label: 'Home', href: 'index.html', title: 'SimpleGrid home - AI ERP for manufacturers' },
+    { id: 'home', label: 'Home', href: 'index.html', title: 'SimpleGrid home - Custom ERP for manufacturers, built at our risk' },
     { id: 'product', label: 'Product', href: 'product.html', title: 'How SimpleGrid manufacturing ERP works' },
   ];
   const resourceLinks = [
@@ -61,8 +61,8 @@ function Nav({ page = 'home', onLoginClick }) {
     <a href="#main" className="skip-link">Skip to main content</a>
     <header className="nav" role="banner">
       <div className="nav-inner">
-        <a className="nav-logo" href={px('index.html')} aria-label="SimpleGrid home" title="SimpleGrid - AI ERP for manufacturers">
-          <img src={prefix + 'assets/simplegrid-logo-horizontal.svg'} alt="SimpleGrid - AI ERP for manufacturers logo" width="160" height="32" fetchpriority="high" decoding="async" />
+        <a className="nav-logo" href={px('index.html')} aria-label="SimpleGrid home" title="SimpleGrid - Custom ERP for manufacturers, built at our risk">
+          <img src={prefix + 'assets/simplegrid-logo-horizontal.svg'} alt="SimpleGrid - Custom ERP for manufacturers, built at our risk logo" width="160" height="32" fetchpriority="high" decoding="async" />
         </a>
         <nav className="nav-links" aria-label="Main navigation">
           {links.map(l => (

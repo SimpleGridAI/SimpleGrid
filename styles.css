@@ -32,7 +32,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 
 /* ===== NAV ===== */
 .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.97); border-bottom: 1px solid var(--border); }
-.nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; height: 64px; display: flex; align-items: center; gap: 32px; }
+.nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; height: 52px; display: flex; align-items: center; gap: 32px; }
 .nav-logo { display: inline-flex; }
 .nav-logo img { height: 26px; }
 .nav-links { display: flex; gap: 2px; flex: 1; align-items: center; }
@@ -74,7 +74,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 .nav-burger.is-open > span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 /* mobile menu drawer */
-.nav-mobile { position: fixed; inset: 64px 0 0 0; background: rgba(0,0,0,0.35); z-index: 49; animation: nav-mobile-fade 200ms ease; }
+.nav-mobile { position: fixed; inset: 52px 0 0 0; background: rgba(0,0,0,0.35); z-index: 49; animation: nav-mobile-fade 200ms ease; }
 @keyframes nav-mobile-fade { from { opacity: 0; } to { opacity: 1; } }
 .nav-mobile-panel { background: #fff; border-bottom: 1px solid var(--border); padding: 12px 16px 18px; max-width: 100%; box-shadow: 0 12px 32px rgba(0,0,0,0.08); animation: nav-mobile-slide 240ms cubic-bezier(0.2,0.8,0.2,1); }
 @keyframes nav-mobile-slide { from { transform: translateY(-12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -231,7 +231,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 .hero > .container { position: relative; z-index: 2; max-width: 1400px; }
 
 /* ===== HERO v2 ===== */
-.hero { background: var(--sg-black); color: #fff; padding: 96px 0 80px; overflow: hidden; min-height: calc(100vh - 64px); min-height: calc(100dvh - 64px); display: flex; flex-direction: column; justify-content: center; }
+.hero { background: var(--sg-black); color: #fff; padding: 96px 0 80px; overflow: hidden; min-height: calc(100vh - 52px); min-height: calc(100dvh - 52px); display: flex; flex-direction: column; justify-content: center; }
 .hero.hero-light { background: #FCFCFD; color: var(--fg1); }
 /* backdrop-filter is GPU-expensive on phones; only enable on >=tablet. */
 @media (min-width: 768px) {
@@ -397,6 +397,43 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 .final-cta .h2 { font-size: 42px; }
 .final-cta .sub { font-size: 18px; color: var(--sg-mid-gray); max-width: 520px; margin: 0 auto 24px; line-height: 1.6; }
 .final-cta .note { font-size: 15px; color: var(--sg-mid-gray); margin-top: 14px; }
+
+/* ----- Standard closing CTA band (full-bleed black, two-column, site-wide) ----- */
+.final-cta-band {
+  position: relative; overflow: hidden;
+  padding: clamp(64px, 8vw, 112px) 0;
+  background: var(--sg-black); color: #fff;
+  /* Full-viewport closing section, sized like the hero, content centered. */
+  min-height: calc(100vh - 52px); min-height: calc(100dvh - 52px);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.final-cta-gridbg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 120% 120% at center, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 120% 120% at center, #000 55%, transparent 100%);
+}
+.final-cta-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 6vw, 88px);
+  align-items: center;
+}
+.final-cta-inner::before {
+  content: ""; position: absolute; top: 6%; bottom: 6%; left: 42%;
+  width: 1px; background: rgba(255,255,255,0.12);
+}
+.final-cta-head { margin: 0; font-size: clamp(34px, 4.6vw, 60px); line-height: 1.04; letter-spacing: -0.03em; font-weight: 700; color: #fff; }
+.final-cta-text { margin: 0 0 28px; font-size: clamp(16px, 1.35vw, 20px); line-height: 1.6; color: rgba(255,255,255,0.62); max-width: 560px; }
+.final-cta-btn { background: var(--sg-blue); color: #fff; border: none; }
+.final-cta-btn:hover { background: var(--sg-blue-dark); }
+.final-cta-note { font-size: 14px; color: rgba(255,255,255,0.45); margin: 16px 0 0; }
+@media (max-width: 760px) {
+  .final-cta-inner { grid-template-columns: 1fr; gap: 22px; }
+  .final-cta-inner::before { display: none; }
+}
 
 /* ===== FOOTER ===== */
 .footer { background: var(--sg-off-white); border-top: 1px solid var(--border); padding: 48px 0 20px; }
@@ -647,17 +684,17 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 /* minmax(0, 1fr) (not plain 1fr) lets tracks shrink below intrinsic
    content width. Without it, an SVG's 400px viewBox becomes the track's
    min-content size on iOS Safari and the grid blows past the viewport. */
-.problem-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.problem-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .problem-grid > * { min-width: 0; }
 .problem-grid > * > * { min-width: 0; max-width: 100%; }
-.problem-visual { background: var(--sg-off-white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; display: flex; align-items: center; justify-content: center; min-width: 0; overflow: hidden; }
-.problem-visual-svg { padding: 16px; }
+.problem-visual { background: var(--sg-off-white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px; display: flex; align-items: center; justify-content: center; min-width: 0; overflow: hidden; }
+.problem-visual-svg { padding: 10px; }
 /* Sizing the SVG by its own intrinsic ratio (height: auto) sidesteps an
    iOS Safari bug where width:100%/height:100% on an SVG inside a parent
    that uses CSS aspect-ratio inflates the SVG to its viewBox in pixel
    units, blowing the card up to many viewport heights tall. */
-.problem-visual-svg > svg { width: 100%; height: auto; max-width: 100%; display: block; }
-.problem-visual-chat { min-height: 200px; padding: 22px; }
+.problem-visual-svg > svg { width: 100%; height: auto; display: block; }
+.problem-visual-chat { min-height: 120px; padding: 14px; }
 .problem-visual-chat > div { min-width: 0; max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
 
 @media (max-width: 768px) {
@@ -1276,9 +1313,10 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 /* Reserve space for lazy-mounted blog infographics so they don't shift layout
    when React + PostInfographics finish loading. Approx min-height of the
    rendered figure. Tune if a specific post overflows. */
-#root-infographic-mid,
-#root-infographic-end { min-height: 360px; }
+#root-infographic-mid { min-height: 360px; }
+/* The end mount is always the short blue closing bar (.pi-bottom), so it sizes
+   to content - no fixed reservation, which would leave a gap before the CTA band. */
+#root-infographic-end { min-height: 0; }
 @media (max-width: 640px) {
-  #root-infographic-mid,
-  #root-infographic-end { min-height: 480px; }
+  #root-infographic-mid { min-height: 480px; }
 }

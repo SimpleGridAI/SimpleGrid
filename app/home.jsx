@@ -7,6 +7,7 @@ function App() {
       <TrustStrip />
       <IntegrationsBar />
       <ProblemSection />
+      <BurstBand />
       <WhatWeDo />
       <HowItWorks />
       <ProofSection />

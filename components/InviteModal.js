@@ -83,7 +83,7 @@ function InviteModal({ onClose }) {
     React.createElement('form', { className: 'modal', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'invite-h', 'data-form-name': 'invite', onSubmit: submit, style: { position: 'relative' } },
       React.createElement('button', { type: 'button', 'aria-label': 'Close invite request', onClick: onClose, style: { position: 'absolute', top: 14, right: 16, background: 'none', border: 'none', fontSize: 22, color: 'var(--fg3)', cursor: 'pointer', lineHeight: 1 } }, '×'),
       React.createElement('h2', { id: 'invite-h' }, 'Book a demo'),
-      React.createElement('p', { className: 'sub' }, 'A few partner slots open each cycle. Tell us about you.'),
+      React.createElement('p', { className: 'sub' }, 'We onboard selectively each quarter. Tell us about your operation - if we can win for you, we build it at our risk and you run it free for 30 days before you pay.'),
       React.createElement('input', { type: 'hidden', name: '_subject', value: 'New invite request - SimpleGrid' }),
       React.createElement('input', { type: 'hidden', name: '_template', value: 'table' }),
       React.createElement('input', { type: 'hidden', name: '_captcha', value: 'false' }),

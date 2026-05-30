@@ -42,7 +42,7 @@ function Nav({
     id: 'home',
     label: 'Home',
     href: 'index.html',
-    title: 'SimpleGrid home - AI ERP for manufacturers'
+    title: 'SimpleGrid home - Custom ERP for manufacturers, built at our risk'
   }, {
     id: 'product',
     label: 'Product',
@@ -108,10 +108,10 @@ function Nav({
     className: "nav-logo",
     href: px('index.html'),
     "aria-label": "SimpleGrid home",
-    title: "SimpleGrid - AI ERP for manufacturers"
+    title: "SimpleGrid - Custom ERP for manufacturers, built at our risk"
   }, /*#__PURE__*/React.createElement("img", {
     src: prefix + 'assets/simplegrid-logo-horizontal.svg',
-    alt: "SimpleGrid - AI ERP for manufacturers logo",
+    alt: "SimpleGrid - Custom ERP for manufacturers, built at our risk logo",
     width: "160",
     height: "32",
     fetchpriority: "high",

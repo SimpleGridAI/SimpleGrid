@@ -8,6 +8,7 @@ function App() {
     /*#__PURE__*/React.createElement(TrustStrip, null),
     /*#__PURE__*/React.createElement(IntegrationsBar, null),
     /*#__PURE__*/React.createElement(ProblemSection, null),
+    /*#__PURE__*/React.createElement(BurstBand, null),
     /*#__PURE__*/React.createElement(WhatWeDo, null),
     /*#__PURE__*/React.createElement(HowItWorks, null),
     /*#__PURE__*/React.createElement(ProofSection, null),

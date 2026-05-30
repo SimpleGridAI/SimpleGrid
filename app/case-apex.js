@@ -519,7 +519,7 @@ function ApexCaseStudy() {
       color: 'var(--sg-blue)',
       margin: '24px 0'
     }
-  }, "Day 12: live. 34 things tracked end-to-end. 44 automatic triggers. Inventory visible across 30+ locations in real time.")), /*#__PURE__*/React.createElement("section", {
+  }, "Day 12: live. For the first time, every order across 30+ locations sat in one view - and the founder could finally see which of his three businesses made money.")), /*#__PURE__*/React.createElement("section", {
     className: "case-section"
   }, /*#__PURE__*/React.createElement("h2", null, "The full CMT flow"), /*#__PURE__*/React.createElement("div", {
     className: "flow-steps"
@@ -579,7 +579,7 @@ function ApexCaseStudy() {
     className: "case-bottom-line"
   }, /*#__PURE__*/React.createElement("div", {
     className: "big"
-  }, "34 things tracked. 44 automatic triggers. 30+ inventory locations. 12 days to deploy."), /*#__PURE__*/React.createElement("p", null, "Two years and two failed ERPs. Then 12 days with SimpleGrid. Inventory visible across 20+ job worker facilities and 10+ logistics partner warehouses, all in one live ledger."), /*#__PURE__*/React.createElement("a", {
+  }, "Two years and two failed ERPs - then live in 12 days. 30+ locations in one ledger. Three businesses, three clear P&Ls. $0 upfront."), /*#__PURE__*/React.createElement("p", null, "Two years and two failed ERPs. Then 12 days with SimpleGrid. Inventory visible across 20+ job worker facilities and 10+ logistics partner warehouses, all in one live ledger."), /*#__PURE__*/React.createElement("a", {
     href: "https://cal.com/simplegrid-ai",
     target: "_blank",
     rel: "noopener noreferrer",
@@ -599,7 +599,7 @@ function ApexCaseStudy() {
       fontWeight: 600,
       textDecoration: 'none'
     }
-  }, "See a furniture manufacturer's deployment - live in 21 days \u2192"))))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, "See a furniture manufacturer's deployment - live in 21 days \u2192"))))), /*#__PURE__*/React.createElement(FinalCTA, { title: "Want a result like Apex?", body: "We'll build a custom ERP modelled on how your floor actually runs, put it in your hands, and carry the risk for 30 days. You pay only once it's already running the business.", note: "Limited slots each quarter. We onboard selectively." }), React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }));
 }

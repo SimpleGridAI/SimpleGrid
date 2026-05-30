@@ -227,11 +227,11 @@ function ManufacturingProcessSection() {
     style: {
       maxWidth: 920
     }
-  }, "Wood arrives. Furniture leaves. Between sit 19 tracked stages, four QC gates, and six contractor formulas. Below: the abbreviated flow on the left, the moving line in the center, the structural framework on the right - three views of the same process."), /*#__PURE__*/React.createElement("div", {
+  }, "Wood arrives. Furniture leaves. Here's how one order actually moves across the floor - and where the money used to leak."), /*#__PURE__*/React.createElement("div", {
     className: "elite-mfg-grid",
     style: {
       display: 'grid',
-      gridTemplateColumns: 'minmax(220px, 1fr) minmax(520px, 1.7fr) minmax(220px, 1fr)',
+      gridTemplateColumns: 'minmax(240px, 1fr) minmax(520px, 2fr)',
       gap: 20,
       marginTop: 24,
       alignItems: 'start'
@@ -310,154 +310,7 @@ function ManufacturingProcessSection() {
     }
   }, "By the time a product ships, the system knows exactly what it cost. SKU-level profitability - for the first time in the company's history.")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(EliteFactoryRoad, {
     compact: true
-  })), /*#__PURE__*/React.createElement("aside", {
-    style: {
-      position: 'sticky',
-      top: 16,
-      alignSelf: 'start'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: '#fff',
-      border: '1px solid var(--border)',
-      borderRadius: 12,
-      padding: 18
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      fontWeight: 700,
-      letterSpacing: '0.14em',
-      color: 'var(--sg-purple)',
-      textTransform: 'uppercase',
-      marginBottom: 12
-    }
-  }, "How the stages stack"), stages.map((s, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      display: 'grid',
-      gridTemplateColumns: '26px 1fr',
-      gap: 10,
-      paddingTop: i === 0 ? 0 : 10,
-      paddingBottom: i < stages.length - 1 ? 10 : 0,
-      borderBottom: i < stages.length - 1 ? '1px dashed var(--border)' : 'none',
-      alignItems: 'start'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 24,
-      height: 24,
-      borderRadius: 6,
-      background: s.color,
-      color: '#fff',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontFamily: 'var(--font-heading)',
-      fontWeight: 700,
-      fontSize: 12,
-      marginTop: 1
-    }
-  }, s.letter), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'baseline',
-      gap: 8
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: 'var(--font-heading)',
-      fontSize: 13,
-      fontWeight: 700,
-      color: 'var(--fg1)'
-    }
-  }, s.title), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: 'var(--font-mono)',
-      fontSize: 9.5,
-      color: 'var(--fg3)'
-    }
-  }, s.range)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11.5,
-      color: 'var(--fg2)',
-      lineHeight: 1.45,
-      marginTop: 2
-    }
-  }, s.desc))))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: 'rgba(74,123,247,0.06)',
-      border: '1px solid rgba(74,123,247,0.18)',
-      borderRadius: 12,
-      padding: 14,
-      marginTop: 12
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      fontWeight: 700,
-      letterSpacing: '0.14em',
-      color: 'var(--sg-blue)',
-      textTransform: 'uppercase',
-      marginBottom: 10
-    }
-  }, "At a glance"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gap: 10,
-      fontSize: 11.5
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: 'var(--font-heading)',
-      fontWeight: 700,
-      color: 'var(--fg1)',
-      fontSize: 20,
-      lineHeight: 1
-    }
-  }, "19"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: 'var(--fg3)'
-    }
-  }, "tracked stages")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: 'var(--font-heading)',
-      fontWeight: 700,
-      color: 'var(--fg1)',
-      fontSize: 20,
-      lineHeight: 1
-    }
-  }, "4"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: 'var(--fg3)'
-    }
-  }, "QC gates")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: 'var(--font-heading)',
-      fontWeight: 700,
-      color: 'var(--fg1)',
-      fontSize: 20,
-      lineHeight: 1
-    }
-  }, "6"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: 'var(--fg3)'
-    }
-  }, "contractor types")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: 'var(--font-heading)',
-      fontWeight: 700,
-      color: 'var(--fg1)',
-      fontSize: 20,
-      lineHeight: 1
-    }
-  }, "550"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: 'var(--fg3)'
-    }
-  }, "SKUs")))))), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/null), /*#__PURE__*/React.createElement("div", {
     className: "contractor-table",
     style: {
       marginTop: 32
@@ -502,7 +355,7 @@ function EliteCaseStudy() {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "CASE STUDY \xB7 FURNITURE EXPORT"), /*#__PURE__*/React.createElement("h1", null, "How a furniture exporter with 800 employees went from Excel to a live ERP in 21 days"), /*#__PURE__*/React.createElement("p", {
+  }, "CASE STUDY \xB7 FURNITURE EXPORT"), /*#__PURE__*/React.createElement("h1", null, "How a furniture exporter stopped losing $200,000 a year to gaps nobody could see"), /*#__PURE__*/React.createElement("p", {
     className: "case-hook"
   }, "Over four years, a furniture manufacturer and exporter \u2014 12+ countries across North America, Europe, and Asia \u2014 lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just an operation running at 600\u2013800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around."), /*#__PURE__*/React.createElement("div", {
     className: "case-strip"
@@ -556,7 +409,7 @@ function EliteCaseStudy() {
       color: 'var(--sg-blue)',
       margin: '24px 0'
     }
-  }, "64 things tracked end-to-end. 72 automatic triggers. 6 contractor settlement formulas. 4 QC gates.")), /*#__PURE__*/React.createElement("section", {
+  }, "By day 21 it was live on the floor - and for the first time, the founder could see which products actually made money and where the wood was going.")), /*#__PURE__*/React.createElement("section", {
     className: "case-section"
   }, /*#__PURE__*/React.createElement("h2", null, "Rules the system enforces"), /*#__PURE__*/React.createElement("p", null, "These are not suggestions. The system physically rejects the action."), /*#__PURE__*/React.createElement("ul", {
     className: "rules-list"
@@ -564,7 +417,7 @@ function EliteCaseStudy() {
     style: {
       marginTop: 16
     }
-  }, "Every one of these rules is a configuration, not code. When the business adds a new rule, we add it in minutes.")), /*#__PURE__*/React.createElement("section", {
+  }, "When your process changes, the rule changes with it - usually the same day.")), /*#__PURE__*/React.createElement("section", {
     className: "case-section"
   }, /*#__PURE__*/React.createElement("h2", null, "The floor staff problem, solved"), /*#__PURE__*/React.createElement("p", null, "The client's floor supervisors, QC inspectors, and storekeepers had rejected a previous ERP. Too complex. Too far from how they actually work. ", /*#__PURE__*/React.createElement("strong", null, "30 non-technical staff"), " who wouldn't touch the old system."), /*#__PURE__*/React.createElement("p", null, "With SimpleGrid, they talk to ", /*#__PURE__*/React.createElement("strong", null, "Hank"), ", the AI assistant. The storekeeper types: \"Received 300 mango planks from Shree Timber.\" Hank identifies the PO, checks the quantity, updates inventory, and confirms. No menus. No dropdowns. No training manual."), /*#__PURE__*/React.createElement("p", null, "Today all 30 use the system daily. Storekeepers log receipts. QC inspectors record pass/fail per stage. Supervisors close production tickets. The same 30 people who refused the previous ERP.")), /*#__PURE__*/React.createElement("section", {
     className: "case-section"
@@ -578,7 +431,7 @@ function EliteCaseStudy() {
     className: "case-bottom-line"
   }, /*#__PURE__*/React.createElement("div", {
     className: "big"
-  }, "64 things tracked. 72 automatic triggers. 21 days to deploy. $0 upfront."), /*#__PURE__*/React.createElement("p", null, "Before SimpleGrid, the founder knew the company made money. Now he knows which products make money, and which ones do not. Planning dropped from 20 hours to 2. Wastage dropped to negligible. Delivery improved 15%. And 30 floor staff who had rejected every previous ERP now use this one daily."), /*#__PURE__*/React.createElement("a", {
+  }, "The $200K leak, closed. Planning cut from 20 hours a week to 2. 30 floor staff who'd rejected every ERP, now on this one daily. Live in 21 days, $0 upfront."), /*#__PURE__*/React.createElement("p", null, "Before SimpleGrid, the founder knew the company made money. Now he knows which products make money, and which ones do not. Planning dropped from 20 hours to 2. Wastage dropped to negligible. Delivery improved 15%. And 30 floor staff who had rejected every previous ERP now use this one daily."), /*#__PURE__*/React.createElement("a", {
     href: "https://cal.com/simplegrid-ai",
     target: "_blank",
     rel: "noopener noreferrer",
@@ -598,7 +451,7 @@ function EliteCaseStudy() {
       fontWeight: 600,
       textDecoration: 'none'
     }
-  }, "See an apparel manufacturer's deployment - live in 12 days \u2192"))))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, "See an apparel manufacturer's deployment - live in 12 days \u2192"))))), /*#__PURE__*/React.createElement(FinalCTA, { title: "Want a result like this?", body: "We'll build a custom ERP modelled on how your floor actually runs, put it in your hands, and carry the risk for 30 days. You pay only once it's already running the business.", note: "Limited slots each quarter. We onboard selectively." }), React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }));
 }

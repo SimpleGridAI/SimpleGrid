@@ -19,7 +19,7 @@ function Footer() {
   };
 
   const cols = [
-    { h: 'Product', links: [
+    { h: 'Product', hHref: 'product.html', links: [
       { l: 'Meet Hank', href: 'product.html#hank' },
       { l: 'Integrations', href: 'product.html#integrations' },
       { l: 'Data security', href: 'product.html#security' },
@@ -88,7 +88,9 @@ function Footer() {
           <div className="footer-cols" style={{gridTemplateColumns: '1fr 1fr 1fr 1.5fr', gap: 24}}>
             {cols.map(c => (
               <div key={c.h}>
-                <div className="footer-h">{c.h}</div>
+                {c.hHref
+                  ? <a className="footer-h" href={px(c.hHref)} style={{textDecoration:'none', color:'inherit', display:'block'}}>{c.h}</a>
+                  : <div className="footer-h">{c.h}</div>}
                 {c.links.map(x => <a key={x.l} href={px(x.href)} className="footer-link">{x.l}</a>)}
               </div>
             ))}

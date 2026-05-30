@@ -39,9 +39,9 @@ function AboutPage() {
     h('div', { 'aria-hidden': 'true', style: { position: 'absolute', inset: 0, background: 'rgba(8,10,14,0.85)', zIndex: 0 } }),
     h('div', { className: 'container', style: { maxWidth: 'none', position: 'relative', zIndex: 1, width: '100%' } },
       h('div', { className: 'tag', style: { color: 'rgba(255,255,255,0.7)', marginBottom: 24 } }, 'ABOUT US'),
-      h('h1', { style: { fontFamily: 'var(--font-heading)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.05, fontSize: 'clamp(44px, 6.5vw, 72px)', color: '#fff', margin: '0 0 28px', maxWidth: 1100 } }, "Built by an operator who's been on your floor."),
+      h('h1', { style: { fontFamily: 'var(--font-heading)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.05, fontSize: 'clamp(44px, 6.5vw, 72px)', color: '#fff', margin: '0 0 28px', maxWidth: 1100 } }, "Built by operators who've been on your floor."),
       h('p', { style: { fontSize: 'clamp(18px, 1.7vw, 22px)', lineHeight: 1.55, color: 'rgba(255,255,255,0.85)', margin: 0, maxWidth: 920 } },
-        "SimpleGrid was not designed in a boardroom. It was designed on a shop floor that was already running on Excel and group chats - and not working. Our founder built a $30M manufacturing business with multiple factories and a 400-person workforce, survived two ERP failures, and ended up on Google Sheets. SimpleGrid is the system he wished he had. We were the customer first - we know exactly what breaks when the system can't keep up with the floor."
+        "SimpleGrid was not designed in a boardroom. It was designed on a shop floor that was already running on Excel and group chats - and not working. The people who built SimpleGrid have run multi-stage factories with hundreds of workers, survived two ERP failures, and ended up on Google Sheets. SimpleGrid is the system we wished we had. We were the customer first - we know exactly what breaks when the system can't keep up with the floor."
       )
     )
   );
@@ -52,7 +52,7 @@ function AboutPage() {
       h(Reveal, null,
         h('div', { className: 'tag' }, 'THE OFFER'),
         h('p', { className: 'lead', style: { maxWidth: 'none', margin: '12px 0 0' } },
-          "Here's what no software vendor will tell you: 75% of mid-market ERP projects fail or get abandoned. Our founder lived two of them. So we refuse to let the risk sit with you. We model SimpleGrid on your factory, run it on your real floor for 30 days, and you pay only if you keep it. If it doesn't earn its place, you owe us nothing. That's not a discount. It's the only honest way to sell into an industry that fails three customers out of four."
+          "Here's what no software vendor will tell you: 75% of mid-market ERP projects fail or get abandoned. We lived two of them ourselves. Every ERP vendor makes you pay first and hope it works - we refuse to let the risk sit with you. We model SimpleGrid on your factory, run it on your real floor for 30 days, and you pay only if you keep it. If it doesn't earn its place, you owe us nothing. That's not a discount. It's the only honest way to sell into an industry that fails three customers out of four."
         )
       )
     )
@@ -175,7 +175,7 @@ function AboutPage() {
       h('div', { className: 'tag', style: { color: 'rgba(255,255,255,0.5)' } }, 'SELECTIVE ONBOARDING'),
       h('h2', { className: 'h2', style: { color: '#fff', maxWidth: 760, margin: '0 auto' } }, 'We are not for everyone.'),
       h('p', { className: 'sub', style: { color: 'rgba(255,255,255,0.75)', maxWidth: 680, margin: '18px auto 0' } },
-        'Limited capacity each quarter. We only take on customers we know we can win for - because we carry the cost and the risk of the build, and we only get paid when you succeed.'
+        'Limited capacity each quarter. We only take on customers we know we can win for - because we carry the cost and the risk of the build, and we only get paid when you succeed. We are built for mid-market manufacturers, roughly $5M-$250M in revenue - below that, spreadsheets or QuickBooks still win; above that, SAP or Oracle make more sense.'
       ),
       h('div', { style: { marginTop: 28, display: 'flex', justifyContent: 'center' } },
         h('button', {
@@ -186,7 +186,7 @@ function AboutPage() {
         }, 'Book a demo')
       ),
       h('p', { className: 'note', style: { color: 'rgba(255,255,255,0.5)', marginTop: 14 } },
-        'Senior engineers, deployment experts, and founder engagement on every deployment · We reply within 48 hours'
+        'Senior engineers and deployment experts on every deployment · We reply within 48 hours'
       ),
       h('div', { style: { marginTop: 20, textAlign: 'center' } },
         h('a', {
@@ -206,7 +206,7 @@ function AboutPage() {
       h('div', { style: { paddingTop: 48 } }, h(ProductionFlow, null)),
       finalCta
     ),
-    h(Footer, null),
+    h(FinalCTA, { title: "Built by people who've run the floor.", body: "We ran multi-stage factories to $30M and survived two ERP failures before building SimpleGrid. We're on every deployment. We carry the cost and the risk - you run it for 30 days and pay only once it earns its keep.", note: "Limited slots each quarter. We onboard selectively." }), h(Footer, null),
     showLogin && h(LoginModal, { onClose: () => setShowLogin(false) }),
     showInvite && h(InviteModal, { onClose: () => setShowInvite(false) })
   );

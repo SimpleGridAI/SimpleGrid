@@ -14,9 +14,9 @@ function CaseStudiesPage() {
     className: "tag"
   }, "CASE STUDIES"), /*#__PURE__*/React.createElement("h1", {
     className: "h2"
-  }, "Customized ERP for manufacturers, live in 12 to 21 days."), /*#__PURE__*/React.createElement("p", {
+  }, "We built it at our risk. They ran it free for 30 days. Both kept it."), /*#__PURE__*/React.createElement("p", {
     className: "section-lead"
-  }, "Real factories. Real numbers. Real floor staff using the system every day. The two below are public - more are running confidentially."), /*#__PURE__*/React.createElement("div", {
+  }, "Every ERP vendor makes you pay first and hope it works. We flipped it. We carried the build cost on both of these factories - they ran SimpleGrid for 30 days on their real floor, with their real team, before paying a cent. Real factories. Real numbers. Real floor staff using the system every day. The two below are public - more are running confidentially."), /*#__PURE__*/React.createElement("div", {
     className: "case-list"
   }, /*#__PURE__*/React.createElement("a", {
     href: "case-furniture-manufacturer.html",
@@ -64,7 +64,7 @@ function CaseStudiesPage() {
     }
   }, "Furniture Manufacturer & Exporter"), /*#__PURE__*/React.createElement("p", null, "600\u2013800 employees. ~1 million sq ft. Multi-stage production. Deployed in 21 days."), /*#__PURE__*/React.createElement("div", {
     className: "proof-stats"
-  }, "64 things tracked. 72 automatic triggers."), /*#__PURE__*/React.createElement("div", {
+  }, "$200K in silent material losses, found and stopped."), /*#__PURE__*/React.createElement("div", {
     className: "proof-quote"
   }, "\"SimpleGrid feels like our system. My stores manager was comfortable on day one.\"", /*#__PURE__*/React.createElement("div", {
     className: "proof-attr"
@@ -105,7 +105,7 @@ function CaseStudiesPage() {
     }
   }, "(reference on request)")), /*#__PURE__*/React.createElement("p", null, "80\u2013100k shirts/month. 3 streams: CMT, own brand, fabric trading. 20+ job workers. 30+ inventory locations. Live in 12 days."), /*#__PURE__*/React.createElement("div", {
     className: "proof-stats"
-  }, "34 things tracked. 44 automatic triggers."), /*#__PURE__*/React.createElement("div", {
+  }, "Two failed ERPs, then live in 12 days - every order in one view."), /*#__PURE__*/React.createElement("div", {
     className: "proof-quote"
   }, "\"They sent a working demo in 24 hours - 60\u201370% accurate. No other vendor we've worked with has done that.\"", /*#__PURE__*/React.createElement("div", {
     className: "proof-attr"
@@ -131,7 +131,7 @@ function CaseStudiesPage() {
     target: "_blank",
     rel: "noopener noreferrer",
     className: "btn btn-lg btn-primary"
-  }, "Book a demo - See how we'd model your operations")))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, "Book a demo - See how we'd model your operations")))), /*#__PURE__*/React.createElement(FinalCTA, { title: "Your factory could be the next one.", body: "The operators above run SimpleGrid on their real floors today. We build at our cost, you run it for 30 days, and you pay only when it's already moving the business.", note: "Limited slots each quarter. We onboard selectively." }), React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }));
 }

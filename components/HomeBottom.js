@@ -34,7 +34,7 @@ function FounderStory() {
     className: "founder-text"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "BUILT BY AN OPERATOR WHO'S BEEN ON YOUR FLOOR"), /*#__PURE__*/React.createElement("blockquote", null, "Built a $30M manufacturing business. Survived two ERP failures. Ended up on Google Sheets."), /*#__PURE__*/React.createElement("p", {
+  }, "BUILT BY PEOPLE WHO'VE RUN A FACTORY FLOOR"), /*#__PURE__*/React.createElement("blockquote", null, "We ran multi-stage factories to $30mn annual revenue. We survived two ERP failures. We ended up back on Google Sheets."), /*#__PURE__*/React.createElement("p", {
     className: "body"
   }, "SimpleGrid exists because we were the customer first - multiple factories, 400-person workforce. We bought the same enterprise systems you're being pitched today. We watched them fail. We know exactly what breaks when the system can't keep up with the floor."), /*#__PURE__*/React.createElement("p", {
     className: "body"
@@ -69,8 +69,8 @@ function ProofSection() {
     kind: 'image',
     img: 'url(assets/elite-factory.jpeg) center/cover',
     name: 'Furniture Manufacturer & Exporter',
-    desc: '12+ countries (NA, Europe, Asia). 600-800 employees. ~1 million sq ft. Excel + group chats → live ERP.',
-    stats: '64 tracked · 72 triggers · 21 days',
+    desc: '12+ countries (USA, Europe, Asia). 600-800 employees. ~1 million sq ft. Excel + group chats → live ERP.',
+    stats: '$200K leak stopped · planning 20h → 2h · live in 21 days',
     quote: '"SimpleGrid feels like our system. My stores manager was comfortable on day one."',
     attr: '- The founder',
     link: 'case-furniture-manufacturer.html',
@@ -79,7 +79,7 @@ function ProofSection() {
     kind: 'apparel',
     name: 'Apparel Contract Manufacturer',
     desc: 'Apparel manufacturer · 80-100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.',
-    stats: '34 tracked · 44 triggers · 12 days',
+    stats: '2 failed ERPs → live in 12 days · 30+ locations, one view',
     quote: '"Working demo in 24 hours - 60-70% accurate. No vendor we\'ve worked with has done that."',
     attr: '- Founder (reference available on request)',
     link: 'case-apex.html',
@@ -152,11 +152,11 @@ function ProofSection() {
 window.ProofSection = ProofSection;
 function Integrations() {
   const items = [
-    { name: 'Gmail', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/></svg>' },
-    { name: 'QuickBooks', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#2CA01C"/><path d="M7.5 8a2 2 0 00-2 2v4a2 2 0 002 2h1V8h-1zm3-1v10h1a4 4 0 004-4v-2a4 4 0 00-4-4h-1zm2 2.5a1.5 1.5 0 011.5 1.5v2a1.5 1.5 0 01-1.5 1.5V9.5z" fill="#fff"/></svg>' },
+    { name: 'Gmail', status: 'live', svg: '<svg viewBox="0 -31.5 256 256" width="24" height="24" aria-hidden="true"><path fill="#4285F4" d="M58.18 192.05V93.14L27.5 65.08 0 49.5v125.1c0 9.66 7.83 17.45 17.45 17.45z"/><path fill="#34A853" d="M197.82 192.05h40.73c9.66 0 17.45-7.83 17.45-17.45V49.5l-31.16 17.84-27.02 25.8z"/><path fill="#FBBC04" d="M197.82 17.5v75.64L256 49.5V26.23c0-21.58-24.64-33.89-41.89-20.94z"/><path fill="#C5221F" d="M0 49.5l58.18 43.64V17.5L41.89 5.29C24.61-7.66 0 4.65 0 26.23z"/><path fill="#EA4335" d="M58.18 93.14L128 145.5l69.82-52.36v-75.64L128 69.87 58.18 17.5z"/></svg>' },
+    { name: 'QuickBooks', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#2CA01C"/><path d="M10.2 7.4a4.6 4.6 0 1 0 0 9.2" fill="none" stroke="#fff" stroke-width="1.7"/><line x1="10.2" y1="6.2" x2="10.2" y2="19.2" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M13.8 16.6a4.6 4.6 0 1 0 0-9.2" fill="none" stroke="#fff" stroke-width="1.7"/><line x1="13.8" y1="17.8" x2="13.8" y2="4.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>' },
     { name: 'Excel', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#107C41"/><path d="M14 5h6v3h-6V5zm0 4h6v3h-6V9zm0 4h6v3h-6v-3zm0 4h6v2h-6v-2z" fill="#fff" opacity="0.5"/><text x="8" y="17" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-weight="700" font-size="12" letter-spacing="-1">X</text></svg>' },
     { name: 'Google Sheets', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" fill="#0F9D58"/><path d="M14 2v6h6l-6-6z" fill="#0B7E47"/><rect x="7" y="11" width="10" height="7" fill="#fff"/><line x1="7" y1="13.5" x2="17" y2="13.5" stroke="#0F9D58" stroke-width="0.8"/><line x1="7" y1="15.8" x2="17" y2="15.8" stroke="#0F9D58" stroke-width="0.8"/><line x1="10.3" y1="11" x2="10.3" y2="18" stroke="#0F9D58" stroke-width="0.8"/><line x1="13.7" y1="11" x2="13.7" y2="18" stroke="#0F9D58" stroke-width="0.8"/></svg>' },
-    { name: 'Shopify', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M19.6 6.1c0-.1-.1-.2-.2-.2l-1.7-.1s-1.1-1.1-1.2-1.2c-.1-.1-.3-.1-.4-.1l-.6.2c-.4-1.1-1-2.1-2.2-2.1h-.1c-.3-.4-.7-.6-1-.6-2.6 0-3.9 3.3-4.3 5l-1.7.5c-.5.2-.5.2-.6.7L4 21.8 16.5 24 23 22.6S19.6 6.3 19.6 6.1z" fill="#95BF47"/><path d="M19.4 5.9c-.1 0-1.7-.1-1.7-.1s-1.1-1.1-1.2-1.2c-.1 0-.1-.1-.2-.1L15.4 24 23 22.6S19.6 6.1 19.6 6c0-.1-.1-.1-.2-.1z" fill="#5E8E3E"/><path d="M14 8.8l-.9 2.8s-.8-.4-1.8-.4c-1.4 0-1.5.9-1.5 1.1 0 1.2 3.2 1.7 3.2 4.6 0 2.3-1.5 3.7-3.4 3.7-2.3 0-3.5-1.5-3.5-1.5l.6-2s1.2 1.1 2.3 1.1c.7 0 1-.5 1-1 0-1.6-2.7-1.7-2.7-4.3 0-2.2 1.6-4.4 4.9-4.4 1.3 0 1.8.4 1.8.4z" fill="#fff"/></svg>' },
+    { name: 'Shopify', status: 'live', svg: '<svg viewBox="-7.5 0 124.5 124.5" width="24" height="24" aria-hidden="true"><path fill="#95BF47" d="M95.9 23.9c-.1-.6-.6-1-1.1-1-.5 0-9.3-.2-9.3-.2s-7.4-7.2-8.1-7.9c-.7-.7-2.2-.5-2.7-.3 0 0-1.4.4-3.7 1.1-.4-1.3-1-2.8-1.8-4.4-2.6-5-6.5-7.7-11.1-7.7-.3 0-.6 0-1 .1-.1-.2-.3-.3-.4-.5C53.7 1.5 51.1.4 48 .5c-6 .2-12 4.5-16.8 12.2-3.4 5.4-6 12.2-6.7 17.5-6.9 2.1-11.7 3.6-11.8 3.7-3.5 1.1-3.6 1.2-4 4.5C8.3 40.9 0 105.6 0 105.6l69.4 12 30.1-7.5S96 24.5 95.9 23.9zM68.2 17.1c-1.7.5-3.7 1.1-5.8 1.8 0-3-.4-7.2-1.8-10.8 4.5.8 6.7 5.9 7.6 9zm-9.7 3c-3.9 1.2-8.2 2.5-12.5 3.8 1.2-4.6 3.5-9.2 6.3-12.2 1-1.1 2.5-2.3 4.2-3 1.7 3.5 2.1 8.4 2 11.4zM48.2 4.5c1.4 0 2.6.3 3.6.9-1.6.8-3.2 2.1-4.7 3.7-3.7 4-6.5 10.2-7.7 16.2-3.6 1.1-7.1 2.2-10.3 3.2C31.4 19.3 39.2 4.8 48.2 4.5z"/><path fill="#5E8E3E" d="M94.8 22.9c-.5 0-9.3-.2-9.3-.2s-7.4-7.2-8.1-7.9c-.3-.3-.6-.4-1-.5l-5.2 106.3 30.1-7.5S96 24.5 95.9 23.9c-.1-.6-.6-1-1.1-1z"/><path fill="#fff" d="M58.4 38.4l-3.5 13.1s-3.9-1.8-8.5-1.5c-6.8.4-6.8 4.7-6.8 5.7.4 5.7 15.4 7 16.3 20.4.7 10.5-5.6 17.7-14.6 18.3-10.9.6-16.9-5.8-16.9-5.8l2.3-9.8s6 4.6 10.9 4.3c3.2-.2 4.3-2.8 4.2-4.6-.5-7.5-12.7-7.1-13.5-19.4-.7-10.3 6.1-20.7 21-21.6 5.8-.4 8.8 1.1 8.8 1.1z"/></svg>' },
     { name: 'ShipStation', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0099FF"/><path d="M6 9 L12 6.5 L18 9 L18 15.5 L12 18 L6 15.5 Z" fill="none" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>' },
     { name: 'Outlook', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0078D4"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">O</text></svg>' },
     { name: 'Tally', status: 'request', svg: '<svg viewBox="0 0 40 40" width="24" height="24" aria-hidden="true"><rect width="40" height="40" rx="6" fill="#263238"/><text x="20" y="26" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="16">T</text></svg>' },
@@ -167,7 +167,7 @@ function Integrations() {
     { name: 'Mailchimp', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#FFE01B"/><text x="12" y="16" text-anchor="middle" fill="#241C15" font-family="sans-serif" font-weight="700" font-size="13">M</text></svg>' },
     { name: 'Klaviyo', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#000"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">K</text></svg>' },
     { name: 'PostgreSQL', status: 'live', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#336791"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="10">Pg</text></svg>' },
-    { name: 'Amazon', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#fff"/><text x="2" y="14" fill="#252F3E" font-family="Arial, sans-serif" font-weight="700" font-size="11" letter-spacing="-0.5">amazon</text><path d="M3 17.5c2.5 2 6 3 9 3s6.5-1 9-3" stroke="#FF9900" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M20 17l1.5-1.2L21 18z" fill="#FF9900"/></svg>' },
+    { name: 'Amazon', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#fff"/><text x="12" y="13" text-anchor="middle" fill="#232F3E" font-family="Arial, sans-serif" font-weight="700" font-size="6.2" letter-spacing="-0.4">amazon</text><path d="M5 16.4c4.2 2.8 9.8 2.8 14 .2" fill="none" stroke="#FF9900" stroke-width="1.7" stroke-linecap="round"/><path d="M19 16.6l-2.7-.5 1.4 2.4z" fill="#FF9900"/></svg>' },
     { name: 'Braze', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#FE5832"/><text x="12" y="16" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="13">B</text></svg>' },
     { name: 'Bill.com', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#006FFF"/><text x="12" y="15" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="700" font-size="9">BILL</text></svg>' },
     { name: 'TikTok Shop', status: 'request', svg: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#000"/><text x="12" y="16" text-anchor="middle" fill="#FE2C55" font-family="sans-serif" font-weight="700" font-size="11">TT</text></svg>' },
@@ -178,7 +178,15 @@ function Integrations() {
   const doubled = [...items, ...items];
   return /*#__PURE__*/React.createElement("section", {
     className: "section",
-    id: "integrations"
+    id: "integrations",
+    style: {
+      minHeight: 'calc((100vh - 64px) / 2.6)',
+      paddingTop: 40,
+      paddingBottom: 40,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }
   }, /*#__PURE__*/React.createElement("style", {
     dangerouslySetInnerHTML: {
       __html: `
@@ -240,7 +248,15 @@ window.Integrations = Integrations;
 function DataSecurity() {
   return /*#__PURE__*/React.createElement("section", {
     className: "section section-alt",
-    id: "security"
+    id: "security",
+    style: {
+      minHeight: 'calc((100vh - 64px) / 2.6)',
+      paddingTop: 40,
+      paddingBottom: 40,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
@@ -438,10 +454,10 @@ function HomeFAQ() {
     a: "Before you decide, we agree on a number together based on the size of your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees. We are priced like an operator who has carried the build for you."
   }, {
     q: "Who runs the deployment - sales reps, or actual engineers?",
-    a: "Senior engineers, deployment experts, and founder engagement. No SDRs, no sales reps, no chatbot, no offshored implementation partner you also have to pay. You work directly with the team that builds the system."
+    a: "Senior engineers and deployment experts who've worked on factory floors. No SDRs, no sales reps, no chatbot, no offshored implementation partner you also have to pay. You work directly with the team that builds the system."
   }, {
     q: "What's the catch?",
-    a: "We onboard selectively each quarter because we can only succeed when our customers succeed. If we don't think we can win for you, we'll say so on the call. The other catch: you spend real time with us building what you want. Your time is the investment."
+    a: "We onboard selectively each quarter because we can only succeed when our customers succeed. If we don't think we can win for you, we'll say so on the call. We're built for mid-market manufacturers, roughly $5M-$250M in revenue - below that, spreadsheets or QuickBooks still win; above that, SAP or Oracle make more sense. The other catch: you spend real time with us building what you want. Your time is the investment."
   }];
   const [open, setOpen] = React.useState(0);
   return /*#__PURE__*/React.createElement("section", {
@@ -487,22 +503,5 @@ function HomeFAQ() {
   }))));
 }
 window.HomeFAQ = HomeFAQ;
-function FinalCTA() {
-  const [showInvite, setShowInvite] = React.useState(false);
-  return /*#__PURE__*/React.createElement("section", {
-    className: "section section-dark final-cta"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("h2", {
-    className: "h2"
-  }, "Try it on. Then decide."), /*#__PURE__*/React.createElement("p", {
-    className: "sub"
-  }, "We build a custom ERP around your factory at our cost. You run it on your real floor for 30 days. If it doesn't move the business, you walk. We earn nothing."), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    onClick: () => setShowInvite(true),
-    className: "btn btn-lg btn-primary"
-  }, "Book a demo"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
-    onClose: () => setShowInvite(false)
-  }));
-}
-window.FinalCTA = FinalCTA;
+// FinalCTA now lives in its own shared component (components/FinalCTA.js) so it
+// can be reused with per-page copy across every page.

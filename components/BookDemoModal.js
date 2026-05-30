@@ -26,8 +26,8 @@
     overlay.innerHTML = ''
       + '<form class="modal" role="dialog" aria-modal="true" aria-labelledby="sg-bd-h" data-form-name="invite" style="position:relative">'
       +   '<button type="button" class="sg-bd-close" aria-label="Close" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:var(--fg3);cursor:pointer;line-height:1">×</button>'
-      +   '<h2 id="sg-bd-h">Request an invite</h2>'
-      +   '<p class="sub">A few partner slots open each cycle. Tell us about you.</p>'
+      +   '<h2 id="sg-bd-h">Book a demo</h2>'
+      +   '<p class="sub">We onboard selectively each quarter. Tell us about your operation - if we can win for you, we build it at our risk and you run it free for 30 days before you pay.</p>'
       +   '<input type="hidden" name="_subject" value="New invite request - SimpleGrid">'
       +   '<input type="hidden" name="_template" value="table">'
       +   '<input type="hidden" name="_captcha" value="false">'
@@ -45,7 +45,7 @@
       +     '<input id="sg-bd-email" type="email" name="email" placeholder="mike@ridgeline.com" required aria-required="true">'
       +   '</div>'
       +   '<div class="sg-bd-err" role="status" aria-live="polite" style="display:none;padding:10px 12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:var(--radius-md);color:#B91C1C;font-size:13px;margin-bottom:12px;line-height:1.45"></div>'
-      +   '<button type="submit" class="btn btn-primary sg-bd-submit" style="width:100%;justify-content:center;margin-top:4px">Request an Invite →</button>'
+      +   '<button type="submit" class="btn btn-primary sg-bd-submit" style="width:100%;justify-content:center;margin-top:4px">Book a demo →</button>'
       +   '<p style="font-size:11px;color:var(--fg3);text-align:center;margin-top:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:600">We respond within 48 hours · Your data is used only for your deployment - see <a href="/privacy.html" style="color:var(--sg-blue)">Privacy</a></p>'
       + '</form>';
 
@@ -111,7 +111,7 @@
           state = 'error';
           submitBtn.disabled = false;
           submitBtn.style.opacity = 1;
-          submitBtn.textContent = 'Request an Invite →';
+          submitBtn.textContent = 'Book a demo →';
           showError(json.message || 'Something went wrong. Please try again or email hello@simplegrid.ai directly.');
         }
       });
@@ -119,7 +119,7 @@
       state = 'error';
       submitBtn.disabled = false;
       submitBtn.style.opacity = 1;
-      submitBtn.textContent = 'Request an Invite →';
+      submitBtn.textContent = 'Book a demo →';
       showError('Network error. Please try again or email hello@simplegrid.ai directly.');
     });
   }

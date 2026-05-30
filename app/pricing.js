@@ -14,8 +14,8 @@ const TIERS = [{
   price: 'Custom-quoted',
   priceUnit: 'Priced like an operator who has carried the build for you.',
   accent: 'var(--sg-purple)',
-  features: ['One monthly subscription. That is the entire bill.', 'All features included. No tiers. No add-ons. No per-seat fees.', 'Every change to your ERP, now and forever, included.', 'New features ship regularly - yours automatically.', 'Direct line to the founding team. No account-manager middle layer.'],
-  cta: 'Talk to the founder',
+  features: ['One monthly subscription. That is the entire bill.', 'All features included. No tiers. No add-ons. No per-seat fees.', 'Every change to your ERP, now and forever, included.', 'New features ship regularly - yours automatically.', 'Direct line to the team that builds it. No account-manager middle layer.'],
+  cta: 'Book a demo',
   ctaHref: 'https://cal.com/simplegrid-ai',
   highlight: false
 }];
@@ -43,12 +43,6 @@ const COMPARE = [{
   sap: '$8K-$20K each',
   netsuite: '$200+/hr consultant',
   qbe: 'Per add-on / SuiteApp'
-}, {
-  metric: 'Built for the factory floor',
-  us: 'Yes - same habit as texting',
-  sap: 'Built for accountants',
-  netsuite: 'Built for analysts',
-  qbe: 'Built for bookkeepers'
 }, {
   metric: 'Try-before-you-buy',
   us: '30 days on your real floor, real orders',
@@ -128,7 +122,7 @@ function PricingPage() {
       maxWidth: 960,
       marginBottom: 36
     }
-  }, "Two stages. The build and the 30-day trial are on us. After that, one monthly subscription covers everything - no tiers, no change fees, no per-seat math. Every new feature we ship is included."), /*#__PURE__*/React.createElement("div", {
+  }, "Every ERP vendor makes you pay first and hope it works. We flipped it - the build and the 30-day trial are on us - you run it on your real floor, with your real team and real orders. After that, one monthly subscription covers everything - no tiers, no change fees, no per-seat math. Every new feature we ship is included."), /*#__PURE__*/React.createElement("div", {
     className: "tier-grid",
     style: {
       display: 'grid',
@@ -340,7 +334,7 @@ function PricingPage() {
     a: 'No. The build, the modeling sessions, the data migration, the senior-led onboarding and the 30 days running on your real floor are all on us. You owe nothing until you decide it works.'
   }, {
     q: 'Why aren\'t you cheap?',
-    a: 'Because we carry the build, the deployment risk, and the 30-day trial - and senior engineers, deployment experts, and founder engagement on every project. Cheap ERP exists. It will not show up on day one with a working version of your factory. We will. We price for what that takes.'
+    a: 'Because we carry the build, the deployment risk, and the 30-day trial - with senior engineers and deployment experts on every project. Cheap ERP exists. It will not show up with a working version of your factory before you pay. We will. We price for what that takes.'
   }, {
     q: 'What does "you walk if it doesn\'t work" actually mean?',
     a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk. No invoice. No clawback. No data ransom - you get a clean export.'
@@ -352,7 +346,7 @@ function PricingPage() {
     a: 'No. Every customer gets every feature. No Pro plan, no Enterprise tier, no per-feature licensing. When we ship something new, it is automatically yours.'
   }, {
     q: 'Why are you so selective about who you onboard?',
-    a: 'Senior engineers, deployment experts, and founder engagement on every deployment. We have limited capacity each quarter. We only take on customers we know we can win for - because we only get paid when you succeed, and we don\'t want to set anyone up to lose.'
+    a: 'Senior engineers and deployment experts work on every deployment, so we have limited capacity each quarter. We only take on customers we know we can win for - because we only get paid when you succeed, and we don\'t want to set anyone up to lose. We\'re built for mid-market manufacturers, roughly $5M-$250M in revenue - below that, spreadsheets or QuickBooks still win; above that, SAP or Oracle make more sense.'
   }, {
     q: 'Do I get new features as you ship them?',
     a: 'Yes. We ship new products and features regularly, and they roll out to every customer at no extra cost. Your subscription includes everything we have built and everything we are about to build.'
@@ -379,20 +373,7 @@ function PricingPage() {
       color: 'var(--fg2)',
       lineHeight: 1.6
     }
-  }, f.a)))))), /*#__PURE__*/React.createElement("section", {
-    className: "section section-dark final-cta"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "h2"
-  }, "You carry nothing until you see it run."), /*#__PURE__*/React.createElement("p", {
-    className: "sub"
-  }, "Custom ERP, built at our risk. Paid for after it works. Founder-led onboarding, limited capacity each quarter."), /*#__PURE__*/React.createElement("a", {
-    href: "https://cal.com/simplegrid-ai",
-    target: "_blank",
-    rel: "noopener noreferrer",
-    className: "btn btn-lg btn-primary"
-  }, "Book a demo")))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, f.a))))))), /*#__PURE__*/React.createElement(FinalCTA, { title: "The price is simple: nothing until it works.", body: "We carry the build cost and the risk. You run it for 30 days on your real floor, with your real team and real orders. You pay only once it's already running your business - not a cent before.", note: "Limited slots each quarter. We onboard selectively." }), React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)

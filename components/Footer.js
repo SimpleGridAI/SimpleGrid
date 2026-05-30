@@ -63,6 +63,7 @@ function Footer() {
   };
   const cols = [{
     h: 'Product',
+    hHref: 'product.html',
     links: [{
       l: 'Meet Hank',
       href: 'product.html#hank'
@@ -248,7 +249,11 @@ function Footer() {
     }
   }, cols.map(c => /*#__PURE__*/React.createElement("div", {
     key: c.h
-  }, /*#__PURE__*/React.createElement("div", {
+  }, c.hHref ? /*#__PURE__*/React.createElement("a", {
+    className: "footer-h",
+    href: px(c.hHref),
+    style: { textDecoration: 'none', color: 'inherit', display: 'block' }
+  }, c.h) : /*#__PURE__*/React.createElement("div", {
     className: "footer-h"
   }, c.h), c.links.map(x => /*#__PURE__*/React.createElement("a", {
     key: x.l,

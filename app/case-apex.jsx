@@ -258,7 +258,7 @@ function ApexCaseStudy() {
         <h2>What we built</h2>
         <p>We offered to build it free. The founder's first reaction was that we must be overconfident. Then we sent him a <strong>working demo in 24 hours</strong>: 60-70% accurate to how his operation actually runs, including the distributed job worker network, secondary material procurement, and three separate business streams.</p>
         <p>Over the next 11 days we did 4 working sessions with the founder and his operations head. Walked through every edge case.</p>
-        <p style={{fontFamily:'var(--font-heading)',fontSize:'var(--fs-body)',fontWeight:700,color:'var(--sg-blue)',margin:'24px 0'}}>Day 12: live. 34 things tracked end-to-end. 44 automatic triggers. Inventory visible across 30+ locations in real time.</p>
+        <p style={{fontFamily:'var(--font-heading)',fontSize:'var(--fs-body)',fontWeight:700,color:'var(--sg-blue)',margin:'24px 0'}}>Day 12: live. For the first time, every order across 30+ locations sat in one view - and the founder could finally see which of his three businesses made money.</p>
       </section>
 
       <section className="case-section">
@@ -303,7 +303,7 @@ function ApexCaseStudy() {
       </div>
 
       <div className="case-bottom-line">
-        <div className="big">34 things tracked. 44 automatic triggers. 30+ inventory locations. 12 days to deploy.</div>
+        <div className="big">Two years and two failed ERPs - then live in 12 days. 30+ locations in one ledger. Three businesses, three clear P&Ls. $0 upfront.</div>
         <p>Two years and two failed ERPs. Then 12 days with SimpleGrid. Inventory visible across 20+ job worker facilities and 10+ logistics partner warehouses, all in one live ledger.</p>
         <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{marginTop:16}}>Book a demo - See how we'd model your operations</a>
         <div style={{marginTop:20,fontSize:14}}>
@@ -313,7 +313,8 @@ function ApexCaseStudy() {
     </div>
     </main>
 
-    <Footer />
+    <FinalCTA title="Want a result like Apex?" body="We'll build a custom ERP modelled on how your floor actually runs, put it in your hands, and carry the risk for 30 days. You pay only once it's already running the business." note="Limited slots each quarter. We onboard selectively." />
+      <Footer />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
   </>);
 }

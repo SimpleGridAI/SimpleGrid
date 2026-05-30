@@ -566,17 +566,26 @@ function ProductHeroNew() {
 
   // Theme-driven colors
   const bgClass = isDark ? 'section section-dark' : 'section';
+  // Match the home page hero height: full viewport minus the nav, content centered.
+  const heroSize = {
+    minHeight: 'calc(100vh - 64px)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  };
   const bgStyle = isDark ? {
     paddingTop: 88,
     paddingBottom: 64,
     position: 'relative',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    ...heroSize
   } : {
     paddingTop: 88,
     paddingBottom: 64,
     position: 'relative',
     overflow: 'hidden',
-    background: '#FCFCFD'
+    background: '#FCFCFD',
+    ...heroSize
   };
   // Dark mode: no radial tint, so the hero reads as the same #1A1A1A as the
   // other section-dark blocks (FinalCTA, EventsLedger dark variant). Light
@@ -685,7 +694,13 @@ function MotivationSection() {
     className: "section",
     id: "hank",
     style: {
-      background: 'var(--sg-off-white)'
+      background: 'var(--sg-off-white)',
+      minHeight: 'calc(100vh - 64px)',
+      paddingTop: 48,
+      paddingBottom: 48,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
@@ -1403,7 +1418,7 @@ function TriggerCTA() {
       maxWidth: 720,
       margin: '18px auto 0'
     }
-  }, "We build it at our cost and our risk. Your team runs it on real orders. If by day 30 it hasn", '\u2019', "t moved the business, you walk. No invoice. No clawback."), /*#__PURE__*/React.createElement("div", {
+  }, "Every ERP vendor makes you pay first and hope it works. We flipped it. We build it at our cost and our risk. Your team runs it on real orders. If by day 30 it hasn", '\u2019', "t moved the business, you walk. No invoice. No clawback."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28,
       display: 'flex',

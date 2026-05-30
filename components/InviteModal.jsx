@@ -94,8 +94,8 @@ function InviteModal({ onClose }) {
     <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <form className="modal" role="dialog" aria-modal="true" aria-labelledby="invite-h" data-form-name="invite" onSubmit={submit} style={{ position: 'relative' }}>
         <button type="button" aria-label="Close invite request" onClick={onClose} style={{ position: 'absolute', top: 14, right: 16, background: 'none', border: 'none', fontSize: 22, color: 'var(--fg3)', cursor: 'pointer', lineHeight: 1 }}>×</button>
-        <h2 id="invite-h">Request an invite</h2>
-        <p className="sub">A few partner slots open each cycle. Tell us about you.</p>
+        <h2 id="invite-h">Book a demo</h2>
+        <p className="sub">We onboard selectively each quarter. Tell us about your operation - if we can win for you, we build it at our risk and you run it free for 30 days before you pay.</p>
 
         {/* FormSubmit settings (not delivered to recipient inbox) */}
         <input type="hidden" name="_subject" value="New invite request - SimpleGrid" />
@@ -126,7 +126,7 @@ function InviteModal({ onClose }) {
         </div>
 
         <button type="submit" className="btn btn-primary" disabled={state === 'submitting'} style={{ width: '100%', justifyContent: 'center', marginTop: 4, opacity: state === 'submitting' ? 0.7 : 1 }}>
-          {state === 'submitting' ? 'Sending…' : 'Request an Invite →'}
+          {state === 'submitting' ? 'Sending…' : 'Book a demo →'}
         </button>
         <p style={{ fontSize: 11, color: 'var(--fg3)', textAlign: 'center', marginTop: 14, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600 }}>
           We respond within 48 hours · Your data is used only for your deployment - see <a href="/privacy.html" style={{ color: 'var(--sg-blue)' }}>Privacy</a>

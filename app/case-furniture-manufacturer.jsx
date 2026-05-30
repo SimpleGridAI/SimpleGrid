@@ -101,12 +101,12 @@ function ManufacturingProcessSection() {
     <section className="case-section">
       <h2>The manufacturing process</h2>
       <p style={{maxWidth:920}}>
-        Wood arrives. Furniture leaves. Between sit 19 tracked stages, four QC gates, and six contractor formulas. Below: the abbreviated flow on the left, the moving line in the center, the structural framework on the right - three views of the same process.
+        Wood arrives. Furniture leaves. Here's how one order actually moves across the floor - and where the money used to leak.
       </p>
 
       <div className="elite-mfg-grid" style={{
         display:'grid',
-        gridTemplateColumns:'minmax(220px, 1fr) minmax(520px, 1.7fr) minmax(220px, 1fr)',
+        gridTemplateColumns:'minmax(240px, 1fr) minmax(520px, 2fr)',
         gap:20,
         marginTop:24,
         alignItems:'start',
@@ -147,52 +147,6 @@ function ManufacturingProcessSection() {
           <EliteFactoryRoad compact={true} />
         </div>
 
-        {/* RIGHT - manufacturing structure */}
-        <aside style={{position:'sticky', top:16, alignSelf:'start'}}>
-          <div style={{background:'#fff', border:'1px solid var(--border)', borderRadius:12, padding:18}}>
-            <div style={{fontSize:10, fontWeight:700, letterSpacing:'0.14em', color:'var(--sg-purple)', textTransform:'uppercase', marginBottom:12}}>
-              How the stages stack
-            </div>
-            {stages.map((s,i)=>(
-              <div key={i} style={{
-                display:'grid', gridTemplateColumns:'26px 1fr', gap:10,
-                paddingTop: i===0 ? 0 : 10,
-                paddingBottom: i < stages.length-1 ? 10 : 0,
-                borderBottom: i < stages.length-1 ? '1px dashed var(--border)' : 'none',
-                alignItems:'start',
-              }}>
-                <div style={{
-                  width:24, height:24, borderRadius:6,
-                  background:s.color, color:'#fff',
-                  display:'flex', alignItems:'center', justifyContent:'center',
-                  fontFamily:'var(--font-heading)', fontWeight:700, fontSize:12, marginTop:1,
-                }}>{s.letter}</div>
-                <div>
-                  <div style={{display:'flex', justifyContent:'space-between', alignItems:'baseline', gap:8}}>
-                    <span style={{fontFamily:'var(--font-heading)', fontSize:13, fontWeight:700, color:'var(--fg1)'}}>{s.title}</span>
-                    <span style={{fontFamily:'var(--font-mono)', fontSize:9.5, color:'var(--fg3)'}}>{s.range}</span>
-                  </div>
-                  <div style={{fontSize:11.5, color:'var(--fg2)', lineHeight:1.45, marginTop:2}}>{s.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div style={{
-            background:'rgba(74,123,247,0.06)', border:'1px solid rgba(74,123,247,0.18)',
-            borderRadius:12, padding:14, marginTop:12,
-          }}>
-            <div style={{fontSize:10, fontWeight:700, letterSpacing:'0.14em', color:'var(--sg-blue)', textTransform:'uppercase', marginBottom:10}}>
-              At a glance
-            </div>
-            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:10, fontSize:11.5}}>
-              <div><div style={{fontFamily:'var(--font-heading)', fontWeight:700, color:'var(--fg1)', fontSize:20, lineHeight:1}}>19</div><div style={{color:'var(--fg3)'}}>tracked stages</div></div>
-              <div><div style={{fontFamily:'var(--font-heading)', fontWeight:700, color:'var(--fg1)', fontSize:20, lineHeight:1}}>4</div><div style={{color:'var(--fg3)'}}>QC gates</div></div>
-              <div><div style={{fontFamily:'var(--font-heading)', fontWeight:700, color:'var(--fg1)', fontSize:20, lineHeight:1}}>6</div><div style={{color:'var(--fg3)'}}>contractor types</div></div>
-              <div><div style={{fontFamily:'var(--font-heading)', fontWeight:700, color:'var(--fg1)', fontSize:20, lineHeight:1}}>550</div><div style={{color:'var(--fg3)'}}>SKUs</div></div>
-            </div>
-          </div>
-        </aside>
       </div>
 
       {/* Contractor settlement - full width below */}
@@ -233,7 +187,7 @@ function EliteCaseStudy() {
     <section className="case-hero">
       <div className="container">
         <div className="tag">CASE STUDY · FURNITURE EXPORT</div>
-        <h1>How a furniture exporter with 800 employees went from Excel to a live ERP in 21 days</h1>
+        <h1>How a furniture exporter stopped losing $200,000 a year to gaps nobody could see</h1>
         <p className="case-hook">Over four years, a furniture manufacturer and exporter - 12+ countries across North America, Europe, and Asia - lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just an operation running at 600-800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around.</p>
         <div className="case-strip">
           <div className="case-strip-item"><div className="label">Industry</div><div className="value">Furniture export</div></div>
@@ -283,7 +237,7 @@ function EliteCaseStudy() {
         <h2>What we built</h2>
         <p>We did multiple calls with the founder over 14 days. Mapped how work actually moves: every order type, every approval rule, every handoff between contractors, every contractor pricing formula, every exception that only the founder knew about.</p>
         <p>After the first call, the founder saw a <strong>working demo within 24 hours</strong>. Not a slideshow. A working system reflecting how his factory actually runs - wood aggregation, two-level tracking, six contractor settlement formulas, four QC gates. 21 days total from first conversation to live system.</p>
-        <p style={{fontFamily:'var(--font-heading)',fontSize:'var(--fs-body)',fontWeight:700,color:'var(--sg-blue)',margin:'24px 0'}}>64 things tracked end-to-end. 72 automatic triggers. 6 contractor settlement formulas. 4 QC gates.</p>
+        <p style={{fontFamily:'var(--font-heading)',fontSize:'var(--fs-body)',fontWeight:700,color:'var(--sg-blue)',margin:'24px 0'}}>By day 21 it was live on the floor - and for the first time, the founder could see which products actually made money and where the wood was going.</p>
       </section>
 
       {/* Rules */}
@@ -302,7 +256,7 @@ function EliteCaseStudy() {
           <li>Hardware-fitting settlement blocked until every fitting + screw size is logged.</li>
           <li>Packaging settlement blocked until CBM is captured at pack-out.</li>
         </ul>
-        <p style={{marginTop:16}}>Every one of these rules is a configuration, not code. When the business adds a new rule, we add it in minutes.</p>
+        <p style={{marginTop:16}}>When your process changes, the rule changes with it - usually the same day.</p>
       </section>
 
       {/* Floor Staff */}
@@ -340,7 +294,7 @@ function EliteCaseStudy() {
 
       {/* Bottom Line */}
       <div className="case-bottom-line">
-        <div className="big">64 things tracked. 72 automatic triggers. 21 days to deploy. $0 upfront.</div>
+        <div className="big">The $200K leak, closed. Planning cut from 20 hours a week to 2. 30 floor staff who'd rejected every ERP, now on this one daily. Live in 21 days, $0 upfront.</div>
         <p>Before SimpleGrid, the founder knew the company made money. Now he knows which products make money, and which ones do not. Planning dropped from 20 hours to 2. Wastage dropped to negligible. Delivery improved 15%. And 30 floor staff who had rejected every previous ERP now use this one daily.</p>
         <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{marginTop:16}}>Book a demo - See how we'd model your operations</a>
         <div style={{marginTop:20,fontSize:14}}>
@@ -350,7 +304,8 @@ function EliteCaseStudy() {
     </div>
     </main>
 
-    <Footer />
+    <FinalCTA title="Want a result like this?" body="We'll build a custom ERP modelled on how your floor actually runs, put it in your hands, and carry the risk for 30 days. You pay only once it's already running the business." note="Limited slots each quarter. We onboard selectively." />
+      <Footer />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
   </>);
 }

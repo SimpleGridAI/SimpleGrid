@@ -317,9 +317,11 @@ function ProductHeroNew() {
 
   // Theme-driven colors
   const bgClass = isDark ? 'section section-dark' : 'section';
+  // Match the home page hero height: full viewport minus the nav, content centered.
+  const heroSize = { minHeight: 'calc(100vh - 64px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' };
   const bgStyle = isDark
-    ? { paddingTop: 88, paddingBottom: 64, position: 'relative', overflow: 'hidden' }
-    : { paddingTop: 88, paddingBottom: 64, position: 'relative', overflow: 'hidden', background: '#FCFCFD' };
+    ? { paddingTop: 88, paddingBottom: 64, position: 'relative', overflow: 'hidden', ...heroSize }
+    : { paddingTop: 88, paddingBottom: 64, position: 'relative', overflow: 'hidden', background: '#FCFCFD', ...heroSize };
   // Dark mode: no radial tint, so the hero reads as the same #1A1A1A as the
   // other section-dark blocks (FinalCTA, EventsLedger dark variant). Light
   // mode keeps the subtle blue/purple radial for visual interest.
@@ -364,7 +366,7 @@ function ProductHeroNew() {
           Your stages, your contractors, your approvals, your costing logic - modeled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs.
         </p>
         <div style={{ marginTop: 28, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>Request an Invite →</button>
+          <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>Book a demo →</button>
         </div>
         <div style={{ marginTop: 36, display: 'flex', gap: 32, flexWrap: 'wrap', fontSize: 'var(--fs-caption)', color: noteColor }}>
           <span>● Built at our risk</span>
@@ -381,7 +383,7 @@ window.ProductHeroNew = ProductHeroNew;
 // PRODUCT FEATURE - Hank, the AI chatbot for the shop floor
 function MotivationSection() {
   return (
-    <section className="section" id="hank" style={{ background: 'var(--sg-off-white)' }}>
+    <section className="section" id="hank" style={{ background: 'var(--sg-off-white)', minHeight: 'calc(100vh - 64px)', paddingTop: 48, paddingBottom: 48, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <div className="container">
         <Reveal>
           <div style={{ textAlign: 'center' }}>
@@ -796,10 +798,10 @@ function TriggerCTA() {
             Three hours with us. Thirty days on your real floor. Pay only if it works.
           </h2>
           <p className="sub" style={{ color: 'rgba(255,255,255,0.75)', maxWidth: 720, margin: '18px auto 0' }}>
-            We build it at our cost and our risk. Your team runs it on real orders. If by day 30 it hasn{'\u2019'}t moved the business, you walk. No invoice. No clawback.
+            Every ERP vendor makes you pay first and hope it works. We flipped it. We build it at our cost and our risk. Your team runs it on real orders. If by day 30 it hasn{'\u2019'}t moved the business, you walk. No invoice. No clawback.
           </p>
           <div style={{ marginTop: 28, display: 'flex', justifyContent: 'center' }}>
-            <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>Request an Invite →</button>
+            <button type="button" onClick={() => setShowInvite(true)} className="btn btn-lg btn-invite" style={{animation:'sgBuildPulse 1.8s ease-in-out infinite'}}>Book a demo →</button>
           </div>
           <p className="note" style={{ color: 'rgba(255,255,255,0.5)', marginTop: 14 }}>Migration included · Limited capacity each quarter</p>
         </Reveal>
