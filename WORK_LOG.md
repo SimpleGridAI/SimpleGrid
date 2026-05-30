@@ -59,3 +59,18 @@ Added `legalName` (Valaya AI Technologies Pvt. Ltd.), `founder` (ref #mukund), G
 ### T2.3 Disambiguation framing
 Footer.jsx legal line now frames "SimpleGrid ... by Valaya AI Technologies Pvt. Ltd." (builds to Footer.js in T6). Static-page footers already name Valaya; broader static-footer text edit deferred (fragmented markup, low marginal value over schema legalName + llms.txt disambiguation). DoD ✓ (React footer; static deferred).
 Files via `scripts/_t2_entity.py`.
+
+---
+
+## TIER 3 — Internal link redistribution
+
+### T3.2 Tool -> sibling + hub cross-links
+Added a "Related free tools" section before `</main>` on all 35 tool pages: 3 in-cluster siblings + the /tools/ hub. Clusters: costing(15), valuation(7), erp(4), compliance(4), generators(5). Files via `scripts/_t3_toollinks.py`.
+**Result:** tool inbound links median 3 -> 6 (max 17). DoD ✓.
+
+### T3.1 Blog -> tool contextual links
+Added a "Free tools mentioned in this article" section to 8 metric/calc blogs (spreadsheets-cost, landed-cost, erp-customization, warehouse-first, dynamics-gp-sunset, erp-cant-keep-up, mid-market-underserved, myth-of-best-practices), each linking 2-3 relevant tools + hub. Files via `scripts/_t3_bloglinks.py`.
+**Result:** total internal edges 1620 -> 1786 (+166); tool inbound median 6 (max 19). DoD ✓.
+
+### T3.3 New-page links — deferred to Tier 5 (pages not built yet).
+Verify: 0 tool pages missing the block; all related-link targets resolve; 0 orphans. 
