@@ -32,3 +32,12 @@ These 27 pages have short metas that waste SERP space. Suggested direction noted
 Added: brand-disambiguation paragraph, "Proof points" block (Apex 12-day, furniture 21-day, 30-day free run, founder Mukund Agarwal), "Entity and profiles (sameAs)" block, and the full page list. Confirm the proof numbers are accurate and approved for AI assistants to repeat.
 
 ## 5. (Tiers 2–5 copy will be appended here as produced)
+
+---
+
+## TIER 2 — Entity / E-E-A-T (applied — confirm facts)
+
+1. **Authorship attribution (IMPORTANT — confirm true):** All 18 blog posts + 2 case studies now declare `author` = **Person "Mukund Agarwal", Founder** (was Organization). This is an E-E-A-T signal and is only valid if Mukund is genuinely the author. If some posts have other/no individual authors, tell me and I will adjust.
+2. **Organization schema** now includes `legalName: "Valaya AI Technologies Pvt. Ltd."`, `founder: Mukund Agarwal`, and `sameAs` expanded to LinkedIn + X + GitHub. Confirm the founder LinkedIn `linkedin.com/in/mdagarwal` is correct.
+3. **Footer line changed** (Footer.jsx, site-wide on React pages): `© 2026 Valaya AI Technologies` -> `SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies Pvt. Ltd. © 2026`. Purpose: separate from the unrelated "Simplegrid Technology, Inc." Reword as you like.
+4. **Founder Person entity** added to about.html schema. NOTE: a *visible* founder byline in the pre-rendered seed HTML of about.html needs SSR/pre-render of the React founder section (the body renders client-side); deferred and noted in OFF_CODE_HANDOFF. The founder is now crawlable via JSON-LD on the homepage + about page + as author on all articles + in llms.txt.

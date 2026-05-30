@@ -110,7 +110,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <div>© 2026 Valaya AI Technologies</div>
+          <div>SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies Pvt. Ltd. © 2026</div>
           <div className="footer-legal">
             <a href={px('privacy.html')}>Privacy Policy</a><a href={px('terms.html')}>Terms</a>
           </div>

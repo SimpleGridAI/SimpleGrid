@@ -40,34 +40,68 @@
 
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@graph": [
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://simplegrid.ai/about.html#webpage",
+   "url": "https://simplegrid.ai/about.html",
+   "name": "About SimpleGrid - Built by a Manufacturer for Manufacturers",
+   "isPartOf": {
+    "@id": "https://simplegrid.ai/#website"
+   },
+   "publisher": {
+    "@id": "https://simplegrid.ai/#org"
+   },
+   "about": {
+    "@id": "https://simplegrid.ai/#org"
+   },
+   "description": "SimpleGrid is built by operators who ran a $30M factory and survived two ERP failures.",
+   "inLanguage": "en",
+   "mainEntity": {
+    "@id": "https://simplegrid.ai/#mukund"
+   }
+  },
+  {
+   "@type": "AboutPage",
+   "@id": "https://simplegrid.ai/about.html#aboutpage",
+   "url": "https://simplegrid.ai/about.html",
+   "name": "About SimpleGrid",
+   "mainEntity": {
+    "@id": "https://simplegrid.ai/#mukund"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
     {
-      "@type": "WebPage",
-      "@id": "https://simplegrid.ai/about.html#webpage",
-      "url": "https://simplegrid.ai/about.html",
-      "name": "About SimpleGrid - Built by a Manufacturer for Manufacturers",
-      "isPartOf": { "@id": "https://simplegrid.ai/#website" },
-      "publisher": { "@id": "https://simplegrid.ai/#org" },
-      "about": { "@id": "https://simplegrid.ai/#org" },
-      "description": "SimpleGrid is built by operators who ran a $30M factory and survived two ERP failures.",
-      "inLanguage": "en"
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://simplegrid.ai/"
     },
     {
-      "@type": "AboutPage",
-      "@id": "https://simplegrid.ai/about.html#aboutpage",
-      "url": "https://simplegrid.ai/about.html",
-      "name": "About SimpleGrid",
-      "mainEntity": { "@id": "https://simplegrid.ai/#org" }
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://simplegrid.ai/" },
-        { "@type": "ListItem", "position": 2, "name": "About", "item": "https://simplegrid.ai/about.html" }
-      ]
+     "@type": "ListItem",
+     "position": 2,
+     "name": "About",
+     "item": "https://simplegrid.ai/about.html"
     }
-  ]
+   ]
+  },
+  {
+   "@type": "Person",
+   "@id": "https://simplegrid.ai/#mukund",
+   "name": "Mukund Agarwal",
+   "jobTitle": "Founder",
+   "worksFor": {
+    "@id": "https://simplegrid.ai/#org"
+   },
+   "url": "https://simplegrid.ai/about.html",
+   "sameAs": [
+    "https://www.linkedin.com/in/mdagarwal/"
+   ]
+  }
+ ]
 }
 </script>
 <!-- No-flash boot: fade #root in once React replaces the seed (or after 1.2s failsafe) -->

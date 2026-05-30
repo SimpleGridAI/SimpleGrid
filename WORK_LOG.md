@@ -43,3 +43,19 @@ Internal doc (excluded from publishing via `_config.yml`). Every change, file, v
 
 **Tier 1 verification:** 79/79 pages parse; 0 JSON-LD errors; 35 HowTo; 79/79 twitter:card; 8/8 competitor breadcrumbs; 18/18 SRI; 0 clarity; 73 llms URLs.
 **Commit:** see git log "T1: ...".
+
+---
+
+## TIER 2 — Entity / E-E-A-T
+
+### T2.1 Organization schema expanded (index.html)
+Added `legalName` (Valaya AI Technologies Pvt. Ltd.), `founder` (ref #mukund), GitHub added to `sameAs` (now LinkedIn+X+GitHub). areaServed (US) + contactPoint already present. Added a `Person` node (#mukund, Mukund Agarwal, Founder) to the homepage @graph. Verify: parses, legalName present. DoD ✓.
+
+### T2.2 Founder entity + Article authorship
+- Person (Mukund Agarwal) added to about.html @graph + set as WebPage `mainEntity`.
+- All 20 Articles (18 blogs + 2 cases) `author` changed Organization -> Person (Mukund Agarwal, Founder). Blog template `scripts/generate-blog-pages.py` updated so regenerated blogs keep Person author.
+- Verify: 20/20 Articles Person-authored; 0 parse errors. DoD ✓ (visible-seed byline deferred to SSR — see handoff).
+
+### T2.3 Disambiguation framing
+Footer.jsx legal line now frames "SimpleGrid ... by Valaya AI Technologies Pvt. Ltd." (builds to Footer.js in T6). Static-page footers already name Valaya; broader static-footer text edit deferred (fragmented markup, low marginal value over schema legalName + llms.txt disambiguation). DoD ✓ (React footer; static deferred).
+Files via `scripts/_t2_entity.py`.

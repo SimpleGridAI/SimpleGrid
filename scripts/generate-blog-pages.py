@@ -128,7 +128,7 @@ PAGE_TEMPLATE = """<!doctype html>
   "inLanguage": "en",
   "isPartOf": {{ "@id": "https://simplegrid.ai/blog.html#blog" }},
   "publisher": {{ "@id": "https://simplegrid.ai/#org" }},
-  "author": {{ "@type": "Organization", "@id": "https://simplegrid.ai/#org" }}{date_field}
+  "author": {{ "@type": "Person", "name": "Mukund Agarwal", "url": "https://simplegrid.ai/about.html", "jobTitle": "Founder", "worksFor": {{ "@id": "https://simplegrid.ai/#org" }} }}{date_field}
 }}
 </script>
 <script type="application/ld+json">

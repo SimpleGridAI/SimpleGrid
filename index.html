@@ -44,117 +44,159 @@
 <!-- Structured data: Organization + WebSite + SoftwareApplication + WebPage -->
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@graph": [
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://simplegrid.ai/#org",
+   "name": "SimpleGrid",
+   "alternateName": [
+    "SimpleGrid AI",
+    "SimpleGrid.ai"
+   ],
+   "url": "https://simplegrid.ai/",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://simplegrid.ai/assets/simplegrid-logo-horizontal.svg",
+    "width": 240,
+    "height": 48
+   },
+   "sameAs": [
+    "https://www.linkedin.com/company/simplegridai",
+    "https://x.com/simplegridai",
+    "https://github.com/SimpleGridAI"
+   ],
+   "description": "Custom ERP for mid-market manufacturers. Built at our risk on your real floor. Paid for only after it works.",
+   "foundingDate": "2025-01-01",
+   "knowsAbout": [
+    "Manufacturing ERP",
+    "Custom ERP for Manufacturers",
+    "Mid-Market Manufacturing Software",
+    "ERP built at our risk, paid for after it works"
+   ],
+   "areaServed": [
     {
-      "@type": "Organization",
-      "@id": "https://simplegrid.ai/#org",
-      "name": "SimpleGrid",
-      "alternateName": ["SimpleGrid AI", "SimpleGrid.ai"],
-      "url": "https://simplegrid.ai/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://simplegrid.ai/assets/simplegrid-logo-horizontal.svg",
-        "width": 240,
-        "height": 48
-      },
-      "sameAs": [
-        "https://www.linkedin.com/company/simplegridai",
-        "https://x.com/simplegridai"
-      ],
-      "description": "Custom ERP for mid-market manufacturers. Built at our risk on your real floor. Paid for only after it works.",
-      "foundingDate": "2025-01-01",
-      "knowsAbout": [
-        "Manufacturing ERP",
-        "Custom ERP for Manufacturers",
-        "Mid-Market Manufacturing Software",
-        "ERP built at our risk, paid for after it works"
-      ],
-      "areaServed": [
-        { "@type": "Country", "name": "United States" }
-      ],
-      "contactPoint": [{
-        "@type": "ContactPoint",
-        "email": "hello@simplegrid.ai",
-        "contactType": "sales",
-        "availableLanguage": "English",
-        "areaServed": ["US"]
-      }]
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://simplegrid.ai/#website",
-      "url": "https://simplegrid.ai/",
-      "name": "SimpleGrid",
-      "alternateName": ["SimpleGrid AI"],
-      "publisher": { "@id": "https://simplegrid.ai/#org" },
-      "inLanguage": "en"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://simplegrid.ai/#software",
-      "name": "SimpleGrid",
-      "alternateName": ["SimpleGrid ERP"],
-      "applicationCategory": "BusinessApplication",
-      "applicationSubCategory": "ERP Software",
-      "operatingSystem": "Web",
-      "description": "Custom ERP built around your factory. Deployed at our cost and our risk; you run it for 30 days on your real floor and only pay if it moves the business. Built for mid-market manufacturers with 50-1,500 employees.",
-      "url": "https://simplegrid.ai/product.html",
-      "publisher": { "@id": "https://simplegrid.ai/#org" },
-      "provider": { "@id": "https://simplegrid.ai/#org" },
-      "audience": {
-        "@type": "BusinessAudience",
-        "audienceType": "Mid-Market Manufacturers",
-        "numberOfEmployees": {
-          "@type": "QuantitativeValue",
-          "minValue": 50,
-          "maxValue": 1500
-        }
-      },
-      "offers": {
-        "@type": "Offer",
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "priceCurrency": "USD",
-          "description": "Contact for quote. Custom ERP build is paid for only after a 30-day production trial on the customer's floor."
-        },
-        "availability": "https://schema.org/InStock",
-        "url": "https://simplegrid.ai/pricing.html"
-      },
-      "featureList": [
-        "7-21 day deployment",
-        "Schema-driven configuration",
-        "Built around your operation, not a template",
-        "Built at our cost - you pay nothing until it works",
-        "30-day run on your real floor before you pay",
-        "Immutable event ledger architecture",
-        "Custom to your manufacturing process",
-        "Production tracking and job order management",
-        "Inventory and material inward tracking",
-        "Purchase order and vendor management",
-        "Sales order management",
-        "Quality control and inspection tracking",
-        "Bill of materials management",
-        "Role-based access control",
-        "Contractor and subcontractor management",
-        "Works on phone, tablet, and desktop"
-      ]
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://simplegrid.ai/#webpage",
-      "url": "https://simplegrid.ai/",
-      "name": "SimpleGrid - Custom ERP for Manufacturers, Live in 7-21 Days",
-      "description": "Custom ERP built around your factory. You carry nothing until you see it run for 30 days on your real floor.",
-      "isPartOf": { "@id": "https://simplegrid.ai/#website" },
-      "about": { "@id": "https://simplegrid.ai/#org" },
-      "primaryImageOfPage": {
-        "@type": "ImageObject",
-        "url": "https://simplegrid.ai/assets/og-card.jpg"
-      },
-      "inLanguage": "en"
+     "@type": "Country",
+     "name": "United States"
     }
-  ]
+   ],
+   "contactPoint": [
+    {
+     "@type": "ContactPoint",
+     "email": "hello@simplegrid.ai",
+     "contactType": "sales",
+     "availableLanguage": "English",
+     "areaServed": [
+      "US"
+     ]
+    }
+   ],
+   "legalName": "Valaya AI Technologies Pvt. Ltd.",
+   "founder": {
+    "@id": "https://simplegrid.ai/#mukund"
+   }
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://simplegrid.ai/#website",
+   "url": "https://simplegrid.ai/",
+   "name": "SimpleGrid",
+   "alternateName": [
+    "SimpleGrid AI"
+   ],
+   "publisher": {
+    "@id": "https://simplegrid.ai/#org"
+   },
+   "inLanguage": "en"
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://simplegrid.ai/#software",
+   "name": "SimpleGrid",
+   "alternateName": [
+    "SimpleGrid ERP"
+   ],
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "ERP Software",
+   "operatingSystem": "Web",
+   "description": "Custom ERP built around your factory. Deployed at our cost and our risk; you run it for 30 days on your real floor and only pay if it moves the business. Built for mid-market manufacturers with 50-1,500 employees.",
+   "url": "https://simplegrid.ai/product.html",
+   "publisher": {
+    "@id": "https://simplegrid.ai/#org"
+   },
+   "provider": {
+    "@id": "https://simplegrid.ai/#org"
+   },
+   "audience": {
+    "@type": "BusinessAudience",
+    "audienceType": "Mid-Market Manufacturers",
+    "numberOfEmployees": {
+     "@type": "QuantitativeValue",
+     "minValue": 50,
+     "maxValue": 1500
+    }
+   },
+   "offers": {
+    "@type": "Offer",
+    "priceSpecification": {
+     "@type": "PriceSpecification",
+     "priceCurrency": "USD",
+     "description": "Contact for quote. Custom ERP build is paid for only after a 30-day production trial on the customer's floor."
+    },
+    "availability": "https://schema.org/InStock",
+    "url": "https://simplegrid.ai/pricing.html"
+   },
+   "featureList": [
+    "7-21 day deployment",
+    "Schema-driven configuration",
+    "Built around your operation, not a template",
+    "Built at our cost - you pay nothing until it works",
+    "30-day run on your real floor before you pay",
+    "Immutable event ledger architecture",
+    "Custom to your manufacturing process",
+    "Production tracking and job order management",
+    "Inventory and material inward tracking",
+    "Purchase order and vendor management",
+    "Sales order management",
+    "Quality control and inspection tracking",
+    "Bill of materials management",
+    "Role-based access control",
+    "Contractor and subcontractor management",
+    "Works on phone, tablet, and desktop"
+   ]
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://simplegrid.ai/#webpage",
+   "url": "https://simplegrid.ai/",
+   "name": "SimpleGrid - Custom ERP for Manufacturers, Live in 7-21 Days",
+   "description": "Custom ERP built around your factory. You carry nothing until you see it run for 30 days on your real floor.",
+   "isPartOf": {
+    "@id": "https://simplegrid.ai/#website"
+   },
+   "about": {
+    "@id": "https://simplegrid.ai/#org"
+   },
+   "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://simplegrid.ai/assets/og-card.jpg"
+   },
+   "inLanguage": "en"
+  },
+  {
+   "@type": "Person",
+   "@id": "https://simplegrid.ai/#mukund",
+   "name": "Mukund Agarwal",
+   "jobTitle": "Founder",
+   "worksFor": {
+    "@id": "https://simplegrid.ai/#org"
+   },
+   "url": "https://simplegrid.ai/about.html",
+   "sameAs": [
+    "https://www.linkedin.com/in/mdagarwal/"
+   ]
+  }
+ ]
 }
 </script>
 <!-- No-flash boot: fade #root in once React replaces the seed (or after 1.2s failsafe). Respects prefers-reduced-motion. -->
