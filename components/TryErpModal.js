@@ -12,8 +12,13 @@
   if (window.sgTryErpInit) return;
   window.sgTryErpInit = true;
 
+  // Apps Script Web App URL — same sink vader uses behind /sandbox/leads.
+  // We POST directly from the browser because simplegrid.ai is HTTPS and the
+  // vader ALB is plain HTTP today (mixed-content block). Apps Script serves
+  // HTTPS natively, so the browser is happy. Lead row still lands in the
+  // same "Sandbox leads" Google Sheet either way.
   var SG_LEAD_ENDPOINT =
-    'http://simplegrid-alb-dev-763775162.ap-south-1.elb.amazonaws.com/sandbox/leads';
+    'https://script.google.com/macros/s/AKfycbxFEMIoufWIWT7TggG_wg0wr87cUMqB8xIUMnMMScyHT4w7IR8jmM4EZkQ7uHly4VpF/exec';
   var SG_SANDBOX_URL =
     'http://simplegrid-peralta-dev.s3-website.ap-south-1.amazonaws.com/';
 
@@ -88,9 +93,12 @@
     // never feels the network. If POST fails, server-side log catches it.
     var leadPromise;
     try {
+      // Apps Script web apps reject preflighted requests. text/plain keeps it
+      // a "simple" CORS request → no preflight. Apps Script reads the body
+      // via e.postData.contents regardless of declared MIME.
       leadPromise = fetch(SG_LEAD_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ email: email, source: 'try-erp-nav' })
       });
     } catch (err) {
