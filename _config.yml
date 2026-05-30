@@ -45,6 +45,7 @@ exclude:
   - seo-audit/
   - seo-audit-data/
   - SEO_GROUND_TRUTH_AUDIT.md
+  - FOGG_BEHAVIOR_AUDIT.md
   - WORK_LOG.md
   - NEEDS_FOUNDER_REVIEW.md
   - OFF_CODE_HANDOFF.md
