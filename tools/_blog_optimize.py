@@ -116,7 +116,7 @@ FOOTER_HTML = '''<footer class="footer" role="contentinfo">
       </div>
     </div>
     <div class="footer-bottom">
-      <div>&copy; 2026 Valaya AI Technologies Pvt. Ltd.</div>
+      <div>&copy; 2026 Valaya AI Technologies</div>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy Policy</a>
         <a href="../../terms.html">Terms</a>

@@ -12,8 +12,6 @@ function App() {
       <HowItWorks />
       <ProofSection />
       <FounderStory />
-      <ComparisonTable />
-      <FromTheField />
       <HomeFAQ />
       <FinalCTA />
     </main>

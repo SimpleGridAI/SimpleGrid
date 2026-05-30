@@ -295,62 +295,7 @@ function AboutPage() {
     style: {
       paddingTop: 48
     }
-  }, /*#__PURE__*/React.createElement(ProductionFlow, null)), /*#__PURE__*/React.createElement("section", {
-    className: "section section-dark final-cta"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "tag",
-    style: {
-      color: 'rgba(255,255,255,0.5)'
-    }
-  }, "SELECTIVE ONBOARDING"), /*#__PURE__*/React.createElement("h2", {
-    className: "h2",
-    style: {
-      color: '#fff',
-      maxWidth: 760,
-      margin: '0 auto'
-    }
-  }, "We are not for everyone."), /*#__PURE__*/React.createElement("p", {
-    className: "sub",
-    style: {
-      color: 'rgba(255,255,255,0.75)',
-      maxWidth: 680,
-      margin: '18px auto 0'
-    }
-  }, "Limited capacity each quarter. We only take on customers we know we can win for - because we carry the cost and the risk of the build, and we only get paid when you succeed. We are built for mid-market manufacturers, roughly $5M-$250M in revenue - below that, spreadsheets or QuickBooks still win; above that, SAP or Oracle make more sense."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 28,
-      display: 'flex',
-      justifyContent: 'center'
-    }
-  }, /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    onClick: () => setShowInvite(true),
-    className: "btn btn-lg btn-invite",
-    style: {
-      animation: 'sgBuildPulse 1.8s ease-in-out infinite'
-    }
-  }, "Book a demo")), /*#__PURE__*/React.createElement("p", {
-    className: "note",
-    style: {
-      color: 'rgba(255,255,255,0.5)',
-      marginTop: 14
-    }
-  }, "Senior engineers and deployment experts on every deployment \xB7 We reply within 48 hours"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 20,
-      textAlign: 'center'
-    }
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "product.html",
-    style: {
-      fontSize: 14,
-      fontWeight: 600,
-      color: 'rgba(255,255,255,0.85)',
-      textDecoration: 'none'
-    }
-  }, "See how the system actually works \u2192"))))), /*#__PURE__*/React.createElement(FinalCTA, {
+  }, /*#__PURE__*/React.createElement(ProductionFlow, null))), /*#__PURE__*/React.createElement(FinalCTA, {
     title: "Built by people who've run the floor.",
     body: "We ran multi-stage factories to $30M and survived two ERP failures before building SimpleGrid. We're on every deployment. We carry the cost and the risk - you run it for 30 days and pay only once it earns its keep.",
     note: "Limited slots each quarter. We onboard selectively."

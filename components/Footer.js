@@ -194,12 +194,15 @@ function Footer() {
   }, /*#__PURE__*/React.createElement("img", {
     src: prefix + 'assets/nvidia-inception.png',
     alt: "NVIDIA Inception Program member badge",
-    width: "120",
+    width: "88",
     height: "38",
     loading: "lazy",
     decoding: "async",
     style: {
-      display: 'block'
+      display: 'block',
+      height: 38,
+      width: 'auto',
+      objectFit: 'contain'
     }
   })), /*#__PURE__*/React.createElement("a", {
     href: "https://aws.amazon.com/startups/",
@@ -258,15 +261,15 @@ function Footer() {
     }
   }, cols.map(c => /*#__PURE__*/React.createElement("div", {
     key: c.h
-  }, c.hHref ? /*#__PURE__*/React.createElement("a", {
-    className: "footer-h",
+  }, c.hHref ? /*#__PURE__*/React.createElement("div", {
+    className: "footer-h"
+  }, /*#__PURE__*/React.createElement("a", {
     href: px(c.hHref),
     style: {
-      textDecoration: 'none',
       color: 'inherit',
-      display: 'block'
+      textDecoration: 'none'
     }
-  }, c.h) : /*#__PURE__*/React.createElement("div", {
+  }, c.h)) : /*#__PURE__*/React.createElement("div", {
     className: "footer-h"
   }, c.h), c.links.map(x => /*#__PURE__*/React.createElement("a", {
     key: x.l,
@@ -291,7 +294,7 @@ function Footer() {
     kind: x.kind
   }), /*#__PURE__*/React.createElement("span", null, x.l)))))), /*#__PURE__*/React.createElement("div", {
     className: "footer-bottom"
-  }, /*#__PURE__*/React.createElement("div", null, "SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies Pvt. Ltd. \xA9 2026"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, "SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies \xA9 2026"), /*#__PURE__*/React.createElement("div", {
     className: "footer-legal"
   }, /*#__PURE__*/React.createElement("a", {
     href: px('privacy.html')

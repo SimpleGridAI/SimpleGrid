@@ -66,7 +66,7 @@ function Footer() {
                   padding: '8px 14px', borderRadius: 10, border: '1px solid var(--border)',
                   background: '#fff', textDecoration: 'none', height: 56, boxSizing: 'border-box',
                 }}>
-                  <img src={prefix + 'assets/nvidia-inception.png'} alt="NVIDIA Inception Program member badge" width="120" height="38" loading="lazy" decoding="async" style={{ display: 'block' }} />
+                  <img src={prefix + 'assets/nvidia-inception.png'} alt="NVIDIA Inception Program member badge" width="88" height="38" loading="lazy" decoding="async" style={{ display: 'block', height: 38, width: 'auto', objectFit: 'contain' }} />
                 </a>
                 <a href="https://aws.amazon.com/startups/" target="_blank" rel="noopener noreferrer" title="AWS Startups partner" style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -89,7 +89,7 @@ function Footer() {
             {cols.map(c => (
               <div key={c.h}>
                 {c.hHref
-                  ? <a className="footer-h" href={px(c.hHref)} style={{textDecoration:'none', color:'inherit', display:'block'}}>{c.h}</a>
+                  ? <div className="footer-h"><a href={px(c.hHref)} style={{color:'inherit', textDecoration:'none'}}>{c.h}</a></div>
                   : <div className="footer-h">{c.h}</div>}
                 {c.links.map(x => <a key={x.l} href={px(x.href)} className="footer-link">{x.l}</a>)}
               </div>
@@ -110,7 +110,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <div>SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies Pvt. Ltd. © 2026</div>
+          <div>SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies © 2026</div>
           <div className="footer-legal">
             <a href={px('privacy.html')}>Privacy Policy</a><a href={px('terms.html')}>Terms</a>
           </div>

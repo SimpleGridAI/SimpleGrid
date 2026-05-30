@@ -78,7 +78,7 @@ def render(cfg):
 <div><div class="footer-h">Resources</div><a href="{P}tools/" class="footer-link">Productive Tools</a><a href="{P}case-studies.html" class="footer-link">Case studies</a><a href="{P}blog.html" class="footer-link">Blog</a></div>
 <div><div class="footer-h">Company</div><a href="{P}about.html" class="footer-link">About</a><a href="{P}competitors.html" class="footer-link">Competitors</a><a href="{P}hiring.html" class="footer-link">Careers</a></div>
 <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div></div></div>
-<div class="footer-bottom"><div>SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies Pvt. Ltd. © 2026</div><div class="footer-legal"><a href="{P}privacy.html">Privacy Policy</a><a href="{P}terms.html">Terms</a></div></div>
+<div class="footer-bottom"><div>SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies © 2026</div><div class="footer-legal"><a href="{P}privacy.html">Privacy Policy</a><a href="{P}terms.html">Terms</a></div></div>
 </div></footer>'''.format(P=P)
     doc='''<!doctype html>
 <html lang="en">
