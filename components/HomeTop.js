@@ -6,8 +6,8 @@ function RadialBurst({
   // and swells back on its own slow cycle. Colours come from `palette` (the
   // nature presets in BurstBand) and can change live without re-seeding.
   const DEFAULT = {
-    deep: [41, 86, 196],
-    bright: [52, 97, 224]
+    deep: [36, 76, 173],
+    bright: [46, 86, 198]
   };
   const pal = palette || DEFAULT;
   const palRef = React.useRef(pal);
@@ -216,7 +216,7 @@ window.RadialBurst = RadialBurst;
 // endpoints and `bg` is the band background - white for all but Night, which
 // goes dark with a blue burst.
 const BURST_PALETTES = [
-  { name: 'Ocean',    deep: [41, 86, 196],   bright: [52, 97, 224],   bg: '#fff',    icon: '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1C7 13 7 11 9.5 11c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1C7 19 7 17 9.5 17c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>' },
+  { name: 'Ocean',    deep: [36, 76, 173],   bright: [46, 86, 198],   bg: '#fff',    icon: '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1C7 13 7 11 9.5 11c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1C7 19 7 17 9.5 17c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>' },
   { name: 'Sky',      deep: [14, 116, 200],  bright: [56, 189, 248],  bg: '#fff',    icon: '<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>' },
   { name: 'Lagoon',   deep: [15, 118, 110],  bright: [45, 212, 191],  bg: '#fff',    icon: '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>' },
   { name: 'Forest',   deep: [6, 59, 40],     bright: [21, 128, 61],   bg: '#fff',    icon: '<path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7Z"/><path d="M12 22v-3"/>' },
@@ -257,7 +257,7 @@ function BurstBand() {
   }, [open]);
   return /*#__PURE__*/React.createElement("section", {
     className: "burst-band",
-    style: { position: 'relative', overflow: 'hidden', height: 'calc(100dvh - 52px)', minHeight: 'calc(100vh - 52px)', background: pal.bg, transition: 'background 200ms ease' }
+    style: { position: 'relative', overflow: 'hidden', height: 'calc(85dvh - 52px)', minHeight: 'calc(85vh - 52px)', background: pal.bg, transition: 'background 200ms ease' }
   }, /*#__PURE__*/React.createElement(RadialBurst, { palette: pal }), /*#__PURE__*/React.createElement("div", {
     "aria-hidden": "true",
     className: "burst-fade-top",

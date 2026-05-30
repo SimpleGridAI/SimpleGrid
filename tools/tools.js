@@ -537,7 +537,7 @@ function sgScorecardProgress(hintId, radioNames, btnId, label) {
     }
     const complete = answered >= total;
     host.textContent = answered + ' of ' + total + ' ' + noun + ' answered' +
-      (complete ? ' — ready to download.' : ' — answer all to enable the PDF.');
+      (complete ? ' - ready to download.' : ' - answer all to enable the PDF.');
     host.style.color = complete ? '#15803d' : 'var(--fg3, #6b7280)';
     if (btn) btn.disabled = !complete;
   };

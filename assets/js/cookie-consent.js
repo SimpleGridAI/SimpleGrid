@@ -1,4 +1,4 @@
-// SimpleGrid cookie banner — opt-in consent (GDPR-strict friendly).
+// SimpleGrid cookie banner - opt-in consent (GDPR-strict friendly).
 // - Shows once until the user accepts or declines.
 // - Accept sets localStorage.sg_consent='accepted' and dispatches a
 //   `sg:consent-accepted` window event so analytics-init.js can load

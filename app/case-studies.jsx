@@ -51,14 +51,6 @@ function CaseStudiesPage() {
         <p style={{textAlign:'center',fontFamily:'var(--font-heading)',fontSize:17,fontWeight:600,color:'var(--fg1)',marginTop:40}}>Two industries. Two completely different operations. One platform.</p>
       </div>
     </section>
-
-    <section className="section section-dark final-cta">
-      <div className="container">
-        <h2 className="h2">Your factory is different. That's exactly why SimpleGrid works.</h2>
-        <p className="sub">The system adapts to you.</p>
-        <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-primary">Book a demo - See how we'd model your operations</a>
-      </div>
-    </section>
     </main>
 
     <FinalCTA title="Your factory could be the next one." body="The operators above run SimpleGrid on their real floors today. We build at our cost, you run it for 30 days, and you pay only when it's already moving the business." note="Limited slots each quarter. We onboard selectively." />

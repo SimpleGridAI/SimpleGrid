@@ -10,7 +10,7 @@ Coverage:
   - All `tools/<slug>/index.html` pages.
   - All `competitors/<slug>/index.html` pages.
   - All `blog/<slug>/index.html` posts that actually exist (empty dirs
-    are skipped automatically — they would 404 in production).
+    are skipped automatically - they would 404 in production).
 
 Run before each commit:
     python3 scripts/generate-sitemap.py
@@ -105,7 +105,7 @@ def main() -> None:
             "priority": 0.6,
         })
 
-    # 3) Productive tools — every tools/<slug>/index.html.
+    # 3) Productive tools - every tools/<slug>/index.html.
     tools_dir = REPO / "tools"
     if tools_dir.is_dir():
         for sub in sorted(tools_dir.iterdir()):
@@ -130,7 +130,7 @@ def main() -> None:
                 "priority": 0.9,
             })
 
-    # 4) Competitor comparison pages — every competitors/<slug>/index.html.
+    # 4) Competitor comparison pages - every competitors/<slug>/index.html.
     competitors_dir = REPO / "competitors"
     if competitors_dir.is_dir():
         for sub in sorted(competitors_dir.iterdir()):

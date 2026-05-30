@@ -7,7 +7,7 @@ audit-artifacts/
 _site/
 favicon-32.png
 
-# Local-only audits and dashboard memos — never push to GH Pages.
+# Local-only audits and dashboard memos - never push to GH Pages.
 AUDIT_SIMPLEGRID.md
 AUDIT_SIMPLEGRID-*.md
 AUDIT_FIXES_TODO.md

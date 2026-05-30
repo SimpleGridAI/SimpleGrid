@@ -1,7 +1,7 @@
 # GitHub Pages site config.
 #
 # This file is HONORED by Jekyll. For its `exclude:` list to actually take
-# effect, the repo MUST NOT contain a `.nojekyll` file at the root — `.nojekyll`
+# effect, the repo MUST NOT contain a `.nojekyll` file at the root - `.nojekyll`
 # bypasses Jekyll entirely and silently serves every file in the repo. The
 # `.nojekyll` file has been removed deliberately.
 #
@@ -11,11 +11,11 @@
 #     front matter and no `{{ }}` / `{% %}` tokens, so they pass through clean.
 #   - Files/dirs starting with `_` or `.` are excluded by Jekyll default.
 #     `.well-known/` is force-included below so /security.txt keeps working.
-#   - Entries in `exclude:` below are not copied to _site/ at all — they
+#   - Entries in `exclude:` below are not copied to _site/ at all - they
 #     return HTTP 404 on simplegrid.ai.
 #   - Anything we want as an exact-copy passthrough is in `keep_files:`.
 
-# Stop Jekyll from running Liquid/layout on plain HTML — we ship raw HTML.
+# Stop Jekyll from running Liquid/layout on plain HTML - we ship raw HTML.
 markdown: kramdown
 sass:
   style: compressed
@@ -30,7 +30,7 @@ keep_files:
   - vendor
 
 exclude:
-  # Internal docs / project metadata — should never be public.
+  # Internal docs / project metadata - should never be public.
   - CLAUDE.md
   - AUDIT_SIMPLEGRID.md
   - AUDIT_FIXES_TODO.md
@@ -46,7 +46,7 @@ exclude:
   - README.md
   - BUILD.md
 
-  # Build/dev metadata — leaks toolchain + dependencies.
+  # Build/dev metadata - leaks toolchain + dependencies.
   - package.json
   - package-lock.json
   - babel.config.json
@@ -73,5 +73,5 @@ exclude:
   # migrate to Cloudflare Pages. Don't serve it.
   - _headers
 
-# Note: `/data/blogs.js` is intentionally NOT excluded — it ships to the browser
+# Note: `/data/blogs.js` is intentionally NOT excluded - it ships to the browser
 # for blog.html (the list page) at runtime.

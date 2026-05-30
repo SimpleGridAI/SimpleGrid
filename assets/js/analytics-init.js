@@ -1,9 +1,9 @@
-// SimpleGrid analytics init — shared across every page.
+// SimpleGrid analytics init - shared across every page.
 //
 // Consent gate:
 //   PostHog, GA4, and GTM only load AFTER the visitor has clicked "Accept"
 //   on the cookie banner (which sets localStorage.sg_consent = 'accepted').
-//   They do NOT load on first mouse-move / scroll / touch — that pattern
+//   They do NOT load on first mouse-move / scroll / touch - that pattern
 //   fires analytics before the visitor sees a banner, which fails
 //   GDPR-strict regulators (UK ICO has cracked down on implicit consent).
 //   CCPA is fine either way; this is the safer common denominator for
@@ -65,7 +65,7 @@
   function load() {
     try {
       if (localStorage.getItem('sg_ph_opt_out') === '1') return;
-    } catch (e) { /* localStorage blocked — be safe, don't load */ return; }
+    } catch (e) { /* localStorage blocked - be safe, don't load */ return; }
     loadPostHog();
     loadGA4();
     loadGTM();

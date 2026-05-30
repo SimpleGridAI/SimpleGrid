@@ -41,7 +41,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 .nav-link.active { color: var(--sg-blue); }
 .nav-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
 
-/* Resources dropdown — CSS-only <details>/<summary> pattern used in static page navs
+/* Resources dropdown - CSS-only <details>/<summary> pattern used in static page navs
    (competitors.html, blog.html, tool pages). Mirrors the React Nav's "Resources ▾". */
 .nav-resources { position: relative; }
 .nav-resources > summary {

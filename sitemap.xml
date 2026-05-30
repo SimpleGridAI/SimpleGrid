@@ -17,11 +17,13 @@
   <url><loc>https://simplegrid.ai/sg-schema.html</loc><lastmod>2026-05-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://simplegrid.ai/terms.html</loc><lastmod>2026-05-27</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://simplegrid.ai/blog/event-sourcing-why-simplegrid-stores-everything-that-ever-happened/</loc><lastmod>2026-03-25</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://simplegrid.ai/blog/sg-schema-why-your-erp-should-speak-your-language/</loc><lastmod>2026-03-29</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/entity-roots-the-building-blocks-of-an-sg-schema-erp/</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/multi-tenant-architecture-how-simplegrid-runs-100-clients-on-one-platform/</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/how-simplegrid-makes-erp-customization-take-minutes-not-months/</loc><lastmod>2026-04-08</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/module-based-erp-vs-sg-schema-erp-two-architectures-two-outcomes/</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/how-we-built-an-erp-chatbot-with-claude-no-rag-and-full-context/</loc><lastmod>2026-04-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://simplegrid.ai/blog/why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point/</loc><lastmod>2026-04-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/how-to-calculate-true-landed-cost-per-sku-and-why-most-manufacturers-cannot/</loc><lastmod>2026-04-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/inside-simplegrid-every-factory-floor-is-different-that-is-the-whole-point/</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/why-mid-market-manufacturers-are-the-most-underserved-businesses-in-enterprise-software/</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -31,6 +33,7 @@
   <url><loc>https://simplegrid.ai/blog/what-happens-when-your-erp-cannot-keep-up-with-your-business/</loc><lastmod>2026-05-13</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/why-your-warehouse-manager-should-be-your-erp-s-first-user/</loc><lastmod>2026-05-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/blog/the-myth-of-erp-best-practices-your-operation-is-not-generic/</loc><lastmod>2026-05-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://simplegrid.ai/blog/dynamics-gp-sunset-switch-to-simplegrid/</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://simplegrid.ai/tools/automation-roi-estimator/</loc><lastmod>2026-05-27</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://simplegrid.ai/tools/bill-of-materials-template/</loc><lastmod>2026-05-27</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://simplegrid.ai/tools/break-even-calculator/</loc><lastmod>2026-05-27</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>

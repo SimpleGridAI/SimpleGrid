@@ -9,7 +9,7 @@
 
    The script finds every element with [data-sg-burst], injects a <canvas>
    inside, and animates 100 radial blue lines (60 on mobile). Pauses when
-   the canvas scrolls off-screen or the tab is hidden — same as the React
+   the canvas scrolls off-screen or the tab is hidden - same as the React
    version. <5% CPU per spec.
    ========================================================================= */
 (function() {

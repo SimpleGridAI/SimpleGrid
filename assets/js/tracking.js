@@ -1,6 +1,6 @@
 // SimpleGrid lightweight conversion-event tracking.
 // Fires the same event to PostHog, GA4, AND the GTM dataLayer if any are
-// loaded. Safe to call before any are initialised — calls are queued.
+// loaded. Safe to call before any are initialised - calls are queued.
 //
 // Note on the GTM dataLayer push: gtag('event', ...) only pushes an
 // arguments-array entry to dataLayer (which GA4 reads but GTM's custom-event

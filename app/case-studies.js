@@ -118,20 +118,7 @@ function CaseStudiesPage() {
       color: 'var(--fg1)',
       marginTop: 40
     }
-  }, "Two industries. Two completely different operations. One platform."))), /*#__PURE__*/React.createElement("section", {
-    className: "section section-dark final-cta"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement("h2", {
-    className: "h2"
-  }, "Your factory is different. That's exactly why SimpleGrid works."), /*#__PURE__*/React.createElement("p", {
-    className: "sub"
-  }, "The system adapts to you."), /*#__PURE__*/React.createElement("a", {
-    href: "https://cal.com/simplegrid-ai",
-    target: "_blank",
-    rel: "noopener noreferrer",
-    className: "btn btn-lg btn-primary"
-  }, "Book a demo - See how we'd model your operations")))), /*#__PURE__*/React.createElement(FinalCTA, { title: "Your factory could be the next one.", body: "The operators above run SimpleGrid on their real floors today. We build at our cost, you run it for 30 days, and you pay only when it's already moving the business.", note: "Limited slots each quarter. We onboard selectively." }), React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, "Two industries. Two completely different operations. One platform.")))), /*#__PURE__*/React.createElement(FinalCTA, { title: "Your factory could be the next one.", body: "The operators above run SimpleGrid on their real floors today. We build at our cost, you run it for 30 days, and you pay only when it's already moving the business.", note: "Limited slots each quarter. We onboard selectively." }), React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }));
 }
