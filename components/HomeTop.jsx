@@ -269,10 +269,7 @@ window.BurstBand = BurstBand;
 
 function CycleHeadline() {
   const HEADLINES = [
-    // index 0 is the primary; held longer than the others.
-    <React.Fragment key="b">Custom ERP. Built at our risk.<br/>Paid for after it works.</React.Fragment>,
-    <React.Fragment key="e">The only ERP you<br/>try on before you buy</React.Fragment>,
-    <React.Fragment key="c">We build it. You run it<br/>30 days on your real floor.<br/>If it doesn't move the business, you walk.</React.Fragment>,
+    <>Custom ERP. Built at our risk.<br/>Paid for after it works.</>
   ];
   // Each tile fades smoothly; staggering them by (x+y)*delay gives a diagonal
   // sweep that visually "breaks" the headline into checkboxes and reassembles.
@@ -288,6 +285,7 @@ function CycleHeadline() {
   const [phase, setPhase] = React.useState('reveal'); // 'reveal' = tiles transparent (text visible), 'cover' = tiles opaque (text hidden)
   React.useEffect(() => {
     if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (HEADLINES.length <= 1) return;
     const cover = setTimeout(() => setPhase('cover'), holdFor(i));
     const swap = setTimeout(() => {
       setI(x => (x + 1) % HEADLINES.length);

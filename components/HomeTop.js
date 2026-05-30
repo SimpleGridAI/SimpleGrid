@@ -466,14 +466,10 @@ window.BurstBand = BurstBand;
 function CycleHeadline() {
   const HEADLINES = [
   /*#__PURE__*/
-  // index 0 is the primary; held longer than the others.
+  // Single headline; rotation removed by request.
   React.createElement(React.Fragment, {
     key: "b"
-  }, "Custom ERP. Built at our risk.", /*#__PURE__*/React.createElement("br", null), "Paid for after it works."), /*#__PURE__*/React.createElement(React.Fragment, {
-    key: "e"
-  }, "The only ERP you", /*#__PURE__*/React.createElement("br", null), "try on before you buy"), /*#__PURE__*/React.createElement(React.Fragment, {
-    key: "c"
-  }, "We build it. You run it", /*#__PURE__*/React.createElement("br", null), "30 days on your real floor.", /*#__PURE__*/React.createElement("br", null), "If it doesn't move the business, you walk.")];
+  }, "Custom ERP. Built at our risk.", /*#__PURE__*/React.createElement("br", null), "Paid for after it works.")];
   // Each tile fades smoothly; staggering them by (x+y)*delay gives a diagonal
   // sweep that visually "breaks" the headline into checkboxes and reassembles.
   const TX = 8,
@@ -495,6 +491,7 @@ function CycleHeadline() {
   const [phase, setPhase] = React.useState('reveal'); // 'reveal' = tiles transparent (text visible), 'cover' = tiles opaque (text hidden)
   React.useEffect(() => {
     if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (HEADLINES.length <= 1) return;
     const cover = setTimeout(() => setPhase('cover'), holdFor(i));
     const swap = setTimeout(() => {
       setI(x => (x + 1) % HEADLINES.length);
