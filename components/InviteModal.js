@@ -36,6 +36,7 @@ function InviteModal({ onClose }) {
 
   const submit = async (e) => {
     e.preventDefault();
+    if (state === 'submitting') return;
     setState('submitting');
     const form = e.target;
     const data = new FormData(form);
@@ -90,15 +91,15 @@ function InviteModal({ onClose }) {
       React.createElement('input', { type: 'text', name: '_honey', style: { display: 'none' }, tabIndex: -1, autoComplete: 'off' }),
       React.createElement('div', { className: 'field' },
         React.createElement('label', { htmlFor: 'invite-name' }, 'Your name ', React.createElement('span', { 'aria-hidden': 'true', style: { color: 'var(--sg-red)' } }, '*')),
-        React.createElement('input', { id: 'invite-name', ref: firstFieldRef, type: 'text', name: 'name', placeholder: 'Mike', required: true, 'aria-required': 'true', disabled: state === 'submitting' })
+        React.createElement('input', { id: 'invite-name', ref: firstFieldRef, type: 'text', name: 'name', placeholder: 'Mike', required: true, 'aria-required': 'true', autoComplete: 'name', disabled: state === 'submitting' })
       ),
       React.createElement('div', { className: 'field' },
         React.createElement('label', { htmlFor: 'invite-org' }, 'Organization ', React.createElement('span', { 'aria-hidden': 'true', style: { color: 'var(--sg-red)' } }, '*')),
-        React.createElement('input', { id: 'invite-org', type: 'text', name: 'organization', placeholder: 'Ridgeline Manufacturing', required: true, 'aria-required': 'true', disabled: state === 'submitting' })
+        React.createElement('input', { id: 'invite-org', type: 'text', name: 'organization', placeholder: 'Ridgeline Manufacturing', required: true, 'aria-required': 'true', autoComplete: 'organization', disabled: state === 'submitting' })
       ),
       React.createElement('div', { className: 'field' },
         React.createElement('label', { htmlFor: 'invite-email' }, 'Work email ', React.createElement('span', { 'aria-hidden': 'true', style: { color: 'var(--sg-red)' } }, '*')),
-        React.createElement('input', { id: 'invite-email', type: 'email', name: 'email', placeholder: 'mike@ridgeline.com', required: true, 'aria-required': 'true', disabled: state === 'submitting' })
+        React.createElement('input', { id: 'invite-email', type: 'email', name: 'email', placeholder: 'mike@ridgeline.com', required: true, 'aria-required': 'true', autoComplete: 'email', disabled: state === 'submitting' })
       ),
       React.createElement('div', { 'aria-live': 'polite', role: 'status' },
         state === 'error' && React.createElement('div', { style: { padding: '10px 12px', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: 'var(--radius-md)', color: '#B91C1C', fontSize: 13, marginBottom: 12, lineHeight: 1.45 } }, errorMsg)

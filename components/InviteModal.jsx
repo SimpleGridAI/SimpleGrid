@@ -44,6 +44,7 @@ function InviteModal({ onClose }) {
 
   const submit = async (e) => {
     e.preventDefault();
+    if (state === 'submitting') return;
     setState('submitting');
     const form = e.target;
     const data = new FormData(form);
@@ -106,15 +107,15 @@ function InviteModal({ onClose }) {
 
         <div className="field">
           <label htmlFor="invite-name">Your name <span aria-hidden="true" style={{color:'var(--sg-red)'}}>*</span></label>
-          <input id="invite-name" ref={firstFieldRef} type="text" name="name" placeholder="Mike" required aria-required="true" disabled={state === 'submitting'} />
+          <input id="invite-name" ref={firstFieldRef} type="text" name="name" placeholder="Mike" required aria-required="true" autoComplete="name" disabled={state === 'submitting'} />
         </div>
         <div className="field">
           <label htmlFor="invite-org">Organization <span aria-hidden="true" style={{color:'var(--sg-red)'}}>*</span></label>
-          <input id="invite-org" type="text" name="organization" placeholder="Ridgeline Manufacturing" required aria-required="true" disabled={state === 'submitting'} />
+          <input id="invite-org" type="text" name="organization" placeholder="Ridgeline Manufacturing" required aria-required="true" autoComplete="organization" disabled={state === 'submitting'} />
         </div>
         <div className="field">
           <label htmlFor="invite-email">Work email <span aria-hidden="true" style={{color:'var(--sg-red)'}}>*</span></label>
-          <input id="invite-email" type="email" name="email" placeholder="mike@ridgeline.com" required aria-required="true" disabled={state === 'submitting'} />
+          <input id="invite-email" type="email" name="email" placeholder="mike@ridgeline.com" required aria-required="true" autoComplete="email" disabled={state === 'submitting'} />
         </div>
 
         <div aria-live="polite" role="status" style={{ minHeight: state === 'error' ? 'auto' : 0 }}>

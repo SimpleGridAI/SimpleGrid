@@ -34,15 +34,15 @@
       +   '<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">'
       +   '<div class="field">'
       +     '<label for="sg-bd-name">Your name <span aria-hidden="true" style="color:var(--sg-red)">*</span></label>'
-      +     '<input id="sg-bd-name" type="text" name="name" placeholder="Mike" required aria-required="true">'
+      +     '<input id="sg-bd-name" type="text" name="name" placeholder="Mike" required aria-required="true" autocomplete="name">'
       +   '</div>'
       +   '<div class="field">'
       +     '<label for="sg-bd-org">Organization <span aria-hidden="true" style="color:var(--sg-red)">*</span></label>'
-      +     '<input id="sg-bd-org" type="text" name="organization" placeholder="Ridgeline Manufacturing" required aria-required="true">'
+      +     '<input id="sg-bd-org" type="text" name="organization" placeholder="Ridgeline Manufacturing" required aria-required="true" autocomplete="organization">'
       +   '</div>'
       +   '<div class="field">'
       +     '<label for="sg-bd-email">Work email <span aria-hidden="true" style="color:var(--sg-red)">*</span></label>'
-      +     '<input id="sg-bd-email" type="email" name="email" placeholder="mike@ridgeline.com" required aria-required="true">'
+      +     '<input id="sg-bd-email" type="email" name="email" placeholder="mike@ridgeline.com" required aria-required="true" autocomplete="email">'
       +   '</div>'
       +   '<div class="sg-bd-err" role="status" aria-live="polite" style="display:none;padding:10px 12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:var(--radius-md);color:#B91C1C;font-size:13px;margin-bottom:12px;line-height:1.45"></div>'
       +   '<button type="submit" class="btn btn-primary sg-bd-submit" style="width:100%;justify-content:center;margin-top:4px">Book a demo →</button>'
@@ -124,18 +124,35 @@
     });
   }
 
+  // Hide everything behind the dialog from assistive tech (only touch elements
+  // we hid, so we never clobber a pre-existing aria-hidden).
+  function setBackgroundHidden(hidden) {
+    var kids = document.body.children;
+    for (var i = 0; i < kids.length; i++) {
+      var el = kids[i];
+      if (el === overlay) continue;
+      if (hidden) {
+        if (!el.hasAttribute('aria-hidden')) { el.setAttribute('aria-hidden', 'true'); el.setAttribute('data-sg-bd-hid', ''); }
+      } else if (el.hasAttribute('data-sg-bd-hid')) {
+        el.removeAttribute('aria-hidden'); el.removeAttribute('data-sg-bd-hid');
+      }
+    }
+  }
+
   function open() {
     buildModal();
     lastFocus = document.activeElement;
     overlay.removeAttribute('hidden');
     overlay.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    setBackgroundHidden(true);
     document.addEventListener('keydown', onKey);
     requestAnimationFrame(function () { if (nameInput) nameInput.focus(); });
   }
 
   function close() {
     if (!overlay) return;
+    setBackgroundHidden(false);
     overlay.setAttribute('hidden', '');
     overlay.style.display = 'none';
     document.body.style.overflow = '';
@@ -176,6 +193,9 @@
   }
 
   document.addEventListener('click', function (e) {
+    // Let modified / non-primary clicks fall through to the native cal.com link
+    // (cmd/ctrl/shift/alt-click or middle-click = "open in new tab/window").
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var target = e.target.closest('a, button, [data-sg-invite]');
     if (!target) return;
     if (!isBookDemoTrigger(target)) return;
