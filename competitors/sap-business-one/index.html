@@ -15,7 +15,7 @@
 <link rel="icon" type="image/svg+xml" href="../../assets/simplegrid-logomark.svg">
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../_shared/competitors.css">
+<link rel="stylesheet" href="../shared/competitors.css">
 
 <meta property="og:site_name" content="SimpleGrid">
 <meta property="og:type" content="article">
@@ -43,9 +43,23 @@
   <div class="nav-inner">
     <a class="nav-logo" href="../../" aria-label="SimpleGrid home" title="SimpleGrid - AI ERP for manufacturers"><img src="../../assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
     <nav class="nav-links" aria-label="Main navigation"><a href="../../" class="nav-link">Home</a><a href="../../product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link" role="button">Resources <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary><div class="nav-resources-menu"><a href="../../tools/">Productive Tools <span>35 productive tools &amp; calculators for manufacturers.</span></a><a href="../../case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="../../blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details><a href="../../competitors.html" class="nav-link active">Competitors</a></nav>
-    <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a demo</a></div>
+    <div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Book a demo</a><button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false" data-sg-burger><span></span><span></span><span></span></button></div>
   </div>
 </header>
+
+<div class="nav-mobile" data-sg-mobile-menu hidden>
+  <nav class="nav-mobile-panel" aria-label="Mobile navigation">
+    <a href="../../" class="nav-mobile-link">Home</a>
+    <a href="../../product.html" class="nav-mobile-link">Product</a>
+    <div class="nav-mobile-section">Resources</div>
+    <a href="../../tools/" class="nav-mobile-link nav-mobile-sub">Productive Tools</a>
+    <a href="../../case-studies.html" class="nav-mobile-link nav-mobile-sub">Case studies</a>
+    <a href="../../blog.html" class="nav-mobile-link nav-mobile-sub">Blog</a>
+    <a href="../../competitors.html" class="nav-mobile-link active">Competitors</a>
+    <div class="nav-mobile-sep"></div>
+    <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="nav-mobile-link">Book a demo</a>
+  </nav>
+</div>
 
 <main id="main">
 
@@ -162,12 +176,16 @@
   </section>
 
   <section class="cd-reasons reangle"><div class="container"><div class="eyebrow">Right-sized</div><h2>For a single-plant shop under $30M</h2><p style="max-width:68ch">SAP Business One is strong for distribution and multi-entity finance, but a single-plant manufacturer under about $30M usually pays for breadth it never uses, plus a partner for every change. A system shaped to your floor is a closer fit.</p><p style="max-width:68ch">Not sure the incumbent is fighting your floor? See <a href="/replace-your-erp/">how to replace an ERP without paying first</a>.</p></div></section>
-  <section class="cd-final">
+  <section class="final-cta-band">
+    <div class="final-cta-gridbg" aria-hidden="true"></div>
     <div class="container">
-      <div class="eyebrow">Upgrade to SimpleGrid</div>
-      <h2>Fast to deploy. Easy to change. Built to scale.</h2>
-      <p>Built around your factory. Live in 7-14 days. Paid only if you keep using it.</p>
-      <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-primary">Book a demo</a>
+      <div class="final-cta-inner">
+        <h2 class="final-cta-head">Fast to deploy. Easy to change. Built to scale.</h2>
+        <div class="final-cta-col">
+          <p class="final-cta-text">Built around your factory. Live in 7-14 days. Paid only if you keep using it.</p>
+          <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="competitors_final" class="btn btn-lg btn-primary final-cta-btn">Book a demo</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -184,8 +202,25 @@
         <div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div>
       </div>
     </div>
-    <div class="footer-bottom"><div>© 2026 Valaya AI Technologies</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
+    <div class="footer-bottom"><div>SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies Pvt. Ltd. © 2026</div><div class="footer-legal"><a href="../../privacy.html">Privacy Policy</a><a href="../../terms.html">Terms</a></div></div>
   </div>
 </footer>
+<script>
+(function(){
+  var burger = document.querySelector('[data-sg-burger]');
+  var menu = document.querySelector('[data-sg-mobile-menu]');
+  if (burger && menu) {
+    burger.addEventListener('click', function(){
+      var open = burger.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', open);
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) menu.removeAttribute('hidden'); else menu.setAttribute('hidden','');
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    menu.addEventListener('click', function(e){ if (e.target === menu) burger.click(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && burger.classList.contains('is-open')) burger.click(); });
+  }
+})();
+</script>
 <script src="../../components/BookDemoModal.js" defer></script></body>
 </html>
