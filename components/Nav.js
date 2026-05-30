@@ -210,7 +210,7 @@ function Nav({
   }, "Log in"), /*#__PURE__*/React.createElement("button", {
     type: "button",
     onClick: () => setShowInvite(true),
-    className: "btn btn-sm btn-primary",
+    className: "btn btn-sm btn-primary" + (page === 'home' ? ' nav-demo-home' : ''),
     title: "Book a SimpleGrid demo"
   }, "Book a demo"), /*#__PURE__*/React.createElement("button", {
     type: "button",

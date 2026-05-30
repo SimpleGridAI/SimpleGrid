@@ -97,7 +97,7 @@ function Nav({ page = 'home', onLoginClick }) {
         </nav>
         <div className="nav-right">
           <button className="btn btn-sm btn-secondary desktop-only" onClick={onLoginClick}>Log in</button>
-          <button type="button" onClick={() => setShowInvite(true)} className="btn btn-sm btn-primary" title="Book a SimpleGrid demo">Book a demo</button>
+          <button type="button" onClick={() => setShowInvite(true)} className={'btn btn-sm btn-primary' + (page === 'home' ? ' nav-demo-home' : '')} title="Book a SimpleGrid demo">Book a demo</button>
           <button
             type="button"
             className={'nav-burger' + (openMenu ? ' is-open' : '')}
