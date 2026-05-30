@@ -74,3 +74,10 @@ Added a "Free tools mentioned in this article" section to 8 metric/calc blogs (s
 
 ### T3.3 New-page links — deferred to Tier 5 (pages not built yet).
 Verify: 0 tool pages missing the block; all related-link targets resolve; 0 orphans. 
+
+---
+
+## TIER 4 — Front-load citable blocks
+- T4.1: added `.tool-lead` (formula + benchmark + CTA-to-enter) after H1 on 10 highest-snippet-potential tools (oee, job-cost, burden-rate, break-even, reorder-point, markup-vs-margin, ebitda, scrap-waste, downtime, revenue-per-employee). Standard formulas, no em dashes. Remaining 25 tools logged for follow-up.
+- T4.2: added `.post-lead` "Key takeaway" citable block to all 5 procedural blogs (spreadsheets-cost, landed-cost, erp-customization, warehouse-first, dynamics-gp-sunset).
+- Files via `scripts/_t4_frontload.py`. New copy -> NEEDS_FOUNDER_REVIEW.md. DoD ✓ (10/35 tools + 5/5 blogs this session).

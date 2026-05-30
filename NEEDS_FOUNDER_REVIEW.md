@@ -41,3 +41,17 @@ Added: brand-disambiguation paragraph, "Proof points" block (Apex 12-day, furnit
 2. **Organization schema** now includes `legalName: "Valaya AI Technologies Pvt. Ltd."`, `founder: Mukund Agarwal`, and `sameAs` expanded to LinkedIn + X + GitHub. Confirm the founder LinkedIn `linkedin.com/in/mdagarwal` is correct.
 3. **Footer line changed** (Footer.jsx, site-wide on React pages): `© 2026 Valaya AI Technologies` -> `SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies Pvt. Ltd. © 2026`. Purpose: separate from the unrelated "Simplegrid Technology, Inc." Reword as you like.
 4. **Founder Person entity** added to about.html schema. NOTE: a *visible* founder byline in the pre-rendered seed HTML of about.html needs SSR/pre-render of the React founder section (the body renders client-side); deferred and noted in OFF_CODE_HANDOFF. The founder is now crawlable via JSON-LD on the homepage + about page + as author on all articles + in llms.txt.
+
+---
+
+## TIER 4 — Front-loaded citable blocks (NEW COPY — review/replace)
+
+Added a one-paragraph citable lead (formula/number first) so featured snippets + AI answers have a quotable block. **All drafted in plain language using standard manufacturing formulas; verify the benchmark ranges and reword in your voice.**
+
+**Tools with a new `.tool-lead` paragraph (10):** oee-calculator, job-cost-calculator, burden-rate-calculator, break-even-calculator, reorder-point-calculator, markup-vs-margin, ebitda-calculator, scrap-waste-calculator, downtime-cost-calculator, revenue-per-employee.
+- Benchmarks to confirm: OEE world-class ~85% / untracked 40-60%; burden $25/hr -> $35-45 loaded; revenue/employee $150K-300K (top >$400K). These are typical industry figures (ESTIMATED), not SimpleGrid data.
+
+**Blogs with a new `.post-lead` "Key takeaway" (5):** spreadsheets-cost, true-landed-cost, erp-customization-minutes, warehouse-first, dynamics-gp-sunset.
+- The Dynamics GP lead is deliberately general about dates; confirm it matches the article body.
+
+**Remaining 25 tools:** not yet front-loaded (kept to high-confidence formulas this session). Template = a 2-3 sentence lead: [formula] = [definition]. [benchmark/number]. [what to enter]. Listed for a follow-up pass.
