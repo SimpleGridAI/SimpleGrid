@@ -439,10 +439,7 @@ function HiringPage() {
       });
     }, 50);
   };
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
-    page: "hiring",
-    onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main"
   }, /*#__PURE__*/React.createElement(HiringHero, null), /*#__PURE__*/React.createElement(WhyThis, null), /*#__PURE__*/React.createElement("section", {
     className: "section section-alt",
@@ -495,7 +492,7 @@ function HiringPage() {
     style: {
       color: 'var(--sg-blue)'
     }
-  }, "hello@simplegrid.ai"), " with how you'd contribute."))))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, "hello@simplegrid.ai"), " with how you'd contribute."))))), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }), /*#__PURE__*/React.createElement("style", null, `@media (max-width:760px){.role-row{grid-template-columns:1fr !important}.hire-grid{grid-template-columns:1fr !important}}`));
 }

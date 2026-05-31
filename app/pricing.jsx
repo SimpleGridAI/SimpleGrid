@@ -57,7 +57,6 @@ function PricingPage() {
   const [showInvite, setShowInvite] = React.useState(false);
 
   return (<>
-    <Nav page="pricing" onLoginClick={() => setShowLogin(true)} />
     <main id="main">
 
     {/* HERO */}
@@ -202,7 +201,6 @@ function PricingPage() {
     </main>
 
     <FinalCTA title="The price is simple: nothing until it works." body="We carry the build cost and the risk. You run it for 30 days on your real floor, with your real team and real orders. You pay only once it's already running your business - not a cent before." note="Limited slots each quarter. We onboard selectively." />
-      <Footer />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
     {showInvite && <InviteModal onClose={() => setShowInvite(false)} />}
     <div className="mobile-cta">

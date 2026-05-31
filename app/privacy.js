@@ -1,8 +1,6 @@
 function PrivacyPage() {
   const [showLogin, setShowLogin] = React.useState(false);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
-    onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main",
     className: "legal-page"
   }, /*#__PURE__*/React.createElement("div", {
@@ -39,7 +37,7 @@ function PrivacyPage() {
     style: {
       color: 'var(--sg-blue)'
     }
-  }, "Terms of Service"))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, "Terms of Service"))), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }));
 }

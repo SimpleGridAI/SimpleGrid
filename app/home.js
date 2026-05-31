@@ -1,11 +1,8 @@
 function App() {
   const [showLogin, setShowLogin] = React.useState(false);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
-    page: "home",
-    onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main"
-  }, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(TrustStrip, null), /*#__PURE__*/React.createElement(IntegrationsBar, null), /*#__PURE__*/React.createElement(ProblemSection, null), /*#__PURE__*/React.createElement(BurstBand, null), /*#__PURE__*/React.createElement(WhatWeDo, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(ProofSection, null), /*#__PURE__*/React.createElement(FounderStory, null), /*#__PURE__*/React.createElement(HomeFAQ, null), /*#__PURE__*/React.createElement(FinalCTA, null)), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(TrustStrip, null), /*#__PURE__*/React.createElement(IntegrationsBar, null), /*#__PURE__*/React.createElement(ProblemSection, null), /*#__PURE__*/React.createElement(BurstBand, null), /*#__PURE__*/React.createElement(WhatWeDo, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(ProofSection, null), /*#__PURE__*/React.createElement(FounderStory, null), /*#__PURE__*/React.createElement(HomeFAQ, null), /*#__PURE__*/React.createElement(FinalCTA, null)), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }), /*#__PURE__*/React.createElement("div", {
     className: "mobile-cta"

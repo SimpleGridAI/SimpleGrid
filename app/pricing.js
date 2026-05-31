@@ -72,10 +72,7 @@ const INCLUDED = [{
 function PricingPage() {
   const [showLogin, setShowLogin] = React.useState(false);
   const [showInvite, setShowInvite] = React.useState(false);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
-    page: "pricing",
-    onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main"
   }, /*#__PURE__*/React.createElement("section", {
     className: "section",
@@ -379,7 +376,7 @@ function PricingPage() {
     title: "The price is simple: nothing until it works.",
     body: "We carry the build cost and the risk. You run it for 30 days on your real floor, with your real team and real orders. You pay only once it's already running your business - not a cent before.",
     note: "Limited slots each quarter. We onboard selectively."
-  }), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)

@@ -1,8 +1,6 @@
 function TermsPage() {
   const [showLogin, setShowLogin] = React.useState(false);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
-    onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main",
     className: "legal-page"
   }, /*#__PURE__*/React.createElement("div", {
@@ -34,7 +32,7 @@ function TermsPage() {
     style: {
       color: 'var(--sg-blue)'
     }
-  }, "Privacy Policy"))), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }, "Privacy Policy"))), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }));
 }

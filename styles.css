@@ -556,8 +556,6 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
   .blog-cover { height: 120px; }
   .hero-title { font-size: 40px; min-height: 6em; }
   .nav-links, .nav-right .desktop-only { display: none; }
-  /* Home page only: hide the nav "Book a demo" button on mobile (the sticky bottom CTA still covers it). */
-  .nav-right .nav-demo-home { display: none !important; }
   .nav-burger { display: inline-flex; }
   .final-cta .h2, .h2 { font-size: 29px; }
   .int-grid { grid-template-columns: repeat(3,1fr) !important; }

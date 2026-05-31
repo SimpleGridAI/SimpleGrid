@@ -181,7 +181,6 @@ function ManufacturingProcessSection() {
 function EliteCaseStudy() {
   const [showLogin, setShowLogin] = React.useState(false);
   return (<>
-    <Nav page="cases" onLoginClick={() => setShowLogin(true)} />
     <main id="main">
 
     <section className="case-hero">
@@ -305,7 +304,6 @@ function EliteCaseStudy() {
     </main>
 
     <FinalCTA title="Want a result like this?" body="We'll build a custom ERP modelled on how your floor actually runs, put it in your hands, and carry the risk for 30 days. You pay only once it's already running the business." note="Limited slots each quarter. We onboard selectively." />
-      <Footer />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
   </>);
 }

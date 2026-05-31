@@ -242,7 +242,6 @@ function HiringPage() {
   };
 
   return (<>
-    <Nav page="hiring" onLoginClick={() => setShowLogin(true)} />
     <main id="main">
     <HiringHero />
     <WhyThis />
@@ -281,7 +280,6 @@ function HiringPage() {
     </section>
     </main>
 
-    <Footer />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
     <style>{`@media (max-width:760px){.role-row{grid-template-columns:1fr !important}.hire-grid{grid-template-columns:1fr !important}}`}</style>
   </>);

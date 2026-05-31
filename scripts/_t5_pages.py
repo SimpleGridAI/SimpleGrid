@@ -66,20 +66,9 @@ def render(cfg):
         ds=''.join('<details><summary>%s</summary><p>%s</p></details>'%(esc(q),esc(a)) for q,a in cfg['faqs'])
         faq='<section class="lp-section"><div class="container"><div class="lp-eyebrow">FAQ</div><h2>Questions manufacturers ask</h2><div class="lp-faq">%s</div></div></section>'%ds
     P='../'
-    NAV='''<header class="nav" role="banner"><div class="nav-inner">
-<a class="nav-logo" href="{P}" aria-label="SimpleGrid home"><img src="{P}assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" width="160" height="32" fetchpriority="high" decoding="async"></a>
-<nav class="nav-links" aria-label="Main navigation"><a href="{P}" class="nav-link">Home</a><a href="{P}product.html" class="nav-link">Product</a><details class="nav-resources"><summary class="nav-link" role="button">Resources</summary><div class="nav-resources-menu"><a href="{P}tools/">Productive Tools <span>35 free calculators for manufacturers.</span></a><a href="{P}case-studies.html">Case studies <span>Real deployments. Real numbers.</span></a><a href="{P}blog.html">Blog <span>Field notes on ERP and ops.</span></a></div></details><a href="{P}competitors.html" class="nav-link">Competitors</a></nav>
-<div class="nav-right"><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" data-cta="nav_book_call" class="btn btn-sm btn-primary">Book a demo</a></div>
-</div></header>'''.format(P=P)
-    FOOTER='''<footer class="footer" role="contentinfo"><div class="container">
-<div class="footer-top"><div><img src="{P}assets/simplegrid-logo-horizontal.svg" alt="SimpleGrid logo" class="footer-logo" width="160" height="32" loading="lazy" decoding="async"><p class="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p></div>
-<div class="footer-cols" style="grid-template-columns:1fr 1fr 1fr 1fr;gap:24px">
-<div><div class="footer-h">Product</div><a href="{P}product.html" class="footer-link">How it works</a><a href="{P}pricing.html" class="footer-link">Pricing</a></div>
-<div><div class="footer-h">Resources</div><a href="{P}tools/" class="footer-link">Productive Tools</a><a href="{P}case-studies.html" class="footer-link">Case studies</a><a href="{P}blog.html" class="footer-link">Blog</a></div>
-<div><div class="footer-h">Company</div><a href="{P}about.html" class="footer-link">About</a><a href="{P}competitors.html" class="footer-link">Competitors</a><a href="{P}hiring.html" class="footer-link">Careers</a></div>
-<div><div class="footer-h">Get in touch</div><a href="mailto:hello@simplegrid.ai" class="footer-link">hello@simplegrid.ai</a><a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Book a call</a><a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a></div></div></div>
-<div class="footer-bottom"><div>SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies © 2026</div><div class="footer-legal"><a href="{P}privacy.html">Privacy Policy</a><a href="{P}terms.html">Terms</a></div></div>
-</div></footer>'''.format(P=P)
+    # Top navigation is rendered by the shared component (components/site-nav.js).
+    NAV='<!-- Top navigation rendered by the shared component (components/site-nav.js). -->\n<div id="sg-nav" data-page=""></div>'
+    FOOTER='<!-- Footer rendered by the shared component (components/site-footer.js). -->\n<div id="sg-footer"></div>'
     doc='''<!doctype html>
 <html lang="en">
 <head>
@@ -118,7 +107,6 @@ def render(cfg):
 </script>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
 {nav}
 <main id="main">
 <section class="lp-hero"><div class="container">
@@ -138,7 +126,10 @@ def render(cfg):
 </div></section>
 </main>
 {footer}
+<script src="{P}components/site-nav.js" defer></script>
+<script src="{P}components/site-footer.js" defer></script>
 <script src="{P}components/BookDemoModal.js" defer></script>
+<script src="{P}components/TryErpModal.js" defer></script>
 </body>
 </html>'''.format(csp=CSP,title=esc(cfg['title']),meta=esc(cfg['meta']),base=base,P=P,style=STYLE,
         ld=ld,nav=NAV,eyebrow=esc(cfg['eyebrow']),h1=esc(cfg['h1']),lead=esc(cfg['lead']),

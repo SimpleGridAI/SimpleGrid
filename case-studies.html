@@ -89,20 +89,9 @@
 <body>
 <!-- Static seed inside #root - React replaces on mount. -->
 <!-- Static seed inside #root - React replaces on mount. Crawler + AI-bot visible. -->
+<!-- Top navigation rendered by the shared component (components/site-nav.js), outside #root. -->
+<div id="sg-nav" data-page="cases"></div>
 <div id="root">
-  <a href="#main" class="skip-link">Skip to main content</a>
-  <header role="banner" style="padding:18px 32px;display:flex;justify-content:space-between;align-items:center">
-    <a href="/" aria-label="SimpleGrid home" style="text-decoration:none;color:#101418;font-weight:700;font-size:18px">SimpleGrid</a>
-    <nav aria-label="Main navigation" style="display:flex;gap:20px;font-size:14px">
-      <a href="/">Home</a>
-      <a href="/product.html">Product</a>
-      <a href="/pricing.html">Pricing</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/about.html">About</a>
-      <a href="/tools/">Productive Tools</a>
-      <a href="#" data-sg-try-erp role="button">Try our ERP</a>
-    </nav>
-  </header>
   <main id="main" style="padding:60px 32px;max-width:920px;margin:0 auto">
     <h1 style="font-size:44px;line-height:1.1;letter-spacing:-0.025em;margin:0 0 18px">Real factories. Real 30-day runs.</h1>
     <p style="font-size:18px;line-height:1.55;color:#3b4250;margin:0 0 28px">Every ERP vendor makes you pay first and hope it works. We flipped it. We carried the build cost on both. They ran SimpleGrid 30 days on their real floor with their real team. Both kept it. Here's what shipped.</p>
@@ -110,10 +99,12 @@
     <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#3461e0;color:#fff;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:600">Book a demo</a>
   </main>
 </div>
-<script src="components/Nav.js" defer></script>
+<!-- Footer rendered by the shared component (components/site-footer.js). -->
+<div id="sg-footer"></div>
+<script src="components/site-nav.js" defer></script>
+<script src="components/site-footer.js" defer></script>
 <script src="components/LoginModal.js" defer></script>
 <script src="components/InviteModal.js" defer></script>
-<script src="components/Footer.js" defer></script>
 <script src="components/Interactive.js" defer></script>
 <script src="components/HomeBottom.js" defer></script>
 <script src="components/FinalCTA.js" defer></script>

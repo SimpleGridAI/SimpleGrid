@@ -41,7 +41,7 @@ function RadialBurst({
         const a = Math.random() * Math.PI * 2; // full 360°
         const lenRatio = 0.32 + Math.random() * 0.72; // reach toward the corners
         const tone = Math.random();
-        const baseAlpha = 0.4 + Math.random() * 0.45; // 0.4-0.85
+        const baseAlpha = 0.48 + Math.random() * 0.45; // 0.48-0.93 - a touch denser
 
         // Breathing oscillation: opacity sways over a 3-6s period
         const phase = Math.random() * Math.PI * 2;
@@ -97,11 +97,11 @@ function RadialBurst({
     // Ray colour, lerped from the active palette's deep→bright. Read live from
     // palRef so a palette swap recolours the splatter without re-seeding.
     const lerp = (a, b, t) => Math.round(a + (b - a) * t);
-    const lineRGBA = (tone, alpha) => {
+    const lineRGBA = (tone, alpha, darken = 1) => {
       const p = palRef.current;
-      const r = lerp(p.deep[0], p.bright[0], tone);
-      const g = lerp(p.deep[1], p.bright[1], tone);
-      const b = lerp(p.deep[2], p.bright[2], tone);
+      const r = Math.round(lerp(p.deep[0], p.bright[0], tone) * darken);
+      const g = Math.round(lerp(p.deep[1], p.bright[1], tone) * darken);
+      const b = Math.round(lerp(p.deep[2], p.bright[2], tone) * darken);
       return `rgba(${r},${g},${b},${alpha})`;
     };
 
@@ -147,11 +147,13 @@ function RadialBurst({
         const x = cx + Math.cos(angleNow) * len;
         const y = cy + Math.sin(angleNow) * len;
 
-        // Line: gradient from origin (transparent) → tip (full color)
+        // Line: a balanced ray - a soft colour presence at the centre, fullest
+        // through the middle, easing back at the tip. Mild darkening near the
+        // origin lifts to the full palette colour outward.
         const g = ctx.createLinearGradient(cx, cy, x, y);
-        g.addColorStop(0, lineRGBA(l.tone, 0));
-        g.addColorStop(0.55, lineRGBA(l.tone, alpha * 0.4));
-        g.addColorStop(1, lineRGBA(l.tone, alpha * 0.8));
+        g.addColorStop(0, lineRGBA(l.tone, alpha * 0.32, 0.9));
+        g.addColorStop(0.5, lineRGBA(l.tone, alpha * 0.5, 0.95));
+        g.addColorStop(1, lineRGBA(l.tone, alpha * 0.55));
         ctx.strokeStyle = g;
         ctx.lineWidth = l.lw;
         ctx.beginPath();
@@ -161,7 +163,7 @@ function RadialBurst({
 
         // Tip node blinks inward: diffuses to 0, then swells back to full.
         const pulse = (1 - Math.cos(frame * l.nodeFreq + l.nodePhase)) / 2; // 0..1
-        const nodeAlpha = pulse * pulse * 0.9; // sharp at the peak, gone at the trough
+        const nodeAlpha = pulse * pulse * 0.65; // moderate - between the bright and dimmed looks
         if (nodeAlpha > 0.01) {
           const nodeRadius = l.nodeSize * (0.15 + 0.85 * pulse);
           ctx.fillStyle = `rgba(${p.bright[0]},${p.bright[1]},${p.bright[2]},${nodeAlpha})`;

@@ -1,7 +1,6 @@
 function PrivacyPage() {
   const [showLogin, setShowLogin] = React.useState(false);
   return (<>
-    <Nav onLoginClick={() => setShowLogin(true)} />
     <main id="main" className="legal-page">
       <div className="tag">LEGAL</div>
       <h1 className="h1" style={{margin:'4px 0 8px'}}>Privacy Policy</h1>
@@ -93,7 +92,6 @@ function PrivacyPage() {
       <p>Email: <a href="mailto:hello@simplegrid.ai" style={{color:'var(--sg-blue)'}}>hello@simplegrid.ai</a></p>
       <p>See also: <a href="terms.html" style={{color:'var(--sg-blue)'}}>Terms of Service</a></p>
     </main>
-    <Footer />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
   </>);
 }

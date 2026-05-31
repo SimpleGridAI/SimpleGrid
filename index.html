@@ -219,32 +219,23 @@
      the React app once it boots. Brand-spelling variants live in the
      Organization schema's `alternateName` (above), not in body text. -->
 <!-- Static seed inside #root - React replaces on mount. Crawler + AI-bot visible. -->
+<!-- Top navigation is rendered by the shared component (components/site-nav.js), outside #root so React doesn't replace it. -->
+<div id="sg-nav" data-page="home"></div>
 <div id="root">
-  <a href="#main" class="skip-link">Skip to main content</a>
-  <header role="banner" style="padding:18px 32px;display:flex;justify-content:space-between;align-items:center">
-    <a href="/" aria-label="SimpleGrid home" style="text-decoration:none;color:#101418;font-weight:700;font-size:18px">SimpleGrid</a>
-    <nav aria-label="Main navigation" style="display:flex;gap:20px;font-size:14px">
-      <a href="/product.html">Product</a>
-      <a href="/pricing.html">Pricing</a>
-      <a href="/case-studies.html">Case studies</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/about.html">About</a>
-      <a href="/tools/">Productive Tools</a>
-      <a href="#" data-sg-try-erp role="button">Try our ERP</a>
-    </nav>
-  </header>
   <main id="main" style="padding:60px 32px;max-width:920px;margin:0 auto">
     <h1 style="font-size:44px;line-height:1.1;letter-spacing:-0.025em;margin:0 0 18px">Custom ERP. Built at our risk. Paid for after it works.</h1>
   </main>
 </div>
 
-<script src="components/Nav.js" defer></script>
+<!-- Footer rendered by the shared component (components/site-footer.js). -->
+<div id="sg-footer"></div>
+<script src="components/site-nav.js" defer></script>
+<script src="components/site-footer.js" defer></script>
 <script src="components/LoginModal.js" defer></script>
 <script src="components/InviteModal.js" defer></script>
 <script src="components/Interactive.js" defer></script>
 <script src="components/HomeTop.js" defer></script>
 <script src="components/HomeBottom.js" defer></script>
-<script src="components/Footer.js" defer></script>
 <script src="components/FinalCTA.js" defer></script>
 
 <script src="app/home.js" defer></script><script src="components/BookDemoModal.js" defer></script><script src="components/TryErpModal.js" defer></script></body>

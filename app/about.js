@@ -19,18 +19,12 @@ function AboutPage() {
     };
     setTimeout(tryScroll, 150);
   }, []);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
-    page: "about",
-    onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main"
   }, /*#__PURE__*/React.createElement("section", {
-    className: "section",
+    className: "section section-dark",
     style: {
       position: 'relative',
-      backgroundImage: 'url(assets/team_photo.jpeg)',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
       color: '#fff',
       overflow: 'hidden',
       minHeight: '78vh',
@@ -39,20 +33,14 @@ function AboutPage() {
       paddingTop: 160,
       paddingBottom: 160
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    "aria-hidden": "true",
-    style: {
-      position: 'absolute',
-      inset: 0,
-      background: 'rgba(8,10,14,0.85)',
-      zIndex: 0
-    }
+  }, /*#__PURE__*/React.createElement(ParticleCloud, {
+    showArcs: false
   }), /*#__PURE__*/React.createElement("div", {
     className: "container",
     style: {
       maxWidth: 'none',
       position: 'relative',
-      zIndex: 1,
+      zIndex: 2,
       width: '100%'
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -299,7 +287,7 @@ function AboutPage() {
     title: "Built by people who've run the floor.",
     body: "We ran multi-stage factories to $30M and survived two ERP failures before building SimpleGrid. We're on every deployment. We carry the cost and the risk - you run it for 30 days and pay only once it earns its keep.",
     note: "Limited slots each quarter. We onboard selectively."
-  }), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)

@@ -1,9 +1,6 @@
 function CaseStudiesPage() {
   const [showLogin, setShowLogin] = React.useState(false);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
-    page: "cases",
-    onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main"
   }, /*#__PURE__*/React.createElement("section", {
     className: "section",
@@ -124,7 +121,7 @@ function CaseStudiesPage() {
     title: "Your factory could be the next one.",
     body: "The operators above run SimpleGrid on their real floors today. We build at our cost, you run it for 30 days, and you pay only when it's already moving the business.",
     note: "Limited slots each quarter. We onboard selectively."
-  }), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }));
 }

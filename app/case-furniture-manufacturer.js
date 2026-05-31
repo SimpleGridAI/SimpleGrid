@@ -346,10 +346,7 @@ function ManufacturingProcessSection() {
 }
 function EliteCaseStudy() {
   const [showLogin, setShowLogin] = React.useState(false);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
-    page: "cases",
-    onLoginClick: () => setShowLogin(true)
-  }), /*#__PURE__*/React.createElement("main", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main"
   }, /*#__PURE__*/React.createElement("section", {
     className: "case-hero"
@@ -457,7 +454,7 @@ function EliteCaseStudy() {
     title: "Want a result like this?",
     body: "We'll build a custom ERP modelled on how your floor actually runs, put it in your hands, and carry the risk for 30 days. You pay only once it's already running the business.",
     note: "Limited slots each quarter. We onboard selectively."
-  }), /*#__PURE__*/React.createElement(Footer, null), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
+  }), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)
   }));
 }

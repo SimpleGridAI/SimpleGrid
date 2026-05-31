@@ -17,15 +17,11 @@ function AboutPage() {
     setTimeout(tryScroll, 150);
   }, []);
   return (<>
-    <Nav page="about" onLoginClick={() => setShowLogin(true)} />
     <main id="main">
 
-    {/* (a) Operator hook - hero-style with team photo bg + black overlay, founder portrait on the left */}
-    <section className="section" style={{
+    {/* (a) Operator hook - solid black hero (matches the product page), founder portrait on the left */}
+    <section className="section section-dark" style={{
       position:'relative',
-      backgroundImage:'url(assets/team_photo.jpeg)',
-      backgroundSize:'cover',
-      backgroundPosition:'center',
       color:'#fff',
       overflow:'hidden',
       minHeight:'78vh',
@@ -34,8 +30,8 @@ function AboutPage() {
       paddingTop:160,
       paddingBottom:160,
     }}>
-      <div aria-hidden="true" style={{position:'absolute',inset:0,background:'rgba(8,10,14,0.85)',zIndex:0}} />
-      <div className="container" style={{maxWidth:'none', position:'relative', zIndex:1, width:'100%'}}>
+      <ParticleCloud showArcs={false} />
+      <div className="container" style={{maxWidth:'none', position:'relative', zIndex:2, width:'100%'}}>
         <div className="tag" style={{color:'rgba(255,255,255,0.7)',marginBottom:24}}>ABOUT US</div>
         <h1 style={{fontFamily:'var(--font-heading)',fontWeight:700,letterSpacing:'-0.03em',lineHeight:1.05,fontSize:'clamp(44px, 6.5vw, 72px)',color:'#fff',margin:'0 0 28px',maxWidth:1100}}>Built by operators who've been on your floor.</h1>
         <p style={{fontSize:'clamp(18px, 1.7vw, 22px)',lineHeight:1.55,color:'rgba(255,255,255,0.85)',margin:0,maxWidth:920}}>
@@ -154,7 +150,6 @@ function AboutPage() {
 
     </main>
     <FinalCTA title="Built by people who've run the floor." body="We ran multi-stage factories to $30M and survived two ERP failures before building SimpleGrid. We're on every deployment. We carry the cost and the risk - you run it for 30 days and pay only once it earns its keep." note="Limited slots each quarter. We onboard selectively." />
-      <Footer />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
     {showInvite && <InviteModal onClose={() => setShowInvite(false)} />}
   </>);

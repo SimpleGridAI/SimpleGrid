@@ -349,6 +349,12 @@
    homepage and blog pages, so the global mobile nav rules in styles.css apply as-is
    and no nav override is needed here. */
 
+/* On narrow phones the "Try our ERP" button shares the top bar with both the logo
+   and the hamburger, leaving it too little room - its label wrapped onto two lines
+   and bulged the nav bar. Keep the label on one line so the bar stays a clean single
+   row; the logo gives up a few pixels on very small screens instead. */
+.nav .nav-right [data-sg-try-erp] { white-space: nowrap; }
+
 /* The positioning quadrant is a wide SVG; below tablet it scales down until its
    labels are unreadable. Let it keep a legible minimum width and scroll
    horizontally instead of shrinking into a smear. */

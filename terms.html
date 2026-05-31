@@ -84,21 +84,9 @@
 </head>
 <body>
 <!-- Static seed inside #root - React replaces on mount. Full legal text in source. -->
+<!-- Top navigation rendered by the shared component (components/site-nav.js), outside #root. -->
+<div id="sg-nav" data-page=""></div>
 <div id="root">
-  <a href="#main" class="skip-link">Skip to main content</a>
-  <header role="banner" style="padding:18px 32px;display:flex;justify-content:space-between;align-items:center">
-    <a href="/" aria-label="SimpleGrid home" style="text-decoration:none;color:#101418;font-weight:700;font-size:18px">SimpleGrid</a>
-    <nav aria-label="Main navigation" style="display:flex;gap:20px;font-size:14px">
-      <a href="/">Home</a>
-      <a href="/product.html">Product</a>
-      <a href="/tools/">Productive Tools</a>
-      <a href="/pricing.html">Pricing</a>
-      <a href="/case-studies.html">Case studies</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/about.html">About</a>
-      <a href="#" data-sg-try-erp role="button">Try our ERP</a>
-    </nav>
-  </header>
   <main id="main" class="legal-page">
     <div class="tag">LEGAL</div>
     <h1 class="h1" style="margin:4px 0 8px">Terms of Service</h1>
@@ -206,10 +194,12 @@
   </main>
 </div>
 
-<script src="components/Nav.js" defer></script>
+<!-- Footer rendered by the shared component (components/site-footer.js). -->
+<div id="sg-footer"></div>
+<script src="components/site-nav.js" defer></script>
+<script src="components/site-footer.js" defer></script>
 <script src="components/LoginModal.js" defer></script>
 <script src="components/InviteModal.js" defer></script>
-<script src="components/Footer.js" defer></script>
 
 <script src="app/terms.js" defer></script><script src="components/BookDemoModal.js" defer></script><script src="components/TryErpModal.js" defer></script></body>
 </html>

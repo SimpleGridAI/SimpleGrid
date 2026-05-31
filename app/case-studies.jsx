@@ -1,7 +1,6 @@
 function CaseStudiesPage() {
   const [showLogin, setShowLogin] = React.useState(false);
   return (<>
-    <Nav page="cases" onLoginClick={() => setShowLogin(true)} />
     <main id="main">
     <section className="section" style={{paddingBottom:48}}>
       <div className="container">
@@ -54,7 +53,6 @@ function CaseStudiesPage() {
     </main>
 
     <FinalCTA title="Your factory could be the next one." body="The operators above run SimpleGrid on their real floors today. We build at our cost, you run it for 30 days, and you pay only when it's already moving the business." note="Limited slots each quarter. We onboard selectively." />
-      <Footer />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
   </>);
 }
