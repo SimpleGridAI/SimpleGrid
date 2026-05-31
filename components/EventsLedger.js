@@ -548,92 +548,22 @@ window.ArchitectureNew = ArchitectureNew;
 
 function ProductHeroNew() {
   const [showInvite, setShowInvite] = React.useState(false);
-  const [theme, setTheme] = React.useState(() => {
-    try {
-      return localStorage.getItem('sg_product_hero_theme') || 'dark';
-    } catch {
-      return 'dark';
-    }
-  });
-  const toggleTheme = () => {
-    const next = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    try {
-      localStorage.setItem('sg_product_hero_theme', next);
-    } catch {}
-  };
-  const isDark = theme === 'dark';
 
-  // Theme-driven colors
-  const bgClass = isDark ? 'section section-dark' : 'section';
   // Match the home page hero height: full viewport minus the nav, content centered.
-  const heroSize = {
+  const bgStyle = {
+    paddingTop: 88,
+    paddingBottom: 64,
+    position: 'relative',
+    overflow: 'hidden',
     minHeight: 'calc(100vh - 64px)',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center'
   };
-  const bgStyle = isDark ? {
-    paddingTop: 88,
-    paddingBottom: 64,
-    position: 'relative',
-    overflow: 'hidden',
-    ...heroSize
-  } : {
-    paddingTop: 88,
-    paddingBottom: 64,
-    position: 'relative',
-    overflow: 'hidden',
-    background: '#FCFCFD',
-    ...heroSize
-  };
-  // Dark mode: no radial tint, so the hero reads as the same #1A1A1A as the
-  // other section-dark blocks (FinalCTA, EventsLedger dark variant). Light
-  // mode keeps the subtle blue/purple radial for visual interest.
-  const overlayBg = isDark ? 'none' : 'radial-gradient(circle at 80% 20%, rgba(74,123,247,0.10), transparent 50%), radial-gradient(circle at 20% 80%, rgba(124,58,237,0.06), transparent 50%)';
-  const tagColor = isDark ? 'rgba(255,255,255,0.5)' : 'var(--fg3)';
-  const h1Color = isDark ? '#fff' : 'var(--fg1)';
-  const leadColor = isDark ? 'rgba(255,255,255,0.78)' : 'var(--fg2)';
-  const noteColor = isDark ? 'rgba(255,255,255,0.5)' : 'var(--fg3)';
   return /*#__PURE__*/React.createElement("section", {
-    className: bgClass,
+    className: 'section section-dark',
     style: bgStyle
-  }, /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    className: 'hero-theme-toggle' + (isDark ? '' : ' is-light'),
-    onClick: toggleTheme,
-    "aria-label": isDark ? 'Switch to light mode' : 'Switch to dark mode'
-  }, isDark ? /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement("circle", {
-    cx: "12",
-    cy: "12",
-    r: "4"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-  })) : /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-  }))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      inset: 0,
-      backgroundImage: overlayBg
-    }
-  }), /*#__PURE__*/React.createElement(ParticleCloud, {
+  }, /*#__PURE__*/React.createElement(ParticleCloud, {
     showArcs: false
   }), /*#__PURE__*/React.createElement("div", {
     className: "container",
@@ -644,12 +574,12 @@ function ProductHeroNew() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag",
     style: {
-      color: tagColor
+      color: 'rgba(255,255,255,0.5)'
     }
   }, "THE PRODUCT"), /*#__PURE__*/React.createElement("h1", {
     className: "h1",
     style: {
-      color: h1Color,
+      color: '#fff',
       maxWidth: 980,
       fontSize: 48,
       lineHeight: 1.1
@@ -657,7 +587,7 @@ function ProductHeroNew() {
   }, "We don't sell software. We build a custom ERP around your factory."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
-      color: leadColor,
+      color: 'rgba(255,255,255,0.78)',
       maxWidth: 760,
       marginTop: 18
     }
@@ -682,7 +612,7 @@ function ProductHeroNew() {
       gap: 32,
       flexWrap: 'wrap',
       fontSize: 'var(--fs-caption)',
-      color: noteColor
+      color: 'rgba(255,255,255,0.5)'
     }
   }, /*#__PURE__*/React.createElement("span", null, "\u25CF Built at our risk"), /*#__PURE__*/React.createElement("span", null, "\u25CF Live in 7-21 days"), /*#__PURE__*/React.createElement("span", null, "\u25CF Paid for only after it works"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)
@@ -1314,7 +1244,7 @@ function AbilitySection() {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "FOR THE PEOPLE WHO ACTUALLY DO THE WORK"), /*#__PURE__*/React.createElement("h2", {
+  }, "ADOPTION · FOR THE PEOPLE WHO ACTUALLY DO THE WORK"), /*#__PURE__*/React.createElement("h2", {
     className: "h2 ink",
     style: {
       maxWidth: 1200

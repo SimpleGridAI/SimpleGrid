@@ -12,9 +12,9 @@ const TIERS = [{
   name: 'After it works',
   sub: 'Monthly subscription · one number, all in',
   price: 'Custom-quoted',
-  priceUnit: 'We are not free and we are not cheap. We are priced like an operator who has carried the build for you.',
+  priceUnit: 'This isn\'t a discount play. We carried the build, so the price reflects the result, not the risk.',
   accent: 'var(--sg-purple)',
-  features: ['One monthly subscription. That is the entire bill.', 'All features included. No tiers. No add-ons. No per-seat fees.', 'Every change to your ERP, now and forever, included.', 'New features ship regularly - yours automatically.', 'Direct line to the team that builds it. No account-manager middle layer.'],
+  features: ['One monthly subscription. That is the entire bill.', 'All features included. No tiers. No add-ons. No per-seat fees.', 'New features ship regularly - yours automatically.', 'Direct line to the team that builds it. No account-manager middle layer.'],
   cta: 'Book a demo',
   ctaHref: 'https://cal.com/simplegrid-ai',
   highlight: false
@@ -75,37 +75,78 @@ function PricingPage() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main"
   }, /*#__PURE__*/React.createElement("section", {
-    className: "section",
+    className: "section section-dark",
     style: {
-      paddingBottom: 32
+      paddingTop: 88,
+      paddingBottom: 64,
+      position: 'relative',
+      overflow: 'hidden',
+      minHeight: 'calc(100vh - 64px)',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
+  }, /*#__PURE__*/React.createElement(ParticleCloud, {
+    showArcs: false
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "container",
+    style: {
+      position: 'relative',
+      zIndex: 2
+    }
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag"
   }, "PRICING"), /*#__PURE__*/React.createElement("h1", {
-    className: "h2",
+    className: "h1",
     style: {
-      maxWidth: 1200
+      color: '#fff',
+      maxWidth: 980,
+      fontFamily: 'var(--font-heading)',
+      fontSize: 48,
+      fontWeight: 700,
+      lineHeight: 1.1,
+      letterSpacing: '-0.03em',
+      margin: '0 0 18px'
     }
   }, "You carry nothing until you see it run."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
-      maxWidth: '100%'
+      color: 'rgba(255,255,255,0.78)',
+      maxWidth: 820,
+      margin: '0 0 14px'
     }
-  }, "Other ERPs charge up front to find out if they'll work. We don't charge until it's run on your floor for 30 days. SimpleGrid builds a custom ERP around your factory at our cost. You run it on your real floor for 30 days. If it doesn't move the business, you walk. We earn nothing."), /*#__PURE__*/React.createElement("p", {
+  }, "The build is on us. The price is for what it does once it's working."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
-      maxWidth: '100%',
-      marginTop: 12,
-      fontWeight: 600,
-      color: 'var(--fg1)'
+      color: 'rgba(255,255,255,0.78)',
+      maxWidth: 820,
+      margin: 0
     }
-  }, "We are not free. We are not cheap. We're priced like an operator who has carried the build for you - and earned the right to charge for what it does."))), /*#__PURE__*/React.createElement("section", {
-    className: "section section-alt",
+  }, "Most ERPs charge you to find out if they work. We charge you after you already know."), /*#__PURE__*/React.createElement("div", {
     style: {
-      paddingTop: 48
+      marginTop: 28,
+      display: 'flex',
+      gap: 12,
+      flexWrap: 'wrap'
     }
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => setShowInvite(true),
+    className: "btn btn-lg btn-invite",
+    style: {
+      animation: 'sgBuildPulse 1.8s ease-in-out infinite'
+    }
+  }, "Book a demo →")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 36,
+      display: 'flex',
+      gap: 32,
+      flexWrap: 'wrap',
+      fontSize: 'var(--fs-caption)',
+      color: 'rgba(255,255,255,0.5)'
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "● Built at our risk"), /*#__PURE__*/React.createElement("span", null, "● Live in 7-21 days"), /*#__PURE__*/React.createElement("span", null, "● You pay only after it works")))), /*#__PURE__*/React.createElement("section", {
+    className: "section section-alt"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
@@ -118,10 +159,62 @@ function PricingPage() {
   }, "Try it on. Then pay."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
-      maxWidth: 960,
+      maxWidth: 860,
       marginBottom: 36
     }
-  }, "Every ERP vendor makes you pay first and hope it works. We flipped it - the build and the 30-day trial are on us - you run it on your real floor, with your real team and real orders. After that, one monthly subscription covers everything - no tiers, no change fees, no per-seat math. Every new feature we ship is included."), /*#__PURE__*/React.createElement("div", {
+  }, "Every ERP vendor makes you pay first and hope it works. We flipped it - the build and the 30-day trial are on us - you run it on your real floor, with your real team and real orders."), /*#__PURE__*/React.createElement("div", {
+    className: "proc-grid",
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gap: 18,
+      marginBottom: 44
+    }
+  }, [{
+    n: '01',
+    h: 'One intro call, then a quote',
+    p: 'We start with a single introductory call. We learn enough to give you a real number - no drawn-out discovery before you know the price.'
+  }, {
+    n: '02',
+    h: 'Then the detailed conversation',
+    p: 'Only once the number makes sense do we go deep on how your floor actually runs - your stages, contractors, approvals, costing.'
+  }, {
+    n: '03',
+    h: 'A working demo, not a deck',
+    p: 'No scope-of-work document. No slide deck. We build a working demo of your operation and start the build on that.'
+  }].map((s, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      background: '#fff',
+      border: '1px solid var(--border)',
+      borderRadius: 'var(--radius-lg)',
+      padding: '22px 22px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: 'var(--font-heading)',
+      fontSize: 13,
+      fontWeight: 700,
+      color: 'var(--sg-blue)',
+      letterSpacing: '0.08em',
+      marginBottom: 10
+    }
+  }, s.n), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: 'var(--font-heading)',
+      fontSize: 16,
+      fontWeight: 700,
+      color: 'var(--fg1)',
+      marginBottom: 6,
+      letterSpacing: '-0.005em'
+    }
+  }, s.h), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13.5,
+      color: 'var(--fg2)',
+      lineHeight: 1.55
+    }
+  }, s.p)))), /*#__PURE__*/React.createElement("div", {
     className: "tier-grid",
     style: {
       display: 'grid',
@@ -327,13 +420,13 @@ function PricingPage() {
     className: "pricing-faq-grid"
   }, [{
     q: 'How much does SimpleGrid cost after the 30 days?',
-    a: 'We agree on a number together that fits the operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees.'
+    a: 'You get a quote after the first introductory call, before the deep-dive - so you know the number early. It is one monthly subscription, and that is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees.'
   }, {
     q: 'Is there a setup or build fee?',
     a: 'No. The build, the modeling sessions, the data migration, the senior-led onboarding and the 30 days running on your real floor are all on us. You owe nothing until you decide it works.'
   }, {
-    q: 'Why aren\'t you cheap?',
-    a: 'Because we carry the build, the deployment risk, and the 30-day trial - with senior engineers and deployment experts on every project. Cheap ERP exists. It will not show up with a working version of your factory before you pay. We will. We price for what that takes.'
+    q: 'Why isn\'t this the cheapest option on the table?',
+    a: 'This isn\'t a discount play. We carry the build, the deployment risk, and the 30-day trial - with senior engineers and deployment experts on every project - so the price reflects the result, not the risk. Cheap ERP exists. It will not show up with a working version of your factory before you pay. We will.'
   }, {
     q: 'What does "you walk if it doesn\'t work" actually mean?',
     a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk. No invoice. No clawback. No data ransom - you get a clean export.'
@@ -390,6 +483,7 @@ function PricingPage() {
       @media (max-width: 900px) {
         .tier-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
         .incl-grid { grid-template-columns: 1fr 1fr !important; }
+        .proc-grid { grid-template-columns: 1fr !important; }
         .pricing-faq-grid { grid-template-columns: 1fr !important; }
       }
       @media (max-width: 560px) {

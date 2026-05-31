@@ -68,7 +68,7 @@ const BLOG_DATA = [
   {
     "id": 6,
     "title": "Module-Based ERP vs. SG Schema ERP",
-    "cat": "Product Deep-Dive / Industry Critique",
+    "cat": "Product Deep-Dive",
     "readTime": "6 min",
     "slug": "module-based-erp-vs-sg-schema-erp-two-architectures-two-outcomes",
     "datePublished": "2026-04-12",
@@ -92,7 +92,7 @@ const BLOG_DATA = [
   {
     "id": 8,
     "title": "Why Conversational UX Does Not Change Behavior",
-    "cat": "Operator Insights / Product",
+    "cat": "Operator Insights",
     "readTime": "5 min",
     "slug": "why-conversational-ux-does-not-change-user-behavior-and-why-that-is-the-point",
     "datePublished": "2026-04-19"
@@ -140,7 +140,7 @@ const BLOG_DATA = [
   {
     "id": 14,
     "title": "How AI Changed ERP Deployment (Not Features)",
-    "cat": "Industry Critique / Product",
+    "cat": "Industry Critique",
     "readTime": "5 min",
     "slug": "how-ai-changed-erp-deployment-not-features-deployment",
     "datePublished": "2026-05-10"
@@ -172,7 +172,7 @@ const BLOG_DATA = [
   {
     "id": 18,
     "title": "Dynamics GP Sunset: Switch to SimpleGrid",
-    "cat": "Industry Critique / Product",
+    "cat": "Industry Critique",
     "readTime": "6 min",
     "slug": "dynamics-gp-sunset-switch-to-simplegrid",
     "datePublished": "2026-05-26"

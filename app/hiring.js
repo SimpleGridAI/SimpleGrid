@@ -31,11 +31,23 @@ function HiringHero() {
   return /*#__PURE__*/React.createElement("section", {
     className: "section section-dark",
     style: {
-      paddingTop: 80,
-      paddingBottom: 48
+      paddingTop: 88,
+      paddingBottom: 64,
+      position: 'relative',
+      overflow: 'hidden',
+      minHeight: 'calc(100vh - 64px)',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
+  }, /*#__PURE__*/React.createElement(ParticleCloud, {
+    showArcs: false
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "container",
+    style: {
+      position: 'relative',
+      zIndex: 2
+    }
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag",
     style: {
@@ -123,7 +135,8 @@ function WhyThis() {
 }
 function RoleSummary({
   r,
-  onOpen
+  onOpen,
+  isOpen
 }) {
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -194,7 +207,7 @@ function RoleSummary({
     style: {
       whiteSpace: 'nowrap'
     }
-  }, "Read full JD \u2192"), /*#__PURE__*/React.createElement("a", {
+  }, isOpen ? "Hide JD \u2191" : "Read full JD \u2192"), /*#__PURE__*/React.createElement("a", {
     href: 'mailto:hello@simplegrid.ai?subject=Application:%20' + encodeURIComponent(r.t),
     className: "btn btn-sm btn-primary",
     style: {
@@ -430,14 +443,19 @@ function HiringPage() {
     }
   }, []);
   const handleOpen = id => {
-    setOpenRole(id);
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) window.scrollTo({
-        top: el.getBoundingClientRect().top + window.scrollY - 80,
-        behavior: 'smooth'
-      });
-    }, 50);
+    setOpenRole(prev => {
+      const next = prev === id ? null : id;
+      if (next) {
+        setTimeout(() => {
+          const el = document.getElementById(id);
+          if (el) window.scrollTo({
+            top: el.getBoundingClientRect().top + window.scrollY - 80,
+            behavior: 'smooth'
+          });
+        }, 50);
+      }
+      return next;
+    });
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main"
@@ -462,23 +480,15 @@ function HiringPage() {
     delay: i * 60
   }, /*#__PURE__*/React.createElement(RoleSummary, {
     r: r,
-    onOpen: handleOpen
-  })))))), /*#__PURE__*/React.createElement("section", {
-    className: "section"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement("div", {
+    onOpen: handleOpen,
+    isOpen: openRole === r.id
+  }), openRole === r.id && /*#__PURE__*/React.createElement("div", {
     style: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 32
+      marginTop: 12
     }
-  }, ROLES.map((r, i) => /*#__PURE__*/React.createElement(Reveal, {
-    key: r.id,
-    delay: i * 60
   }, /*#__PURE__*/React.createElement(RoleDetail, {
     r: r
-  })))), /*#__PURE__*/React.createElement(Reveal, {
+  }))))), /*#__PURE__*/React.createElement(Reveal, {
     delay: 200
   }, /*#__PURE__*/React.createElement("p", {
     style: {

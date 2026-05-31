@@ -747,7 +747,7 @@ function AbilitySection() {
     <section className="section" id="ability" style={{ background: '#fff' }}>
       <div className="container">
         <Reveal>
-          <div className="tag">FOR THE PEOPLE WHO ACTUALLY DO THE WORK</div>
+          <div className="tag">ADOPTION · FOR THE PEOPLE WHO ACTUALLY DO THE WORK</div>
           <h2 className="h2 ink" style={{ maxWidth: 1200 }}>
             If your warehouse manager can send a text, he can run your ERP.
           </h2>
