@@ -452,7 +452,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 
 /* ===== GIANT WORDMARK BAND (below footer) ===== */
 .footer-wordmark { position: relative; background: var(--sg-off-white); overflow: hidden; padding: 44px 0 48px; }
-.footer-wordmark-svg { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 32%); mask-image: linear-gradient(to bottom, transparent 0%, #000 32%); }
+.footer-wordmark-svg { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 50%); mask-image: linear-gradient(to bottom, transparent 0%, #000 50%); }
 .footer-wordmark-svg text { font-family: var(--font-brand); font-weight: 800; font-size: 150px; letter-spacing: -0.01em; fill: #EAEEF8; }
 .footer-wordmark-svg .wm-mark { color: #EAEEF8; }
 .footer-wordmark-cta { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1; display: inline-flex; align-items: center; gap: 10px; padding: 11px 22px; border-radius: 999px; background: transparent; border: 1px solid rgba(52,97,224,.45); color: var(--sg-blue); font-weight: 600; font-size: 17px; text-decoration: none; transition: background .2s ease, transform .2s ease, border-color .2s ease, color .2s ease; }
