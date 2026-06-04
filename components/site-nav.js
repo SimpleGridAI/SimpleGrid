@@ -71,7 +71,7 @@
           '</details>' +
         '</nav>' +
         '<div class="nav-right">' +
-          '<button type="button" class="btn btn-sm btn-primary" data-sg-try-erp title="Try a live SimpleGrid ERP">Try our ERP</button>' +
+          '<button type="button" class="btn btn-sm btn-primary" data-sg-try-erp title="Try a live SimpleGrid ERP">See It</button>' +
           '<button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false" data-sg-burger>' +
             '<span></span><span></span><span></span></button>' +
         '</div>' +
@@ -86,7 +86,7 @@
         '<a href="' + p('case-studies.html') + '" class="nav-mobile-link nav-mobile-sub' + on('cases') + '">Case studies</a>' +
         '<a href="' + p('blog.html') + '" class="nav-mobile-link nav-mobile-sub' + on('blog') + '">Blog</a>' +
         '<div class="nav-mobile-sep"></div>' +
-        '<a href="#" data-sg-try-erp role="button" class="nav-mobile-link">Try our ERP</a>' +
+        '<a href="#" data-sg-try-erp role="button" class="nav-mobile-link">See It</a>' +
       '</nav>' +
     '</div>';
 

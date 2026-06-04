@@ -214,7 +214,7 @@ function Nav({
     },
     className: 'btn btn-sm btn-primary' + (page === 'home' ? ' nav-demo-home' : ''),
     title: "Try a live SimpleGrid ERP"
-  }, "Try our ERP"), /*#__PURE__*/React.createElement("button", {
+  }, "See It"), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: 'nav-burger' + (openMenu ? ' is-open' : ''),
     "aria-label": openMenu ? 'Close menu' : 'Open menu',

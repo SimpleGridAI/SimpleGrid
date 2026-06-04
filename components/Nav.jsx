@@ -97,7 +97,7 @@ function Nav({ page = 'home', onLoginClick }) {
         </nav>
         <div className="nav-right">
           <button className="btn btn-sm btn-secondary desktop-only" onClick={onLoginClick}>Log in</button>
-          <button type="button" onClick={() => { if (window.sgOpenTryErp) window.sgOpenTryErp(); else setShowInvite(true); }} className={'btn btn-sm btn-primary' + (page === 'home' ? ' nav-demo-home' : '')} title="Try a live SimpleGrid ERP">Try our ERP</button>
+          <button type="button" onClick={() => { if (window.sgOpenTryErp) window.sgOpenTryErp(); else setShowInvite(true); }} className={'btn btn-sm btn-primary' + (page === 'home' ? ' nav-demo-home' : '')} title="Try a live SimpleGrid ERP">See It</button>
           <button
             type="button"
             className={'nav-burger' + (openMenu ? ' is-open' : '')}
