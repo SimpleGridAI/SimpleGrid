@@ -18,7 +18,7 @@
   var SG_LEAD_ENDPOINT =
     'https://d1i6y7ff3hcohx.cloudfront.net/sandbox/leads';
   var SG_SANDBOX_URL =
-    'https://d3jqpu6j7k2gxu.cloudfront.net/login';
+    'https://d3jqpu6j7k2gxu.cloudfront.net/';
 
   var overlay = null;
   var form = null;
