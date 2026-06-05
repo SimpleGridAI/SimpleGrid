@@ -18,7 +18,7 @@
   var SG_LEAD_ENDPOINT =
     'https://d1i6y7ff3hcohx.cloudfront.net/sandbox/leads';
   var SG_SANDBOX_URL =
-    'http://simplegrid-peralta-dev.s3-website.ap-south-1.amazonaws.com/';
+    'https://d3jqpu6j7k2gxu.cloudfront.net/login';
 
   var overlay = null;
   var form = null;
