@@ -87,29 +87,24 @@
     var email = (emailInput.value || '').trim();
     if (window.sgTrack) window.sgTrack('try_erp_submitted', { form: 'try-erp' });
 
-    // Fire-and-forget the lead POST. Redirect happens either way so the user
-    // never feels the network. If POST fails, server-side log catches it.
-    // application/json triggers a CORS preflight — vader's CORS config must
-    // allow OPTIONS + Origin: https://simplegrid.ai for this to succeed.
-    var leadPromise;
+    // Fire-and-forget the lead POST, then redirect immediately. The critical
+    // bit is keepalive:true — without it the navigation below cancels the
+    // in-flight request mid-preflight and only the OPTIONS lands at the
+    // backend, never the POST. keepalive keeps the request alive past the
+    // page transition (browser commits to completing it in the background).
+    // application/json forces a CORS preflight, so vader's CORS config must
+    // allow OPTIONS + Origin: https://simplegrid.ai.
     try {
-      leadPromise = fetch(SG_LEAD_ENDPOINT, {
+      fetch(SG_LEAD_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, source: 'try-erp-nav' })
+        body: JSON.stringify({ email: email, source: 'try-erp-nav' }),
+        keepalive: true
       });
-    } catch (err) {
-      leadPromise = Promise.resolve(null);
-    }
+    } catch (err) { /* fire-and-forget */ }
 
-    // Give the POST 1.2s max - then redirect regardless. Keeps the perceived
-    // latency snappy even if the BE is asleep.
-    var timeout = new Promise(function (resolve) { setTimeout(resolve, 1200); });
-    Promise.race([leadPromise.catch(function () { return null; }), timeout])
-      .then(function () {
-        if (window.sgTrack) window.sgTrack('try_erp_redirected', { form: 'try-erp' });
-        redirectToSandbox(email);
-      });
+    if (window.sgTrack) window.sgTrack('try_erp_redirected', { form: 'try-erp' });
+    redirectToSandbox(email);
   }
 
   function setBackgroundHidden(hidden) {
