@@ -43,6 +43,7 @@
   var mailSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>';
   var liSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.04h4.56V23H.22V8.04zm7.42 0h4.37v2.05h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V23h-4.56v-6.62c0-1.58-.03-3.61-2.2-3.61-2.2 0-2.54 1.72-2.54 3.5V23H7.64V8.04z"/></svg>';
   var calSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>';
+  var pinSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 
   mount.outerHTML =
     '<footer class="footer" role="contentinfo">' +
@@ -88,11 +89,12 @@
               '<a href="mailto:hello@simplegrid.ai" class="footer-link" style="display:flex;gap:8px;align-items:center">' + mailSvg + '<span>hello@simplegrid.ai</span></a>' +
               '<a href="https://www.linkedin.com/company/simplegridai" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:center">' + liSvg + '<span>LinkedIn</span></a>' +
               '<a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="footer-link" style="display:flex;gap:8px;align-items:center">' + calSvg + '<span>Book a call</span></a>' +
+              '<address class="footer-link" style="display:flex;gap:8px;align-items:flex-start;font-style:normal;margin-top:6px">' + pinSvg + '<span style="line-height:1.5">2810 N Church St STE 88778<br>Wilmington, DE 19802</span></address>' +
             '</div>' +
           '</div>' +
         '</div>' +
         '<div class="footer-bottom">' +
-          '<div>SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies &copy; 2026</div>' +
+          '<div>SimpleGrid, an AI-native ERP for US manufacturers, by SimpleGrid Inc &copy; 2026</div>' +
           '<div class="footer-legal">' +
             '<a href="' + pf + 'privacy.html">Privacy Policy</a><a href="' + pf + 'terms.html">Terms</a>' +
           '</div>' +

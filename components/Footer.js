@@ -294,7 +294,7 @@ function Footer() {
     kind: x.kind
   }), /*#__PURE__*/React.createElement("span", null, x.l)))))), /*#__PURE__*/React.createElement("div", {
     className: "footer-bottom"
-  }, /*#__PURE__*/React.createElement("div", null, "SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies \xA9 2026"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, "SimpleGrid, an AI-native ERP for US manufacturers, by SimpleGrid Inc \xA9 2026"), /*#__PURE__*/React.createElement("div", {
     className: "footer-legal"
   }, /*#__PURE__*/React.createElement("a", {
     href: px('privacy.html')
