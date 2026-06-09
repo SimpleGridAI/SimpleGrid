@@ -1,6 +1,6 @@
 /* SimpleGrid Website v2 - Revamped Styles */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 68px; }
 html, body { margin: 0; padding: 0; background: #fff; color: var(--fg1); }
 img { max-width: 100%; display: block; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
@@ -20,7 +20,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 .ig-bar { display: flex; align-items: center; gap: 18px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--sg-off-white); padding: 14px 24px; overflow: hidden; }
 .ig-label { flex: 0 0 auto; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg3); white-space: nowrap; }
 .ig-marquee { flex: 1 1 auto; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-.ig-track { display: flex; gap: 36px; width: max-content; animation: ig-scroll 40s linear infinite; }
+.ig-track { display: flex; gap: 36px; width: max-content; animation: ig-scroll 55s linear infinite; }
 .ig-marquee:hover .ig-track { animation-play-state: paused; }
 .ig-item { display: inline-flex; align-items: center; gap: 8px; color: var(--fg2); font-family: var(--font-heading); font-size: 16px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: 0 0 auto; }
 .ig-item svg { flex: 0 0 auto; }
@@ -29,6 +29,27 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 @keyframes ig-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .ig-track { animation: none; } }
 @media (max-width: 640px) { .ig-bar { flex-direction: column; gap: 10px; padding: 12px 0; } .ig-label { padding: 0 16px; } }
+
+/* "Home" section-jump dropdown (home page only). Opens on hover OR click
+   (focus-within). Mirrors the Resources dropdown styling. */
+.nav-home { position: relative; display: inline-flex; }
+.nav-home-trigger { background: none; border: none; font: inherit; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 4px; }
+.nav-home-trigger svg { transition: transform 0.15s; }
+.nav-home:hover .nav-home-trigger svg, .nav-home:focus-within .nav-home-trigger svg { transform: rotate(180deg); }
+.nav-home-menu {
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg, 12px);
+  padding: 8px; min-width: 230px; box-shadow: 0 12px 32px rgba(0,0,0,0.08); z-index: 100;
+  display: none;
+}
+/* invisible bridge so the cursor can cross the gap without losing :hover */
+.nav-home-menu::before { content: ''; position: absolute; top: -10px; left: 0; right: 0; height: 10px; }
+.nav-home:hover .nav-home-menu, .nav-home:focus-within .nav-home-menu { display: block; }
+.nav-home-menu a {
+  display: block; padding: 9px 14px; border-radius: 8px; text-decoration: none;
+  color: var(--fg1); font-size: 14px; font-weight: 600; transition: background 0.15s;
+}
+.nav-home-menu a:hover { background: var(--sg-off-white); }
 
 /* ===== NAV ===== */
 .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.97); border-bottom: 1px solid var(--border); }
@@ -44,18 +65,23 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 /* Resources dropdown - CSS-only <details>/<summary> pattern used in static page navs
    (competitors.html, blog.html, tool pages). Mirrors the React Nav's "Resources ▾". */
 .nav-resources { position: relative; }
-.nav-resources > summary {
-  list-style: none; cursor: pointer; user-select: none;
+.nav-resources-trigger {
+  background: none; border: none; cursor: pointer; user-select: none;
   display: inline-flex; align-items: center; gap: 4px;
 }
-.nav-resources > summary::-webkit-details-marker { display: none; }
-.nav-resources > summary svg { transition: transform 0.15s; }
-.nav-resources[open] > summary svg { transform: rotate(180deg); }
+.nav-resources-trigger svg { transition: transform 0.15s; }
+.nav-resources:hover .nav-resources-trigger svg,
+.nav-resources:focus-within .nav-resources-trigger svg { transform: rotate(180deg); }
 .nav-resources-menu {
   position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
   background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg, 12px);
   padding: 8px; min-width: 280px; box-shadow: 0 12px 32px rgba(0,0,0,0.08); z-index: 100;
+  display: none;
 }
+/* invisible bridge so the cursor can cross the gap to the menu without losing :hover */
+.nav-resources-menu::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
+.nav-resources:hover .nav-resources-menu,
+.nav-resources:focus-within .nav-resources-menu { display: block; }
 .nav-resources-menu a {
   display: block; padding: 12px 14px; border-radius: 8px; text-decoration: none;
   color: var(--fg1); font-size: 14px; font-weight: 600; transition: background 0.15s;
@@ -182,7 +208,9 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 }
 
 /* ===== TAG ===== */
-.tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--sg-blue); margin-bottom: 16px; }
+/* Section eyebrow → a distinctive rounded badge, brand-blue tinted with a soft
+   matched glow so it reads as the section label without hurting legibility. */
+.tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--sg-blue); margin-bottom: 16px; padding: 7px 15px; border-radius: 10px; background: color-mix(in srgb, var(--sg-blue) 9%, transparent); border: 1px solid color-mix(in srgb, var(--sg-blue) 20%, transparent); box-shadow: 0 2px 18px color-mix(in srgb, var(--sg-blue) 15%, transparent); }
 
 /* ===== SECTIONS ===== */
 .section { padding: 88px 0; }
@@ -355,16 +383,17 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 .founder-text .attr { font-size: 16px; color: var(--fg3); }
 
 /* ===== PROOF v2 ===== */
-.proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
-.proof-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color var(--dur-fast); }
-.proof-card:hover { border-color: var(--sg-blue); }
-.proof-img { height: 200px; background: var(--sg-off-white); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--fg3); font-size: 15px; object-fit: cover; }
-.proof-body { padding: 24px; }
-.proof-body h3 { font-family: var(--font-heading); font-size: 21px; font-weight: 700; color: var(--fg1); margin: 0 0 6px; }
-.proof-body p { font-size: 16px; color: var(--fg2); line-height: 1.55; margin: 0 0 10px; }
-.proof-stats { font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--sg-blue); margin-bottom: 12px; }
-.proof-quote { font-size: 15px; font-style: italic; color: var(--fg2); line-height: 1.55; border-left: 3px solid var(--sg-blue); padding-left: 14px; margin: 12px 0; }
-.proof-attr { font-size: 14px; color: var(--fg3); font-style: normal; }
+/* Borderless, editorial layout — image + a single flowing block of copy, so the
+   two deployments read as clean continuous content rather than boxed cards. */
+.proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 36px; }
+.proof-card { background: transparent; border: none; border-radius: 0; overflow: visible; transition: transform var(--dur-fast) var(--ease-standard); }
+.proof-img { height: 210px; background: var(--sg-off-white); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: var(--fg3); font-size: 15px; object-fit: cover; overflow: hidden; }
+.proof-body { padding: 22px 2px 0; }
+.proof-body h3 { font-family: var(--font-heading); font-size: 20px; font-weight: 700; letter-spacing: -0.012em; color: var(--fg1); margin: 0 0 8px; }
+.proof-body p { font-size: 15px; color: var(--fg2); line-height: 1.6; margin: 0 0 14px; }
+.proof-stats { font-size: 14px; font-weight: 700; color: var(--sg-blue); letter-spacing: -0.005em; margin-bottom: 16px; }
+.proof-quote { font-size: 15px; font-style: italic; color: var(--fg2); line-height: 1.6; border: none; padding: 0; margin: 0 0 16px; }
+.proof-attr { font-size: 13.5px; color: var(--fg3); font-style: normal; margin-top: 5px; }
 
 /* ===== INTEGRATIONS v2 ===== */
 .int-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 12px; margin-top: 28px; }
@@ -478,7 +507,10 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 .blog-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
 .blog-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; color: inherit; transition: all 160ms var(--ease-standard); }
 .blog-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--sg-blue); }
-.blog-cover { height: 140px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+/* The cover holds a detailed inline SVG per post; content-visibility lets the browser
+   skip painting the off-screen ones, so the blog page opens fast instead of rendering
+   ~18 SVGs up front. Fixed 140px height means no layout shift as they scroll in. */
+.blog-cover { height: 140px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; content-visibility: auto; contain-intrinsic-size: auto 140px; }
 .blog-cover .cat-label { position: absolute; top: 12px; left: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
 .blog-cover .glyph { font-family: var(--font-heading); font-size: 46px; font-weight: 700; letter-spacing: -0.02em; opacity: 0.8; }
 .blog-body { padding: 16px; }
@@ -823,6 +855,46 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
   .problem-visual-svg { padding: 12px; }
   .problem-visual-chat { min-height: 180px; padding: 18px; }
 }
+
+/* Continuous horizontal marquee of the four reason cards. The track holds two
+   copies and slides -50% so the loop is seamless; each card owns its right
+   margin so -50% lands exactly on one set. Pauses on hover so it's readable. */
+.problem-marquee { margin-top: 16px; overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent, #000 3.5%, #000 96.5%, transparent); mask: linear-gradient(90deg, transparent, #000 3.5%, #000 96.5%, transparent); }
+/* JS drives the scroll (so it can also be dragged); no CSS animation here. */
+.problem-track { display: flex; width: max-content; cursor: grab; touch-action: pan-y; will-change: transform; user-select: none; -webkit-user-select: none; }
+.problem-track:active { cursor: grabbing; }
+.problem-card { flex: 0 0 376px; width: 376px; height: 476px; margin-right: 16px; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; display: flex; flex-direction: column; }
+.problem-card .problem-visual { flex: 1; min-height: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .problem-track { flex-wrap: wrap; width: auto; justify-content: center; transform: none !important; }
+  .problem-card[aria-hidden="true"] { display: none; }
+}
+@media (max-width: 768px) {
+  .problem-card { flex-basis: 300px; width: 300px; height: 500px; }
+}
+
+/* Box 04 - Hank chat mock */
+.hank-demo { width: 100%; height: 100%; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.hank-terminal { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.5; flex-shrink: 0; }
+.hank-terminal-label { color: var(--fg3); font-size: 9px; margin-bottom: 4px; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.hank-terminal-ok { color: var(--sg-green); margin-top: 3px; }
+.hank-terminal-note { margin-top: 6px; font-family: var(--font-body); font-size: 10px; color: var(--fg3); font-style: italic; }
+.hank-chat { flex: 1; min-height: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 14px rgba(15,20,25,0.05); }
+.hank-chat-body { flex: 1; min-height: 0; padding: 10px 11px; display: flex; flex-direction: column; gap: 7px; justify-content: flex-end; overflow: hidden; }
+.hank-row { display: flex; align-items: flex-end; gap: 6px; }
+.hank-row.user { justify-content: flex-end; }
+.hank-row.bot { justify-content: flex-start; }
+.hank-ava { width: 24px; height: 24px; border-radius: 50%; background: var(--sg-off-white); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.hank-bubble { max-width: 80%; padding: 6px 10px; border-radius: 12px; font-size: 11.5px; line-height: 1.35; font-family: var(--font-body); }
+.hank-bubble.user { background: var(--sg-blue); color: #fff; border-bottom-right-radius: 3px; }
+.hank-bubble.bot { background: var(--sg-off-white); color: var(--fg1); border: 1px solid var(--border); border-bottom-left-radius: 3px; }
+.hank-bubble.thinking { display: inline-flex; align-items: center; gap: 4px; padding: 8px 11px; }
+.hank-bubble.thinking i { width: 5px; height: 5px; border-radius: 50%; background: var(--fg3); animation: hankBlink 1.4s infinite both; }
+.hank-bubble.thinking i:nth-child(2) { animation-delay: 0.2s; }
+.hank-bubble.thinking i:nth-child(3) { animation-delay: 0.4s; }
+.hank-think-cap { margin-left: 30px; font-size: 9px; color: var(--fg3); font-style: italic; font-family: var(--font-body); }
+@keyframes hankBlink { 0%, 80%, 100% { opacity: 0.25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) { .hank-bubble.thinking i { animation: none; opacity: 0.5; } }
 
 /* ===== POST INFOGRAPHICS (per-blog responsive content) ===== */
 .pi-block { background: linear-gradient(180deg, #fff 0%, var(--sg-off-white) 100%); border: 1px solid var(--border); border-radius: 14px; padding: 32px; margin: 36px 0; }

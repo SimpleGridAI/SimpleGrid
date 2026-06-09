@@ -189,7 +189,7 @@ function RadialBurst({
   // Backdrop: a strong colour core at the centre that eases out to white, so the
   // middle of the burst reads dense and the edges stay light.
   const [bR, bG, bB] = pal.bright;
-  // Dark palettes (Night) stay pitch black - no backdrop glow, so the only
+  // Dark palettes (Night, Space, Moon) stay pitch black - no backdrop glow, so the only
   // colour on screen comes from the rays themselves.
   const backdrop = pal.dark ? 'none' : `radial-gradient(circle at center, rgba(${bR},${bG},${bB},0.34) 0%, rgba(${bR},${bG},${bB},0.18) 18%, rgba(${bR},${bG},${bB},0.06) 42%, rgba(255,255,255,0) 70%)`;
   return /*#__PURE__*/React.createElement("div", {
@@ -215,8 +215,8 @@ function RadialBurst({
 window.RadialBurst = RadialBurst;
 
 // Nature presets for the splatter. `deep`/`bright` are the ray gradient
-// endpoints and `bg` is the band background - white for all but Night, which
-// goes dark with a blue burst.
+// endpoints and `bg` is the band background - white for all but the dark
+// themes (Night = blue, Space = violet, Moon = silver burst), which go pitch black.
 const BURST_PALETTES = [{
   name: 'Ocean',
   deep: [36, 76, 173],
@@ -258,7 +258,7 @@ const BURST_PALETTES = [{
   deep: [51, 65, 85],
   bright: [148, 163, 184],
   bg: '#fff',
-  icon: '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>'
+  icon: '<path d="M2 20 C6 12 10 10 13 14 C16 17.5 19 16 22 20 Z" fill="#8B5A2B" stroke="none"/>'
 }, {
   name: 'Night',
   deep: [29, 78, 240],
@@ -266,6 +266,20 @@ const BURST_PALETTES = [{
   bg: '#000',
   dark: true,
   icon: '<path d="M12 3a6.4 6.4 0 0 0 9 9 9 9 0 1 1-9-9Z"/><path d="M18.5 3.5v3"/><path d="M17 5h3"/>'
+}, {
+  name: 'Space',
+  deep: [88, 28, 135],
+  bright: [192, 132, 252],
+  bg: '#000',
+  dark: true,
+  icon: '<circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><path d="M10.4 21.9a10 10 0 0 0 9.941-15.416"/><path d="M13.5 2.1a10 10 0 0 0-9.841 15.416"/>'
+}, {
+  name: 'Moon',
+  deep: [71, 85, 105],
+  bright: [203, 213, 225],
+  bg: '#000',
+  dark: true,
+  icon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#FFD23F" stroke="none"/>'
 }];
 
 // A small nature icon (waves, pine, sun...) in the palette's own colour, used
@@ -858,30 +872,17 @@ function TrustStrip() {
 }
 window.TrustStrip = TrustStrip;
 function ProblemSection() {
-  const [activeChatStep, setActiveChatStep] = React.useState(0);
-  const chatRef = React.useRef(null);
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        let step = 0;
-        const t = setInterval(() => {
-          step++;
-          setActiveChatStep(step);
-          if (step >= 3) clearInterval(t);
-        }, 800);
-        return () => clearInterval(t);
-      }
-    }, {
-      threshold: 0.3
-    });
-    if (chatRef.current) observer.observe(chatRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const hankAva = /*#__PURE__*/React.createElement("span", {
+    className: "hank-ava",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 24 24", width: "15", height: "15", fill: "none", stroke: "var(--sg-blue)", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("rect", { x: "5", y: "9", width: "14", height: "10", rx: "3" }), /*#__PURE__*/React.createElement("path", { d: "M12 5v4" }), /*#__PURE__*/React.createElement("circle", { cx: "12", cy: "4", r: "1.1", fill: "var(--sg-blue)", stroke: "none" }), /*#__PURE__*/React.createElement("circle", { cx: "9.7", cy: "13.8", r: "1.1", fill: "var(--sg-blue)", stroke: "none" }), /*#__PURE__*/React.createElement("circle", { cx: "14.3", cy: "13.8", r: "1.1", fill: "var(--sg-blue)", stroke: "none" })));
   const problems = [{
     n: '01',
-    t: 'You pay before you ever see what works',
-    b: 'Six figures, often before you see a working screen. Three possible systems come out. You only find out which one you got after the check clears.',
-    footer: 'With SimpleGrid, you see and use it first. Then you pay.',
+    t: 'You pay before it works',
+    b: "Six figures up front, for a system you've never seen run.",
+    footer: 'See it run first. Then pay.',
     visual: /*#__PURE__*/React.createElement("svg", {
       viewBox: "0 0 400 200",
       style: {
@@ -933,22 +934,22 @@ function ProblemSection() {
       y: 50,
       label: 'Integrations',
       dy: 44,
-      delay: '0.3s'
+      delay: '1.5s'
     }, {
       y: 82,
       label: 'Licensing cost',
       dy: 12,
-      delay: '0.6s'
+      delay: '3s'
     }, {
       y: 114,
       label: 'Delays',
       dy: -20,
-      delay: '0.9s'
+      delay: '4.5s'
     }, {
       y: 146,
       label: 'Change requests',
       dy: -52,
-      delay: '1.2s'
+      delay: '6s'
     }].map((it, i) => /*#__PURE__*/React.createElement("g", {
       key: i
     }, /*#__PURE__*/React.createElement("path", {
@@ -966,7 +967,7 @@ function ProblemSection() {
       fontWeight: "600"
     }, it.label), /*#__PURE__*/React.createElement("g", {
       style: {
-        animation: `sg-suck-${i} 4s ${it.delay} ease-in infinite`,
+        animation: `sg-suck-${i} 20s ${it.delay} ease-in infinite`,
         transformOrigin: '0 0'
       }
     }, /*#__PURE__*/React.createElement("rect", {
@@ -1111,9 +1112,9 @@ function ProblemSection() {
           `))
   }, {
     n: '02',
-    t: 'Your business evolves. Your ERP does not.',
-    b: 'Every small change = 6-week consulting project.',
-    footer: 'SimpleGrid bends to your process. Most systems lock you in mid-growth.',
+    t: "Your ERP can't keep up",
+    b: 'Every small change becomes a six-week project.',
+    footer: 'SimpleGrid bends to your process.',
     visual: /*#__PURE__*/React.createElement("svg", {
       viewBox: "0 0 400 200",
       style: {
@@ -1144,7 +1145,7 @@ function ProblemSection() {
       fill: "#3461E0",
       style: {
         transformOrigin: '20px 72px',
-        animation: 'sg-grow-b 3s ease-out infinite'
+        animation: 'sg-grow-b 8.5s ease-out infinite'
       }
     }), /*#__PURE__*/React.createElement("text", {
       x: "370",
@@ -1155,7 +1156,7 @@ function ProblemSection() {
       textAnchor: "end",
       style: {
         opacity: 0,
-        animation: 'sg-fade-b 3s ease-out infinite'
+        animation: 'sg-fade-b 8.5s ease-out infinite'
       }
     }, "Scales"), /*#__PURE__*/React.createElement("text", {
       x: "20",
@@ -1179,7 +1180,7 @@ function ProblemSection() {
       fill: "#9CA3AF",
       style: {
         transformOrigin: '20px 146px',
-        animation: 'sg-grow-c 3s ease-out infinite'
+        animation: 'sg-grow-c 8.5s ease-out infinite'
       }
     }), /*#__PURE__*/React.createElement("text", {
       x: "214",
@@ -1190,9 +1191,9 @@ function ProblemSection() {
     }, "\u2190 Growth Stalls"), /*#__PURE__*/React.createElement("style", null, `@keyframes sg-grow-b{0%{transform:scaleX(0)}60%,100%{transform:scaleX(1)}}@keyframes sg-grow-c{0%{transform:scaleX(0)}50%,100%{transform:scaleX(1)}}@keyframes sg-fade-b{0%,60%{opacity:0}75%,100%{opacity:1}}`))
   }, {
     n: '03',
-    t: 'UI built for you, not for everyone',
-    b: 'Other ERPs feel complex because they are built for a thousand businesses at once - seven tabs, twelve fields. Yours has only what your floor needs. Nothing extra, nothing you do not want.',
-    footer: 'The ERP slows the floor, so teams go around it.',
+    t: 'Too complex to use',
+    b: 'Built for a thousand businesses, not your floor.',
+    footer: 'Yours shows only what you need.',
     visual: /*#__PURE__*/React.createElement("svg", {
       viewBox: "0 0 400 200",
       style: {
@@ -1304,46 +1305,79 @@ function ProblemSection() {
     }, "\uD83D\uDE35"), /*#__PURE__*/React.createElement("style", null, `@keyframes sg-conf{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}`))
   }, {
     n: '04',
-    t: 'You cannot change how 100 people work',
-    b: 'So your ERP has to work like they already do.',
-    footer: 'If they can text, they can use this.',
+    t: "You can't retrain everyone",
+    b: 'So it works the way they already do.',
+    footer: 'If they can text, they can use it.',
     visual: null,
     isChatDemo: true
   }];
+  const trackRef = React.useRef(null);
+  React.useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0, offset = 0, last = 0, dragging = false, hoverPaused = false, clickPaused = false, onScreen = true, moved = false, startX = 0, startOffset = 0;
+    let setW = (track.scrollWidth || 2) / 2;
+    const measure = () => { const w = (track.scrollWidth || 0) / 2; if (w > 0) setW = w; };
+    measure();
+    const ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(measure) : null;
+    if (ro) ro.observe(track);
+    const io = (typeof IntersectionObserver !== 'undefined') ? new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; if (!onScreen) clickPaused = false; }, { threshold: 0 }) : null;
+    if (io) io.observe(track);
+    const wrap = (x) => { while (x <= -setW) x += setW; while (x > 0) x -= setW; return x; };
+    const apply = () => { track.style.transform = 'translateX(' + offset + 'px)'; };
+    const down = (e) => { dragging = true; moved = false; startX = e.clientX; startOffset = offset; if (track.setPointerCapture) { try { track.setPointerCapture(e.pointerId); } catch (err) {} } };
+    const move = (e) => { if (!dragging) return; if (Math.abs(e.clientX - startX) > 4) moved = true; offset = wrap(startOffset + (e.clientX - startX)); apply(); };
+    const up = () => { if (!dragging) return; dragging = false; if (!moved) clickPaused = !clickPaused; };
+    const enter = () => { hoverPaused = true; };
+    const leave = () => { hoverPaused = false; };
+    track.addEventListener('pointerdown', down);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    track.addEventListener('mouseenter', enter);
+    track.addEventListener('mouseleave', leave);
+    const loop = (t) => {
+      raf = requestAnimationFrame(loop);
+      if (!last) last = t;
+      const dt = Math.min((t - last) / 1000, 0.05); last = t;
+      if (!dragging && !hoverPaused && !clickPaused && onScreen) { offset = wrap(offset - (setW / 120) * dt); apply(); }
+    };
+    raf = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(raf);
+      track.removeEventListener('pointerdown', down);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+      track.removeEventListener('mouseenter', enter);
+      track.removeEventListener('mouseleave', leave);
+      if (ro) ro.disconnect();
+      if (io) io.disconnect();
+    };
+  }, []);
   return /*#__PURE__*/React.createElement("section", {
     className: "section",
+    id: "why-erp",
     style: {
-      paddingTop: 44,
+      paddingTop: 28,
       paddingBottom: 44
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
-    className: "tag",
-    style: {
-      marginBottom: 0
-    }
+    className: "tag"
   }, "WHY ERP KEEPS FAILING MID-MARKET"), /*#__PURE__*/React.createElement("h2", {
     className: "h2"
-  }, "Every ERP vendor makes you pay first and hope it works. We flipped it. Why are you buying ERP that way?")), /*#__PURE__*/React.createElement("div", {
-    className: "problem-grid",
-    style: {
-      marginTop: 14
-    },
-    ref: chatRef
-  }, problems.map((p, i) => /*#__PURE__*/React.createElement(Reveal, {
-    key: p.n,
-    delay: i * 100
+  }, "Every ERP vendor makes you pay first and hope it works. We flipped it. Why are you buying ERP that way?")), /*#__PURE__*/React.createElement(Reveal, {
+    delay: 100
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: '#fff',
-      border: '1px solid var(--border)',
-      borderRadius: 'var(--radius-lg)',
-      padding: 16,
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column'
-    }
+    className: "problem-marquee"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "problem-track",
+    ref: trackRef
+  }, [...problems, ...problems].map((p, i) => /*#__PURE__*/React.createElement("div", {
+    className: "problem-card",
+    key: i,
+    "aria-hidden": i >= problems.length
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
@@ -1354,7 +1388,7 @@ function ProblemSection() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: 'var(--font-heading)',
-      fontSize: 22,
+      fontSize: 25,
       fontWeight: 700,
       color: 'var(--sg-blue)',
       letterSpacing: '-0.02em'
@@ -1362,63 +1396,61 @@ function ProblemSection() {
   }, p.n), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontFamily: 'var(--font-heading)',
-      fontSize: 17,
+      fontSize: 19.5,
       fontWeight: 700,
       color: 'var(--fg1)',
       margin: 0,
       letterSpacing: '-0.01em',
-      lineHeight: 1.3
+      lineHeight: 1.28
     }
   }, p.t)), /*#__PURE__*/React.createElement("p", {
     style: {
-      fontSize: 13,
-      color: 'var(--fg2)',
-      lineHeight: 1.5,
-      margin: '0 0 10px'
+      fontSize: 15,
+      color: 'var(--fg1)',
+      lineHeight: 1.55,
+      margin: '0 0 12px'
     }
   }, p.b), /*#__PURE__*/React.createElement("div", {
     className: 'problem-visual' + (p.isChatDemo ? ' problem-visual-chat' : ' problem-visual-svg')
   }, p.isChatDemo ? /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: '100%',
-      fontFamily: 'var(--font-mono)',
-      fontSize: 13.5,
-      lineHeight: 1.7
-    }
+    className: "hank-demo"
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: 'var(--fg3)',
-      fontSize: 11,
-      marginBottom: 10,
-      fontFamily: 'var(--font-body)',
-      fontWeight: 600,
-      letterSpacing: '0.08em',
-      textTransform: 'uppercase'
-    }
+    className: "hank-terminal"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hank-terminal-label"
   }, "Warehouse manager types:"), /*#__PURE__*/React.createElement("div", {
     style: {
-      color: 'var(--fg1)',
-      opacity: activeChatStep >= 1 ? 1 : 0.2,
-      transition: 'opacity 0.3s'
+      color: 'var(--fg1)'
     }
-  }, "> Received 2,200 units of grade-A material from Midwest Supply"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: 'var(--sg-green)',
-      marginTop: 6,
-      opacity: activeChatStep >= 2 ? 1 : 0.2,
-      transition: 'opacity 0.3s'
-    }
+  }, "> Received 2,200 units from Midwest Supply"), /*#__PURE__*/React.createElement("div", {
+    className: "hank-terminal-ok"
   }, "\u2713 PO matched. Inventory updated."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 12,
-      fontFamily: 'var(--font-body)',
-      fontSize: 13,
-      color: 'var(--fg3)',
-      fontStyle: 'italic',
-      opacity: activeChatStep >= 3 ? 1 : 0.2,
-      transition: 'opacity 0.3s'
-    }
-  }, "No training. Same habit as texting.")) : p.visual), p.footer && /*#__PURE__*/React.createElement("div", {
+    className: "hank-terminal-note"
+  }, "No training. Same habit as texting.")), /*#__PURE__*/React.createElement("div", {
+    className: "hank-chat",
+    "aria-label": "Chat with Hank in SimpleGrid"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hank-chat-body"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hank-row user"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hank-bubble user"
+  }, "Received 2,200 units from Midwest Supply")), /*#__PURE__*/React.createElement("div", {
+    className: "hank-row bot"
+  }, hankAva, /*#__PURE__*/React.createElement("div", {
+    className: "hank-bubble bot"
+  }, "\u2713 Logged \u2014 PO matched, inventory updated.")), /*#__PURE__*/React.createElement("div", {
+    className: "hank-row user"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hank-bubble user"
+  }, "What's our cash position by buyer?")), /*#__PURE__*/React.createElement("div", {
+    className: "hank-row bot"
+  }, hankAva, /*#__PURE__*/React.createElement("div", {
+    className: "hank-bubble thinking",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("i", null))), /*#__PURE__*/React.createElement("div", {
+    className: "hank-think-cap"
+  }, "Hank is thinking\u2026")))) : p.visual), p.footer && /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 'auto'
     }
@@ -1428,12 +1460,12 @@ function ProblemSection() {
       paddingTop: 14,
       borderTop: '1px solid var(--border)',
       fontFamily: 'var(--font-body)',
-      fontSize: 14,
+      fontSize: 15.5,
       fontWeight: 700,
       color: 'var(--sg-blue)',
       lineHeight: 1.4
     }
-  }, p.footer))))))));
+  }, p.footer)))))))));
 }
 window.ProblemSection = ProblemSection;
 function WhatWeDo() {
@@ -1449,8 +1481,8 @@ function WhatWeDo() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const accent = getComputedStyle(document.documentElement).getPropertyValue('--sg-blue').trim() || '#3461E0';
-    const RING_LIFE_MS = 5500;
-    const SPAWN_INTERVAL_MS = 1000;
+    const RING_LIFE_MS = 12000;
+    const SPAWN_INTERVAL_MS = 1800;
     const rings = [];
     let raf,
       w = 0,
@@ -1494,7 +1526,7 @@ function WhatWeDo() {
       ctx.clearRect(0, 0, w, h);
       const cx = w / 2;
       const cy = h / 2;
-      const maxR = Math.min(w, h) * 0.62;
+      const maxR = Math.min(w, h) * 0.82;
       if (now - lastSpawn >= SPAWN_INTERVAL_MS) {
         rings.push({
           born: now
@@ -1542,6 +1574,7 @@ function WhatWeDo() {
   }, []);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("section", {
     className: "section section-dark sg-onboard",
+    id: "onboarding",
     style: {
       position: 'relative',
       overflow: 'hidden',
@@ -1997,6 +2030,75 @@ function HowItWorks() {
       fontWeight: "700"
     }, "3 HOURS"))
   }, {
+    body: "A few real documents from your operation - so the demo mirrors how you actually work.",
+    title: "What we need from you.",
+    details: [{
+      kind: 'p',
+      text: "Right after the call, you hand over a small set of real documents - actual samples from your operation, not blank templates. This is what we build the demo on, so it reflects how you really work."
+    }, {
+      kind: 'list',
+      items: ["1 purchase order", "1 sales order", "1 form you use", "1 job order example", "A sample of each spreadsheet & report you rely on"]
+    }, {
+      kind: 'p',
+      text: "Whatever format you already have works - PDF, Excel, even a photo of a paper form. No IT project, no clean-up needed. We take it from there."
+    }],
+    visual: /*#__PURE__*/React.createElement("svg", {
+      viewBox: "0 0 220 160",
+      style: {
+        width: '100%',
+        height: '100%'
+      },
+      preserveAspectRatio: "xMidYMid meet",
+      "aria-hidden": "true"
+    }, [{
+      n: '1',
+      t: 'Purchase order'
+    }, {
+      n: '1',
+      t: 'Sales order'
+    }, {
+      n: '1',
+      t: 'A form you use'
+    }, {
+      n: '1',
+      t: 'Job order example'
+    }, {
+      n: '✓',
+      t: 'Each spreadsheet & report'
+    }].map((r, i) => {
+      const y = 12 + i * 28;
+      return /*#__PURE__*/React.createElement("g", {
+        key: i
+      }, /*#__PURE__*/React.createElement("rect", {
+        x: "10",
+        y: y,
+        width: "200",
+        height: "24",
+        rx: "6",
+        fill: "var(--bg-alt)",
+        stroke: "var(--border)"
+      }), /*#__PURE__*/React.createElement("circle", {
+        cx: "26",
+        cy: y + 12,
+        r: "8",
+        fill: "rgba(52,97,224,0.12)",
+        stroke: "rgba(52,97,224,0.45)"
+      }), /*#__PURE__*/React.createElement("text", {
+        x: "26",
+        y: y + 15.5,
+        fontSize: "9",
+        fill: "#3461E0",
+        textAnchor: "middle",
+        fontWeight: "700"
+      }, r.n), /*#__PURE__*/React.createElement("text", {
+        x: "44",
+        y: y + 15.5,
+        fontSize: "9.5",
+        fill: "var(--fg1)",
+        fontWeight: "600"
+      }, r.t));
+    }))
+  }, {
     body: "Working demo in 24 hours, built around your operation.",
     title: "A working demo within 24 hours.",
     details: [{
@@ -2007,7 +2109,7 @@ function HowItWorks() {
       text: "Your products, your stages, your approval rules, and your buyers are modeled in. You and your team click around: create a PO, run an order through, log a receipt, see the inventory move."
     }, {
       kind: 'list',
-      items: ["60-70% accuracy on the first pass is typical - the rest gets fixed in step 3.", "Private URL, sign-in protected. Only your team sees it.", "Works in any browser. No app installs needed.", "This is the moment most operators tell us, “I've never seen a vendor do this.”"]
+      items: ["60-70% accuracy on the first pass is typical - the rest gets fixed in step 4.", "Private URL, sign-in protected. Only your team sees it.", "Works in any browser. No app installs needed.", "This is the moment most operators tell us, “I've never seen a vendor do this.”"]
     }],
     visual: /*#__PURE__*/React.createElement("svg", {
       viewBox: "0 0 220 160",
@@ -2337,19 +2439,19 @@ function HowItWorks() {
         fontWeight: "700"
       }, "LIVE"));
     }), /*#__PURE__*/React.createElement("circle", {
-      cx: "194",
+      cx: "196",
       cy: "22",
       r: "11",
       fill: "#10B981",
       opacity: "0.15"
     }), /*#__PURE__*/React.createElement("circle", {
-      cx: "194",
+      cx: "196",
       cy: "22",
       r: "6",
       fill: "#10B981",
       opacity: "0.3"
     }), /*#__PURE__*/React.createElement("circle", {
-      cx: "194",
+      cx: "196",
       cy: "22",
       r: "3",
       fill: "#10B981"
@@ -2376,108 +2478,97 @@ function HowItWorks() {
       preserveAspectRatio: "xMidYMid meet",
       "aria-hidden": "true"
     }, /*#__PURE__*/React.createElement("rect", {
-      x: "64",
-      y: "8",
-      width: "92",
-      height: "148",
-      rx: "12",
+      x: "54",
+      y: "4",
+      width: "112",
+      height: "152",
+      rx: "16",
       fill: "var(--fg1)"
     }), /*#__PURE__*/React.createElement("rect", {
-      x: "68",
-      y: "12",
-      width: "84",
-      height: "140",
-      rx: "8",
+      x: "58",
+      y: "8",
+      width: "104",
+      height: "144",
+      rx: "12",
       fill: "#FFFFFF"
     }), /*#__PURE__*/React.createElement("rect", {
-      x: "68",
-      y: "12",
-      width: "84",
-      height: "14",
-      rx: "8",
+      x: "58",
+      y: "8",
+      width: "104",
+      height: "22",
+      rx: "12",
       fill: "var(--bg-alt)"
     }), /*#__PURE__*/React.createElement("text", {
       x: "110",
-      y: "22",
-      fontSize: "7",
+      y: "23",
+      fontSize: "9",
       fill: "var(--fg1)",
       textAnchor: "middle",
       fontWeight: "600"
     }, "SimpleGrid"), /*#__PURE__*/React.createElement("rect", {
-      x: "72",
-      y: "32",
-      width: "62",
-      height: "26",
-      rx: "8",
+      x: "64",
+      y: "36",
+      width: "82",
+      height: "30",
+      rx: "10",
       fill: "#E9E9EB"
     }), /*#__PURE__*/React.createElement("text", {
-      x: "76",
-      y: "42",
-      fontSize: "6",
+      x: "72",
+      y: "48",
+      fontSize: "8.5",
       fill: "var(--fg1)"
     }, "Got 50 units of"), /*#__PURE__*/React.createElement("text", {
-      x: "76",
-      y: "50",
-      fontSize: "6",
+      x: "72",
+      y: "60",
+      fontSize: "8.5",
       fill: "var(--fg1)"
-    }, "red oak from Acme"), /*#__PURE__*/React.createElement("text", {
-      x: "76",
-      y: "58",
-      fontSize: "5",
-      fill: "var(--fg3)"
-    }, "10:42"), /*#__PURE__*/React.createElement("rect", {
-      x: "86",
-      y: "64",
-      width: "62",
-      height: "26",
-      rx: "8",
+    }, "red oak from Acme"), /*#__PURE__*/React.createElement("rect", {
+      x: "74",
+      y: "72",
+      width: "82",
+      height: "30",
+      rx: "10",
       fill: "#007AFF"
     }), /*#__PURE__*/React.createElement("text", {
-      x: "90",
-      y: "74",
-      fontSize: "6",
+      x: "82",
+      y: "85",
+      fontSize: "8.5",
       fill: "#fff",
       fontWeight: "700"
     }, "\u2713 PO matched"), /*#__PURE__*/React.createElement("text", {
-      x: "90",
-      y: "82",
-      fontSize: "6",
-      fill: "#fff"
-    }, "Inventory updated"), /*#__PURE__*/React.createElement("text", {
-      x: "142",
-      y: "90",
-      fontSize: "5",
-      fill: "var(--fg3)",
-      textAnchor: "end"
-    }, "Delivered"), /*#__PURE__*/React.createElement("rect", {
-      x: "72",
+      x: "82",
       y: "96",
-      width: "48",
-      height: "14",
-      rx: "7",
+      fontSize: "8.5",
+      fill: "#fff"
+    }, "Inventory updated"), /*#__PURE__*/React.createElement("rect", {
+      x: "64",
+      y: "108",
+      width: "50",
+      height: "18",
+      rx: "9",
       fill: "#E9E9EB"
     }), /*#__PURE__*/React.createElement("text", {
-      x: "76",
-      y: "105",
-      fontSize: "6",
-      fill: "var(--fg1)"
-    }, "Thanks!"), /*#__PURE__*/React.createElement("rect", {
       x: "72",
       y: "120",
-      width: "76",
-      height: "14",
-      rx: "7",
+      fontSize: "8.5",
+      fill: "var(--fg1)"
+    }, "Thanks!"), /*#__PURE__*/React.createElement("rect", {
+      x: "64",
+      y: "132",
+      width: "92",
+      height: "16",
+      rx: "8",
       fill: "#fff",
       stroke: "var(--border)",
-      strokeWidth: "0.5"
+      strokeWidth: "0.6"
     }), /*#__PURE__*/React.createElement("text", {
-      x: "78",
-      y: "129",
-      fontSize: "5",
+      x: "70",
+      y: "143",
+      fontSize: "7",
       fill: "var(--fg3)"
-    }, "iMessage / SMS / Slack\u2026"), /*#__PURE__*/React.createElement("circle", {
-      cx: "146",
-      cy: "127",
+    }, "Text it like a human\u2026"), /*#__PURE__*/React.createElement("circle", {
+      cx: "150",
+      cy: "140",
       r: "5",
       fill: "#3461E0"
     }))
@@ -2502,8 +2593,23 @@ function HowItWorks() {
       __html: `
         /* Full-viewport section, sized like the hero, content centered. */
         #how-it-works{min-height:calc(100vh - 64px);display:flex;flex-direction:column;justify-content:center}
-        .hiw-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:32px}
-        @media(max-width:1100px){.hiw-grid{grid-template-columns:repeat(3,1fr)}}
+        .hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);column-gap:34px;row-gap:54px;margin-top:40px;position:relative}
+        .hiw-grid>div{position:relative}
+        /* Boustrophedon (snake) order: top row 1-2-3 left->right, bottom row
+           right->left so step 4 sits under 3, step 5 under 2, step 6 under 1. */
+        .hiw-grid>div:nth-child(1){grid-column:1;grid-row:1}
+        .hiw-grid>div:nth-child(2){grid-column:2;grid-row:1}
+        .hiw-grid>div:nth-child(3){grid-column:3;grid-row:1}
+        .hiw-grid>div:nth-child(4){grid-column:3;grid-row:2}
+        .hiw-grid>div:nth-child(5){grid-column:2;grid-row:2}
+        .hiw-grid>div:nth-child(6){grid-column:1;grid-row:2}
+        /* Directional flow: one soft hairline between steps, fading in toward the
+           next box. Smooth and barely-there - no arrows, no dots, minimal blue. */
+        .hiw-grid>div:nth-child(1)::after,.hiw-grid>div:nth-child(2)::after{content:"";position:absolute;top:50%;left:100%;width:34px;height:2px;border-radius:2px;transform:translateY(-50%);pointer-events:none;background:linear-gradient(to right,rgba(52,97,224,0.08),rgba(52,97,224,0.38))}
+        .hiw-grid>div:nth-child(4)::after,.hiw-grid>div:nth-child(5)::after{content:"";position:absolute;top:50%;right:100%;width:34px;height:2px;border-radius:2px;transform:translateY(-50%);pointer-events:none;background:linear-gradient(to left,rgba(52,97,224,0.08),rgba(52,97,224,0.38))}
+        .hiw-grid>div:nth-child(3)::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:54px;border-radius:2px;transform:translateX(-50%);pointer-events:none;background:linear-gradient(to bottom,rgba(52,97,224,0.08),rgba(52,97,224,0.38))}
+        .hiw-num{position:absolute;top:14px;left:16px;font-family:var(--font-mono,'JetBrains Mono',monospace);font-size:12px;font-weight:700;color:var(--sg-blue);letter-spacing:0.06em;z-index:1}
+        @media(max-width:1100px){.hiw-grid{grid-template-columns:repeat(2,1fr);column-gap:16px;row-gap:16px}.hiw-grid>div{grid-column:auto !important;grid-row:auto !important}.hiw-grid>div::after{display:none !important}}
         @media(max-width:720px){.hiw-grid{grid-template-columns:1fr}}
         .hiw-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:18px;height:100%;display:flex;flex-direction:column;transition:border-color 200ms,transform 200ms,box-shadow 200ms;position:relative;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%}
         .hiw-card:hover{border-color:var(--sg-blue);transform:translateY(-2px);box-shadow:0 8px 24px rgba(74,123,247,0.10)}
@@ -2511,8 +2617,10 @@ function HowItWorks() {
         .hiw-card:hover .hiw-corner svg{stroke:#fff}
         .hiw-corner{position:absolute;top:14px;right:14px;width:26px;height:26px;border-radius:6px;background:var(--sg-off-white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:background 200ms,border-color 200ms}
         .hiw-corner svg{transition:stroke 200ms}
-        .hiw-visual{height:140px;margin:36px 0 16px;display:flex;align-items:center;justify-content:center}
-        .hiw-body{font-size:13.5px;line-height:1.45;color:var(--fg1);margin:auto 0 0;font-family:var(--font-heading);font-weight:600;letter-spacing:-0.005em}
+        .hiw-visual{height:150px;margin:30px 0 18px;display:flex;align-items:center;justify-content:center}
+        .hiw-title{font-size:16.5px;line-height:1.32;color:var(--fg1);margin:auto 0 0;font-family:var(--font-heading);font-weight:700;letter-spacing:-0.012em}
+        .hiw-hint{font-size:11.5px;color:var(--fg3);margin-top:8px;display:inline-flex;align-items:center;gap:5px;font-weight:600;letter-spacing:0.02em}
+        .hiw-card:hover .hiw-hint{color:var(--sg-blue)}
 
         /* Modal */
         .hiw-modal{max-width:600px !important;padding:32px 36px !important;text-align:left;max-height:88vh;overflow-y:auto}
@@ -2554,6 +2662,9 @@ function HowItWorks() {
     }),
     "aria-label": `Step ${i + 1}: ${c.title}`
   }, /*#__PURE__*/React.createElement("span", {
+    className: "hiw-num",
+    "aria-hidden": "true"
+  }, String(i + 1).padStart(2, '0')), /*#__PURE__*/React.createElement("span", {
     className: "hiw-corner",
     "aria-hidden": "true"
   }, /*#__PURE__*/React.createElement("svg", {
@@ -2572,9 +2683,12 @@ function HowItWorks() {
     points: "21 15 21 21 15 21"
   }))), /*#__PURE__*/React.createElement("div", {
     className: "hiw-visual"
-  }, c.visual), /*#__PURE__*/React.createElement("p", {
-    className: "hiw-body"
-  }, c.body)))))), selected && /*#__PURE__*/React.createElement("div", {
+  }, c.visual), /*#__PURE__*/React.createElement("h3", {
+    className: "hiw-title"
+  }, c.title), /*#__PURE__*/React.createElement("span", {
+    className: "hiw-hint",
+    "aria-hidden": "true"
+  }, "See how it runs →")))))), selected && /*#__PURE__*/React.createElement("div", {
     className: "modal-overlay",
     onClick: e => {
       if (e.target === e.currentTarget) setSelected(null);

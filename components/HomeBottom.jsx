@@ -20,7 +20,7 @@ function FounderStory() {
         <Reveal>
           <div className="founder-text">
             <div className="tag">BUILT BY PEOPLE WHO'VE RUN A FACTORY FLOOR</div>
-            <blockquote>We ran multi-stage factories to $30mn annual revenue. We survived two ERP failures. We ended up back on Google Sheets.</blockquote>
+            <blockquote>We ran multi-stage factories to $30M annual revenue. We survived two ERP failures. We ended up back on Google Sheets.</blockquote>
             <p className="body">SimpleGrid exists because we were the customer first - multiple factories, 400-person workforce. We bought the same enterprise systems you're being pitched today. We watched them fail. We know exactly what breaks when the system can't keep up with the floor.</p>
             <p className="body">That's why we built SimpleGrid the only way that makes sense to an operator: model it on your factory, run it on your real floor for 30 days, and only charge when it earns its keep.</p>
             <p className="body">Senior engineers and deployment experts on every deployment. No sales reps. No SDRs. No chatbot. You deal with the people who'll actually build your system.</p>
@@ -34,7 +34,7 @@ window.FounderStory = FounderStory;
 
 function ProofSection() {
   return (
-    <section className="section">
+    <section className="section" id="case-studies">
       <div className="container">
         <Reveal>
           <div className="tag" style={{textAlign:'center'}}>CASE STUDIES</div>
@@ -47,9 +47,9 @@ function ProofSection() {
             { kind: 'apparel', name: 'Apparel Contract Manufacturer', desc: 'Apparel manufacturer · 80-100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.', stats: '2 failed ERPs → live in 12 days · 30+ locations, one view', quote: '"Working demo in 24 hours - 60-70% accurate. No vendor we\'ve worked with has done that."', attr: '- Founder (reference available on request)', link: 'case-apex.html', anchor: 'How they went live in 12 days' },
           ].map((c,i) => (
             <Reveal key={i} delay={i * 150}>
-              <a href={c.link} className="proof-card" style={{height:'100%',display:'block',textDecoration:'none',color:'inherit',transition:'all 160ms var(--ease-standard)'}}
-                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.08)'; }}
-                 onMouseLeave={(e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}>
+              <a href={c.link} className="proof-card" style={{height:'100%',display:'block',textDecoration:'none',color:'inherit',transition:'transform 160ms var(--ease-standard)'}}
+                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; }}
+                 onMouseLeave={(e) => { e.currentTarget.style.transform = ''; }}>
                 <div className="proof-img" style={c.kind === 'image' ? {background:c.img,height:220, position:'relative'} : {height:220, padding: 0, overflow: 'hidden'}}>
                   {c.kind === 'image' && (
                     <span style={{
@@ -108,12 +108,56 @@ function Integrations() {
   ];
   // Duplicate the list so the loop is seamless when the track translates by -50%.
   const doubled = [...items, ...items];
+  const intTrackRef = React.useRef(null);
+  // Auto-scroll the logo strip at a calm pace, but let the viewer grab and drag it. Wraps seamlessly.
+  React.useEffect(() => {
+    const track = intTrackRef.current;
+    if (!track) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0, offset = 0, last = 0, dragging = false, hoverPaused = false, onScreen = true, startX = 0, startOffset = 0;
+    let setW = 1;
+    const measure = () => { const sw = track.scrollWidth || 0; if (sw > 0) setW = sw / 2 + 7; };
+    measure();
+    const ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(measure) : null;
+    if (ro) ro.observe(track);
+    const io = (typeof IntersectionObserver !== 'undefined') ? new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; }, { threshold: 0 }) : null;
+    if (io) io.observe(track);
+    const wrap = (x) => { while (x <= -setW) x += setW; while (x > 0) x -= setW; return x; };
+    const apply = () => { track.style.transform = 'translateX(' + offset + 'px)'; };
+    const down = (e) => { dragging = true; startX = e.clientX; startOffset = offset; if (track.setPointerCapture) { try { track.setPointerCapture(e.pointerId); } catch (err) {} } };
+    const move = (e) => { if (!dragging) return; offset = wrap(startOffset + (e.clientX - startX)); apply(); };
+    const up = () => { dragging = false; };
+    const enter = () => { hoverPaused = true; };
+    const leave = () => { hoverPaused = false; };
+    track.addEventListener('pointerdown', down);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    track.addEventListener('mouseenter', enter);
+    track.addEventListener('mouseleave', leave);
+    const loop = (t) => {
+      raf = requestAnimationFrame(loop);
+      if (!last) last = t;
+      const dt = Math.min((t - last) / 1000, 0.05); last = t;
+      if (!dragging && !hoverPaused && onScreen) { offset = wrap(offset - (setW / 200) * dt); apply(); }
+    };
+    raf = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(raf);
+      track.removeEventListener('pointerdown', down);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+      track.removeEventListener('mouseenter', enter);
+      track.removeEventListener('mouseleave', leave);
+      if (ro) ro.disconnect();
+      if (io) io.disconnect();
+    };
+  }, []);
   return (
     <section className="section" id="integrations" style={{ minHeight: 'calc((100vh - 64px) / 2.6)', paddingTop: 40, paddingBottom: 40, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <style dangerouslySetInnerHTML={{__html:`
         .int-marquee{overflow:hidden;padding:6px 0;mask-image:linear-gradient(90deg,transparent 0%,black 6%,black 94%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 6%,black 94%,transparent 100%);margin-top:24px}
-        .int-track{display:flex;gap:14px;width:max-content;animation:int-roll 38s linear infinite}
-        .int-marquee:hover .int-track,.int-marquee:focus-within .int-track{animation-play-state:paused}
+        .int-track{display:flex;gap:14px;width:max-content;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;will-change:transform}
+        .int-track:active{cursor:grabbing}
         .int-marquee .int-card{flex:0 0 150px;position:relative}
         .int-marquee .int-card-custom{border:1px dashed var(--sg-blue);background:rgba(74,123,247,0.04)}
         .int-marquee .int-card-custom .int-name{color:var(--sg-blue)}
@@ -138,7 +182,7 @@ function Integrations() {
       </div>
       <Reveal delay={200}>
         <div className="int-marquee">
-          <div className="int-track">
+          <div className="int-track" ref={intTrackRef}>
             {doubled.map((ig,i) => (
               <div key={i} className={'int-card' + (ig.custom ? ' int-card-custom' : '')} aria-hidden={i >= items.length ? 'true' : undefined} title={ig.status === 'live' ? 'Live today' : ig.status === 'request' ? 'Built on request' : ''}>
                 {ig.status === 'live' && <span className="int-badge int-badge-live">Live</span>}

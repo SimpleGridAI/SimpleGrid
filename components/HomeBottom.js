@@ -34,7 +34,7 @@ function FounderStory() {
     className: "founder-text"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "BUILT BY PEOPLE WHO'VE RUN A FACTORY FLOOR"), /*#__PURE__*/React.createElement("blockquote", null, "We ran multi-stage factories to $30mn annual revenue. We survived two ERP failures. We ended up back on Google Sheets."), /*#__PURE__*/React.createElement("p", {
+  }, "BUILT BY PEOPLE WHO'VE RUN A FACTORY FLOOR"), /*#__PURE__*/React.createElement("blockquote", null, "We ran multi-stage factories to $30M annual revenue. We survived two ERP failures. We ended up back on Google Sheets."), /*#__PURE__*/React.createElement("p", {
     className: "body"
   }, "SimpleGrid exists because we were the customer first - multiple factories, 400-person workforce. We bought the same enterprise systems you're being pitched today. We watched them fail. We know exactly what breaks when the system can't keep up with the floor."), /*#__PURE__*/React.createElement("p", {
     className: "body"
@@ -45,7 +45,8 @@ function FounderStory() {
 window.FounderStory = FounderStory;
 function ProofSection() {
   return /*#__PURE__*/React.createElement("section", {
-    className: "section"
+    className: "section",
+    id: "case-studies"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
@@ -97,15 +98,13 @@ function ProofSection() {
       display: 'block',
       textDecoration: 'none',
       color: 'inherit',
-      transition: 'all 160ms var(--ease-standard)'
+      transition: 'transform 160ms var(--ease-standard)'
     },
     onMouseEnter: e => {
-      e.currentTarget.style.transform = 'translateY(-2px)';
-      e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.08)';
+      e.currentTarget.style.transform = 'translateY(-3px)';
     },
     onMouseLeave: e => {
       e.currentTarget.style.transform = '';
-      e.currentTarget.style.boxShadow = '';
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "proof-img",
@@ -245,6 +244,49 @@ function Integrations() {
   }];
   // Duplicate the list so the loop is seamless when the track translates by -50%.
   const doubled = [...items, ...items];
+  const intTrackRef = React.useRef(null);
+  React.useEffect(() => {
+    const track = intTrackRef.current;
+    if (!track) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0, offset = 0, last = 0, dragging = false, hoverPaused = false, onScreen = true, startX = 0, startOffset = 0;
+    let setW = 1;
+    const measure = () => { const sw = track.scrollWidth || 0; if (sw > 0) setW = sw / 2 + 7; };
+    measure();
+    const ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(measure) : null;
+    if (ro) ro.observe(track);
+    const io = (typeof IntersectionObserver !== 'undefined') ? new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; }, { threshold: 0 }) : null;
+    if (io) io.observe(track);
+    const wrap = (x) => { while (x <= -setW) x += setW; while (x > 0) x -= setW; return x; };
+    const apply = () => { track.style.transform = 'translateX(' + offset + 'px)'; };
+    const down = (e) => { dragging = true; startX = e.clientX; startOffset = offset; if (track.setPointerCapture) { try { track.setPointerCapture(e.pointerId); } catch (err) {} } };
+    const move = (e) => { if (!dragging) return; offset = wrap(startOffset + (e.clientX - startX)); apply(); };
+    const up = () => { dragging = false; };
+    const enter = () => { hoverPaused = true; };
+    const leave = () => { hoverPaused = false; };
+    track.addEventListener('pointerdown', down);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    track.addEventListener('mouseenter', enter);
+    track.addEventListener('mouseleave', leave);
+    const loop = (t) => {
+      raf = requestAnimationFrame(loop);
+      if (!last) last = t;
+      const dt = Math.min((t - last) / 1000, 0.05); last = t;
+      if (!dragging && !hoverPaused && onScreen) { offset = wrap(offset - (setW / 200) * dt); apply(); }
+    };
+    raf = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(raf);
+      track.removeEventListener('pointerdown', down);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+      track.removeEventListener('mouseenter', enter);
+      track.removeEventListener('mouseleave', leave);
+      if (ro) ro.disconnect();
+      if (io) io.disconnect();
+    };
+  }, []);
   return /*#__PURE__*/React.createElement("section", {
     className: "section",
     id: "integrations",
@@ -260,8 +302,8 @@ function Integrations() {
     dangerouslySetInnerHTML: {
       __html: `
         .int-marquee{overflow:hidden;padding:6px 0;mask-image:linear-gradient(90deg,transparent 0%,black 6%,black 94%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 6%,black 94%,transparent 100%);margin-top:24px}
-        .int-track{display:flex;gap:14px;width:max-content;animation:int-roll 38s linear infinite}
-        .int-marquee:hover .int-track,.int-marquee:focus-within .int-track{animation-play-state:paused}
+        .int-track{display:flex;gap:14px;width:max-content;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;will-change:transform}
+        .int-track:active{cursor:grabbing}
         .int-marquee .int-card{flex:0 0 150px;position:relative}
         .int-marquee .int-card-custom{border:1px dashed var(--sg-blue);background:rgba(74,123,247,0.04)}
         .int-marquee .int-card-custom .int-name{color:var(--sg-blue)}
@@ -300,7 +342,8 @@ function Integrations() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "int-marquee"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "int-track"
+    className: "int-track",
+    ref: intTrackRef
   }, doubled.map((ig, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     className: 'int-card' + (ig.custom ? ' int-card-custom' : ''),

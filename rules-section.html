@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your process, enforced — SimpleGrid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B0F17;
+    --text: rgba(255,255,255,0.86);       /* off-white, never pure white */
+    --text-strong: rgba(255,255,255,0.94);
+    --muted: rgba(255,255,255,0.55);
+    --faint: rgba(255,255,255,0.08);       /* hairlines */
+    --accent: #3B82F6;                     /* only on the arrows */
+    --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+  .rules { padding: 120px 24px; }
+  .rules__wrap { max-width: 1080px; margin: 0 auto; }
+
+  .rules__eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+  .rules__title { margin: 0; font-size: clamp(30px, 4.4vw, 44px); font-weight: 600; letter-spacing: -0.025em; line-height: 1.1; color: var(--text-strong); max-width: 900px; }
+  .rules__sub { margin: 20px 0 0; font-size: 17px; color: var(--muted); max-width: 760px; }
+
+  .rules__list { margin-top: 64px; }
+
+  /* full-width borderless row: condition  →  outcome */
+  .rule { display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: center; padding: 38px 0; border-top: 1px solid var(--faint); }
+  .rule:first-child { border-top: 0; padding-top: 8px; }
+
+  .rule__head { position: relative; padding-left: 16px; margin: 0 0 10px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; color: var(--text-strong); }
+  .rule__head::before { content: ''; position: absolute; left: 0; top: 3px; bottom: 3px; width: 3px; border-radius: 2px; background: var(--accent); }
+  .rule__cond { padding-left: 16px; margin: 0; font-size: 15.5px; color: var(--muted); line-height: 1.55; }
+  .rule__arrow { font-size: 40px; line-height: 1; color: var(--accent); font-weight: 400; justify-self: center; }
+  .rule__out { margin: 0; font-size: 15.5px; color: var(--muted); line-height: 1.6; }
+
+  /* Mobile: stack, and drop the arrow vertically between condition and outcome */
+  @media (max-width: 820px) {
+    .rules { padding: 84px 20px; }
+    .rules__list { margin-top: 44px; }
+    .rule { grid-template-columns: 1fr; gap: 16px; padding: 30px 0; }
+    .rule__arrow { transform: rotate(90deg); font-size: 30px; justify-self: start; margin: 2px 0; }
+  }
+</style>
+</head>
+<body>
+  <section class="rules" aria-labelledby="rules-title">
+    <div class="rules__wrap">
+      <span class="rules__eyebrow">Your process, enforced</span>
+      <h2 class="rules__title" id="rules-title">Every factory has rules that only the people inside it understand.</h2>
+      <p class="rules__sub">Approval chains. Vendor exceptions. QC gates that differ per buyer. These rules live in your head, in messaging apps, in notebooks. In our system, they live in configuration, and the system enforces them automatically.</p>
+
+      <div class="rules__list">
+        <div class="rule">
+          <div class="rule__left">
+            <h3 class="rule__head">Your approval chain has exceptions</h3>
+            <p class="rule__cond">"POs over $10K need founder sign-off, but 3 trusted vendors get a higher limit"</p>
+          </div>
+          <div class="rule__arrow" aria-hidden="true">&rarr;</div>
+          <p class="rule__out">Both rules enforced automatically. No multi-week change order, no consultant fees.</p>
+        </div>
+
+        <div class="rule">
+          <div class="rule__left">
+            <h3 class="rule__head">Your QC works differently per buyer</h3>
+            <p class="rule__cond">"Retailer A needs 75% shelf life, Retailer B accepts 60%"</p>
+          </div>
+          <div class="rule__arrow" aria-hidden="true">&rarr;</div>
+          <p class="rule__out">One rule per buyer. System blocks dispatch automatically if the product is too old for that buyer.</p>
+        </div>
+
+        <div class="rule">
+          <div class="rule__left">
+            <h3 class="rule__head">Your rework goes to the original contractor</h3>
+            <p class="rule__cond">"QC fails 40 pieces; original contractor redoes it at no cost"</p>
+          </div>
+          <div class="rule__arrow" aria-hidden="true">&rarr;</div>
+          <p class="rule__out">Rework auto-routes to the same contractor. Rate = $0. Done.</p>
+        </div>
+
+        <div class="rule">
+          <div class="rule__left">
+            <h3 class="rule__head">Your shipments have size limits</h3>
+            <p class="rule__cond">"Buyer's dock handles 40 CBM, order is 55 CBM"</p>
+          </div>
+          <div class="rule__arrow" aria-hidden="true">&rarr;</div>
+          <p class="rule__out">System splits into two shipments, generates two packing lists, updates the order. No manual work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

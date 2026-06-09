@@ -140,6 +140,7 @@
     box-shadow: 0 0.35em 1em rgba(0,0,0,0.45);
     position: relative;
     z-index: 1;
+    animation: circleGlow 20s linear infinite;
   }
   .node .circle svg {
     width: 1.4em;
@@ -164,13 +165,114 @@
     filter: drop-shadow(0 0 0.28em rgba(74,123,247,0.6)) drop-shadow(0 0 0.7em rgba(74,123,247,0.35));
   }
 
-  /* Single rule - every ring shares the same animation, so they stay in sync. */
+  /* Sequential activation - the stages light up ONE AT A TIME, in order.
+     The full cycle is 15s, split into 10 equal 1.5s slots: stage 01 spins,
+     a light ray glides to stage 02, stage 02 spins, ray to 03, and so on.
+     After stage 05 finishes, the ray runs off the right edge of the frame,
+     re-enters from the left edge, and glides to stage 01, which spins again. */
   .ring {
-    animation: spin 4s linear infinite;
-    animation-delay: 0s;
+    opacity: 0;
+    animation: ringPulse 20s linear infinite;
   }
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+  /* One full rotation + glow during this stage's 1s window, hidden otherwise. */
+  @keyframes ringPulse {
+    0%   { opacity: 0; transform: rotate(0deg); }
+    2%   { opacity: 1; }
+    8%   { opacity: 1; }
+    10%  { opacity: 0; transform: rotate(360deg); }
+    100% { opacity: 0; transform: rotate(360deg); }
+  }
+  /* The circle itself flushes blue while its ring sweeps. */
+  @keyframes circleGlow {
+    0%   { border-color: rgba(255,255,255,0.2); box-shadow: 0 0.35em 1em rgba(0,0,0,0.45); }
+    2%   { border-color: rgba(74,123,247,0.95); box-shadow: 0 0 1.3em rgba(74,123,247,0.55), 0 0.35em 1em rgba(0,0,0,0.45); }
+    8.5% { border-color: rgba(74,123,247,0.95); box-shadow: 0 0 1.3em rgba(74,123,247,0.55), 0 0.35em 1em rgba(0,0,0,0.45); }
+    11%  { border-color: rgba(255,255,255,0.2); box-shadow: 0 0.35em 1em rgba(0,0,0,0.45); }
+    100% { border-color: rgba(255,255,255,0.2); box-shadow: 0 0.35em 1em rgba(0,0,0,0.45); }
+  }
+
+  /* Per-stage offset. Stage N activates at real time (N-1)*3s within the loop;
+     a negative delay phase-shifts each pulse with no initial pause.
+     .stages' first two children are .track and .pulse-ray, so the 5 stages
+     are nth-child 3-7. Keeping these in sync with the ray is what makes the
+     order strict: circle 01 spins, ray glides 01->02, circle 02 spins, etc. */
+  .stage:nth-child(3) .ring, .stage:nth-child(3) .circle { animation-delay: 0s; }
+  .stage:nth-child(4) .ring, .stage:nth-child(4) .circle { animation-delay: -16s; }
+  .stage:nth-child(5) .ring, .stage:nth-child(5) .circle { animation-delay: -12s; }
+  .stage:nth-child(6) .ring, .stage:nth-child(6) .circle { animation-delay: -8s; }
+  .stage:nth-child(7) .ring, .stage:nth-child(7) .circle { animation-delay: -4s; }
+
+  /* The light ray that carries the pulse from one circle to the next.
+     It departs a circle only AFTER that circle has finished spinning, glides
+     smoothly along the connector as a glowing comet (bright head, fading tail),
+     and fades out exactly as it reaches the next circle - which then begins to
+     spin. It stays hidden during the wrap so stage 01 simply lights up again. */
+  .pulse-ray {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 2em;
+    height: 0.22em;
+    border-radius: 0.22em;
+    background: linear-gradient(to right,
+      rgba(74,123,247,0) 0%,
+      rgba(74,123,247,0.55) 55%,
+      rgba(143,176,255,1) 100%);
+    box-shadow:
+      0 0 0.45em rgba(74,123,247,0.9),
+      0 0 1em rgba(74,123,247,0.5);
+    transform: translate(-50%, calc(-50% - 0.6em));
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: rayTravel 20s linear infinite;
+  }
+  /* Position is pinned at each circle's centre (10/30/50/70/90%) on the fade
+     points, so the ray clearly leaves one circle and arrives at the next. */
+  @keyframes rayTravel {
+    /* stage 01 spinning - ray waits, hidden, at circle 01 */
+    0%, 10%   { left: 10%; opacity: 0; }
+    /* glide 01 -> 02 */
+    12%       { left: 12%; opacity: 1; }
+    18%       { left: 28%; opacity: 1; }
+    20%       { left: 30%; opacity: 0; }
+    /* stage 02 spinning */
+    30%       { left: 30%; opacity: 0; }
+    /* glide 02 -> 03 */
+    32%       { left: 32%; opacity: 1; }
+    38%       { left: 48%; opacity: 1; }
+    40%       { left: 50%; opacity: 0; }
+    /* stage 03 spinning */
+    50%       { left: 50%; opacity: 0; }
+    /* glide 03 -> 04 */
+    52%       { left: 52%; opacity: 1; }
+    58%       { left: 68%; opacity: 1; }
+    60%       { left: 70%; opacity: 0; }
+    /* stage 04 spinning */
+    70%       { left: 70%; opacity: 0; }
+    /* glide 04 -> 05 */
+    72%       { left: 72%; opacity: 1; }
+    78%       { left: 88%; opacity: 1; }
+    80%       { left: 90%; opacity: 0; }
+    /* stage 05 (Dispatch) spinning - ray waits, hidden, at the last circle */
+    90%       { left: 90%; opacity: 0; }
+    /* wrap: ray leaves the last circle and runs off the RIGHT edge of the frame */
+    91%       { left: 93%;  opacity: 1; }
+    95%       { left: 115%; opacity: 1; }
+    95.5%     { left: 115%; opacity: 0; }
+    /* it is repositioned past the LEFT edge while hidden (no visible sweep-back) */
+    96%       { left: -15%; opacity: 0; }
+    96.5%     { left: -15%; opacity: 1; }
+    /* then re-enters from the left and glides in to the first circle, which spins again */
+    99%       { left: 7%;   opacity: 1; }
+    100%      { left: 10%;  opacity: 0; }
+  }
+
+  /* Respect users who prefer no motion: keep every ring softly lit, no movement. */
+  @media (prefers-reduced-motion: reduce) {
+    .ring { animation: none; opacity: 1; }
+    .node .circle { animation: none; }
+    .pulse-ray { display: none; }
   }
 
   .stage-name {
@@ -181,12 +283,20 @@
     text-transform: uppercase;
     margin-bottom: 0.4em;
   }
+  /* Pulled out of the flow so a one- vs two-line caption can't change a stage's
+     height. With only the (uniform) label, circle and name left in flow, all
+     five stages are the same height, so the circles align precisely on one line. */
   .stage-sub {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 14em;
     font-size: 0.72em;
     color: rgba(255,255,255,0.5);
     line-height: 1.4;
     text-align: center;
-    max-width: 14em;
     padding: 0 0.3em;
   }
 
@@ -222,6 +332,7 @@
   <div class="stages">
 
     <div class="track"></div>
+    <div class="pulse-ray"></div>
 
     <div class="stage">
       <div class="stage-label">Stage 01</div>

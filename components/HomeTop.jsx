@@ -174,7 +174,7 @@ function RadialBurst({ palette }) {
   // Backdrop: a strong colour core at the centre that eases out to white, so the
   // middle of the burst reads dense and the edges stay light.
   const [bR, bG, bB] = pal.bright;
-  // Dark palettes (Night) stay pitch black - no backdrop glow, so the only
+  // Dark palettes (Night, Space, Moon) stay pitch black - no backdrop glow, so the only
   // colour on screen comes from the rays themselves.
   const backdrop = pal.dark ? 'none' : `radial-gradient(circle at center, rgba(${bR},${bG},${bB},0.34) 0%, rgba(${bR},${bG},${bB},0.18) 18%, rgba(${bR},${bG},${bB},0.06) 42%, rgba(255,255,255,0) 70%)`;
   return (
@@ -200,8 +200,8 @@ function RadialBurst({ palette }) {
 window.RadialBurst = RadialBurst;
 
 // Nature presets for the splatter. `deep`/`bright` are the ray gradient
-// endpoints and `bg` is the band background - white for all but Night, which
-// goes dark with a blue burst.
+// endpoints and `bg` is the band background - white for all but the dark
+// themes (Night = blue, Space = violet, Moon = silver burst), which go pitch black.
 const BURST_PALETTES = [
   { name: 'Ocean',    deep: [36, 76, 173],   bright: [46, 86, 198],   bg: '#fff',    icon: '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1C7 13 7 11 9.5 11c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1C7 19 7 17 9.5 17c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>' },
   { name: 'Sky',      deep: [14, 116, 200],  bright: [56, 189, 248],  bg: '#fff',    icon: '<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>' },
@@ -209,8 +209,10 @@ const BURST_PALETTES = [
   { name: 'Forest',   deep: [6, 59, 40],     bright: [21, 128, 61],   bg: '#fff',    icon: '<path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7Z"/><path d="M12 22v-3"/>' },
   { name: 'Sunset',   deep: [194, 65, 12],   bright: [251, 146, 60],  bg: '#fff',    icon: '<path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/>' },
   { name: 'Sunrise',  deep: [180, 83, 9],    bright: [251, 191, 36],  bg: '#fff',    icon: '<path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/>' },
-  { name: 'Mountain', deep: [51, 65, 85],    bright: [148, 163, 184], bg: '#fff',    icon: '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>' },
+  { name: 'Mountain', deep: [51, 65, 85],    bright: [148, 163, 184], bg: '#fff',    icon: '<path d="M2 20 C6 12 10 10 13 14 C16 17.5 19 16 22 20 Z" fill="#8B5A2B" stroke="none"/>' },
   { name: 'Night',    deep: [29, 78, 240],   bright: [80, 150, 255],  bg: '#000', dark: true, icon: '<path d="M12 3a6.4 6.4 0 0 0 9 9 9 9 0 1 1-9-9Z"/><path d="M18.5 3.5v3"/><path d="M17 5h3"/>' },
+  { name: 'Space',    deep: [88, 28, 135],   bright: [192, 132, 252], bg: '#000', dark: true, icon: '<circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><path d="M10.4 21.9a10 10 0 0 0 9.941-15.416"/><path d="M13.5 2.1a10 10 0 0 0-9.841 15.416"/>' },
+  { name: 'Moon',     deep: [71, 85, 105],   bright: [203, 213, 225], bg: '#000', dark: true, icon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#FFD23F" stroke="none"/>' },
 ];
 
 // A small nature icon (waves, pine, sun...) in the palette's own colour, used
@@ -454,29 +456,23 @@ function TrustStrip() {
 window.TrustStrip = TrustStrip;
 
 function ProblemSection() {
-  const [activeChatStep, setActiveChatStep] = React.useState(0);
-  const chatRef = React.useRef(null);
-  
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        let step = 0;
-        const t = setInterval(() => {
-          step++;
-          setActiveChatStep(step);
-          if (step >= 3) clearInterval(t);
-        }, 800);
-        return () => clearInterval(t);
-      }
-    }, { threshold: 0.3 });
-    if (chatRef.current) observer.observe(chatRef.current);
-    return () => observer.disconnect();
-  }, []);
+  // Hank's avatar - a small assistant glyph (no external image needed).
+  const hankAva = (
+    <span className="hank-ava" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--sg-blue)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="5" y="9" width="14" height="10" rx="3"/>
+        <path d="M12 5v4"/>
+        <circle cx="12" cy="4" r="1.1" fill="var(--sg-blue)" stroke="none"/>
+        <circle cx="9.7" cy="13.8" r="1.1" fill="var(--sg-blue)" stroke="none"/>
+        <circle cx="14.3" cy="13.8" r="1.1" fill="var(--sg-blue)" stroke="none"/>
+      </svg>
+    </span>
+  );
 
   const problems = [
     {
-      n: '01', t: 'You pay before you ever see what works', b: 'Six figures, often before you see a working screen. Three possible systems come out. You only find out which one you got after the check clears.',
-      footer: 'With SimpleGrid, you see and use it first. Then you pay.',
+      n: '01', t: 'You pay before it works', b: "Six figures up front, for a system you've never seen run.",
+      footer: 'See it run first. Then pay.',
       visual: (
         <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}} aria-hidden="true">
           <defs>
@@ -495,10 +491,10 @@ function ProblemSection() {
           {/* Money inflows - five labeled $ chips with curved trails into the hole */}
           {[
             { y: 18,  label: 'Consultants',     dy: 76,  delay: '0s'   },
-            { y: 50,  label: 'Integrations',    dy: 44,  delay: '0.3s' },
-            { y: 82,  label: 'Licensing cost',  dy: 12,  delay: '0.6s' },
-            { y: 114, label: 'Delays',          dy: -20, delay: '0.9s' },
-            { y: 146, label: 'Change requests', dy: -52, delay: '1.2s' },
+            { y: 50,  label: 'Integrations',    dy: 44,  delay: '1.5s' },
+            { y: 82,  label: 'Licensing cost',  dy: 12,  delay: '3s'   },
+            { y: 114, label: 'Delays',          dy: -20, delay: '4.5s' },
+            { y: 146, label: 'Change requests', dy: -52, delay: '6s'   },
           ].map((it, i) => (
             <g key={i}>
               {/* Curved dashed trail from chip start to hole center */}
@@ -506,7 +502,7 @@ function ProblemSection() {
               {/* Static label */}
               <text x="38" y={it.y - 2} fontSize="10.5" fill="#374151" fontWeight="600">{it.label}</text>
               {/* Animated $ chip flowing into the hole */}
-              <g style={{animation:`sg-suck-${i} 4s ${it.delay} ease-in infinite`, transformOrigin:'0 0'}}>
+              <g style={{animation:`sg-suck-${i} 20s ${it.delay} ease-in infinite`, transformOrigin:'0 0'}}>
                 <rect x="10" y={it.y} width="22" height="14" rx="3" fill="#DC2A3D"/>
                 <text x="21" y={it.y + 11} fontSize="10" fill="#fff" fontWeight="700" textAnchor="middle">$</text>
               </g>
@@ -556,25 +552,25 @@ function ProblemSection() {
       )
     },
     {
-      n: '02', t: 'Your business evolves. Your ERP does not.', b: 'Every small change = 6-week consulting project.',
-      footer: 'SimpleGrid bends to your process. Most systems lock you in mid-growth.',
+      n: '02', t: "Your ERP can't keep up", b: 'Every small change becomes a six-week project.',
+      footer: 'SimpleGrid bends to your process.',
       visual: (
         <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}} aria-hidden="true">
           <text x="20" y="50" fontSize="13" fill="var(--fg1)" fontWeight="600">Your business with a fluid ERP</text>
           <rect x="20" y="62" width="360" height="20" rx="10" fill="#E5E8ED"/>
-          <rect x="20" y="62" width="360" height="20" rx="10" fill="#3461E0" style={{transformOrigin:'20px 72px',animation:'sg-grow-b 3s ease-out infinite'}}/>
-          <text x="370" y="76" fontSize="11" fill="#fff" fontWeight="700" textAnchor="end" style={{opacity:0,animation:'sg-fade-b 3s ease-out infinite'}}>Scales</text>
+          <rect x="20" y="62" width="360" height="20" rx="10" fill="#3461E0" style={{transformOrigin:'20px 72px',animation:'sg-grow-b 8.5s ease-out infinite'}}/>
+          <text x="370" y="76" fontSize="11" fill="#fff" fontWeight="700" textAnchor="end" style={{opacity:0,animation:'sg-fade-b 8.5s ease-out infinite'}}>Scales</text>
           <text x="20" y="124" fontSize="13" fill="var(--fg1)" fontWeight="600">Your business with a rigid ERP</text>
           <rect x="20" y="136" width="360" height="20" rx="10" fill="#E5E8ED"/>
-          <rect x="20" y="136" width="180" height="20" rx="10" fill="#9CA3AF" style={{transformOrigin:'20px 146px',animation:'sg-grow-c 3s ease-out infinite'}}/>
+          <rect x="20" y="136" width="180" height="20" rx="10" fill="#9CA3AF" style={{transformOrigin:'20px 146px',animation:'sg-grow-c 8.5s ease-out infinite'}}/>
           <text x="214" y="150" fontSize="11" fill="#6B7280" fontWeight="700">← Growth Stalls</text>
           <style>{`@keyframes sg-grow-b{0%{transform:scaleX(0)}60%,100%{transform:scaleX(1)}}@keyframes sg-grow-c{0%{transform:scaleX(0)}50%,100%{transform:scaleX(1)}}@keyframes sg-fade-b{0%,60%{opacity:0}75%,100%{opacity:1}}`}</style>
         </svg>
       )
     },
     {
-      n: '03', t: 'UI built for you, not for everyone', b: 'Other ERPs feel complex because they are built for a thousand businesses at once - seven tabs, twelve fields. Yours has only what your floor needs. Nothing extra, nothing you do not want.',
-      footer: 'The ERP slows the floor, so teams go around it.',
+      n: '03', t: 'Too complex to use', b: 'Built for a thousand businesses, not your floor.',
+      footer: 'Yours shows only what you need.',
       visual: (
         <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}} aria-hidden="true">
           <rect x="10" y="10" width="380" height="180" rx="6" fill="#fff" stroke="#E5E8ED" strokeWidth="1.5"/>
@@ -608,48 +604,107 @@ function ProblemSection() {
       )
     },
     {
-      n: '04', t: 'You cannot change how 100 people work', b: 'So your ERP has to work like they already do.',
-      footer: 'If they can text, they can use this.',
+      n: '04', t: "You can't retrain everyone", b: 'So it works the way they already do.',
+      footer: 'If they can text, they can use it.',
       visual: null,
       isChatDemo: true,
     },
   ];
 
+  const trackRef = React.useRef(null);
+  // Auto-scroll the row at a calm pace; drag to bring back a card that passed.
+  // Click a card to pause; click again (or scroll it off-screen) to resume.
+  React.useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0, offset = 0, last = 0, dragging = false, hoverPaused = false, clickPaused = false, onScreen = true, moved = false, startX = 0, startOffset = 0;
+    let setW = (track.scrollWidth || 2) / 2;
+    const measure = () => { const w = (track.scrollWidth || 0) / 2; if (w > 0) setW = w; };
+    measure();
+    const ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(measure) : null;
+    if (ro) ro.observe(track);
+    const io = (typeof IntersectionObserver !== 'undefined') ? new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; if (!onScreen) clickPaused = false; }, { threshold: 0 }) : null;
+    if (io) io.observe(track);
+    const wrap = (x) => { while (x <= -setW) x += setW; while (x > 0) x -= setW; return x; };
+    const apply = () => { track.style.transform = 'translateX(' + offset + 'px)'; };
+    const down = (e) => { dragging = true; moved = false; startX = e.clientX; startOffset = offset; if (track.setPointerCapture) { try { track.setPointerCapture(e.pointerId); } catch (err) {} } };
+    const move = (e) => { if (!dragging) return; if (Math.abs(e.clientX - startX) > 4) moved = true; offset = wrap(startOffset + (e.clientX - startX)); apply(); };
+    const up = () => { if (!dragging) return; dragging = false; if (!moved) clickPaused = !clickPaused; };
+    const enter = () => { hoverPaused = true; };
+    const leave = () => { hoverPaused = false; };
+    track.addEventListener('pointerdown', down);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    track.addEventListener('mouseenter', enter);
+    track.addEventListener('mouseleave', leave);
+    const loop = (t) => {
+      raf = requestAnimationFrame(loop);
+      if (!last) last = t;
+      const dt = Math.min((t - last) / 1000, 0.05); last = t;
+      if (!dragging && !hoverPaused && !clickPaused && onScreen) { offset = wrap(offset - (setW / 120) * dt); apply(); }
+    };
+    raf = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(raf);
+      track.removeEventListener('pointerdown', down);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+      track.removeEventListener('mouseenter', enter);
+      track.removeEventListener('mouseleave', leave);
+      if (ro) ro.disconnect();
+      if (io) io.disconnect();
+    };
+  }, []);
+
   return (
-    <section className="section" style={{paddingTop:44,paddingBottom:44}}>
+    <section className="section" id="why-erp" style={{paddingTop:28,paddingBottom:44}}>
       <div className="container">
         <Reveal>
-          <div className="tag" style={{marginBottom:0}}>WHY ERP KEEPS FAILING MID-MARKET</div>
+          <div className="tag">WHY ERP KEEPS FAILING MID-MARKET</div>
           <h2 className="h2">Every ERP vendor makes you pay first and hope it works. We flipped it. Why are you buying ERP that way?</h2>
         </Reveal>
-        <div className="problem-grid" style={{marginTop:14}} ref={chatRef}>
-          {problems.map((p,i) => (
-            <Reveal key={p.n} delay={i * 100}>
-              <div style={{background:'#fff',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',padding:16,height:'100%',display:'flex',flexDirection:'column'}}>
-                <div style={{display:'flex',alignItems:'baseline',gap:12,marginBottom:8}}>
-                  <div style={{fontFamily:'var(--font-heading)',fontSize:22,fontWeight:700,color:'var(--sg-blue)',letterSpacing:'-0.02em'}}>{p.n}</div>
-                  <h3 style={{fontFamily:'var(--font-heading)',fontSize:17,fontWeight:700,color:'var(--fg1)',margin:0,letterSpacing:'-0.01em',lineHeight:1.3}}>{p.t}</h3>
-                </div>
-                <p style={{fontSize:13,color:'var(--fg2)',lineHeight:1.5,margin:'0 0 10px'}}>{p.b}</p>
-                <div className={'problem-visual' + (p.isChatDemo ? ' problem-visual-chat' : ' problem-visual-svg')}>
-                  {p.isChatDemo ? (
-                    <div style={{width:'100%',fontFamily:'var(--font-mono)',fontSize:13.5,lineHeight:1.7}}>
-                      <div style={{color:'var(--fg3)',fontSize:11,marginBottom:10,fontFamily:'var(--font-body)',fontWeight:600,letterSpacing:'0.08em',textTransform:'uppercase'}}>Warehouse manager types:</div>
-                      <div style={{color:'var(--fg1)',opacity:activeChatStep>=1?1:0.2,transition:'opacity 0.3s'}}>&gt; Received 2,200 units of grade-A material from Midwest Supply</div>
-                      <div style={{color:'var(--sg-green)',marginTop:6,opacity:activeChatStep>=2?1:0.2,transition:'opacity 0.3s'}}>✓ PO matched. Inventory updated.</div>
-                      <div style={{marginTop:12,fontFamily:'var(--font-body)',fontSize:13,color:'var(--fg3)',fontStyle:'italic',opacity:activeChatStep>=3?1:0.2,transition:'opacity 0.3s'}}>No training. Same habit as texting.</div>
-                    </div>
-                  ) : p.visual}
-                </div>
-                {p.footer && (
-                  <div style={{marginTop:'auto'}}>
-                    <div style={{marginTop:14,paddingTop:14,borderTop:'1px solid var(--border)',fontFamily:'var(--font-body)',fontSize:14,fontWeight:700,color:'var(--sg-blue)',lineHeight:1.4}}>{p.footer}</div>
+        <Reveal delay={100}>
+          <div className="problem-marquee">
+            <div className="problem-track" ref={trackRef}>
+              {[...problems, ...problems].map((p,i) => (
+                <div className="problem-card" key={i} aria-hidden={i >= problems.length}>
+                  <div style={{display:'flex',alignItems:'baseline',gap:12,marginBottom:8}}>
+                    <div style={{fontFamily:'var(--font-heading)',fontSize:25,fontWeight:700,color:'var(--sg-blue)',letterSpacing:'-0.02em'}}>{p.n}</div>
+                    <h3 style={{fontFamily:'var(--font-heading)',fontSize:19.5,fontWeight:700,color:'var(--fg1)',margin:0,letterSpacing:'-0.01em',lineHeight:1.28}}>{p.t}</h3>
                   </div>
-                )}
-              </div>
-            </Reveal>
-          ))}
-        </div>
+                  <p style={{fontSize:15,color:'var(--fg1)',lineHeight:1.55,margin:'0 0 12px'}}>{p.b}</p>
+                  <div className={'problem-visual' + (p.isChatDemo ? ' problem-visual-chat' : ' problem-visual-svg')}>
+                    {p.isChatDemo ? (
+                      <div className="hank-demo">
+                        <div className="hank-terminal">
+                          <div className="hank-terminal-label">Warehouse manager types:</div>
+                          <div style={{color:'var(--fg1)'}}>&gt; Received 2,200 units from Midwest Supply</div>
+                          <div className="hank-terminal-ok">✓ PO matched. Inventory updated.</div>
+                          <div className="hank-terminal-note">No training. Same habit as texting.</div>
+                        </div>
+                        <div className="hank-chat" aria-label="Chat with Hank in SimpleGrid">
+                          <div className="hank-chat-body">
+                            <div className="hank-row user"><div className="hank-bubble user">Received 2,200 units from Midwest Supply</div></div>
+                            <div className="hank-row bot">{hankAva}<div className="hank-bubble bot">✓ Logged — PO matched, inventory updated.</div></div>
+                            <div className="hank-row user"><div className="hank-bubble user">What's our cash position by buyer?</div></div>
+                            <div className="hank-row bot">{hankAva}<div className="hank-bubble thinking" aria-hidden="true"><i></i><i></i><i></i></div></div>
+                            <div className="hank-think-cap">Hank is thinking…</div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : p.visual}
+                  </div>
+                  {p.footer && (
+                    <div style={{marginTop:'auto'}}>
+                      <div style={{marginTop:14,paddingTop:14,borderTop:'1px solid var(--border)',fontFamily:'var(--font-body)',fontSize:15.5,fontWeight:700,color:'var(--sg-blue)',lineHeight:1.4}}>{p.footer}</div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -671,8 +726,8 @@ function WhatWeDo() {
     const accent = getComputedStyle(document.documentElement)
       .getPropertyValue('--sg-blue').trim() || '#3461E0';
 
-    const RING_LIFE_MS = 5500;
-    const SPAWN_INTERVAL_MS = 1000;
+    const RING_LIFE_MS = 12000;
+    const SPAWN_INTERVAL_MS = 1800;
     const rings = [];
     let raf, w = 0, h = 0, dpr = 1, lastSpawn = -SPAWN_INTERVAL_MS, cancelled = false;
 
@@ -711,7 +766,7 @@ function WhatWeDo() {
       ctx.clearRect(0, 0, w, h);
       const cx = w / 2;
       const cy = h / 2;
-      const maxR = Math.min(w, h) * 0.62;
+      const maxR = Math.min(w, h) * 0.82;
 
       if (now - lastSpawn >= SPAWN_INTERVAL_MS) {
         rings.push({ born: now });
@@ -759,7 +814,7 @@ function WhatWeDo() {
 
   return (
     <>
-    <section className="section section-dark sg-onboard" style={{position:'relative',overflow:'hidden',paddingTop:40,paddingBottom:48}}>
+    <section className="section section-dark sg-onboard" id="onboarding" style={{position:'relative',overflow:'hidden',paddingTop:40,paddingBottom:48}}>
       {/* Background grid with radial fade at the edges. Uses color-mix on
           --sg-blue so it tracks the brand accent without hardcoding a hex. */}
       <div className="sg-onboard-grid" aria-hidden="true" style={{
@@ -988,13 +1043,49 @@ function HowItWorks() {
       ),
     },
     {
+      body: "A few real documents from your operation - so the demo mirrors how you actually work.",
+      title: "What we need from you.",
+      details: [
+        { kind: 'p', text: "Right after the call, you hand over a small set of real documents - actual samples from your operation, not blank templates. This is what we build the demo on, so it reflects how you really work." },
+        { kind: 'list', items: [
+          "1 purchase order",
+          "1 sales order",
+          "1 form you use",
+          "1 job order example",
+          "A sample of each spreadsheet & report you rely on",
+        ] },
+        { kind: 'p', text: "Whatever format you already have works - PDF, Excel, even a photo of a paper form. No IT project, no clean-up needed. We take it from there." },
+      ],
+      visual: (
+        <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          {[
+            { n: '1', t: 'Purchase order' },
+            { n: '1', t: 'Sales order' },
+            { n: '1', t: 'A form you use' },
+            { n: '1', t: 'Job order example' },
+            { n: '✓', t: 'Each spreadsheet & report' },
+          ].map((r, i) => {
+            const y = 12 + i * 28;
+            return (
+              <g key={i}>
+                <rect x="10" y={y} width="200" height="24" rx="6" fill="var(--bg-alt)" stroke="var(--border)"/>
+                <circle cx="26" cy={y+12} r="8" fill="rgba(52,97,224,0.12)" stroke="rgba(52,97,224,0.45)"/>
+                <text x="26" y={y+15.5} fontSize="9" fill="#3461E0" textAnchor="middle" fontWeight="700">{r.n}</text>
+                <text x="44" y={y+15.5} fontSize="9.5" fill="var(--fg1)" fontWeight="600">{r.t}</text>
+              </g>
+            );
+          })}
+        </svg>
+      ),
+    },
+    {
       body: "Working demo in 24 hours, built around your operation.",
       title: "A working demo within 24 hours.",
       details: [
         { kind: 'p', text: "Within 24 hours of the call, we send you a private link. It's not slides, not a sandbox - it's a working version of your ERP, generated from the call." },
         { kind: 'p', text: "Your products, your stages, your approval rules, and your buyers are modeled in. You and your team click around: create a PO, run an order through, log a receipt, see the inventory move." },
         { kind: 'list', items: [
-          "60-70% accuracy on the first pass is typical - the rest gets fixed in step 3.",
+          "60-70% accuracy on the first pass is typical - the rest gets fixed in step 4.",
           "Private URL, sign-in protected. Only your team sees it.",
           "Works in any browser. No app installs needed.",
           "This is the moment most operators tell us, “I've never seen a vendor do this.”",
@@ -1093,9 +1184,9 @@ function HowItWorks() {
               </g>
             );
           })}
-          <circle cx="194" cy="22" r="11" fill="#10B981" opacity="0.15"/>
-          <circle cx="194" cy="22" r="6" fill="#10B981" opacity="0.3"/>
-          <circle cx="194" cy="22" r="3" fill="#10B981"/>
+          <circle cx="196" cy="22" r="11" fill="#10B981" opacity="0.15"/>
+          <circle cx="196" cy="22" r="6" fill="#10B981" opacity="0.3"/>
+          <circle cx="196" cy="22" r="3" fill="#10B981"/>
         </svg>
       ),
     },
@@ -1114,23 +1205,21 @@ function HowItWorks() {
       ],
       visual: (
         <svg viewBox="0 0 220 160" style={{width:'100%',height:'100%'}} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <rect x="64" y="8" width="92" height="148" rx="12" fill="var(--fg1)"/>
-          <rect x="68" y="12" width="84" height="140" rx="8" fill="#FFFFFF"/>
-          <rect x="68" y="12" width="84" height="14" rx="8" fill="var(--bg-alt)"/>
-          <text x="110" y="22" fontSize="7" fill="var(--fg1)" textAnchor="middle" fontWeight="600">SimpleGrid</text>
-          <rect x="72" y="32" width="62" height="26" rx="8" fill="#E9E9EB"/>
-          <text x="76" y="42" fontSize="6" fill="var(--fg1)">Got 50 units of</text>
-          <text x="76" y="50" fontSize="6" fill="var(--fg1)">red oak from Acme</text>
-          <text x="76" y="58" fontSize="5" fill="var(--fg3)">10:42</text>
-          <rect x="86" y="64" width="62" height="26" rx="8" fill="#007AFF"/>
-          <text x="90" y="74" fontSize="6" fill="#fff" fontWeight="700">✓ PO matched</text>
-          <text x="90" y="82" fontSize="6" fill="#fff">Inventory updated</text>
-          <text x="142" y="90" fontSize="5" fill="var(--fg3)" textAnchor="end">Delivered</text>
-          <rect x="72" y="96" width="48" height="14" rx="7" fill="#E9E9EB"/>
-          <text x="76" y="105" fontSize="6" fill="var(--fg1)">Thanks!</text>
-          <rect x="72" y="120" width="76" height="14" rx="7" fill="#fff" stroke="var(--border)" strokeWidth="0.5"/>
-          <text x="78" y="129" fontSize="5" fill="var(--fg3)">iMessage / SMS / Slack…</text>
-          <circle cx="146" cy="127" r="5" fill="#3461E0"/>
+          <rect x="54" y="4" width="112" height="152" rx="16" fill="var(--fg1)"/>
+          <rect x="58" y="8" width="104" height="144" rx="12" fill="#FFFFFF"/>
+          <rect x="58" y="8" width="104" height="22" rx="12" fill="var(--bg-alt)"/>
+          <text x="110" y="23" fontSize="9" fill="var(--fg1)" textAnchor="middle" fontWeight="600">SimpleGrid</text>
+          <rect x="64" y="36" width="82" height="30" rx="10" fill="#E9E9EB"/>
+          <text x="72" y="48" fontSize="8.5" fill="var(--fg1)">Got 50 units of</text>
+          <text x="72" y="60" fontSize="8.5" fill="var(--fg1)">red oak from Acme</text>
+          <rect x="74" y="72" width="82" height="30" rx="10" fill="#007AFF"/>
+          <text x="82" y="85" fontSize="8.5" fill="#fff" fontWeight="700">✓ PO matched</text>
+          <text x="82" y="96" fontSize="8.5" fill="#fff">Inventory updated</text>
+          <rect x="64" y="108" width="50" height="18" rx="9" fill="#E9E9EB"/>
+          <text x="72" y="120" fontSize="8.5" fill="var(--fg1)">Thanks!</text>
+          <rect x="64" y="132" width="92" height="16" rx="8" fill="#fff" stroke="var(--border)" strokeWidth="0.6"/>
+          <text x="70" y="143" fontSize="7" fill="var(--fg3)">Text it like a human…</text>
+          <circle cx="150" cy="140" r="5" fill="#3461E0"/>
         </svg>
       ),
     },
@@ -1152,8 +1241,23 @@ function HowItWorks() {
       <style dangerouslySetInnerHTML={{__html:`
         /* Full-viewport section, sized like the hero, content centered. */
         #how-it-works{min-height:calc(100vh - 64px);display:flex;flex-direction:column;justify-content:center}
-        .hiw-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:32px}
-        @media(max-width:1100px){.hiw-grid{grid-template-columns:repeat(3,1fr)}}
+        .hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);column-gap:34px;row-gap:54px;margin-top:40px;position:relative}
+        .hiw-grid>div{position:relative}
+        /* Boustrophedon (snake) order: top row 1-2-3 left->right, bottom row
+           right->left so step 4 sits under 3, step 5 under 2, step 6 under 1. */
+        .hiw-grid>div:nth-child(1){grid-column:1;grid-row:1}
+        .hiw-grid>div:nth-child(2){grid-column:2;grid-row:1}
+        .hiw-grid>div:nth-child(3){grid-column:3;grid-row:1}
+        .hiw-grid>div:nth-child(4){grid-column:3;grid-row:2}
+        .hiw-grid>div:nth-child(5){grid-column:2;grid-row:2}
+        .hiw-grid>div:nth-child(6){grid-column:1;grid-row:2}
+        /* Directional flow: one soft hairline between steps, fading in toward the
+           next box. Smooth and barely-there - no arrows, no dots, minimal blue. */
+        .hiw-grid>div:nth-child(1)::after,.hiw-grid>div:nth-child(2)::after{content:"";position:absolute;top:50%;left:100%;width:34px;height:2px;border-radius:2px;transform:translateY(-50%);pointer-events:none;background:linear-gradient(to right,rgba(52,97,224,0.08),rgba(52,97,224,0.38))}
+        .hiw-grid>div:nth-child(4)::after,.hiw-grid>div:nth-child(5)::after{content:"";position:absolute;top:50%;right:100%;width:34px;height:2px;border-radius:2px;transform:translateY(-50%);pointer-events:none;background:linear-gradient(to left,rgba(52,97,224,0.08),rgba(52,97,224,0.38))}
+        .hiw-grid>div:nth-child(3)::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:54px;border-radius:2px;transform:translateX(-50%);pointer-events:none;background:linear-gradient(to bottom,rgba(52,97,224,0.08),rgba(52,97,224,0.38))}
+        .hiw-num{position:absolute;top:14px;left:16px;font-family:var(--font-mono,'JetBrains Mono',monospace);font-size:12px;font-weight:700;color:var(--sg-blue);letter-spacing:0.06em;z-index:1}
+        @media(max-width:1100px){.hiw-grid{grid-template-columns:repeat(2,1fr);column-gap:16px;row-gap:16px}.hiw-grid>div{grid-column:auto !important;grid-row:auto !important}.hiw-grid>div::after{display:none !important}}
         @media(max-width:720px){.hiw-grid{grid-template-columns:1fr}}
         .hiw-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:18px;height:100%;display:flex;flex-direction:column;transition:border-color 200ms,transform 200ms,box-shadow 200ms;position:relative;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%}
         .hiw-card:hover{border-color:var(--sg-blue);transform:translateY(-2px);box-shadow:0 8px 24px rgba(74,123,247,0.10)}
@@ -1161,8 +1265,10 @@ function HowItWorks() {
         .hiw-card:hover .hiw-corner svg{stroke:#fff}
         .hiw-corner{position:absolute;top:14px;right:14px;width:26px;height:26px;border-radius:6px;background:var(--sg-off-white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:background 200ms,border-color 200ms}
         .hiw-corner svg{transition:stroke 200ms}
-        .hiw-visual{height:140px;margin:36px 0 16px;display:flex;align-items:center;justify-content:center}
-        .hiw-body{font-size:13.5px;line-height:1.45;color:var(--fg1);margin:auto 0 0;font-family:var(--font-heading);font-weight:600;letter-spacing:-0.005em}
+        .hiw-visual{height:150px;margin:30px 0 18px;display:flex;align-items:center;justify-content:center}
+        .hiw-title{font-size:16.5px;line-height:1.32;color:var(--fg1);margin:auto 0 0;font-family:var(--font-heading);font-weight:700;letter-spacing:-0.012em}
+        .hiw-hint{font-size:11.5px;color:var(--fg3);margin-top:8px;display:inline-flex;align-items:center;gap:5px;font-weight:600;letter-spacing:0.02em}
+        .hiw-card:hover .hiw-hint{color:var(--sg-blue)}
 
         /* Modal */
         .hiw-modal{max-width:600px !important;padding:32px 36px !important;text-align:left;max-height:88vh;overflow-y:auto}
@@ -1186,6 +1292,7 @@ function HowItWorks() {
           {cards.map((c, i) => (
             <Reveal key={i} delay={i * 80}>
               <button type="button" className="hiw-card" onClick={() => setSelected({ ...c, num: i + 1 })} aria-label={`Step ${i+1}: ${c.title}`}>
+                <span className="hiw-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                 <span className="hiw-corner" aria-hidden="true">
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--fg3)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="3 9 3 3 9 3"></polyline>
@@ -1193,7 +1300,8 @@ function HowItWorks() {
                   </svg>
                 </span>
                 <div className="hiw-visual">{c.visual}</div>
-                <p className="hiw-body">{c.body}</p>
+                <h3 className="hiw-title">{c.title}</h3>
+                <span className="hiw-hint" aria-hidden="true">See how it runs →</span>
               </button>
             </Reveal>
           ))}

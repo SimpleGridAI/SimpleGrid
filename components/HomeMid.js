@@ -265,46 +265,74 @@ window.DemoVideo = DemoVideo;
 function CustomRules() {
   const scenarios = [{
     t: 'Your approval chain has exceptions',
-    body: 'POs above $10K need founder sign-off. But three trusted vendors get a higher limit for the planner. That\'s two rules in our system. Both enforced automatically. In other ERPs, that\'s a multi-week change order with consultant fees attached.'
+    cond: '"POs over $10K need founder sign-off, but 3 trusted vendors get a higher limit"',
+    out: 'Both rules enforced automatically. No multi-week change order, no consultant fees.'
   }, {
     t: 'Your QC works differently per buyer',
-    body: 'Retailer A requires 75% shelf life remaining. Retailer B is fine with 60%. Your system should know this. Ours does - one rule per buyer. The system blocks dispatch automatically if the product is too old for that buyer.'
+    cond: '"Retailer A needs 75% shelf life, Retailer B accepts 60%"',
+    out: 'One rule per buyer. System blocks dispatch automatically if the product is too old for that buyer.'
   }, {
     t: 'Your rework goes to the original contractor',
-    body: 'QC fails 40 pieces. Your rule: original contractor redoes it at no cost. In our system, that\'s one rule. Rework auto-routes to the same contractor. Rate = $0. Done.'
+    cond: '"QC fails 40 pieces; original contractor redoes it at no cost"',
+    out: 'Rework auto-routes to the same contractor. Rate = $0. Done.'
   }, {
     t: 'Your shipments have size limits',
-    body: 'Your buyer\'s dock can only handle 40 CBM. Order is 55 CBM. Our system splits it into two shipments automatically, generates two packing lists, updates the order. One rule. No manual work.'
+    cond: '"Buyer\'s dock handles 40 CBM, order is 55 CBM"',
+    out: 'System splits into two shipments, generates two packing lists, updates the order. No manual work.'
   }];
   return /*#__PURE__*/React.createElement("section", {
-    className: "section",
-    id: "rules"
+    className: "section section-dark",
+    id: "rules",
+    style: {
+      background: '#0B0F17'
+    }
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
     className: "tag"
   }, "YOUR PROCESS, ENFORCED"), /*#__PURE__*/React.createElement("h2", {
-    className: "h2"
+    className: "h2",
+    style: {
+      color: '#fff'
+    }
   }, "Every factory has rules that only the people inside it understand."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
-      maxWidth: 960
+      maxWidth: 960,
+      color: 'rgba(255,255,255,0.62)'
     }
-  }, "Approval chains. Vendor exceptions. QC gates that differ per buyer. These rules live in your head, in messaging apps, in notebooks. In our system, they live in configuration - and the system enforces them automatically.")), /*#__PURE__*/React.createElement("div", {
-    className: "scenario-grid"
-  }, scenarios.map((s, i) => /*#__PURE__*/React.createElement(Reveal, {
-    key: i,
-    delay: i * 100
+  }, "Approval chains. Vendor exceptions. QC gates that differ per buyer. These rules live in your head, in messaging apps, in notebooks. In our system, they live in configuration - and the system enforces them automatically.")), /*#__PURE__*/React.createElement(Reveal, {
+    delay: 100
   }, /*#__PURE__*/React.createElement("div", {
-    className: "scenario-card",
-    style: {
-      height: '100%'
-    }
+    className: "pr-rows"
+  }, scenarios.map((s, i) => /*#__PURE__*/React.createElement("div", {
+    className: "pr-row",
+    key: i
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "pr-left"
   }, /*#__PURE__*/React.createElement("h3", {
-    className: "scenario-title"
+    className: "pr-head"
   }, s.t), /*#__PURE__*/React.createElement("p", {
-    className: "scenario-body"
-  }, s.body)))))));
+    className: "pr-cond"
+  }, s.cond)), /*#__PURE__*/React.createElement("div", {
+    className: "pr-arrow",
+    "aria-hidden": "true"
+  }, "→"), /*#__PURE__*/React.createElement("p", {
+    className: "pr-out"
+  }, s.out)))))), /*#__PURE__*/React.createElement("style", null, `
+        .pr-rows { margin-top: 40px; }
+        .pr-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: center; padding: 32px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+        .pr-row:first-child { border-top: 0; padding-top: 8px; }
+        .pr-head { position: relative; padding-left: 16px; font-family: var(--font-heading); font-size: 20px; font-weight: 700; letter-spacing: -0.01em; color: rgba(255,255,255,0.96); margin: 0 0 10px; }
+        .pr-head::before { content: ''; position: absolute; left: 0; top: 3px; bottom: 3px; width: 3px; border-radius: 2px; background: var(--sg-blue); }
+        .pr-cond { padding-left: 16px; font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.55; margin: 0; }
+        .pr-arrow { font-size: 40px; line-height: 1; color: var(--sg-blue); justify-self: center; }
+        .pr-out { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 0; }
+        @media (max-width: 820px) {
+          .pr-row { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+          .pr-arrow { transform: rotate(90deg); font-size: 30px; justify-self: start; margin: 2px 0; }
+        }
+      `));
 }
 window.CustomRules = CustomRules;
 function WhatYourTeamSees() {

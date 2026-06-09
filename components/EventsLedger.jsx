@@ -1,6 +1,64 @@
 // Events Ledger - flagship section. SG Schema + Event Sourcing.
 // Animated streaming feed + the architecture behind it.
 
+// Compact, looping event-ledger feed for the "what this gives you" block:
+// timestamped, named events animate in; only the newest row carries the blue accent.
+function ActivityFeed() {
+  const EVENTS = [
+    { t: '8:03 AM',  who: 'Mike',   act: 'opened the floor — shift A' },
+    { t: '9:21 AM',  who: 'Priya',  act: 'approved PO #4471' },
+    { t: '11:46 AM', who: 'Mike',   act: 'received 450 sheets' },
+    { t: '12:30 PM', who: 'System', act: 'inventory recomputed' },
+    { t: '2:14 PM',  who: 'QC',     act: 'dispatch held — QC fail' },
+    { t: '2:15 PM',  who: 'Dana',   act: 'corrective event logged' },
+    { t: '3:02 PM',  who: 'Mike',   act: '12 units scrapped — reason noted' },
+    { t: '4:20 PM',  who: 'Priya',  act: 'invoice matched to receipt' },
+  ];
+  const MAX = 6;
+  const ref = React.useRef(null);
+  const counter = React.useRef(4);
+  const [inView, setInView] = React.useState(false);
+  const [feed, setFeed] = React.useState(() => EVENTS.slice(0, 4).map((e, i) => ({ ...e, key: i })));
+
+  React.useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.2 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    if (!inView) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = setInterval(() => {
+      setFeed(prev => {
+        const k = counter.current;
+        counter.current = k + 1;
+        const e = EVENTS[k % EVENTS.length];
+        return [...prev, { ...e, key: k }].slice(-MAX);
+      });
+    }, 2100);
+    return () => clearInterval(id);
+  }, [inView]);
+
+  return (
+    <div ref={ref} className="al-panel" role="img" aria-label="A live event ledger feed of timestamped, named actions">
+      <div className="al-panel-top">
+        <span className="al-panel-label">Event ledger · Today</span>
+        <span className="al-live"><span className="al-dot"></span> live</span>
+      </div>
+      <div className="al-feed" aria-hidden="true">
+        {feed.map((e, i) => (
+          <div key={e.key} className={'al-evt' + (i === feed.length - 1 ? ' is-active' : '')}>
+            <span className="al-t">{e.t}</span>
+            <span className="al-who">{e.who}</span>
+            <span className="al-act">{e.act}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function EventsLedger() {
   // Realistic event stream that types in over time
   const allEvents = [
@@ -131,71 +189,34 @@ function EventsLedger() {
           </div>
         </Reveal>
 
-        {/* What this gives you - expanded benefits */}
+        {/* What this gives you - feature rows beside a live ledger feed */}
         <Reveal>
-          <div className="ledger-callout">
-            <div className="ledger-callout-tag">WHAT THIS GIVES YOU</div>
-            <h3 className="ledger-callout-h">Replay any day to see exactly what happened.</h3>
-            <p className="ledger-callout-p">
-              Pick any moment in your factory{'’'}s past - March 14th at 3:42 PM, last Tuesday morning, the day before that big dispatch - and see exactly what was true. Who approved what. Where the order was. What inventory you had. The system replays it for you, with the names and the timestamps still attached.
-            </p>
-          </div>
+          <div className="al-callout-tag">WHAT THIS GIVES YOU</div>
         </Reveal>
-
-        <div className="ledger-benefits">
-          {[
-            {
-              icon: '⟳',
-              t: 'Replay any day, any hour.',
-              p: '“Why was the Wednesday dispatch held?” Open the day. Watch the events in order. The reason is in the log - with the name, the time, and what changed because of it.',
-            },
-            {
-              icon: '⚖',
-              t: 'Disputes resolved by the system.',
-              p: 'Vendor says 500 sheets. Log says 450, received by Mike, 11:46 AM Tuesday. No more “let me check with the team.” The argument is over before it starts.',
-            },
-            {
-              icon: '✓',
-              t: 'Audit-ready, by default.',
-              p: 'IRS audit. OSHA inspection. SOX or buyer audit. You don’t scramble to assemble proof - every event already has a timestamp and a name on it. Filter, export, send.',
-            },
-            {
-              icon: '↺',
-              t: 'Mistakes are reversible, never hidden.',
-              p: 'Wrong approval? Wrong receipt? Issue a corrective event. The original is still there, the correction is recorded next to it. Nothing is overwritten, nothing is lost.',
-            },
-            {
-              icon: '∞',
-              t: 'One source of truth, forever.',
-              p: 'Inventory, AR, AP, production status - all computed from the same log, in real time. No nightly reconciliation, no “the report says X but the Slack thread says Y.”',
-            },
-            {
-              icon: '◆',
-              t: 'Trust without supervision.',
-              p: 'Every action carries a name. Edits, approvals, cancellations - all visible to you, not just to the person who did it. You stop being the bottleneck for trust.',
-            },
-          ].map((x, i) => (
-            <Reveal key={i} delay={i * 70}>
-              <div style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 12,
-                padding: '24px 26px',
-                height: '100%',
-                display: 'flex', flexDirection: 'column', gap: 10,
-              }}>
-                <div style={{
-                  width: 36, height: 36, borderRadius: 8,
-                  background: 'rgba(74,123,247,0.16)',
-                  color: 'var(--sg-blue)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 18, fontWeight: 700,
-                }}>{x.icon}</div>
-                <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: 18, fontWeight: 700, color: '#fff', margin: '4px 0 0', letterSpacing: '-0.01em' }}>{x.t}</h4>
-                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)', lineHeight: 1.6, margin: 0 }}>{x.p}</p>
-              </div>
-            </Reveal>
-          ))}
+        <div className="al-grid">
+          <Reveal>
+            <div className="al-rows">
+              {[
+                { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>', t: 'Replay any day, any hour', p: 'Open a day, watch events in order. The reason is in the log: name, time, what changed.' },
+                { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>', t: 'Disputes resolved by the system', p: 'Vendor says 500 sheets. Log says 450, received by Mike, 11:46 AM Tuesday. Argument over before it starts.' },
+                { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>', t: 'Audit-ready by default', p: 'IRS, OSHA, SOX, buyer audits. Every event already timestamped and named. Filter, export, send.' },
+                { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>', t: 'Mistakes are reversible, never hidden', p: 'Issue a corrective event. Original stays, correction sits next to it. Nothing overwritten.' },
+                { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>', t: 'One source of truth, forever', p: 'Inventory, AR, AP, production all computed from one log, real time. No reconciliation.' },
+                { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg>', t: 'Trust without supervision', p: 'Every action carries a name. You stop being the bottleneck for trust.' },
+              ].map((x, i) => (
+                <div className="al-row" key={i}>
+                  <span className="al-ico" aria-hidden="true" dangerouslySetInnerHTML={{ __html: x.svg }}></span>
+                  <div>
+                    <h4 className="al-h">{x.t}</h4>
+                    <p className="al-p">{x.p}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal delay={120}>
+            <ActivityFeed />
+          </Reveal>
         </div>
       </div>
 
@@ -205,6 +226,36 @@ function EventsLedger() {
           to   { opacity: 1; transform: translateY(0);    background: transparent; }
         }
         .ledger-row:hover { background: rgba(255,255,255,0.02); }
+
+        /* "What this gives you" - borderless rows + live ledger feed */
+        .al-callout-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sg-blue); margin: 56px 0 22px; }
+        .al-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: start; }
+        .al-rows { display: flex; flex-direction: column; }
+        .al-row { display: grid; grid-template-columns: 26px 1fr; gap: 16px; padding: 24px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+        .al-row:first-child { border-top: 0; padding-top: 2px; }
+        .al-ico { color: var(--sg-blue); width: 24px; height: 24px; margin-top: 3px; }
+        .al-ico svg { width: 24px; height: 24px; display: block; }
+        .al-h { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.92); margin: 0; letter-spacing: -0.01em; }
+        .al-p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.55; margin: 6px 0 0; }
+        .al-panel { position: relative; background: #0E0E10; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px 16px 6px; box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+        .al-panel-top { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px 14px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .al-panel-label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+        .al-live { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: rgba(255,255,255,0.5); }
+        .al-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sg-blue); position: relative; }
+        .al-dot::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid var(--sg-blue); opacity: 0; animation: alPulse 2.1s ease-out infinite; }
+        @keyframes alPulse { 0% { transform: scale(0.6); opacity: 0.7; } 100% { transform: scale(1.85); opacity: 0; } }
+        .al-feed { height: 300px; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; overflow: hidden; padding: 8px 0 6px; -webkit-mask: linear-gradient(180deg, transparent 0, #000 14%, #000 100%); mask: linear-gradient(180deg, transparent 0, #000 14%, #000 100%); }
+        .al-evt { display: grid; grid-template-columns: 76px 58px 1fr; align-items: baseline; gap: 10px; padding: 10px 12px; border-radius: 8px; border-left: 2px solid transparent; animation: alIn 420ms ease both; }
+        .al-t { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.4); white-space: nowrap; }
+        .al-who { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
+        .al-act { font-size: 13px; color: rgba(255,255,255,0.5); }
+        .al-evt.is-active { background: rgba(74,123,247,0.12); border-left-color: var(--sg-blue); }
+        .al-evt.is-active .al-t { color: var(--sg-blue); }
+        .al-evt.is-active .al-who { color: #fff; }
+        .al-evt.is-active .al-act { color: rgba(255,255,255,0.88); }
+        @keyframes alIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 880px) { .al-grid { grid-template-columns: 1fr; gap: 36px; } }
+        @media (prefers-reduced-motion: reduce) { .al-evt { animation: none; } .al-dot::after { animation: none; } }
       `}</style>
     </section>
   );
@@ -382,6 +433,8 @@ window.ProductHeroNew = ProductHeroNew;
 
 // PRODUCT FEATURE - Hank, the AI chatbot for the shop floor
 function MotivationSection() {
+  // Hank the bulldog mascot - stylised flat illustration, standing upright in a blue "HANK" cap.
+  const BULLDOG_SVG = '<svg viewBox="0 0 320 470" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hank, the SimpleGrid bulldog mascot in a blue HANK cap"><ellipse cx="160" cy="448" rx="116" ry="14" fill="rgba(15,23,42,0.10)"/><ellipse cx="121" cy="432" rx="32" ry="16" fill="#B8946B"/><ellipse cx="199" cy="432" rx="32" ry="16" fill="#B8946B"/><rect x="94" y="258" width="132" height="174" rx="54" fill="#C9A883"/><ellipse cx="160" cy="348" rx="46" ry="62" fill="#EFE6D6"/><ellipse cx="93" cy="306" rx="19" ry="46" fill="#C9A883" transform="rotate(9 93 306)"/><ellipse cx="86" cy="350" rx="21" ry="17" fill="#B8946B"/><ellipse cx="160" cy="180" rx="102" ry="90" fill="#C9A883"/><path d="M66 122 Q50 156 82 164 Q96 136 86 112 Q76 110 66 122 Z" fill="#B8946B"/><path d="M254 122 Q270 156 238 164 Q224 136 234 112 Q244 110 254 122 Z" fill="#B8946B"/><ellipse cx="113" cy="236" rx="44" ry="42" fill="#C9A883"/><ellipse cx="207" cy="236" rx="44" ry="42" fill="#C9A883"/><ellipse cx="160" cy="226" rx="62" ry="46" fill="#EFE6D6"/><path d="M160 214 L160 230" stroke="#6B5238" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M160 230 Q131 250 107 235" stroke="#6B5238" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M160 230 Q189 250 213 235" stroke="#6B5238" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="150" y="234" width="9" height="11" rx="2.5" fill="#fff"/><rect x="161" y="234" width="9" height="11" rx="2.5" fill="#fff"/><ellipse cx="160" cy="204" rx="20" ry="14" fill="#2B2B2B"/><ellipse cx="152" cy="199" rx="5" ry="3.5" fill="rgba(255,255,255,0.4)"/><ellipse cx="124" cy="172" rx="15" ry="16" fill="#fff"/><ellipse cx="196" cy="172" rx="15" ry="16" fill="#fff"/><circle cx="128" cy="174" r="8" fill="#2B2B2B"/><circle cx="192" cy="174" r="8" fill="#2B2B2B"/><circle cx="125" cy="170" r="2.6" fill="#fff"/><circle cx="189" cy="170" r="2.6" fill="#fff"/><path d="M103 154 Q124 143 145 152" stroke="#B8946B" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M175 152 Q196 143 217 154" stroke="#B8946B" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M74 130 Q74 56 160 56 Q246 56 246 130 Q160 142 74 130 Z" fill="#3461E0"/><path d="M90 128 Q160 140 230 128 Q242 148 160 150 Q78 148 90 128 Z" fill="#2748B8"/><circle cx="160" cy="58" r="5.5" fill="#2748B8"/><text x="160" y="106" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="800" fill="#fff" text-anchor="middle" letter-spacing="2">HANK</text><g><ellipse cx="234" cy="221" rx="16" ry="58" fill="#C9A883" transform="rotate(22 234 221)"/><ellipse cx="256" cy="166" rx="20" ry="17" fill="#B8946B"/><animateTransform attributeName="transform" type="rotate" values="0 212 274;-16 212 274;13 212 274;-16 212 274;13 212 274;0 212 274;0 212 274" keyTimes="0;0.02;0.05;0.08;0.11;0.13;1" dur="15s" repeatCount="indefinite"/></g></svg>';
   return (
     <section className="section" id="hank" style={{ background: 'var(--sg-off-white)', minHeight: 'calc(100vh - 64px)', paddingTop: 48, paddingBottom: 48, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <div className="container">
@@ -394,7 +447,8 @@ function MotivationSection() {
           </div>
         </Reveal>
         <Reveal delay={150}>
-          <div style={{ marginTop: 36, maxWidth: 780, marginLeft: 'auto', marginRight: 'auto' }}>
+          <div className="hank-stage" style={{ marginTop: 36, display: 'grid', gridTemplateColumns: '0.78fr 1.5fr', gap: 32, alignItems: 'center' }}>
+            <div className="hank-mascot" aria-hidden="true" dangerouslySetInnerHTML={{ __html: BULLDOG_SVG }} />
             <HankChat />
           </div>
         </Reveal>
@@ -402,6 +456,14 @@ function MotivationSection() {
           <a href="case-studies.html" style={{fontSize:14,fontWeight:600,color:'var(--sg-blue)',textDecoration:'none'}}>See live customer deployments →</a>
         </div>
       </div>
+      <style>{`
+        .hank-mascot { display: flex; justify-content: flex-start; align-items: flex-end; }
+        .hank-mascot svg { width: 100%; max-width: 380px; height: auto; display: block; filter: drop-shadow(0 18px 30px rgba(15,23,42,0.12)); }
+        @media (max-width: 860px) {
+          .hank-stage { grid-template-columns: 1fr !important; gap: 20px !important; }
+          .hank-mascot svg { max-width: 240px; }
+        }
+      `}</style>
     </section>
   );
 }

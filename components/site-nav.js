@@ -49,6 +49,30 @@
     '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">' +
     '<path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 
+  // "Home" is a section-jump dropdown on EVERY page: hover (or focus) opens it,
+  // and the chevron is always shown. On the home page the links scroll in-page;
+  // on other pages they point at index.html#section so they navigate home + land.
+  var homeSections = [
+    ['why-erp', 'Why ERP keeps failing'],
+    ['onboarding', 'Selective onboarding'],
+    ['how-it-works', 'How it works'],
+    ['case-studies', 'Case studies'],
+    ['founder', 'Built by operators'],
+    ['home-faq', 'FAQ']
+  ];
+  var homeHref = function (id) { return (page === 'home') ? ('#' + id) : (p('index.html') + '#' + id); };
+  var homeMenuLinks = homeSections.map(function (s) {
+    return '<a href="' + homeHref(s[0]) + '">' + s[1] + '</a>';
+  }).join('');
+  var homeNavDesktop =
+    '<div class="nav-home">' +
+      '<a href="' + p('index.html') + '" class="nav-link' + on('home') + ' nav-home-trigger" aria-haspopup="true">Home ' + chevron + '</a>' +
+      '<div class="nav-home-menu" role="menu">' + homeMenuLinks + '</div>' +
+    '</div>';
+  var homeMobileSub = homeSections.map(function (s) {
+    return '<a href="' + homeHref(s[0]) + '" class="nav-mobile-link nav-mobile-sub">' + s[1] + '</a>';
+  }).join('');
+
   mount.outerHTML =
     '<a href="#main" class="skip-link">Skip to main content</a>' +
     '<header class="nav" role="banner">' +
@@ -59,16 +83,16 @@
             'alt="SimpleGrid - Custom ERP for manufacturers logo" width="160" height="32" ' +
             'fetchpriority="high" decoding="async"></a>' +
         '<nav class="nav-links" aria-label="Main navigation">' +
-          '<a href="' + p('index.html') + '" class="nav-link' + on('home') + '">Home</a>' +
+          homeNavDesktop +
           '<a href="' + p('product.html') + '" class="nav-link' + on('product') + '">Product</a>' +
-          '<details class="nav-resources">' +
-            '<summary class="nav-link' + resourcesActive + '" role="button">Resources ' + chevron + '</summary>' +
+          '<div class="nav-resources">' +
+            '<button type="button" class="nav-link' + resourcesActive + ' nav-resources-trigger" aria-haspopup="true">Resources ' + chevron + '</button>' +
             '<div class="nav-resources-menu">' +
               '<a href="' + p('tools/') + '">Productive Tools <span>35 productive tools &amp; calculators for manufacturers.</span></a>' +
               '<a href="' + p('case-studies.html') + '">Case studies <span>Real deployments. Real numbers.</span></a>' +
               '<a href="' + p('blog.html') + '">Blog <span>Field notes on ERP and ops.</span></a>' +
             '</div>' +
-          '</details>' +
+          '</div>' +
         '</nav>' +
         '<div class="nav-right">' +
           '<button type="button" class="btn btn-sm btn-primary" data-sg-try-erp title="Try a live SimpleGrid ERP">See It</button>' +
@@ -80,6 +104,7 @@
     '<div class="nav-mobile" data-sg-mobile-menu hidden>' +
       '<nav class="nav-mobile-panel" aria-label="Mobile navigation">' +
         '<a href="' + p('index.html') + '" class="nav-mobile-link' + on('home') + '">Home</a>' +
+        homeMobileSub +
         '<a href="' + p('product.html') + '" class="nav-mobile-link' + on('product') + '">Product</a>' +
         '<div class="nav-mobile-section">Resources</div>' +
         '<a href="' + p('tools/') + '" class="nav-mobile-link nav-mobile-sub' + on('tools') + '">Productive Tools</a>' +
@@ -102,6 +127,13 @@
       document.body.style.overflow = open ? 'hidden' : '';
     });
     menu.addEventListener('click', function (e) { if (e.target === menu) burger.click(); });
+    // Tapping a section-jump link should close the menu so the section is visible.
+    var jumpLinks = menu.querySelectorAll('a[href^="#"]');
+    for (var jl = 0; jl < jumpLinks.length; jl++) {
+      jumpLinks[jl].addEventListener('click', function () {
+        if (burger.classList.contains('is-open')) burger.click();
+      });
+    }
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && burger.classList.contains('is-open')) burger.click();
     });

@@ -1,5 +1,15 @@
 function App() {
   const [showLogin, setShowLogin] = React.useState(false);
+  // When we arrive with a #section hash (e.g. from another page's Home menu),
+  // scroll to it once the sections have rendered.
+  React.useEffect(() => {
+    if (!window.location.hash) return;
+    const id = window.location.hash.slice(1);
+    requestAnimationFrame(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ block: 'start' });
+    });
+  }, []);
   return (<>
     {/* Top nav is rendered by the shared component (components/site-nav.js), outside #root. */}
     <main id="main">

@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your activity ledger — SimpleGrid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B0F17;
+    --panel: #0E141F;
+    --text: rgba(255,255,255,0.86);      /* off-white, never pure */
+    --text-strong: rgba(255,255,255,0.94);
+    --muted: rgba(255,255,255,0.50);
+    --faint: rgba(255,255,255,0.40);
+    --hair: rgba(255,255,255,0.08);       /* 1px hairlines, low opacity */
+    --accent: #3B82F6;                    /* the one accent */
+    --accent-soft: rgba(59,130,246,0.10);
+    --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ---- Section shell ---------------------------------------------------- */
+  .ledger { padding: 120px 24px; }
+  .ledger__wrap { max-width: 1120px; margin: 0 auto; }
+
+  .ledger__head { max-width: 640px; margin: 0 0 72px; }
+  .ledger__eyebrow {
+    display: inline-block;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 18px;
+  }
+  .ledger__title {
+    margin: 0;
+    font-size: clamp(34px, 5vw, 50px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    color: var(--text-strong);
+  }
+  .ledger__sub {
+    margin: 18px 0 0;
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 540px;
+  }
+
+  /* ---- Two-column grid -------------------------------------------------- */
+  .ledger__grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 72px;
+    align-items: start;
+  }
+
+  /* ---- Left: borderless feature rows ------------------------------------ */
+  .features { display: flex; flex-direction: column; }
+  .feature {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 18px;
+    padding: 26px 0;
+    border-top: 1px solid var(--hair);   /* faint hairline divider */
+  }
+  .feature:first-child { border-top: 0; padding-top: 0; }
+  .feature__icon {
+    color: var(--accent);                /* accent used only on icons + active row */
+    width: 24px; height: 24px;
+    margin-top: 2px;
+  }
+  .feature__icon svg { width: 24px; height: 24px; display: block; }
+  .feature__title {
+    margin: 0;
+    font-size: 18px; font-weight: 600; letter-spacing: -0.01em;
+    color: var(--text-strong);
+  }
+  .feature__body {
+    margin: 6px 0 0;
+    font-size: 14.5px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ---- Right: live event-ledger demo ------------------------------------ */
+  .demo { position: sticky; top: 40px; }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--hair);
+    border-radius: 16px;
+    padding: 18px 18px 8px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  }
+  .panel__top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 4px 6px 16px;
+    border-bottom: 1px solid var(--hair);
+  }
+  .panel__label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--faint);
+  }
+  .panel__live { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+  .dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    position: relative;
+  }
+  .dot::after {
+    content: ''; position: absolute; inset: -4px; border-radius: 50%;
+    border: 1px solid var(--accent); opacity: 0; animation: pulse 2.1s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(0.6); opacity: 0.7; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+
+  /* the scrolling feed: fixed height, oldest rows fade out at the top edge */
+  .feed {
+    height: 318px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    gap: 2px; overflow: hidden; padding: 8px 0 6px;
+    -webkit-mask: linear-gradient(180deg, transparent 0, #000 14%, #000 100%);
+            mask: linear-gradient(180deg, transparent 0, #000 14%, #000 100%);
+  }
+  .evt {
+    display: grid;
+    grid-template-columns: 74px 64px 1fr;
+    align-items: baseline;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border-left: 2px solid transparent;
+    transition: opacity 420ms ease, transform 420ms ease, background 300ms ease;
+  }
+  .evt-time { font-family: var(--mono); font-size: 12.5px; color: var(--faint); white-space: nowrap; }
+  .evt-who  { font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .evt-act  { font-size: 13.5px; color: var(--muted); }
+
+  /* the newest row is the only thing besides icons that uses the accent */
+  .evt.is-active {
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+  }
+  .evt.is-active .evt-time { color: var(--accent); }
+  .evt.is-active .evt-who  { color: var(--text-strong); }
+  .evt.is-active .evt-act  { color: var(--text); }
+
+  /* entering animation */
+  .evt.is-enter { opacity: 0; transform: translateY(10px); }
+
+  /* ---- Responsive: stack on mobile -------------------------------------- */
+  @media (max-width: 880px) {
+    .ledger { padding: 80px 20px; }
+    .ledger__head { margin-bottom: 48px; }
+    .ledger__grid { grid-template-columns: 1fr; gap: 48px; }
+    .demo { position: static; }
+    .feed { height: 290px; }
+  }
+  @media (max-width: 440px) {
+    .evt { grid-template-columns: 64px 1fr; }
+    .evt-act { grid-column: 1 / -1; margin-top: 2px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .evt, .evt.is-enter { transition: none; transform: none; }
+    .dot::after { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <section class="ledger" aria-labelledby="ledger-title">
+    <div class="ledger__wrap">
+      <header class="ledger__head">
+        <span class="ledger__eyebrow">Activity ledger</span>
+        <h2 class="ledger__title" id="ledger-title">Your activity ledger.</h2>
+        <p class="ledger__sub">Every action, named and timestamped. A log you can replay, settle disputes against, and audit from — without asking anyone what happened.</p>
+      </header>
+
+      <div class="ledger__grid">
+        <!-- LEFT: six borderless feature rows -->
+        <div class="features">
+          <div class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+            </span>
+            <div>
+              <h3 class="feature__title">Replay any day, any hour</h3>
+              <p class="feature__body">Open a day, watch events in order. The reason is in the log: name, time, what changed.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <div>
+              <h3 class="feature__title">Disputes resolved by the system</h3>
+              <p class="feature__body">Vendor says 500 sheets. Log says 450, received by Mike, 11:46 AM Tuesday. Argument over before it starts.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
+            </span>
+            <div>
+              <h3 class="feature__title">Audit-ready by default</h3>
+              <p class="feature__body">IRS, OSHA, SOX, buyer audits. Every event already timestamped and named. Filter, export, send.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            </span>
+            <div>
+              <h3 class="feature__title">Mistakes are reversible, never hidden</h3>
+              <p class="feature__body">Issue a corrective event. Original stays, correction sits next to it. Nothing overwritten.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+            </span>
+            <div>
+              <h3 class="feature__title">One source of truth, forever</h3>
+              <p class="feature__body">Inventory, AR, AP, production all computed from one log, real time. No reconciliation.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></svg>
+            </span>
+            <div>
+              <h3 class="feature__title">Trust without supervision</h3>
+              <p class="feature__body">Every action carries a name. You stop being the bottleneck for trust.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: live event-ledger demo -->
+        <div class="demo">
+          <div class="panel" role="img" aria-label="A live event ledger feed showing timestamped, named actions">
+            <div class="panel__top">
+              <span class="panel__label">Event ledger · Today</span>
+              <span class="panel__live"><span class="dot"></span> live</span>
+            </div>
+            <div class="feed" id="feed" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var feed = document.getElementById('feed');
+      if (!feed) return;
+
+      var EVENTS = [
+        { t: '8:03 AM',  who: 'Mike',   act: 'opened the floor — shift A' },
+        { t: '9:21 AM',  who: 'Priya',  act: 'approved PO #4471' },
+        { t: '11:46 AM', who: 'Mike',   act: 'received 450 sheets' },
+        { t: '12:30 PM', who: 'System', act: 'inventory recomputed' },
+        { t: '2:14 PM',  who: 'QC',     act: 'dispatch held — QC fail' },
+        { t: '2:15 PM',  who: 'Dana',   act: 'corrective event logged' },
+        { t: '3:02 PM',  who: 'Mike',   act: '12 units scrapped — reason noted' },
+        { t: '4:20 PM',  who: 'Priya',  act: 'invoice matched to receipt' }
+      ];
+
+      var MAX = 6;
+      var idx = 0;
+
+      function makeRow(e) {
+        var row = document.createElement('div');
+        row.className = 'evt';
+        row.innerHTML =
+          '<span class="evt-time">' + e.t + '</span>' +
+          '<span class="evt-who">' + e.who + '</span>' +
+          '<span class="evt-act">' + e.act + '</span>';
+        return row;
+      }
+
+      function setActive(row) {
+        var cur = feed.querySelector('.evt.is-active');
+        if (cur) cur.classList.remove('is-active');
+        row.classList.add('is-active');
+      }
+
+      function pushEvent(animate) {
+        var e = EVENTS[idx % EVENTS.length];
+        idx++;
+        var row = makeRow(e);
+        if (animate) row.classList.add('is-enter');
+        feed.appendChild(row);
+        setActive(row);
+        if (animate) {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () { row.classList.remove('is-enter'); });
+          });
+        }
+        while (feed.children.length > MAX) feed.removeChild(feed.firstElementChild);
+      }
+
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Pre-fill so the panel reads as a populated log immediately.
+      for (var k = 0; k < 4; k++) pushEvent(false);
+
+      if (!reduce) setInterval(function () { pushEvent(true); }, 2100);
+    })();
+  </script>
+</body>
+</html>
