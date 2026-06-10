@@ -20,6 +20,8 @@ function App() {
       <BurstBand />
       <WhatWeDo />
       <HowItWorks />
+      <WhyNotERP />
+      <WhoItsFor />
       <ProofSection />
       <FounderStory />
       <HomeFAQ />

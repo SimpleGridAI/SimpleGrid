@@ -125,7 +125,7 @@ function Footer() {
     className: "footer-top"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("img", {
     src: prefix + 'assets/simplegrid-logo-horizontal.svg',
-    alt: "SimpleGrid - AI ERP for manufacturers logo",
+    alt: "SimpleGrid - Factory Ops Cloud for manufacturers logo",
     className: "footer-logo",
     width: "160",
     height: "32",
@@ -133,7 +133,7 @@ function Footer() {
     decoding: "async"
   }), /*#__PURE__*/React.createElement("p", {
     className: "footer-tagline"
-  }, "Custom ERP. Built at our risk. Paid for if it works."), /*#__PURE__*/React.createElement("div", {
+  }, "The Factory Ops Cloud. Configured to your floor. Live in 21 days."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28
     }
@@ -272,7 +272,7 @@ function Footer() {
     kind: x.kind
   }), /*#__PURE__*/React.createElement("span", null, x.l)))))), /*#__PURE__*/React.createElement("div", {
     className: "footer-bottom"
-  }, /*#__PURE__*/React.createElement("div", null, "SimpleGrid, an AI-native ERP for US manufacturers, by SimpleGrid Inc \xA9 2026"), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, "SimpleGrid, the Factory Ops Cloud for manufacturers, by SimpleGrid Inc \xA9 2026"), /*#__PURE__*/React.createElement("div", {
     className: "footer-legal"
   }, /*#__PURE__*/React.createElement("a", {
     href: px('privacy.html')

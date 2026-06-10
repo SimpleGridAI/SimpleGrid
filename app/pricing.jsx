@@ -6,7 +6,7 @@ const TIERS = [
     priceUnit: 'For the build. For the migration. For the 30 days on your real floor.',
     accent: 'var(--sg-blue)',
     features: [
-      'We build a custom ERP modeled on your factory',
+      'We configure the operations layer to your factory floor',
       'Live in 7-21 days, at our cost and our risk',
       'You run it on your real floor for 30 days',
       'All your data migrated for you',
@@ -59,7 +59,7 @@ function PricingPage() {
     <main id="main">
 
     {/* HERO - big black, full-height (matches product page) */}
-    <section className="section section-dark" style={{paddingTop:88, paddingBottom:64, position:'relative', overflow:'hidden', minHeight:'calc(100vh - 64px)', display:'flex', flexDirection:'column', justifyContent:'center'}}>
+    <section className="section section-dark" style={{paddingTop:88, paddingBottom:64, position:'relative', overflow:'hidden', background:'rgba(26,26,26,0.90)', minHeight:'calc(100vh - 64px)', display:'flex', flexDirection:'column', justifyContent:'center'}}>
       <ParticleCloud showArcs={false} />
       <div className="container" style={{position:'relative', zIndex:2}}>
         <div className="tag">PRICING</div>
@@ -67,7 +67,7 @@ function PricingPage() {
           You carry nothing until you see it run.
         </h1>
         <p className="lead" style={{color:'rgba(255,255,255,0.78)', maxWidth:820, margin:'0 0 14px'}}>
-          The build is on us. The price is for what it does once it's working.
+          The build is on us - we configure the operations layer to your floor, and your books stay in QuickBooks or Tally. The price is for what it does once it's working.
         </p>
         <p className="lead" style={{color:'rgba(255,255,255,0.78)', maxWidth:820, margin:0}}>
           Most ERPs charge you to find out if they work. We charge you after you already know.
@@ -210,7 +210,7 @@ function PricingPage() {
             { q: 'Is there a setup or build fee?', a: 'No. The build, the modeling sessions, the data migration, the senior-led onboarding and the 30 days running on your real floor are all on us. You owe nothing until you decide it works.' },
             { q: 'Why isn\'t this the cheapest option on the table?', a: 'This isn\'t a discount play. We carry the build, the deployment risk, and the 30-day trial - with senior engineers and deployment experts on every project - so the price reflects the result, not the risk. Cheap ERP exists. It will not show up with a working version of your factory before you pay. We will.' },
             { q: 'What does "you walk if it doesn\'t work" actually mean?', a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk. No invoice. No clawback. No data ransom - you get a clean export.' },
-            { q: 'Do you charge for changes to the ERP - today or tomorrow?', a: 'No. New approval rule, new production stage, new QC gate, new report, new integration - every change is included, at go-live and forever. Most ERPs charge $8K-$20K per change order. We never do.' },
+            { q: 'Do you charge for changes to my SimpleGrid setup - today or tomorrow?', a: 'No. New approval rule, new production stage, new QC gate, new report, new integration - every change is included, at go-live and forever. Most ERPs charge $8K-$20K per change order. We never do.' },
             { q: 'Are there feature tiers or add-on fees?', a: 'No. Every customer gets every feature. No Pro plan, no Enterprise tier, no per-feature licensing. When we ship something new, it is automatically yours.' },
             { q: 'Why are you so selective about who you onboard?', a: 'Senior engineers and deployment experts work on every deployment, so we have limited capacity each quarter. We only take on customers we know we can win for - because we only get paid when you succeed, and we don\'t want to set anyone up to lose. We\'re built for mid-market manufacturers, roughly $5M-$250M in revenue - below that, spreadsheets or QuickBooks still win; above that, SAP or Oracle make more sense.' },
             { q: 'Do I get new features as you ship them?', a: 'Yes. We ship new products and features regularly, and they roll out to every customer at no extra cost. Your subscription includes everything we have built and everything we are about to build.' },

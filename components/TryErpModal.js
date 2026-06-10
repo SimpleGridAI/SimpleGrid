@@ -37,14 +37,14 @@
     overlay.innerHTML = ''
       + '<form class="modal" role="dialog" aria-modal="true" aria-labelledby="sg-try-h" data-form-name="try-erp" style="position:relative">'
       +   '<button type="button" class="sg-try-close" aria-label="Close" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:var(--fg3);cursor:pointer;line-height:1">×</button>'
-      +   '<h2 id="sg-try-h">Try your ERP</h2>'
-      +   '<p class="sub">Drop your work email - we\'ll drop you straight into a live ERP shaped like a real factory. Click around. No setup, no sales call.</p>'
+      +   '<h2 id="sg-try-h">Try SimpleGrid live</h2>'
+      +   '<p class="sub">Drop your work email - we\'ll drop you straight into a live system shaped like a real factory. Click around. No setup, no sales call.</p>'
       +   '<div class="field">'
       +     '<label for="sg-try-email">Work email <span aria-hidden="true" style="color:var(--sg-red)">*</span></label>'
       +     '<input id="sg-try-email" type="email" name="email" placeholder="you@company.com" required aria-required="true" autocomplete="email" inputmode="email">'
       +   '</div>'
       +   '<div class="sg-try-err" role="status" aria-live="polite" style="display:none;padding:10px 12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:var(--radius-md);color:#B91C1C;font-size:13px;margin-bottom:12px;line-height:1.45"></div>'
-      +   '<button type="submit" class="btn btn-primary sg-try-submit" style="width:100%;justify-content:center;margin-top:4px">Take me to the ERP →</button>'
+      +   '<button type="submit" class="btn btn-primary sg-try-submit" style="width:100%;justify-content:center;margin-top:4px">Take me to the demo →</button>'
       +   '<p style="font-size:11px;color:var(--fg3);text-align:center;margin-top:14px;letter-spacing:0.04em">Shared demo tenant. Data resets nightly. By continuing you agree to our <a href="/privacy.html" style="color:var(--sg-blue)">Privacy</a>.</p>'
       + '</form>';
 
@@ -83,7 +83,7 @@
     clearError();
     submitBtn.disabled = true;
     submitBtn.style.opacity = 0.7;
-    submitBtn.textContent = 'Opening your ERP…';
+    submitBtn.textContent = 'Opening your demo…';
     var email = (emailInput.value || '').trim();
     if (window.sgTrack) window.sgTrack('try_erp_submitted', { form: 'try-erp' });
 
@@ -143,7 +143,7 @@
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.style.opacity = 1;
-      submitBtn.textContent = 'Take me to the ERP →';
+      submitBtn.textContent = 'Take me to the demo →';
     }
     if (lastFocus && lastFocus.focus) try { lastFocus.focus(); } catch (e) {}
   }

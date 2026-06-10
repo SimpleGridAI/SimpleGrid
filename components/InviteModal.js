@@ -213,7 +213,7 @@ function InviteModal({
     id: "invite-h"
   }, "Book a demo"), /*#__PURE__*/React.createElement("p", {
     className: "sub"
-  }, "We onboard selectively each quarter. Tell us about your operation - if we can win for you, we build it at our risk and you run it free for 30 days before you pay."), /*#__PURE__*/React.createElement("input", {
+  }, "We onboard selectively each quarter. Tell us about your operation \u2014 if we're a fit, we configure SimpleGrid to your floor at our cost, and you run it live for 30 days. You pay only when it works."), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_subject",
     value: "New invite request - SimpleGrid"

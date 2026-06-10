@@ -44,8 +44,8 @@ function Footer() {
       <div className="container">
         <div className="footer-top">
           <div>
-            <img src={prefix + 'assets/simplegrid-logo-horizontal.svg'} alt="SimpleGrid - AI ERP for manufacturers logo" className="footer-logo" width="160" height="32" loading="lazy" decoding="async" />
-            <p className="footer-tagline">Custom ERP. Built at our risk. Paid for if it works.</p>
+            <img src={prefix + 'assets/simplegrid-logo-horizontal.svg'} alt="SimpleGrid - Factory Ops Cloud for manufacturers logo" className="footer-logo" width="160" height="32" loading="lazy" decoding="async" />
+            <p className="footer-tagline">The Factory Ops Cloud. Configured to your floor. Live in 21 days.</p>
 
             {/* Trusted partner badges */}
             <div style={{ marginTop: 28 }}>
@@ -102,7 +102,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <div>SimpleGrid, an AI-native ERP for US manufacturers, by Valaya AI Technologies © 2026</div>
+          <div>SimpleGrid, the Factory Ops Cloud for manufacturers, by SimpleGrid Inc © 2026</div>
           <div className="footer-legal">
             <a href={px('privacy.html')}>Privacy Policy</a><a href={px('terms.html')}>Terms</a>
           </div>

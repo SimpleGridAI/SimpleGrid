@@ -72,7 +72,7 @@ function ProofSection() {
     kind: 'image',
     img: 'url(assets/elite-factory.jpeg) center/cover',
     name: 'Furniture Manufacturer & Exporter',
-    desc: '12+ countries (USA, Europe, Asia). 600-800 employees. ~1 million sq ft. Excel + group chats → live ERP.',
+    desc: '12+ countries (USA, Europe, Asia). 600-800 employees. ~1 million sq ft. Excel + group chats → one live floor view.',
     stats: '$200K leak stopped · planning 20h → 2h · live in 21 days',
     quote: '"SimpleGrid feels like our system. My stores manager was comfortable on day one."',
     attr: '- The founder',
@@ -245,35 +245,79 @@ function Integrations() {
   // Duplicate the list so the loop is seamless when the track translates by -50%.
   const doubled = [...items, ...items];
   const intTrackRef = React.useRef(null);
+  // Auto-scroll the logo strip at a calm pace, but let the viewer grab and drag it. Wraps seamlessly.
   React.useEffect(() => {
     const track = intTrackRef.current;
     if (!track) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let raf = 0, offset = 0, last = 0, dragging = false, hoverPaused = false, onScreen = true, startX = 0, startOffset = 0;
+    let raf = 0,
+      offset = 0,
+      last = 0,
+      dragging = false,
+      hoverPaused = false,
+      onScreen = true,
+      startX = 0,
+      startOffset = 0;
     let setW = 1;
-    const measure = () => { const sw = track.scrollWidth || 0; if (sw > 0) setW = sw / 2 + 7; };
+    const measure = () => {
+      const sw = track.scrollWidth || 0;
+      if (sw > 0) setW = sw / 2 + 7;
+    };
     measure();
-    const ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(measure) : null;
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
     if (ro) ro.observe(track);
-    const io = (typeof IntersectionObserver !== 'undefined') ? new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; }, { threshold: 0 }) : null;
+    const io = typeof IntersectionObserver !== 'undefined' ? new IntersectionObserver(es => {
+      onScreen = es[0].isIntersecting;
+    }, {
+      threshold: 0
+    }) : null;
     if (io) io.observe(track);
-    const wrap = (x) => { while (x <= -setW) x += setW; while (x > 0) x -= setW; return x; };
-    const apply = () => { track.style.transform = 'translateX(' + offset + 'px)'; };
-    const down = (e) => { dragging = true; startX = e.clientX; startOffset = offset; if (track.setPointerCapture) { try { track.setPointerCapture(e.pointerId); } catch (err) {} } };
-    const move = (e) => { if (!dragging) return; offset = wrap(startOffset + (e.clientX - startX)); apply(); };
-    const up = () => { dragging = false; };
-    const enter = () => { hoverPaused = true; };
-    const leave = () => { hoverPaused = false; };
+    const wrap = x => {
+      while (x <= -setW) x += setW;
+      while (x > 0) x -= setW;
+      return x;
+    };
+    const apply = () => {
+      track.style.transform = 'translateX(' + offset + 'px)';
+    };
+    const down = e => {
+      dragging = true;
+      startX = e.clientX;
+      startOffset = offset;
+      if (track.setPointerCapture) {
+        try {
+          track.setPointerCapture(e.pointerId);
+        } catch (err) {}
+      }
+    };
+    const move = e => {
+      if (!dragging) return;
+      offset = wrap(startOffset + (e.clientX - startX));
+      apply();
+    };
+    const up = () => {
+      dragging = false;
+    };
+    const enter = () => {
+      hoverPaused = true;
+    };
+    const leave = () => {
+      hoverPaused = false;
+    };
     track.addEventListener('pointerdown', down);
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', up);
     track.addEventListener('mouseenter', enter);
     track.addEventListener('mouseleave', leave);
-    const loop = (t) => {
+    const loop = t => {
       raf = requestAnimationFrame(loop);
       if (!last) last = t;
-      const dt = Math.min((t - last) / 1000, 0.05); last = t;
-      if (!dragging && !hoverPaused && onScreen) { offset = wrap(offset - (setW / 200) * dt); apply(); }
+      const dt = Math.min((t - last) / 1000, 0.05);
+      last = t;
+      if (!dragging && !hoverPaused && onScreen) {
+        offset = wrap(offset - setW / 200 * dt);
+        apply();
+      }
     };
     raf = requestAnimationFrame(loop);
     return () => {
@@ -324,7 +368,7 @@ function Integrations() {
     className: "h2"
   }, "Works with what you already use."), /*#__PURE__*/React.createElement("p", {
     className: "lead"
-  }, "SimpleGrid connects to the tools you already run - accounting, spreadsheets, sales channels, messaging and shipping. New connectors are built as part of your ERP, included in the build. ", /*#__PURE__*/React.createElement("a", {
+  }, "SimpleGrid connects to the tools you already run - accounting, spreadsheets, sales channels, messaging and shipping. New connectors are built as part of your SimpleGrid setup, included in the configuration. ", /*#__PURE__*/React.createElement("a", {
     href: "syncs.html",
     style: {
       color: 'var(--sg-blue)',
@@ -443,9 +487,9 @@ function Architecture() {
     style: {
       color: 'rgba(255,255,255,0.4)'
     }
-  }, "WHY WE CAN BUILD CUSTOM IN DAYS"), /*#__PURE__*/React.createElement("h2", {
+  }, "WHY WE CAN CONFIGURE IN DAYS"), /*#__PURE__*/React.createElement("h2", {
     className: "h2"
-  }, "The architecture that lets us carry the risk.")), /*#__PURE__*/React.createElement("div", {
+  }, "The architecture that lets us configure to your floor.")), /*#__PURE__*/React.createElement("div", {
     className: "arch-grid",
     style: {
       marginTop: 28
@@ -470,7 +514,7 @@ function ComparisonTable() {
     sap: 'Deep finance, global compliance, scale to billions',
     epicor: 'Strong shop-floor MRP, mature manufacturing modules',
     qb: 'Easy accounting, every accountant knows it',
-    sg: 'Model your factory, ship in days, prove value before you pay'
+    sg: 'A live layer on your floor - keeps your ledger, no migration'
   }, {
     label: 'Time to value',
     sap: '12-18+ months',
@@ -482,7 +526,7 @@ function ComparisonTable() {
     sap: '$500K+',
     epicor: '$150K-$300K',
     qb: 'Low monthly fee',
-    sg: '$0. You pay only after it works.'
+    sg: 'Configured at our cost - you pay only when it works'
   }, {
     label: 'Change a workflow',
     sap: 'Consulting engagement',
@@ -515,7 +559,7 @@ function ComparisonTable() {
     style: {
       maxWidth: 780
     }
-  }, "SAP, Oracle NetSuite, Epicor and QuickBooks are excellent at what they were built for. SimpleGrid was built for a specific shape of customer: mid-market manufacturers who run differently from everyone, can't afford a 12-month rip-and-replace, and want to see the system run before they pay.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "SAP, Oracle NetSuite, Epicor and QuickBooks are excellent at what they were built for. SimpleGrid was built for a specific shape of customer: mid-market manufacturers who run differently from everyone, can't afford a 12-month rip-and-replace, and want a live operations layer on top of the books they already run.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 200
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -569,7 +613,7 @@ function FromTheField() {
     style: {
       textAlign: 'center'
     }
-  }, "Field notes from operators building a custom ERP.")), /*#__PURE__*/React.createElement("div", {
+  }, "Field notes from operators running the factory floor.")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -653,13 +697,19 @@ window.FromTheField = FromTheField;
 function HomeFAQ() {
   const items = [{
     q: "What happens if it doesn't work after 30 days?",
-    a: "You walk. No invoice. No clawback. We've still done the migration and the build at our cost. You get a clean data export and your spreadsheets back. That's the whole point - the risk lives with us until you've seen it run on your real floor."
+    a: "You walk. No invoice. No clawback. We've still done the configuration and the data work at our cost. You get a clean data export and your spreadsheets back. That's the point of the 30-day run - you only pay for something you've already watched work on your real floor."
   }, {
     q: "Do we have to migrate our data ourselves?",
-    a: "No. We do the migration. Whatever you're running on - QuickBooks, spreadsheets, paper, group chats, an old ERP - we pull it out, clean it, structure it, and load it. Migration is included in the build, not a separate line item. You don't touch the data."
+    a: "No - and your QuickBooks or Tally stays exactly where it is. SimpleGrid syncs to it. Whatever your floor runs on - spreadsheets, paper, group chats, an old ERP - we pull it in, clean it, structure it, and load it. Data work is included in the configuration, not a separate line item. You don't touch the data."
   }, {
     q: "How much does it cost after the 30-day trial?",
-    a: "Before you decide, we agree on a number together based on the size of your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees. We are not free and not cheap. We are priced like an operator who has carried the build for you."
+    a: /*#__PURE__*/React.createElement(React.Fragment, null, "Before you decide, we agree on a number together based on the size of your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees. We are not free and not cheap - we configure at our cost because we're confident in what 30 days on your floor will show. Full details on the ", /*#__PURE__*/React.createElement("a", {
+      href: "pricing.html",
+      style: {
+        color: 'var(--sg-blue)',
+        fontWeight: 600
+      }
+    }, "pricing page"), ".")
   }, {
     q: "Who runs the deployment - sales reps, or actual engineers?",
     a: "Senior engineers and deployment experts who've worked on factory floors. No SDRs, no sales reps, no chatbot, no offshored implementation partner you also have to pay. You work directly with the team that builds the system."
@@ -752,6 +802,154 @@ function HomeFAQ() {
   }, it.a)))))));
 }
 window.HomeFAQ = HomeFAQ;
+
+// "Why this isn't another ERP" - the three USPs of the ops-layer positioning.
+// Compact 3-card band; reuses the sec-grid/sec-card styles from DataSecurity.
+function WhyNotERP() {
+  const cards = [{
+    badge: 'DEPLOY FAST',
+    color: 'var(--sg-blue)',
+    t: 'Deploy in days, not quarters.',
+    p: 'SimpleGrid maps to the workflows your floor already runs and never touches your financial backend. That’s why it goes live in 7–21 days, not 12 months.'
+  }, {
+    badge: 'ADAPT FREELY',
+    color: 'var(--sg-purple)',
+    t: 'Software that mirrors your floor, not a template.',
+    p: 'Your ops managers change routing steps, BOM logic, and QC checklists themselves. No developer, no ticket, no downtime.'
+  }, {
+    badge: 'INTEGRATE CLEANLY',
+    color: 'var(--sg-green)',
+    t: 'Keep your accounting ledger. Upgrade your operational reality.',
+    p: 'A layer, not a replacement. SimpleGrid handles the fast, messy reality of the floor and pushes clean financial data into QuickBooks or Tally automatically.'
+  }];
+  return /*#__PURE__*/React.createElement("section", {
+    className: "section",
+    id: "not-an-erp"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
+    className: "tag"
+  }, "WHY THIS ISN'T ANOTHER ERP"), /*#__PURE__*/React.createElement("h2", {
+    className: "h2"
+  }, "A layer on top of the books you already run. Not a rip-and-replace.")), /*#__PURE__*/React.createElement("div", {
+    className: "sec-grid"
+  }, cards.map((c, i) => /*#__PURE__*/React.createElement(Reveal, {
+    key: i,
+    delay: i * 100
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "sec-card",
+    style: {
+      height: '100%'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "sec-badge",
+    style: {
+      color: c.color
+    }
+  }, c.badge), /*#__PURE__*/React.createElement("h3", null, c.t), /*#__PURE__*/React.createElement("p", null, c.p)))))));
+}
+window.WhyNotERP = WhyNotERP;
+
+// "Who it's for" - five persona cards, each deep-linking into the matching
+// block on solutions.html. Card style mirrors the FromTheField link cards.
+function WhoItsFor() {
+  const personas = [{
+    role: 'Owner / MD',
+    line: "See what you can build today, what you're short on, and what it'll cost - before you commit to a customer.",
+    href: 'solutions.html#visibility',
+    cta: 'persona_owner'
+  }, {
+    role: 'COO / VP Operations',
+    line: "One system, every team, the same data - no one's working off yesterday's numbers.",
+    href: 'solutions.html#connected',
+    cta: 'persona_coo'
+  }, {
+    role: 'CFO / Finance Head',
+    line: 'Your costing logic, your way - not the way an enterprise template thinks you should run it.',
+    href: 'solutions.html#costing',
+    cta: 'persona_cfo'
+  }, {
+    role: 'Plant Manager',
+    line: 'Your floor staff log it. Everyone sees it live. No lag, no leakage, no one working in the dark.',
+    href: 'solutions.html#adoption',
+    cta: 'persona_plant_manager'
+  }, {
+    role: 'Sales Head',
+    line: "Before you promise a customer a date, you'll know if production can actually hit it.",
+    href: 'solutions.html#planning',
+    cta: 'persona_sales_head'
+  }];
+  return /*#__PURE__*/React.createElement("section", {
+    className: "section section-alt",
+    id: "who-its-for"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
+    className: "tag"
+  }, "WHO IT'S FOR"), /*#__PURE__*/React.createElement("h2", {
+    className: "h2"
+  }, "Built for the people who run the floor - and the ones who answer for it.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+      gap: 16,
+      marginTop: 32
+    }
+  }, personas.map((p, i) => /*#__PURE__*/React.createElement(Reveal, {
+    key: i,
+    delay: i * 70
+  }, /*#__PURE__*/React.createElement("a", {
+    href: p.href,
+    "data-cta": p.cta,
+    style: {
+      display: 'block',
+      textDecoration: 'none',
+      color: 'inherit',
+      padding: '22px',
+      border: '1px solid var(--border)',
+      borderRadius: 'var(--radius-lg)',
+      background: '#fff',
+      height: '100%',
+      transition: 'all 160ms var(--ease-standard)'
+    },
+    onMouseEnter: e => {
+      e.currentTarget.style.transform = 'translateY(-2px)';
+      e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.06)';
+    },
+    onMouseLeave: e => {
+      e.currentTarget.style.transform = '';
+      e.currentTarget.style.boxShadow = '';
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 10,
+      fontWeight: 700,
+      letterSpacing: '0.14em',
+      textTransform: 'uppercase',
+      color: 'var(--sg-blue)',
+      marginBottom: 10
+    }
+  }, p.role), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: 'var(--font-heading)',
+      fontSize: 15.5,
+      fontWeight: 700,
+      color: 'var(--fg1)',
+      margin: 0,
+      lineHeight: 1.45,
+      letterSpacing: '-0.005em'
+    }
+  }, p.line), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'inline-block',
+      marginTop: 14,
+      fontSize: 13,
+      fontWeight: 600,
+      color: 'var(--sg-blue)'
+    }
+  }, "See how \u2192")))))));
+}
+window.WhoItsFor = WhoItsFor;
 
 // FinalCTA now lives in its own shared component (components/FinalCTA.jsx) so it
 // can be reused with per-page copy across every page.

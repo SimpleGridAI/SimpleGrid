@@ -480,12 +480,7 @@ function BurstBand() {
 }
 window.BurstBand = BurstBand;
 function CycleHeadline() {
-  const HEADLINES = [
-  /*#__PURE__*/
-  // Single headline; rotation removed by request.
-  React.createElement(React.Fragment, {
-    key: "b"
-  }, "The Operations ERP", /*#__PURE__*/React.createElement("br", null), "for manufacturers.")];
+  const HEADLINES = [/*#__PURE__*/React.createElement(React.Fragment, null, "The Factory", /*#__PURE__*/React.createElement("br", null), "Ops Cloud.")];
   // Each tile fades smoothly; staggering them by (x+y)*delay gives a diagonal
   // sweep that visually "breaks" the headline into checkboxes and reassembles.
   const TX = 8,
@@ -588,7 +583,7 @@ function Hero() {
     delay: 200
   }, /*#__PURE__*/React.createElement("p", {
     className: "hero-sub"
-  }, "Built for how your factory actually runs \u2014 your floor, your costing, your process. Not a thousand others. Live in days, not months.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Configured to your floor. Live in 21 days. Live control of your factory floor, synced to the QuickBooks or Tally you already run \u2014 no migration, no 12-month implementation.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 400
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-cta"
@@ -679,7 +674,7 @@ function Hero() {
       color: 'var(--fg2)',
       marginBottom: 10
     }
-  }, "Try Before You Buy"), /*#__PURE__*/React.createElement("div", {
+  }, "On Your Real Floor"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: 'var(--font-heading)',
       fontSize: 80,
@@ -704,7 +699,7 @@ function Hero() {
       marginTop: 14,
       lineHeight: 1.5
     }
-  }, "On your real floor. Real team. Real orders."))))))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
+  }, "Real jobs. Real team. Real orders. Then you decide."))))))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)
   }));
 }
@@ -878,17 +873,51 @@ function TrustStrip() {
 }
 window.TrustStrip = TrustStrip;
 function ProblemSection() {
+  // Hank's avatar - a small assistant glyph (no external image needed).
   const hankAva = /*#__PURE__*/React.createElement("span", {
     className: "hank-ava",
     "aria-hidden": "true"
   }, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 24 24", width: "15", height: "15", fill: "none", stroke: "var(--sg-blue)", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round"
-  }, /*#__PURE__*/React.createElement("rect", { x: "5", y: "9", width: "14", height: "10", rx: "3" }), /*#__PURE__*/React.createElement("path", { d: "M12 5v4" }), /*#__PURE__*/React.createElement("circle", { cx: "12", cy: "4", r: "1.1", fill: "var(--sg-blue)", stroke: "none" }), /*#__PURE__*/React.createElement("circle", { cx: "9.7", cy: "13.8", r: "1.1", fill: "var(--sg-blue)", stroke: "none" }), /*#__PURE__*/React.createElement("circle", { cx: "14.3", cy: "13.8", r: "1.1", fill: "var(--sg-blue)", stroke: "none" })));
+    viewBox: "0 0 24 24",
+    width: "15",
+    height: "15",
+    fill: "none",
+    stroke: "var(--sg-blue)",
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "5",
+    y: "9",
+    width: "14",
+    height: "10",
+    rx: "3"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M12 5v4"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "12",
+    cy: "4",
+    r: "1.1",
+    fill: "var(--sg-blue)",
+    stroke: "none"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "9.7",
+    cy: "13.8",
+    r: "1.1",
+    fill: "var(--sg-blue)",
+    stroke: "none"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "14.3",
+    cy: "13.8",
+    r: "1.1",
+    fill: "var(--sg-blue)",
+    stroke: "none"
+  })));
   const problems = [{
     n: '01',
-    t: 'You pay before it works',
-    b: "Six figures up front, for a system you've never seen run.",
-    footer: 'See it run first. Then pay.',
+    t: 'Your floor runs on memory',
+    b: "Spreadsheets, WhatsApp, and one person who knows where every job stands.",
+    footer: 'SimpleGrid gives everyone the live view.',
     visual: /*#__PURE__*/React.createElement("svg", {
       viewBox: "0 0 400 200",
       style: {
@@ -933,27 +962,27 @@ function ProblemSection() {
       stopOpacity: "0"
     }))), [{
       y: 18,
-      label: 'Consultants',
+      label: 'WhatsApp threads',
       dy: 76,
       delay: '0s'
     }, {
       y: 50,
-      label: 'Integrations',
+      label: 'Spreadsheet v7',
       dy: 44,
       delay: '1.5s'
     }, {
       y: 82,
-      label: 'Licensing cost',
+      label: 'Walk the floor',
       dy: 12,
       delay: '3s'
     }, {
       y: 114,
-      label: 'Delays',
+      label: 'Phone calls',
       dy: -20,
       delay: '4.5s'
     }, {
       y: 146,
-      label: 'Change requests',
+      label: 'End-of-day report',
       dy: -52,
       delay: '6s'
     }].map((it, i) => /*#__PURE__*/React.createElement("g", {
@@ -990,7 +1019,7 @@ function ProblemSection() {
       fill: "#fff",
       fontWeight: "700",
       textAnchor: "middle"
-    }, "$")))), /*#__PURE__*/React.createElement("circle", {
+    }, "?")))), /*#__PURE__*/React.createElement("circle", {
       cx: "178",
       cy: "100",
       r: "62",
@@ -1046,12 +1075,12 @@ function ProblemSection() {
     }), /*#__PURE__*/React.createElement("text", {
       x: "178",
       y: "98",
-      fontSize: "13",
+      fontSize: "12",
       fill: "#fff",
       fontWeight: "700",
       textAnchor: "middle",
       letterSpacing: "0.02em"
-    }, "$500K+"), /*#__PURE__*/React.createElement("text", {
+    }, "ONE PERSON"), /*#__PURE__*/React.createElement("text", {
       x: "178",
       y: "112",
       fontSize: "8.5",
@@ -1059,24 +1088,24 @@ function ProblemSection() {
       fontWeight: "700",
       textAnchor: "middle",
       letterSpacing: "0.18em"
-    }, "SUNK"), [{
+    }, "KNOWS"), [{
       y: 36,
-      l1: 'No usable',
-      l2: 'system',
+      l1: 'Owner waits',
+      l2: 'for the report',
       color: '#374151',
-      sub: 'project shelved'
+      sub: 'plans off yesterday'
     }, {
       y: 100,
-      l1: 'Half-working',
-      l2: 'system',
+      l1: 'Orders get',
+      l2: 'miscosted',
       color: '#374151',
-      sub: 'forced into modules'
+      sub: 'caught at month-end'
     }, {
       y: 164,
-      l1: 'Fully working',
-      l2: 'system',
+      l1: 'QC issues',
+      l2: 'surface late',
       color: '#374151',
-      sub: 'rare, slow, expensive'
+      sub: 'customer finds out first'
     }].map((o, i) => /*#__PURE__*/React.createElement("g", {
       key: i
     }, /*#__PURE__*/React.createElement("path", {
@@ -1135,7 +1164,7 @@ function ProblemSection() {
       fontSize: "13",
       fill: "var(--fg1)",
       fontWeight: "600"
-    }, "Your business with a fluid ERP"), /*#__PURE__*/React.createElement("rect", {
+    }, "Your business with a fluid ops layer"), /*#__PURE__*/React.createElement("rect", {
       x: "20",
       y: "62",
       width: "360",
@@ -1318,35 +1347,87 @@ function ProblemSection() {
     isChatDemo: true
   }];
   const trackRef = React.useRef(null);
+  // Auto-scroll the row at a calm pace; drag to bring back a card that passed.
+  // Click a card to pause; click again (or scroll it off-screen) to resume.
   React.useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let raf = 0, offset = 0, last = 0, dragging = false, hoverPaused = false, clickPaused = false, onScreen = true, moved = false, startX = 0, startOffset = 0;
+    let raf = 0,
+      offset = 0,
+      last = 0,
+      dragging = false,
+      hoverPaused = false,
+      clickPaused = false,
+      onScreen = true,
+      moved = false,
+      startX = 0,
+      startOffset = 0;
     let setW = (track.scrollWidth || 2) / 2;
-    const measure = () => { const w = (track.scrollWidth || 0) / 2; if (w > 0) setW = w; };
+    const measure = () => {
+      const w = (track.scrollWidth || 0) / 2;
+      if (w > 0) setW = w;
+    };
     measure();
-    const ro = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(measure) : null;
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
     if (ro) ro.observe(track);
-    const io = (typeof IntersectionObserver !== 'undefined') ? new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; if (!onScreen) clickPaused = false; }, { threshold: 0 }) : null;
+    const io = typeof IntersectionObserver !== 'undefined' ? new IntersectionObserver(es => {
+      onScreen = es[0].isIntersecting;
+      if (!onScreen) clickPaused = false;
+    }, {
+      threshold: 0
+    }) : null;
     if (io) io.observe(track);
-    const wrap = (x) => { while (x <= -setW) x += setW; while (x > 0) x -= setW; return x; };
-    const apply = () => { track.style.transform = 'translateX(' + offset + 'px)'; };
-    const down = (e) => { dragging = true; moved = false; startX = e.clientX; startOffset = offset; if (track.setPointerCapture) { try { track.setPointerCapture(e.pointerId); } catch (err) {} } };
-    const move = (e) => { if (!dragging) return; if (Math.abs(e.clientX - startX) > 4) moved = true; offset = wrap(startOffset + (e.clientX - startX)); apply(); };
-    const up = () => { if (!dragging) return; dragging = false; if (!moved) clickPaused = !clickPaused; };
-    const enter = () => { hoverPaused = true; };
-    const leave = () => { hoverPaused = false; };
+    const wrap = x => {
+      while (x <= -setW) x += setW;
+      while (x > 0) x -= setW;
+      return x;
+    };
+    const apply = () => {
+      track.style.transform = 'translateX(' + offset + 'px)';
+    };
+    const down = e => {
+      dragging = true;
+      moved = false;
+      startX = e.clientX;
+      startOffset = offset;
+      if (track.setPointerCapture) {
+        try {
+          track.setPointerCapture(e.pointerId);
+        } catch (err) {}
+      }
+    };
+    const move = e => {
+      if (!dragging) return;
+      if (Math.abs(e.clientX - startX) > 4) moved = true;
+      offset = wrap(startOffset + (e.clientX - startX));
+      apply();
+    };
+    const up = () => {
+      if (!dragging) return;
+      dragging = false;
+      if (!moved) clickPaused = !clickPaused;
+    };
+    const enter = () => {
+      hoverPaused = true;
+    };
+    const leave = () => {
+      hoverPaused = false;
+    };
     track.addEventListener('pointerdown', down);
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', up);
     track.addEventListener('mouseenter', enter);
     track.addEventListener('mouseleave', leave);
-    const loop = (t) => {
+    const loop = t => {
       raf = requestAnimationFrame(loop);
       if (!last) last = t;
-      const dt = Math.min((t - last) / 1000, 0.05); last = t;
-      if (!dragging && !hoverPaused && !clickPaused && onScreen) { offset = wrap(offset - (setW / 120) * dt); apply(); }
+      const dt = Math.min((t - last) / 1000, 0.05);
+      last = t;
+      if (!dragging && !hoverPaused && !clickPaused && onScreen) {
+        offset = wrap(offset - setW / 120 * dt);
+        apply();
+      }
     };
     raf = requestAnimationFrame(loop);
     return () => {
@@ -1371,9 +1452,9 @@ function ProblemSection() {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "WHY ERP KEEPS FAILING MID-MARKET"), /*#__PURE__*/React.createElement("h2", {
+  }, "THE VISIBILITY PROBLEM"), /*#__PURE__*/React.createElement("h2", {
     className: "h2"
-  }, "Every ERP was built for the enterprise and scaled down to fit you. That's why it never quite fits. We built SimpleGrid for your floor first.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Your books are fine. Your floor is invisible. And every ERP pitched to fix that was built for the enterprise, then scaled down \u2014 that's why it never quite fits.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 100
   }, /*#__PURE__*/React.createElement("div", {
     className: "problem-marquee"
@@ -1755,17 +1836,17 @@ function WhatWeDo() {
       lineHeight: 1.6,
       margin: 0
     }
-  }, "If we take you on, we build a custom ERP around ", /*#__PURE__*/React.createElement("strong", {
+  }, "If we take you on, we configure SimpleGrid to ", /*#__PURE__*/React.createElement("strong", {
     style: {
       color: '#fff',
       fontWeight: 700
     }
-  }, "how your operation actually runs"), ". You run it for 30 days. If it doesn't earn its keep, walk away. ", /*#__PURE__*/React.createElement("strong", {
+  }, "how your floor actually runs"), " \u2014 at our cost. Run it live for 30 days: real jobs, real team, real orders. ", /*#__PURE__*/React.createElement("strong", {
     style: {
       color: '#fff',
       fontWeight: 700
     }
-  }, "No contract. No invoice.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "You pay only when it works.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: 260
   }, /*#__PURE__*/React.createElement("div", {
     className: "sg-onboard-stats",
@@ -1781,14 +1862,14 @@ function WhatWeDo() {
       margin: '0 auto 18px'
     }
   }, [{
-    n: '7d',
+    n: '7–21d',
     l: 'Time to live'
   }, {
     n: '30d',
-    l: 'Free trial'
+    l: 'On your real floor'
   }, {
-    n: '$0',
-    l: 'To start'
+    n: 'Our cost',
+    l: 'To configure'
   }].map((s, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     className: "sg-onboard-stat",
@@ -2109,7 +2190,7 @@ function HowItWorks() {
     title: "A working demo within 24 hours.",
     details: [{
       kind: 'p',
-      text: "Within 24 hours of the call, we send you a private link. It's not slides, not a sandbox - it's a working version of your ERP, generated from the call."
+      text: "Within 24 hours of the call, we send you a private link. It's not slides, not a sandbox - it's a working version of your SimpleGrid setup, generated from the call."
     }, {
       kind: 'p',
       text: "Your products, your stages, your approval rules, and your buyers are modeled in. You and your team click around: create a PO, run an order through, log a receipt, see the inventory move."
@@ -2210,7 +2291,7 @@ function HowItWorks() {
       fill: "var(--sg-blue)",
       fontWeight: "700",
       letterSpacing: "0.06em"
-    }, "YOUR ERP \xB7 LIVE"), /*#__PURE__*/React.createElement("rect", {
+    }, "YOUR FLOOR \xB7 LIVE"), /*#__PURE__*/React.createElement("rect", {
       x: "74",
       y: "58",
       width: "124",
@@ -2394,10 +2475,10 @@ function HowItWorks() {
       text: "Most deployments go live within 7-21 days, depending on how much custom configuration your operation needs. Day 4-7 is migration, integration, and go-live. We pull from your existing ERP, accounting tool, email, and any CSV exports. Integrations turn on - your accounting, your inbox, your shipping platform."
     }, {
       kind: 'p',
-      text: "Your team uses the system in parallel for one week, on real orders, with real money. By day 7, SimpleGrid is the source of truth. Old spreadsheets and chat threads get archived."
+      text: "Your team uses the system in parallel for one week, on real orders, with real money. By day 7, SimpleGrid is the source of truth for the floor - and your QuickBooks or Tally stays exactly where it is. Old spreadsheets and chat threads get archived."
     }, {
       kind: 'list',
-      items: ["Migration of master data: products, customers, vendors, GL, open orders, inventory.", "Standard integrations included; custom ones built on request.", "The 30-day free trial clock starts on go-live, not on signup.", "If by day 30 it isn't earning its keep - walk away. No contract, no invoice, no migration cost."]
+      items: ["Migration of master data: products, customers, vendors, GL, open orders, inventory.", "Standard integrations included; custom ones built on request.", "The 30-day live-run clock starts on go-live, not on signup.", "If by day 30 it isn't earning its keep - walk away. No contract, no invoice."]
     }],
     visual: /*#__PURE__*/React.createElement("svg", {
       viewBox: "0 0 220 160",
@@ -2694,7 +2775,7 @@ function HowItWorks() {
   }, c.title), /*#__PURE__*/React.createElement("span", {
     className: "hiw-hint",
     "aria-hidden": "true"
-  }, "See how it runs →")))))), selected && /*#__PURE__*/React.createElement("div", {
+  }, "See how it runs \u2192")))))), selected && /*#__PURE__*/React.createElement("div", {
     className: "modal-overlay",
     onClick: e => {
       if (e.target === e.currentTarget) setSelected(null);

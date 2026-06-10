@@ -273,7 +273,7 @@ window.BurstBand = BurstBand;
 
 function CycleHeadline() {
   const HEADLINES = [
-    <>The Operations ERP<br/>for manufacturers.</>
+    <>The Factory<br/>Ops Cloud.</>
   ];
   // Each tile fades smoothly; staggering them by (x+y)*delay gives a diagonal
   // sweep that visually "breaks" the headline into checkboxes and reassembles.
@@ -345,7 +345,7 @@ function Hero() {
               <CycleHeadline />
             </Reveal>
             <Reveal delay={200}>
-              <p className="hero-sub">Built for how your factory actually runs &mdash; your floor, your costing, your process. Not a thousand others. Live in days, not months.</p>
+              <p className="hero-sub">Configured to your floor. Live in 21 days. Live control of your factory floor, synced to the QuickBooks or Tally you already run &mdash; no migration, no 12-month implementation.</p>
             </Reveal>
             <Reveal delay={400}>
               <div className="hero-cta">
@@ -367,12 +367,12 @@ function Hero() {
               </div>
               <div style={{fontSize:14,color:'var(--fg2)',marginTop:14,lineHeight:1.5}}>From kickoff to live on your real floor.</div>
               <div style={{marginTop:32,paddingTop:28,borderTop:'1px solid var(--border)'}}>
-                <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg2)',marginBottom:10}}>Try Before You Buy</div>
+                <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg2)',marginBottom:10}}>On Your Real Floor</div>
                 <div style={{fontFamily:'var(--font-heading)',fontSize:80,fontWeight:700,color:'var(--fg1)',lineHeight:1,letterSpacing:'-0.04em',position:'relative'}}>
                   <span>30</span>
                   <span style={{fontSize:24,color:'var(--fg3)',marginLeft:14,fontWeight:500,letterSpacing:'normal'}}>Days</span>
                 </div>
-                <div style={{fontSize:14,color:'var(--fg2)',marginTop:14,lineHeight:1.5}}>On your real floor. Real team. Real orders.</div>
+                <div style={{fontSize:14,color:'var(--fg2)',marginTop:14,lineHeight:1.5}}>Real jobs. Real team. Real orders. Then you decide.</div>
               </div>
             </div>
           </Reveal>
@@ -470,8 +470,8 @@ function ProblemSection() {
 
   const problems = [
     {
-      n: '01', t: 'You pay before it works', b: "Six figures up front, for a system you've never seen run.",
-      footer: 'See it run first. Then pay.',
+      n: '01', t: 'Your floor runs on memory', b: "Spreadsheets, WhatsApp, and one person who knows where every job stands.",
+      footer: 'SimpleGrid gives everyone the live view.',
       visual: (
         <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}} aria-hidden="true">
           <defs>
@@ -487,28 +487,28 @@ function ProblemSection() {
             </radialGradient>
           </defs>
 
-          {/* Money inflows - five labeled $ chips with curved trails into the hole */}
+          {/* Status inflows - five labeled "?" chips with curved trails into one head */}
           {[
-            { y: 18,  label: 'Consultants',     dy: 76,  delay: '0s'   },
-            { y: 50,  label: 'Integrations',    dy: 44,  delay: '1.5s' },
-            { y: 82,  label: 'Licensing cost',  dy: 12,  delay: '3s'   },
-            { y: 114, label: 'Delays',          dy: -20, delay: '4.5s' },
-            { y: 146, label: 'Change requests', dy: -52, delay: '6s'   },
+            { y: 18,  label: 'WhatsApp threads',  dy: 76,  delay: '0s'   },
+            { y: 50,  label: 'Spreadsheet v7',    dy: 44,  delay: '1.5s' },
+            { y: 82,  label: 'Walk the floor',    dy: 12,  delay: '3s'   },
+            { y: 114, label: 'Phone calls',       dy: -20, delay: '4.5s' },
+            { y: 146, label: 'End-of-day report', dy: -52, delay: '6s'   },
           ].map((it, i) => (
             <g key={i}>
-              {/* Curved dashed trail from chip start to hole center */}
+              {/* Curved dashed trail from chip start to the bottleneck center */}
               <path d={`M 32 ${it.y + 6} Q 90 ${it.y + 6} 178 100`} fill="none" stroke="#DC2A3D" strokeWidth="1" strokeDasharray="2 4" strokeOpacity="0.3"/>
               {/* Static label */}
               <text x="38" y={it.y - 2} fontSize="10.5" fill="#374151" fontWeight="600">{it.label}</text>
-              {/* Animated $ chip flowing into the hole */}
+              {/* Animated ? chip flowing into the bottleneck */}
               <g style={{animation:`sg-suck-${i} 20s ${it.delay} ease-in infinite`, transformOrigin:'0 0'}}>
                 <rect x="10" y={it.y} width="22" height="14" rx="3" fill="#DC2A3D"/>
-                <text x="21" y={it.y + 11} fontSize="10" fill="#fff" fontWeight="700" textAnchor="middle">$</text>
+                <text x="21" y={it.y + 11} fontSize="10" fill="#fff" fontWeight="700" textAnchor="middle">?</text>
               </g>
             </g>
           ))}
 
-          {/* Black hole halo + core (centered at 178, 100) */}
+          {/* The bottleneck: halo + core (centered at 178, 100) - one person's head */}
           <circle cx="178" cy="100" r="62" fill="url(#sgHoleHalo)" style={{animation:'sg-halo 3s ease-in-out infinite'}}/>
           <g style={{transformOrigin:'178px 100px',animation:'sg-spin 9s linear infinite'}}>
             <ellipse cx="178" cy="100" rx="46" ry="11" fill="none" stroke="rgba(220,42,61,0.35)" strokeWidth="1"/>
@@ -517,16 +517,15 @@ function ProblemSection() {
             <ellipse cx="178" cy="100" rx="46" ry="11" fill="none" stroke="rgba(220,42,61,0.18)" strokeWidth="1" transform="rotate(135 178 100)"/>
           </g>
           <circle cx="178" cy="100" r="36" fill="url(#sgHoleCore)"/>
-          <text x="178" y="98" fontSize="13" fill="#fff" fontWeight="700" textAnchor="middle" letterSpacing="0.02em">$500K+</text>
-          <text x="178" y="112" fontSize="8.5" fill="rgba(255,255,255,0.55)" fontWeight="700" textAnchor="middle" letterSpacing="0.18em">SUNK</text>
+          <text x="178" y="98" fontSize="12" fill="#fff" fontWeight="700" textAnchor="middle" letterSpacing="0.02em">ONE PERSON</text>
+          <text x="178" y="112" fontSize="8.5" fill="rgba(255,255,255,0.55)" fontWeight="700" textAnchor="middle" letterSpacing="0.18em">KNOWS</text>
 
-          {/* Output side - three possible outcomes branching from the hole.
-              Two-line labels (line 1 + "system" on line 2) keep "system" readable
-              inside the 400-wide viewBox even with the longest sub. */}
+          {/* Output side - what the bottleneck costs the rest of the business.
+              Two-line labels keep the text readable inside the 400-wide viewBox. */}
           {[
-            { y: 36,  l1: 'No usable',     l2: 'system', color: '#374151', sub: 'project shelved' },
-            { y: 100, l1: 'Half-working',  l2: 'system', color: '#374151', sub: 'forced into modules' },
-            { y: 164, l1: 'Fully working', l2: 'system', color: '#374151', sub: 'rare, slow, expensive' },
+            { y: 36,  l1: 'Owner waits',   l2: 'for the report', color: '#374151', sub: 'plans off yesterday' },
+            { y: 100, l1: 'Orders get',    l2: 'miscosted',      color: '#374151', sub: 'caught at month-end' },
+            { y: 164, l1: 'QC issues',     l2: 'surface late',   color: '#374151', sub: 'customer finds out first' },
           ].map((o, i) => (
             <g key={i}>
               {/* Branching dashed arrow from hole right edge to flat tail */}
@@ -555,7 +554,7 @@ function ProblemSection() {
       footer: 'SimpleGrid bends to your process.',
       visual: (
         <svg viewBox="0 0 400 200" style={{width:'100%',height:'auto',display:'block'}} aria-hidden="true">
-          <text x="20" y="50" fontSize="13" fill="var(--fg1)" fontWeight="600">Your business with a fluid ERP</text>
+          <text x="20" y="50" fontSize="13" fill="var(--fg1)" fontWeight="600">Your business with a fluid ops layer</text>
           <rect x="20" y="62" width="360" height="20" rx="10" fill="#E5E8ED"/>
           <rect x="20" y="62" width="360" height="20" rx="10" fill="#3461E0" style={{transformOrigin:'20px 72px',animation:'sg-grow-b 8.5s ease-out infinite'}}/>
           <text x="370" y="76" fontSize="11" fill="#fff" fontWeight="700" textAnchor="end" style={{opacity:0,animation:'sg-fade-b 8.5s ease-out infinite'}}>Scales</text>
@@ -660,8 +659,8 @@ function ProblemSection() {
     <section className="section" id="why-erp" style={{paddingTop:28,paddingBottom:44}}>
       <div className="container">
         <Reveal>
-          <div className="tag">WHY ERP KEEPS FAILING MID-MARKET</div>
-          <h2 className="h2">Every ERP was built for the enterprise and scaled down to fit you. That's why it never quite fits. We built SimpleGrid for your floor first.</h2>
+          <div className="tag">THE VISIBILITY PROBLEM</div>
+          <h2 className="h2">Your books are fine. Your floor is invisible. And every ERP pitched to fix that was built for the enterprise, then scaled down &mdash; that's why it never quite fits.</h2>
         </Reveal>
         <Reveal delay={100}>
           <div className="problem-marquee">
@@ -874,7 +873,7 @@ function WhatWeDo() {
         <Reveal delay={200}>
           <div style={{border:'1px solid rgba(255,255,255,0.12)',borderRadius:'var(--radius-lg)',padding:'14px 20px',background:'rgba(255,255,255,0.03)',maxWidth:760,margin:'0 auto 16px'}}>
             <p style={{fontSize:14,color:'rgba(255,255,255,0.78)',lineHeight:1.6,margin:0}}>
-              If we take you on, we build a custom ERP around <strong style={{color:'#fff',fontWeight:700}}>how your operation actually runs</strong>. You run it for 30 days. If it doesn't earn its keep, walk away. <strong style={{color:'#fff',fontWeight:700}}>No contract. No invoice.</strong>
+              If we take you on, we configure SimpleGrid to <strong style={{color:'#fff',fontWeight:700}}>how your floor actually runs</strong> &mdash; at our cost. Run it live for 30 days: real jobs, real team, real orders. <strong style={{color:'#fff',fontWeight:700}}>You pay only when it works.</strong>
             </p>
           </div>
         </Reveal>
@@ -883,9 +882,9 @@ function WhatWeDo() {
         <Reveal delay={260}>
           <div className="sg-onboard-stats" style={{display:'grid',gridTemplateColumns:'repeat(3, 1fr)',gap:1,background:'rgba(255,255,255,0.10)',border:'1px solid rgba(255,255,255,0.10)',borderRadius:'var(--radius-lg)',overflow:'hidden',maxWidth:520,margin:'0 auto 18px'}}>
             {[
-              {n:'7d',l:'Time to live'},
-              {n:'30d',l:'Free trial'},
-              {n:'$0',l:'To start'},
+              {n:'7–21d',l:'Time to live'},
+              {n:'30d',l:'On your real floor'},
+              {n:'Our cost',l:'To configure'},
             ].map((s,i) => (
               <div key={i} className="sg-onboard-stat" style={{padding:'12px 12px',textAlign:'center'}}>
                 <div style={{fontFamily:'var(--font-heading)',fontSize:24,fontWeight:700,color:'var(--sg-blue)',letterSpacing:'-0.02em',lineHeight:1}}>{s.n}</div>
@@ -1081,7 +1080,7 @@ function HowItWorks() {
       body: "Working demo in 24 hours, built around your operation.",
       title: "A working demo within 24 hours.",
       details: [
-        { kind: 'p', text: "Within 24 hours of the call, we send you a private link. It's not slides, not a sandbox - it's a working version of your ERP, generated from the call." },
+        { kind: 'p', text: "Within 24 hours of the call, we send you a private link. It's not slides, not a sandbox - it's a working version of your SimpleGrid setup, generated from the call." },
         { kind: 'p', text: "Your products, your stages, your approval rules, and your buyers are modeled in. You and your team click around: create a PO, run an order through, log a receipt, see the inventory move." },
         { kind: 'list', items: [
           "60-70% accuracy on the first pass is typical - the rest gets fixed in step 4.",
@@ -1104,7 +1103,7 @@ function HowItWorks() {
           <rect x="28" y="70" width="32" height="5" rx="2" fill="rgba(74,123,247,0.5)"/>
           <rect x="28" y="80" width="24" height="5" rx="2" fill="var(--border)"/>
           <rect x="28" y="90" width="30" height="5" rx="2" fill="var(--border)"/>
-          <text x="74" y="52" fontSize="8" fill="var(--sg-blue)" fontWeight="700" letterSpacing="0.06em">YOUR ERP · LIVE</text>
+          <text x="74" y="52" fontSize="8" fill="var(--sg-blue)" fontWeight="700" letterSpacing="0.06em">YOUR FLOOR · LIVE</text>
           <rect x="74" y="58" width="124" height="34" rx="4" fill="rgba(74,123,247,0.08)" stroke="rgba(74,123,247,0.25)"/>
           <rect x="80" y="66" width="40" height="5" rx="2" fill="var(--sg-blue)"/>
           <rect x="80" y="78" width="80" height="5" rx="2" fill="rgba(74,123,247,0.5)"/>
@@ -1159,12 +1158,12 @@ function HowItWorks() {
       title: "Live in production by day 7.",
       details: [
         { kind: 'p', text: "Most deployments go live within 7-21 days, depending on how much custom configuration your operation needs. Day 4-7 is migration, integration, and go-live. We pull from your existing ERP, accounting tool, email, and any CSV exports. Integrations turn on - your accounting, your inbox, your shipping platform." },
-        { kind: 'p', text: "Your team uses the system in parallel for one week, on real orders, with real money. By day 7, SimpleGrid is the source of truth. Old spreadsheets and chat threads get archived." },
+        { kind: 'p', text: "Your team uses the system in parallel for one week, on real orders, with real money. By day 7, SimpleGrid is the source of truth for the floor - and your QuickBooks or Tally stays exactly where it is. Old spreadsheets and chat threads get archived." },
         { kind: 'list', items: [
           "Migration of master data: products, customers, vendors, GL, open orders, inventory.",
           "Standard integrations included; custom ones built on request.",
-          "The 30-day free trial clock starts on go-live, not on signup.",
-          "If by day 30 it isn't earning its keep - walk away. No contract, no invoice, no migration cost.",
+          "The 30-day live-run clock starts on go-live, not on signup.",
+          "If by day 30 it isn't earning its keep - walk away. No contract, no invoice.",
         ] },
       ],
       visual: (

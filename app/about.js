@@ -27,6 +27,7 @@ function AboutPage() {
       position: 'relative',
       color: '#fff',
       overflow: 'hidden',
+      background: 'rgba(26,26,26,0.90)',
       minHeight: '78vh',
       display: 'flex',
       alignItems: 'center',
@@ -74,13 +75,13 @@ function AboutPage() {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "THE OFFER"), /*#__PURE__*/React.createElement("p", {
+  }, "WHY WE EXIST"), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
       maxWidth: 'none',
       margin: '12px 0 0'
     }
-  }, "Here's what no software vendor will tell you: 75% of mid-market ERP projects fail or get abandoned. We lived two of them ourselves. Every ERP vendor makes you pay first and hope it works - we refuse to let the risk sit with you. We model SimpleGrid on your factory, run it on your real floor for 30 days, and you pay only if you keep it. If it doesn't earn its place, you owe us nothing. That's not a discount. It's the only honest way to sell into an industry that fails three customers out of four.")))), /*#__PURE__*/React.createElement("section", {
+  }, "Here's what no software vendor will tell you: 75% of mid-market ERP projects fail or get abandoned. We lived two of them ourselves. So we built something different. SimpleGrid is the Factory Ops Cloud - an operations layer that runs your factory floor on top of the QuickBooks or Tally you already use. Jobs, batches, BOMs, QC checkpoints, costing - live, in one place, with no migration and no rip-and-replace. And because we've been the customer, we prove it before we ask you to commit: we configure it to your floor at our cost, you run it live for 30 days, and you pay only when it works.")))), /*#__PURE__*/React.createElement("section", {
     className: "section",
     id: "architecture",
     style: {
@@ -140,7 +141,7 @@ function AboutPage() {
       lineHeight: 1.6,
       margin: '0 0 18px'
     }
-  }, "The rest of the industry measures ERP rollouts in quarters and years. We measure ours in days."), /*#__PURE__*/React.createElement("div", {
+  }, "The rest of the industry measures ERP rollouts in quarters and years. A SimpleGrid setup goes live in days."), /*#__PURE__*/React.createElement("div", {
     className: "arch-outcome-grid"
   }, [{
     t: '7-day deploys',
@@ -254,7 +255,7 @@ function AboutPage() {
       lineHeight: 1.7,
       margin: 0
     }
-  }, "Banks have run on this idea for centuries - a ledger, never erased. Almost no ERP does. We do.")))), /*#__PURE__*/React.createElement(Reveal, {
+  }, "Banks have run on this idea for centuries - a ledger, never erased. Almost no ERP does. We do - and completed jobs flow from that ledger straight into the QuickBooks or Tally you already run.")))), /*#__PURE__*/React.createElement(Reveal, {
     delay: 200
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -285,7 +286,7 @@ function AboutPage() {
     }
   }, /*#__PURE__*/React.createElement(ProductionFlow, null))), /*#__PURE__*/React.createElement(FinalCTA, {
     title: "Built by people who've run the floor.",
-    body: "We ran multi-stage factories to $30M and survived two ERP failures before building SimpleGrid. We're on every deployment. We carry the cost and the risk - you run it for 30 days and pay only once it earns its keep.",
+    body: "We ran multi-stage factories to $30M and survived two ERP failures before building SimpleGrid. We're on every deployment. We configure it to your floor at our cost. Run it live for 30 days. You pay only when it works.",
     note: "Limited slots each quarter. We onboard selectively."
   }), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)

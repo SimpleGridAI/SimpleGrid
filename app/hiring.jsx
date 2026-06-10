@@ -7,7 +7,7 @@ const ROLES = [
     type: 'Fractional / part-time',
     datePosted: '2026-03-15',
     comp: 'USD $5,000 / month + equity + uncapped performance upside',
-    summary: 'Open the US market for a custom ERP that ships in days and gets paid for only after it works. You bring the operator network, the book of relationships, and the hand-on-the-pen instinct. We bring a product we build at our risk and a 30-day on-the-floor trial that closes deals on its own.',
+    summary: 'Open the US market for the Factory Ops Cloud - the operations layer that runs mid-market factory floors on top of QuickBooks or Tally. You bring the operator network, the book of relationships, and the hand-on-the-pen instinct. We bring a product the floor actually uses and a 30-day live-on-the-floor trial that closes deals on its own.',
     about: [
       'We have proof in India - real factories, real ledgers, real revenue. The US mid-market manufacturer (50-1,500 people) is our next wedge: the customer who has outgrown QuickBooks + Excel but cannot stomach a $500K, 18-month SAP deployment. They are exactly who SimpleGrid was built for.',
       'You will own US revenue strategy, partner with the founder on every early deal, and graduate to running a US team once the motion is repeatable.',
@@ -79,12 +79,12 @@ const ROLES = [
 
 function HiringHero() {
   return (
-    <section className="section section-dark" style={{paddingTop:80,paddingBottom:48}}>
+    <section className="section section-dark" style={{paddingTop:80,paddingBottom:48,background:'rgba(26,26,26,0.90)'}}>
       <div className="container">
         <div className="tag" style={{color:'rgba(255,255,255,0.45)'}}>HIRING</div>
-        <h1 className="h1" style={{color:'#fff',maxWidth:880}}>Build a custom ERP at our risk. Get paid only when it works.</h1>
+        <h1 className="h1" style={{color:'#fff',maxWidth:880}}>Build the operations layer factories actually use.</h1>
         <p className="lead" style={{color:'rgba(255,255,255,0.7)',maxWidth:760,marginTop:16}}>
-          Lean team. Senior engineers on every customer. We carry the build cost and the risk of every deployment. We win only when the customer wins. We're hiring engineers, operators, and go-to-market hires who want to ship a system that gets used on the floor, not bought and shelved.
+          Lean team. Senior engineers on every customer. We're building the Factory Ops Cloud - the operations layer that runs factory floors still managed on spreadsheets and WhatsApp. We win only when the customer wins. We're hiring engineers, operators, and go-to-market hires who want to ship a system that gets used on the floor, not bought and shelved.
         </p>
         <div style={{marginTop:28,display:'flex',gap:12,flexWrap:'wrap'}}>
           <a href="#roles" className="btn btn-lg btn-primary">See open roles</a>
@@ -105,7 +105,7 @@ function WhyThis() {
         <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:20,marginTop:28}} className="hire-grid">
           {[
             { t: 'Operator-grounded', b: 'The people who built SimpleGrid ran a $30M manufacturing business and survived two ERP failures before building this. We design for the floor. Every feature is tested against a real plant.' },
-            { t: 'We carry the risk', b: 'Every customer is built at our cost and only paid for after it works. That commitment runs through the company - tight loops, visible work, no 9-month roadmaps.' },
+            { t: 'Proven on the floor', b: 'Every customer runs SimpleGrid live on their real floor for 30 days before they commit. We win only when it works in production. That commitment runs through the company - tight loops, visible work, no 9-month roadmaps.' },
             { t: 'Small by design', b: 'We will stay under 25 people for as long as we can. Everyone ships. Everyone talks to customers. Senior people on every deployment.' },
           ].map((c,i) => (
             <Reveal key={i} delay={i * 100}>

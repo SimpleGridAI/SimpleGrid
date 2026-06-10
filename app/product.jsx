@@ -38,7 +38,7 @@ function ProductPage() {
       <CustomRules />
 
       {/* TRIGGER - final CTA */}
-      <FinalCTA title="One integrated system for your whole floor." body="Orders, inventory, costing, QC, contractors, approvals, dispatch - every feature modelled on your exact workflow, in one place. No bolted-on modules, no template to bend around. And because your team types the way they already text, there's nothing to train. See it running on your own operation." note="Built around how you actually work. Live in 7-21 days." ctaLabel="See a live demo" />
+      <FinalCTA title="One integrated system for your whole floor." body="Orders, inventory, costing, QC, contractors, approvals, dispatch - every feature modelled on your exact workflow, in one place. No bolted-on modules, no template to bend around. And because your team types the way they already text, there's nothing to train. See it running on your own operation." note="We configure it to your floor at our cost. Run it live for 30 days. You pay only when it works." ctaLabel="See a live demo" />
     </main>
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
     {showInvite && <InviteModal onClose={() => setShowInvite(false)} />}

@@ -1,7 +1,24 @@
 /* SimpleGrid Website v2 - Revamped Styles */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 68px; }
-html, body { margin: 0; padding: 0; background: #fff; color: var(--fg1); }
+/* html carries the page white; body stays transparent so the fixed aurora
+   layer (z-index -1, see #sg-aurora below) can shine through wherever a
+   section doesn't paint its own background. */
+html, body { margin: 0; padding: 0; color: var(--fg1); }
+html { background: #fff; }
+body { background: transparent; }
+
+/* ===== SITE-WIDE AURORA (components/site-aurora.js) =====
+   The aurora's own styles are INJECTED BY THE SCRIPT (it must work on
+   standalone pages that don't load styles.css). Only page-level cooperation
+   rules live here. */
+/* no-canvas / no-JS fallback: a quiet static wash in the same brand hues */
+#sg-aurora:empty { background:
+  radial-gradient(42% 34% at 68% 6%, rgba(52,97,224,0.20), transparent 70%),
+  radial-gradient(36% 30% at 52% 38%, rgba(14,165,233,0.14), transparent 70%),
+  radial-gradient(40% 34% at 64% 72%, rgba(124,58,237,0.12), transparent 70%); }
+/* long-form article columns get a stronger frost - readability beats theme */
+.post-header, .post-content { background: rgba(252, 252, 253, 0.45); }
 img { max-width: 100%; display: block; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
 .container-sm { max-width: 820px; margin: 0 auto; padding: 0 32px; }
@@ -58,7 +75,11 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 .nav-home-menu a:hover, .nav-product-menu a:hover, .nav-solutions-menu a:hover, .nav-syncs-menu a:hover { background: var(--sg-off-white); }
 
 /* ===== NAV ===== */
-.nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.97); border-bottom: 1px solid var(--border); }
+.nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.94); border-bottom: 1px solid var(--border); }
+/* frosted-glass nav over the aurora; backdrop-filter only on >=tablet (GPU cost on phones) */
+@media (min-width: 768px) {
+  .nav { background: rgba(255,255,255,0.80); backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); }
+}
 .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; height: 52px; display: flex; align-items: center; gap: 32px; }
 .nav-logo { display: inline-flex; }
 .nav-logo img { height: 26px; }
@@ -267,7 +288,9 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 
 /* ===== HERO v2 ===== */
 .hero { background: var(--sg-black); color: #fff; padding: 96px 0 80px; overflow: hidden; min-height: calc(100vh - 52px); min-height: calc(100dvh - 52px); display: flex; flex-direction: column; justify-content: center; }
-.hero.hero-light { background: #FCFCFD; color: var(--fg1); }
+/* frosted veil instead of solid paint - lets the aurora ribbon glow through
+   the hero while keeping text contrast */
+.hero.hero-light { background: rgba(252, 252, 253, 0.28); color: var(--fg1); }
 /* backdrop-filter is GPU-expensive on phones; only enable on >=tablet. */
 @media (min-width: 768px) {
   .hero-stat-box { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }

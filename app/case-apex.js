@@ -578,7 +578,7 @@ function ApexCaseStudy() {
     className: "case-bottom-line"
   }, /*#__PURE__*/React.createElement("div", {
     className: "big"
-  }, "Two years and two failed ERPs - then live in 12 days. 30+ locations in one ledger. Three businesses, three clear P&Ls. $0 upfront."), /*#__PURE__*/React.createElement("p", null, "Two years and two failed ERPs. Then 12 days with SimpleGrid. Inventory visible across 20+ job worker facilities and 10+ logistics partner warehouses, all in one live ledger."), /*#__PURE__*/React.createElement("a", {
+  }, "Two years and two failed ERPs - then live in 12 days. 30+ locations in one ledger. Three businesses, three clear P&Ls."), /*#__PURE__*/React.createElement("p", null, "Two years and two failed ERPs. Then 12 days with SimpleGrid. Inventory visible across 20+ job worker facilities and 10+ logistics partner warehouses, all in one live ledger."), /*#__PURE__*/React.createElement("a", {
     href: "https://cal.com/simplegrid-ai",
     target: "_blank",
     rel: "noopener noreferrer",
@@ -600,7 +600,7 @@ function ApexCaseStudy() {
     }
   }, "See a furniture manufacturer's deployment - live in 21 days \u2192"))))), /*#__PURE__*/React.createElement(FinalCTA, {
     title: "Want a result like Apex?",
-    body: "We'll build a custom ERP modelled on how your floor actually runs, put it in your hands, and carry the risk for 30 days. You pay only once it's already running the business.",
+    body: "We'll configure SimpleGrid to how your floor actually runs, put it in your hands, and you run it live for 30 days. You pay only when it works.",
     note: "Limited slots each quarter. We onboard selectively."
   }), showLogin && /*#__PURE__*/React.createElement(LoginModal, {
     onClose: () => setShowLogin(false)

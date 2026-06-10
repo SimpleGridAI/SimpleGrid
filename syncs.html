@@ -60,7 +60,7 @@
      messaging/shipping/data) are what the "Syncs" nav dropdown jumps to, so
      keep those in sync with components/site-nav.js. -->
 <style>
-.sync-hero { max-width: 1080px; margin: 0 auto; padding: 76px 32px 8px; }
+.sync-hero { max-width: 1080px; margin: 0 auto; padding: 76px 32px 8px; background: rgba(252,252,253,0.30); /* frosted veil so hero text stays readable over the site aurora */ }
 .sync-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sg-blue); margin: 0 0 14px; }
 .sync-hero h1 { font-family: var(--font-heading); font-size: clamp(34px, 5vw, 52px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; color: var(--fg1); margin: 0 0 18px; max-width: 780px; }
 .sync-hero .lead { font-size: 19px; line-height: 1.55; color: var(--fg2); margin: 0 0 26px; max-width: 700px; }
@@ -68,7 +68,7 @@
 .sync-cta:hover { filter: brightness(0.95); }
 
 .sync-block { border-top: 1px solid var(--border); }
-.sync-block.tint { background: var(--sg-off-white, #faf9f7); }
+.sync-block.tint { background: rgba(250,251,252,0.35); /* frosted off-white veil - lets the site aurora glow through */ }
 .sync-inner { max-width: 1080px; margin: 0 auto; padding: 52px 32px; scroll-margin-top: 84px; }
 .sync-head { max-width: 640px; margin: 0 0 28px; }
 .sync-head h2 { font-family: var(--font-heading); font-size: clamp(23px, 3vw, 29px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.14; color: var(--fg1); margin: 0 0 8px; }
@@ -88,7 +88,7 @@
 .sync-custom-card a.mail { color: var(--sg-blue); font-weight: 600; text-decoration: underline; }
 
 /* Final CTA */
-.sync-final { border-top: 1px solid var(--border); background: var(--sg-off-white, #faf9f7); }
+.sync-final { border-top: 1px solid var(--border); background: rgba(250,251,252,0.40); /* frosted off-white veil over the site aurora */ }
 .sync-final-inner { max-width: 760px; margin: 0 auto; padding: 68px 32px; text-align: center; }
 .sync-final h2 { font-family: var(--font-heading); font-size: clamp(26px, 3.6vw, 34px); font-weight: 700; letter-spacing: -0.02em; color: var(--fg1); margin: 0 0 12px; }
 .sync-final p { font-size: 17px; line-height: 1.6; color: var(--fg2); margin: 0 0 24px; }
@@ -113,7 +113,7 @@
   <section class="sync-hero">
     <p class="sync-eyebrow">Syncs</p>
     <h1>Syncs with everything you already run.</h1>
-    <p class="lead">SimpleGrid plugs into the tools your team already uses - accounting, spreadsheets, sales channels, messaging and shipping - so data moves on its own and nobody re-keys a thing. New connectors are built as part of your ERP, included in the build.</p>
+    <p class="lead">SimpleGrid plugs into the tools your team already uses - accounting, spreadsheets, sales channels, messaging and shipping - so data moves on its own and nobody re-keys a thing. Need a connector we don't have? We build it as part of your setup.</p>
     <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" class="sync-cta" data-cta="syncs_hero">Book a demo</a>
   </section>
 
@@ -123,7 +123,7 @@
       <div class="sync-head">
         <p class="sync-eyebrow">Syncs with</p>
         <h2>Accounting &amp; books</h2>
-        <p class="sync-intro">Push the numbers to your books automatically - no double entry, no month-end scramble.</p>
+        <p class="sync-intro">Your books stay in QuickBooks or Tally. SimpleGrid is the operations layer that feeds them - no double entry, no month-end scramble.</p>
       </div>
       <div class="sync-grid">
         <div class="sync-card">
@@ -287,7 +287,7 @@
   <section class="sync-custom">
     <div class="sync-custom-card">
       <h2>Don't see yours?</h2>
-      <p>We build the connector you need as part of your ERP - included in the build cost, not an upgrade.</p>
+      <p>We build the connector you need as part of your SimpleGrid setup - it goes live with the rest of your floor, not as an upgrade later.</p>
       <p>Email <a class="mail" href="mailto:hello@simplegrid.ai?subject=Sync%20request%20%E2%80%94%20SimpleGrid&body=Hi%20SimpleGrid%2C%0D%0A%0D%0AWe%27d%20like%20SimpleGrid%20to%20sync%20with%3A%20%5Btool%20name%5D%0D%0A%0D%0AWhat%20we%20need%3A%0D%0A%5BWhat%20it%20syncs%2C%20how%20often%2C%20any%20auth%20notes%5D%0D%0A%0D%0AThanks%21">hello@simplegrid.ai</a> with a brief note on what you need.</p>
     </div>
   </section>

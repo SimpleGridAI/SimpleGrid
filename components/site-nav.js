@@ -37,6 +37,18 @@
   // everything before "components/site-nav.js" is the prefix ("", "../", "../../", ...)
   var prefix = srcAttr.replace(/components\/site-nav\.js.*$/, '');
 
+  // --- site-wide aurora theme: the fluid brand-gradient ribbon behind every
+  // page (components/site-aurora.js). Loaded from here so all ~88 pages get it
+  // at any folder depth with zero per-page wiring. Runs even on pages without
+  // a nav mount, so it sits ABOVE the "no #sg-nav" early-return below.
+  if (!document.getElementById('sg-aurora-loader')) {
+    var auroraScript = document.createElement('script');
+    auroraScript.id = 'sg-aurora-loader';
+    auroraScript.src = prefix + 'components/site-aurora.js';
+    auroraScript.defer = true;
+    document.head.appendChild(auroraScript);
+  }
+
   var mount = document.getElementById('sg-nav');
   if (!mount) return;
   var page = mount.getAttribute('data-page') || '';
@@ -151,9 +163,9 @@
     '<header class="nav" role="banner">' +
       '<div class="nav-inner">' +
         '<a class="nav-logo" href="' + p('index.html') + '" aria-label="SimpleGrid home" ' +
-          'title="SimpleGrid - Custom ERP for manufacturers, built at our risk">' +
+          'title="SimpleGrid — The Factory Ops Cloud. Configured to your floor.">' +
           '<img src="' + p('assets/simplegrid-logo-horizontal.svg') + '" ' +
-            'alt="SimpleGrid - Custom ERP for manufacturers logo" width="160" height="32" ' +
+            'alt="SimpleGrid - Factory Ops Cloud for manufacturers logo" width="160" height="32" ' +
             'fetchpriority="high" decoding="async"></a>' +
         '<nav class="nav-links" aria-label="Main navigation">' +
           homeNavDesktop +
@@ -171,7 +183,7 @@
           '</div>' +
         '</nav>' +
         '<div class="nav-right">' +
-          '<button type="button" class="btn btn-sm btn-primary" data-sg-try-erp title="Try a live SimpleGrid ERP">See It</button>' +
+          '<button type="button" class="btn btn-sm btn-primary" data-sg-try-erp title="Try a live SimpleGrid setup">See It</button>' +
           '<button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false" data-sg-burger>' +
             '<span></span><span></span><span></span></button>' +
         '</div>' +

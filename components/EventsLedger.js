@@ -1,16 +1,54 @@
 // Events Ledger - flagship section. SG Schema + Event Sourcing.
 // Animated streaming feed + the architecture behind it.
 
-// Compact, looping event-ledger feed for the "what this gives you" block.
+// Compact, looping event-ledger feed for the "what this gives you" block:
+// timestamped, named events animate in; only the newest row carries the blue accent.
 function ActivityFeed() {
-  const EVENTS = [{ t: '8:03 AM', who: 'Mike', act: 'opened the floor — shift A' }, { t: '9:21 AM', who: 'Priya', act: 'approved PO #4471' }, { t: '11:46 AM', who: 'Mike', act: 'received 450 sheets' }, { t: '12:30 PM', who: 'System', act: 'inventory recomputed' }, { t: '2:14 PM', who: 'QC', act: 'dispatch held — QC fail' }, { t: '2:15 PM', who: 'Dana', act: 'corrective event logged' }, { t: '3:02 PM', who: 'Mike', act: '12 units scrapped — reason noted' }, { t: '4:20 PM', who: 'Priya', act: 'invoice matched to receipt' }];
+  const EVENTS = [{
+    t: '8:03 AM',
+    who: 'Mike',
+    act: 'opened the floor — shift A'
+  }, {
+    t: '9:21 AM',
+    who: 'Priya',
+    act: 'approved PO #4471'
+  }, {
+    t: '11:46 AM',
+    who: 'Mike',
+    act: 'received 450 sheets'
+  }, {
+    t: '12:30 PM',
+    who: 'System',
+    act: 'inventory recomputed'
+  }, {
+    t: '2:14 PM',
+    who: 'QC',
+    act: 'dispatch held — QC fail'
+  }, {
+    t: '2:15 PM',
+    who: 'Dana',
+    act: 'corrective event logged'
+  }, {
+    t: '3:02 PM',
+    who: 'Mike',
+    act: '12 units scrapped — reason noted'
+  }, {
+    t: '4:20 PM',
+    who: 'Priya',
+    act: 'invoice matched to receipt'
+  }];
   const MAX = 6;
   const ref = React.useRef(null);
   const counter = React.useRef(4);
   const [inView, setInView] = React.useState(false);
-  const [feed, setFeed] = React.useState(() => EVENTS.slice(0, 4).map((e, i) => ({ ...e, key: i })));
+  const [feed, setFeed] = React.useState(() => EVENTS.slice(0, 4).map((e, i) => ({
+    ...e,
+    key: i
+  })));
   React.useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.2 });
+    const obs = new IntersectionObserver(([e]) => setInView(e.isIntersecting), {
+      threshold: 0.2
+    });
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
@@ -22,7 +60,10 @@ function ActivityFeed() {
         const k = counter.current;
         counter.current = k + 1;
         const e = EVENTS[k % EVENTS.length];
-        return [...prev, { ...e, key: k }].slice(-MAX);
+        return [...prev, {
+          ...e,
+          key: k
+        }].slice(-MAX);
       });
     }, 2100);
     return () => clearInterval(id);
@@ -36,7 +77,7 @@ function ActivityFeed() {
     className: "al-panel-top"
   }, /*#__PURE__*/React.createElement("span", {
     className: "al-panel-label"
-  }, "Event ledger · Today"), /*#__PURE__*/React.createElement("span", {
+  }, "Event ledger \xB7 Today"), /*#__PURE__*/React.createElement("span", {
     className: "al-live"
   }, /*#__PURE__*/React.createElement("span", {
     className: "al-dot"
@@ -54,7 +95,6 @@ function ActivityFeed() {
     className: "al-act"
   }, e.act)))));
 }
-
 function EventsLedger() {
   // Realistic event stream that types in over time
   const allEvents = [{
@@ -344,7 +384,9 @@ function EventsLedger() {
   }, /*#__PURE__*/React.createElement("span", {
     className: "al-ico",
     "aria-hidden": "true",
-    dangerouslySetInnerHTML: { __html: x.svg }
+    dangerouslySetInnerHTML: {
+      __html: x.svg
+    }
   }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", {
     className: "al-h"
   }, x.t), /*#__PURE__*/React.createElement("p", {
@@ -358,6 +400,7 @@ function EventsLedger() {
         }
         .ledger-row:hover { background: rgba(255,255,255,0.02); }
 
+        /* "What this gives you" - borderless rows + live ledger feed */
         .al-callout-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sg-blue); margin: 56px 0 22px; }
         .al-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: start; }
         .al-rows { display: flex; flex-direction: column; }
@@ -597,22 +640,93 @@ window.ArchitectureNew = ArchitectureNew;
 
 function ProductHeroNew() {
   const [showInvite, setShowInvite] = React.useState(false);
+  const [theme, setTheme] = React.useState(() => {
+    try {
+      return localStorage.getItem('sg_product_hero_theme') || 'dark';
+    } catch {
+      return 'dark';
+    }
+  });
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    try {
+      localStorage.setItem('sg_product_hero_theme', next);
+    } catch {}
+  };
+  const isDark = theme === 'dark';
 
+  // Theme-driven colors
+  const bgClass = isDark ? 'section section-dark' : 'section';
   // Match the home page hero height: full viewport minus the nav, content centered.
-  const bgStyle = {
-    paddingTop: 88,
-    paddingBottom: 64,
-    position: 'relative',
-    overflow: 'hidden',
+  const heroSize = {
     minHeight: 'calc(100vh - 64px)',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center'
   };
+  const bgStyle = isDark ? {
+    paddingTop: 88,
+    paddingBottom: 64,
+    position: 'relative',
+    overflow: 'hidden',
+    background: 'rgba(26,26,26,0.90)',
+    ...heroSize
+  } : {
+    paddingTop: 88,
+    paddingBottom: 64,
+    position: 'relative',
+    overflow: 'hidden',
+    background: 'rgba(252,252,253,0.30)',
+    ...heroSize
+  };
+  // Dark mode: no radial tint, so the hero reads as the same #1A1A1A as the
+  // other section-dark blocks (FinalCTA, EventsLedger dark variant). Light
+  // mode keeps the subtle blue/purple radial for visual interest.
+  const overlayBg = isDark ? 'none' : 'radial-gradient(circle at 80% 20%, rgba(74,123,247,0.10), transparent 50%), radial-gradient(circle at 20% 80%, rgba(124,58,237,0.06), transparent 50%)';
+  const tagColor = isDark ? 'rgba(255,255,255,0.5)' : 'var(--fg3)';
+  const h1Color = isDark ? '#fff' : 'var(--fg1)';
+  const leadColor = isDark ? 'rgba(255,255,255,0.78)' : 'var(--fg2)';
+  const noteColor = isDark ? 'rgba(255,255,255,0.5)' : 'var(--fg3)';
   return /*#__PURE__*/React.createElement("section", {
-    className: 'section section-dark',
+    className: bgClass,
     style: bgStyle
-  }, /*#__PURE__*/React.createElement(ParticleCloud, {
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: 'hero-theme-toggle' + (isDark ? '' : ' is-light'),
+    onClick: toggleTheme,
+    "aria-label": isDark ? 'Switch to light mode' : 'Switch to dark mode'
+  }, isDark ? /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("circle", {
+    cx: "12",
+    cy: "12",
+    r: "4"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+  })) : /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      inset: 0,
+      backgroundImage: overlayBg
+    }
+  }), /*#__PURE__*/React.createElement(ParticleCloud, {
     showArcs: false
   }), /*#__PURE__*/React.createElement("div", {
     className: "container",
@@ -623,24 +737,24 @@ function ProductHeroNew() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag",
     style: {
-      color: 'rgba(255,255,255,0.5)'
+      color: tagColor
     }
   }, "THE PRODUCT"), /*#__PURE__*/React.createElement("h1", {
     className: "h1",
     style: {
-      color: '#fff',
+      color: h1Color,
       maxWidth: 980,
       fontSize: 48,
       lineHeight: 1.1
     }
-  }, "We don't sell software. We build a custom ERP around your factory."), /*#__PURE__*/React.createElement("p", {
+  }, "The operations layer for your factory floor."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
-      color: 'rgba(255,255,255,0.78)',
+      color: leadColor,
       maxWidth: 760,
       marginTop: 18
     }
-  }, "Your stages, your contractors, your approvals, your costing logic - modeled on how the floor actually runs, not how a generic ERP wants it to run. One system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs."), /*#__PURE__*/React.createElement("div", {
+  }, "Your stages, your contractors, your approvals, your costing logic - modeled on how the floor actually runs, not how a generic ERP wants it to run. One live system that replaces the fourteen Slack channels, six spreadsheets, and the approval lost in DMs - synced to the QuickBooks or Tally you already use. Your books stay where they are."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28,
       display: 'flex',
@@ -661,9 +775,9 @@ function ProductHeroNew() {
       gap: 32,
       flexWrap: 'wrap',
       fontSize: 'var(--fs-caption)',
-      color: 'rgba(255,255,255,0.5)'
+      color: noteColor
     }
-  }, /*#__PURE__*/React.createElement("span", null, "\u25CF Built at our risk"), /*#__PURE__*/React.createElement("span", null, "\u25CF Live in 7-21 days"), /*#__PURE__*/React.createElement("span", null, "\u25CF Paid for only after it works"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
+  }, /*#__PURE__*/React.createElement("span", null, "\u25CF Configured to your floor"), /*#__PURE__*/React.createElement("span", null, "\u25CF Live in 7-21 days"), /*#__PURE__*/React.createElement("span", null, "\u25CF Synced to QuickBooks & Tally"))), showInvite && /*#__PURE__*/React.createElement(InviteModal, {
     onClose: () => setShowInvite(false)
   }));
 }
@@ -671,7 +785,8 @@ window.ProductHeroNew = ProductHeroNew;
 
 // PRODUCT FEATURE - Hank, the AI chatbot for the shop floor
 function MotivationSection() {
-  const BULLDOG_SVG = '<svg viewBox="0 0 320 470" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hank, the SimpleGrid bulldog mascot in a yellow hardhat"><ellipse cx="160" cy="452" rx="116" ry="12" fill="#1A1A1A" opacity="0.10"/><rect x="116" y="346" width="36" height="80" rx="15" fill="#2A3548"/><rect x="168" y="346" width="36" height="80" rx="15" fill="#2A3548"/><path d="M110 410 q0 -8 9 -8 h26 q8 0 8 9 v12 q0 9 -9 9 h-44 q-9 0 -9 -9 q0 -8 9 -12 z" fill="#3D2817"/><path d="M210 410 q0 -8 -9 -8 h-26 q-8 0 -8 9 v12 q0 9 9 9 h44 q9 0 9 -9 q0 -8 -9 -12 z" fill="#3D2817"/><path d="M71 426 h44" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" opacity="0.35"/><path d="M205 426 h44" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" opacity="0.35"/><rect x="72" y="224" width="36" height="112" rx="18" fill="#4A7BF7"/><rect x="212" y="224" width="36" height="112" rx="18" fill="#4A7BF7"/><rect x="72" y="312" width="36" height="22" rx="11" fill="#3461D1"/><rect x="212" y="312" width="36" height="22" rx="11" fill="#3461D1"/><ellipse cx="90" cy="342" rx="19" ry="17" fill="#C9A878"/><ellipse cx="230" cy="342" rx="19" ry="17" fill="#C9A878"/><path d="M84 338 v10 M90 339 v11 M96 338 v10" stroke="#A0814F" stroke-width="2" stroke-linecap="round"/><path d="M224 338 v10 M230 339 v11 M236 338 v10" stroke="#A0814F" stroke-width="2" stroke-linecap="round"/><path d="M94 232 q2 -16 20 -16 h92 q18 0 20 16 l8 100 q1 14 -16 14 h-116 q-17 0 -16 -14 z" fill="#4A7BF7"/><path d="M94 232 q2 -16 20 -16 h12 l-6 130 h-20 q-17 0 -16 -14 z" fill="#3461D1" opacity="0.55"/><path d="M126 214 q34 22 68 0 l-10 20 q-24 14 -48 0 z" fill="#3461D1"/><line x1="160" y1="232" x2="160" y2="340" stroke="#3461D1" stroke-width="3"/><circle cx="160" cy="252" r="3" fill="#1A1A1A"/><circle cx="160" cy="280" r="3" fill="#1A1A1A"/><circle cx="160" cy="308" r="3" fill="#1A1A1A"/><rect x="106" y="248" width="34" height="30" rx="3" fill="none" stroke="#3461D1" stroke-width="2.5"/><rect x="118" y="238" width="5" height="18" rx="2" fill="#F5B000"/><rect x="118" y="238" width="5" height="5" fill="#1A1A1A"/><rect x="178" y="250" width="50" height="28" rx="4" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1.5"/><text x="203" y="266" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.5">HANK</text><text x="203" y="274" font-family="Inter, system-ui, sans-serif" font-size="5" font-weight="600" fill="#4A7BF7" text-anchor="middle" letter-spacing="0.5">AI · ERP</text><rect x="92" y="328" width="136" height="22" rx="5" fill="#6B4423"/><rect x="146" y="326" width="28" height="26" rx="5" fill="#4A7BF7" stroke="#1A1A1A" stroke-width="1.5"/><text x="160" y="344" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#FAF7F1" text-anchor="middle">SG</text><rect x="108" y="346" width="5" height="36" rx="2" fill="#6B4423"/><rect x="99" y="344" width="23" height="10" rx="2.5" fill="#B8C2CC"/><rect x="207" y="346" width="5" height="34" rx="2" fill="#B8C2CC"/><path d="M203 344 a7 7 0 1 1 13 0 l-3 0 a4 4 0 1 0 -7 0 z" fill="#B8C2CC"/><rect x="138" y="196" width="44" height="34" rx="14" fill="#C9A878"/><ellipse cx="80" cy="126" rx="22" ry="28" fill="#C9A878"/><ellipse cx="240" cy="126" rx="22" ry="28" fill="#C9A878"/><ellipse cx="82" cy="130" rx="12" ry="17" fill="#A0814F"/><ellipse cx="238" cy="130" rx="12" ry="17" fill="#A0814F"/><path d="M88 104 q0 -34 34 -34 h76 q34 0 34 34 v54 q0 46 -36 60 q-36 14 -72 0 q-36 -14 -36 -60 z" fill="#C9A878"/><path d="M88 104 q0 -34 34 -34 h10 q-20 8 -20 40 v54 q0 40 18 56 q-24 -6 -34 -22 q-8 -14 -8 -34 z" fill="#A0814F" opacity="0.45"/><ellipse cx="126" cy="186" rx="30" ry="27" fill="#F0DEC0"/><ellipse cx="194" cy="186" rx="30" ry="27" fill="#F0DEC0"/><ellipse cx="160" cy="172" rx="50" ry="40" fill="#F0DEC0"/><path d="M160 138 q-18 0 -18 13 q0 12 18 14 q18 -2 18 -14 q0 -13 -18 -13 z" fill="#1A1A1A"/><ellipse cx="153" cy="146" rx="3" ry="2" fill="#FAF7F1" opacity="0.5"/><path d="M160 165 v12" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/><path d="M160 177 q-22 16 -40 4" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M160 177 q22 16 40 4" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M150 184 l4 10 l4 -10 z" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1"/><path d="M162 184 l4 10 l4 -10 z" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1"/><ellipse cx="124" cy="128" rx="19" ry="21" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="2"/><ellipse cx="196" cy="128" rx="19" ry="21" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="2"/><circle cx="128" cy="130" r="11" fill="#4A7BF7"/><circle cx="192" cy="130" r="11" fill="#4A7BF7"/><circle cx="128" cy="130" r="5.5" fill="#1A1A1A"/><circle cx="192" cy="130" r="5.5" fill="#1A1A1A"/><circle cx="124" cy="125" r="3.5" fill="#93B8FF"><animate attributeName="opacity" values="1;0.35;1" dur="3s" repeatCount="indefinite"/></circle><circle cx="188" cy="125" r="3.5" fill="#93B8FF"><animate attributeName="opacity" values="1;0.35;1" dur="3s" repeatCount="indefinite"/></circle><path d="M105 110 q19 -11 39 -3" stroke="#A0814F" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M176 107 q20 -8 39 3" stroke="#A0814F" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M60 96 q100 16 200 0 q-2 13 -13 15 q-87 12 -174 0 q-11 -2 -13 -15 z" fill="#C48400"/><path d="M66 98 q0 -66 94 -66 q94 0 94 66 q-94 -16 -188 0 z" fill="#F5B000"/><path d="M116 40 q-15 27 -11 53" stroke="#C48400" stroke-width="3" fill="none" opacity="0.65"/><path d="M204 40 q15 27 11 53" stroke="#C48400" stroke-width="3" fill="none" opacity="0.65"/><path d="M92 54 q27 -18 58 -15 q-30 6 -46 25 q-10 12 -12 -10 z" fill="#FFFFFF" opacity="0.30"/><rect x="132" y="52" width="56" height="20" rx="3" fill="#4A7BF7" stroke="#1A1A1A" stroke-width="1.5"/><text x="160" y="66" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#FAF7F1" text-anchor="middle" letter-spacing="0.5">HANK.AI</text></svg>';
+  // Hank the bulldog mascot - stylised flat illustration, standing upright in a blue "HANK" cap.
+  const BULLDOG_SVG = '<svg viewBox="0 0 320 470" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hank, the SimpleGrid bulldog mascot in a yellow hardhat"><ellipse cx="160" cy="452" rx="116" ry="12" fill="#1A1A1A" opacity="0.10"/><rect x="116" y="346" width="36" height="80" rx="15" fill="#2A3548"/><rect x="168" y="346" width="36" height="80" rx="15" fill="#2A3548"/><path d="M110 410 q0 -8 9 -8 h26 q8 0 8 9 v12 q0 9 -9 9 h-44 q-9 0 -9 -9 q0 -8 9 -12 z" fill="#3D2817"/><path d="M210 410 q0 -8 -9 -8 h-26 q-8 0 -8 9 v12 q0 9 9 9 h44 q9 0 9 -9 q0 -8 -9 -12 z" fill="#3D2817"/><path d="M71 426 h44" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" opacity="0.35"/><path d="M205 426 h44" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" opacity="0.35"/><rect x="72" y="224" width="36" height="112" rx="18" fill="#4A7BF7"/><rect x="212" y="224" width="36" height="112" rx="18" fill="#4A7BF7"/><rect x="72" y="312" width="36" height="22" rx="11" fill="#3461D1"/><rect x="212" y="312" width="36" height="22" rx="11" fill="#3461D1"/><ellipse cx="90" cy="342" rx="19" ry="17" fill="#C9A878"/><ellipse cx="230" cy="342" rx="19" ry="17" fill="#C9A878"/><path d="M84 338 v10 M90 339 v11 M96 338 v10" stroke="#A0814F" stroke-width="2" stroke-linecap="round"/><path d="M224 338 v10 M230 339 v11 M236 338 v10" stroke="#A0814F" stroke-width="2" stroke-linecap="round"/><path d="M94 232 q2 -16 20 -16 h92 q18 0 20 16 l8 100 q1 14 -16 14 h-116 q-17 0 -16 -14 z" fill="#4A7BF7"/><path d="M94 232 q2 -16 20 -16 h12 l-6 130 h-20 q-17 0 -16 -14 z" fill="#3461D1" opacity="0.55"/><path d="M126 214 q34 22 68 0 l-10 20 q-24 14 -48 0 z" fill="#3461D1"/><line x1="160" y1="232" x2="160" y2="340" stroke="#3461D1" stroke-width="3"/><circle cx="160" cy="252" r="3" fill="#1A1A1A"/><circle cx="160" cy="280" r="3" fill="#1A1A1A"/><circle cx="160" cy="308" r="3" fill="#1A1A1A"/><rect x="106" y="248" width="34" height="30" rx="3" fill="none" stroke="#3461D1" stroke-width="2.5"/><rect x="118" y="238" width="5" height="18" rx="2" fill="#F5B000"/><rect x="118" y="238" width="5" height="5" fill="#1A1A1A"/><rect x="178" y="250" width="50" height="28" rx="4" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1.5"/><text x="203" y="266" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.5">HANK</text><text x="203" y="274" font-family="Inter, system-ui, sans-serif" font-size="5" font-weight="600" fill="#4A7BF7" text-anchor="middle" letter-spacing="0.5">AI · OPS</text><rect x="92" y="328" width="136" height="22" rx="5" fill="#6B4423"/><rect x="146" y="326" width="28" height="26" rx="5" fill="#4A7BF7" stroke="#1A1A1A" stroke-width="1.5"/><text x="160" y="344" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#FAF7F1" text-anchor="middle">SG</text><rect x="108" y="346" width="5" height="36" rx="2" fill="#6B4423"/><rect x="99" y="344" width="23" height="10" rx="2.5" fill="#B8C2CC"/><rect x="207" y="346" width="5" height="34" rx="2" fill="#B8C2CC"/><path d="M203 344 a7 7 0 1 1 13 0 l-3 0 a4 4 0 1 0 -7 0 z" fill="#B8C2CC"/><rect x="138" y="196" width="44" height="34" rx="14" fill="#C9A878"/><ellipse cx="80" cy="126" rx="22" ry="28" fill="#C9A878"/><ellipse cx="240" cy="126" rx="22" ry="28" fill="#C9A878"/><ellipse cx="82" cy="130" rx="12" ry="17" fill="#A0814F"/><ellipse cx="238" cy="130" rx="12" ry="17" fill="#A0814F"/><path d="M88 104 q0 -34 34 -34 h76 q34 0 34 34 v54 q0 46 -36 60 q-36 14 -72 0 q-36 -14 -36 -60 z" fill="#C9A878"/><path d="M88 104 q0 -34 34 -34 h10 q-20 8 -20 40 v54 q0 40 18 56 q-24 -6 -34 -22 q-8 -14 -8 -34 z" fill="#A0814F" opacity="0.45"/><ellipse cx="126" cy="186" rx="30" ry="27" fill="#F0DEC0"/><ellipse cx="194" cy="186" rx="30" ry="27" fill="#F0DEC0"/><ellipse cx="160" cy="172" rx="50" ry="40" fill="#F0DEC0"/><path d="M160 138 q-18 0 -18 13 q0 12 18 14 q18 -2 18 -14 q0 -13 -18 -13 z" fill="#1A1A1A"/><ellipse cx="153" cy="146" rx="3" ry="2" fill="#FAF7F1" opacity="0.5"/><path d="M160 165 v12" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/><path d="M160 177 q-22 16 -40 4" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M160 177 q22 16 40 4" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M150 184 l4 10 l4 -10 z" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1"/><path d="M162 184 l4 10 l4 -10 z" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1"/><ellipse cx="124" cy="128" rx="19" ry="21" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="2"/><ellipse cx="196" cy="128" rx="19" ry="21" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="2"/><circle cx="128" cy="130" r="11" fill="#4A7BF7"/><circle cx="192" cy="130" r="11" fill="#4A7BF7"/><circle cx="128" cy="130" r="5.5" fill="#1A1A1A"/><circle cx="192" cy="130" r="5.5" fill="#1A1A1A"/><circle cx="124" cy="125" r="3.5" fill="#93B8FF"><animate attributeName="opacity" values="1;0.35;1" dur="3s" repeatCount="indefinite"/></circle><circle cx="188" cy="125" r="3.5" fill="#93B8FF"><animate attributeName="opacity" values="1;0.35;1" dur="3s" repeatCount="indefinite"/></circle><path d="M105 110 q19 -11 39 -3" stroke="#A0814F" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M176 107 q20 -8 39 3" stroke="#A0814F" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M60 96 q100 16 200 0 q-2 13 -13 15 q-87 12 -174 0 q-11 -2 -13 -15 z" fill="#C48400"/><path d="M66 98 q0 -66 94 -66 q94 0 94 66 q-94 -16 -188 0 z" fill="#F5B000"/><path d="M116 40 q-15 27 -11 53" stroke="#C48400" stroke-width="3" fill="none" opacity="0.65"/><path d="M204 40 q15 27 11 53" stroke="#C48400" stroke-width="3" fill="none" opacity="0.65"/><path d="M92 54 q27 -18 58 -15 q-30 6 -46 25 q-10 12 -12 -10 z" fill="#FFFFFF" opacity="0.30"/><rect x="132" y="52" width="56" height="20" rx="3" fill="#4A7BF7" stroke="#1A1A1A" stroke-width="1.5"/><text x="160" y="66" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#FAF7F1" text-anchor="middle" letter-spacing="0.5">HANK.AI</text></svg>';
   return /*#__PURE__*/React.createElement("section", {
     className: "section",
     id: "hank",
@@ -1071,8 +1186,14 @@ function HankChat() {
     }
   }, /*#__PURE__*/React.createElement("span", {
     "aria-hidden": "true",
-    style: { width: '100%', height: '100%', display: 'block' },
-    dangerouslySetInnerHTML: { __html: '<svg viewBox="48 28 224 224" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><ellipse cx="160" cy="452" rx="116" ry="12" fill="#1A1A1A" opacity="0.10"/><rect x="116" y="346" width="36" height="80" rx="15" fill="#2A3548"/><rect x="168" y="346" width="36" height="80" rx="15" fill="#2A3548"/><path d="M110 410 q0 -8 9 -8 h26 q8 0 8 9 v12 q0 9 -9 9 h-44 q-9 0 -9 -9 q0 -8 9 -12 z" fill="#3D2817"/><path d="M210 410 q0 -8 -9 -8 h-26 q-8 0 -8 9 v12 q0 9 9 9 h44 q9 0 9 -9 q0 -8 -9 -12 z" fill="#3D2817"/><path d="M71 426 h44" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" opacity="0.35"/><path d="M205 426 h44" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" opacity="0.35"/><rect x="72" y="224" width="36" height="112" rx="18" fill="#4A7BF7"/><rect x="212" y="224" width="36" height="112" rx="18" fill="#4A7BF7"/><rect x="72" y="312" width="36" height="22" rx="11" fill="#3461D1"/><rect x="212" y="312" width="36" height="22" rx="11" fill="#3461D1"/><ellipse cx="90" cy="342" rx="19" ry="17" fill="#C9A878"/><ellipse cx="230" cy="342" rx="19" ry="17" fill="#C9A878"/><path d="M84 338 v10 M90 339 v11 M96 338 v10" stroke="#A0814F" stroke-width="2" stroke-linecap="round"/><path d="M224 338 v10 M230 339 v11 M236 338 v10" stroke="#A0814F" stroke-width="2" stroke-linecap="round"/><path d="M94 232 q2 -16 20 -16 h92 q18 0 20 16 l8 100 q1 14 -16 14 h-116 q-17 0 -16 -14 z" fill="#4A7BF7"/><path d="M94 232 q2 -16 20 -16 h12 l-6 130 h-20 q-17 0 -16 -14 z" fill="#3461D1" opacity="0.55"/><path d="M126 214 q34 22 68 0 l-10 20 q-24 14 -48 0 z" fill="#3461D1"/><line x1="160" y1="232" x2="160" y2="340" stroke="#3461D1" stroke-width="3"/><circle cx="160" cy="252" r="3" fill="#1A1A1A"/><circle cx="160" cy="280" r="3" fill="#1A1A1A"/><circle cx="160" cy="308" r="3" fill="#1A1A1A"/><rect x="106" y="248" width="34" height="30" rx="3" fill="none" stroke="#3461D1" stroke-width="2.5"/><rect x="118" y="238" width="5" height="18" rx="2" fill="#F5B000"/><rect x="118" y="238" width="5" height="5" fill="#1A1A1A"/><rect x="178" y="250" width="50" height="28" rx="4" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1.5"/><text x="203" y="266" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.5">HANK</text><text x="203" y="274" font-family="Inter, system-ui, sans-serif" font-size="5" font-weight="600" fill="#4A7BF7" text-anchor="middle" letter-spacing="0.5">AI · ERP</text><rect x="92" y="328" width="136" height="22" rx="5" fill="#6B4423"/><rect x="146" y="326" width="28" height="26" rx="5" fill="#4A7BF7" stroke="#1A1A1A" stroke-width="1.5"/><text x="160" y="344" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#FAF7F1" text-anchor="middle">SG</text><rect x="108" y="346" width="5" height="36" rx="2" fill="#6B4423"/><rect x="99" y="344" width="23" height="10" rx="2.5" fill="#B8C2CC"/><rect x="207" y="346" width="5" height="34" rx="2" fill="#B8C2CC"/><path d="M203 344 a7 7 0 1 1 13 0 l-3 0 a4 4 0 1 0 -7 0 z" fill="#B8C2CC"/><rect x="138" y="196" width="44" height="34" rx="14" fill="#C9A878"/><ellipse cx="80" cy="126" rx="22" ry="28" fill="#C9A878"/><ellipse cx="240" cy="126" rx="22" ry="28" fill="#C9A878"/><ellipse cx="82" cy="130" rx="12" ry="17" fill="#A0814F"/><ellipse cx="238" cy="130" rx="12" ry="17" fill="#A0814F"/><path d="M88 104 q0 -34 34 -34 h76 q34 0 34 34 v54 q0 46 -36 60 q-36 14 -72 0 q-36 -14 -36 -60 z" fill="#C9A878"/><path d="M88 104 q0 -34 34 -34 h10 q-20 8 -20 40 v54 q0 40 18 56 q-24 -6 -34 -22 q-8 -14 -8 -34 z" fill="#A0814F" opacity="0.45"/><ellipse cx="126" cy="186" rx="30" ry="27" fill="#F0DEC0"/><ellipse cx="194" cy="186" rx="30" ry="27" fill="#F0DEC0"/><ellipse cx="160" cy="172" rx="50" ry="40" fill="#F0DEC0"/><path d="M160 138 q-18 0 -18 13 q0 12 18 14 q18 -2 18 -14 q0 -13 -18 -13 z" fill="#1A1A1A"/><ellipse cx="153" cy="146" rx="3" ry="2" fill="#FAF7F1" opacity="0.5"/><path d="M160 165 v12" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/><path d="M160 177 q-22 16 -40 4" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M160 177 q22 16 40 4" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M150 184 l4 10 l4 -10 z" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1"/><path d="M162 184 l4 10 l4 -10 z" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1"/><ellipse cx="124" cy="128" rx="19" ry="21" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="2"/><ellipse cx="196" cy="128" rx="19" ry="21" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="2"/><circle cx="128" cy="130" r="11" fill="#4A7BF7"/><circle cx="192" cy="130" r="11" fill="#4A7BF7"/><circle cx="128" cy="130" r="5.5" fill="#1A1A1A"/><circle cx="192" cy="130" r="5.5" fill="#1A1A1A"/><circle cx="124" cy="125" r="3.5" fill="#93B8FF"><animate attributeName="opacity" values="1;0.35;1" dur="3s" repeatCount="indefinite"/></circle><circle cx="188" cy="125" r="3.5" fill="#93B8FF"><animate attributeName="opacity" values="1;0.35;1" dur="3s" repeatCount="indefinite"/></circle><path d="M105 110 q19 -11 39 -3" stroke="#A0814F" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M176 107 q20 -8 39 3" stroke="#A0814F" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M60 96 q100 16 200 0 q-2 13 -13 15 q-87 12 -174 0 q-11 -2 -13 -15 z" fill="#C48400"/><path d="M66 98 q0 -66 94 -66 q94 0 94 66 q-94 -16 -188 0 z" fill="#F5B000"/><path d="M116 40 q-15 27 -11 53" stroke="#C48400" stroke-width="3" fill="none" opacity="0.65"/><path d="M204 40 q15 27 11 53" stroke="#C48400" stroke-width="3" fill="none" opacity="0.65"/><path d="M92 54 q27 -18 58 -15 q-30 6 -46 25 q-10 12 -12 -10 z" fill="#FFFFFF" opacity="0.30"/><rect x="132" y="52" width="56" height="20" rx="3" fill="#4A7BF7" stroke="#1A1A1A" stroke-width="1.5"/><text x="160" y="66" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#FAF7F1" text-anchor="middle" letter-spacing="0.5">HANK.AI</text></svg>' }
+    style: {
+      width: '100%',
+      height: '100%',
+      display: 'block'
+    },
+    dangerouslySetInnerHTML: {
+      __html: '<svg viewBox="48 28 224 224" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><ellipse cx="160" cy="452" rx="116" ry="12" fill="#1A1A1A" opacity="0.10"/><rect x="116" y="346" width="36" height="80" rx="15" fill="#2A3548"/><rect x="168" y="346" width="36" height="80" rx="15" fill="#2A3548"/><path d="M110 410 q0 -8 9 -8 h26 q8 0 8 9 v12 q0 9 -9 9 h-44 q-9 0 -9 -9 q0 -8 9 -12 z" fill="#3D2817"/><path d="M210 410 q0 -8 -9 -8 h-26 q-8 0 -8 9 v12 q0 9 9 9 h44 q9 0 9 -9 q0 -8 -9 -12 z" fill="#3D2817"/><path d="M71 426 h44" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" opacity="0.35"/><path d="M205 426 h44" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" opacity="0.35"/><rect x="72" y="224" width="36" height="112" rx="18" fill="#4A7BF7"/><rect x="212" y="224" width="36" height="112" rx="18" fill="#4A7BF7"/><rect x="72" y="312" width="36" height="22" rx="11" fill="#3461D1"/><rect x="212" y="312" width="36" height="22" rx="11" fill="#3461D1"/><ellipse cx="90" cy="342" rx="19" ry="17" fill="#C9A878"/><ellipse cx="230" cy="342" rx="19" ry="17" fill="#C9A878"/><path d="M84 338 v10 M90 339 v11 M96 338 v10" stroke="#A0814F" stroke-width="2" stroke-linecap="round"/><path d="M224 338 v10 M230 339 v11 M236 338 v10" stroke="#A0814F" stroke-width="2" stroke-linecap="round"/><path d="M94 232 q2 -16 20 -16 h92 q18 0 20 16 l8 100 q1 14 -16 14 h-116 q-17 0 -16 -14 z" fill="#4A7BF7"/><path d="M94 232 q2 -16 20 -16 h12 l-6 130 h-20 q-17 0 -16 -14 z" fill="#3461D1" opacity="0.55"/><path d="M126 214 q34 22 68 0 l-10 20 q-24 14 -48 0 z" fill="#3461D1"/><line x1="160" y1="232" x2="160" y2="340" stroke="#3461D1" stroke-width="3"/><circle cx="160" cy="252" r="3" fill="#1A1A1A"/><circle cx="160" cy="280" r="3" fill="#1A1A1A"/><circle cx="160" cy="308" r="3" fill="#1A1A1A"/><rect x="106" y="248" width="34" height="30" rx="3" fill="none" stroke="#3461D1" stroke-width="2.5"/><rect x="118" y="238" width="5" height="18" rx="2" fill="#F5B000"/><rect x="118" y="238" width="5" height="5" fill="#1A1A1A"/><rect x="178" y="250" width="50" height="28" rx="4" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1.5"/><text x="203" y="266" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#1A1A1A" text-anchor="middle" letter-spacing="0.5">HANK</text><text x="203" y="274" font-family="Inter, system-ui, sans-serif" font-size="5" font-weight="600" fill="#4A7BF7" text-anchor="middle" letter-spacing="0.5">AI · OPS</text><rect x="92" y="328" width="136" height="22" rx="5" fill="#6B4423"/><rect x="146" y="326" width="28" height="26" rx="5" fill="#4A7BF7" stroke="#1A1A1A" stroke-width="1.5"/><text x="160" y="344" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#FAF7F1" text-anchor="middle">SG</text><rect x="108" y="346" width="5" height="36" rx="2" fill="#6B4423"/><rect x="99" y="344" width="23" height="10" rx="2.5" fill="#B8C2CC"/><rect x="207" y="346" width="5" height="34" rx="2" fill="#B8C2CC"/><path d="M203 344 a7 7 0 1 1 13 0 l-3 0 a4 4 0 1 0 -7 0 z" fill="#B8C2CC"/><rect x="138" y="196" width="44" height="34" rx="14" fill="#C9A878"/><ellipse cx="80" cy="126" rx="22" ry="28" fill="#C9A878"/><ellipse cx="240" cy="126" rx="22" ry="28" fill="#C9A878"/><ellipse cx="82" cy="130" rx="12" ry="17" fill="#A0814F"/><ellipse cx="238" cy="130" rx="12" ry="17" fill="#A0814F"/><path d="M88 104 q0 -34 34 -34 h76 q34 0 34 34 v54 q0 46 -36 60 q-36 14 -72 0 q-36 -14 -36 -60 z" fill="#C9A878"/><path d="M88 104 q0 -34 34 -34 h10 q-20 8 -20 40 v54 q0 40 18 56 q-24 -6 -34 -22 q-8 -14 -8 -34 z" fill="#A0814F" opacity="0.45"/><ellipse cx="126" cy="186" rx="30" ry="27" fill="#F0DEC0"/><ellipse cx="194" cy="186" rx="30" ry="27" fill="#F0DEC0"/><ellipse cx="160" cy="172" rx="50" ry="40" fill="#F0DEC0"/><path d="M160 138 q-18 0 -18 13 q0 12 18 14 q18 -2 18 -14 q0 -13 -18 -13 z" fill="#1A1A1A"/><ellipse cx="153" cy="146" rx="3" ry="2" fill="#FAF7F1" opacity="0.5"/><path d="M160 165 v12" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/><path d="M160 177 q-22 16 -40 4" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M160 177 q22 16 40 4" stroke="#1A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M150 184 l4 10 l4 -10 z" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1"/><path d="M162 184 l4 10 l4 -10 z" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="1"/><ellipse cx="124" cy="128" rx="19" ry="21" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="2"/><ellipse cx="196" cy="128" rx="19" ry="21" fill="#FAF7F1" stroke="#1A1A1A" stroke-width="2"/><circle cx="128" cy="130" r="11" fill="#4A7BF7"/><circle cx="192" cy="130" r="11" fill="#4A7BF7"/><circle cx="128" cy="130" r="5.5" fill="#1A1A1A"/><circle cx="192" cy="130" r="5.5" fill="#1A1A1A"/><circle cx="124" cy="125" r="3.5" fill="#93B8FF"><animate attributeName="opacity" values="1;0.35;1" dur="3s" repeatCount="indefinite"/></circle><circle cx="188" cy="125" r="3.5" fill="#93B8FF"><animate attributeName="opacity" values="1;0.35;1" dur="3s" repeatCount="indefinite"/></circle><path d="M105 110 q19 -11 39 -3" stroke="#A0814F" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M176 107 q20 -8 39 3" stroke="#A0814F" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M60 96 q100 16 200 0 q-2 13 -13 15 q-87 12 -174 0 q-11 -2 -13 -15 z" fill="#C48400"/><path d="M66 98 q0 -66 94 -66 q94 0 94 66 q-94 -16 -188 0 z" fill="#F5B000"/><path d="M116 40 q-15 27 -11 53" stroke="#C48400" stroke-width="3" fill="none" opacity="0.65"/><path d="M204 40 q15 27 11 53" stroke="#C48400" stroke-width="3" fill="none" opacity="0.65"/><path d="M92 54 q27 -18 58 -15 q-30 6 -46 25 q-10 12 -12 -10 z" fill="#FFFFFF" opacity="0.30"/><rect x="132" y="52" width="56" height="20" rx="3" fill="#4A7BF7" stroke="#1A1A1A" stroke-width="1.5"/><text x="160" y="66" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#FAF7F1" text-anchor="middle" letter-spacing="0.5">HANK.AI</text></svg>'
+    }
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: 'var(--font-heading)',
@@ -1312,12 +1433,12 @@ function AbilitySection() {
     className: "container"
   }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
     className: "tag"
-  }, "EASY ADOPTION · FOR THE PEOPLE WHO ACTUALLY DO THE WORK"), /*#__PURE__*/React.createElement("h2", {
+  }, "EASY ADOPTION \xB7 FOR THE PEOPLE WHO ACTUALLY DO THE WORK"), /*#__PURE__*/React.createElement("h2", {
     className: "h2 ink",
     style: {
       maxWidth: 1200
     }
-  }, "If your warehouse manager can send a text, he can run your ERP."), /*#__PURE__*/React.createElement("p", {
+  }, "If your warehouse manager can send a text, he can run your floor."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
       maxWidth: '100%'
@@ -1411,14 +1532,14 @@ function TriggerCTA() {
       maxWidth: 880,
       margin: '0 auto'
     }
-  }, "Three hours with us. Thirty days on your real floor. Pay only if it works."), /*#__PURE__*/React.createElement("p", {
+  }, "Three hours with us. Thirty days on your real floor. Then decide."), /*#__PURE__*/React.createElement("p", {
     className: "sub",
     style: {
       color: 'rgba(255,255,255,0.75)',
       maxWidth: 720,
       margin: '18px auto 0'
     }
-  }, "Every ERP vendor makes you pay first and hope it works. We flipped it. We build it at our cost and our risk. Your team runs it on real orders. If by day 30 it hasn", '\u2019', "t moved the business, you walk. No invoice. No clawback."), /*#__PURE__*/React.createElement("div", {
+  }, "We configure SimpleGrid to your floor at our cost. Your team runs it live on real orders for 30 days. You pay only when it works. If by day 30 it hasn", '\u2019', "t moved the business, you walk. No invoice. No clawback."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28,
       display: 'flex',

@@ -27,7 +27,7 @@
       + '<form class="modal" role="dialog" aria-modal="true" aria-labelledby="sg-bd-h" data-form-name="invite" style="position:relative">'
       +   '<button type="button" class="sg-bd-close" aria-label="Close" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:var(--fg3);cursor:pointer;line-height:1">×</button>'
       +   '<h2 id="sg-bd-h">Book a demo</h2>'
-      +   '<p class="sub">We onboard selectively each quarter. Tell us about your operation - if we can win for you, we build it at our risk and you run it free for 30 days before you pay.</p>'
+      +   '<p class="sub">We onboard selectively each quarter. Tell us about your operation — if we\'re a fit, we configure SimpleGrid to your floor at our cost, and you run it live for 30 days. You pay only when it works.</p>'
       +   '<input type="hidden" name="_subject" value="New invite request - SimpleGrid">'
       +   '<input type="hidden" name="_template" value="table">'
       +   '<input type="hidden" name="_captcha" value="false">'

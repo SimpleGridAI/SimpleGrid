@@ -1709,7 +1709,7 @@
     }, /*#__PURE__*/React.createElement(MidMarketSqueeze, null)),
     end: /*#__PURE__*/React.createElement(Bottom, {
       big: "Built for the mid-market. Not retrofitted from enterprise.",
-      p: "Deploy in days. $0 to start. No modules. No consultants. No IT team required."
+      p: "Deploy in days. No modules. No consultants. No IT team required."
     })
   };
 

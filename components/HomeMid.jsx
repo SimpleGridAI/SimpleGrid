@@ -144,7 +144,7 @@ function WhatYourTeamSees() {
         <Reveal>
           <div className="tag">WHAT YOUR TEAM ACTUALLY DOES</div>
           <h2 className="h2">No training day. Day one, your floor is logging in.</h2>
-          <p className="lead">ERPs fail because the floor doesn't use them. Ours gets used because it talks like they do. Your floor staff type what happened, like sending a message. The system does everything else.</p>
+          <p className="lead">ERPs fail because the floor doesn't use them. SimpleGrid gets used because it talks like they do. Your floor staff type what happened, like sending a message. The system does everything else.</p>
         </Reveal>
 
         <Reveal delay={100}>

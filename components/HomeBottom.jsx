@@ -43,7 +43,7 @@ function ProofSection() {
         </Reveal>
         <div className="proof-grid">
           {[
-            { kind: 'image', img: 'url(assets/elite-factory.jpeg) center/cover', name: 'Furniture Manufacturer & Exporter', desc: '12+ countries (USA, Europe, Asia). 600-800 employees. ~1 million sq ft. Excel + group chats → live ERP.', stats: '$200K leak stopped · planning 20h → 2h · live in 21 days', quote: '"SimpleGrid feels like our system. My stores manager was comfortable on day one."', attr: '- The founder', link: 'case-furniture-manufacturer.html', anchor: 'How they deployed in 21 days' },
+            { kind: 'image', img: 'url(assets/elite-factory.jpeg) center/cover', name: 'Furniture Manufacturer & Exporter', desc: '12+ countries (USA, Europe, Asia). 600-800 employees. ~1 million sq ft. Excel + group chats → one live floor view.', stats: '$200K leak stopped · planning 20h → 2h · live in 21 days', quote: '"SimpleGrid feels like our system. My stores manager was comfortable on day one."', attr: '- The founder', link: 'case-furniture-manufacturer.html', anchor: 'How they deployed in 21 days' },
             { kind: 'apparel', name: 'Apparel Contract Manufacturer', desc: 'Apparel manufacturer · 80-100k shirts/mo. 3 streams. 20+ job workers. 30+ inventory locations. Live in 12 days.', stats: '2 failed ERPs → live in 12 days · 30+ locations, one view', quote: '"Working demo in 24 hours - 60-70% accurate. No vendor we\'ve worked with has done that."', attr: '- Founder (reference available on request)', link: 'case-apex.html', anchor: 'How they went live in 12 days' },
           ].map((c,i) => (
             <Reveal key={i} delay={i * 150}>
@@ -173,7 +173,7 @@ function Integrations() {
         <Reveal>
           <div className="tag">SYNCS WITH</div>
           <h2 className="h2">Works with what you already use.</h2>
-          <p className="lead">SimpleGrid connects to the tools you already run - accounting, spreadsheets, sales channels, messaging and shipping. New connectors are built as part of your ERP, included in the build. <a href="syncs.html" style={{color:'var(--sg-blue)',fontWeight:600,textDecoration:'underline'}}>See all syncs &rarr;</a></p>
+          <p className="lead">SimpleGrid connects to the tools you already run - accounting, spreadsheets, sales channels, messaging and shipping. New connectors are built as part of your SimpleGrid setup, included in the configuration. <a href="syncs.html" style={{color:'var(--sg-blue)',fontWeight:600,textDecoration:'underline'}}>See all syncs &rarr;</a></p>
         </Reveal>
       </div>
       <Reveal delay={200}>
@@ -237,8 +237,8 @@ function Architecture() {
     <section className="section section-dark">
       <div className="container">
         <Reveal>
-          <div className="tag" style={{color:'rgba(255,255,255,0.4)'}}>WHY WE CAN BUILD CUSTOM IN DAYS</div>
-          <h2 className="h2">The architecture that lets us carry the risk.</h2>
+          <div className="tag" style={{color:'rgba(255,255,255,0.4)'}}>WHY WE CAN CONFIGURE IN DAYS</div>
+          <h2 className="h2">The architecture that lets us configure to your floor.</h2>
         </Reveal>
         <div className="arch-grid" style={{marginTop:28}}>
           {cols.map((c,i) => (
@@ -254,9 +254,9 @@ window.Architecture = Architecture;
 function ComparisonTable() {
   const rows = [
     { label: 'Built for', sap: 'F500 finance, multi-country tax, public-co close', epicor: 'Discrete manufacturers with mature IT teams', qb: 'Small businesses that need bookkeeping', sg: 'Mid-market manufacturers who don\'t want to be a software project' },
-    { label: 'What they do well', sap: 'Deep finance, global compliance, scale to billions', epicor: 'Strong shop-floor MRP, mature manufacturing modules', qb: 'Easy accounting, every accountant knows it', sg: 'Model your factory, ship in days, prove value before you pay' },
+    { label: 'What they do well', sap: 'Deep finance, global compliance, scale to billions', epicor: 'Strong shop-floor MRP, mature manufacturing modules', qb: 'Easy accounting, every accountant knows it', sg: 'A live layer on your floor - keeps your ledger, no migration' },
     { label: 'Time to value', sap: '12-18+ months', epicor: '9-12 months', qb: 'Same day for books - but breaks as you scale ops', sg: 'Live in 7-21 days on your real data' },
-    { label: 'Up-front cost', sap: '$500K+', epicor: '$150K-$300K', qb: 'Low monthly fee', sg: '$0. You pay only after it works.' },
+    { label: 'Up-front cost', sap: '$500K+', epicor: '$150K-$300K', qb: 'Low monthly fee', sg: 'Configured at our cost - you pay only when it works' },
     { label: 'Change a workflow', sap: 'Consulting engagement', epicor: 'Dev sprint', qb: 'Build it in spreadsheets outside the system', sg: 'Configure live, often on the same call' },
     { label: 'Floor-staff UX', sap: 'Built for accountants and analysts', epicor: 'Built for planners and IT', qb: 'Built for bookkeepers', sg: 'Built for the warehouse manager - plain English, same habit as texting' },
     { label: 'Try before paying', sap: 'Sandbox demos', epicor: 'Sandbox demos', qb: 'Free tier', sg: '30 days running on your real floor, your real orders' },
@@ -267,7 +267,7 @@ function ComparisonTable() {
         <Reveal>
           <div className="tag">COMPARE - HONESTLY</div>
           <h2 className="h2">When is SimpleGrid the right call?</h2>
-          <p className="lead" style={{maxWidth:780}}>SAP, Oracle NetSuite, Epicor and QuickBooks are excellent at what they were built for. SimpleGrid was built for a specific shape of customer: mid-market manufacturers who run differently from everyone, can't afford a 12-month rip-and-replace, and want to see the system run before they pay.</p>
+          <p className="lead" style={{maxWidth:780}}>SAP, Oracle NetSuite, Epicor and QuickBooks are excellent at what they were built for. SimpleGrid was built for a specific shape of customer: mid-market manufacturers who run differently from everyone, can't afford a 12-month rip-and-replace, and want a live operations layer on top of the books they already run.</p>
         </Reveal>
         <Reveal delay={200}>
           <div style={{overflowX:'auto'}}>
@@ -316,7 +316,7 @@ function FromTheField() {
       <div className="container">
         <Reveal>
           <div className="tag" style={{textAlign:'center'}}>FROM THE FIELD</div>
-          <h2 className="h2" style={{textAlign:'center'}}>Field notes from operators building a custom ERP.</h2>
+          <h2 className="h2" style={{textAlign:'center'}}>Field notes from operators running the factory floor.</h2>
         </Reveal>
         <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))',gap:20,marginTop:32}}>
           {posts.map((p,i) => (
@@ -345,15 +345,15 @@ function HomeFAQ() {
   const items = [
     {
       q: "What happens if it doesn't work after 30 days?",
-      a: "You walk. No invoice. No clawback. We've still done the migration and the build at our cost. You get a clean data export and your spreadsheets back. That's the whole point - the risk lives with us until you've seen it run on your real floor."
+      a: "You walk. No invoice. No clawback. We've still done the configuration and the data work at our cost. You get a clean data export and your spreadsheets back. That's the point of the 30-day run - you only pay for something you've already watched work on your real floor."
     },
     {
       q: "Do we have to migrate our data ourselves?",
-      a: "No. We do the migration. Whatever you're running on - QuickBooks, spreadsheets, paper, group chats, an old ERP - we pull it out, clean it, structure it, and load it. Migration is included in the build, not a separate line item. You don't touch the data."
+      a: "No - and your QuickBooks or Tally stays exactly where it is. SimpleGrid syncs to it. Whatever your floor runs on - spreadsheets, paper, group chats, an old ERP - we pull it in, clean it, structure it, and load it. Data work is included in the configuration, not a separate line item. You don't touch the data."
     },
     {
       q: "How much does it cost after the 30-day trial?",
-      a: "Before you decide, we agree on a number together based on the size of your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees. We are not free and not cheap. We are priced like an operator who has carried the build for you."
+      a: <>Before you decide, we agree on a number together based on the size of your operation. After that, you pay one monthly subscription. That is the entire bill - no setup, no add-ons, no surprise line items, no per-seat fees. We are not free and not cheap - we configure at our cost because we're confident in what 30 days on your floor will show. Full details on the <a href="pricing.html" style={{color:'var(--sg-blue)',fontWeight:600}}>pricing page</a>.</>
     },
     {
       q: "Who runs the deployment - sales reps, or actual engineers?",
@@ -398,6 +398,74 @@ function HomeFAQ() {
   );
 }
 window.HomeFAQ = HomeFAQ;
+
+// "Why this isn't another ERP" - the three USPs of the ops-layer positioning.
+// Compact 3-card band; reuses the sec-grid/sec-card styles from DataSecurity.
+function WhyNotERP() {
+  const cards = [
+    { badge: 'DEPLOY FAST', color: 'var(--sg-blue)', t: 'Deploy in days, not quarters.', p: 'SimpleGrid maps to the workflows your floor already runs and never touches your financial backend. That’s why it goes live in 7–21 days, not 12 months.' },
+    { badge: 'ADAPT FREELY', color: 'var(--sg-purple)', t: 'Software that mirrors your floor, not a template.', p: 'Your ops managers change routing steps, BOM logic, and QC checklists themselves. No developer, no ticket, no downtime.' },
+    { badge: 'INTEGRATE CLEANLY', color: 'var(--sg-green)', t: 'Keep your accounting ledger. Upgrade your operational reality.', p: 'A layer, not a replacement. SimpleGrid handles the fast, messy reality of the floor and pushes clean financial data into QuickBooks or Tally automatically.' },
+  ];
+  return (
+    <section className="section" id="not-an-erp">
+      <div className="container">
+        <Reveal>
+          <div className="tag">WHY THIS ISN'T ANOTHER ERP</div>
+          <h2 className="h2">A layer on top of the books you already run. Not a rip-and-replace.</h2>
+        </Reveal>
+        <div className="sec-grid">
+          {cards.map((c,i) => (
+            <Reveal key={i} delay={i * 100}>
+              <div className="sec-card" style={{height:'100%'}}>
+                <div className="sec-badge" style={{color:c.color}}>{c.badge}</div>
+                <h3>{c.t}</h3>
+                <p>{c.p}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+window.WhyNotERP = WhyNotERP;
+
+// "Who it's for" - five persona cards, each deep-linking into the matching
+// block on solutions.html. Card style mirrors the FromTheField link cards.
+function WhoItsFor() {
+  const personas = [
+    { role: 'Owner / MD', line: "See what you can build today, what you're short on, and what it'll cost - before you commit to a customer.", href: 'solutions.html#visibility', cta: 'persona_owner' },
+    { role: 'COO / VP Operations', line: "One system, every team, the same data - no one's working off yesterday's numbers.", href: 'solutions.html#connected', cta: 'persona_coo' },
+    { role: 'CFO / Finance Head', line: 'Your costing logic, your way - not the way an enterprise template thinks you should run it.', href: 'solutions.html#costing', cta: 'persona_cfo' },
+    { role: 'Plant Manager', line: 'Your floor staff log it. Everyone sees it live. No lag, no leakage, no one working in the dark.', href: 'solutions.html#adoption', cta: 'persona_plant_manager' },
+    { role: 'Sales Head', line: "Before you promise a customer a date, you'll know if production can actually hit it.", href: 'solutions.html#planning', cta: 'persona_sales_head' },
+  ];
+  return (
+    <section className="section section-alt" id="who-its-for">
+      <div className="container">
+        <Reveal>
+          <div className="tag">WHO IT'S FOR</div>
+          <h2 className="h2">Built for the people who run the floor - and the ones who answer for it.</h2>
+        </Reveal>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))',gap:16,marginTop:32}}>
+          {personas.map((p,i) => (
+            <Reveal key={i} delay={i * 70}>
+              <a href={p.href} data-cta={p.cta} style={{display:'block',textDecoration:'none',color:'inherit',padding:'22px',border:'1px solid var(--border)',borderRadius:'var(--radius-lg)',background:'#fff',height:'100%',transition:'all 160ms var(--ease-standard)'}}
+                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.06)'; }}
+                 onMouseLeave={(e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}>
+                <div style={{fontSize:10,fontWeight:700,letterSpacing:'0.14em',textTransform:'uppercase',color:'var(--sg-blue)',marginBottom:10}}>{p.role}</div>
+                <p style={{fontFamily:'var(--font-heading)',fontSize:15.5,fontWeight:700,color:'var(--fg1)',margin:0,lineHeight:1.45,letterSpacing:'-0.005em'}}>{p.line}</p>
+                <span style={{display:'inline-block',marginTop:14,fontSize:13,fontWeight:600,color:'var(--sg-blue)'}}>See how &rarr;</span>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+window.WhoItsFor = WhoItsFor;
 
 // FinalCTA now lives in its own shared component (components/FinalCTA.jsx) so it
 // can be reused with per-page copy across every page.

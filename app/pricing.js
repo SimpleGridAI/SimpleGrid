@@ -4,7 +4,7 @@ const TIERS = [{
   price: '$0',
   priceUnit: 'For the build. For the migration. For the 30 days on your real floor.',
   accent: 'var(--sg-blue)',
-  features: ['We build a custom ERP modeled on your factory', 'Live in 7-21 days, at our cost and our risk', 'You run it on your real floor for 30 days', 'All your data migrated for you', 'If it doesn\'t move the business, you walk. No invoice.'],
+  features: ['We configure the operations layer to your factory floor', 'Live in 7-21 days, at our cost and our risk', 'You run it on your real floor for 30 days', 'All your data migrated for you', 'If it doesn\'t move the business, you walk. No invoice.'],
   cta: 'Book a demo',
   ctaHref: 'https://cal.com/simplegrid-ai',
   highlight: true
@@ -81,6 +81,7 @@ function PricingPage() {
       paddingBottom: 64,
       position: 'relative',
       overflow: 'hidden',
+      background: 'rgba(26,26,26,0.90)',
       minHeight: 'calc(100vh - 64px)',
       display: 'flex',
       flexDirection: 'column',
@@ -115,7 +116,7 @@ function PricingPage() {
       maxWidth: 820,
       margin: '0 0 14px'
     }
-  }, "The build is on us. The price is for what it does once it's working."), /*#__PURE__*/React.createElement("p", {
+  }, "The build is on us - we configure the operations layer to your floor, and your books stay in QuickBooks or Tally. The price is for what it does once it's working."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
       color: 'rgba(255,255,255,0.78)',
@@ -136,7 +137,7 @@ function PricingPage() {
     style: {
       animation: 'sgBuildPulse 1.8s ease-in-out infinite'
     }
-  }, "Book a demo →")), /*#__PURE__*/React.createElement("div", {
+  }, "Book a demo \u2192")), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 36,
       display: 'flex',
@@ -145,7 +146,7 @@ function PricingPage() {
       fontSize: 'var(--fs-caption)',
       color: 'rgba(255,255,255,0.5)'
     }
-  }, /*#__PURE__*/React.createElement("span", null, "● Built at our risk"), /*#__PURE__*/React.createElement("span", null, "● Live in 7-21 days"), /*#__PURE__*/React.createElement("span", null, "● You pay only after it works")))), /*#__PURE__*/React.createElement("section", {
+  }, /*#__PURE__*/React.createElement("span", null, "\u25CF Built at our risk"), /*#__PURE__*/React.createElement("span", null, "\u25CF Live in 7-21 days"), /*#__PURE__*/React.createElement("span", null, "\u25CF You pay only after it works")))), /*#__PURE__*/React.createElement("section", {
     className: "section section-alt"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
@@ -431,7 +432,7 @@ function PricingPage() {
     q: 'What does "you walk if it doesn\'t work" actually mean?',
     a: 'At the end of 30 days you decide. If the system is being used daily by your floor staff and your dashboards match the floor, it works. If not, you walk. No invoice. No clawback. No data ransom - you get a clean export.'
   }, {
-    q: 'Do you charge for changes to the ERP - today or tomorrow?',
+    q: 'Do you charge for changes to my SimpleGrid setup - today or tomorrow?',
     a: 'No. New approval rule, new production stage, new QC gate, new report, new integration - every change is included, at go-live and forever. Most ERPs charge $8K-$20K per change order. We never do.'
   }, {
     q: 'Are there feature tiers or add-on fees?',

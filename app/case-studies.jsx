@@ -5,8 +5,8 @@ function CaseStudiesPage() {
     <section className="section" style={{paddingBottom:48}}>
       <div className="container">
         <div className="tag">CASE STUDIES</div>
-        <h1 className="h2">We built it at our risk. They ran it free for 30 days. Both kept it.</h1>
-        <p className="section-lead">Every ERP vendor makes you pay first and hope it works. We flipped it. We carried the build cost on both of these factories - they ran SimpleGrid for 30 days on their real floor, with their real team, before paying a cent. Real factories. Real numbers. Real floor staff using the system every day. The two below are public - more are running confidentially.</p>
+        <h1 className="h2">Two factories. Two problems nobody could see. Live in 12 and 21 days.</h1>
+        <p className="section-lead">A furniture exporter was losing $200,000 a year to material gaps nobody could see. An apparel maker ran three businesses across 30+ locations on overlapping spreadsheets. SimpleGrid was configured to each floor and went live in 21 days and 12. Both teams ran it live for 30 days. Both kept it. Real factories. Real numbers. Real floor staff using the system every day. The two below are public - more are running confidentially.</p>
         <div className="case-list">
 
           <a href="case-furniture-manufacturer.html" className="proof-card case-row" style={{textDecoration:'none',color:'inherit',transition:'all 160ms var(--ease-standard)'}}>
@@ -52,7 +52,7 @@ function CaseStudiesPage() {
     </section>
     </main>
 
-    <FinalCTA title="Your factory could be the next one." body="The operators above run SimpleGrid on their real floors today. We build at our cost, you run it for 30 days, and you pay only when it's already moving the business." note="Limited slots each quarter. We onboard selectively." />
+    <FinalCTA title="Your factory could be the next one." body="The operators above run SimpleGrid on their real floors today. We configure it to your floor at our cost, you run it live for 30 days, and you pay only when it works." note="Limited slots each quarter. We onboard selectively." />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
   </>);
 }

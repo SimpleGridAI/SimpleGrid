@@ -21,7 +21,9 @@
 /* ------ Hero (LIGHT, brand) ------ */
 .cd-hero {
   padding: 56px 0 72px;
-  background: linear-gradient(180deg, var(--sg-blue-light) 0%, var(--sg-white) 80%);
+  /* Frosted veil over the site aurora: same blue-light -> white wash as before,
+     but translucent so the fixed brand ribbon glows through behind the hero. */
+  background: linear-gradient(180deg, rgba(235,240,255,0.55) 0%, rgba(252,252,253,0.30) 80%);
 }
 .cd-hero .container { max-width: 980px; }
 .cd-hero .eyebrow {
@@ -78,7 +80,8 @@
 /* ------ 2x2 Positioning map ------ */
 .cd-vs {
   padding: 80px 0 72px;
-  background: var(--sg-white);
+  /* Frosted veil (was solid white) - the dark quadrant card floats on the aurora. */
+  background: rgba(252,252,253,0.30);
 }
 .cd-vs .container { max-width: 980px; }
 .cd-vs .eyebrow { font-size: var(--fs-tag); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg3); text-align: center; margin-bottom: 10px; }
@@ -117,7 +120,9 @@
 /* ------ Comparison table ------ */
 .cd-table-section {
   padding: 72px 0;
-  background: var(--sg-off-white);
+  /* Frosted veil keeping the off-white hue (was solid var(--sg-off-white));
+     the solid white comparison table floats on the aurora. */
+  background: rgba(250,251,252,0.35);
 }
 .cd-table-section .container { max-width: 980px; }
 .cd-table-section h2 {
@@ -195,7 +200,8 @@
 /* ------ 3 short reason blocks ------ */
 .cd-reasons {
   padding: 72px 0;
-  background: var(--sg-white);
+  /* Frosted veil (was solid white) - the off-white reason cards keep their fill. */
+  background: rgba(252,252,253,0.30);
 }
 .cd-reasons .container { max-width: 980px; }
 .cd-reasons .eyebrow { font-size: var(--fs-tag); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg3); text-align: center; margin-bottom: 10px; }
@@ -280,7 +286,8 @@
 /* ------ Hub tile grid (used by /competitors.html) ------ */
 .cd-hub-hero {
   padding: 64px 0 56px;
-  background: linear-gradient(180deg, var(--sg-blue-light) 0%, var(--sg-white) 90%);
+  /* Frosted veil over the site aurora (translucent twin of the old gradient). */
+  background: linear-gradient(180deg, rgba(235,240,255,0.55) 0%, rgba(252,252,253,0.30) 90%);
 }
 .cd-hub-hero .container { max-width: 1100px; }
 .cd-hub-hero .eyebrow { font-size: var(--fs-tag); font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 14px; }
@@ -295,7 +302,7 @@
 }
 .cd-hub-hero .lead { font-size: var(--fs-body); line-height: 1.6; color: var(--fg2); max-width: 760px; margin: 0 0 28px; }
 
-.cd-hub-intro { padding: 48px 0 16px; background: var(--sg-white); }
+.cd-hub-intro { padding: 48px 0 16px; background: rgba(252,252,253,0.30); /* frosted veil, was solid white */ }
 .cd-hub-intro .container { max-width: 1100px; }
 .cd-hub-intro h2 {
   font-family: var(--font-heading);
@@ -308,7 +315,7 @@
 }
 .cd-hub-intro p { font-size: 16px; line-height: 1.65; color: var(--fg2); max-width: 760px; margin: 0; }
 
-.cd-hub-list { padding: 24px 0 64px; background: var(--sg-white); }
+.cd-hub-list { padding: 24px 0 64px; background: rgba(252,252,253,0.30); /* frosted veil - solid white tiles float on the aurora */ }
 .cd-hub-list .container { max-width: 1100px; }
 .cd-hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 22px; }
 .cd-hub-tile { display: block; text-decoration: none; color: inherit; transition: transform 0.15s ease; }

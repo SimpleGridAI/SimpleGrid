@@ -1243,7 +1243,7 @@
         <MidMarketSqueeze />
       </Block>
     ),
-    end: <Bottom big="Built for the mid-market. Not retrofitted from enterprise." p="Deploy in days. $0 to start. No modules. No consultants. No IT team required." />,
+    end: <Bottom big="Built for the mid-market. Not retrofitted from enterprise." p="Deploy in days. No modules. No consultants. No IT team required." />,
   };
 
   // 12 - Spreadsheets

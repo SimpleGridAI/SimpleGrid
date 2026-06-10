@@ -42,12 +42,12 @@ function Nav({
     id: 'home',
     label: 'Home',
     href: 'index.html',
-    title: 'SimpleGrid home - Custom ERP for manufacturers, built at our risk'
+    title: 'SimpleGrid home - the Factory Ops Cloud for manufacturers'
   }, {
     id: 'product',
     label: 'Product',
     href: 'product.html',
-    title: 'How SimpleGrid manufacturing ERP works'
+    title: 'How the SimpleGrid Factory Ops Cloud works'
   }];
   const resourceLinks = [{
     id: 'tools',
@@ -60,7 +60,7 @@ function Nav({
     label: 'Case studies',
     href: 'case-studies.html',
     desc: 'Real deployments. Real numbers.',
-    title: 'SimpleGrid manufacturing ERP case studies'
+    title: 'SimpleGrid manufacturing case studies'
   }, {
     id: 'blog',
     label: 'Blog',
@@ -89,7 +89,7 @@ function Nav({
     id: 'cases',
     label: 'Case studies',
     href: 'case-studies.html',
-    title: 'Manufacturing ERP case studies'
+    title: 'Factory operations case studies'
   }, {
     id: 'blog',
     label: 'Blog',
@@ -108,10 +108,10 @@ function Nav({
     className: "nav-logo",
     href: px('index.html'),
     "aria-label": "SimpleGrid home",
-    title: "SimpleGrid - Custom ERP for manufacturers, built at our risk"
+    title: "SimpleGrid \u2014 The Factory Ops Cloud. Configured to your floor."
   }, /*#__PURE__*/React.createElement("img", {
     src: prefix + 'assets/simplegrid-logo-horizontal.svg',
-    alt: "SimpleGrid - Custom ERP for manufacturers, built at our risk logo",
+    alt: "SimpleGrid - Factory Ops Cloud for manufacturers logo",
     width: "160",
     height: "32",
     fetchpriority: "high",
@@ -213,7 +213,7 @@ function Nav({
       if (window.sgOpenTryErp) window.sgOpenTryErp();else setShowInvite(true);
     },
     className: 'btn btn-sm btn-primary' + (page === 'home' ? ' nav-demo-home' : ''),
-    title: "Try a live SimpleGrid ERP"
+    title: "Try a live SimpleGrid setup"
   }, "See It"), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: 'nav-burger' + (openMenu ? ' is-open' : ''),

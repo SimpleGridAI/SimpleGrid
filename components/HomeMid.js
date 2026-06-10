@@ -317,7 +317,7 @@ function CustomRules() {
   }, s.cond)), /*#__PURE__*/React.createElement("div", {
     className: "pr-arrow",
     "aria-hidden": "true"
-  }, "→"), /*#__PURE__*/React.createElement("p", {
+  }, "\u2192"), /*#__PURE__*/React.createElement("p", {
     className: "pr-out"
   }, s.out)))))), /*#__PURE__*/React.createElement("style", null, `
         .pr-rows { margin-top: 40px; }
@@ -361,7 +361,7 @@ function WhatYourTeamSees() {
     className: "h2"
   }, "No training day. Day one, your floor is logging in."), /*#__PURE__*/React.createElement("p", {
     className: "lead"
-  }, "ERPs fail because the floor doesn't use them. Ours gets used because it talks like they do. Your floor staff type what happened, like sending a message. The system does everything else.")), /*#__PURE__*/React.createElement(Reveal, {
+  }, "ERPs fail because the floor doesn't use them. SimpleGrid gets used because it talks like they do. Your floor staff type what happened, like sending a message. The system does everything else.")), /*#__PURE__*/React.createElement(Reveal, {
     delay: 100
   }, /*#__PURE__*/React.createElement("div", {
     className: "feature-row"

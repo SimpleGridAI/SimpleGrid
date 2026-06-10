@@ -6,7 +6,7 @@ const ROLES = [{
   type: 'Fractional / part-time',
   datePosted: '2026-03-15',
   comp: 'USD $5,000 / month + equity + uncapped performance upside',
-  summary: 'Open the US market for a custom ERP that ships in days and gets paid for only after it works. You bring the operator network, the book of relationships, and the hand-on-the-pen instinct. We bring a product we build at our risk and a 30-day on-the-floor trial that closes deals on its own.',
+  summary: 'Open the US market for the Factory Ops Cloud - the operations layer that runs mid-market factory floors on top of QuickBooks or Tally. You bring the operator network, the book of relationships, and the hand-on-the-pen instinct. We bring a product the floor actually uses and a 30-day live-on-the-floor trial that closes deals on its own.',
   about: ['We have proof in India - real factories, real ledgers, real revenue. The US mid-market manufacturer (50-1,500 people) is our next wedge: the customer who has outgrown QuickBooks + Excel but cannot stomach a $500K, 18-month SAP deployment. They are exactly who SimpleGrid was built for.', 'You will own US revenue strategy, partner with the founder on every early deal, and graduate to running a US team once the motion is repeatable.'],
   what: ['Own US pipeline end-to-end: ICP definition, outbound, partnerships, pilots, close.', 'Personally lead the first 5-10 US deals alongside the founder. Discovery, scoping, pricing, negotiation.', 'Stand up a repeatable motion: messaging, sequences, demo flow, pricing tiers, contract templates.', 'Build channels: industry associations (NAM, AME, regional manufacturing councils), MSPs, fractional-CFO networks, accounting partners.', 'Hire the first AE / SDR when the motion is proven, not before.'],
   you: ['15+ years in B2B SaaS GTM, with at least one CRO or VP Sales seat at a Series A-C company.', 'Has personally closed mid-market manufacturing, supply chain, or vertical-SaaS deals in the US.', 'Strong existing network among mid-market manufacturers, COOs, plant managers, and industry consultants.', 'Operator-friendly. You can hold your own in a conversation about WIP, MOQs, and AP/AR.', 'Comfortable being the most senior US person at the company on day one.'],
@@ -31,23 +31,12 @@ function HiringHero() {
   return /*#__PURE__*/React.createElement("section", {
     className: "section section-dark",
     style: {
-      paddingTop: 88,
-      paddingBottom: 64,
-      position: 'relative',
-      overflow: 'hidden',
-      minHeight: 'calc(100vh - 64px)',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center'
+      paddingTop: 80,
+      paddingBottom: 48,
+      background: 'rgba(26,26,26,0.90)'
     }
-  }, /*#__PURE__*/React.createElement(ParticleCloud, {
-    showArcs: false
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "container",
-    style: {
-      position: 'relative',
-      zIndex: 2
-    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "tag",
     style: {
@@ -59,14 +48,14 @@ function HiringHero() {
       color: '#fff',
       maxWidth: 880
     }
-  }, "Build a custom ERP at our risk. Get paid only when it works."), /*#__PURE__*/React.createElement("p", {
+  }, "Build the operations layer factories actually use."), /*#__PURE__*/React.createElement("p", {
     className: "lead",
     style: {
       color: 'rgba(255,255,255,0.7)',
       maxWidth: 760,
       marginTop: 16
     }
-  }, "Lean team. Senior engineers on every customer. We carry the build cost and the risk of every deployment. We win only when the customer wins. We're hiring engineers, operators, and go-to-market hires who want to ship a system that gets used on the floor, not bought and shelved."), /*#__PURE__*/React.createElement("div", {
+  }, "Lean team. Senior engineers on every customer. We're building the Factory Ops Cloud - the operations layer that runs factory floors still managed on spreadsheets and WhatsApp. We win only when the customer wins. We're hiring engineers, operators, and go-to-market hires who want to ship a system that gets used on the floor, not bought and shelved."), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 28,
       display: 'flex',
@@ -99,8 +88,8 @@ function WhyThis() {
     t: 'Operator-grounded',
     b: 'The people who built SimpleGrid ran a $30M manufacturing business and survived two ERP failures before building this. We design for the floor. Every feature is tested against a real plant.'
   }, {
-    t: 'We carry the risk',
-    b: 'Every customer is built at our cost and only paid for after it works. That commitment runs through the company - tight loops, visible work, no 9-month roadmaps.'
+    t: 'Proven on the floor',
+    b: 'Every customer runs SimpleGrid live on their real floor for 30 days before they commit. We win only when it works in production. That commitment runs through the company - tight loops, visible work, no 9-month roadmaps.'
   }, {
     t: 'Small by design',
     b: 'We will stay under 25 people for as long as we can. Everyone ships. Everyone talks to customers. Senior people on every deployment.'
@@ -135,8 +124,7 @@ function WhyThis() {
 }
 function RoleSummary({
   r,
-  onOpen,
-  isOpen
+  onOpen
 }) {
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -207,7 +195,7 @@ function RoleSummary({
     style: {
       whiteSpace: 'nowrap'
     }
-  }, isOpen ? "Hide JD \u2191" : "Read full JD \u2192"), /*#__PURE__*/React.createElement("a", {
+  }, "Read full JD \u2192"), /*#__PURE__*/React.createElement("a", {
     href: 'mailto:hello@simplegrid.ai?subject=Application:%20' + encodeURIComponent(r.t),
     className: "btn btn-sm btn-primary",
     style: {
@@ -443,19 +431,14 @@ function HiringPage() {
     }
   }, []);
   const handleOpen = id => {
-    setOpenRole(prev => {
-      const next = prev === id ? null : id;
-      if (next) {
-        setTimeout(() => {
-          const el = document.getElementById(id);
-          if (el) window.scrollTo({
-            top: el.getBoundingClientRect().top + window.scrollY - 80,
-            behavior: 'smooth'
-          });
-        }, 50);
-      }
-      return next;
-    });
+    setOpenRole(id);
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) window.scrollTo({
+        top: el.getBoundingClientRect().top + window.scrollY - 80,
+        behavior: 'smooth'
+      });
+    }, 50);
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("main", {
     id: "main"
@@ -480,15 +463,23 @@ function HiringPage() {
     delay: i * 60
   }, /*#__PURE__*/React.createElement(RoleSummary, {
     r: r,
-    onOpen: handleOpen,
-    isOpen: openRole === r.id
-  }), openRole === r.id && /*#__PURE__*/React.createElement("div", {
+    onOpen: handleOpen
+  })))))), /*#__PURE__*/React.createElement("section", {
+    className: "section"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/React.createElement("div", {
     style: {
-      marginTop: 12
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 32
     }
+  }, ROLES.map((r, i) => /*#__PURE__*/React.createElement(Reveal, {
+    key: r.id,
+    delay: i * 60
   }, /*#__PURE__*/React.createElement(RoleDetail, {
     r: r
-  }))))), /*#__PURE__*/React.createElement(Reveal, {
+  })))), /*#__PURE__*/React.createElement(Reveal, {
     delay: 200
   }, /*#__PURE__*/React.createElement("p", {
     style: {

@@ -187,7 +187,7 @@ function EliteCaseStudy() {
       <div className="container">
         <div className="tag">CASE STUDY · FURNITURE EXPORT</div>
         <h1>How a furniture exporter stopped losing $200,000 a year to gaps nobody could see</h1>
-        <p className="case-hook">Over four years, a furniture manufacturer and exporter - 12+ countries across North America, Europe, and Asia - lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just an operation running at 600-800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live ERP - built around their process, not the other way around.</p>
+        <p className="case-hook">Over four years, a furniture manufacturer and exporter - 12+ countries across North America, Europe, and Asia - lost nearly $200,000 to material gaps they could not explain. Not theft. Not fraud. Just an operation running at 600-800 employees across 1 million sqft, tracked on Excel and group chats. Today the same operation runs on a live operations layer - built around their process, not the other way around.</p>
         <div className="case-strip">
           <div className="case-strip-item"><div className="label">Industry</div><div className="value">Furniture export</div></div>
           <div className="case-strip-item"><div className="label">Employees</div><div className="value">600-800</div></div>
@@ -293,7 +293,7 @@ function EliteCaseStudy() {
 
       {/* Bottom Line */}
       <div className="case-bottom-line">
-        <div className="big">The $200K leak, closed. Planning cut from 20 hours a week to 2. 30 floor staff who'd rejected every ERP, now on this one daily. Live in 21 days, $0 upfront.</div>
+        <div className="big">The $200K leak, closed. Planning cut from 20 hours a week to 2. 30 floor staff who'd rejected every ERP, now on this one daily. Live in 21 days.</div>
         <p>Before SimpleGrid, the founder knew the company made money. Now he knows which products make money, and which ones do not. Planning dropped from 20 hours to 2. Wastage dropped to negligible. Delivery improved 15%. And 30 floor staff who had rejected every previous ERP now use this one daily.</p>
         <a href="https://cal.com/simplegrid-ai" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{marginTop:16}}>Book a demo - See how we'd model your operations</a>
         <div style={{marginTop:20,fontSize:14}}>
@@ -303,7 +303,7 @@ function EliteCaseStudy() {
     </div>
     </main>
 
-    <FinalCTA title="Want a result like this?" body="We'll build a custom ERP modelled on how your floor actually runs, put it in your hands, and carry the risk for 30 days. You pay only once it's already running the business." note="Limited slots each quarter. We onboard selectively." />
+    <FinalCTA title="Want a result like this?" body="We'll configure SimpleGrid to how your floor actually runs, put it in your hands, and you run it live for 30 days. You pay only when it works." note="Limited slots each quarter. We onboard selectively." />
     {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
   </>);
 }
