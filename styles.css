@@ -520,9 +520,9 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 /* translucent + deep top fade: the ribbon tail dissolves INTO the wordmark,
    and the wordmark's own top fades away like the logo mark */
 .footer-wordmark { position: relative; background: rgba(250, 251, 252, 0.45); overflow: hidden; padding: 44px 0 48px; }
-.footer-wordmark-svg { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, transparent 6%, #000 82%); mask-image: linear-gradient(to bottom, transparent 6%, #000 82%); }
-.footer-wordmark-svg text { font-family: var(--font-brand); font-weight: 800; font-size: 150px; letter-spacing: -0.01em; fill: #EAEEF8; }
-.footer-wordmark-svg .wm-mark { color: #EAEEF8; }
+.footer-wordmark-svg { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, transparent 4%, #000 62%); mask-image: linear-gradient(to bottom, transparent 4%, #000 62%); }
+.footer-wordmark-svg text { font-family: var(--font-brand); font-weight: 800; font-size: 150px; letter-spacing: -0.01em; fill: #D8E0F2; }
+.footer-wordmark-svg .wm-mark { color: #D8E0F2; }
 .footer-wordmark-cta { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1; display: inline-flex; align-items: center; gap: 10px; padding: 11px 22px; border-radius: 999px; background: transparent; border: 1px solid rgba(52,97,224,.45); color: var(--sg-blue); font-weight: 600; font-size: 17px; text-decoration: none; transition: background .2s ease, transform .2s ease, border-color .2s ease, color .2s ease; }
 .footer-wordmark-cta:hover { background: var(--sg-blue); border-color: var(--sg-blue); color: #fff; transform: translate(-50%, -50%) translateY(-2px); }
 .footer-wordmark-cta svg { opacity: .95; flex-shrink: 0; }

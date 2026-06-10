@@ -71,9 +71,10 @@
                               // flank shading flips - the 3D look
     RIM: 0.16,                // polished bright rim along the cord's edges
     TURN_SHADE: 0.10,         // how much the turning darkens the receding flank
-    END: { span: 0.95, min: 0.16, gather: 0.55 }, // polished tail: over the last
-                              // ~viewport the cords narrow toward a tip and pull
-                              // together, finishing as one gathered end
+    END: { span: 0.95, min: 1.0, gather: 1.0 }, // NO tail narrowing (user: "ends
+                              // like a snake" - rejected): the cords keep their
+                              // FULL body size to the very end of the page and
+                              // simply dissolve into the wordmark via END_FADE
     LEFT_PIN: 0.595,          // the ribbon's leftmost edge starts just under the
                               // Resources nav item and falls STRAIGHT during the
                               // entry (only the right side flares to the corner)
