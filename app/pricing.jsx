@@ -59,8 +59,7 @@ function PricingPage() {
     <main id="main">
 
     {/* HERO - big black, full-height (matches product page) */}
-    <section className="section section-dark" style={{paddingTop:88, paddingBottom:64, position:'relative', overflow:'hidden', background:'rgba(26,26,26,0.90)', minHeight:'calc(100vh - 64px)', display:'flex', flexDirection:'column', justifyContent:'center'}}>
-      <ParticleCloud showArcs={false} />
+    <section className="section section-dark" style={{paddingTop:88, paddingBottom:64, position:'relative', overflow:'hidden', background:'var(--sg-black)', minHeight:'calc(100vh - 64px)', display:'flex', flexDirection:'column', justifyContent:'center'}}>
       <div className="container" style={{position:'relative', zIndex:2}}>
         <div className="tag">PRICING</div>
         <h1 className="h1" style={{color:'#fff', maxWidth:980, fontFamily:'var(--font-heading)', fontSize:48, fontWeight:700, lineHeight:1.1, letterSpacing:'-0.03em', margin:'0 0 18px'}}>

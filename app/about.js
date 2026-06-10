@@ -27,16 +27,14 @@ function AboutPage() {
       position: 'relative',
       color: '#fff',
       overflow: 'hidden',
-      background: 'rgba(26,26,26,0.90)',
+      background: 'var(--sg-black)',
       minHeight: '78vh',
       display: 'flex',
       alignItems: 'center',
       paddingTop: 160,
       paddingBottom: 160
     }
-  }, /*#__PURE__*/React.createElement(ParticleCloud, {
-    showArcs: false
-  }), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "container",
     style: {
       maxWidth: 'none',

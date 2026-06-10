@@ -19,6 +19,7 @@ body { background: transparent; }
   radial-gradient(40% 34% at 64% 72%, rgba(124,58,237,0.12), transparent 70%); }
 /* long-form article columns get a stronger frost - readability beats theme */
 .post-header, .post-content { background: rgba(252, 252, 253, 0.45); }
+
 img { max-width: 100%; display: block; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
 .container-sm { max-width: 820px; margin: 0 auto; padding: 0 32px; }
@@ -34,7 +35,7 @@ img { max-width: 100%; display: block; }
 input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--sg-blue); outline-offset: 1px; }
 
 /* ===== Integrations marquee (between hero + problem section) ===== */
-.ig-bar { display: flex; align-items: center; gap: 18px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--sg-off-white); padding: 14px 24px; overflow: hidden; }
+.ig-bar { display: flex; align-items: center; gap: 18px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: rgba(250, 251, 252, 0.45); padding: 14px 24px; overflow: hidden; }
 .ig-label { flex: 0 0 auto; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg3); white-space: nowrap; }
 .ig-marquee { flex: 1 1 auto; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
 .ig-track { display: flex; gap: 36px; width: max-content; animation: ig-scroll 55s linear infinite; }
@@ -242,7 +243,9 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 /* ===== SECTIONS ===== */
 .section { padding: 88px 0; }
 .section-sm { padding: 64px 0; }
-.section-alt { background: var(--sg-off-white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+/* white sections are translucent SITE-WIDE - the silk ribbon shows through
+   every light section on every page (black sections stay solid) */
+.section-alt { background: rgba(250, 251, 252, 0.40); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .section-dark { background: var(--sg-black); color: #fff; }
 .section-dark .tag { color: rgba(255,255,255,0.5); }
 .section-dark p { color: rgba(255,255,255,0.7); }
@@ -282,15 +285,18 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
     linear-gradient(90deg, rgba(26,26,26,0.05) 1px, transparent 1px);
 }
 .section-blue::before { background-image: none; animation: none; }
+/* these dark sections draw their OWN grid layer - suppress the global grid so
+   only one checkered pattern shows (no doubled "checks") */
+#onboarding.section-dark::before, #ledger.section-dark::before { background-image: none; animation: none; }
 .section > .container,
 .section > .container-sm,
 .hero > .container { position: relative; z-index: 2; max-width: 1400px; }
 
 /* ===== HERO v2 ===== */
 .hero { background: var(--sg-black); color: #fff; padding: 96px 0 80px; overflow: hidden; min-height: calc(100vh - 52px); min-height: calc(100dvh - 52px); display: flex; flex-direction: column; justify-content: center; }
-/* frosted veil instead of solid paint - lets the aurora ribbon glow through
-   the hero while keeping text contrast */
-.hero.hero-light { background: rgba(252, 252, 253, 0.28); color: var(--fg1); }
+/* NO veil in the hero - the ribbon is the FRONT element there, fully alive;
+   only the frosted stat box sits on top of it (unchanged) */
+.hero.hero-light { background: transparent; color: var(--fg1); }
 /* backdrop-filter is GPU-expensive on phones; only enable on >=tablet. */
 @media (min-width: 768px) {
   .hero-stat-box { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
@@ -461,6 +467,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 .final-cta-band {
   position: relative; overflow: hidden;
   padding: clamp(64px, 8vw, 112px) 0;
+  /* original solid black - the silk ribbon does NOT show through dark sections */
   background: var(--sg-black); color: #fff;
   /* Full-viewport closing section, sized like the hero, content centered. */
   min-height: calc(100vh - 52px); min-height: calc(100dvh - 52px);
@@ -497,7 +504,8 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 }
 
 /* ===== FOOTER ===== */
-.footer { background: var(--sg-off-white); border-top: 1px solid var(--border); padding: 48px 0 20px; }
+/* translucent so the ribbon's gathered tail finishes visibly at the footer's end */
+.footer { background: rgba(250, 251, 252, 0.60); border-top: 1px solid var(--border); padding: 48px 0 20px; }
 .footer-top { display: grid; grid-template-columns: 1.3fr 3fr; gap: 40px; padding-bottom: 36px; border-bottom: 1px solid var(--border); }
 .footer-logo { height: 26px; margin-bottom: 12px; }
 .footer-tagline { font-size: 15px; color: var(--fg2); max-width: 280px; line-height: 1.5; margin: 0; }
@@ -509,8 +517,10 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px
 .footer-legal a { color: var(--fg3); margin-left: 16px; text-decoration: none; border: none; }
 
 /* ===== GIANT WORDMARK BAND (below footer) ===== */
-.footer-wordmark { position: relative; background: var(--sg-off-white); overflow: hidden; padding: 44px 0 48px; }
-.footer-wordmark-svg { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 50%); mask-image: linear-gradient(to bottom, transparent 0%, #000 50%); }
+/* translucent + deep top fade: the ribbon tail dissolves INTO the wordmark,
+   and the wordmark's own top fades away like the logo mark */
+.footer-wordmark { position: relative; background: rgba(250, 251, 252, 0.45); overflow: hidden; padding: 44px 0 48px; }
+.footer-wordmark-svg { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, transparent 6%, #000 82%); mask-image: linear-gradient(to bottom, transparent 6%, #000 82%); }
 .footer-wordmark-svg text { font-family: var(--font-brand); font-weight: 800; font-size: 150px; letter-spacing: -0.01em; fill: #EAEEF8; }
 .footer-wordmark-svg .wm-mark { color: #EAEEF8; }
 .footer-wordmark-cta { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1; display: inline-flex; align-items: center; gap: 10px; padding: 11px 22px; border-radius: 999px; background: transparent; border: 1px solid rgba(52,97,224,.45); color: var(--sg-blue); font-weight: 600; font-size: 17px; text-decoration: none; transition: background .2s ease, transform .2s ease, border-color .2s ease, color .2s ease; }

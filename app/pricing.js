@@ -81,15 +81,13 @@ function PricingPage() {
       paddingBottom: 64,
       position: 'relative',
       overflow: 'hidden',
-      background: 'rgba(26,26,26,0.90)',
+      background: 'var(--sg-black)',
       minHeight: 'calc(100vh - 64px)',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center'
     }
-  }, /*#__PURE__*/React.createElement(ParticleCloud, {
-    showArcs: false
-  }), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "container",
     style: {
       position: 'relative',

@@ -79,7 +79,7 @@ const ROLES = [
 
 function HiringHero() {
   return (
-    <section className="section section-dark" style={{paddingTop:80,paddingBottom:48,background:'rgba(26,26,26,0.90)'}}>
+    <section className="section section-dark" style={{paddingTop:80,paddingBottom:48,background:'var(--sg-black)'}}>
       <div className="container">
         <div className="tag" style={{color:'rgba(255,255,255,0.45)'}}>HIRING</div>
         <h1 className="h1" style={{color:'#fff',maxWidth:880}}>Build the operations layer factories actually use.</h1>

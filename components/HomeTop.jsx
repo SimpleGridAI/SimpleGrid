@@ -309,35 +309,12 @@ function CycleHeadline() {
 
 function Hero() {
   const [showInvite, setShowInvite] = React.useState(false);
-  const [theme, setTheme] = React.useState(() => {
-    try { return localStorage.getItem('sg_hero_theme') || 'light'; } catch { return 'light'; }
-  });
-  const toggleTheme = () => {
-    const next = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    try { localStorage.setItem('sg_hero_theme', next); } catch {}
-  };
+  // light-only hero: dark mode + toggle removed so the silk ribbon always
+  // reads as the front element against the light page
 
   return (
     <>
-    <section className={'hero' + (theme === 'light' ? ' hero-light' : '')}>
-      <button
-        type="button"
-        className="hero-theme-toggle"
-        onClick={toggleTheme}
-        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      >
-        {theme === 'dark' ? (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
-        )}
-      </button>
+    <section className="hero hero-light">
       <div className="container">
         <div className="hero-inner">
           <div>
@@ -359,7 +336,7 @@ function Hero() {
             </Reveal>
           </div>
           <Reveal delay={300}>
-            <div className="hero-stat-box" style={{background:'rgba(255,255,255,0.7)',border:'1px solid var(--border)',borderRadius:16,padding:32,textAlign:'center'}}>
+            <div className="hero-stat-box" style={{background:'rgba(255,255,255,0.42)',border:'1px solid var(--border)',borderRadius:16,padding:32,textAlign:'center'}}>
               <div style={{fontSize:12,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.16em',color:'var(--fg2)',marginBottom:10}}>Execution Speed</div>
               <div style={{fontFamily:'var(--font-heading)',fontSize:80,fontWeight:700,color:'var(--sg-blue)',lineHeight:1,letterSpacing:'-0.04em',position:'relative'}}>
                 <span>1&ndash;3</span>

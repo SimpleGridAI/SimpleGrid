@@ -24,14 +24,13 @@ function AboutPage() {
       position:'relative',
       color:'#fff',
       overflow:'hidden',
-      background:'rgba(26,26,26,0.90)',
+      background:'var(--sg-black)',
       minHeight:'78vh',
       display:'flex',
       alignItems:'center',
       paddingTop:160,
       paddingBottom:160,
     }}>
-      <ParticleCloud showArcs={false} />
       <div className="container" style={{maxWidth:'none', position:'relative', zIndex:2, width:'100%'}}>
         <div className="tag" style={{color:'rgba(255,255,255,0.7)',marginBottom:24}}>ABOUT US</div>
         <h1 style={{fontFamily:'var(--font-heading)',fontWeight:700,letterSpacing:'-0.03em',lineHeight:1.05,fontSize:'clamp(44px, 6.5vw, 72px)',color:'#fff',margin:'0 0 28px',maxWidth:1100}}>Built by operators who've been on your floor.</h1>

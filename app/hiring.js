@@ -33,7 +33,7 @@ function HiringHero() {
     style: {
       paddingTop: 80,
       paddingBottom: 48,
-      background: 'rgba(26,26,26,0.90)'
+      background: 'var(--sg-black)'
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"

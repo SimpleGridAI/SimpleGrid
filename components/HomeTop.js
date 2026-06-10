@@ -530,52 +530,12 @@ function CycleHeadline() {
 }
 function Hero() {
   const [showInvite, setShowInvite] = React.useState(false);
-  const [theme, setTheme] = React.useState(() => {
-    try {
-      return localStorage.getItem('sg_hero_theme') || 'light';
-    } catch {
-      return 'light';
-    }
-  });
-  const toggleTheme = () => {
-    const next = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    try {
-      localStorage.setItem('sg_hero_theme', next);
-    } catch {}
-  };
+  // light-only hero: dark mode + toggle removed so the silk ribbon always
+  // reads as the front element against the light page
+
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("section", {
-    className: 'hero' + (theme === 'light' ? ' hero-light' : '')
-  }, /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    className: "hero-theme-toggle",
-    onClick: toggleTheme,
-    "aria-label": theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
-  }, theme === 'dark' ? /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement("circle", {
-    cx: "12",
-    cy: "12",
-    r: "4"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-  })) : /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-  }))), /*#__PURE__*/React.createElement("div", {
+    className: "hero hero-light"
+  }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-inner"
@@ -619,7 +579,7 @@ function Hero() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "hero-stat-box",
     style: {
-      background: 'rgba(255,255,255,0.7)',
+      background: 'rgba(255,255,255,0.42)',
       border: '1px solid var(--border)',
       borderRadius: 16,
       padding: 32,

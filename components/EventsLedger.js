@@ -670,7 +670,7 @@ function ProductHeroNew() {
     paddingBottom: 64,
     position: 'relative',
     overflow: 'hidden',
-    background: 'rgba(26,26,26,0.90)',
+    background: 'var(--sg-black)',
     ...heroSize
   } : {
     paddingTop: 88,
@@ -726,8 +726,6 @@ function ProductHeroNew() {
       inset: 0,
       backgroundImage: overlayBg
     }
-  }), /*#__PURE__*/React.createElement(ParticleCloud, {
-    showArcs: false
   }), /*#__PURE__*/React.createElement("div", {
     className: "container",
     style: {

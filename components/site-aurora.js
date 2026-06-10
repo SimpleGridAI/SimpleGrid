@@ -43,19 +43,45 @@
     X0: 0.82,                 // rope zone's horizontal home (fraction of width)
     DRIFT: 0.03,              // gentle serpentine of the whole rope
     DRIFT_WAVES: 0.45,        // drift waves per viewport
-    SEP: 0.085,               // half-distance between the two cords' centerlines
-    BLUE_W: 0.115,            // BLUE cord half-width - 4x the grey
-    GREY_W: 0.029,            // GREY cord half-width (thicker than before, 1/4 of blue)
-    TAPER: { from: 1.0, to: 0.667, span: 1.0 }, // rope zone: ~30% of width at the
-                              // very top -> ~20% by the end of the hero (1 viewport),
-                              // then constant all the way down
+    BLUE_W: 0.058,            // BLUE cord half-width - 4x the grey (50% of the old top size)
+    GREY_W: 0.0145,           // GREY cord half-width (1/4 of blue)
+    ATTACH: { overlap: 0.80, k: 2.6 }, // cords ride ATTACHED: center distance pinned
+                              // so edges just touch (0.94 = slight tuck, no white
+                              // sliver); k saturates the crossing curve so they hug
+                              // between crossings instead of swinging apart
+    BREATHE: { amp: 0.020, waves: 1.4 }, // slight de-attachments: a small gap opens
+                              // gently ~1-2x per page, then they re-attach
+    TAPER: { from: 3.45, to: 1.0, span: 1.0 }, // GRAND opening: the ribbon spans
+                              // ~50% of the screen at the very top, tapering down
+                              // through the hero to its body size, constant after
+    ENTRY45: { amp: 0.16, span: 0.55 }, // the top expands INTO the top-right corner
+                              // of the page (the mouth spans from above the stat
+                              // box to the corner), then turns ~45 degrees and
+                              // straightens to vertical - parabolic bend, steepest
+                              // at the top edge, zero by span
     // THE crossing: the two cords intertwine exactly ONCE over the WHOLE page
     // (phase runs over total document height via u_pages - no DNA repetition)
 
     OPACITY: 0.95,            // cord body opacity (solid silk, not a wash)
     EDGE: 0.14,               // feathered edge width (fraction of half-width)
     SHEEN: 0.34,              // glossy highlight streak strength
-    SHADE: 0.26,              // cylinder shading depth at the cord's edges
+    SHADE: 0.30,              // cylinder shading depth at the cord's edges
+    TWIST: { waves: 0.35, depth: 0.12, speed: 0.10 }, // the ribbon slowly TURNS in
+                              // space: width breathes, highlight sweeps across,
+                              // flank shading flips - the 3D look
+    RIM: 0.16,                // polished bright rim along the cord's edges
+    TURN_SHADE: 0.10,         // how much the turning darkens the receding flank
+    END: { span: 0.95, min: 0.16, gather: 0.55 }, // polished tail: over the last
+                              // ~viewport the cords narrow toward a tip and pull
+                              // together, finishing as one gathered end
+    LEFT_PIN: 0.595,          // the ribbon's leftmost edge starts just under the
+                              // Resources nav item and falls STRAIGHT during the
+                              // entry (only the right side flares to the corner)
+    END_FADE: { span: 1.05, hold: 0.02 }, // the tail FADES into the SIMPLEGRID
+                              // wordmark at the page bottom (no abrupt cut) and is
+                              // fully gone by the document end - also prevents the
+                              // ribbon from showing in the overscroll rubber-band
+                              // gap below the footer
     LANES_BLUE: 96,           // merged fiber lanes across the wide blue cord
     LANES_GREY: 40,           // lanes across the grey cord
     LANE_VAR: 0.20,           // lane-to-lane brightness relief (above/below)
@@ -70,7 +96,9 @@
     ],
 
     SCROLL_FADE_VP: 1.25,     // viewports until ambient
-    AMBIENT_OPACITY: 0.45     // wrap opacity once ambient
+    AMBIENT_OPACITY: 1.0      // NO scroll dimming - the ribbon stays as ALIVE below
+                              // the stat box and down the whole page as it is above
+                              // it; section veils alone handle text readability
   };
   /* ========================================================================= */
 
@@ -154,11 +182,33 @@
     // b = 0/1 for blue/grey; ph = the ONE page-wide crossing phase;
     // taper = 30%-at-top -> 20%-after-hero width scale; hw/lanes per cord
     'vec4 ribbon(float b, float x, float y, float ph, float taper, float mob, float hw, float lanes) {',
+    // polished tail: in the last stretch of the page the cord narrows toward a
+    // tip and the pair gathers together
+    '  float endT = 1.0 - (1.0 - ' + f(CONFIG.END.min) + ') * smoothstep(u_pages - ' + f(CONFIG.END.span) + ', u_pages - 0.05, y + u_scroll);',
+    // the ribbon slowly turns in space - its apparent width breathes with the turn
+    '  float tw = ' + f(TAU * CONFIG.TWIST.waves) + ' * y + b * 1.7 + u_time * ' + f(CONFIG.TWIST.speed) + ' + u_scroll * 0.25;',
+    '  float hw2 = hw * (1.0 - ' + f(CONFIG.TWIST.depth) + ' + ' + f(CONFIG.TWIST.depth) + ' * cos(tw));',
     '  float xc = ' + f(CONFIG.X0) + ' + ' + f(CONFIG.DRIFT) + ' * sin(' + f(TAU * CONFIG.DRIFT_WAVES) + ' * y + 1.3 + u_scroll * 0.5 + u_time * 0.21);',
-    // the two cords sit on opposite sides of the zone and swap exactly once
-    '  xc += (1.0 - 2.0 * b) * ' + f(CONFIG.SEP) + ' * taper * sin(ph);',
+    // top-right entry: parabolic offset pushes the mouth into the top-right
+    // corner; steepest diagonal at the very top, perfectly vertical by span
+    '  float e45 = 1.0 - clamp((y + u_scroll) / ' + f(CONFIG.ENTRY45.span) + ', 0.0, 1.0);',
+    '  xc += ' + f(CONFIG.ENTRY45.amp) + ' * e45 * e45;',
+    // attached pair: center distance pinned to edges-touching; the saturated
+    // sine keeps them hugging between the single crossing's smooth swap
+    '  float sat = clamp(' + f(CONFIG.ATTACH.k) + ' * sin(ph), -1.0, 1.0);',
+    '  float pn2 = (ph + 1.5707963) / 3.14159265;',
+    '  float breathe = ' + f(CONFIG.BREATHE.amp) + ' * (0.5 - 0.5 * cos(' + f(TAU * CONFIG.BREATHE.waves) + ' * pn2));',
+    '  float halfSep = (' + f(0.5 * (CONFIG.BLUE_W + CONFIG.GREY_W) * CONFIG.ATTACH.overlap) + ' + breathe) * taper * mix(' + f(CONFIG.END.gather) + ', 1.0, endT);',
+    '  xc += (1.0 - 2.0 * b) * halfSep * sat;',
     '  xc += mob * 0.15;',
-    '  float u = (x - xc) / (hw * taper);',
+    '  float hwEff = hw2 * taper * endT;',
+    // pin the BLUE cord's left edge straight (vertical) under Resources during
+    // the entry; the right side keeps the corner flare - the angle is locked
+    '  float pin = e45 * (1.0 - b);',
+    '  float rightE = xc + hwEff;',
+    '  xc = mix(xc, 0.5 * (' + f(CONFIG.LEFT_PIN) + ' + rightE), pin);',
+    '  hwEff = mix(hwEff, max(0.5 * (rightE - ' + f(CONFIG.LEFT_PIN) + '), 0.01), pin);',
+    '  float u = (x - xc) / hwEff;',
     '  float au = abs(u);',
     '  if (au > 1.25) return vec4(0.0);',
     // crisp feathered edge
@@ -166,9 +216,13 @@
     // cylinder shading: cord darkens toward its edges
     '  float body = sqrt(max(0.0, 1.0 - u * u));',
     '  float lum = 1.0 - ' + f(CONFIG.SHADE) + ' * (1.0 - body);',
-    // glossy sheen streak that drifts slowly along the cord
-    '  float hl = 0.38 * sin(' + f(TAU * 0.7) + ' * y + b * 2.3 + u_scroll * 0.3 + u_time * 0.25);',
-    '  lum += ' + f(CONFIG.SHEEN) + ' * pow(max(0.0, 1.0 - abs(u - hl) * 1.7), 3.0);',
+    // glossy sheen streak SWEEPS ACROSS the cord as the ribbon turns in space
+    '  float hl = 0.52 * sin(tw + 1.3);',
+    '  lum += ' + f(CONFIG.SHEEN) + ' * pow(max(0.0, 1.0 - abs(u - hl) * 1.7), 4.0);',
+    // polished bright rim along the edges (the finished look)
+    '  lum += ' + f(CONFIG.RIM) + ' * smoothstep(0.78, 0.92, au) * (1.0 - smoothstep(0.92, 1.0, au));',
+    // the receding flank darkens as the ribbon turns - flips with the twist
+    '  lum -= ' + f(CONFIG.TURN_SHADE) + ' * u * sin(tw);',
     // merged fiber lanes: dozens of "strands", each slightly above or below
     '  float ln = (u * 0.5 + 0.5) * lanes + b * 37.0;',
     '  float li = floor(ln);',
@@ -181,13 +235,20 @@
     '  lum *= 1.0 + ' + f(CONFIG.GRAIN.strength) + ' * (gr - 0.5) * 2.0;',
     // shade gradient flowing along the cord
     '  float tone = 0.5 + 0.5 * sin(' + f(TAU * CONFIG.FLOW.waves) + ' * y + b * 2.1 + u_scroll * 0.35 + u_time * 0.18);',
+    // the BLUE runs slightly darker at the top of the hero (biased toward its
+    // deep indigo stop), easing back to the normal range as the hero ends
+    '  float topBias = mix(0.58, 1.0, smoothstep(0.0, 1.1, y + u_scroll));',
+    '  tone *= mix(topBias, 1.0, b);',
     '  vec3 deep = mix(' + hex2vec3(CONFIG.BUNDLES[0].deep) + ', ' + hex2vec3(CONFIG.BUNDLES[1].deep) + ', b);',
     '  vec3 bright = mix(' + hex2vec3(CONFIG.BUNDLES[0].bright) + ', ' + hex2vec3(CONFIG.BUNDLES[1].bright) + ', b);',
     '  vec3 col = mix(deep, bright, tone * 0.75 + 0.15);',
     // edges fall toward the deep shade (rounds the cord)
     '  col = mix(deep, col, 0.45 + 0.55 * body);',
     '  col *= lum;',
-    '  float a = mask * ' + f(CONFIG.OPACITY) + ' * (1.0 - 0.22 * mob);',
+    // dissolve into the footer wordmark; clamps to 0 past the document end,
+    // so nothing paints in the overscroll gap below the footer
+    '  float endA = 1.0 - smoothstep(u_pages - ' + f(CONFIG.END_FADE.span) + ', u_pages - ' + f(CONFIG.END_FADE.hold) + ', y + u_scroll);',
+    '  float a = mask * ' + f(CONFIG.OPACITY) + ' * (1.0 - 0.22 * mob) * endA;',
     '  return vec4(col, a);',
     '}'
   ].join('\n');
@@ -228,10 +289,10 @@
     '  vec4 blue = ribbon(0.0, x, y, ph, taper, u_mobile, ' + f(CONFIG.BLUE_W) + ', ' + f(CONFIG.LANES_BLUE) + ');',
     '  vec4 grey = ribbon(1.0, x, y, ph, taper, u_mobile, ' + f(CONFIG.GREY_W) + ', ' + f(CONFIG.LANES_GREY) + ');',
     '',
-    // true occlusion: blue passes IN FRONT at the single crossing (cos(ph)=1
-    // there); at the page ends the cords are far apart so the handover is
-    // invisible
-    '  float front0 = smoothstep(-0.12, 0.12, cos(ph));',
+    // the cords ride attached and overlap slightly, so stacking must be
+    // DEFINITE everywhere: blue is always in front - the grey tucks behind
+    // its edge and dives fully behind it at the single crossing
+    '  float front0 = 1.0;',
     // dim whichever cord is currently passing behind (front0: 1 = blue front)
     '  blue.rgb *= mix(' + f(CONFIG.BACK_DIM) + ', 1.0, front0);',
     '  grey.rgb *= mix(1.0, ' + f(CONFIG.BACK_DIM) + ', front0);',

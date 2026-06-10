@@ -371,7 +371,7 @@ function ProductHeroNew() {
   // Match the home page hero height: full viewport minus the nav, content centered.
   const heroSize = { minHeight: 'calc(100vh - 64px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' };
   const bgStyle = isDark
-    ? { paddingTop: 88, paddingBottom: 64, position: 'relative', overflow: 'hidden', background: 'rgba(26,26,26,0.90)', ...heroSize }
+    ? { paddingTop: 88, paddingBottom: 64, position: 'relative', overflow: 'hidden', background: 'var(--sg-black)', ...heroSize }
     : { paddingTop: 88, paddingBottom: 64, position: 'relative', overflow: 'hidden', background: 'rgba(252,252,253,0.30)', ...heroSize };
   // Dark mode: no radial tint, so the hero reads as the same #1A1A1A as the
   // other section-dark blocks (FinalCTA, EventsLedger dark variant). Light
@@ -407,7 +407,6 @@ function ProductHeroNew() {
         position: 'absolute', inset: 0,
         backgroundImage: overlayBg,
       }}></div>
-      <ParticleCloud showArcs={false} />
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <div className="tag" style={{ color: tagColor }}>THE PRODUCT</div>
         <h1 className="h1" style={{ color: h1Color, maxWidth: 980, fontSize: 48, lineHeight: 1.1 }}>
