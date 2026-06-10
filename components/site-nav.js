@@ -160,6 +160,7 @@
           productNavDesktop +
           solutionsNavDesktop +
           syncsNavDesktop +
+          '<a href="' + p('pricing.html') + '" class="nav-link' + on('pricing') + '">Pricing</a>' +
           '<div class="nav-resources">' +
             '<button type="button" class="nav-link' + resourcesActive + ' nav-resources-trigger" aria-haspopup="true">Resources ' + chevron + '</button>' +
             '<div class="nav-resources-menu">' +
@@ -186,6 +187,7 @@
         solutionsMobileSub +
         '<a href="' + p('syncs.html') + '" class="nav-mobile-link' + on('syncs') + '">Syncs</a>' +
         syncsMobileSub +
+        '<a href="' + p('pricing.html') + '" class="nav-mobile-link' + on('pricing') + '">Pricing</a>' +
         '<div class="nav-mobile-section">Resources</div>' +
         '<a href="' + p('tools/') + '" class="nav-mobile-link nav-mobile-sub' + on('tools') + '">Productive Tools</a>' +
         '<a href="' + p('case-studies.html') + '" class="nav-mobile-link nav-mobile-sub' + on('cases') + '">Case studies</a>' +

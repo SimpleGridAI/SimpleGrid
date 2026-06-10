@@ -60,16 +60,7 @@
               '</div>' +
             '</div>' +
           '</div>' +
-          '<div class="footer-cols" style="grid-template-columns:1fr 1fr 1fr 1.5fr;gap:24px">' +
-            '<div>' +
-              '<div class="footer-h"><a href="' + pf + 'product.html" style="color:inherit;text-decoration:none">Product</a></div>' +
-              '<a href="' + pf + 'product.html#hank" class="footer-link">Meet Hank</a>' +
-              '<a href="' + pf + 'syncs.html" class="footer-link">Syncs with</a>' +
-              '<a href="' + pf + 'product.html#security" class="footer-link">Data security</a>' +
-              '<a href="' + pf + 'product.html#ledger" class="footer-link">Activity ledger</a>' +
-              '<a href="' + pf + 'product.html#ability" class="footer-link">Easy Adoption</a>' +
-              '<a href="' + pf + 'product.html#rules" class="footer-link">Your process, enforced</a>' +
-            '</div>' +
+          '<div class="footer-cols" style="grid-template-columns:1fr 1fr 1.5fr;gap:24px">' +
             '<div>' +
               '<div class="footer-h">Resources</div>' +
               '<a href="' + pf + 'tools/" class="footer-link">Productive Tools</a>' +
